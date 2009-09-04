@@ -1,0 +1,113 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.apache.hupa</groupId>
+	<artifactId>hupa-server</artifactId>
+	<name>hupa-server</name>
+	<version>0.0.1-SNAPSHOT</version>
+	<description>Servercode implementation to access IMAP Mailbox</description>
+	<packaging>jar</packaging>
+
+
+    <parent>
+      <groupId>org.apache.hupa</groupId>
+      <artifactId>hupa-parent</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </parent>
+  
+	<build>
+	    <outputDirectory>war/WEB-INF/classes</outputDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+		       <configuration>
+          			<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+          			<webResources>	
+                		<resource>
+        	            	<directory>war</directory>
+                        	<excludes>
+								<exclude>**/hupa/*</exclude>
+                        	</excludes>
+                    	</resource>
+                	</webResources>
+                	<warName>${project.name}</warName>
+        		</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+	<dependency>
+		<groupId>org.apache.hupa</groupId>
+		<artifactId>hupa-shared</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-logging</groupId>
+		<artifactId>commons-logging</artifactId>
+		<exclusions>
+			<exclusion>
+				<groupId>logkit</groupId>
+				<artifactId>logkit</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>avalon-framework</groupId>
+				<artifactId>avalon-framework</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>net.customware.gwt.dispatch
+		</groupId>
+		<artifactId>gwt-dispatch</artifactId>
+	</dependency>
+
+	<dependency>
+		<groupId>gwtupload</groupId>
+		<artifactId>gwtupload</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-fileupload</groupId>
+		<artifactId>commons-fileupload</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.google.code.guice</groupId>
+		<artifactId>guice</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.google.code.guice</groupId>
+		<artifactId>guice-servlet</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.google.gwt</groupId>
+		<artifactId>gwt-user</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.google.gwt</groupId>
+		<artifactId>gwt-servlet</artifactId>
+		<scope>runtime</scope>
+	</dependency>
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<scope>test</scope>
+	</dependency>
+</dependencies>
+</project>
