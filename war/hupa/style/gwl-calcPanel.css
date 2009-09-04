@@ -1,0 +1,123 @@
+.popupCalc-panel {
+	background: #ddd;
+	border: 1px solid #666;
+	padding: 3px;
+}
+
+.popupCalc-actionButtons {
+	
+}
+
+.popupCalc-doneButton {
+	width: 52px;
+	height: 20px;
+	font-family: arial;
+	font-size: 8px;
+	background: #0c0;
+	color: #fff;
+}
+
+.popupCalc-cancelButton {
+	width: 52px;
+	height: 20px;
+	font-family: arial;
+	font-size: 8px;
+	background: #c00;
+	color: #fff;
+}
+
+.simpleCalcPanel {
+	width: 105px;
+}
+
+.simpleCalcDisplay {
+	width: 105px;
+	text-align: right;
+}
+
+.calcButton {
+	width: 20px;
+	height: 20px;
+	font-family: arial;
+	font-size: 10px;
+}
+
+.calcButton-equals {
+	height: 40px;
+}
+
+.calcButton-negate {
+	
+}
+
+.calcButton-decimal {
+	
+}
+
+.calcButton-plus {
+	
+}
+
+.calcButton-minus {
+	
+}
+
+.calcButton-multiply {
+	
+}
+
+.calcButton-divide {
+	
+}
+
+.calcButton-clear {
+	
+}
+
+.calcButton-erase {
+	font-size: 8px;
+}
+
+.calcButton-equals {
+	
+}
+
+.calcButton-0 {
+	
+}
+
+.calcButton-1 {
+	
+}
+
+.calcButton-2 {
+	
+}
+
+.calcButton-3 {
+	
+}
+
+.calcButton-4 {
+	
+}
+
+.calcButton-5 {
+	
+}
+
+.calcButton-6 {
+	
+}
+
+.calcButton-7 {
+	
+}
+
+.calcButton-8 {
+	
+}
+
+.calcButton-9 {
+	
+}

@@ -1,0 +1,53 @@
+
+/* basic progress bar */
+
+.progressbar-text {
+	font-weight: bold;
+}
+
+.progressbar-remaining {
+	font-size: 12px;
+	font-style: italic;
+}
+
+.progressbar-outer {
+	border: 1px solid black;
+}
+
+.progressbar-inner {
+	border: 1px solid black;
+	margin: 1px;
+}
+
+.progressbar-bar {
+	width: 5px;
+	height: 15px;
+	margin: 1px;
+}
+
+.progressbar-fullbar {
+	background: blue;
+}
+
+.progressbar-blankbar {
+	background: #eee;
+}
+
+
+
+/* example solid bar */
+
+.progressbar-solid .progressbar-bar {
+	margin: 0px;
+}
+
+
+/* example of no border */
+
+.progressbar-noborder .progressbar-outer {
+	border: none;
+}
+
+.progressbar-noborder .progressbar-inner {
+	border: none;
+}

@@ -1,0 +1,186 @@
+.cbg-RP { 
+    background-color:				#E0ECFF;
+}
+
+.cbg-RPContainer { 
+    border-color:					#E0ECFF;
+}
+
+.cbg-Button, .gwt-HTML, .gwt-Label, .gwt-Tree .gwt-TreeItem, .gwt-SuggestBoxPopup .item, hupa-LoginForm, .hupa-IMAPMessageWidget-Header-Content, .hupa-ToolTip, .hupa-IMAPFolder, .gwt-ListBox, .gwt-HyperLink, .gwt-TextBox{
+    font-size:						12px;
+	font-family: 					Arial, Helvetica, sans-serif;
+}
+
+.hupa-LoginForm {
+	font-size:						12px;
+	font-family: 					Verdana;
+}
+
+.hupa-ErrorLabel, .gwt-PagingOptions .errorMessage {
+    color:           			   #FF0000;
+    font-size:						12px;
+	font-family: 					Arial, Helvetica, sans-serif;
+}
+
+.hupa-MailTableControl {
+    background-color:				#E0ECFF;	
+}
+
+.hupa-Header {
+    border-top:						1pt solid silver;
+    border-bottom:					1pt solid silver;
+    text-align:						left;
+    padding-left:					5px;
+    background-color:				#E0ECFF;
+}
+
+.hupa-validationErrorBorder {
+	border:							1pt solid red;
+}
+
+.hupa-IMAPMessageWidget-Header {
+    border:							1pt solid silver;
+    text-align:						left;
+    background-color:				#E0ECFF;
+}
+
+.hupa-IMAPMessageWidget-ButtonBar {
+    border-bottom:					1pt solid silver;
+    padding-left:					5px;
+    padding-bottom:					5px;
+}
+
+.hupa-Northpanel {
+    border-top:						1pt solid grey;
+    border-bottom:					1pt solid grey;
+    background-color:				#E0ECFF;
+}
+
+.hupa-MainButtonBar {
+    border-bottom:					1pt solid silver;
+    border-top:						1pt solid silver; 
+}
+
+.hupa-Mailtable-row-notseen {
+    font-weight: 					bold;
+}
+
+.gwt-ScrollTable .dataTable td {
+    border-top:    				  	1pt solid #EEEEEE;
+    white-space:   			    	nowrap;
+    padding:					   	0px 10px 0px 10px;
+    overflow:    			      	hidden;
+    font-size:						12px;
+	font-family: 					Arial, Helvetica, sans-serif;
+	cursor:         			    pointer;
+}
+
+
+.gwt-ScrollTable .dataTable tr.highlighted {
+    background:    				  	#FAD163;
+}
+
+.gwt-ScrollTable .dataTable tr.selected td {
+    background:       				#FFF7D7;
+}
+
+.hupa-Mailtable-row {
+    text-align: 				  	left;
+	vertical-align:  				top;
+	padding: 					  	0px 10px 0px 10px;
+	font-size:						12px;
+	cursor:	        		   		pointer;
+}
+
+.hupa-Mailtable-cell-date {
+	text-align: 				  	right;
+}
+
+.hupa-IMAPFolder-selected {
+	background:	    			  	#E0ECFF;
+	width:						  	100%;	
+}
+
+.GWTUpld {
+    font-family:					Arial, Helvetica, sans-serif;
+  	font-size: 						12px;
+}
+
+.upld-status {
+  	font-family: 					Arial, Helvetica, sans-serif;
+  	font-size: 						12px;
+}
+
+.upld-status .filename {
+  	width: 							300px;
+  	overflow: 						hidden;
+  	font-family:					Arial, Helvetica, sans-serif;
+  	font-size: 						12px;  	
+	font-weight: 					bold;
+}
+
+.upld-status .status {
+  	width: 							200px;
+  	padding-left: 					8px;
+  	white-space: 					nowrap;
+  	font-family: 					Arial, Helvetica, sans-serif;
+  	font-size: 						12px;
+}
+
+.upld-status .status-3 {
+  	color: 							green;
+  	font-family: 					Arial, Helvetica, sans-serif;
+  	font-size: 						12px;
+}
+
+.upld-status .status-4 {
+  	color: 							red;
+  	font-family: 					Arial, Helvetica, sans-serif;
+  	font-size: 						12px;
+}
+
+.GWTUpld .changed {
+  	color: 							red;
+  	/* It doesn't work in IE */
+  	text-decoration: 				blink;
+}
+
+/*
+ * Incubator ProgressBar 
+ */
+.gwt-ProgressBar-shell {
+  	margin: 						2px;
+  	background-color: 				#EEEEEE;
+  	height: 						12px;
+ 	width: 							250px;
+  	-moz-border-radius-bottomleft: 	4px;
+  	-moz-border-radius-bottomright: 4px;
+  	-moz-border-radius-topleft: 	4px;
+  	-moz-border-radius-topright: 	4px;
+  	border: 						1px solid #DDDDDD;
+}
+
+.gwt-ProgressBar-shell .gwt-ProgressBar-bar {
+  	background-color: 				#F6A828;
+  	-moz-border-radius-bottomleft: 	4px;
+ 	-moz-border-radius-topleft: 	4px;
+}
+
+.gwt-ProgressBar-shell .gwt-ProgressBar-text {
+	font-family:					Arial, Helvetica, sans-serif;
+  	font-size: 						12px;  	
+  	padding: 						0px;
+ 	margin: 						0px;
+	color: 							grey;
+}
+
+.gwt-PopupPanel {
+  	-moz-border-radius-bottomleft: 	6px;
+  	-moz-border-radius-bottomright: 6px;
+  	-moz-border-radius-topleft: 	6px;
+  	-moz-border-radius-topright: 	6px; 
+}
+
+.hupa-droptarget-invalid {
+	color:							red;
+}

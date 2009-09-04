@@ -1,0 +1,71 @@
+.gwl-simpleCalendar {
+	width: 197px;
+	text-align: center;
+	border: 1px solid #000;
+	background: #CC3300;
+	padding: 2px;
+}
+
+.gwl-simpleCalendar .calendar-panel {
+	width: 175px;
+	padding-right: 1px;
+	padding-bottom: 1px;
+	background: #FFF;
+}
+* html .gwl-simpleCalendar .calendar-panel { padding-right: 0; padding-bottom: 0; }
+
+.gwl-simpleCalendar .calendar-cell {
+	background: #AAA;
+	width: 25px;
+	height: 16px;
+	text-align: center;
+	padding: 3px 1px 2px 1px;
+	margin: 1px 0 0 1px;
+
+}
+* html .gwl-simpleCalendar .calendar-cell { margin: 1px; padding: 2px 0 0 0; height: 20px; width: 26px; }
+
+.gwl-simpleCalendar .calendar-dateCell {
+	background: #EEE;
+	border: 1px #999 solid;
+	cursor: pointer;
+	padding: 2px 0 0 0;
+}
+.gwl-simpleCalendar * { 
+	font-family: Arial; 
+	font-size: 12px; 
+}
+.gwl-simpleCalendar .calendar-today { 
+	border-color: #F00;
+}
+.gwl-simpleCalendar .calendar-eventCell {
+	background: #99CC00; 
+}
+.gwl-simpleCalendar .calendar-headingCell {
+	background: #FFC20A;
+	color: #000; 
+	font-weight: bold; 
+}
+
+.gwl-simpleCalendar .gwl-calControls { 
+	width: 180px;
+	margin: 0 auto;
+	padding-bottom: 2px;
+}
+
+.gwl-simpleCalendar .gwl-calNavControl { 
+	font-family: monospace;
+	font-weight: bold;
+	width: 15px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.gwl-simpleCalendar .gwl-calDateDisplay { 
+	width: 120px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 13px;
+	cursor: pointer;
+	color: #FFF;
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>Hupa.html</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<!-- max size of the upload request (10MB) -->
+		<param-name>maxSize</param-name>
+		<param-value>10485760</param-value>
+	</context-param>
+	<context-param>
+		<!--
+			useful in development mode to see the upload progress bar in fast
+			networks
+		-->
+		<param-name>slowUploads</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<!-- servlet for incubator gwt stuff -->
+	<servlet>
+  		<servlet-name>remoteLoggingService</servlet-name>
+  		<servlet-class>com.google.gwt.gen2.logging.server.RemoteLoggingService</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+ 		<servlet-name>remoteLoggingService</servlet-name>
+  		<url-pattern>/hupa/logging</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>guiceFilter</filter-name>
+		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>guiceFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>org.apache.hupa.server.guice.MyGuiceServletConfig</listener-class>
+	</listener>
+</web-app>
