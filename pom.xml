@@ -47,12 +47,12 @@
 	</issueManagement>
 
 	<scm>
-		<connection>scm:svn:http://svn.apache.org/repos/asf/labs/hupa
+		<connection>scm:svn:http://svn.apache.org/repos/asf/labs/hupa/trunk
 		</connection>
 		<developerConnection>
-			scm:svn:https://svn.apache.org/repos/asf/labs/hupa
+			scm:svn:https://svn.apache.org/repos/asf/labs/hupa/trunk
 		</developerConnection>
-		<url>http://svn.apache.org/viewvc/labs/hupa
+		<url>http://svn.apache.org/viewvc/labs/hupa/trunk
 		</url>
 	</scm>
 
@@ -101,7 +101,7 @@
 		<repository>
 			<id>lib-repo</id>
 			<name>lib-m2-repository</name>
-			<url>file://${basedir}/lib</url>
+			<url>http://svn.apache.org/repos/asf/labs/hupa/lib</url>
 			<layout>legacy</layout>
 			<snapshots>
 				<enabled>false</enabled>
