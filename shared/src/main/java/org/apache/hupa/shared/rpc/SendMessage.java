@@ -20,7 +20,6 @@
 package org.apache.hupa.shared.rpc;
 
 
-import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.SMTPMessage;
 
 public class SendMessage extends Session<EmptyResult>{
