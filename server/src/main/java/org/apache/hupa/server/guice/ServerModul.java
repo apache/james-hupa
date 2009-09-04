@@ -36,6 +36,7 @@ import org.apache.hupa.server.handler.DeleteMessageHandler;
 import org.apache.hupa.server.handler.GetMessageDetailsHandler;
 import org.apache.hupa.server.handler.FetchFoldersHandler;
 import org.apache.hupa.server.handler.FetchMessagesHandler;
+import org.apache.hupa.server.handler.FetchRecentMessagesHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
 import org.apache.hupa.server.handler.LoginSessionHandler;
 import org.apache.hupa.server.handler.LoginUserHandler;
@@ -67,6 +68,7 @@ public class ServerModul extends ActionHandlerModule{
 		bindHandler(LoginUserHandler.class);
 		bindHandler(FetchFoldersHandler.class);
 		bindHandler(FetchMessagesHandler.class);
+		bindHandler(FetchRecentMessagesHandler.class);
 		bindHandler(LogoutUserHandler.class);
 		bindHandler(GetMessageDetailsHandler.class);
 		bindHandler(DeleteMessageHandler.class);

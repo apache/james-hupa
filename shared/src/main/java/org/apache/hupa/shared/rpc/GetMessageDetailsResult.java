@@ -19,44 +19,29 @@
 
 package org.apache.hupa.shared.rpc;
 
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.MessageDetails;
 
-public class FetchMessages extends Session<FetchMessagesResult>{
-	
+import net.customware.gwt.dispatch.shared.Result;
+
+public class GetMessageDetailsResult implements Result{
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3181183289937321202L;
-	private IMAPFolder folder;
-	private int start;
-	private int offset;
-	private String searchString;
-
-	protected FetchMessages() {
+	private static final long serialVersionUID = 6738085246457556043L;
+	private MessageDetails message;
+	
+	@SuppressWarnings("unused")
+	private GetMessageDetailsResult() {
+		
 	}
 	
-	public FetchMessages(String sessionId, IMAPFolder folder,int start, int offset,String searchString) {
-		super(sessionId);
-		this.folder = folder;
-		this.start = start;
-		this.offset = offset;
-		this.searchString = searchString;
+	public GetMessageDetailsResult(MessageDetails message) {
+		this.message = message;
 	}
 	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public int getStart() {
-		return start;
-	}
-	
-	public int getOffset() {
-		return offset;
-	}
-
-	public String getSearchString() {
-		return searchString;
+	public MessageDetails getMessageDetails() {
+		return message;
 	}
 
 }

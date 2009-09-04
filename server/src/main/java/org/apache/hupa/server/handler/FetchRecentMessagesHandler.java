@@ -17,31 +17,45 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.rpc;
 
-import org.apache.hupa.shared.data.MessageDetails;
+package org.apache.hupa.server.handler;
 
-import net.customware.gwt.dispatch.shared.Result;
+import javax.mail.Flags;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Flags.Flag;
+import javax.mail.search.FlagTerm;
+import javax.servlet.http.HttpSession;
 
-public class ExposeMessageResult implements Result{
+import org.apache.commons.logging.Log;
+import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.shared.rpc.FetchRecentMessages;
 
-	/**
-	 * 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
+public class FetchRecentMessagesHandler extends AbstractFetchMessagesHandler<FetchRecentMessages> {
+
+	@Inject
+	public FetchRecentMessagesHandler(IMAPStoreCache cache, Log logger,
+			Provider<HttpSession> provider) {
+		super(cache, logger, provider);
+	}
+
+	
+	@Override
+	protected Message[] getMessagesToConvert(com.sun.mail.imap.IMAPFolder f,
+			FetchRecentMessages action) throws MessagingException {
+		Message[] messages = f.search(new FlagTerm(new Flags(Flag.RECENT), true));
+		return messages;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
 	 */
-	private static final long serialVersionUID = 6738085246457556043L;
-	private MessageDetails message;
-	
-	@SuppressWarnings("unused")
-	private ExposeMessageResult() {
-		
-	}
-	
-	public ExposeMessageResult(MessageDetails message) {
-		this.message = message;
-	}
-	
-	public MessageDetails getMessageDetails() {
-		return message;
+	public Class<FetchRecentMessages> getActionType() {
+		return FetchRecentMessages.class;
 	}
 
 }

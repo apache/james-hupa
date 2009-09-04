@@ -39,14 +39,14 @@ import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.rpc.ExposeMessage;
-import org.apache.hupa.shared.rpc.ExposeMessageResult;
+import org.apache.hupa.shared.rpc.GetMessageDetails;
+import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.sun.mail.imap.IMAPStore;
 
-public class GetMessageDetailsHandler extends AbstractSessionHandler<ExposeMessage, ExposeMessageResult>{
+public class GetMessageDetailsHandler extends AbstractSessionHandler<GetMessageDetails, GetMessageDetailsResult>{
 
 	@Inject
 	public GetMessageDetailsHandler(IMAPStoreCache cache, Log logger,Provider<HttpSession> sProvider) {
@@ -57,17 +57,17 @@ public class GetMessageDetailsHandler extends AbstractSessionHandler<ExposeMessa
 	 * (non-Javadoc)
 	 * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
 	 */
-	public ExposeMessageResult executeInternal(ExposeMessage action, ExecutionContext arg1)
+	public GetMessageDetailsResult executeInternal(GetMessageDetails action, ExecutionContext arg1)
 			throws ActionException {
-			return new ExposeMessageResult(exposeMessage(getUser(action.getSessionId()), action.getFolder(), action.getUid()));
+			return new GetMessageDetailsResult(exposeMessage(getUser(action.getSessionId()), action.getFolder(), action.getUid()));
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
 	 */
-	public Class<ExposeMessage> getActionType() {
-		return ExposeMessage.class;
+	public Class<GetMessageDetails> getActionType() {
+		return GetMessageDetails.class;
 	}
 	
 	protected MessageDetails exposeMessage(User user, IMAPFolder folder, long uid) throws ActionException {

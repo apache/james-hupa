@@ -17,50 +17,24 @@
  * under the License.                                           *
  ****************************************************************/
 
-
 package org.apache.hupa.shared.rpc;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class ExposeMessage extends Session<ExposeMessageResult>{
+public class FetchRecentMessages extends FetchMessages{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5826298202494313834L;
-	private IMAPFolder folder;
-	private long uid;
+	private static final long serialVersionUID = 4380357285905033821L;
 
-	public ExposeMessage(String sessionId, IMAPFolder folder, long uid) {
-		super(sessionId);
-		this.folder = folder;
-		this.uid = uid;
-	}
-
-	@SuppressWarnings("unused")
-	private ExposeMessage() {
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public long getUid() {
-		return uid;
-	}
-	
-	public boolean equals(Object obj) {
-		if (obj instanceof ExposeMessage) {
-			ExposeMessage action = (ExposeMessage) obj;
-			if (action.getSessionId().equals(getSessionId()) && action.getFolder().equals(getFolder()) && action.getUid() == getUid()) {
-				return true;
-			}
-		}
-		return false;
+	protected FetchRecentMessages() {
 		
 	}
 	
-	public int hashCode() {
-		return (int) (getSessionId().hashCode() * getFolder().hashCode() * getUid());
+	public FetchRecentMessages(String sessionId, IMAPFolder folder, int start,
+			int offset, String searchString) {
+		super(sessionId, folder, start, offset, searchString);
 	}
+
 }

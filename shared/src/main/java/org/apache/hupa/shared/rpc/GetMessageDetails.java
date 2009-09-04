@@ -17,46 +17,50 @@
  * under the License.                                           *
  ****************************************************************/
 
+
 package org.apache.hupa.shared.rpc;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class FetchMessages extends Session<FetchMessagesResult>{
-	
+public class GetMessageDetails extends Session<GetMessageDetailsResult>{
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3181183289937321202L;
+	private static final long serialVersionUID = 5826298202494313834L;
 	private IMAPFolder folder;
-	private int start;
-	private int offset;
-	private String searchString;
+	private long uid;
 
-	protected FetchMessages() {
-	}
-	
-	public FetchMessages(String sessionId, IMAPFolder folder,int start, int offset,String searchString) {
+	public GetMessageDetails(String sessionId, IMAPFolder folder, long uid) {
 		super(sessionId);
 		this.folder = folder;
-		this.start = start;
-		this.offset = offset;
-		this.searchString = searchString;
+		this.uid = uid;
+	}
+
+	@SuppressWarnings("unused")
+	private GetMessageDetails() {
 	}
 	
 	public IMAPFolder getFolder() {
 		return folder;
 	}
 	
-	public int getStart() {
-		return start;
+	public long getUid() {
+		return uid;
 	}
 	
-	public int getOffset() {
-		return offset;
+	public boolean equals(Object obj) {
+		if (obj instanceof GetMessageDetails) {
+			GetMessageDetails action = (GetMessageDetails) obj;
+			if (action.getSessionId().equals(getSessionId()) && action.getFolder().equals(getFolder()) && action.getUid() == getUid()) {
+				return true;
+			}
+		}
+		return false;
+		
 	}
-
-	public String getSearchString() {
-		return searchString;
+	
+	public int hashCode() {
+		return (int) (getSessionId().hashCode() * getFolder().hashCode() * getUid());
 	}
-
 }

@@ -54,8 +54,8 @@ import org.apache.hupa.shared.events.ReplyMessageEvent;
 import org.apache.hupa.shared.events.ReplyMessageEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.SentMessageEventHandler;
-import org.apache.hupa.shared.rpc.ExposeMessage;
-import org.apache.hupa.shared.rpc.ExposeMessageResult;
+import org.apache.hupa.shared.rpc.GetMessageDetails;
+import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -206,7 +206,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
 				} else {
 					decreaseUnseen = false;
 				}
-				cachingDispatcher.executeWithCache(new ExposeMessage(event.getUser().getSessionId(),event.getFolder(),message.getUid()), new DisplayCallback<ExposeMessageResult>(display) {
+				cachingDispatcher.executeWithCache(new GetMessageDetails(event.getUser().getSessionId(),event.getFolder(),message.getUid()), new DisplayCallback<GetMessageDetailsResult>(display) {
 
 					@Override
 					protected void handleFailure(Throwable e) {
@@ -214,7 +214,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
 					}
 
 					@Override
-					protected void handleSuccess(ExposeMessageResult result) {
+					protected void handleSuccess(GetMessageDetailsResult result) {
 						// decrease the unseen count if we were able to expose the message
 						if (decreaseUnseen) {
 							eventBus.fireEvent(new DecreaseUnseenEvent(user,folder));
