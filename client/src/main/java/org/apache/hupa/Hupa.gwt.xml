@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.6.4//EN" "http://google-web-toolkit.googlecode.com/svn/tags/1.6.4/distro-source/core/src/gwt-module.dtd">
+<module rename-to='hupa'>
+  <!-- Inherit the core Web Toolkit stuff.                        -->
+  <inherits name='com.google.gwt.user.User'/>
+  
+  
+  <inherits name="com.google.gwt.i18n.I18N"/> 
+  
+  <inherits name='org.apache.hupa.Shared'/> 
+  <inherits name='org.apache.hupa.Widgets'/> 
+  
+  <!-- Inherit the default GWT style sheet.  You can change       -->
+  <!-- the theme of your GWT application by uncommenting          -->
+  <!-- any one of the following lines.                            -->
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+
+  <!-- Other module inherits                                      -->
+  <inherits name='org.cobogw.gwt.user.User' />   
+  <inherits name='com.google.gwt.widgetideas.WidgetIdeas'/>
+  <inherits name='com.google.gwt.gen2.commonwidget.CommonWidget' />
+  <inherits name='com.google.gwt.gen2.table.override.Override'/>
+  <inherits name='com.google.gwt.gen2.table.ScrollTable'/>
+  <inherits name='net.customware.gwt.dispatch.Dispatch' />
+  <inherits name='net.customware.gwt.presenter.Presenter' />
+  <inherits name="com.google.gwt.inject.Inject"/>
+  <inherits name="gwtupload.GWTUpload"/>
+  <inherits name="eu.maydu.gwt.validation.ValidationLibrary"/>
+  <!-- Inherit gwt-dnd support                   -->
+  <inherits name='com.allen_sauer.gwt.dnd.gwt-dnd'/>
+  
+  <source path="client"/>
+  
+  <extend-property name="locale" values="en" />
+  
+  <!-- Specify the app entry point class.                         -->
+  <entry-point class='org.apache.hupa.client.Hupa'/>
+</module>
