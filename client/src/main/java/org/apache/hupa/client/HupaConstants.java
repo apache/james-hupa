@@ -99,4 +99,6 @@ public interface HupaConstants extends Constants {
 	public String loginAs();
 
 	public String backButton();
+
+	public String rawButton();
 }

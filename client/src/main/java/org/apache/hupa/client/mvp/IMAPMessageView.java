@@ -24,6 +24,9 @@ import java.util.List;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.client.mvp.IMAPMessagePresenter.Display;
+import org.apache.hupa.client.widgets.HasDialog;
+import org.apache.hupa.client.widgets.Loading;
+import org.apache.hupa.client.widgets.MyDialogBox;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
@@ -47,6 +50,7 @@ import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -64,13 +68,16 @@ public class IMAPMessageView extends Composite implements Display{
 	private Button replyMsgButton = new Button();
 	private Button replyAllMsgButton = new Button();
 	private Button forwardMsgButton = new Button();
+	private Hyperlink showRawButton = new Hyperlink(constants.rawButton(),"");
 	private Hyperlink backButton = new Hyperlink(constants.backButton(),"");
 	private FlowPanel attachments = new FlowPanel();
-
+	private MyDialogBox rawDialogBox = new MyDialogBox();
+	private Label rawLabel = new Label();
 	public final static int DELETE_BUTTON = 0;
 	public final static int REPLY_BUTTON = 1;
 	public final static int REPLY_ALL_BUTTON = 2;
-
+	private Loading loading  = new Loading(true);
+	private SimplePanel container = new SimplePanel();
 	public IMAPMessageView() {
 		final VerticalPanel mPanel = new VerticalPanel();
 		mPanel.setWidth(Window.getClientWidth() -200 +"px");
@@ -138,6 +145,7 @@ public class IMAPMessageView extends Composite implements Display{
 		buttonPanel.addStyleName("hupa-IMAPMessageWidget-ButtonBar");
 
 		
+		container.setWidget(showRawButton);
 		
 		ButtonBar buttonBar = new ButtonBar();
 		buttonBar.add(replyMsgButton);
@@ -146,6 +154,9 @@ public class IMAPMessageView extends Composite implements Display{
 		buttonBar.add(forwardMsgButton);
 		buttonBar.setWidth("100%");
 		buttonPanel.add(buttonBar);
+		
+		buttonPanel.add(container);
+		buttonPanel.setCellHorizontalAlignment(container, HorizontalPanel.ALIGN_RIGHT);
 		buttonPanel.add(backButton);
 		buttonPanel.setCellHorizontalAlignment(backButton, HorizontalPanel.ALIGN_RIGHT);
 		mPanel.add(buttonPanel);
@@ -156,6 +167,13 @@ public class IMAPMessageView extends Composite implements Display{
 		sPanel.add(msgArea);
 		mPanel.add(sPanel);
 
+	    DOM.setStyleAttribute(rawLabel.getElement(), "whiteSpace", "pre"); 
+	    ScrollPanel rawPanel = new ScrollPanel(rawLabel);
+	    rawPanel.setAlwaysShowScrollBars(false);
+	    rawPanel.setHeight("500px");
+	    rawDialogBox.add(rawPanel);
+		rawDialogBox.setAnimationEnabled(true);
+		rawDialogBox.setAutoHideEnabled(true);
 		initWidget(mPanel);
 	}
 
@@ -184,11 +202,13 @@ public class IMAPMessageView extends Composite implements Display{
 	}
 
 	public void startProcessing() {
-		
+		container.setWidget(loading);
+		loading.show();
 	}
 
 	public void stopProcessing() {
-		
+		container.setWidget(showRawButton);
+		loading.hide();
 	}
 
 	public HasClickHandlers getDeleteButtonClick() {
@@ -238,6 +258,18 @@ public class IMAPMessageView extends Composite implements Display{
 
 	public HasClickHandlers getBackButtonClick() {
 		return backButton;
+	}
+
+	public HasClickHandlers getShowRawMessageClick() {
+		return showRawButton;
+	}
+
+	public HasDialog getShowRawMessageDialog() {
+		return rawDialogBox;
+	}
+
+	public HasText getShowRawMessageText() {
+		return rawLabel;
 	}
 	
 }

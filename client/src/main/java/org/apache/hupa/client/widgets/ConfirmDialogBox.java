@@ -28,11 +28,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class ConfirmDialogBox extends DialogBox implements HasClickHandlers,HasDialog{
+public class ConfirmDialogBox extends MyDialogBox implements HasClickHandlers {
 	private HupaConstants constants = GWT.create(HupaConstants.class);
 	private Label text = new Label();
 	private ButtonBar bar = new ButtonBar();

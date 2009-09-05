@@ -22,14 +22,16 @@ package org.apache.hupa.client.mvp;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.customware.gwt.dispatch.client.DispatchAsync;
+import net.customware.gwt.presenter.client.DisplayCallback;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.place.Place;
 import net.customware.gwt.presenter.client.place.PlaceRequest;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
+import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.MyAsyncCallback;
+import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -42,6 +44,8 @@ import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.ReplyMessageEvent;
 import org.apache.hupa.shared.rpc.DeleteMessage;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
+import org.apache.hupa.shared.rpc.RawMessage;
+import org.apache.hupa.shared.rpc.RawMessageResult;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -60,9 +64,10 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 		public HasText getCc();
 
 		public HasText getSubject();
-
+		public HasText getShowRawMessageText();
+		public HasDialog getShowRawMessageDialog();
 		public HasHTML getContent();
-		
+		public HasClickHandlers getShowRawMessageClick();
 		public HasClickHandlers getDeleteButtonClick();
 		public HasClickHandlers getReplyButtonClick();
 		public HasClickHandlers getReplyAllButtonClick();
@@ -74,13 +79,13 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 	public static final Place PLACE = new Place("IMAPMessage");
 	private MessageDetails messageDetails;
 	private Message message;
-	private DispatchAsync dispatcher;
+	private CachingDispatchAsync dispatcher;
 	private IMAPFolder folder;
 	private User user;
 	private boolean isBound = false;
 
 	@Inject
-	private IMAPMessagePresenter(IMAPMessagePresenter.Display display,EventBus bus, DispatchAsync dispatcher) {
+	private IMAPMessagePresenter(IMAPMessagePresenter.Display display,EventBus bus, CachingDispatchAsync dispatcher) {
 		super(display,bus);
 		this.dispatcher = dispatcher;
 	}
@@ -160,6 +165,28 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 
 			public void onClick(ClickEvent event) {
 				eventBus.fireEvent(new BackEvent());
+			}
+			
+		}));
+		registerHandler(display.getShowRawMessageClick().addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				dispatcher.executeWithCache(new RawMessage(user.getSessionId(),folder,message.getUid()), new DisplayCallback<RawMessageResult>(display) {
+
+					@Override
+					protected void handleFailure(Throwable e) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					protected void handleSuccess(RawMessageResult result) {
+						display.getShowRawMessageText().setText(result.getRawMessage());
+						display.getShowRawMessageDialog().show();
+					}
+
+					
+				});
 			}
 			
 		}));
