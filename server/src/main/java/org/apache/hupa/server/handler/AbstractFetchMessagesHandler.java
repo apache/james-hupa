@@ -91,10 +91,11 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 			Message m = messages[i];				
 			String from = null;
 			if (m.getFrom() != null && m.getFrom().length >0 ) {
+				from = m.getFrom()[0].toString().trim();
 				try {
-					from = MimeUtility.decodeText(m.getFrom()[0].toString().trim());
+					from = MimeUtility.decodeText(from);
 				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
+					logger.debug("Unable to decode from " + from, e);
 				}
 			}
 			msg.setFrom(from);
@@ -115,7 +116,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 				try {
 					subject = MimeUtility.decodeText(subject);
 				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
+					logger.debug("Unable to decode subject " + subject, e);
 				}
 			}
 			msg.setSubject(subject);
