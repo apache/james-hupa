@@ -150,47 +150,75 @@ public class GetMessageDetailsHandler extends
 			sbPlain.append((String) con);
 
 		} else if (con instanceof Multipart) {
+
 			Multipart mp = (Multipart) con;
+			String multipartContentType = mp.getContentType().toLowerCase();
+			System.out.println("mc: " + multipartContentType);
 
-			for (int i = 0; i < mp.getCount(); i++) {
-				Part part = mp.getBodyPart(i);
+			if (multipartContentType.startsWith("multipart/alternative")) {
+				handleMultiPartAlternative(mp, sbPlain, isHTML);
+			} else {
+				for (int i = 0; i < mp.getCount(); i++) {
+					Part part = mp.getBodyPart(i);
 
-				String contentType = part.getContentType().toLowerCase();
-				System.out.println("c: " + contentType);
+					String contentType = part.getContentType().toLowerCase();
+					System.out.println("c: " + contentType);
 
-				if (contentType.startsWith("text/plain")) {
-					isHTML = false;
-					sbPlain.append((String) part.getContent());
-				} else if (contentType.startsWith("text/html")) {
-					isHTML = true;
-					sbPlain.append((String) part.getContent());
+					if (contentType.startsWith("text/plain")) {
+						isHTML = false;
+					} else if (contentType.startsWith("text/html")) {
+						isHTML = true;
+						sbPlain.append((String) part.getContent());
 
-				} else if (contentType.startsWith("message/rfc822")) {
-					// Extract the message and pass it
-					MimeMessage msg = (MimeMessage) part.getDataHandler()
-							.getContent();
-					handleParts(msg, msg.getContent(), sbPlain, isHTML,
-							attachmentList);
-
-				} else {
-
-					if (part.getFileName() != null) {
-						MessageAttachment attachment = new MessageAttachment();
-						attachment.setName(MimeUtility.decodeText(part
-								.getFileName()));
-						attachment.setContentType(part.getContentType());
-						attachment.setSize(part.getSize());
-
-						attachmentList.add(attachment);
-					} else {
-						handleParts(message, part, sbPlain, isHTML,
+					} else if (contentType.startsWith("message/rfc822")) {
+						// Extract the message and pass it
+						MimeMessage msg = (MimeMessage) part.getDataHandler()
+								.getContent();
+						handleParts(msg, msg.getContent(), sbPlain, isHTML,
 								attachmentList);
-					}
-				}
 
+					} else {
+
+						if (part.getFileName() != null) {
+							MessageAttachment attachment = new MessageAttachment();
+							attachment.setName(MimeUtility.decodeText(part
+									.getFileName()));
+							attachment.setContentType(part.getContentType());
+							attachment.setSize(part.getSize());
+
+							attachmentList.add(attachment);
+						} else {
+							handleParts(message, part, sbPlain, isHTML,
+									attachmentList);
+						}
+					}
+
+				}
 			}
 
 		}
+	}
+	
+	private void handleMultiPartAlternative(Multipart mp,StringBuffer sbPlain, boolean isHTML) throws MessagingException, IOException {
+		String text = null;
+		for (int i = 0; i < mp.getCount(); i++) {
+			Part part = mp.getBodyPart(i);
+			
+			String contentType = part.getContentType().toLowerCase();
+			System.out.println("c: " + contentType);
+
+			if (contentType.startsWith("text/plain")) {
+				// we prefer plain text of html.. Does this make sense for a webmail client ?
+				isHTML = false;
+				text = (String) part.getContent();
+				break;
+
+			} else if (contentType.startsWith("text/html")) {
+				isHTML = true;
+				text = (String) part.getContent();
+			} 
+		}
+		sbPlain.append(text);
 	}
 
 }
