@@ -28,7 +28,7 @@ import net.customware.gwt.presenter.client.place.PlaceRequest;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
-import org.apache.hupa.client.MyAsyncCallback;
+import org.apache.hupa.client.SessionAsyncCallback;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.client.validation.NotEmptyValidator;
 import org.apache.hupa.shared.Util;
@@ -55,6 +55,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
 
@@ -190,34 +191,49 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 					message.setMessageAttachments(aList);
 				
 					if (type.equals(Type.NEW)) {
-						dispatcher.execute(new SendMessage(user.getSessionId(),message), new MyAsyncCallback<EmptyResult>(eventBus,user) {
+						dispatcher.execute(new SendMessage(user.getSessionId(),message), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
 
 							public void onSuccess(EmptyResult result) {
 								reset();
 								eventBus.fireEvent(new SentMessageEvent());
 							}
-						
-						});
+							
+						}, eventBus,user));
 					} else if(type.equals(Type.FORWARD)) {
-						dispatcher.execute(new ForwardMessage(user.getSessionId(),message,folder,oldmessage.getUid()), new MyAsyncCallback<EmptyResult>(eventBus,user) {
+						dispatcher.execute(new ForwardMessage(user.getSessionId(),message,folder,oldmessage.getUid()), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
 
 							public void onSuccess(EmptyResult result) {
 								reset();
 								eventBus.fireEvent(new SentMessageEvent());
 							}
-						
-						});
+							
+						}, eventBus,user));
 					} else if(type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
 					
 						boolean replyAll = type.equals(Type.REPLY_ALL);
-						dispatcher.execute(new ReplyMessage(user.getSessionId(),message,folder,oldmessage.getUid(),replyAll), new MyAsyncCallback<EmptyResult>(eventBus,user) {
+						dispatcher.execute(new ReplyMessage(user.getSessionId(),message,folder,oldmessage.getUid(),replyAll),new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
 
 							public void onSuccess(EmptyResult result) {
 								reset();
 								eventBus.fireEvent(new SentMessageEvent());
 							}
-						
-						});
+							
+						}, eventBus,user));
 					
 					}
 				}

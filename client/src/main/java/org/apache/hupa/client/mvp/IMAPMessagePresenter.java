@@ -30,7 +30,7 @@ import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
-import org.apache.hupa.client.MyAsyncCallback;
+import org.apache.hupa.client.SessionAsyncCallback;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -50,6 +50,7 @@ import org.apache.hupa.shared.rpc.RawMessageResult;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
@@ -127,13 +128,18 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 			public void onClick(ClickEvent event) {
 				ArrayList<Long> uidList = new ArrayList<Long>();
 				uidList.add(message.getUid());
-				dispatcher.execute(new DeleteMessage(user.getSessionId(),folder,uidList), new MyAsyncCallback<DeleteMessageResult>(eventBus,user) {
+				dispatcher.execute(new DeleteMessage(user.getSessionId(),folder,uidList), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
+
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
 
 					public void onSuccess(DeleteMessageResult result) {
 						eventBus.fireEvent(new LoadMessagesEvent(user,folder));
 					}
 					
-				});
+				}, eventBus,user));
 			}
 			
 		}));
@@ -171,7 +177,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 		registerHandler(display.getShowRawMessageClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				dispatcher.executeWithCache(new RawMessage(user.getSessionId(),folder,message.getUid()), new DisplayCallback<RawMessageResult>(display) {
+				dispatcher.executeWithCache(new RawMessage(user.getSessionId(),folder,message.getUid()), new SessionAsyncCallback<RawMessageResult>(new DisplayCallback<RawMessageResult>(display) {
 
 					@Override
 					protected void handleFailure(Throwable e) {
@@ -186,7 +192,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 					}
 
 					
-				});
+				},eventBus,user));
 			}
 			
 		}));

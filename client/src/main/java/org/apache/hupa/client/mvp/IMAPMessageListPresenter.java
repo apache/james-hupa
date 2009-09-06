@@ -28,7 +28,7 @@ import net.customware.gwt.presenter.client.place.PlaceRequest;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
-import org.apache.hupa.client.MyAsyncCallback;
+import org.apache.hupa.client.SessionAsyncCallback;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -105,7 +105,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
 			public void onMoveMessageHandler(MoveMessageEvent event) {
 				final Message message = event.getMessage();
-				dispatcher.execute(new MoveMessage(event.getUser().getSessionId(),event.getOldFolder(),event.getNewFolder(),message.getUid()), new AsyncCallback<MoveMessageResult>() {
+				dispatcher.execute(new MoveMessage(event.getUser().getSessionId(),event.getOldFolder(),event.getNewFolder(),message.getUid()), new SessionAsyncCallback<MoveMessageResult>(new AsyncCallback<MoveMessageResult>() {
 
 					public void onFailure(Throwable caught) {
 						GWT.log("ERROR while moving",caught);
@@ -117,7 +117,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 						display.removeMessages(messageArray);
 					}
 					
-				});
+				},eventBus,user));
 			}
 			
 		}));
@@ -177,14 +177,18 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		for (int i = 0; i < selectedMessages.size(); i++) {
 			uids.add(selectedMessages.get(i).getUid());
 		}
-		dispatcher.execute(new DeleteMessage(user.getSessionId(),folder,uids), new MyAsyncCallback<DeleteMessageResult>(eventBus,user) {
+		dispatcher.execute(new DeleteMessage(user.getSessionId(),folder,uids), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
+
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
 
 			public void onSuccess(DeleteMessageResult result) {
 				display.removeMessages(selectedMessages);
 				eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,result.getMessageUids().size()));
 			}
-			
-		});
+		}, eventBus,user));
 	}
 	
 	public void bind(User user, IMAPFolder folder, String searchValue) {

@@ -22,27 +22,45 @@ package org.apache.hupa.client;
 import net.customware.gwt.presenter.client.EventBus;
 
 import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.events.LogoutEvent;
+import org.apache.hupa.shared.events.SessionExpireEvent;
 import org.apache.hupa.shared.exception.InvalidSessionException;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public abstract class MyAsyncCallback<T> implements AsyncCallback<T>{
+/**
+ * AsyncCallback which wraps an other AsyncCallback and checks if an InvalidSessionException was thrown. If so
+ * it will fire an InvalidSessionEvent, if not it will just call the wrapped AsyncCallback
+ */
+public class SessionAsyncCallback<T> implements AsyncCallback<T>{
 
 	private EventBus bus;
 	private User user;
+	private AsyncCallback<T> callBack; 
 	
-	public MyAsyncCallback(EventBus bus,User user) {
+	public SessionAsyncCallback(AsyncCallback<T> callBack, EventBus bus,User user) {
+		this.callBack = callBack;
 		this.bus = bus;
 		this.user = user;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see com.google.gwt.user.client.rpc.AsyncCallback#onFailure(java.lang.Throwable)
+	 */
 	public void onFailure(Throwable caught) {
 		if (caught instanceof InvalidSessionException) {
-			bus.fireEvent(new LogoutEvent(user));
+			bus.fireEvent(new SessionExpireEvent(user));
+		} else {
+			callBack.onFailure(caught);
 		}
-		GWT.log("Error while executing remote service", caught);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.google.gwt.user.client.rpc.AsyncCallback#onSuccess(java.lang.Object)
+	 */
+	public void onSuccess(T result) {
+		callBack.onSuccess(result);
 	}
 
 }

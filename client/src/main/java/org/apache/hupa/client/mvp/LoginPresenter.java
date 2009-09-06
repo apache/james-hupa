@@ -29,6 +29,8 @@ import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.shared.events.LoginEvent;
+import org.apache.hupa.shared.events.SessionExpireEvent;
+import org.apache.hupa.shared.events.SessionExpireEventHandler;
 import org.apache.hupa.shared.rpc.LoginUser;
 import org.apache.hupa.shared.rpc.LoginUserResult;
 
@@ -113,6 +115,14 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
 
 			public void onClick(ClickEvent event) {
 				doReset();
+			}
+			
+		}));
+		
+		registerHandler(eventBus.addHandler(SessionExpireEvent.TYPE, new SessionExpireEventHandler() {
+
+			public void onSessionExpireEvent(SessionExpireEvent event) {
+				display.getErrorText().setText(constants.sessionTimedOut());
 			}
 			
 		}));

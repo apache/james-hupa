@@ -32,6 +32,7 @@ import net.customware.gwt.presenter.client.place.PlaceRequest;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
+import org.apache.hupa.client.SessionAsyncCallback;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -95,7 +96,7 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 	}
 
 	protected void loadTreeItems() {
-		dispatcher.execute(new FetchFolders(user.getSessionId()), new DisplayCallback<FetchFoldersResult>(display) {
+		dispatcher.execute(new FetchFolders(user.getSessionId()), new SessionAsyncCallback<FetchFoldersResult>(new DisplayCallback<FetchFoldersResult>(display) {
 
 			@Override
 			protected void handleFailure(Throwable e) {
@@ -112,7 +113,7 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 			}
 
 			
-		});
+		},eventBus,user));
 	}
 	
 	
@@ -137,7 +138,7 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 						IMAPFolder iFolder = new IMAPFolder((String)event.getOldValue());
 						final String newName = (String)event.getNewValue();
 						if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
-							dispatcher.execute(new RenameFolder(user.getSessionId(), iFolder, newName), new AsyncCallback<EmptyResult>() {
+							dispatcher.execute(new RenameFolder(user.getSessionId(), iFolder, newName), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
 
 								public void onFailure(Throwable caught) {
 									record.cancelEdit();
@@ -147,7 +148,7 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 									folder.setFullName(newName);
 								}
 								
-							});
+							},eventBus,user));
 						}
 
 					}

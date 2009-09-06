@@ -29,6 +29,7 @@ import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
+import org.apache.hupa.client.SessionAsyncCallback;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -206,7 +207,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
 				} else {
 					decreaseUnseen = false;
 				}
-				cachingDispatcher.executeWithCache(new GetMessageDetails(event.getUser().getSessionId(),event.getFolder(),message.getUid()), new DisplayCallback<GetMessageDetailsResult>(display) {
+				cachingDispatcher.executeWithCache(new GetMessageDetails(event.getUser().getSessionId(),event.getFolder(),message.getUid()), new SessionAsyncCallback<GetMessageDetailsResult>(new DisplayCallback<GetMessageDetailsResult>(display) {
 
 					@Override
 					protected void handleFailure(Throwable e) {
@@ -224,7 +225,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
 					}
 
 					
-				});
+				}, eventBus, user));
 			}
 			
 		}));

@@ -27,11 +27,14 @@ import net.customware.gwt.presenter.client.place.PlaceRequest;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
+import org.apache.hupa.client.SessionAsyncCallback;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.LogoutEventHandler;
+import org.apache.hupa.shared.events.SessionExpireEvent;
+import org.apache.hupa.shared.events.SessionExpireEventHandler;
 import org.apache.hupa.shared.rpc.LoginSession;
 import org.apache.hupa.shared.rpc.LoginUserResult;
 import org.apache.hupa.shared.rpc.LogoutUser;
@@ -112,7 +115,7 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
 
 					@Override
 					public void run() {
-						dispatcher.execute(new Noop(user.getSessionId()), new AsyncCallback<NoopResult>() {
+						dispatcher.execute(new Noop(user.getSessionId()), new SessionAsyncCallback<NoopResult>(new AsyncCallback<NoopResult>() {
 
 							public void onFailure(Throwable caught) {
 								GWT.log("Error while NOOP", caught);
@@ -121,7 +124,7 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
 							public void onSuccess(NoopResult result) {
 							}
 							
-						});
+						}, eventBus, user));
 					}
 					
 				};
@@ -150,6 +153,13 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
 		registerHandler(Window.addWindowClosingHandler(new ClosingHandler() {
 
 			public void onWindowClosing(ClosingEvent event) {
+				doLogout();
+			}
+			
+		}));
+		registerHandler(eventBus.addHandler(SessionExpireEvent.TYPE, new SessionExpireEventHandler() {
+
+			public void onSessionExpireEvent(SessionExpireEvent event) {
 				doLogout();
 			}
 			
