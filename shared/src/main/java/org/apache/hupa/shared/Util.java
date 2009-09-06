@@ -23,9 +23,9 @@ import java.util.ArrayList;
 
 public class Util {
 	
-	public final static String HTML_LT = "&lt";
+	public final static String HTML_LT = "&lt;";
 	public final static String STRING_LT = "<";
-	public final static String HTML_GT = "&gt";
+	public final static String HTML_GT = "&gt;";
 	public final static String STRING_GT = ">";
 	public final static String HTML_CR = "<br>";
 	public final static String STRING_CR = "\n";
