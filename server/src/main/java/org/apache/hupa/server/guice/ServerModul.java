@@ -19,7 +19,8 @@
 
 package org.apache.hupa.server.guice;
 
-import java.net.URL;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Properties;
 
 import javax.mail.Session;
@@ -33,11 +34,11 @@ import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.handler.CreateFolderHandler;
 import org.apache.hupa.server.handler.DeleteFolderHandler;
 import org.apache.hupa.server.handler.DeleteMessageHandler;
-import org.apache.hupa.server.handler.GetMessageDetailsHandler;
 import org.apache.hupa.server.handler.FetchFoldersHandler;
 import org.apache.hupa.server.handler.FetchMessagesHandler;
 import org.apache.hupa.server.handler.FetchRecentMessagesHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
+import org.apache.hupa.server.handler.GetMessageDetailsHandler;
 import org.apache.hupa.server.handler.GetRawMessageHandler;
 import org.apache.hupa.server.handler.LoginSessionHandler;
 import org.apache.hupa.server.handler.LoginUserHandler;
@@ -58,12 +59,23 @@ import com.google.inject.name.Names;
 /**
  * Module which binds the handlers and configurations
  * 
- * @author norman
- *
+ * 
  */
-public class ServerModul extends ActionHandlerModule{
+public class ServerModul extends ActionHandlerModule {
 
+	public static final String SYS_PROP_CONFIG_FILE = "hupa.config.file";
+
+	public static final String[] CONFIG_PROPERTIES = {
+			System.getenv("HOME") + "/.hupa/config.properties",
+			"/etc/default/hupa", "config.properties" };
+	public static final String CONF_DIR = "WEB-INF" + File.separator + "conf" + File.separator;
+
+	private String configDir;
 	
+	public ServerModul(String rootPath) {
+		configDir = rootPath + File.separator + CONF_DIR;
+	}
+
 	@Override
 	protected void configureHandlers() {
 		bindHandler(LoginUserHandler.class);
@@ -85,11 +97,13 @@ public class ServerModul extends ActionHandlerModule{
 		bindHandler(TagMessagesHandler.class);
 		bindHandler(GetRawMessageHandler.class);
 		bind(FileItemRegistry.class).in(Singleton.class);
-		bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(Singleton.class);
+		bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(
+				Singleton.class);
 		bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);
-		bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(Singleton.class);
+		bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(
+				Singleton.class);
 		bind(DownloadAttachmentServlet.class).in(Singleton.class);
-		bind(UploadAttachmentServlet.class).in(Singleton.class);	
+		bind(UploadAttachmentServlet.class).in(Singleton.class);
 		bind(Session.class).toProvider(SessionProvider.class);
 		// bind addresses and ports for imap and smtp
 		Properties properties;
@@ -98,20 +112,52 @@ public class ServerModul extends ActionHandlerModule{
 			Names.bindProperties(binder(), properties);
 
 		} catch (Exception e) {
-			throw new RuntimeException("Unable to to configure",e);
+			throw new RuntimeException("Unable to to configure", e);
 		}
 	}
-	
-	private Properties loadProperties() throws Exception {
-		Properties properties = new Properties();
-		String name = "config.properties";
- 
-		ClassLoader loader = ServerModul.class.getClassLoader();
-		URL url = loader.getResource(name);
-		if ( url == null ) {
-			url = loader.getResource("/"+name);
+
+	protected Properties loadProperties() throws Exception {
+		Properties properties = null;
+
+		String fileName = System.getProperty(SYS_PROP_CONFIG_FILE);
+		if (fileName != null) {
+			properties = loadProperties(fileName);
 		}
-		properties.load(url.openStream());
+
+		if (properties == null) {
+			for (String name : CONFIG_PROPERTIES) {
+			
+				properties = loadProperties(name);
+				if (properties != null)
+					break;
+			}
+		}
+
+		return properties;
+	}
+
+	protected Properties loadProperties(String name) {
+
+		if (name == null)
+			return null;
+
+		Properties properties = null;
+		File file = new File(name);
+		
+		// check if the file is absolute. If not prefix it with the default config dir
+		if (file.isAbsolute() == false) {
+			file = new File(configDir + File.separator + file.getName());
+		}
+		if (file.exists()) {
+			try {
+				properties = new Properties();
+				properties.load(new FileInputStream(file));
+			} catch (Exception e) {
+				properties = null;	
+				e.printStackTrace();
+			}
+		}
+
 		return properties;
 	}
 

@@ -45,6 +45,11 @@
 								<exclude>**/hupa/*</exclude>
 							</excludes>
 						</resource>
+						<!-- this is a ugly hack but I'm not sure howto solve it -->
+						<!-- This take care of including the config file within the war -->
+						<resource>
+							<directory>../server/src/main/webapp/</directory>
+						</resource>
 					</webResources>
 					<warName>${project.name}</warName>
 				</configuration>
