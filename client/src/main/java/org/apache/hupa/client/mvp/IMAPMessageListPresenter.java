@@ -76,6 +76,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		public void deselectAllMessages();
 		public HasClickHandlers getSelectAllClick();
 		public HasClickHandlers getSelectNoneClick();
+		public void redraw();
 	}
 
 	private User user;
@@ -203,18 +204,30 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		
 		//refreshDisplay();
 	}
-	@Override
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.customware.gwt.presenter.client.BasicPresenter#onPlaceRequest(net.customware.gwt.presenter.client.place.PlaceRequest)
+	 */
 	protected void onPlaceRequest(PlaceRequest request) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.customware.gwt.presenter.client.BasicPresenter#onUnbind()
+	 */
 	protected void onUnbind() {
 		display.removeTableListener(tableListener);
 		isBound = false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.customware.gwt.presenter.client.Presenter#refreshDisplay()
+	 */
 	public void refreshDisplay() {
 		display.reset();
 		display.deselectAllMessages();
@@ -222,9 +235,12 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		display.reloadData(user, folder, searchValue);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.customware.gwt.presenter.client.Presenter#revealDisplay()
+	 */
 	public void revealDisplay() {
-		// TODO Auto-generated method stub
-		
+		display.redraw();
 	}
 	
 	private final class ShowMessageTableListener implements TableListener {
@@ -233,7 +249,11 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 				int cell) {
 			
 			Message message = display.getData(row);
-
+			
+			// mark the message as seen and redraw the table to reflect this
+			message.getFlags().add(Message.IMAPFlag.SEEN);
+			display.redraw();
+			
 			eventBus.fireEvent(new ExpandMessageEvent(user,folder,message));
 		}
 

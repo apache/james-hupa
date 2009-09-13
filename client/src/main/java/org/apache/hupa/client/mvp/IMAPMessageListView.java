@@ -692,4 +692,12 @@ public class IMAPMessageListView extends Composite implements Display{
 	public void setPostFetchMessageCount(int count) {
 		cTableModel.setPostCachedRowCount(count);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#redraw()
+	 */
+	public void redraw() {
+		mailTable.reloadPage();
+	}
 }
