@@ -19,20 +19,20 @@
 
 package org.apache.hupa.client.mvp;
 
+import gwtupload.client.BaseUploadStatus;
+import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
 import gwtupload.client.MultiUploader;
+import gwtupload.client.IUploader.OnStartUploaderHandler;
 
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.widgets.MyButton;
-import org.apache.hupa.client.widgets.UploadProgress;
 import org.apache.hupa.widgets.ui.HasEnable;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
@@ -54,7 +54,8 @@ public class MessageSendView extends Composite implements
 	private TextBox cc = new TextBox();
 	private TextBox bcc = new TextBox();
 	private TextBox subject = new TextBox();
-	private MultiUploader uploader = new MultiUploader(new UploadProgress());
+	private BaseUploadStatus uploadStatus = new BaseUploadStatus();
+	private MultiUploader uploader = new MultiUploader(uploadStatus);
 	private TextArea text = new TextArea();
 	private MyButton sendButton = new MyButton(constants.sendButton());
 	private Hyperlink backButton = new Hyperlink(constants.backButton(),"");
@@ -149,28 +150,17 @@ public class MessageSendView extends Composite implements
 		text.setHeight("400px");
 		text.setVisibleLines(50);
 
-		uploader.setOnStartHandler(new ValueChangeHandler<IUploader>() {
-
-			public void onValueChange(ValueChangeEvent<IUploader> event) {
+		uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
+		uploader.addOnStartUploadHandler(new OnStartUploaderHandler() {
+			public void onStart(IUploader uploader) {
 				sendButton.setEnabled(false);
 			}
-			
 		});
-		/*
-		 * uploader.setOnFinishHandler(new ValueChangeHandler<IUploader>() {
-		 * public void onValueChange(ValueChangeEvent<IUploader> event) {
-		 * IUploader uploader = event.getValue(); new
-		 * PreloadedImage(uploader.fileUrl(), new
-		 * ValueChangeHandler<PreloadedImage>() { public void
-		 * onValueChange(ValueChangeEvent<PreloadedImage> event) {
-		 * PreloadedImage img = event.getValue(); img.setWidth("75px");
-		 * panelImages.add(img); } }); } });
-		 */
-		
-
-		uploader.setServletPath(GWT.getModuleBaseURL()
-				+ "uploadAttachmentServlet");
+		uploader.setServletPath(GWT.getModuleBaseURL() + "uploadAttachmentServlet");
 		uploader.avoidRepeatFiles(true);
+		uploader.setI18Constants(constants);
+		
+		
 		mPanel.add(detailGrid);
 
 		HorizontalPanel buttonBar = new HorizontalPanel();
@@ -284,7 +274,7 @@ public class MessageSendView extends Composite implements
 	 */
 	public void resetUploader() {
 		uploader.removeFromParent();
-		uploader = new MultiUploader(new UploadProgress());
+		uploader = new MultiUploader();
 		uploader.setServletPath(GWT.getModuleBaseURL()
 				+ "uploadAttachmentServlet");
 		uploader.avoidRepeatFiles(true);

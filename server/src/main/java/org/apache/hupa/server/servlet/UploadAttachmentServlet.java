@@ -19,19 +19,17 @@
 
 package org.apache.hupa.server.servlet;
 
-import java.io.IOException;
-import java.util.Vector;
+import gwtupload.server.UploadAction;
+import gwtupload.server.exceptions.UploadActionException;
 
-import javax.servlet.ServletException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.hupa.server.FileItemRegistry;
 
 import com.google.inject.Inject;
-
-import gwtupload.server.UploadServlet;
 
 /**
  * Servlet which handle uploads. The uploaded files will get added to a temporary registry to get looked-up
@@ -39,11 +37,8 @@ import gwtupload.server.UploadServlet;
  * 
  *
  */
-public class UploadAttachmentServlet extends UploadServlet{
+public class UploadAttachmentServlet extends UploadAction{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4936687307133529124L;
 	private FileItemRegistry registry;
 	
@@ -52,20 +47,16 @@ public class UploadAttachmentServlet extends UploadServlet{
 		this.registry = registry;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		super.doPost(request, response);
-        Vector<FileItem> sessionFiles = (Vector<FileItem>) request.getSession().getAttribute(ATTR_FILES);
-        
-        // add fileItems to the registry
+	public String executeAction(HttpServletRequest request, List<FileItem> sessionFiles) throws UploadActionException {
         for (int i =0; i < sessionFiles.size(); i++) {
         	registry.add(sessionFiles.get(i));
-        	
         }
+        return null;
 	}
-
 	
-
+	@Override
+	public void removeItem(HttpServletRequest request, FileItem item)  throws UploadActionException {
+	   registry.remove(item);
+	}
 }

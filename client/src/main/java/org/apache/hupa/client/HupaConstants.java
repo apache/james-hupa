@@ -19,9 +19,11 @@
 
 package org.apache.hupa.client;
 
+import gwtupload.client.IUploader.UploaderConstants;
+
 import com.google.gwt.i18n.client.Constants;
 
-public interface HupaConstants extends Constants {
+public interface HupaConstants extends Constants, UploaderConstants {
 
 	public String usernameLabel();
 

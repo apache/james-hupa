@@ -42,6 +42,11 @@ public class FileItemRegistry {
 		map.put(item.getFieldName(), item);
 	}
 	
+	public void remove(FileItem item) {
+		logger.debug("Remove item " + item.getName() + " with name " + item.getFieldName());
+		map.remove(item);
+	}
+	
 	public FileItem get(String name) {
 		logger.debug("Retrieve item " + name);
 		return map.get(name);

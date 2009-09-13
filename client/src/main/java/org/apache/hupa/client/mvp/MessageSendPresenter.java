@@ -19,6 +19,15 @@
 
 package org.apache.hupa.client.mvp;
 
+import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
+import eu.maydu.gwt.validation.client.ValidationProcessor;
+import eu.maydu.gwt.validation.client.actions.FocusAction;
+import eu.maydu.gwt.validation.client.actions.StyleAction;
+import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
+import gwtupload.client.IUploader;
+import gwtupload.client.IUploader.OnFinishUploaderHandler;
+import gwtupload.client.IUploader.OnStartUploaderHandler;
+
 import java.util.ArrayList;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
@@ -53,19 +62,9 @@ import org.apache.hupa.widgets.ui.HasEnable;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
-
-import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
-import eu.maydu.gwt.validation.client.ValidationProcessor;
-import eu.maydu.gwt.validation.client.actions.FocusAction;
-import eu.maydu.gwt.validation.client.actions.StyleAction;
-import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
-import gwtupload.client.IUploader;
-import gwtupload.client.Uploader;
 
 public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.Display>{
 
@@ -73,16 +72,29 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 	private DispatchAsync dispatcher;
 	public static final Place PLACE = new Place("MessageSend");
 	private ArrayList<MessageAttachment> aList = new ArrayList<MessageAttachment>();
-	private EndValueChangeHandler handler = new EndValueChangeHandler();
-	private StartValueChangeHandler startHandler = new StartValueChangeHandler();
 	private Type type = Type.NEW;
 	private IMAPFolder folder;
 	private Message oldmessage;
 	private ValidationMessages vMessages = new ValidationMessages();
-	private ValidationProcessor validator = new DefaultValidationProcessor(
-			vMessages);
+	private ValidationProcessor validator = new DefaultValidationProcessor(vMessages);
 	private MessageDetails oldDetails;
 	
+	private OnFinishUploaderHandler finishHandler = new  OnFinishUploaderHandler() {
+		public void onFinish(IUploader uploader) {
+			String name =  uploader.getFileName();
+			MessageAttachment attachment = new MessageAttachment();
+			attachment.setName(name);
+			aList.add(attachment);
+			display.getSendEnable().setEnabled(true);
+	    }
+	};
+		
+	private OnStartUploaderHandler startHandler = new  OnStartUploaderHandler() {
+	    public void onStart(IUploader uploader) {
+			display.getSendEnable().setEnabled(false);
+	    }
+	};
+		
 	@Inject
 	public MessageSendPresenter(Display display, EventBus eventBus, DispatchAsync dispatcher) {
 		super(display, eventBus);
@@ -148,7 +160,8 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 			}
 			
 		}));
-		display.getUploader().setOnFinishHandler(handler);
+		registerHandler(display.getUploader().addOnStartUploadHandler(startHandler));
+		registerHandler(display.getUploader().addOnFinishUploadHandler(finishHandler));
 		
 		registerHandler(display.getSendClick().addClickHandler(new ClickHandler() {
 
@@ -252,8 +265,6 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 
 	private void reset() {
 		display.resetUploader();
-		display.getUploader().setOnStartHandler(startHandler);
-		display.getUploader().setOnFinishHandler(handler);
 		display.getBccText().setText("");
 		display.getCcText().setText("");
 		display.getToText().setText("");
@@ -309,26 +320,6 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 
 	public void revealDisplay() {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	private class EndValueChangeHandler implements ValueChangeHandler<IUploader> {
-
-		public void onValueChange(ValueChangeEvent<IUploader> event) {
-			String name = ((Uploader) event.getValue()).getFilename();
-			MessageAttachment attachment = new MessageAttachment();
-			attachment.setName(name);
-			aList.add(attachment);
-			display.getSendEnable().setEnabled(true);
-		}
-
-	}
-	
-	private class StartValueChangeHandler implements ValueChangeHandler<IUploader> {
-
-		public void onValueChange(ValueChangeEvent<IUploader> event) {
-			display.getSendEnable().setEnabled(false);
-		}
 		
 	}
 	
