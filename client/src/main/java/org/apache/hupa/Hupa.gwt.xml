@@ -34,6 +34,7 @@
   <source path="client"/>
   
   <extend-property name="locale" values="en" />
+  <extend-property name="locale" values="es" />
   
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.apache.hupa.client.Hupa'/>
