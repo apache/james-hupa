@@ -38,6 +38,7 @@ import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
 import org.apache.hupa.shared.events.NewMessageEvent;
+import org.apache.hupa.shared.rpc.DeleteAllMessages;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 import org.apache.hupa.shared.rpc.MoveMessage;
@@ -66,12 +67,17 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		public HasClickHandlers getNewClick();
 		public Message getData(int rowIndex);
 		public HasClickHandlers getDeleteClick();
+		public HasClickHandlers getDeleteAllClick();
 		public void reloadData(User user, IMAPFolder folder,String searchValue);
 		public void removeMessages(ArrayList<Message> messages);
 		public ArrayList<Message> getSelectedMessages();
 		public void reset();
-		public HasDialog getConfirmDialog();
-		public HasClickHandlers getConfirmDialogClick();
+		public HasDialog getConfirmDeleteDialog();
+		public HasDialog getConfirmDeleteAllDialog();
+
+		public HasClickHandlers getConfirmDeleteDialogClick();
+		public HasClickHandlers getConfirmDeleteAllDialogClick();
+
 		public void selectAllMessages();
 		public void deselectAllMessages();
 		public HasClickHandlers getSelectAllClick();
@@ -144,7 +150,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
 			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
 				if (folder.getFullName().equals(user.getSettings().getTrashFolderName())) {
-					display.getConfirmDialog().show();
+					display.getConfirmDeleteDialog().show();
 				} else {
 					deleteMessages();
 				}
@@ -152,7 +158,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 			}
 			
 		}));
-		registerHandler(display.getConfirmDialogClick().addClickHandler(new ClickHandler() {
+		registerHandler(display.getConfirmDeleteDialogClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				deleteMessages();
@@ -164,6 +170,32 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
 			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
 				eventBus.fireEvent(new NewMessageEvent());
+			}
+			
+		}));
+		
+		registerHandler(display.getDeleteAllClick().addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				display.getConfirmDeleteAllDialog().center();
+			}
+			
+		}));
+		
+		registerHandler(display.getConfirmDeleteAllDialogClick().addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				dispatcher.execute(new DeleteAllMessages(user.getSessionId(),folder), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
+
+					public void onFailure(Throwable caught) {
+						GWT.log("E=", caught);
+					}
+
+					public void onSuccess(DeleteMessageResult result) {
+						display.reset();
+						eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,result.getCount()));
+					}
+				}, eventBus,user));
 			}
 			
 		}));

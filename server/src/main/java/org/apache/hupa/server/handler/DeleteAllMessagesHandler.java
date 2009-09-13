@@ -19,6 +19,7 @@
 
 package org.apache.hupa.server.handler;
 
+import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
@@ -43,7 +44,10 @@ public class DeleteAllMessagesHandler extends AbstractDeleteMessageHandler<Delet
 		super(cache, logger, sessionProvider);
 	}
 
-	@Override
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.hupa.server.handler.AbstractDeleteMessageHandler#getMessagesToDelete(org.apache.hupa.shared.rpc.DeleteMessage)
+	 */
 	protected Message[] getMessagesToDelete(DeleteAllMessages action)
 			throws ActionException {
 		User user = getUser(action.getSessionId());
@@ -51,7 +55,9 @@ public class DeleteAllMessagesHandler extends AbstractDeleteMessageHandler<Delet
 			logger.info("Delete all messages in folder " + action.getFolder() + " for user " + user);
 			IMAPStore store =cache.get(user);
 			IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
-			
+			if (folder.isOpen() == false) {
+				folder.open(Folder.READ_WRITE);
+			}
 			return folder.getMessages();
 		} catch (MessagingException e) {
 			String errorMsg = "Error while deleting all messages in folder " + action.getFolder() + " for user " + user;
@@ -62,6 +68,10 @@ public class DeleteAllMessagesHandler extends AbstractDeleteMessageHandler<Delet
 		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+	 */
 	public Class<DeleteAllMessages> getActionType() {
 		return DeleteAllMessages.class;
 	}

@@ -26,6 +26,9 @@ public interface HupaMessages extends Messages{
 	@DefaultMessage("Are you sure you want to delete the selected messages?")
 	public String confirmDeleteMessages();
 	
+	@DefaultMessage("Are you sure you want to delete all messages in the selected folder?")
+	public String confirmDeleteAllMessages();
+	
 	@DefaultMessage("Moving message")
 	public String moveMessage();
 	

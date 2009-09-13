@@ -37,6 +37,11 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.sun.mail.imap.IMAPStore;
 
+/**
+ * Abstract class which should get extended by all handlers which needs to handle message deletion
+ *
+ * @param <Action>
+ */
 public abstract class AbstractDeleteMessageHandler<Action extends DeleteMessage>
 		extends AbstractSessionHandler<Action, DeleteMessageResult> {
 
@@ -46,6 +51,10 @@ public abstract class AbstractDeleteMessageHandler<Action extends DeleteMessage>
 		super(cache, logger, sessionProvider);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
+	 */
 	public DeleteMessageResult executeInternal(Action action,
 			ExecutionContext context) throws ActionException {
 		org.apache.hupa.shared.data.IMAPFolder folder = action.getFolder();
@@ -103,5 +112,12 @@ public abstract class AbstractDeleteMessageHandler<Action extends DeleteMessage>
 		}
 	}
 
+	/**
+	 * Return an array holding all messages which should get deleted by the given action
+	 * 
+	 * @param action
+	 * @return messages
+	 * @throws ActionException
+	 */
 	protected abstract Message[] getMessagesToDelete(Action action) throws ActionException;
 }

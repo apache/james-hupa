@@ -108,7 +108,10 @@ public class IMAPMessageListView extends Composite implements Display{
 	private FixedWidthGrid dataTable = createDataTable();
 	private Button deleteMailButton = new Button(constants.deleteMailButton());
 	private	Button newMailButton = new Button(constants.newMailButton());
+	private Button deleteAllMailButton = new Button(constants.deleteAll());
 	private ConfirmDialogBox confirmBox = new ConfirmDialogBox();
+	private ConfirmDialogBox confirmDeleteAllBox = new ConfirmDialogBox();
+
 	private ListBox pageBox = new ListBox();
 	private Hyperlink allLink = new Hyperlink(constants.all(),"");	
 	private Hyperlink noneLink = new Hyperlink(constants.none(),"");
@@ -192,11 +195,16 @@ public class IMAPMessageListView extends Composite implements Display{
 		mailTable.fillWidth();
 		
 		options = new PagingOptions(mailTable);
+		
+		HorizontalPanel buttonBar = new HorizontalPanel();
+		buttonBar.setSpacing(5);
+		
 		ButtonBar navigatorBar = new ButtonBar();
 		navigatorBar.add(newMailButton);
 		deleteMailButton.setEnabled(false);
 		navigatorBar.add(deleteMailButton);
-		
+		buttonBar.add(navigatorBar);
+		buttonBar.add(deleteAllMailButton);
 		
 
 		pageBox.addItem("20");
@@ -212,8 +220,7 @@ public class IMAPMessageListView extends Composite implements Display{
 		HorizontalPanel hPanel = new HorizontalPanel();
 		hPanel.setStyleName("hupa-MailTableControl");
 		hPanel.setSpacing(10);
-		hPanel.add(navigatorBar);
-		//hPanel.add(options);
+		hPanel.add(buttonBar);
 		hPanel.add(pageBox);
 		hPanel.setCellHorizontalAlignment(pageBox, HorizontalPanel.ALIGN_RIGHT);
 		
@@ -239,6 +246,7 @@ public class IMAPMessageListView extends Composite implements Display{
 		//vPanel.add(bar);
 		vPanel.add(mailTable);
 		confirmBox.setText(messages.confirmDeleteMessages());
+		confirmDeleteAllBox.setText(messages.confirmDeleteAllMessages());
 		initWidget(vPanel);
 	}
 	
@@ -609,16 +617,34 @@ public class IMAPMessageListView extends Composite implements Display{
 	 * (non-Javadoc)
 	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getConfirmDialog()
 	 */
-	public HasDialog getConfirmDialog() {
+	public HasDialog getConfirmDeleteDialog() {
+		return confirmBox;
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getConfirmDeleteDialogClick()
+	 */
+	public HasClickHandlers getConfirmDeleteDialogClick() {
 		return confirmBox;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getConfirmDialogClick()
+	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getConfirmDeleteAllDialog()
 	 */
-	public HasClickHandlers getConfirmDialogClick() {
-		return confirmBox;
+	public HasDialog getConfirmDeleteAllDialog() {
+		return confirmDeleteAllBox;
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getConfirmDeleteAllDialogClick()
+	 */
+	public HasClickHandlers getConfirmDeleteAllDialogClick() {
+		return confirmDeleteAllBox;
 	}
 
 	/*
@@ -699,5 +725,13 @@ public class IMAPMessageListView extends Composite implements Display{
 	 */
 	public void redraw() {
 		mailTable.reloadPage();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getDeleteAllClick()
+	 */
+	public HasClickHandlers getDeleteAllClick() {
+		return deleteAllMailButton;
 	}
 }
