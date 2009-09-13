@@ -42,6 +42,8 @@ import org.apache.hupa.shared.events.DecreaseUnseenEventHandler;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.ExpandMessageEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
+import org.apache.hupa.shared.events.NewMessageEvent;
+import org.apache.hupa.shared.events.NewMessageEventHandler;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.EmptyResult;
@@ -198,6 +200,15 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 		registerHandler(eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
 
 			public void onExpandMessage(ExpandMessageEvent event) {
+				if (editableTreeItem != null && editableTreeItem.isEdit()) {
+					editableTreeItem.cancelEdit();
+				}
+			}
+			
+		}));
+		registerHandler(eventBus.addHandler(NewMessageEvent.TYPE, new NewMessageEventHandler() {
+
+			public void onNewMessageEvent(NewMessageEvent event) {
 				if (editableTreeItem != null && editableTreeItem.isEdit()) {
 					editableTreeItem.cancelEdit();
 				}
