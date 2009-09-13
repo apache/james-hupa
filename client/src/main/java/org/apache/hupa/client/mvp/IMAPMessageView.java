@@ -172,6 +172,7 @@ public class IMAPMessageView extends Composite implements Display{
 	    rawPanel.setAlwaysShowScrollBars(false);
 	    rawPanel.setHeight("600px");
 	    rawPanel.setWidth("600px");
+	    rawDialogBox.setText(constants.rawTitle());
 	    rawDialogBox.add(rawPanel);
 		rawDialogBox.setAnimationEnabled(true);
 		rawDialogBox.setAutoHideEnabled(true);

@@ -103,4 +103,5 @@ public interface HupaConstants extends Constants {
 	public String rawButton();
 	
 	public String sessionTimedOut();
+	public String rawTitle();
 }

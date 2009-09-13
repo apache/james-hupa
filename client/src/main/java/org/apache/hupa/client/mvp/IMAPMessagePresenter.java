@@ -188,7 +188,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 					@Override
 					protected void handleSuccess(RawMessageResult result) {
 						display.getShowRawMessageText().setText(result.getRawMessage());
-						display.getShowRawMessageDialog().show();
+						display.getShowRawMessageDialog().center();
 					}
 
 					
