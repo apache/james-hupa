@@ -19,8 +19,6 @@
 
 package org.apache.hupa.shared.rpc;
 
-import java.util.ArrayList;
-
 import net.customware.gwt.dispatch.shared.Result;
 
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -34,7 +32,7 @@ public class DeleteMessageResult implements Result{
 	private static final long serialVersionUID = -5149203502019947912L;
 	private User user;
 	private IMAPFolder folder;
-	private ArrayList<Long> messageUids;
+	private int deleteCount;
 
 
 	
@@ -43,10 +41,14 @@ public class DeleteMessageResult implements Result{
 		
 	}
 	
-	public DeleteMessageResult(User user,IMAPFolder folder, ArrayList<Long> messageUids) {
+	public DeleteMessageResult(User user,IMAPFolder folder, int deleteCount) {
 		this.user = user;
 		this.folder = folder;
-		this.messageUids = messageUids;
+		this.deleteCount = deleteCount;
+	}
+	
+	public int getCount() {
+		return deleteCount;
 	}
 	
 	public User getUser() {
@@ -55,10 +57,6 @@ public class DeleteMessageResult implements Result{
 	
 	public IMAPFolder getFolder() {
 		return folder;
-	}
-	
-	public ArrayList<Long> getMessageUids() {
-		return messageUids;
 	}
 
 }

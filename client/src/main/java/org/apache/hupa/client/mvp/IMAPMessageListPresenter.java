@@ -38,7 +38,7 @@ import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
 import org.apache.hupa.shared.events.NewMessageEvent;
-import org.apache.hupa.shared.rpc.DeleteMessage;
+import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 import org.apache.hupa.shared.rpc.MoveMessage;
 import org.apache.hupa.shared.rpc.MoveMessageResult;
@@ -178,7 +178,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		for (int i = 0; i < selectedMessages.size(); i++) {
 			uids.add(selectedMessages.get(i).getUid());
 		}
-		dispatcher.execute(new DeleteMessage(user.getSessionId(),folder,uids), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
+		dispatcher.execute(new DeleteMessageByUid(user.getSessionId(),folder,uids), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
 
 			public void onFailure(Throwable caught) {
 				// TODO Auto-generated method stub
@@ -187,7 +187,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
 			public void onSuccess(DeleteMessageResult result) {
 				display.removeMessages(selectedMessages);
-				eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,result.getMessageUids().size()));
+				eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,result.getCount()));
 			}
 		}, eventBus,user));
 	}

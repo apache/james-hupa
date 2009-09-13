@@ -43,6 +43,7 @@ import org.apache.hupa.shared.events.ForwardMessageEvent;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.ReplyMessageEvent;
 import org.apache.hupa.shared.rpc.DeleteMessage;
+import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 import org.apache.hupa.shared.rpc.RawMessage;
 import org.apache.hupa.shared.rpc.RawMessageResult;
@@ -128,7 +129,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 			public void onClick(ClickEvent event) {
 				ArrayList<Long> uidList = new ArrayList<Long>();
 				uidList.add(message.getUid());
-				dispatcher.execute(new DeleteMessage(user.getSessionId(),folder,uidList), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
+				dispatcher.execute(new DeleteMessageByUid(user.getSessionId(),folder,uidList), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
 
 					public void onFailure(Throwable caught) {
 						// TODO Auto-generated method stub

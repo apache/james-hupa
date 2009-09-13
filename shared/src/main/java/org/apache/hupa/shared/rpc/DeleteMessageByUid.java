@@ -19,27 +19,31 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.util.ArrayList;
+
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class DeleteMessage extends Session<DeleteMessageResult>{
+public class DeleteMessageByUid extends DeleteMessage{
+
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 801294103124082592L;
-	private IMAPFolder folder;
+	private static final long serialVersionUID = -5980938676368660849L;
+	private ArrayList<Long> messageUids;
 
-	public DeleteMessage(String sessionId,IMAPFolder folder) {
-		super(sessionId);
-		this.folder = folder;
+
+	public DeleteMessageByUid(String sessionId,IMAPFolder folder, ArrayList<Long> messageUids) {
+		super(sessionId,folder);
+		this.messageUids = messageUids;
 	}
 	
-	protected DeleteMessage() {
+	protected DeleteMessageByUid() {
 		
 	}
 	
-	public IMAPFolder getFolder() {
-		return folder;
+	public ArrayList<Long> getMessageUids() {
+		return messageUids;
 	}
 
 }

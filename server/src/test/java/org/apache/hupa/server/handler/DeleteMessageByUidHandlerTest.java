@@ -35,21 +35,21 @@ import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.rpc.DeleteMessage;
+import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 
-public class DeleteMessageHandlerTest extends AbstractHandlerTest{
+public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
 
 	
 	public void testDeleteFolderNotExists() throws MessagingException {
-		DeleteMessageHandler handler = new DeleteMessageHandler(storeCache,new MockLog(),sessionProvider);
+		DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
 	
 		User user = createUser();
 		storeCache.addValidUser(user.getName(), user.getPassword());
 		session.setAttribute("user", user);
 		IMAPFolder folder = new IMAPFolder();
 		folder.setFullName("NOT_EXISTS");
-		DeleteMessage action = new DeleteMessage(VALID_ID,folder,new ArrayList<Long>());
+		DeleteMessageByUid action = new DeleteMessageByUid(VALID_ID,folder,new ArrayList<Long>());
 
 		try {
 			handler.execute(action, null);
@@ -61,7 +61,7 @@ public class DeleteMessageHandlerTest extends AbstractHandlerTest{
 	
 	public void testDeleteFolderExistsAndNotTrash() throws MessagingException {
 		Session s = Session.getInstance(new Properties());
-		DeleteMessageHandler handler = new DeleteMessageHandler(storeCache,new MockLog(),sessionProvider);
+		DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
 	
 		User user = createUser();
 		storeCache.addValidUser(user.getName(), user.getPassword());
@@ -77,17 +77,14 @@ public class DeleteMessageHandlerTest extends AbstractHandlerTest{
 		ArrayList<Long> uids = new ArrayList<Long>();
 		uids.add(new Long(1));
 		uids.add(new Long(3));
-		DeleteMessage action = new DeleteMessage(VALID_ID, folder, uids);
+		DeleteMessageByUid action = new DeleteMessageByUid(VALID_ID, folder, uids);
 
 		MockIMAPFolder f3 = (MockIMAPFolder) store.getFolder(user.getSettings().getTrashFolderName());
 		assertFalse("Trash folder not exists yet",f3.exists());
 		
 		try {
 			DeleteMessageResult result = handler.execute(action, null);
-			ArrayList<Long> dUids = result.getMessageUids();
-			assertEquals("Delete message with uid 1",new Long(1), dUids.get(0));
-			assertEquals("Delete message with uid 2", new Long(3), dUids.get(1));
-
+			int count = result.getCount();
 			assertEquals("Only 1 message left", 1, f.getMessageCount());
 			
 			MockIMAPFolder f2 = (MockIMAPFolder) store.getFolder(user.getSettings().getTrashFolderName());
@@ -101,7 +98,7 @@ public class DeleteMessageHandlerTest extends AbstractHandlerTest{
 	
 	public void testDeleteFolderExistsAndIsTrash() throws MessagingException {
 		Session s = Session.getInstance(new Properties());
-		DeleteMessageHandler handler = new DeleteMessageHandler(storeCache,new MockLog(),sessionProvider);
+		DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
 	
 		User user = createUser();
 		storeCache.addValidUser(user.getName(), user.getPassword());
@@ -117,13 +114,11 @@ public class DeleteMessageHandlerTest extends AbstractHandlerTest{
 		ArrayList<Long> uids = new ArrayList<Long>();
 		uids.add(new Long(1));
 		uids.add(new Long(3));
-		DeleteMessage action = new DeleteMessage(VALID_ID, folder, uids);
+		DeleteMessageByUid action = new DeleteMessageByUid(VALID_ID, folder, uids);
 
 		try {
 			DeleteMessageResult result = handler.execute(action, null);
-			ArrayList<Long> dUids = result.getMessageUids();
-			assertEquals("Delete message with uid 1",new Long(1), dUids.get(0));
-			assertEquals("Delete message with uid 2", new Long(3), dUids.get(1));
+			int count = result.getCount();
 
 			assertEquals("Only 1 message left", 1, f.getMessageCount());
 		} catch (ActionException e) {
