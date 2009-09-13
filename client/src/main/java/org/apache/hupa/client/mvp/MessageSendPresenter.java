@@ -309,8 +309,8 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 
 	@Override
 	protected void onUnbind() {
-		// TODO Auto-generated method stub
-		
+		// cancel the current upload when unbinding
+		display.getUploader().cancel();
 	}
 
 	public void refreshDisplay() {
