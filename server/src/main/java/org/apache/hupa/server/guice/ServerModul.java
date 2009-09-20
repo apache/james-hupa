@@ -49,6 +49,7 @@ import org.apache.hupa.server.handler.NoopHandler;
 import org.apache.hupa.server.handler.RenameFolderHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
+import org.apache.hupa.server.handler.SetFlagsHandler;
 import org.apache.hupa.server.handler.TagMessagesHandler;
 import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
@@ -98,6 +99,7 @@ public class ServerModul extends ActionHandlerModule {
 		bindHandler(CreateFolderHandler.class);
 		bindHandler(TagMessagesHandler.class);
 		bindHandler(GetRawMessageHandler.class);
+		bindHandler(SetFlagsHandler.class);
 		bind(FileItemRegistry.class).in(Singleton.class);
 		bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(
 				Singleton.class);

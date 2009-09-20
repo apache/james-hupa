@@ -1,3 +1,22 @@
+/****************************************************************
+ * Licensed to the Apache Software Foundation (ASF) under one   *
+ * or more contributor license agreements.  See the NOTICE file *
+ * distributed with this work for additional information        *
+ * regarding copyright ownership.  The ASF licenses this file   *
+ * to you under the Apache License, Version 2.0 (the            *
+ * "License"); you may not use this file except in compliance   *
+ * with the License.  You may obtain a copy of the License at   *
+ *                                                              *
+ *   http://www.apache.org/licenses/LICENSE-2.0                 *
+ *                                                              *
+ * Unless required by applicable law or agreed to in writing,   *
+ * software distributed under the License is distributed on an  *
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY       *
+ * KIND, either express or implied.  See the License for the    *
+ * specific language governing permissions and limitations      *
+ * under the License.                                           *
+ ****************************************************************/
+
 package org.apache.hupa.server.handler;
 
 import java.io.IOException;
@@ -6,12 +25,10 @@ import java.util.ArrayList;
 
 import javax.mail.Address;
 import javax.mail.FetchProfile;
-import javax.mail.Flags;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
-import javax.mail.Flags.Flag;
 import javax.mail.internet.MimeUtility;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
@@ -25,8 +42,8 @@ import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Tag;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
-import org.apache.hupa.shared.rpc.FetchMessagesResult;
 import org.apache.hupa.shared.rpc.FetchMessages;
+import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
 import com.google.inject.Provider;
 import com.sun.mail.imap.IMAPStore;
@@ -135,25 +152,11 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 			msg.setReceivedDate(m.getReceivedDate());
 
 			// Add flags
-			ArrayList<IMAPFlag> iFlags = new ArrayList<IMAPFlag>();
-			Flags flags = m.getFlags();
-			Flag[] systemFlags = flags.getSystemFlags();
-			for (int a = 0; a < systemFlags.length;a++) {
-				Flag flag = systemFlags[a];
-				if (flag == Flag.DELETED) {
-					iFlags.add(IMAPFlag.DELETED);
-				}
-				if (flag == Flag.SEEN) {
-					iFlags.add(IMAPFlag.SEEN);
-				}
-				if (flag == Flag.RECENT) {
-					iFlags.add(IMAPFlag.RECENT);
-
-				}
-			}
+			ArrayList<IMAPFlag> iFlags = JavamailUtil.convert(m.getFlags());
+			
 		  
 			ArrayList<Tag> tags = new ArrayList<Tag>();
-			String[] userFlags = flags.getUserFlags();
+			String[] userFlags = m.getFlags().getUserFlags();
 			for (int a = 0; a < userFlags.length;a++) {
 				String flag = userFlags[a];
 				if (flag.startsWith(Tag.PREFIX)) {
