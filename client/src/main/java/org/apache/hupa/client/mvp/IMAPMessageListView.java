@@ -111,6 +111,8 @@ public class IMAPMessageListView extends Composite implements Display{
 	private Button deleteAllMailButton = new Button(constants.deleteAll());
 	private ConfirmDialogBox confirmBox = new ConfirmDialogBox();
 	private ConfirmDialogBox confirmDeleteAllBox = new ConfirmDialogBox();
+	private Button markSeenButton = new Button(constants.markSeen());
+	private Button markUnSeenButton = new Button(constants.markUnseen());
 
 	private ListBox pageBox = new ListBox();
 	private Hyperlink allLink = new Hyperlink(constants.all(),"");	
@@ -206,7 +208,11 @@ public class IMAPMessageListView extends Composite implements Display{
 		buttonBar.add(navigatorBar);
 		buttonBar.add(deleteAllMailButton);
 		
-
+		ButtonBar markButtonBar = new ButtonBar();
+		markButtonBar.add(markSeenButton);
+		markButtonBar.add(markUnSeenButton);
+		buttonBar.add(markButtonBar);
+		
 		pageBox.addItem("20");
 		pageBox.addItem("50");
 		pageBox.addItem("100");
@@ -733,5 +739,21 @@ public class IMAPMessageListView extends Composite implements Display{
 	 */
 	public HasClickHandlers getDeleteAllClick() {
 		return deleteAllMailButton;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getMarkSeenClick()
+	 */
+	public HasClickHandlers getMarkSeenClick() {
+		return markSeenButton;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getMarkUnseenClick()
+	 */
+	public HasClickHandlers getMarkUnseenClick() {
+		return markUnSeenButton;
 	}
 }

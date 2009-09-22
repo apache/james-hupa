@@ -25,6 +25,7 @@ import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Flags.Flag;
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -63,8 +64,11 @@ public class SetFlagsHandler extends AbstractSessionHandler<SetFlag, EmptyResult
 				f.open(Folder.READ_WRITE);
 			}
 			Message[] msgs = f.getMessagesByUID(toArray(uids));
-			Flags flags = JavamailUtil.convert(action.getFlags());
-			f.setFlags(msgs, flags, true);
+			Flag flag = JavamailUtil.convert(action.getFlag());
+			Flags flags = new Flags();
+			flags.add(flag);
+			
+			f.setFlags(msgs, flags, action.getValue());
 			f.close(false);
 			return new EmptyResult();
 		} catch (MessagingException e) {

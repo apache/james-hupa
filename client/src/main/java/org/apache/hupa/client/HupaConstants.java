@@ -108,4 +108,7 @@ public interface HupaConstants extends Constants, UploaderConstants {
 	public String rawTitle();
 	
 	public String deleteAll();
+	
+	public String markSeen();
+	public String markUnseen();
 }

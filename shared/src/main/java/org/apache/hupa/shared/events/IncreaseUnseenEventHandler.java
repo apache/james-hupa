@@ -17,47 +17,11 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.rpc;
+package org.apache.hupa.shared.events;
 
-import java.util.ArrayList;
+import com.google.gwt.event.shared.EventHandler;
 
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.Message.IMAPFlag;
+public interface IncreaseUnseenEventHandler extends EventHandler{
 
-public class SetFlag extends Session<EmptyResult>{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 662741801793895357L;
-	private IMAPFlag flag;
-	private ArrayList<Long> uids;
-	private IMAPFolder folder;
-	private boolean value;
-	
-	public SetFlag(String session, IMAPFolder folder, IMAPFlag flag, boolean value, ArrayList<Long> uids) {
-		super(session);
-		this.flag = flag;
-		this.value = value;
-		this.uids = uids;
-		this.folder = folder;
-	}
-	protected SetFlag() {
-		
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public boolean getValue() {
-		return value;
-	}
-	public IMAPFlag getFlag() {
-		return flag;
-	}
-	
-	public ArrayList<Long> getUids() {
-		return uids;
-	}
+	public void onIncreaseUnseenEvent(IncreaseUnseenEvent event);
 }

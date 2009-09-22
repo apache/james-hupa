@@ -17,47 +17,51 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.rpc;
-
-import java.util.ArrayList;
+package org.apache.hupa.shared.events;
 
 import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.data.User;
 
-public class SetFlag extends Session<EmptyResult>{
+import com.google.gwt.event.shared.GwtEvent;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 662741801793895357L;
-	private IMAPFlag flag;
-	private ArrayList<Long> uids;
+public class IncreaseUnseenEvent extends GwtEvent<IncreaseUnseenEventHandler>{
+
+	public final static Type<IncreaseUnseenEventHandler> TYPE = new Type<IncreaseUnseenEventHandler>();
+	private User user;
 	private IMAPFolder folder;
-	private boolean value;
+	private int amount;
 	
-	public SetFlag(String session, IMAPFolder folder, IMAPFlag flag, boolean value, ArrayList<Long> uids) {
-		super(session);
-		this.flag = flag;
-		this.value = value;
-		this.uids = uids;
-		this.folder = folder;
+	public IncreaseUnseenEvent(User user, IMAPFolder folder) {
+		this(user, folder, 1);
 	}
-	protected SetFlag() {
-		
+	
+	public IncreaseUnseenEvent(User user, IMAPFolder folder, int amount) {
+		this.user =user;
+		this.folder = folder;
+		this.amount = amount;
 	}
 	
 	public IMAPFolder getFolder() {
 		return folder;
 	}
 	
-	public boolean getValue() {
-		return value;
-	}
-	public IMAPFlag getFlag() {
-		return flag;
+	public User getUser() {
+		return user;
 	}
 	
-	public ArrayList<Long> getUids() {
-		return uids;
+	public int getAmount() {
+		return amount;
 	}
+	
+	@Override
+	protected void dispatch(IncreaseUnseenEventHandler handler) {
+		handler.onIncreaseUnseenEvent(this);
+		
+	}
+
+	@Override
+	public com.google.gwt.event.shared.GwtEvent.Type<IncreaseUnseenEventHandler> getAssociatedType() {
+		return TYPE;
+	}
+
 }

@@ -41,6 +41,8 @@ import org.apache.hupa.shared.events.DecreaseUnseenEvent;
 import org.apache.hupa.shared.events.DecreaseUnseenEventHandler;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.ExpandMessageEventHandler;
+import org.apache.hupa.shared.events.IncreaseUnseenEvent;
+import org.apache.hupa.shared.events.IncreaseUnseenEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.NewMessageEvent;
 import org.apache.hupa.shared.events.NewMessageEventHandler;
@@ -224,6 +226,14 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 				}
 				display.decreaseUnseenMessageCount(event.getFolder(),event.getAmount());
 			}
+			
+		}));
+		registerHandler(eventBus.addHandler(IncreaseUnseenEvent.TYPE, new IncreaseUnseenEventHandler() {
+
+			public void onIncreaseUnseenEvent(IncreaseUnseenEvent event) {
+				display.increaseUnseenMessageCount(event.getFolder(),event.getAmount());
+			}
+
 			
 		}));
 		registerHandler(display.getTree().addSelectionHandler(new SelectionHandler<TreeItem>() {

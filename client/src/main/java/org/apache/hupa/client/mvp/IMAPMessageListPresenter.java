@@ -33,16 +33,20 @@ import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
+import org.apache.hupa.shared.events.IncreaseUnseenEvent;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
 import org.apache.hupa.shared.events.NewMessageEvent;
 import org.apache.hupa.shared.rpc.DeleteAllMessages;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
+import org.apache.hupa.shared.rpc.EmptyResult;
 import org.apache.hupa.shared.rpc.MoveMessage;
 import org.apache.hupa.shared.rpc.MoveMessageResult;
+import org.apache.hupa.shared.rpc.SetFlag;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -82,6 +86,8 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		public void deselectAllMessages();
 		public HasClickHandlers getSelectAllClick();
 		public HasClickHandlers getSelectNoneClick();
+		public HasClickHandlers getMarkSeenClick();
+		public HasClickHandlers getMarkUnseenClick();
 		public void redraw();
 	}
 
@@ -197,6 +203,77 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 					}
 				}, eventBus,user));
 			}
+			
+		}));
+		registerHandler(display.getMarkSeenClick().addClickHandler( new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
+				ArrayList<Long> uids = new ArrayList<Long>();
+				for (int i = 0; i < selectedMessages.size(); i++) {
+					Message m = selectedMessages.get(i);
+					if (m.getFlags().contains(IMAPFlag.SEEN) == false) {
+						uids.add(m.getUid());
+					} else {
+						selectedMessages.remove(m);
+					}
+				}
+				dispatcher.execute(new SetFlag(user.getSessionId(), folder, IMAPFlag.SEEN, true, uids), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+					public void onFailure(Throwable caught) {
+						GWT.log("ERR=", caught);
+					}
+
+					public void onSuccess(EmptyResult result) {
+						GWT.log("S="+selectedMessages.size(), null);
+						for (int i = 0; i < selectedMessages.size(); i++) {
+							Message m = selectedMessages.get(i);
+							if (m.getFlags().contains(IMAPFlag.SEEN) == false) {
+								m.getFlags().add(IMAPFlag.SEEN);
+							}
+						}
+						display.redraw();
+						eventBus.fireEvent(new DecreaseUnseenEvent(user, folder,selectedMessages.size()));
+												
+					}
+
+				}, eventBus, user));
+			}
+
+		}));
+		
+		registerHandler(display.getMarkUnseenClick().addClickHandler(new ClickHandler() {
+
+			public void onClick(ClickEvent event) {
+				final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
+				ArrayList<Long> uids = new ArrayList<Long>();
+				for (int i = 0; i < selectedMessages.size(); i++) {
+					Message m = selectedMessages.get(i);
+					if (m.getFlags().contains(IMAPFlag.SEEN)) {
+						uids.add(m.getUid());
+					} else {
+						selectedMessages.remove(m);
+					}
+				}
+				
+				dispatcher.execute(new SetFlag(user.getSessionId(), folder, IMAPFlag.SEEN, false, uids), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+					public void onFailure(Throwable caught) {
+						GWT.log("ERR=", caught);
+					}
+
+					public void onSuccess(EmptyResult result) {
+						for (int i = 0; i < selectedMessages.size(); i++) {
+							Message m = selectedMessages.get(i);
+							if (m.getFlags().contains(IMAPFlag.SEEN)) {
+								m.getFlags().remove(IMAPFlag.SEEN);
+							}
+						}
+						display.redraw();
+						eventBus.fireEvent(new IncreaseUnseenEvent(user, folder,selectedMessages.size()));
+												
+					}
+
+				}, eventBus, user));
+			}
+			
 			
 		}));
 		
