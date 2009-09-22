@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.    
+-->
+<project name="Hupa">
+  <!-- no banner yet -->
+  <!--  -->
+  <bannerLeft>
+    <name>James Hupa</name>
+    <src>images/james-jspf-logo.gif</src>
+    <href>http://james.apache.org/jspf/index.html</href>
+  </bannerLeft>
+  -->
+
+  <bannerRight>
+    <name>The Apache Software Foundation</name>
+    <src>http://james.apache.org/hupa/images/asf-logo-reduced.gif</src>
+    <href>http://www.apache.org/index.html</href>
+  </bannerRight> 
+
+  <body>
+    
+    <menu name="Hupa" inherit="top">
+      <item name="Overview" href="/index.html"/>
+
+    </menu>
+
+
+    <menu name="Project">
+      <item name="Bug Database" href="/issue-tracking.html"/>
+      <item name="Source Code" href="/source-repository.html"/>
+      <item name="Who We Are" href="/team-list.html" />
+      <!-- Not yet there
+      <item name="Contributing" href="contribute.html"/>
+      -->
+      <item name="License" href="/license.html"/>
+    </menu>
+
+    <menu ref="modules" />
+
+    <menu ref="reports" />
+
+  </body>
+</project>
