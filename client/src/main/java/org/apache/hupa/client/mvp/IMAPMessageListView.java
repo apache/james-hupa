@@ -35,6 +35,7 @@ import org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable;
 import org.apache.hupa.client.widgets.HasDialog;
+import org.apache.hupa.client.widgets.MyButton;
 import org.apache.hupa.client.widgets.PagingOptions;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable.DragHandlerFactory;
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -44,6 +45,7 @@ import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.events.MessagesReceivedEvent;
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
+import org.apache.hupa.widgets.ui.HasEnable;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
 
@@ -74,8 +76,6 @@ import com.google.gwt.gen2.table.event.client.HasPageLoadHandlers;
 import com.google.gwt.gen2.table.event.client.HasRowSelectionHandlers;
 import com.google.gwt.gen2.table.event.client.PageLoadEvent;
 import com.google.gwt.gen2.table.event.client.PageLoadHandler;
-import com.google.gwt.gen2.table.event.client.RowSelectionEvent;
-import com.google.gwt.gen2.table.event.client.RowSelectionHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -106,13 +106,13 @@ public class IMAPMessageListView extends Composite implements Display{
 
 	private EventBus bus;
 	private FixedWidthGrid dataTable = createDataTable();
-	private Button deleteMailButton = new Button(constants.deleteMailButton());
+	private MyButton deleteMailButton = new MyButton(constants.deleteMailButton());
 	private	Button newMailButton = new Button(constants.newMailButton());
 	private Button deleteAllMailButton = new Button(constants.deleteAll());
 	private ConfirmDialogBox confirmBox = new ConfirmDialogBox();
 	private ConfirmDialogBox confirmDeleteAllBox = new ConfirmDialogBox();
-	private Button markSeenButton = new Button(constants.markSeen());
-	private Button markUnSeenButton = new Button(constants.markUnseen());
+	private MyButton markSeenButton = new MyButton(constants.markSeen());
+	private MyButton markUnSeenButton = new MyButton(constants.markUnseen());
 
 	private ListBox pageBox = new ListBox();
 	private Hyperlink allLink = new Hyperlink(constants.all(),"");	
@@ -172,17 +172,6 @@ public class IMAPMessageListView extends Composite implements Display{
 		mailTable.getDataTable().setCellSpacing(0);
 		mailTable.setSortPolicy(SortPolicy.DISABLED);
 
-		dataTable.addRowSelectionHandler(new RowSelectionHandler() {
-
-			public void onRowSelection(RowSelectionEvent event) {
-				if (mailTable.getDataTable().getSelectedRows().size() == 0) {
-					deleteMailButton.setEnabled(false);
-				} else {
-					deleteMailButton.setEnabled(true);
-				}
-			}
-			
-		});
 		// This is only needed as workaround in pagingscrolltable
 		// See http://code.google.com/p/google-web-toolkit-incubator/wiki/PagingScrollTable
 		mailTable.setWidth(Window.getClientWidth() -150 -40+"px");
@@ -754,6 +743,30 @@ public class IMAPMessageListView extends Composite implements Display{
 	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getMarkUnseenClick()
 	 */
 	public HasClickHandlers getMarkUnseenClick() {
+		return markUnSeenButton;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getDeleteEnable()
+	 */
+	public HasEnable getDeleteEnable() {
+		return deleteMailButton;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getMarkSeenEnable()
+	 */
+	public HasEnable getMarkSeenEnable() {
+		return markSeenButton;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getMarkUnseenEnable()
+	 */
+	public HasEnable getMarkUnseenEnable() {
 		return markUnSeenButton;
 	}
 }

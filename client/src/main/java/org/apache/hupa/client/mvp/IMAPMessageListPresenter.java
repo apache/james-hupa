@@ -47,13 +47,17 @@ import org.apache.hupa.shared.rpc.EmptyResult;
 import org.apache.hupa.shared.rpc.MoveMessage;
 import org.apache.hupa.shared.rpc.MoveMessageResult;
 import org.apache.hupa.shared.rpc.SetFlag;
+import org.apache.hupa.widgets.ui.HasEnable;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.gen2.event.shared.HandlerRegistration;
 import com.google.gwt.gen2.table.event.client.HasPageLoadHandlers;
 import com.google.gwt.gen2.table.event.client.HasRowSelectionHandlers;
+import com.google.gwt.gen2.table.event.client.RowSelectionEvent;
+import com.google.gwt.gen2.table.event.client.RowSelectionHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SourcesTableEvents;
 import com.google.gwt.user.client.ui.TableListener;
@@ -72,6 +76,8 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		public Message getData(int rowIndex);
 		public HasClickHandlers getDeleteClick();
 		public HasClickHandlers getDeleteAllClick();
+		public HasEnable getDeleteEnable();
+
 		public void reloadData(User user, IMAPFolder folder,String searchValue);
 		public void removeMessages(ArrayList<Message> messages);
 		public ArrayList<Message> getSelectedMessages();
@@ -81,16 +87,18 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
 		public HasClickHandlers getConfirmDeleteDialogClick();
 		public HasClickHandlers getConfirmDeleteAllDialogClick();
-
 		public void selectAllMessages();
 		public void deselectAllMessages();
 		public HasClickHandlers getSelectAllClick();
 		public HasClickHandlers getSelectNoneClick();
 		public HasClickHandlers getMarkSeenClick();
 		public HasClickHandlers getMarkUnseenClick();
+		public HasEnable getMarkSeenEnable();
+		public HasEnable getMarkUnseenEnable();
 		public void redraw();
 	}
 
+	private ArrayList<HandlerRegistration> regList = new ArrayList<HandlerRegistration>();
 	private User user;
 	private IMAPFolder folder;
 	private String searchValue;
@@ -277,10 +285,27 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 			
 		}));
 		
+		regList.add(display.getDataTableSelection().addRowSelectionHandler(new RowSelectionHandler() {
+				public void onRowSelection(RowSelectionEvent event) {
+					if (event.getSelectedRows().size() == 0) {
+						display.getDeleteEnable().setEnabled(false);
+						display.getMarkSeenEnable().setEnabled(false);
+						display.getMarkUnseenEnable().setEnabled(false);
+					} else {
+						display.getDeleteEnable().setEnabled(true);
+						display.getMarkSeenEnable().setEnabled(true);
+						display.getMarkUnseenEnable().setEnabled(true);
+					}
+				}
+				
+			
+			
+		}));
 		display.addTableListener(tableListener);
 		isBound = true;
 	}
 
+	
 	private void deleteMessages() {
 		final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
 		ArrayList<Long> uids = new ArrayList<Long>();
@@ -330,6 +355,9 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 	 */
 	protected void onUnbind() {
 		display.removeTableListener(tableListener);
+		for (int i = 0; i < regList.size(); i++) {
+			regList.get(i).removeHandler();
+		}
 		isBound = false;
 	}
 
