@@ -54,7 +54,9 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
 		
 		// mimic hyperlink 
 		html.getElement().getStyle().setProperty("textDecoration", "underline");
-		html.getElement().getStyle().setProperty("color", "grey");
+		
+		// use color code to workaround for https://issues.apache.org/jira/browse/HUPA-27
+		html.getElement().getStyle().setProperty("color", "#8d8d8d");
 		panel.setWidget(link);
 		initWidget(panel);
 	}
