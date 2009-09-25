@@ -56,10 +56,11 @@ public class SetFlagsHandler extends AbstractSessionHandler<SetFlag, EmptyResult
 		User user = getUser(action.getSessionId());
 		IMAPFolder folder = action.getFolder();
 		ArrayList<Long> uids = action.getUids();
+		com.sun.mail.imap.IMAPFolder f = null;
 		try {
 			IMAPStore store = cache.get(user);
 
-			com.sun.mail.imap.IMAPFolder f = (com.sun.mail.imap.IMAPFolder) store.getFolder(folder.getFullName());
+			f = (com.sun.mail.imap.IMAPFolder) store.getFolder(folder.getFullName());
 			if (f.isOpen() == false) {
 				f.open(Folder.READ_WRITE);
 			}
@@ -69,12 +70,19 @@ public class SetFlagsHandler extends AbstractSessionHandler<SetFlag, EmptyResult
 			flags.add(flag);
 			
 			f.setFlags(msgs, flags, action.getValue());
-			f.close(false);
 			return new EmptyResult();
 		} catch (MessagingException e) {
 			String errorMsg = "Error while setting flags of messages with uids " + uids + " for user " + user;
 			logger.error(errorMsg,e);
 			throw new ActionException(errorMsg,e);
+		} finally {
+			if (f != null && f.isOpen()) {
+				try {
+					f.close(false);
+				} catch (MessagingException e) {
+					// ignore on close
+				}
+			}
 		}
 	}
 

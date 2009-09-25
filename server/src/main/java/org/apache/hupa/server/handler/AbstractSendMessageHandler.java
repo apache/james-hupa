@@ -195,7 +195,12 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
 			}
 			message.setFlag(Flag.SEEN, true);
 			folder.appendMessages(new Message[] {message});
-			folder.close(false);
+			
+			try {
+				folder.close(false);
+			} catch (MessagingException e) {
+				// we don't care on close
+			}
 
 		}
 		

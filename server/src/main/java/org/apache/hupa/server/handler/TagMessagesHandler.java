@@ -62,9 +62,10 @@ public class TagMessagesHandler extends AbstractSessionHandler<TagMessage, Empty
 		User user = getUser(action.getSessionId());
 		ArrayList<Long> uids = action.getMessageUids();
 		Tag tag = action.getTag();
+		IMAPFolder folder = null;
 		try {
 			IMAPStore store = cache.get(user);
-			IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
+			folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
 			if (folder.isOpen() == false) {
 				folder.open(Folder.READ_WRITE);
 			}
@@ -73,11 +74,16 @@ public class TagMessagesHandler extends AbstractSessionHandler<TagMessage, Empty
 				Message m = messages[i];
 				m.getFlags().add(tag.toString());
 			}
-			folder.close(false);
 			return new EmptyResult();
 		} catch (MessagingException e) {
 			logger.error("Error while tag messages " + uids.toString() + " for user " + user + " of folder" + action.getFolder(), e);
 			throw new ActionException(e);
+		} finally {
+			try {
+				folder.close(false);
+			} catch (MessagingException e) {
+				// ignore on close
+			}
 		}
 	}
 

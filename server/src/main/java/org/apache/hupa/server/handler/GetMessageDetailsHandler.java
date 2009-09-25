@@ -84,10 +84,11 @@ public class GetMessageDetailsHandler extends
 	protected MessageDetails exposeMessage(User user, IMAPFolder folder,
 			long uid) throws ActionException {
 		IMAPStore store = null;
+		com.sun.mail.imap.IMAPFolder f = null;
 		try {
 			store = cache.get(user);
 
-			com.sun.mail.imap.IMAPFolder f = (com.sun.mail.imap.IMAPFolder) store
+			f = (com.sun.mail.imap.IMAPFolder) store
 					.getFolder(folder.getFullName());
 
 			if (f.isOpen() == false) {
@@ -113,7 +114,6 @@ public class GetMessageDetailsHandler extends
 			mDetails.setRawHeader(message.getAllHeaders().toString());
 
 			f.setFlags(new Message[] { message }, new Flags(Flag.SEEN), true);
-			f.close(false);
 
 			return mDetails;
 		} catch (Exception e) {
@@ -122,6 +122,14 @@ public class GetMessageDetailsHandler extends
 			throw new ActionException("Unable to expose msg for user " + user
 					+ " in folder " + folder + " with uid " + uid);
 
+		} finally {
+			if (f != null && f.isOpen()) {
+				try {
+					f.close(false);
+				} catch (MessagingException e) {
+					// ignore on close
+				}
+			}
 		}
 	}
 
