@@ -430,4 +430,15 @@ public class IMAPFolderView extends Composite implements Display{
 		}
 		return null;
 	}
+
+	public void updateTreeItem(IMAPFolder folder) {
+		int count = folderTree.getItemCount();
+		for (int i = 0; i < count; i++) {
+			IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
+			if (item != null) {
+				item.setUserObject(folder);
+				break;
+			}
+		}
+	}
 }

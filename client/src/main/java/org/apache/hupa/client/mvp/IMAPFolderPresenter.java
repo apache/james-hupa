@@ -44,6 +44,8 @@ import org.apache.hupa.shared.events.ExpandMessageEventHandler;
 import org.apache.hupa.shared.events.IncreaseUnseenEvent;
 import org.apache.hupa.shared.events.IncreaseUnseenEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
+import org.apache.hupa.shared.events.MessagesReceivedEvent;
+import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
 import org.apache.hupa.shared.events.NewMessageEvent;
 import org.apache.hupa.shared.events.NewMessageEventHandler;
 import org.apache.hupa.shared.rpc.CreateFolder;
@@ -93,6 +95,7 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 		public HasEnable getRenameEnable();
 		public HasEnable getDeleteEnable();
 		public HasEnable getNewEnable();
+		public void updateTreeItem(IMAPFolder folder);
 		public void deleteSelectedFolder();
 		public HasEditable createFolder(EditHandler handler);
 		public void increaseUnseenMessageCount(IMAPFolder folder, int amount);
@@ -321,6 +324,15 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 					}
 					
 				});
+			}
+			
+		}));
+		
+		registerHandler(eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
+
+			public void onMessagesReceived(MessagesReceivedEvent event) {
+				IMAPFolder f = event.getFolder();
+				display.updateTreeItem(f);
 			}
 			
 		}));

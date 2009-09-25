@@ -49,6 +49,14 @@ public class IMAPTreeItem extends EditableTreeItem {
 		descreaseUnseenMessageCount(1);
 	}
 	
+	public void setUnseenMessageCount(int cound) {
+		IMAPFolder folder = (IMAPFolder) getUserObject();
+		int count = folder.getUnseeMessageCount();
+		folder.setUnseenMessageCount(count);
+		setFolderText(folder);
+		
+	}
+	
 	
 	/**
 	 * Decrease the unseen messagecount of this folder

@@ -381,7 +381,7 @@ public class IMAPMessageListView extends Composite implements Display{
 				}
 
 				public void onSuccess(final FetchMessagesResult result) {
-					bus.fireEvent(new MessagesReceivedEvent(result.getMessages()));
+					bus.fireEvent(new MessagesReceivedEvent(folder,result.getMessages()));
 					 TableModelHelper.Response<Message> response = new TableModelHelper.Response<Message>() {
 
 						@Override
