@@ -53,16 +53,18 @@ public class FetchMessagesResult implements Result{
 	private int start;
 	private int offset;
 	private int realCount;
+	private int realUnreadCount;
 
 	@SuppressWarnings("unused")
 	private FetchMessagesResult() {
 	}
 	
-	public FetchMessagesResult(ArrayList<Message> messages,int start,int offset,int realCount) {
+	public FetchMessagesResult(ArrayList<Message> messages,int start,int offset,int realCount, int realUnreadCount) {
 		this.messages = messages;
 		this.start = start;
 		this.offset = offset;
 		this.realCount = realCount;
+		this.realUnreadCount = realUnreadCount;
 	}
 	
 	public ArrayList<Message> getMessages() {
@@ -79,5 +81,9 @@ public class FetchMessagesResult implements Result{
 	
 	public int getRealCount() {
 		return realCount;
+	}
+	
+	public int getRealUnreadCount() {
+		return realUnreadCount;
 	}
 }

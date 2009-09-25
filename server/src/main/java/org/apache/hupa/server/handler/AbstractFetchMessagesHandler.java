@@ -60,12 +60,13 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 			ExecutionContext context) throws ActionException {
 		User user = getUser(action.getSessionId());
 		IMAPFolder folder = action.getFolder();
+		com.sun.mail.imap.IMAPFolder f = null;
 		try {
 			IMAPStore store = cache.get(user);
 			int start = action.getStart();
 			int offset = action.getOffset();
 			
-			com.sun.mail.imap.IMAPFolder f =  (com.sun.mail.imap.IMAPFolder)store.getFolder(folder.getFullName());
+			f =  (com.sun.mail.imap.IMAPFolder)store.getFolder(folder.getFullName());
 
 			// check if the folder is open, if not open it read only
 			 if (f.isOpen() == false) {
@@ -76,18 +77,26 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 			
 			// if the folder is empty we have no need to process 
 			if (exists == 0) {
-				return new FetchMessagesResult(new ArrayList<org.apache.hupa.shared.data.Message>(),start,offset,exists);
+				return new FetchMessagesResult(new ArrayList<org.apache.hupa.shared.data.Message>(),start,offset,exists,0);
 			}		
 			
 			Message[] messages = getMessagesToConvert(f,action);
 			
-			return new FetchMessagesResult(convert(action, f, messages),start,offset,exists);
+			return new FetchMessagesResult(convert(action, f, messages),start,offset,exists,f.getUnreadMessageCount());
 			
 		} catch (Exception e) {
 			logger.error("Error while fetching headers for user " + user.getName() + " in folder " + folder,e);
 			throw new ActionException(
 					"Error while fetching headers for user " + user.getName() + " in folder " + folder);
 		
+		} finally {
+			if (f != null && f.isOpen()) {
+				try {
+					f.close(false);
+				} catch (MessagingException e) {
+					// we don't care to much about an exception on close here...
+				}
+			}
 		}
 	}
 	
@@ -174,7 +183,6 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 				break;
 			}
 		}
-		f.close(false);
 		return mList;
 	}
 	
