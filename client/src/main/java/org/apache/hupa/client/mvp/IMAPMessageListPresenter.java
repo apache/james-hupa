@@ -388,8 +388,14 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 			Message message = display.getData(row);
 			
 			// mark the message as seen and redraw the table to reflect this
-			message.getFlags().add(Message.IMAPFlag.SEEN);
-			display.redraw();
+			if (message.getFlags().contains(Message.IMAPFlag.SEEN) == false) {
+				// add flag, fire event and redraw
+				message.getFlags().add(Message.IMAPFlag.SEEN);
+				eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,1));
+				
+				display.redraw();
+
+			}
 			
 			eventBus.fireEvent(new ExpandMessageEvent(user,folder,message));
 		}
