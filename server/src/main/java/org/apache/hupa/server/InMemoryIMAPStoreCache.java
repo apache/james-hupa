@@ -24,15 +24,16 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 
 import org.apache.commons.logging.Log;
-import com.google.inject.name.Named;
 import org.apache.hupa.shared.data.User;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import com.sun.mail.imap.IMAPStore;
 
 @Singleton
@@ -41,7 +42,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 	private Properties props = new Properties();
 	private Session session;
 	protected Log logger;
-	private final Map<String,IMAPStore> pool = new HashMap<String ,IMAPStore>();
+	private final Map<String,CachedIMAPStore> pool = new HashMap<String ,CachedIMAPStore>();
 	private String address;
 	private int port;
 	private boolean useSSL = false;
@@ -59,8 +60,11 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
         }
         session = sessionProvider.get();
         System.setProperty("mail.mime.decodetext.strict", "false");
+        
+      
 	}
 	
+
 	/*
 	 * (non-Javadoc)
 	 * @see org.apache.hupa.server.IMAPStoreCache#get(org.apache.hupa.shared.data.User)
@@ -74,22 +78,35 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 	 * @see org.apache.hupa.server.IMAPStoreCache#get(java.lang.String, java.lang.String)
 	 */
 	public synchronized IMAPStore get(String username,String password) throws MessagingException {
-		IMAPStore store = pool.get(username);
-		if (store == null) {
+		CachedIMAPStore cstore = pool.get(username);
+		if (cstore == null) {
 			logger.debug("No cached store found for user " +username);
-			if (useSSL) {
-				store = (IMAPStore)session.getStore("imaps");
+			cstore = createCachedIMAPStore();
+		} else {
+			if (cstore.isExpired() == false) {
+				cstore.validate();
 			} else {
-				store = (IMAPStore) session.getStore("imap"); 
+				pool.remove(username);
+				cstore = createCachedIMAPStore();
 			}
 		}
-		if (store.isConnected() == false) {
-			store.connect(address, port, username,password);
+		
+		if (cstore.getStore().isConnected() == false) {
+			cstore.getStore().connect(address, port, username,password);
 		}
-		pool.put(username,store);
-		return store;
+		pool.put(username,cstore);
+		return cstore.getStore();
 	}
 	
+	private CachedIMAPStore createCachedIMAPStore() throws NoSuchProviderException {
+		CachedIMAPStore cstore;
+		if (useSSL) {
+			cstore = new CachedIMAPStore((IMAPStore)session.getStore("imaps"),300);
+		} else {
+			cstore =  new CachedIMAPStore((IMAPStore)session.getStore("imap"),300);
+		}
+		return cstore;
+	}
 	/*
 	 * (non-Javadoc)
 	 * @see org.apache.hupa.server.IMAPStoreCache#delete(org.apache.hupa.shared.data.User)
@@ -103,14 +120,42 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 	 * @see org.apache.hupa.server.IMAPStoreCache#delete(java.lang.String)
 	 */
 	public synchronized void delete(String username) {
-		IMAPStore store = pool.get(username);
-		if (store != null && store.isConnected()) {
+		CachedIMAPStore cstore = pool.get(username);
+		if (cstore != null && cstore.getStore().isConnected()) {
 			try {
-				store.close();
+				cstore.getStore().close();
 			} catch (MessagingException e) {
 				// Ignore on close
 			}
 		}
 		pool.remove(username);
+	}
+	
+	private final class CachedIMAPStore {
+		private long validTo;
+		private int validForMillis;
+		private IMAPStore store;
+		
+		public CachedIMAPStore(IMAPStore store, int validForSeconds) {
+			this.store = store;
+			this.validForMillis = validForSeconds * 1000;
+			this.validTo = System.currentTimeMillis() + validForMillis;
+		}
+		
+		public boolean isExpired() {
+			if (validTo < System.currentTimeMillis()) {
+				return false;
+			}
+			return true;
+		}
+		
+		public void validate() throws MessagingException {
+			store.idle();
+			validTo = System.currentTimeMillis() + validForMillis;
+		}
+		
+		public IMAPStore getStore() {
+			return store;
+		}
 	}
 }
