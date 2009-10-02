@@ -60,6 +60,10 @@
 
 	<repositories>
 		<repository>
+			<id>maven-repos</id>
+			<url>http://repo2.maven.org/maven2/</url>
+		</repository>
+		<repository>
 			<id>gwt-maven</id>
 			<url>http://gwt-maven.googlecode.com/svn/trunk/mavenrepo/
 			</url>
@@ -129,7 +133,7 @@
 	</pluginRepositories>
 
 	<properties>
-		<gwtVersion>1.7.0</gwtVersion>
+		<gwtVersion>1.7.1</gwtVersion>
 	</properties>
 
 	<build>
