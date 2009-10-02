@@ -47,7 +47,7 @@ public class DeleteFolderHandlerTest extends AbstractHandlerTest{
 		DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
 
 		try {
-			handler.execute(new DeleteFolder(user.getSessionId(),folder), null);
+			handler.execute(new DeleteFolder(folder), null);
 			Folder f = store.getFolder(folder.getFullName());
 			assertFalse("not exists",f.exists());
 			
@@ -67,24 +67,22 @@ public class DeleteFolderHandlerTest extends AbstractHandlerTest{
 		DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
 
 		try {
-			handler.execute(new DeleteFolder(user.getSessionId(),folder), null);
+			handler.execute(new DeleteFolder(folder), null);
 			fail("Folder should not exist");
 		} catch (ActionException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}	
 	}
 	
 	public void testInvalidSessionId() {
-		User user = createUser();
-		user.setSessionId("INVALID");
 		IMAPFolder folder = createFolder();
 		DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
 		try {
-			handler.execute(new DeleteFolder(user.getSessionId(),folder), null);
+			handler.execute(new DeleteFolder(folder), null);
 			fail("Invalid session");
 			
 		} catch (InvalidSessionException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (ActionException e) {
 			e.printStackTrace();
 			fail();

@@ -207,7 +207,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
 				} else {
 					decreaseUnseen = false;
 				}
-				cachingDispatcher.executeWithCache(new GetMessageDetails(event.getUser().getSessionId(),event.getFolder(),message.getUid()), new SessionAsyncCallback<GetMessageDetailsResult>(new DisplayCallback<GetMessageDetailsResult>(display) {
+				cachingDispatcher.executeWithCache(new GetMessageDetails(event.getFolder(),message.getUid()), new SessionAsyncCallback<GetMessageDetailsResult>(new DisplayCallback<GetMessageDetailsResult>(display) {
 
 					@Override
 					protected void handleFailure(Throwable e) {

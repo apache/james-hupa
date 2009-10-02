@@ -21,14 +21,8 @@ package org.apache.hupa.shared.rpc;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-public class NoopResult implements Result{
+public class NoopResult implements Result {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5530385273335407315L;
 
-	public NoopResult() {
-		
-	}
 }

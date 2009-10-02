@@ -19,21 +19,13 @@
 
 package org.apache.hupa.shared.rpc;
 
+import net.customware.gwt.dispatch.shared.Action;
 
-public class FetchFolders extends Session<FetchFoldersResult>{
 
-	
-	/**
-	 * 
-	 */
+public class FetchFolders implements Action<FetchFoldersResult>{
+
 	private static final long serialVersionUID = 8515539585915762904L;
 
-	public FetchFolders(String sessionId) {
-		super(sessionId);
-	}
-	
-	@SuppressWarnings("unused")
-	private FetchFolders() {
-		
+	public FetchFolders() {
 	}
 }

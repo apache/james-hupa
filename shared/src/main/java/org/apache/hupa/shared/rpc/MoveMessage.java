@@ -19,27 +19,24 @@
 
 package org.apache.hupa.shared.rpc;
 
+import net.customware.gwt.dispatch.shared.Action;
+
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class MoveMessage extends Session<MoveMessageResult>{
+public class MoveMessage implements Action<MoveMessageResult>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7771146077050895244L;
 	private IMAPFolder oldFolder;
 	private IMAPFolder newFolder;
 	private long messageUid;
 
-	public MoveMessage(String sessionId,IMAPFolder oldFolder, IMAPFolder newFolder, long messageUid) {
-		super(sessionId);
+	public MoveMessage(IMAPFolder oldFolder, IMAPFolder newFolder, long messageUid) {
 		this.oldFolder = oldFolder;
 		this.newFolder = newFolder;
 		this.messageUid = messageUid;
 	}
 	
 	protected MoveMessage() {
-		
 	}
 	
 	public long getMessageUid() {

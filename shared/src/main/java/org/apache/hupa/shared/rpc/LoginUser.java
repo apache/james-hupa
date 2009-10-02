@@ -24,11 +24,8 @@ package org.apache.hupa.shared.rpc;
 import net.customware.gwt.dispatch.shared.Action;
 
 public class LoginUser implements Action<LoginUserResult>{
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -7541443368424711160L;
 
+	private static final long serialVersionUID = -7541443368424711160L;
     
     private String userName;
     private String password;

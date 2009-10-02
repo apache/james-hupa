@@ -77,7 +77,6 @@ public class LoginUserHandler implements
 			user.setSettings(settingsProvider.get());
 			// store the session id for later usage
 			HttpSession session = sessionProvider.get();
-			user.setSessionId(session.getId());
 			session.setAttribute("user", user);
 			return new LoginUserResult(user);
 

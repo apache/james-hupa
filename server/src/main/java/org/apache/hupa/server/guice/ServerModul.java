@@ -31,6 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.server.handler.CheckSessionHandler;
 import org.apache.hupa.server.handler.CreateFolderHandler;
 import org.apache.hupa.server.handler.DeleteAllMessagesHandler;
 import org.apache.hupa.server.handler.DeleteFolderHandler;
@@ -41,7 +42,6 @@ import org.apache.hupa.server.handler.FetchRecentMessagesHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
 import org.apache.hupa.server.handler.GetMessageDetailsHandler;
 import org.apache.hupa.server.handler.GetRawMessageHandler;
-import org.apache.hupa.server.handler.LoginSessionHandler;
 import org.apache.hupa.server.handler.LoginUserHandler;
 import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.MoveMessageHandler;
@@ -80,6 +80,7 @@ public class ServerModul extends ActionHandlerModule {
 
 	@Override
 	protected void configureHandlers() {
+		bindHandler(CheckSessionHandler.class);
 		bindHandler(LoginUserHandler.class);
 		bindHandler(FetchFoldersHandler.class);
 		bindHandler(FetchMessagesHandler.class);
@@ -92,7 +93,6 @@ public class ServerModul extends ActionHandlerModule {
 		bindHandler(ReplyMessageHandler.class);
 		bindHandler(ForwardMessageHandler.class);
 		bindHandler(NoopHandler.class);
-		bindHandler(LoginSessionHandler.class);
 		bindHandler(MoveMessageHandler.class);
 		bindHandler(RenameFolderHandler.class);
 		bindHandler(DeleteFolderHandler.class);
@@ -116,7 +116,10 @@ public class ServerModul extends ActionHandlerModule {
 			Names.bindProperties(binder(), properties);
 
 		} catch (Exception e) {
-			throw new RuntimeException("Unable to to configure", e);
+			throw new RuntimeException("Unable to to configure hupa server," +
+					"\nmake sure that you have a valid /etc/default/hupa file" +
+					"\nor the web container has been started with the appropriate parameter:" +
+					" -Dhupa.config.file=your_hupa_properties_file", e);
 		}
 	}
 

@@ -74,7 +74,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 		public HasClickHandlers getReplyAllButtonClick();
 		public HasClickHandlers getForwardButtonClick();
 		public HasClickHandlers getBackButtonClick();
-		public void setAttachments(List<MessageAttachment> attachements, String sessionId,  String folder,  long uid);
+		public void setAttachments(List<MessageAttachment> attachements, String folder,  long uid);
 	}
 
 	public static final Place PLACE = new Place("IMAPMessage");
@@ -113,7 +113,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 			con = Util.toHtml(con);
 		}
 		display.getContent().setHTML(con);
-		display.setAttachments(messageDetails.getMessageAttachments(),user.getSessionId(), folder.getFullName(),message.getUid());
+		display.setAttachments(messageDetails.getMessageAttachments(), folder.getFullName(),message.getUid());
 	}
 	
 	@Override
@@ -128,7 +128,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 			public void onClick(ClickEvent event) {
 				ArrayList<Long> uidList = new ArrayList<Long>();
 				uidList.add(message.getUid());
-				dispatcher.execute(new DeleteMessageByUid(user.getSessionId(),folder,uidList), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
+				dispatcher.execute(new DeleteMessageByUid(folder, uidList), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
 
 					public void onFailure(Throwable caught) {
 						// TODO Auto-generated method stub
@@ -177,7 +177,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 		registerHandler(display.getShowRawMessageClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				dispatcher.executeWithCache(new RawMessage(user.getSessionId(),folder,message.getUid()), new SessionAsyncCallback<RawMessageResult>(new DisplayCallback<RawMessageResult>(display) {
+				dispatcher.executeWithCache(new RawMessage(folder, message.getUid()), new SessionAsyncCallback<RawMessageResult>(new DisplayCallback<RawMessageResult>(display) {
 
 					@Override
 					protected void handleFailure(Throwable e) {

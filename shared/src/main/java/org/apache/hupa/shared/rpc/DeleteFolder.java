@@ -19,17 +19,17 @@
 
 package org.apache.hupa.shared.rpc;
 
+import net.customware.gwt.dispatch.shared.Action;
+
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class DeleteFolder extends Session<EmptyResult>{
-	/**
-	 * 
-	 */
+public class DeleteFolder implements Action<EmptyResult>{
+
 	private static final long serialVersionUID = 7921329310932404439L;
+	
 	private IMAPFolder folder;
 
-	public DeleteFolder(String sessionId, IMAPFolder folder) {
-		super(sessionId);
+	public DeleteFolder(IMAPFolder folder) {
 		this.folder = folder;
 	}
 

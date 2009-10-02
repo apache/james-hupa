@@ -57,7 +57,7 @@ public class MoveMessageHandler extends AbstractSessionHandler<MoveMessage, Move
 	 */
 	protected MoveMessageResult executeInternal(MoveMessage action,
 			ExecutionContext context) throws ActionException {
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		try {
 			IMAPStore store = cache.get(user);
 			IMAPFolder folder = (IMAPFolder)store.getFolder(action.getOldFolder().getFullName());

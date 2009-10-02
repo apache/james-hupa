@@ -39,6 +39,8 @@ import com.sun.mail.imap.IMAPStore;
 @Singleton
 public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 
+	public static final String DEMO_MODE = "demo-mode";
+	
 	private Properties props = new Properties();
 	private Session session;
 	protected Log logger;
@@ -77,7 +79,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 	 * (non-Javadoc)
 	 * @see org.apache.hupa.server.IMAPStoreCache#get(java.lang.String, java.lang.String)
 	 */
-	public synchronized IMAPStore get(String username,String password) throws MessagingException {
+	public synchronized IMAPStore get(String username, String password) throws MessagingException {
 		CachedIMAPStore cstore = pool.get(username);
 		if (cstore == null) {
 			logger.debug("No cached store found for user " +username);
@@ -92,9 +94,18 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 		}
 		
 		if (cstore.getStore().isConnected() == false) {
-			cstore.getStore().connect(address, port, username,password);
+			// TODO: Full demo-mode able to mock all actions (folders, messages ...) 
+			// setting IMAPServerAddress=demo-mode allows login in the application using
+			// any user and password. It is thought to play the client application without
+			// having any imap/smtp server installed. Very useful while developing and testing. 
+			try {
+				cstore.getStore().connect(address, port, username, password);
+			} catch (MessagingException e) {
+				if (!DEMO_MODE.equals(this.address))
+					throw (e);
+			}
 		}
-		pool.put(username,cstore);
+		pool.put(username, cstore);
 		return cstore.getStore();
 	}
 	

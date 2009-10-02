@@ -19,20 +19,11 @@
 
 package org.apache.hupa.shared.rpc;
 
-public class LoginSession extends Session<LoginUserResult>{
+import net.customware.gwt.dispatch.shared.Action;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1713238752302781548L;
 
-	public LoginSession(String sessionId) {
-		super(sessionId);
-	}
+public class CheckSession implements Action<CheckSessionResult> {
+
+	private static final long serialVersionUID = 2255166545722718094L;
 	
-	
-	@SuppressWarnings("unused")
-	private LoginSession() {
-		
-	}
 }

@@ -52,7 +52,7 @@ public class DeleteFolderHandler extends AbstractSessionHandler<DeleteFolder, Em
 	@Override
 	protected EmptyResult executeInternal(DeleteFolder action,
 			ExecutionContext context) throws ActionException {
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		IMAPFolder folder = action.getFolder();
 		try {
 			IMAPStore store = cache.get(user);

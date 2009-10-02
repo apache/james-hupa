@@ -23,14 +23,10 @@ import org.apache.hupa.shared.data.IMAPFolder;
 
 public class DeleteAllMessages extends DeleteMessage{
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6801849429581798842L;
 
-	public DeleteAllMessages(String session, IMAPFolder folder) {
-		super(session, folder);
+	public DeleteAllMessages(IMAPFolder folder) {
+		super(folder);
 	}
 	
 	protected DeleteAllMessages() {

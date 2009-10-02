@@ -273,7 +273,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
 			Message message = createMessage(session, action);
 			message = fillBody(message,action);
 			
-			sendMessage(getUser(action.getSessionId()),session, message);
+			sendMessage(getUser(),session, message);
 			
 		
 		} catch (AddressException e) {

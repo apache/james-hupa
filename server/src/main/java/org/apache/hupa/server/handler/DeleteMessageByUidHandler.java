@@ -65,7 +65,7 @@ public class DeleteMessageByUidHandler extends
 			throws ActionException {
 		IMAPFolder folder = action.getFolder();
 		ArrayList<Long> uids = action.getMessageUids();
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 
 		logger.info("Deleting messages with uids " + action.getMessageUids()
 				+ " for user " + user + " in folder " + action.getFolder());

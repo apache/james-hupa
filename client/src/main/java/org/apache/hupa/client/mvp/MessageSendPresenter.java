@@ -204,7 +204,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 					message.setMessageAttachments(aList);
 				
 					if (type.equals(Type.NEW)) {
-						dispatcher.execute(new SendMessage(user.getSessionId(),message), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+						dispatcher.execute(new SendMessage(message), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
 
 							public void onFailure(Throwable caught) {
 								// TODO Auto-generated method stub
@@ -218,7 +218,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 							
 						}, eventBus,user));
 					} else if(type.equals(Type.FORWARD)) {
-						dispatcher.execute(new ForwardMessage(user.getSessionId(),message,folder,oldmessage.getUid()), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+						dispatcher.execute(new ForwardMessage(message, folder, oldmessage.getUid()), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
 
 							public void onFailure(Throwable caught) {
 								// TODO Auto-generated method stub
@@ -234,7 +234,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 					} else if(type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
 					
 						boolean replyAll = type.equals(Type.REPLY_ALL);
-						dispatcher.execute(new ReplyMessage(user.getSessionId(),message,folder,oldmessage.getUid(),replyAll),new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+						dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid(), replyAll),new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
 
 							public void onFailure(Throwable caught) {
 								// TODO Auto-generated method stub

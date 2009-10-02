@@ -58,7 +58,7 @@ public abstract class AbstractDeleteMessageHandler<Action extends DeleteMessage>
 	public DeleteMessageResult executeInternal(Action action,
 			ExecutionContext context) throws ActionException {
 		org.apache.hupa.shared.data.IMAPFolder folder = action.getFolder();
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		try {
 			IMAPStore store = cache.get(user);
 			com.sun.mail.imap.IMAPFolder f = (com.sun.mail.imap.IMAPFolder) store

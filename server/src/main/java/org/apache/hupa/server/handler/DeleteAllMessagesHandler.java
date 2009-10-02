@@ -50,7 +50,7 @@ public class DeleteAllMessagesHandler extends AbstractDeleteMessageHandler<Delet
 	 */
 	protected Message[] getMessagesToDelete(DeleteAllMessages action)
 			throws ActionException {
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		try {
 			logger.info("Delete all messages in folder " + action.getFolder() + " for user " + user);
 			IMAPStore store =cache.get(user);

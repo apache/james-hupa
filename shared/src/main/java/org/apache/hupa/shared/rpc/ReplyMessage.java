@@ -23,16 +23,14 @@ package org.apache.hupa.shared.rpc;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.SMTPMessage;
 
-public class ReplyMessage extends ForwardMessage{
+public class ReplyMessage extends ForwardMessage {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -383135476236902779L;
+
 	private boolean replyAll;
 	
-	public ReplyMessage(String sessionId, SMTPMessage msg, IMAPFolder folder, long uid, boolean replyAll) {
-		super(sessionId, msg, folder, uid);
+	public ReplyMessage(SMTPMessage msg, IMAPFolder folder, long uid, boolean replyAll) {
+		super(msg, folder, uid);
 		this.replyAll = replyAll;
 	}
 
@@ -44,5 +42,4 @@ public class ReplyMessage extends ForwardMessage{
 		return replyAll;
 	}
 	
-
 }

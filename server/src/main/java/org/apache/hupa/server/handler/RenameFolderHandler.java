@@ -54,7 +54,7 @@ public class RenameFolderHandler extends AbstractSessionHandler<RenameFolder, Em
 	 */
 	protected EmptyResult executeInternal(RenameFolder action,
 			ExecutionContext context) throws ActionException {
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		IMAPFolder folder = action.getFolder();
 		String newName = action.getNewName();
 		try {

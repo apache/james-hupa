@@ -38,14 +38,13 @@ public class FetchFoldersHandlerTest extends AbstractHandlerTest{
 
 	public void testInvalidSessionId() {
 		User user = createUser();
-		user.setSessionId("INVALID");
 		FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
 		try {
-			handler.execute(new FetchFolders(user.getSessionId()), null);
+			handler.execute(new FetchFolders(), null);
 			fail("Invalid session");
 			
 		} catch (InvalidSessionException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (ActionException e) {
 			e.printStackTrace();
 			fail();
@@ -58,7 +57,7 @@ public class FetchFoldersHandlerTest extends AbstractHandlerTest{
 		storeCache.addValidUser(user.getName(), user.getPassword());
 		FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
 		try {
-			FetchFoldersResult result = handler.execute(new FetchFolders(user.getSessionId()), null);
+			FetchFoldersResult result = handler.execute(new FetchFolders(), null);
 			assertTrue(result.getFolders().isEmpty());
 		} catch (ActionException e) {
 			e.printStackTrace();
@@ -78,7 +77,7 @@ public class FetchFoldersHandlerTest extends AbstractHandlerTest{
 
 		FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
 		try {
-			FetchFoldersResult result = handler.execute(new FetchFolders(user.getSessionId()), null);
+			FetchFoldersResult result = handler.execute(new FetchFolders(), null);
 			ArrayList<IMAPFolder> folders = result.getFolders();
 			assertFalse(folders.isEmpty());
 			assertEquals(3, folders.size());

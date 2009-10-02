@@ -218,7 +218,7 @@ public class IMAPMessageView extends Composite implements Display{
 	}
 
 	public void setAttachments(List<MessageAttachment> attachements,
-			final String sessionUid, final String folder,
+			final String folder,
 			final long uid) {
 		attachments.clear();
 		if (attachements != null) {
@@ -233,8 +233,7 @@ public class IMAPMessageView extends Composite implements Display{
 	                             .getElement(), "src", GWT.getModuleBaseURL()
 	                             + "downloadAttachmentServlet?attachment_name="
 	                             + a.getName() + "&folder_name=" + folder
-	                               + "&message_uuid="
-	                             + uid + "&sessionId=" + sessionUid);
+	                             + "&message_uuid=" + uid);
 					}
 
 				});

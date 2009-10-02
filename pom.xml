@@ -133,7 +133,7 @@
 	</pluginRepositories>
 
 	<properties>
-		<gwtVersion>1.7.1</gwtVersion>
+		<gwtVersion>1.7.0</gwtVersion>
 	</properties>
 
 	<build>

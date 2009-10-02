@@ -52,7 +52,7 @@ public class CreateFolderHandler extends AbstractSessionHandler<CreateFolder, Em
 	@Override
 	protected EmptyResult executeInternal(CreateFolder action,
 			ExecutionContext context) throws ActionException {
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		IMAPFolder folder = action.getFolder();
 		
 		try {

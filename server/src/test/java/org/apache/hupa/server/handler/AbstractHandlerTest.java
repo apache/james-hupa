@@ -65,7 +65,6 @@ public abstract class AbstractHandlerTest extends TestCase{
 		User user = new User();
 		user.setName("test");
 		user.setPassword("password");
-		user.setSessionId(VALID_ID);
 		user.setSettings(new Settings());
 		return user;
 	}

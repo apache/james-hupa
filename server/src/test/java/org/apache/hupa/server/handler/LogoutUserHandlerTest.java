@@ -37,11 +37,10 @@ public class LogoutUserHandlerTest extends AbstractHandlerTest{
 		user.setName(username);
 		user.setPassword(password);
 		user.setAuthenticated(true);
-		user.setSessionId(VALID_ID);
 		session.setAttribute("user", user);
 		LogoutUserHandler handler = new LogoutUserHandler(storeCache,new MockLog(),sessionProvider);
 		try {
-			LogoutUserResult result = handler.execute(new LogoutUser(user.getSessionId()), null);
+			LogoutUserResult result = handler.execute(new LogoutUser(), null);
 			assertFalse("Not authenticated anymore", result.getUser().getAuthenticated());
 			assertNull("User removed", session.getAttribute("user"));
 			

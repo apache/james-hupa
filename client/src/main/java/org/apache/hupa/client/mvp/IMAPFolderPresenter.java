@@ -103,7 +103,7 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 	}
 
 	protected void loadTreeItems() {
-		dispatcher.execute(new FetchFolders(user.getSessionId()), new SessionAsyncCallback<FetchFoldersResult>(new DisplayCallback<FetchFoldersResult>(display) {
+		dispatcher.execute(new FetchFolders(), new SessionAsyncCallback<FetchFoldersResult>(new DisplayCallback<FetchFoldersResult>(display) {
 
 			@Override
 			protected void handleFailure(Throwable e) {
@@ -145,7 +145,7 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 						IMAPFolder iFolder = new IMAPFolder((String)event.getOldValue());
 						final String newName = (String)event.getNewValue();
 						if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
-							dispatcher.execute(new RenameFolder(user.getSessionId(), iFolder, newName), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+							dispatcher.execute(new RenameFolder(iFolder, newName), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
 
 								public void onFailure(Throwable caught) {
 									record.cancelEdit();
@@ -284,7 +284,7 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 		registerHandler(display.getDeleteConfirmClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				dispatcher.execute(new DeleteFolder(user.getSessionId(),folder), new AsyncCallback<EmptyResult>() {
+				dispatcher.execute(new DeleteFolder(folder), new AsyncCallback<EmptyResult>() {
 
 					public void onFailure(Throwable caught) {
 						GWT.log("ERROR while deleting", caught);
@@ -308,7 +308,7 @@ public class IMAPFolderPresenter extends WidgetPresenter<IMAPFolderPresenter.Dis
 						final IMAPTreeItem item = (IMAPTreeItem)event.getSource();
 						final String newValue = (String) event.getNewValue();
 						if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-							dispatcher.execute(new CreateFolder(user.getSessionId(),new IMAPFolder(newValue.trim())),  new AsyncCallback<EmptyResult>() {
+							dispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())),  new AsyncCallback<EmptyResult>() {
 
 								public void onFailure(Throwable caught) {
 									GWT.log("Error while create folder",caught);

@@ -19,20 +19,11 @@
 
 package org.apache.hupa.shared.rpc;
 
+import net.customware.gwt.dispatch.shared.Action;
 
-public class Noop extends Session<NoopResult>{
 
-	/**
-	 * 
-	 */
+public class Noop implements Action<NoopResult>{
+
 	private static final long serialVersionUID = 4076791577558340559L;
 
-	public Noop(String sessionId) {
-		super(sessionId);
-	}
-	
-	@SuppressWarnings("unused")
-	private Noop() {
-		
-	}
 }

@@ -22,25 +22,22 @@ package org.apache.hupa.shared.rpc;
 
 import java.util.ArrayList;
 
+import net.customware.gwt.dispatch.shared.Action;
+
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Tag;
 
-public class TagMessage extends Session<EmptyResult>{
+public class TagMessage implements Action<EmptyResult>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4323236257115412763L;
 	private IMAPFolder folder;
 	private ArrayList<Long> messageUids;
 	private Tag tag;
 
 	protected TagMessage() {
-		
 	}
 	
-	public TagMessage(String sessionId, Tag tag, IMAPFolder folder, ArrayList<Long> messageUids) {
-		super(sessionId);
+	public TagMessage(Tag tag, IMAPFolder folder, ArrayList<Long> messageUids) {
 		this.tag = tag;
 		this.folder = folder;
 		this.messageUids = messageUids;

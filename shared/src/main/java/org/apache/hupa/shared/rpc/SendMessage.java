@@ -20,19 +20,17 @@
 package org.apache.hupa.shared.rpc;
 
 
+import net.customware.gwt.dispatch.shared.Action;
+
 import org.apache.hupa.shared.data.SMTPMessage;
 
-public class SendMessage extends Session<EmptyResult>{
+public class SendMessage implements Action<EmptyResult>{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 973668124208945015L;
-	private SMTPMessage msg;
 
+	private SMTPMessage msg;
 	
-	public SendMessage(String sessionId, SMTPMessage msg) {
-		super(sessionId);
+	public SendMessage(SMTPMessage msg) {
 		this.msg = msg;
 	}
 	

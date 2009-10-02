@@ -19,18 +19,16 @@
 
 package org.apache.hupa.shared.rpc;
 
+import net.customware.gwt.dispatch.shared.Action;
+
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class CreateFolder extends Session<EmptyResult>{
+public class CreateFolder implements Action<EmptyResult>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4966856616698265177L;
 	private IMAPFolder folder;
 
-	public CreateFolder(String sessionId, IMAPFolder folder) {
-		super(sessionId);
+	public CreateFolder(IMAPFolder folder) {
 		this.folder = folder;
 	}
 

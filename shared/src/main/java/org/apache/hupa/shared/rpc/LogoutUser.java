@@ -19,21 +19,14 @@
 
 package org.apache.hupa.shared.rpc;
 
+import net.customware.gwt.dispatch.shared.Action;
 
-public class LogoutUser extends Session<LogoutUserResult>{
 
-	/**
-	 * 
-	 */
+public class LogoutUser implements Action<LogoutUserResult>{
+
 	private static final long serialVersionUID = 2255166545722718094L;
 	
-	public LogoutUser(String sessionId) {
-		super(sessionId);
+	public LogoutUser() {
 	}
 	
-	@SuppressWarnings("unused")
-	private LogoutUser() {
-		
-	}
-
 }

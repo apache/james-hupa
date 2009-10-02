@@ -374,7 +374,7 @@ public class IMAPMessageListView extends Composite implements Display{
 				});
 			}
 			
-			dispatcher.execute(new FetchMessages(user.getSessionId(),folder,request.getStartRow(),request.getNumRows(),searchValue), new AsyncCallback<FetchMessagesResult>() {
+			dispatcher.execute(new FetchMessages(folder, request.getStartRow(), request.getNumRows(),searchValue), new AsyncCallback<FetchMessagesResult>() {
 
 				public void onFailure(Throwable caught) {
 					callback.onFailure(caught);

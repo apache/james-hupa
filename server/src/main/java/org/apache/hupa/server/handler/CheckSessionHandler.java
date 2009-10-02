@@ -17,61 +17,55 @@
  * under the License.                                           *
  ****************************************************************/
 
+
 package org.apache.hupa.server.handler;
 
 import javax.servlet.http.HttpSession;
 
+import net.customware.gwt.dispatch.server.ActionHandler;
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.InMemoryIMAPStoreCache;
-import org.apache.hupa.shared.rpc.Noop;
-import org.apache.hupa.shared.rpc.NoopResult;
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.rpc.CheckSession;
+import org.apache.hupa.shared.rpc.CheckSessionResult;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.sun.mail.imap.IMAPStore;
 
 /**
- * Handle Noops
- * 
- *
+ * Handler for asking the server if the session is valid
  */
-public class NoopHandler extends AbstractSessionHandler<Noop, NoopResult>{
-
-
-	@Inject
-	public NoopHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> provider) {
-		super(cache,logger,provider);
-	}
+public class CheckSessionHandler implements ActionHandler<CheckSession, CheckSessionResult> {
 	
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
-	public NoopResult executeInternal(Noop action, ExecutionContext context)
-			throws ActionException {
-		try {
-			IMAPStore store = cache.get(getUser());
-			if (store.getURLName() != null &&
-				!InMemoryIMAPStoreCache.DEMO_MODE.equals(store.getURLName().getHost()) ) {
-				// just send a noop to keep the connection alive
-				store.idle();
-			}
-			return new NoopResult();
-		} catch (Exception e) {
-			throw new ActionException("Unable to send NOOP " + e.getMessage());
-		}
+	protected final Provider<HttpSession> sessionProvider;
+	protected final Log logger;
+	
+	@Inject
+	public CheckSessionHandler(Log logger, Provider<HttpSession> provider) {
+		this.sessionProvider = provider;
+		this.logger = logger;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<Noop> getActionType() {
-		return Noop.class;
+	public CheckSessionResult execute(CheckSession arg0, ExecutionContext arg1) throws ActionException {
+		CheckSessionResult ret = new CheckSessionResult();
+		try {
+			User user = (User) sessionProvider.get().getAttribute("user");
+			if (user != null && user.getAuthenticated())
+				ret.setUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
+
+	public Class<CheckSession> getActionType() {
+		return CheckSession.class;
+	}
+
+	public void rollback(CheckSession arg0, CheckSessionResult arg1, ExecutionContext arg2) throws ActionException {
+	}
+
 
 }

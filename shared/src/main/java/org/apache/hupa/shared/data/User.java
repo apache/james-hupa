@@ -29,15 +29,11 @@ import java.util.Date;
  */
 public class User implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -573674209289821920L;
 	private String name;
 	private String password;
 	private Date loginDate;
 	private boolean auth;
-	private String sessionId;
 	private Settings settings;
 	
 	
@@ -129,14 +125,6 @@ public class User implements Serializable{
 	 */
 	public boolean getAuthenticated() {
 		return auth;
-	}
-	
-	public String getSessionId() {
-		return sessionId;
-	}
-	
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
 	}
 	
 	public void setSettings(Settings settings) {

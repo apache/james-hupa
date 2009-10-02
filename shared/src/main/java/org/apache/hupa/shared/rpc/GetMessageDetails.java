@@ -20,19 +20,17 @@
 
 package org.apache.hupa.shared.rpc;
 
+import net.customware.gwt.dispatch.shared.Action;
+
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class GetMessageDetails extends Session<GetMessageDetailsResult>{
+public class GetMessageDetails implements Action<GetMessageDetailsResult>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5826298202494313834L;
 	private IMAPFolder folder;
 	private long uid;
 
-	public GetMessageDetails(String sessionId, IMAPFolder folder, long uid) {
-		super(sessionId);
+	public GetMessageDetails(IMAPFolder folder, long uid) {
 		this.folder = folder;
 		this.uid = uid;
 	}
@@ -52,7 +50,7 @@ public class GetMessageDetails extends Session<GetMessageDetailsResult>{
 	public boolean equals(Object obj) {
 		if (obj instanceof GetMessageDetails) {
 			GetMessageDetails action = (GetMessageDetails) obj;
-			if (action.getSessionId().equals(getSessionId()) && action.getFolder().equals(getFolder()) && action.getUid() == getUid()) {
+			if (action.getFolder().equals(getFolder()) && action.getUid() == getUid()) {
 				return true;
 			}
 		}
@@ -61,6 +59,6 @@ public class GetMessageDetails extends Session<GetMessageDetailsResult>{
 	}
 	
 	public int hashCode() {
-		return (int) (getSessionId().hashCode() * getFolder().hashCode() * getUid());
+		return (int) (getFolder().hashCode() * getUid());
 	}
 }

@@ -58,7 +58,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 	@Override
 	protected FetchMessagesResult executeInternal(A action,
 			ExecutionContext context) throws ActionException {
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		IMAPFolder folder = action.getFolder();
 		com.sun.mail.imap.IMAPFolder f = null;
 		try {

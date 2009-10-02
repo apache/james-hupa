@@ -23,23 +23,18 @@ import java.util.ArrayList;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class DeleteMessageByUid extends DeleteMessage{
+public class DeleteMessageByUid extends DeleteMessage {
 
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5980938676368660849L;
+
 	private ArrayList<Long> messageUids;
 
-
-	public DeleteMessageByUid(String sessionId,IMAPFolder folder, ArrayList<Long> messageUids) {
-		super(sessionId,folder);
+	public DeleteMessageByUid(IMAPFolder folder, ArrayList<Long> messageUids) {
+		super(folder);
 		this.messageUids = messageUids;
 	}
 	
 	protected DeleteMessageByUid() {
-		
 	}
 	
 	public ArrayList<Long> getMessageUids() {

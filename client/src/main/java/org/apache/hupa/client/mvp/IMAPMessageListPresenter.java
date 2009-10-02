@@ -126,7 +126,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
 			public void onMoveMessageHandler(MoveMessageEvent event) {
 				final Message message = event.getMessage();
-				dispatcher.execute(new MoveMessage(event.getUser().getSessionId(),event.getOldFolder(),event.getNewFolder(),message.getUid()), new SessionAsyncCallback<MoveMessageResult>(new AsyncCallback<MoveMessageResult>() {
+				dispatcher.execute(new MoveMessage(event.getOldFolder(), event.getNewFolder(), message.getUid()), new SessionAsyncCallback<MoveMessageResult>(new AsyncCallback<MoveMessageResult>() {
 
 					public void onFailure(Throwable caught) {
 						GWT.log("ERROR while moving",caught);
@@ -199,7 +199,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		registerHandler(display.getConfirmDeleteAllDialogClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				dispatcher.execute(new DeleteAllMessages(user.getSessionId(),folder), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
+				dispatcher.execute(new DeleteAllMessages(folder), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
 
 					public void onFailure(Throwable caught) {
 						GWT.log("E=", caught);
@@ -225,7 +225,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 						selectedMessages.remove(m);
 					}
 				}
-				dispatcher.execute(new SetFlag(user.getSessionId(), folder, IMAPFlag.SEEN, true, uids), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+				dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, true, uids), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
 					public void onFailure(Throwable caught) {
 						GWT.log("ERR=", caught);
 					}
@@ -262,7 +262,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 					}
 				}
 				
-				dispatcher.execute(new SetFlag(user.getSessionId(), folder, IMAPFlag.SEEN, false, uids), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+				dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, false, uids), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
 					public void onFailure(Throwable caught) {
 						GWT.log("ERR=", caught);
 					}
@@ -312,11 +312,10 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		for (int i = 0; i < selectedMessages.size(); i++) {
 			uids.add(selectedMessages.get(i).getUid());
 		}
-		dispatcher.execute(new DeleteMessageByUid(user.getSessionId(),folder,uids), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
+		dispatcher.execute(new DeleteMessageByUid(folder,uids), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
 
 			public void onFailure(Throwable caught) {
 				// TODO Auto-generated method stub
-				
 			}
 
 			public void onSuccess(DeleteMessageResult result) {

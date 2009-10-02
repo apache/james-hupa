@@ -57,7 +57,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
 	 */
 	public FetchFoldersResult executeInternal(FetchFolders action, ExecutionContext arg1)
 	throws ActionException {
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		ArrayList<IMAPFolder> fList = new ArrayList<IMAPFolder>();
 		try {
 			// get the store for the user

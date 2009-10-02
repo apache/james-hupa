@@ -68,8 +68,7 @@ public class GetMessageDetailsHandler extends
 	 */
 	public GetMessageDetailsResult executeInternal(GetMessageDetails action,
 			ExecutionContext arg1) throws ActionException {
-		return new GetMessageDetailsResult(exposeMessage(getUser(action
-				.getSessionId()), action.getFolder(), action.getUid()));
+		return new GetMessageDetailsResult(exposeMessage(getUser(), action.getFolder(), action.getUid()));
 	}
 
 	/*

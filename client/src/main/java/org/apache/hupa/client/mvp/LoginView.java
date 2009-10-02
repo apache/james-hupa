@@ -59,7 +59,6 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
     
     	VerticalPanel vPanel = new VerticalPanel();
         vPanel.setSpacing(5);
-        vPanel.setWidth("100%");
         vPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
         vPanel.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
 
@@ -84,10 +83,8 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
 
         usernameTextBox.addKeyUpHandler(this);
         usernameTextBox.setFocus(true);
-        usernameTextBox.setWidth("150px");
         
         passwordTextBox.addKeyUpHandler(this);
-        passwordTextBox.setWidth("150px");
 
         formPanel.add(grid);
         formPanel.add(loading);
@@ -105,13 +102,18 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
         errorLabel.setStyleName("hupa-ErrorLabel");
         formPanel.add(errorLabel);
         
-    	RoundedPanel rPanel = new RoundedPanel(RoundedPanel.ALL,1);
-    	rPanel.setBorder();
-    	rPanel.setWidth("250px");
+        RoundedPanel rPanel = new RoundedPanel(RoundedPanel.ALL,1);
+        rPanel.setBorder();
         rPanel.add(formPanel);
         vPanel.add(rPanel);
         vPanel.add(loading);
         initWidget(vPanel);
+        
+        // TODO: move width to style sheet to be customizable
+        vPanel.setWidth("100%");
+        rPanel.setWidth("400px");
+        usernameTextBox.setWidth("250px");
+        passwordTextBox.setWidth("250px");
     }
 
 

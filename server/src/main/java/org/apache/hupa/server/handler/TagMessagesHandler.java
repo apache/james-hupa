@@ -59,7 +59,7 @@ public class TagMessagesHandler extends AbstractSessionHandler<TagMessage, Empty
 	 */
 	protected EmptyResult executeInternal(TagMessage action,
 			ExecutionContext context) throws ActionException {
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		ArrayList<Long> uids = action.getMessageUids();
 		Tag tag = action.getTag();
 		IMAPFolder folder = null;

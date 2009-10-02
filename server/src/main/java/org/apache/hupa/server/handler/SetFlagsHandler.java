@@ -53,7 +53,7 @@ public class SetFlagsHandler extends AbstractSessionHandler<SetFlag, EmptyResult
 	@Override
 	protected EmptyResult executeInternal(SetFlag action,
 			ExecutionContext context) throws ActionException {
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		IMAPFolder folder = action.getFolder();
 		ArrayList<Long> uids = action.getUids();
 		com.sun.mail.imap.IMAPFolder f = null;

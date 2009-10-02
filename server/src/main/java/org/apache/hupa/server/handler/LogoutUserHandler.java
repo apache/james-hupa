@@ -53,7 +53,7 @@ public class LogoutUserHandler extends AbstractSessionHandler<LogoutUser, Logout
 	 */
 	public LogoutUserResult executeInternal(LogoutUser action, ExecutionContext arg1)
 			throws ActionException {
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		user.setAuthenticated(false);
 		
 		// delete cached store

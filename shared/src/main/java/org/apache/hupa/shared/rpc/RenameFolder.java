@@ -19,19 +19,17 @@
 
 package org.apache.hupa.shared.rpc;
 
+import net.customware.gwt.dispatch.shared.Action;
+
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class RenameFolder extends Session<EmptyResult>{
+public class RenameFolder implements Action<EmptyResult>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1924419911921600320L;
 	private IMAPFolder folder;
 	private String newName;
 
-	public RenameFolder(String sessionUid,IMAPFolder folder, String newName) {
-		super(sessionUid);
+	public RenameFolder(IMAPFolder folder, String newName) {
 		this.folder = folder;
 		this.newName = newName;
 	}

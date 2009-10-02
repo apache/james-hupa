@@ -20,6 +20,7 @@
 package org.apache.hupa.client.mvp;
 
 import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.shared.events.ServerStatusEvent.ServerStatus;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -29,6 +30,7 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -42,6 +44,27 @@ public class AppView extends Composite implements AppPresenter.Display {
 	private HTML dummy = new HTML("&nbsp");
 	private Label userName = new Label();
 	private HorizontalPanel loginInfoPanel = new HorizontalPanel();
+	private ServerStatusPanel serverStatusPanel  = new ServerStatusPanel();
+	
+	private class ServerStatusPanel extends PopupPanel {
+		HTML messageLabel = new HTML("");
+		ServerStatusPanel() {
+			add(messageLabel);
+			addStyleName("hupa-server-status");
+			setPopupPosition(400, 1);
+			setAnimationEnabled(true);
+		}
+		// TODO: i18n (take a look to gmail's messages when the server is unacessible)
+		public void setStatus(ServerStatus status) {
+			if (status == ServerStatus.Available) {
+				messageLabel.setHTML("<h2>Server is available now.</h2>");
+				hide();
+			} else {
+				messageLabel.setHTML("<h2>Server unavailable</h2>");
+				show();
+			}
+		}
+	}
 
 	public AppView() {
 		VerticalPanel vPanel = new VerticalPanel();
@@ -136,6 +159,10 @@ public class AppView extends Composite implements AppPresenter.Display {
 	 */
 	public HasText getUserText() {
 		return userName;
+	}
+
+	public void setServerStatus(ServerStatus status) {
+		serverStatusPanel.setStatus(status);
 	}
 
 }

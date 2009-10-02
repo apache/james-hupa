@@ -17,44 +17,34 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.rpc;
+package org.apache.hupa.shared.events;
 
-import net.customware.gwt.dispatch.shared.Action;
+import com.google.gwt.event.shared.GwtEvent;
 
-import org.apache.hupa.shared.data.IMAPFolder;
+public class ServerStatusEvent extends GwtEvent<ServerStatusEventHandler> {
+	public static Type<ServerStatusEventHandler> TYPE = new Type<ServerStatusEventHandler>();
 
-public class FetchMessages implements Action<FetchMessagesResult>{
-	
-	private static final long serialVersionUID = -3181183289937321202L;
-	private IMAPFolder folder;
-	private int start;
-	private int offset;
-	private String searchString;
-
-	protected FetchMessages() {
+	public enum ServerStatus {
+		Unknown, Available, Unavailable, Error
 	}
 	
-	public FetchMessages(IMAPFolder folder,int start, int offset,String searchString) {
-		this.folder = folder;
-		this.start = start;
-		this.offset = offset;
-		this.searchString = searchString;
+	private ServerStatus status = ServerStatus.Unknown;
+	public ServerStatusEvent(ServerStatus status) {
+		this.status = status;
 	}
 	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public int getStart() {
-		return start;
-	}
-	
-	public int getOffset() {
-		return offset;
+	public ServerStatus getStatus() {
+		return status;
 	}
 
-	public String getSearchString() {
-		return searchString;
+	@Override
+	protected void dispatch(ServerStatusEventHandler handler) {
+		handler.onServerStatusChange(this);
 	}
 
+	@Override
+	public com.google.gwt.event.shared.GwtEvent.Type<ServerStatusEventHandler> getAssociatedType() {
+		return TYPE;
+	}
+	
 }

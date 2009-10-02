@@ -20,19 +20,17 @@
 
 package org.apache.hupa.shared.rpc;
 
+import net.customware.gwt.dispatch.shared.Action;
+
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class RawMessage extends Session<RawMessageResult>{
+public class RawMessage implements Action<RawMessageResult> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5826298202494313834L;
 	private IMAPFolder folder;
 	private long uid;
 
-	public RawMessage(String sessionId, IMAPFolder folder, long uid) {
-		super(sessionId);
+	public RawMessage(IMAPFolder folder, long uid) {
 		this.folder = folder;
 		this.uid = uid;
 	}
@@ -52,16 +50,15 @@ public class RawMessage extends Session<RawMessageResult>{
 	public boolean equals(Object obj) {
 		if (obj instanceof RawMessage) {
 			RawMessage action = (RawMessage) obj;
-			if (action.getSessionId().equals(getSessionId()) && action.getFolder().equals(getFolder()) && action.getUid() == getUid()) {
+			if (action.getFolder().equals(getFolder()) && action.getUid() == getUid()) {
 				return true;
 			}
 		}
 		return false;
-		
 	}
 	
 	public int hashCode() {
-		return (int) (getSessionId().hashCode() * getFolder().hashCode() * getUid());
+		return (int) (getFolder().hashCode() * getUid());
 	}
 	
 }

@@ -49,13 +49,13 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
 		session.setAttribute("user", user);
 		IMAPFolder folder = new IMAPFolder();
 		folder.setFullName("NOT_EXISTS");
-		DeleteMessageByUid action = new DeleteMessageByUid(VALID_ID,folder,new ArrayList<Long>());
+		DeleteMessageByUid action = new DeleteMessageByUid(folder,new ArrayList<Long>());
 
 		try {
 			handler.execute(action, null);
 			fail("Folder should not exists!");
 		} catch (ActionException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
@@ -77,7 +77,7 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
 		ArrayList<Long> uids = new ArrayList<Long>();
 		uids.add(new Long(1));
 		uids.add(new Long(3));
-		DeleteMessageByUid action = new DeleteMessageByUid(VALID_ID, folder, uids);
+		DeleteMessageByUid action = new DeleteMessageByUid(folder, uids);
 
 		MockIMAPFolder f3 = (MockIMAPFolder) store.getFolder(user.getSettings().getTrashFolderName());
 		assertFalse("Trash folder not exists yet",f3.exists());
@@ -114,7 +114,7 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
 		ArrayList<Long> uids = new ArrayList<Long>();
 		uids.add(new Long(1));
 		uids.add(new Long(3));
-		DeleteMessageByUid action = new DeleteMessageByUid(VALID_ID, folder, uids);
+		DeleteMessageByUid action = new DeleteMessageByUid(folder, uids);
 
 		try {
 			DeleteMessageResult result = handler.execute(action, null);

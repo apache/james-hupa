@@ -31,7 +31,7 @@ public class NoopHandlerTest extends AbstractHandlerTest{
 	public void testNoop() {
 		NoopHandler handler = new NoopHandler(storeCache,new MockLog(),sessionProvider);
 		User user = createUser();
-		Noop action = new Noop(user.getSessionId());
+		Noop action = new Noop();
 		storeCache.addValidUser(user.getName(), user.getPassword());
 		session.setAttribute("user", user);
 		try {

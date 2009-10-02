@@ -62,7 +62,7 @@ public class ReplyMessageHandler extends AbstractSendMessageHandler<ReplyMessage
 	 */
 	protected Message createMessage(Session session, ReplyMessage action)
 			throws AddressException, MessagingException, ActionException {
-		IMAPStore store = cache.get(getUser(action.getSessionId()));
+		IMAPStore store = cache.get(getUser());
 		IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
 		if (folder.isOpen() == false) {
 			folder.open(Folder.READ_ONLY);

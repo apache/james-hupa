@@ -21,29 +21,27 @@ package org.apache.hupa.shared.rpc;
 
 import java.util.ArrayList;
 
+import net.customware.gwt.dispatch.shared.Action;
+
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 
-public class SetFlag extends Session<EmptyResult>{
+public class SetFlag implements Action<EmptyResult>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 662741801793895357L;
 	private IMAPFlag flag;
 	private ArrayList<Long> uids;
 	private IMAPFolder folder;
 	private boolean value;
 	
-	public SetFlag(String session, IMAPFolder folder, IMAPFlag flag, boolean value, ArrayList<Long> uids) {
-		super(session);
+	public SetFlag(IMAPFolder folder, IMAPFlag flag, boolean value, ArrayList<Long> uids) {
 		this.flag = flag;
 		this.value = value;
 		this.uids = uids;
 		this.folder = folder;
 	}
+	
 	protected SetFlag() {
-		
 	}
 	
 	public IMAPFolder getFolder() {

@@ -50,7 +50,7 @@ public class GetRawMessageHandler extends AbstractSessionHandler<RawMessage, Raw
 	@Override
 	protected RawMessageResult executeInternal(RawMessage action,
 			ExecutionContext context) throws ActionException {
-		User user = getUser(action.getSessionId());
+		User user = getUser();
 		long uid = action.getUid();
 		org.apache.hupa.shared.data.IMAPFolder folder = action.getFolder();
 		try {

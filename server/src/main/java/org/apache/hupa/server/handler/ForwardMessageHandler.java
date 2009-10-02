@@ -98,7 +98,7 @@ public class ForwardMessageHandler extends AbstractSendMessageHandler<ForwardMes
 		Multipart multipart = new MimeMultipart();
 		multipart.addBodyPart(messageBodyPart);
 		
-		IMAPStore store = cache.get(getUser(action.getSessionId()));
+		IMAPStore store = cache.get(getUser());
 		
 		IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
 		if (folder.isOpen() == false) {

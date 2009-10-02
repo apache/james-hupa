@@ -41,7 +41,7 @@ public class LoginUserHandlerTest extends AbstractHandlerTest{
 			handler.execute(new LoginUser("invalid","invalid"), null);
 			fail("Should throw an exception");
 		} catch (ActionException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		assertNull("no user stored in session", session.getAttribute("user"));
 	}
@@ -58,7 +58,6 @@ public class LoginUserHandlerTest extends AbstractHandlerTest{
 			assertEquals("Authenticated", true, u.getAuthenticated());
 			assertEquals("Authenticated", username, u.getName());
 			assertEquals("Authenticated", password, u.getPassword());
-			assertEquals("Authenticated", VALID_ID, u.getSessionId());
 			assertEquals("User stored in session", u, session.getAttribute("user"));
 		} catch (ActionException e) {
 			e.printStackTrace();

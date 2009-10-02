@@ -19,40 +19,26 @@
 
 package org.apache.hupa.shared.rpc;
 
-import net.customware.gwt.dispatch.shared.Action;
+import org.apache.hupa.shared.data.User;
+
 import net.customware.gwt.dispatch.shared.Result;
 
-public abstract class Session<R extends Result> implements Action<R>{
+public class CheckSessionResult implements Result {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4235459859099723779L;
-	private String sessionId;
+	private static final long serialVersionUID = -4785233314922498952L;
+	boolean valid = false;
 
-	protected Session() {
-		
+	private User user;
+
+	public User getUser() {
+		return user;
 	}
-	
-	public Session(String sessionId) {
-		this.sessionId = sessionId;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
-	public String getSessionId() {
-		return sessionId;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public boolean equals(Object obj) {
-		if (obj instanceof Session) {
-			if(((Session)obj).getSessionId().equals(getSessionId())) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public int hashCode() {
-		return getSessionId().hashCode();
+
+	public boolean isValid() {
+		return user != null && user.getAuthenticated();
 	}
 }

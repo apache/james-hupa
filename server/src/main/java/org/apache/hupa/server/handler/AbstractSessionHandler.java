@@ -22,25 +22,25 @@ package org.apache.hupa.server.handler;
 
 import javax.servlet.http.HttpSession;
 
+import net.customware.gwt.dispatch.server.ActionHandler;
+import net.customware.gwt.dispatch.server.ExecutionContext;
+import net.customware.gwt.dispatch.shared.Action;
+import net.customware.gwt.dispatch.shared.ActionException;
+import net.customware.gwt.dispatch.shared.Result;
+
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.exception.InvalidSessionException;
-import org.apache.hupa.shared.rpc.Session;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-
-import net.customware.gwt.dispatch.server.ActionHandler;
-import net.customware.gwt.dispatch.server.ExecutionContext;
-import net.customware.gwt.dispatch.shared.ActionException;
-import net.customware.gwt.dispatch.shared.Result;
 /**
  * Abstract class which take care of checking if the session is still valid before
  * executing the handler
  * 
  */
-public abstract class AbstractSessionHandler<A extends Session<R>,R extends Result> implements ActionHandler<A, R> {
+public abstract class AbstractSessionHandler<A extends Action<R>,R extends Result> implements ActionHandler<A, R> {
 
 	protected final Provider<HttpSession> sessionProvider;
 	protected final IMAPStoreCache cache;
@@ -57,10 +57,10 @@ public abstract class AbstractSessionHandler<A extends Session<R>,R extends Resu
 	 * Check if the session is valid, if that is true execute executeInternal method
 	 */
 	public R execute(A action, ExecutionContext context) throws ActionException {
-		if (isValidSession(action.getSessionId())) {
+		if (isValidSession()) {
 			return executeInternal(action, context);
 		} else {
-			throw new InvalidSessionException("Invalid SessionId=" +action.getSessionId());
+			throw new InvalidSessionException("Invalid Session");
 		}
 	}
 	
@@ -84,11 +84,9 @@ public abstract class AbstractSessionHandler<A extends Session<R>,R extends Resu
 	 * @param sessionId
 	 * @return isValid
 	 */
-	protected boolean isValidSession(String sessionId) {
-		if (sessionProvider.get().getId().equals(sessionId)) {
-			return true;
-		}
-		return false;
+	protected boolean isValidSession() {
+		// TODO: MCM delete or implement this method
+		return true;
 	}
 	
 	/**
@@ -98,10 +96,10 @@ public abstract class AbstractSessionHandler<A extends Session<R>,R extends Resu
 	 * @return user
 	 * @throws ActionException
 	 */
-	protected User getUser(String sessionId) throws ActionException{
+	protected User getUser() throws ActionException{
 		User user = (User) sessionProvider.get().getAttribute("user");
 		if (user == null) {
-			throw new InvalidSessionException("User not found in session with id " + sessionId);
+			throw new InvalidSessionException("User not found in session with id " + sessionProvider.get().getId());
 		} else {
 			return user;
 		}
