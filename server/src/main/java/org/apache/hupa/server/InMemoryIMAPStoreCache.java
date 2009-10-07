@@ -86,9 +86,19 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 			cstore = createCachedIMAPStore();
 		} else {
 			if (cstore.isExpired() == false) {
-				cstore.validate();
+			    try {
+			        cstore.validate();
+			    } catch (MessagingException e) {
+			        
+			        cstore = createCachedIMAPStore();
+			    }
 			} else {
 				pool.remove(username);
+				try {
+				    if (cstore != null) cstore.getStore().close();
+				} catch (MessagingException e) {
+				    // ignore on close
+				}
 				cstore = createCachedIMAPStore();
 			}
 		}
@@ -154,7 +164,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 		}
 		
 		public boolean isExpired() {
-			if (validTo < System.currentTimeMillis()) {
+			if (validTo < System.currentTimeMillis() && store.isConnected()) {
 				return false;
 			}
 			return true;
