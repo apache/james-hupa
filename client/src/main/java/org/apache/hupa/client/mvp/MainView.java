@@ -72,23 +72,23 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class MainView extends Composite implements MainPresenter.Display{
-	
-	private DockPanel dockPanel;
-	private VerticalPanel north;
-	private HupaConstants constants = GWT.create(HupaConstants.class);
-	private RoundedPanel west;
-	private IMAPTreeImages tImages = GWT.create(IMAPTreeImages.class);
-	private Tree folderTree = new Tree(tImages,true);
-	private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");  
-	private SuggestBox searchBox = new SuggestBox(oracle);
-	private Button searchButton = new Button(constants.searchButton());
-	private Loading loading = new Loading(false);
-	private Widget centerWidget;
-	private RoundedPanel center;
-	private IMAPMessageListView mListView;
-	private HupaMessages messages = GWT.create(HupaMessages.class);
-	private VerticalPanel folderPanel = new VerticalPanel();
+public class MainView extends Composite implements MainPresenter.Display {
+
+    private DockPanel dockPanel;
+    private VerticalPanel north;
+    private HupaConstants constants = GWT.create(HupaConstants.class);
+    private RoundedPanel west;
+    private IMAPTreeImages tImages = GWT.create(IMAPTreeImages.class);
+    private Tree folderTree = new Tree(tImages, true);
+    private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
+    private SuggestBox searchBox = new SuggestBox(oracle);
+    private Button searchButton = new Button(constants.searchButton());
+    private Loading loading = new Loading(false);
+    private Widget centerWidget;
+    private RoundedPanel center;
+    private IMAPMessageListView mListView;
+    private HupaMessages messages = GWT.create(HupaMessages.class);
+    private VerticalPanel folderPanel = new VerticalPanel();
     private SimplePanel panel = new SimplePanel();
     private HorizontalPanel folderButtonBar = new HorizontalPanel();
     private EnableHyperlink newFolderButton = new EnableHyperlink(constants.newFolder(), "");
@@ -100,166 +100,165 @@ public class MainView extends Composite implements MainPresenter.Display{
     private EventBus bus;
     private PagingScrollTableRowDragController controller;
     protected User user;
-	
-	@Inject
-	public MainView(EventBus bus, PagingScrollTableRowDragController controllerProvider) {
+
+    @Inject
+    public MainView(EventBus bus, PagingScrollTableRowDragController controllerProvider) {
         this.controller = controllerProvider;
         this.bus = bus;
-		
-		dockPanel = new DockPanel();
-		
-		dockPanel.setSpacing(10);
-		dockPanel.setWidth("100%");
 
-		createNorth();
-		createWest();
-		createCenter();
+        dockPanel = new DockPanel();
 
-		dockPanel.add(north, DockPanel.NORTH);
-		dockPanel.add(west, DockPanel.WEST);
-		dockPanel.add(center, DockPanel.CENTER);
-		dockPanel.setCellHorizontalAlignment(north, DockPanel.ALIGN_RIGHT);
-		dockPanel.setCellHorizontalAlignment(center, DockPanel.ALIGN_LEFT);
-		
-		initWidget(dockPanel);
-	}
+        dockPanel.setSpacing(10);
+        dockPanel.setWidth("100%");
 
-	private void createWest() {
-			west = new RoundedPanel(RoundedPanel.ALL,1);
-			west.add(folderTree);
-			west.setWidth("150px");	
-			
-			 
-	        folderTree.setAnimationEnabled(true);   
-	        folderPanel.setSpacing(5);
-	        
-	        
-	        folderButtonBar.setSpacing(3);
-	        folderButtonBar.add(newFolderButton);
-	        folderButtonBar.add(renameFolderButton);
-	        folderButtonBar.add(deleteFolderButton);
-	        RoundedPanel buttonPanel = new RoundedPanel(RoundedPanel.ALL,1);
-	        buttonPanel.setBorder();
-	        buttonPanel.add(folderButtonBar);
-	        
-	        folderPanel.add(buttonPanel);
-	        folderPanel.add(folderTree);
+        createNorth();
+        createWest();
+        createCenter();
 
-	        panel.add(loader);
-	        confirmFolderDeleteBox.setText(messages.confirmDeleteFolder());
+        dockPanel.add(north, DockPanel.NORTH);
+        dockPanel.add(west, DockPanel.WEST);
+        dockPanel.add(center, DockPanel.CENTER);
+        dockPanel.setCellHorizontalAlignment(north, DockPanel.ALIGN_RIGHT);
+        dockPanel.setCellHorizontalAlignment(center, DockPanel.ALIGN_LEFT);
 
-	        bus.addHandler(LoginEvent.TYPE,new LoginEventHandler() {
+        initWidget(dockPanel);
+    }
 
-	            public void onLogin(LoginEvent event) {
-	                user = event.getUser();
-	            }
-	            
-	        });
-	        bus.addHandler(LogoutEvent.TYPE,new LogoutEventHandler() {
+    private void createWest() {
+        west = new RoundedPanel(RoundedPanel.ALL, 1);
+        west.add(folderTree);
+        west.setWidth("150px");
 
-	            public void onLogout(LogoutEvent event) {
-	                user = null;
-	            }
-	            
-	        });
-	        west.add(panel);
-	}
-	
-	private void createNorth() {
-		north = new VerticalPanel();
-		north.setWidth("100%");
-		
-		
-		HorizontalPanel barPanel = new HorizontalPanel();
-		barPanel.setWidth("100%");
+        folderTree.setAnimationEnabled(true);
+        folderPanel.setSpacing(5);
 
-		HorizontalPanel hPanel = new HorizontalPanel();
-		hPanel.setSpacing(5);
-		hPanel.setVerticalAlignment(HorizontalPanel.ALIGN_MIDDLE);
-	
-		
-		searchBox.setAnimationEnabled(true);
-		searchBox.setAutoSelectEnabled(false);
-		searchBox.setWidth("250px");
-		searchBox.setLimit(20);
-		searchBox.addKeyUpHandler(new KeyUpHandler() {
+        folderButtonBar.setSpacing(3);
+        folderButtonBar.add(newFolderButton);
+        folderButtonBar.add(renameFolderButton);
+        folderButtonBar.add(deleteFolderButton);
+        RoundedPanel buttonPanel = new RoundedPanel(RoundedPanel.ALL, 1);
+        buttonPanel.setBorder();
+        buttonPanel.add(folderButtonBar);
 
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					searchButton.click();
-				}
-			}
-			
-		});
-		hPanel.add(searchBox);
-		hPanel.add(searchButton);
-		barPanel.add(hPanel);
-		barPanel.setCellHorizontalAlignment(hPanel, HorizontalPanel.ALIGN_LEFT);
-		barPanel.add(loading);
-		barPanel.setCellHorizontalAlignment(loading,HorizontalPanel.ALIGN_RIGHT);
-		barPanel.setCellVerticalAlignment(loading, HorizontalPanel.ALIGN_MIDDLE);
-		
-		north.add(barPanel);
-		
-	}
+        folderPanel.add(buttonPanel);
+        folderPanel.add(folderTree);
 
-	private void createCenter() {
-		center = new RoundedPanel(RoundedPanel.ALL, 1);
-		center.setBorder();
-		center.setWidth("100%");
-		center.add(mListView);
+        panel.add(loader);
+        confirmFolderDeleteBox.setText(messages.confirmDeleteFolder());
 
-	}
+        bus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 
-	public HasClickHandlers getSearchClick() {
-		return searchButton;
-	}
-	public HasValue<String> getSearchValue() {
-		return searchBox;
-	}
-	
+            public void onLogin(LoginEvent event) {
+                user = event.getUser();
+            }
 
-	public void fillOracle(ArrayList<Message> messages) {
-		for (int i = 0; i < messages.size();i++) {
-			String subject = messages.get(i).getSubject();
-			String from = messages.get(i).getFrom();
-			if (subject != null && subject.trim().length() > 0) {
-				oracle.add(subject.trim());
-			}
-			if (from != null && from.trim().length() > 0) {
-				oracle.add(from.trim());
-			}
-		}
-		searchBox.setText("");
-	}
+        });
+        bus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
 
-	public void setCenter(Widget widget) {
-		centerWidget = widget;
-		center.setWidget(centerWidget);
-	}
-	
+            public void onLogout(LogoutEvent event) {
+                user = null;
+            }
+
+        });
+        west.add(panel);
+    }
+
+    private void createNorth() {
+        north = new VerticalPanel();
+        north.setWidth("100%");
+
+        HorizontalPanel barPanel = new HorizontalPanel();
+        barPanel.setWidth("100%");
+
+        HorizontalPanel hPanel = new HorizontalPanel();
+        hPanel.setSpacing(5);
+        hPanel.setVerticalAlignment(HorizontalPanel.ALIGN_MIDDLE);
+
+        searchBox.setAnimationEnabled(true);
+        searchBox.setAutoSelectEnabled(false);
+        searchBox.setWidth("250px");
+        searchBox.setLimit(20);
+        searchBox.addKeyUpHandler(new KeyUpHandler() {
+
+            public void onKeyUp(KeyUpEvent event) {
+                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                    searchButton.click();
+                }
+            }
+
+        });
+        hPanel.add(searchBox);
+        hPanel.add(searchButton);
+        barPanel.add(hPanel);
+        barPanel.setCellHorizontalAlignment(hPanel, HorizontalPanel.ALIGN_LEFT);
+        barPanel.add(loading);
+        barPanel.setCellHorizontalAlignment(loading, HorizontalPanel.ALIGN_RIGHT);
+        barPanel.setCellVerticalAlignment(loading, HorizontalPanel.ALIGN_MIDDLE);
+
+        north.add(barPanel);
+
+    }
+
+    private void createCenter() {
+        center = new RoundedPanel(RoundedPanel.ALL, 1);
+        center.setBorder();
+        center.setWidth("100%");
+        center.add(mListView);
+
+    }
+
+    public HasClickHandlers getSearchClick() {
+        return searchButton;
+    }
+
+    public HasValue<String> getSearchValue() {
+        return searchBox;
+    }
+
+    public void fillOracle(ArrayList<Message> messages) {
+        for (int i = 0; i < messages.size(); i++) {
+            String subject = messages.get(i).getSubject();
+            String from = messages.get(i).getFrom();
+            if (subject != null && subject.trim().length() > 0) {
+                oracle.add(subject.trim());
+            }
+            if (from != null && from.trim().length() > 0) {
+                oracle.add(from.trim());
+            }
+        }
+        searchBox.setText("");
+    }
+
+    public void setCenter(Widget widget) {
+        centerWidget = widget;
+        center.setWidget(centerWidget);
+    }
+
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#bindTreeItems(java.util.List)
+     * 
+     * @see
+     * org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#bindTreeItems(
+     * java.util.List)
      */
     public void bindTreeItems(List<IMAPTreeItem> treeList) {
         folderTree.clear();
-        for (int i = 0; i < dropControllerList.size();i++) {
+        for (int i = 0; i < dropControllerList.size(); i++) {
             controller.unregisterDropController(dropControllerList.get(i));
         }
-        
+
         for (int i = 0; i < treeList.size(); i++) {
             IMAPTreeItem item = treeList.get(i);
             bindDropController(item);
             folderTree.addItem(item);
-            
+
             if (((IMAPFolder) item.getUserObject()).getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
                 folderTree.setSelectedItem(item, false);
             }
-            
+
         }
     }
-    
+
     /**
      * Bind a IMAPFolderDropController to the given Item and all its childs
      * 
@@ -269,24 +268,26 @@ public class MainView extends Composite implements MainPresenter.Display{
         IMAPFolderDropController dropController = new IMAPFolderDropController(item);
         controller.registerDropController(dropController);
         dropControllerList.add(dropController);
-        
+
         if (item.getChildCount() > 0) {
-            for (int i = 0; i < item.getChildCount();   i++) {
-                bindDropController((IMAPTreeItem)item.getChild(i));
+            for (int i = 0; i < item.getChildCount(); i++) {
+                bindDropController((IMAPTreeItem) item.getChild(i));
             }
         }
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getTree()
      */
     public HasSelectionHandlers<TreeItem> getTree() {
         return folderTree;
     }
-    
+
     /*
      * (non-Javadoc)
+     * 
      * @see net.customware.gwt.presenter.client.widget.WidgetDisplay#asWidget()
      */
     public Widget asWidget() {
@@ -295,6 +296,7 @@ public class MainView extends Composite implements MainPresenter.Display{
 
     /*
      * (non-Javadoc)
+     * 
      * @see net.customware.gwt.presenter.client.Display#startProcessing()
      */
     public void startProcessing() {
@@ -305,26 +307,27 @@ public class MainView extends Composite implements MainPresenter.Display{
 
     /*
      * (non-Javadoc)
+     * 
      * @see net.customware.gwt.presenter.client.Display#stopProcessing()
      */
     public void stopProcessing() {
         panel.clear();
         panel.add(folderPanel);
     }
-    
+
     /**
      * Drop controller which handle drop on TreeItems
      * 
-     *
+     * 
      */
     private class IMAPFolderDropController extends SimpleDropController {
         private IMAPTreeItem item;
-        
+
         public IMAPFolderDropController(IMAPTreeItem item) {
             super(item.getWidget());
             this.item = item;
         }
-        
+
         /**
          * Veto the Drop if the folder is the same
          */
@@ -334,19 +337,19 @@ public class MainView extends Composite implements MainPresenter.Display{
                 throw new VetoDragException();
             }
         }
-        
+
         /**
          * Set the right unseen count on the folders and fire an event
          */
         @Override
         public void onDrop(DragContext context) {
-            IMAPTreeItem oldTreeItem = (IMAPTreeItem)folderTree.getSelectedItem();
-            Message message = (Message)controller.getDragValue();
+            IMAPTreeItem oldTreeItem = (IMAPTreeItem) folderTree.getSelectedItem();
+            Message message = (Message) controller.getDragValue();
             if (message.getFlags().contains(IMAPFlag.SEEN) == false) {
                 oldTreeItem.decreaseUnseenMessageCount();
                 item.increaseUnseenMessageCount();
             }
-            bus.fireEvent(new MoveMessageEvent(user,(IMAPFolder)oldTreeItem.getUserObject(),(IMAPFolder)item.getUserObject(),message));
+            bus.fireEvent(new MoveMessageEvent(user, (IMAPFolder) oldTreeItem.getUserObject(), (IMAPFolder) item.getUserObject(), message));
         }
 
         /**
@@ -373,7 +376,9 @@ public class MainView extends Composite implements MainPresenter.Display{
 
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getRenameClick()
+     * 
+     * @see
+     * org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getRenameClick()
      */
     public HasClickHandlers getRenameClick() {
         return renameFolderButton;
@@ -381,7 +386,9 @@ public class MainView extends Composite implements MainPresenter.Display{
 
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getDeleteEnable()
+     * 
+     * @see
+     * org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getDeleteEnable()
      */
     public HasEnable getDeleteEnable() {
         return deleteFolderButton;
@@ -389,7 +396,9 @@ public class MainView extends Composite implements MainPresenter.Display{
 
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getNewEnable()
+     * 
+     * @see
+     * org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getNewEnable()
      */
     public HasEnable getNewEnable() {
         return newFolderButton;
@@ -397,7 +406,9 @@ public class MainView extends Composite implements MainPresenter.Display{
 
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getRenameEnable()
+     * 
+     * @see
+     * org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getRenameEnable()
      */
     public HasEnable getRenameEnable() {
         return renameFolderButton;
@@ -405,7 +416,9 @@ public class MainView extends Composite implements MainPresenter.Display{
 
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getDeleteClick()
+     * 
+     * @see
+     * org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getDeleteClick()
      */
     public HasClickHandlers getDeleteClick() {
         return deleteFolderButton;
@@ -413,6 +426,7 @@ public class MainView extends Composite implements MainPresenter.Display{
 
     /*
      * (non-Javadoc)
+     * 
      * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getNewClick()
      */
     public HasClickHandlers getNewClick() {
@@ -421,7 +435,10 @@ public class MainView extends Composite implements MainPresenter.Display{
 
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getDeleteConfirmDialog()
+     * 
+     * @see
+     * org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getDeleteConfirmDialog
+     * ()
      */
     public HasDialog getDeleteConfirmDialog() {
         return confirmFolderDeleteBox;
@@ -429,7 +446,10 @@ public class MainView extends Composite implements MainPresenter.Display{
 
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getDeleteConfirmClick()
+     * 
+     * @see
+     * org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#getDeleteConfirmClick
+     * ()
      */
     public HasClickHandlers getDeleteConfirmClick() {
         return confirmFolderDeleteBox;
@@ -437,12 +457,14 @@ public class MainView extends Composite implements MainPresenter.Display{
 
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#deleteSelectedFolder()
+     * 
+     * @see
+     * org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#deleteSelectedFolder
+     * ()
      */
     public void deleteSelectedFolder() {
         folderTree.getSelectedItem().remove();
-        
-        
+
         // Select the INBOX after delete folder
         for (int i = 0; i < folderTree.getItemCount(); i++) {
             IMAPTreeItem item = (IMAPTreeItem) folderTree.getItem(i);
@@ -451,23 +473,27 @@ public class MainView extends Composite implements MainPresenter.Display{
                 break;
             }
         }
-        
+
     }
 
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#createFolder(org.apache.hupa.client.widgets.EditHandler)
+     * 
+     * @see
+     * org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#createFolder(org
+     * .apache.hupa.client.widgets.EditHandler)
      */
     public HasEditable createFolder(EditHandler handler) {
-        final IMAPTreeItem selected = (IMAPTreeItem)folderTree.getSelectedItem();
+        final IMAPTreeItem selected = (IMAPTreeItem) folderTree.getSelectedItem();
         IMAPFolder oldFolder = (IMAPFolder) selected.getUserObject();
-        
-        // Generate a new folder with a whitespace as name, this is needed as workaround 
-        IMAPFolder folder = new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() +" ");
+
+        // Generate a new folder with a whitespace as name, this is needed as
+        // workaround
+        IMAPFolder folder = new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
         folder.setDelimiter(oldFolder.getDelimiter());
 
         final IMAPTreeItem newItem = new IMAPTreeItem(folder);
-        
+
         // add the new item as child
         folderTree.getSelectedItem().addItem(newItem);
         newItem.addEditHandler(handler);
@@ -475,33 +501,35 @@ public class MainView extends Composite implements MainPresenter.Display{
 
             public void onEditEvent(EditEvent event) {
                 if (event.getEventType().equals(EditEvent.EventType.Cancel)) {
-                    // remove the folder 
+                    // remove the folder
                     newItem.remove();
                     folderTree.setSelectedItem(selected, false);
                 } else if (event.getEventType().equals(EditEvent.EventType.Stop)) {
                     // Select the new created folder and fire an event
                     folderTree.setSelectedItem(newItem, true);
                 }
-                
+
             }
-            
+
         });
-        // Expand the parent 
-        folderTree.getSelectedItem().setState(true,false);
-        
-        // Select the new folder  and start editing it
+        // Expand the parent
+        folderTree.getSelectedItem().setState(true, false);
+
+        // Select the new folder and start editing it
         folderTree.setSelectedItem(newItem, false);
         newItem.startEdit();
-        
+
         // reset the text of the new item (remove the whitespace)
         newItem.setText("");
-        
+
         return newItem;
     }
 
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#decreaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
+     * 
+     * @seeorg.apache.hupa.client.mvp.IMAPFolderPresenter.Display#
+     * decreaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
     public void decreaseUnseenMessageCount(IMAPFolder folder, int amount) {
         int count = folderTree.getItemCount();
@@ -511,13 +539,15 @@ public class MainView extends Composite implements MainPresenter.Display{
                 item.descreaseUnseenMessageCount(amount);
                 break;
             }
-            
+
         }
     }
 
     /*
      * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#increaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
+     * 
+     * @seeorg.apache.hupa.client.mvp.IMAPFolderPresenter.Display#
+     * increaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
     public void increaseUnseenMessageCount(IMAPFolder folder, int amount) {
         int count = folderTree.getItemCount();
@@ -527,16 +557,16 @@ public class MainView extends Composite implements MainPresenter.Display{
                 item.increaseUnseenMessageCount(amount);
                 break;
             }
-            
+
         }
     }
-    
+
     private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolder folder) {
-        if (folder.getFullName().equalsIgnoreCase(((IMAPFolder)item.getUserObject()).getFullName())) {
+        if (folder.getFullName().equalsIgnoreCase(((IMAPFolder) item.getUserObject()).getFullName())) {
             return item;
         }
         for (int i = 0; i < item.getChildCount(); i++) {
-            IMAPTreeItem tItem = findTreeItemForFolder((IMAPTreeItem)item.getChild(i),folder);
+            IMAPTreeItem tItem = findTreeItemForFolder((IMAPTreeItem) item.getChild(i), folder);
             if (tItem != null) {
                 return tItem;
             }

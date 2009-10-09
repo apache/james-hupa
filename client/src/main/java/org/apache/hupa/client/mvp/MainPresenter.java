@@ -89,54 +89,71 @@ import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
+public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
 
-	
-	public interface Display extends WidgetDisplay{
-		public HasClickHandlers getSearchClick();
-		public HasValue<String> getSearchValue();
-		public void fillOracle(ArrayList<Message> messages);
-		public void setCenter(Widget widget);
-		public HasSelectionHandlers<TreeItem> getTree();
+    public interface Display extends WidgetDisplay {
+        public HasClickHandlers getSearchClick();
+
+        public HasValue<String> getSearchValue();
+
+        public void fillOracle(ArrayList<Message> messages);
+
+        public void setCenter(Widget widget);
+
+        public HasSelectionHandlers<TreeItem> getTree();
+
         public void bindTreeItems(List<IMAPTreeItem> treeList);
-        public HasClickHandlers getRenameClick();   
+
+        public HasClickHandlers getRenameClick();
+
         public HasClickHandlers getDeleteClick();
+
         public HasClickHandlers getNewClick();
+
         public HasDialog getDeleteConfirmDialog();
+
         public HasClickHandlers getDeleteConfirmClick();
+
         public HasEnable getRenameEnable();
+
         public HasEnable getDeleteEnable();
+
         public HasEnable getNewEnable();
+
         public void updateTreeItem(IMAPFolder folder);
+
         public void deleteSelectedFolder();
+
         public HasEditable createFolder(EditHandler handler);
+
         public void increaseUnseenMessageCount(IMAPFolder folder, int amount);
+
         public void decreaseUnseenMessageCount(IMAPFolder folder, int amount);
-	}
-	
-	private CachingDispatchAsync cachingDispatcher;
-	private User user;
-	private IMAPFolder folder;
-	private String searchValue;
-	private IMAPMessageListPresenter messageListPresenter;
-	private IMAPMessagePresenter messagePresenter;
-	private MessageSendPresenter sendPresenter;
-	private IMAPTreeItem tItem;
-	private HasEditable editableTreeItem;
-	public static final Place PLACE = new Place("Main");
-	
-	@Inject
-	public MainPresenter(MainPresenter.Display display, EventBus bus, CachingDispatchAsync cachingDispatcher, IMAPMessageListPresenter messageListPresenter, IMAPMessagePresenter messagePresenter, MessageSendPresenter sendPresenter) {
-		super(display,bus);
-		this.cachingDispatcher = cachingDispatcher;
-		this.messageListPresenter = messageListPresenter;
-		this.messagePresenter = messagePresenter;
-		this.sendPresenter = sendPresenter;
-	}
-	
-	
-	protected void loadTreeItems() {
-	    cachingDispatcher.execute(new FetchFolders(), new SessionAsyncCallback<FetchFoldersResult>(new DisplayCallback<FetchFoldersResult>(display) {
+    }
+
+    private CachingDispatchAsync cachingDispatcher;
+    private User user;
+    private IMAPFolder folder;
+    private String searchValue;
+    private IMAPMessageListPresenter messageListPresenter;
+    private IMAPMessagePresenter messagePresenter;
+    private MessageSendPresenter sendPresenter;
+    private IMAPTreeItem tItem;
+    private HasEditable editableTreeItem;
+    public static final Place PLACE = new Place("Main");
+
+    @Inject
+    public MainPresenter(MainPresenter.Display display, EventBus bus, CachingDispatchAsync cachingDispatcher, IMAPMessageListPresenter messageListPresenter, IMAPMessagePresenter messagePresenter,
+            MessageSendPresenter sendPresenter) {
+        super(display, bus);
+        this.cachingDispatcher = cachingDispatcher;
+        this.messageListPresenter = messageListPresenter;
+        this.messagePresenter = messagePresenter;
+        this.sendPresenter = sendPresenter;
+    }
+
+    protected void loadTreeItems() {
+        cachingDispatcher.execute(new FetchFolders(), new SessionAsyncCallback<FetchFoldersResult>(new DisplayCallback<FetchFoldersResult>(display) {
 
             @Override
             protected void handleFailure(Throwable e) {
@@ -146,17 +163,15 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
             @Override
             protected void handleSuccess(FetchFoldersResult result) {
                 display.bindTreeItems(createTreeNodes(result.getFolders()));
-                
+
                 // disable
                 display.getDeleteEnable().setEnabled(false);
                 display.getRenameEnable().setEnabled(false);
             }
 
-            
-        },eventBus,user));
+        }, eventBus, user));
     }
-	
-	   
+
     /**
      * Create recursive the TreeNodes with all childs
      * 
@@ -168,31 +183,31 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
 
         for (int i = 0; i < list.size(); i++) {
             IMAPFolder iFolder = list.get(i);
-            
+
             final IMAPTreeItem record = new IMAPTreeItem(iFolder);
             record.addEditHandler(new EditHandler() {
 
                 public void onEditEvent(EditEvent event) {
-                    if(event.getEventType().equals(EditEvent.EventType.Stop)) {
-                        IMAPFolder iFolder = new IMAPFolder((String)event.getOldValue());
-                        final String newName = (String)event.getNewValue();
+                    if (event.getEventType().equals(EditEvent.EventType.Stop)) {
+                        IMAPFolder iFolder = new IMAPFolder((String) event.getOldValue());
+                        final String newName = (String) event.getNewValue();
                         if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
-                                cachingDispatcher.execute(new RenameFolder(iFolder, newName), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
+                            cachingDispatcher.execute(new RenameFolder(iFolder, newName), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
 
                                 public void onFailure(Throwable caught) {
                                     record.cancelEdit();
-                                }   
+                                }
 
                                 public void onSuccess(EmptyResult result) {
                                     folder.setFullName(newName);
                                 }
-                                
-                            },eventBus,user));
+
+                            }, eventBus, user));
                         }
 
                     }
                 }
-                
+
             });
             record.setUserObject(iFolder);
 
@@ -209,7 +224,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
                 folder = iFolder;
                 tItem = record;
             }
-            
+
             tList.add(record);
         }
 
@@ -224,188 +239,187 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
         return tList;
     }
 
-	private void showMessageTable(User user, IMAPFolder folder, String searchValue,boolean refresh) {
-		this.user = user;
-		this.folder = folder;
-		this.searchValue = searchValue;
-		
-		messagePresenter.unbind();
-		sendPresenter.unbind();
-		
-		messageListPresenter.bind(user, folder, searchValue);
-		if (refresh) {
-			messageListPresenter.refreshDisplay();
-		}
-		display.setCenter(messageListPresenter.getDisplay().asWidget());
-	}
-	
-	private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {
-		sendPresenter.unbind();
-		messageListPresenter.unbind();
-		
-		messagePresenter.bind(user,folder,message,details);
-		display.setCenter(messagePresenter.getDisplay().asWidget());
-	}
-	
-	
-	private void showNewMessage() {
-		messagePresenter.unbind();
-		messageListPresenter.unbind();
-		
-		sendPresenter.bind(user, Type.NEW);
-		display.setCenter(sendPresenter.getDisplay().asWidget());
-	}
-	
-	private void showForwardMessage(ForwardMessageEvent event) {
-		messagePresenter.unbind();
-		messageListPresenter.unbind();
+    private void showMessageTable(User user, IMAPFolder folder, String searchValue, boolean refresh) {
+        this.user = user;
+        this.folder = folder;
+        this.searchValue = searchValue;
 
-		sendPresenter.bind(event.getUser(),event.getFolder(),event.getMessage(), event.getMessageDetails(), Type.FORWARD);
-		display.setCenter(sendPresenter.getDisplay().asWidget());
-	}
-	
-	private void showReplyMessage(ReplyMessageEvent event) {
-		messagePresenter.unbind();
-		messageListPresenter.unbind();
+        messagePresenter.unbind();
+        sendPresenter.unbind();
 
-		if (event.getReplyAll()) {
-			sendPresenter.bind(event.getUser(),event.getFolder(),event.getMessage(),event.getMessageDetails(), Type.REPLY_ALL);
-		} else {
-			sendPresenter.bind(event.getUser(),event.getFolder(),event.getMessage(),event.getMessageDetails(), Type.REPLY);
+        messageListPresenter.bind(user, folder, searchValue);
+        if (refresh) {
+            messageListPresenter.refreshDisplay();
+        }
+        display.setCenter(messageListPresenter.getDisplay().asWidget());
+    }
 
-		}
-		display.setCenter(sendPresenter.getDisplay().asWidget());
-	}
-	private void reset() {
-		display.getSearchValue().setValue("");
-		cachingDispatcher.clear();
-	}
-	
+    private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {
+        sendPresenter.unbind();
+        messageListPresenter.unbind();
 
-	@Override
-	public Place getPlace() {
-		return PLACE;
-	}
-	
-	public void bind(User user) {
-		this.user = user;
-		folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+        messagePresenter.bind(user, folder, message, details);
+        display.setCenter(messagePresenter.getDisplay().asWidget());
+    }
 
-		bind();
-		refreshDisplay();
-	}
-	
-	@Override
-	protected void onBind() {
-	
-		registerHandler(eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
+    private void showNewMessage() {
+        messagePresenter.unbind();
+        messageListPresenter.unbind();
 
-			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
-				showMessageTable(loadMessagesEvent.getUser(), loadMessagesEvent.getFolder(), loadMessagesEvent.getSearchValue(), true);
-			}
-			
-		}));
-		registerHandler(eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
+        sendPresenter.bind(user, Type.NEW);
+        display.setCenter(sendPresenter.getDisplay().asWidget());
+    }
 
-			public void onMessagesReceived(MessagesReceivedEvent event) {
-				
-				// fill the oracle
-				display.fillOracle(event.getMessages());
-			}
-			
-		}));
-		
-		registerHandler(eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
+    private void showForwardMessage(ForwardMessageEvent event) {
+        messagePresenter.unbind();
+        messageListPresenter.unbind();
 
-			public void onExpandMessage(ExpandMessageEvent event) {
-				final boolean decreaseUnseen;
-				final Message message = event.getMessage();
-				// check if the message was already seen in the past
-				if (event.getMessage().getFlags().contains(IMAPFlag.SEEN) == false) {
-					decreaseUnseen = true;
-				} else {
-					decreaseUnseen = false;
-				}
-				cachingDispatcher.executeWithCache(new GetMessageDetails(event.getFolder(),message.getUid()), new SessionAsyncCallback<GetMessageDetailsResult>(new DisplayCallback<GetMessageDetailsResult>(display) {
+        sendPresenter.bind(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD);
+        display.setCenter(sendPresenter.getDisplay().asWidget());
+    }
 
-					@Override
-					protected void handleFailure(Throwable e) {
-						GWT.log("ERROR", e);
-					}
+    private void showReplyMessage(ReplyMessageEvent event) {
+        messagePresenter.unbind();
+        messageListPresenter.unbind();
 
-					@Override
-					protected void handleSuccess(GetMessageDetailsResult result) {
-						// decrease the unseen count if we were able to expose the message
-						if (decreaseUnseen) {
-							eventBus.fireEvent(new DecreaseUnseenEvent(user,folder));
-						}
-						
-						showMessage(user, folder, message, result.getMessageDetails());
-					}
+        if (event.getReplyAll()) {
+            sendPresenter.bind(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY_ALL);
+        } else {
+            sendPresenter.bind(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY);
 
-					
-				}, eventBus, user));
-			}
-			
-		}));
-		registerHandler(eventBus.addHandler(NewMessageEvent.TYPE, new NewMessageEventHandler() {
+        }
+        display.setCenter(sendPresenter.getDisplay().asWidget());
+    }
 
-			public void onNewMessageEvent(NewMessageEvent event) {
-				showNewMessage();
-			}
-			
-		}));
-		
-		registerHandler(eventBus.addHandler(SentMessageEvent.TYPE, new SentMessageEventHandler() {
+    private void reset() {
+        display.getSearchValue().setValue("");
+        cachingDispatcher.clear();
+    }
 
-			public void onSentMessageEvent(SentMessageEvent ev) {
-				showMessageTable(user,folder,searchValue, false);
-			}
-			
-		}));
-		
-		registerHandler(eventBus.addHandler(ForwardMessageEvent.TYPE, new ForwardMessageEventHandler() {
+    @Override
+    public Place getPlace() {
+        return PLACE;
+    }
 
-			public void onForwardMessageEvent(ForwardMessageEvent event) {
-				showForwardMessage(event);
-			}
-			
-		}));
-		registerHandler(eventBus.addHandler(ReplyMessageEvent.TYPE, new ReplyMessageEventHandler() {
+    public void bind(User user) {
+        this.user = user;
+        folder = new IMAPFolder(user.getSettings().getInboxFolderName());
 
-			public void onReplyMessageEvent(ReplyMessageEvent event) {
-				showReplyMessage(event);
-			}
-			
-		}));
-		registerHandler(eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
+        bind();
+        refreshDisplay();
+    }
 
-			public void onFolderSelectionEvent(FolderSelectionEvent event) {
-				showMessageTable(user,event.getFolder(),searchValue, true);
-			}
-			
-		}));		
-		
-		registerHandler(display.getSearchClick().addClickHandler(new ClickHandler() {
+    @Override
+    protected void onBind() {
 
-			public void onClick(ClickEvent event) {
-				String searchValue = null;
-				if (display.getSearchValue().getValue().trim().length() >0) {
-					searchValue = display.getSearchValue().getValue().trim();
-				}
-				eventBus.fireEvent(new LoadMessagesEvent(user,folder,searchValue));
-			}
-			
-		}));
-		
-		registerHandler(eventBus.addHandler(BackEvent.TYPE, new BackEventHandler() {
+        registerHandler(eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
 
-			public void onBackEvent(BackEvent event) {
-				showMessageTable(user, folder, searchValue, false);
-			}
-			
-		}));
-		
+            public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
+                showMessageTable(loadMessagesEvent.getUser(), loadMessagesEvent.getFolder(), loadMessagesEvent.getSearchValue(), true);
+            }
+
+        }));
+        registerHandler(eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
+
+            public void onMessagesReceived(MessagesReceivedEvent event) {
+
+                // fill the oracle
+                display.fillOracle(event.getMessages());
+            }
+
+        }));
+
+        registerHandler(eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
+
+            public void onExpandMessage(ExpandMessageEvent event) {
+                final boolean decreaseUnseen;
+                final Message message = event.getMessage();
+                // check if the message was already seen in the past
+                if (event.getMessage().getFlags().contains(IMAPFlag.SEEN) == false) {
+                    decreaseUnseen = true;
+                } else {
+                    decreaseUnseen = false;
+                }
+                cachingDispatcher.executeWithCache(new GetMessageDetails(event.getFolder(), message.getUid()), new SessionAsyncCallback<GetMessageDetailsResult>(
+                        new DisplayCallback<GetMessageDetailsResult>(display) {
+
+                            @Override
+                            protected void handleFailure(Throwable e) {
+                                GWT.log("ERROR", e);
+                            }
+
+                            @Override
+                            protected void handleSuccess(GetMessageDetailsResult result) {
+                                // decrease the unseen count if we were able to
+                                // expose the message
+                                if (decreaseUnseen) {
+                                    eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
+                                }
+
+                                showMessage(user, folder, message, result.getMessageDetails());
+                            }
+
+                        }, eventBus, user));
+            }
+
+        }));
+        registerHandler(eventBus.addHandler(NewMessageEvent.TYPE, new NewMessageEventHandler() {
+
+            public void onNewMessageEvent(NewMessageEvent event) {
+                showNewMessage();
+            }
+
+        }));
+
+        registerHandler(eventBus.addHandler(SentMessageEvent.TYPE, new SentMessageEventHandler() {
+
+            public void onSentMessageEvent(SentMessageEvent ev) {
+                showMessageTable(user, folder, searchValue, false);
+            }
+
+        }));
+
+        registerHandler(eventBus.addHandler(ForwardMessageEvent.TYPE, new ForwardMessageEventHandler() {
+
+            public void onForwardMessageEvent(ForwardMessageEvent event) {
+                showForwardMessage(event);
+            }
+
+        }));
+        registerHandler(eventBus.addHandler(ReplyMessageEvent.TYPE, new ReplyMessageEventHandler() {
+
+            public void onReplyMessageEvent(ReplyMessageEvent event) {
+                showReplyMessage(event);
+            }
+
+        }));
+        registerHandler(eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
+
+            public void onFolderSelectionEvent(FolderSelectionEvent event) {
+                showMessageTable(user, event.getFolder(), searchValue, true);
+            }
+
+        }));
+
+        registerHandler(display.getSearchClick().addClickHandler(new ClickHandler() {
+
+            public void onClick(ClickEvent event) {
+                String searchValue = null;
+                if (display.getSearchValue().getValue().trim().length() > 0) {
+                    searchValue = display.getSearchValue().getValue().trim();
+                }
+                eventBus.fireEvent(new LoadMessagesEvent(user, folder, searchValue));
+            }
+
+        }));
+
+        registerHandler(eventBus.addHandler(BackEvent.TYPE, new BackEventHandler() {
+
+            public void onBackEvent(BackEvent event) {
+                showMessageTable(user, folder, searchValue, false);
+            }
+
+        }));
 
         registerHandler(eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
 
@@ -414,7 +428,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
                     editableTreeItem.cancelEdit();
                 }
             }
-            
+
         }));
         registerHandler(eventBus.addHandler(NewMessageEvent.TYPE, new NewMessageEventHandler() {
 
@@ -423,41 +437,41 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
                     editableTreeItem.cancelEdit();
                 }
             }
-            
+
         }));
         registerHandler(eventBus.addHandler(DecreaseUnseenEvent.TYPE, new DecreaseUnseenEventHandler() {
 
             public void onDecreaseUnseenEvent(DecreaseUnseenEvent event) {
-                // Check if the folder was the trash folder. If not increase the message count of the trash folder
+                // Check if the folder was the trash folder. If not increase the
+                // message count of the trash folder
                 if (user.getSettings().getTrashFolderName().equalsIgnoreCase(event.getFolder().getFullName()) == false) {
-                    display.increaseUnseenMessageCount(new IMAPFolder(user.getSettings().getTrashFolderName()),event.getAmount());
+                    display.increaseUnseenMessageCount(new IMAPFolder(user.getSettings().getTrashFolderName()), event.getAmount());
                 }
-                display.decreaseUnseenMessageCount(event.getFolder(),event.getAmount());
+                display.decreaseUnseenMessageCount(event.getFolder(), event.getAmount());
             }
-            
+
         }));
         registerHandler(eventBus.addHandler(IncreaseUnseenEvent.TYPE, new IncreaseUnseenEventHandler() {
 
             public void onIncreaseUnseenEvent(IncreaseUnseenEvent event) {
-                display.increaseUnseenMessageCount(event.getFolder(),event.getAmount());
+                display.increaseUnseenMessageCount(event.getFolder(), event.getAmount());
             }
 
-            
         }));
         registerHandler(display.getTree().addSelectionHandler(new SelectionHandler<TreeItem>() {
 
             public void onSelection(SelectionEvent<TreeItem> event) {
-                tItem = (IMAPTreeItem)event.getSelectedItem();
+                tItem = (IMAPTreeItem) event.getSelectedItem();
                 folder = (IMAPFolder) tItem.getUserObject();
-                eventBus.fireEvent(new LoadMessagesEvent(user,folder));
+                eventBus.fireEvent(new LoadMessagesEvent(user, folder));
             }
-            
+
         }));
-        
+
         registerHandler(display.getTree().addSelectionHandler(new SelectionHandler<TreeItem>() {
 
             public void onSelection(SelectionEvent<TreeItem> event) {
-                tItem = (IMAPTreeItem)event.getSelectedItem();
+                tItem = (IMAPTreeItem) event.getSelectedItem();
                 folder = (IMAPFolder) tItem.getUserObject();
                 if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
                     display.getDeleteEnable().setEnabled(false);
@@ -467,25 +481,25 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
                     display.getRenameEnable().setEnabled(true);
                 }
             }
-            
+
         }));
-        
+
         registerHandler(display.getRenameClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
                 tItem.startEdit();
             }
-            
+
         }));
-        
+
         registerHandler(display.getDeleteClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
                 display.getDeleteConfirmDialog().show();
             }
-            
+
         }));
-        
+
         registerHandler(display.getDeleteConfirmClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
@@ -498,73 +512,72 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display>{
                     public void onSuccess(EmptyResult result) {
                         display.deleteSelectedFolder();
                     }
-                    
+
                 });
             }
-            
+
         }));
-        
+
         registerHandler(display.getNewClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
                 editableTreeItem = display.createFolder(new EditHandler() {
 
                     public void onEditEvent(EditEvent event) {
-                        final IMAPTreeItem item = (IMAPTreeItem)event.getSource();
+                        final IMAPTreeItem item = (IMAPTreeItem) event.getSource();
                         final String newValue = (String) event.getNewValue();
                         if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                            cachingDispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())),  new AsyncCallback<EmptyResult>() {
+                            cachingDispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<EmptyResult>() {
 
                                 public void onFailure(Throwable caught) {
-                                    GWT.log("Error while create folder",caught);
+                                    GWT.log("Error while create folder", caught);
                                     item.cancelEdit();
                                 }
 
                                 public void onSuccess(EmptyResult result) {
                                     // Nothing todo
                                 }
-                                
+
                             });
                         }
                     }
-                    
+
                 });
             }
-            
+
         }));
-        
+
         registerHandler(eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
 
             public void onMessagesReceived(MessagesReceivedEvent event) {
                 IMAPFolder f = event.getFolder();
                 display.updateTreeItem(f);
             }
-            
+
         }));
-		
-	}
 
+    }
 
-	@Override
-	protected void onPlaceRequest(PlaceRequest request) {
-	}
+    @Override
+    protected void onPlaceRequest(PlaceRequest request) {
+    }
 
-	@Override
-	protected void onUnbind() {
-		messagePresenter.unbind();
-		sendPresenter.unbind();
-		messageListPresenter.unbind();
-		reset();
-	
-	}
+    @Override
+    protected void onUnbind() {
+        messagePresenter.unbind();
+        sendPresenter.unbind();
+        messageListPresenter.unbind();
+        reset();
 
-	public void refreshDisplay() {
-	    loadTreeItems();        
-		showMessageTable(user,folder,null,true);
-	}
+    }
 
-	public void revealDisplay() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void refreshDisplay() {
+        loadTreeItems();
+        showMessageTable(user, folder, null, true);
+    }
+
+    public void revealDisplay() {
+        // TODO Auto-generated method stub
+
+    }
 }
