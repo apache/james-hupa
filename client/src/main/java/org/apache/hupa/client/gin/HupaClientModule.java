@@ -28,8 +28,6 @@ import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
 import org.apache.hupa.client.mvp.AppPresenter;
 import org.apache.hupa.client.mvp.AppView;
-import org.apache.hupa.client.mvp.IMAPFolderPresenter;
-import org.apache.hupa.client.mvp.IMAPFolderView;
 import org.apache.hupa.client.mvp.IMAPMessageListPresenter;
 import org.apache.hupa.client.mvp.IMAPMessageListView;
 import org.apache.hupa.client.mvp.IMAPMessagePresenter;
@@ -54,7 +52,6 @@ public class HupaClientModule extends AbstractPresenterModule {
 		bindPresenter(IMAPMessagePresenter.class,IMAPMessagePresenter.Display.class,IMAPMessageView.class);
 		bindPresenter(MainPresenter.class,MainPresenter.Display.class,MainView.class);
 		bindPresenter(MessageSendPresenter.class, MessageSendPresenter.Display.class, MessageSendView.class);
-		bindPresenter(IMAPFolderPresenter.class, IMAPFolderPresenter.Display.class, IMAPFolderView.class);
 		bindPresenter(AppPresenter.class, AppPresenter.Display.class, AppView.class);
 		bind(CachingDispatchAsync.class);
 		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
