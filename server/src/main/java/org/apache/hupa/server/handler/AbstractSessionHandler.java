@@ -54,14 +54,10 @@ public abstract class AbstractSessionHandler<A extends Action<R>,R extends Resul
 	}
 
 	/**
-	 * Check if the session is valid, if that is true execute executeInternal method
+	 * Execute executeInternal method
 	 */
 	public R execute(A action, ExecutionContext context) throws ActionException {
-		if (isValidSession()) {
-			return executeInternal(action, context);
-		} else {
-			throw new InvalidSessionException("Invalid Session");
-		}
+		return executeInternal(action, context);
 	}
 	
 	/**
@@ -77,17 +73,6 @@ public abstract class AbstractSessionHandler<A extends Action<R>,R extends Resul
 	 * @see net.customware.gwt.dispatch.server.ActionHandler#execute(net.customware.gwt.dispatch.shared.Action, net.customware.gwt.dispatch.server.ExecutionContext)
 	 */
 	protected abstract R executeInternal(A action, ExecutionContext context) throws ActionException;
-	
-	/**
-	 * Return if the given session id is still valid
-	 * 
-	 * @param sessionId
-	 * @return isValid
-	 */
-	protected boolean isValidSession() {
-		// TODO: MCM delete or implement this method
-		return true;
-	}
 	
 	/**
 	 * Return the User stored in session with the given id

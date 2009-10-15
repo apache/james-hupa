@@ -23,7 +23,7 @@ import net.customware.gwt.dispatch.shared.Action;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class CreateFolder implements Action<EmptyResult>{
+public class CreateFolder implements Action<GenericResult>{
 
 	private static final long serialVersionUID = -4966856616698265177L;
 	private IMAPFolder folder;

@@ -17,32 +17,30 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.rpc;
+package org.apache.hupa.server;
 
-import net.customware.gwt.dispatch.shared.Action;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.URLName;
 
-import org.apache.hupa.shared.data.IMAPFolder;
 
-public class RenameFolder implements Action<GenericResult>{
+public class DemoModeSMTPTransport extends Transport {
 
-	private static final long serialVersionUID = 1924419911921600320L;
-	private IMAPFolder folder;
-	private String newName;
-
-	public RenameFolder(IMAPFolder folder, String newName) {
-		this.folder = folder;
-		this.newName = newName;
-	}
+	static final URLName demoUrl = new URLName(null, InMemoryIMAPStoreCache.DEMO_MODE, 143, null, null, null);
 	
-	protected RenameFolder() {
-		
+	public DemoModeSMTPTransport(Session session) {
+		super(session, demoUrl);
 	}
+
+	@Override
+    public void sendMessage(Message msg, Address[] addresses) throws MessagingException {
+    }
+    
+    @Override
+    public void connect(String host, int port, String user, String password) throws MessagingException {
+    }
 	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public String getNewName() {
-		return newName;
-	}
 }

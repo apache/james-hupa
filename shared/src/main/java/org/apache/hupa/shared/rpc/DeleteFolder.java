@@ -23,7 +23,7 @@ import net.customware.gwt.dispatch.shared.Action;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class DeleteFolder implements Action<EmptyResult>{
+public class DeleteFolder implements Action<GenericResult>{
 
 	private static final long serialVersionUID = 7921329310932404439L;
 	

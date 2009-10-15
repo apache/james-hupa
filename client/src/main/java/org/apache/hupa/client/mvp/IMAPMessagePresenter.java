@@ -22,7 +22,6 @@ package org.apache.hupa.client.mvp;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.customware.gwt.presenter.client.DisplayCallback;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.place.Place;
 import net.customware.gwt.presenter.client.place.PlaceRequest;
@@ -30,13 +29,13 @@ import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
-import org.apache.hupa.client.SessionAsyncCallback;
+import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
-import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.MessageAttachment;
+import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.ForwardMessageEvent;
@@ -44,13 +43,11 @@ import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.ReplyMessageEvent;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
-import org.apache.hupa.shared.rpc.RawMessage;
-import org.apache.hupa.shared.rpc.RawMessageResult;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
@@ -65,7 +62,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 		public HasText getCc();
 
 		public HasText getSubject();
-		public HasText getShowRawMessageText();
+		public Frame getShowRawMessageFrame();
 		public HasDialog getShowRawMessageDialog();
 		public HasHTML getContent();
 		public HasClickHandlers getShowRawMessageClick();
@@ -128,20 +125,13 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 			public void onClick(ClickEvent event) {
 				ArrayList<Long> uidList = new ArrayList<Long>();
 				uidList.add(message.getUid());
-				dispatcher.execute(new DeleteMessageByUid(folder, uidList), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
-
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					public void onSuccess(DeleteMessageResult result) {
+				dispatcher.execute(new DeleteMessageByUid(folder, uidList), new HupaCallback<DeleteMessageResult>(dispatcher, eventBus) {
+					public void callback(DeleteMessageResult result) {
 						eventBus.fireEvent(new LoadMessagesEvent(user,folder));
 					}
-					
-				}, eventBus,user));
+				}); 
 			}
-			
+
 		}));
 		
 		registerHandler(display.getForwardButtonClick().addClickHandler(new ClickHandler() {
@@ -177,22 +167,9 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 		registerHandler(display.getShowRawMessageClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				dispatcher.executeWithCache(new RawMessage(folder, message.getUid()), new SessionAsyncCallback<RawMessageResult>(new DisplayCallback<RawMessageResult>(display) {
-
-					@Override
-					protected void handleFailure(Throwable e) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					protected void handleSuccess(RawMessageResult result) {
-						display.getShowRawMessageText().setText(result.getRawMessage());
-						display.getShowRawMessageDialog().center();
-					}
-
-					
-				},eventBus,user));
+				String message_url = "/hupa/messageSourceServlet?uid=" + message.getUid() + "&folder=" + folder.getFullName();
+				display.getShowRawMessageFrame().setUrl(message_url);
+				display.getShowRawMessageDialog().center();
 			}
 			
 		}));

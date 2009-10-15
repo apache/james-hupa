@@ -30,7 +30,7 @@ import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.DeleteFolder;
-import org.apache.hupa.shared.rpc.EmptyResult;
+import org.apache.hupa.shared.rpc.GenericResult;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -41,7 +41,7 @@ import com.sun.mail.imap.IMAPStore;
  * 
  *
  */
-public class DeleteFolderHandler extends AbstractSessionHandler<DeleteFolder, EmptyResult>{
+public class DeleteFolderHandler extends AbstractSessionHandler<DeleteFolder, GenericResult>{
 
 	@Inject
 	public DeleteFolderHandler(IMAPStoreCache cache, Log logger,
@@ -50,7 +50,7 @@ public class DeleteFolderHandler extends AbstractSessionHandler<DeleteFolder, Em
 	}
 
 	@Override
-	protected EmptyResult executeInternal(DeleteFolder action,
+	protected GenericResult executeInternal(DeleteFolder action,
 			ExecutionContext context) throws ActionException {
 		User user = getUser();
 		IMAPFolder folder = action.getFolder();
@@ -67,7 +67,7 @@ public class DeleteFolderHandler extends AbstractSessionHandler<DeleteFolder, Em
 			// recursive delete the folder
 			if (f.delete(true)) {
 				logger.info("Successfully delete folder " + folder + " for user " + user);
-				return new EmptyResult();
+				return new GenericResult();
 			} else {
 				throw new ActionException("Unable to delete folder " + folder + " for user " + user);
 			}

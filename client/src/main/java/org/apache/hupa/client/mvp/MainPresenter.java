@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import net.customware.gwt.presenter.client.DisplayCallback;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.place.Place;
 import net.customware.gwt.presenter.client.place.PlaceRequest;
@@ -32,7 +31,7 @@ import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
-import org.apache.hupa.client.SessionAsyncCallback;
+import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
@@ -65,9 +64,9 @@ import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.SentMessageEventHandler;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
-import org.apache.hupa.shared.rpc.EmptyResult;
 import org.apache.hupa.shared.rpc.FetchFolders;
 import org.apache.hupa.shared.rpc.FetchFoldersResult;
+import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.GetMessageDetails;
 import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
 import org.apache.hupa.shared.rpc.RenameFolder;
@@ -153,23 +152,14 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
     }
 
     protected void loadTreeItems() {
-        cachingDispatcher.execute(new FetchFolders(), new SessionAsyncCallback<FetchFoldersResult>(new DisplayCallback<FetchFoldersResult>(display) {
-
-            @Override
-            protected void handleFailure(Throwable e) {
-                GWT.log("ERROR=", e);
-            }
-
-            @Override
-            protected void handleSuccess(FetchFoldersResult result) {
+        cachingDispatcher.execute(new FetchFolders(), new HupaCallback<FetchFoldersResult>(cachingDispatcher, eventBus, display) {
+			public void callback(FetchFoldersResult result) {
                 display.bindTreeItems(createTreeNodes(result.getFolders()));
-
                 // disable
                 display.getDeleteEnable().setEnabled(false);
                 display.getRenameEnable().setEnabled(false);
-            }
-
-        }, eventBus, user));
+			}
+		});
     }
 
     /**
@@ -192,19 +182,15 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
                         IMAPFolder iFolder = new IMAPFolder((String) event.getOldValue());
                         final String newName = (String) event.getNewValue();
                         if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
-                            cachingDispatcher.execute(new RenameFolder(iFolder, newName), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
-
-                                public void onFailure(Throwable caught) {
-                                    record.cancelEdit();
-                                }
-
-                                public void onSuccess(EmptyResult result) {
+                            cachingDispatcher.execute(new RenameFolder(iFolder, newName), new HupaCallback<GenericResult>(cachingDispatcher, eventBus) {
+                				public void callback(GenericResult result) {
                                     folder.setFullName(newName);
-                                }
-
-                            }, eventBus, user));
+                				}
+                				public void callbackError(Throwable caught) {
+                                    record.cancelEdit();
+                				}
+                			}); 
                         }
-
                     }
                 }
 
@@ -340,26 +326,14 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
                 } else {
                     decreaseUnseen = false;
                 }
-                cachingDispatcher.executeWithCache(new GetMessageDetails(event.getFolder(), message.getUid()), new SessionAsyncCallback<GetMessageDetailsResult>(
-                        new DisplayCallback<GetMessageDetailsResult>(display) {
-
-                            @Override
-                            protected void handleFailure(Throwable e) {
-                                GWT.log("ERROR", e);
-                            }
-
-                            @Override
-                            protected void handleSuccess(GetMessageDetailsResult result) {
-                                // decrease the unseen count if we were able to
-                                // expose the message
-                                if (decreaseUnseen) {
-                                    eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
-                                }
-
-                                showMessage(user, folder, message, result.getMessageDetails());
-                            }
-
-                        }, eventBus, user));
+                cachingDispatcher.executeWithCache(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaCallback<GetMessageDetailsResult>(cachingDispatcher, eventBus, display) {
+    				public void callback(GetMessageDetailsResult result) {
+                        if (decreaseUnseen) {
+                            eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
+                        }
+                        showMessage(user, folder, message, result.getMessageDetails());
+    				}
+    			});
             }
 
         }));
@@ -503,13 +477,13 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
         registerHandler(display.getDeleteConfirmClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
-                cachingDispatcher.execute(new DeleteFolder(folder), new AsyncCallback<EmptyResult>() {
+                cachingDispatcher.execute(new DeleteFolder(folder), new AsyncCallback<GenericResult>() {
 
                     public void onFailure(Throwable caught) {
                         GWT.log("ERROR while deleting", caught);
                     }
 
-                    public void onSuccess(EmptyResult result) {
+                    public void onSuccess(GenericResult result) {
                         display.deleteSelectedFolder();
                     }
 
@@ -527,14 +501,14 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
                         final IMAPTreeItem item = (IMAPTreeItem) event.getSource();
                         final String newValue = (String) event.getNewValue();
                         if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                            cachingDispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<EmptyResult>() {
+                            cachingDispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<GenericResult>() {
 
                                 public void onFailure(Throwable caught) {
                                     GWT.log("Error while create folder", caught);
                                     item.cancelEdit();
                                 }
 
-                                public void onSuccess(EmptyResult result) {
+                                public void onSuccess(GenericResult result) {
                                     // Nothing todo
                                 }
 

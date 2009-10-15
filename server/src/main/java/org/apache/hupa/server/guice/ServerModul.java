@@ -28,6 +28,7 @@ import javax.mail.Session;
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
 import org.apache.commons.logging.Log;
+import org.apache.hupa.server.DemoModeIMAPStore;
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
@@ -52,6 +53,7 @@ import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.handler.SetFlagsHandler;
 import org.apache.hupa.server.handler.TagMessagesHandler;
 import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
+import org.apache.hupa.server.servlet.MessageSourceServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
 import org.apache.hupa.shared.data.Settings;
 
@@ -108,13 +110,20 @@ public class ServerModul extends ActionHandlerModule {
 				Singleton.class);
 		bind(DownloadAttachmentServlet.class).in(Singleton.class);
 		bind(UploadAttachmentServlet.class).in(Singleton.class);
+		bind(MessageSourceServlet.class).in(Singleton.class);
 		bind(Session.class).toProvider(SessionProvider.class);
-		// bind addresses and ports for imap and smtp
+
 		Properties properties;
 		try {
+			// Bind addresses and ports for imap and smtp
 			properties = loadProperties();
+			// Configure default parameters for Hupa in demo mode
+			if (properties.get("IMAPServerAddress").equals(InMemoryIMAPStoreCache.DEMO_MODE)) {
+				properties.put("DefaultInboxFolder", DemoModeIMAPStore.DEMO_MODE_INBOX_FOLDER);
+				properties.put("DefaultTrashFolder", DemoModeIMAPStore.DEMO_MODE_TRASH_FOLDER);
+				properties.put("DefaultSentFolder", DemoModeIMAPStore.DEMO_MODE_SENT_FOLDER);
+			}
 			Names.bindProperties(binder(), properties);
-
 		} catch (Exception e) {
 			throw new RuntimeException("Unable to to configure hupa server," +
 					"\nmake sure that you have a valid /etc/default/hupa file" +

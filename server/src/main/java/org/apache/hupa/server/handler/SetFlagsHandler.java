@@ -35,14 +35,14 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.rpc.EmptyResult;
+import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.SetFlag;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.sun.mail.imap.IMAPStore;
 
-public class SetFlagsHandler extends AbstractSessionHandler<SetFlag, EmptyResult>{
+public class SetFlagsHandler extends AbstractSessionHandler<SetFlag, GenericResult>{
 
 	@Inject
 	public SetFlagsHandler(IMAPStoreCache cache, Log logger,
@@ -51,7 +51,7 @@ public class SetFlagsHandler extends AbstractSessionHandler<SetFlag, EmptyResult
 	}
 
 	@Override
-	protected EmptyResult executeInternal(SetFlag action,
+	protected GenericResult executeInternal(SetFlag action,
 			ExecutionContext context) throws ActionException {
 		User user = getUser();
 		IMAPFolder folder = action.getFolder();
@@ -70,7 +70,7 @@ public class SetFlagsHandler extends AbstractSessionHandler<SetFlag, EmptyResult
 			flags.add(flag);
 			
 			f.setFlags(msgs, flags, action.getValue());
-			return new EmptyResult();
+			return new GenericResult();
 		} catch (MessagingException e) {
 			String errorMsg = "Error while setting flags of messages with uids " + uids + " for user " + user;
 			logger.error(errorMsg,e);

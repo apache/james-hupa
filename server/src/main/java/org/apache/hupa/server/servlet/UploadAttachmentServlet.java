@@ -49,9 +49,13 @@ public class UploadAttachmentServlet extends UploadAction{
 	
 	@Override
 	public String executeAction(HttpServletRequest request, List<FileItem> sessionFiles) throws UploadActionException {
-        for (int i =0; i < sessionFiles.size(); i++) {
-        	registry.add(sessionFiles.get(i));
-        }
+		logger.info("Executing Action, files in session: " + sessionFiles.size() + " files in registry: " + registry.size());
+		// save file items in the registry
+		for(FileItem item: sessionFiles) 
+        	registry.add(item);
+		
+		// remove items from session but not remove the data from disk or memory
+        removeSessionFileItems(request, false);
         return null;
 	}
 	

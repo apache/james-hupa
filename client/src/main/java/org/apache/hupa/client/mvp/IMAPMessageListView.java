@@ -27,6 +27,7 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
 
+import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.bundles.HupaImageBundle;
@@ -78,7 +79,6 @@ import com.google.gwt.gen2.table.event.client.PageLoadEvent;
 import com.google.gwt.gen2.table.event.client.PageLoadHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -104,7 +104,7 @@ public class IMAPMessageListView extends Composite implements Display{
 	private DragRefetchPagingScrollTable<Message> mailTable;
 	private CachedTableModel<Message> cTableModel = new CachedTableModel<Message>(new IMAPMessageTableModel());
 
-	private EventBus bus;
+	private EventBus eventBus;
 	private FixedWidthGrid dataTable = createDataTable();
 	private MyButton deleteMailButton = new MyButton(constants.deleteMailButton());
 	private	Button newMailButton = new Button(constants.newMailButton());
@@ -121,7 +121,7 @@ public class IMAPMessageListView extends Composite implements Display{
 	
 	@Inject
 	public IMAPMessageListView(DispatchAsync dispatcher,EventBus bus, PagingScrollTableRowDragController controller) {
-		this.bus = bus;
+		this.eventBus = bus;
 		this.dispatcher = dispatcher;
 		
 		VerticalPanel vPanel = new VerticalPanel();
@@ -374,27 +374,19 @@ public class IMAPMessageListView extends Composite implements Display{
 				});
 			}
 			
-			dispatcher.execute(new FetchMessages(folder, request.getStartRow(), request.getNumRows(),searchValue), new AsyncCallback<FetchMessagesResult>() {
-
-				public void onFailure(Throwable caught) {
-					callback.onFailure(caught);
-				}
-
-				public void onSuccess(final FetchMessagesResult result) {
-					bus.fireEvent(new MessagesReceivedEvent(folder,result.getMessages()));
+			dispatcher.execute(new FetchMessages(folder, request.getStartRow(), request.getNumRows(),searchValue),new HupaCallback<FetchMessagesResult>(dispatcher, eventBus) {
+				public void callback(final FetchMessagesResult result) {
+					eventBus.fireEvent(new MessagesReceivedEvent(folder,result.getMessages()));
 					 TableModelHelper.Response<Message> response = new TableModelHelper.Response<Message>() {
-
 						@Override
 						public Iterator<Message> getRowValues() {
 							return result.getMessages().iterator();
 						}
-						
 					};
 					cTableModel.setRowCount(result.getRealCount());
 					callback.onRowsReady(request,response);
 				}
-				
-			});
+			}); 
 		}
 
 		@Override

@@ -23,7 +23,6 @@ import gwtupload.client.BaseUploadStatus;
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
 import gwtupload.client.MultiUploader;
-import gwtupload.client.IUploader.OnStartUploaderHandler;
 
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.widgets.MyButton;
@@ -151,15 +150,9 @@ public class MessageSendView extends Composite implements
 		text.setVisibleLines(50);
 
 		uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
-		uploader.addOnStartUploadHandler(new OnStartUploaderHandler() {
-			public void onStart(IUploader uploader) {
-				sendButton.setEnabled(false);
-			}
-		});
 		uploader.setServletPath(GWT.getModuleBaseURL() + "uploadAttachmentServlet");
 		uploader.avoidRepeatFiles(true);
 		uploader.setI18Constants(constants);
-		
 		
 		mPanel.add(detailGrid);
 

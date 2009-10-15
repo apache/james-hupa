@@ -21,6 +21,7 @@ package org.apache.hupa.server;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
@@ -42,13 +43,30 @@ public class FileItemRegistry {
 		map.put(item.getFieldName(), item);
 	}
 	
+	public void remove(String name) {
+		remove(get(name));
+	}
+	
 	public void remove(FileItem item) {
-		logger.debug("Remove item " + item.getName() + " with name " + item.getFieldName());
-		map.remove(item);
+		if (item != null) {
+			logger.debug("Remove item " + item.getName() + " with name " + item.getFieldName());
+			map.remove(item);
+			// Remove temporary stuff
+			item.delete();
+		}
+	}
+	
+	public void clear() {
+		for (Entry<String,FileItem> e: map.entrySet()) 
+			remove(e.getValue());
 	}
 	
 	public FileItem get(String name) {
-		logger.debug("Retrieve item " + name);
+		logger.debug("Retrieve item " + name + " isNull=" + (map.get(name) == null));
 		return map.get(name);
+	}
+	
+	public int size() {
+		return map.size();
 	}
 }

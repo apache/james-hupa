@@ -20,13 +20,13 @@
 package org.apache.hupa.client.mvp;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
-import net.customware.gwt.presenter.client.DisplayCallback;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.place.Place;
 import net.customware.gwt.presenter.client.place.PlaceRequest;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
+import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.SessionExpireEvent;
@@ -69,22 +69,16 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
 	 * Try to login the user
 	 */
 	private void doLogin() {
-		dispatcher.execute(new LoginUser(display.getUserNameValue().getValue(),display.getPasswordValue().getValue()), new DisplayCallback<LoginUserResult>(display) {
-
-
-			@Override
-			protected void handleFailure(Throwable e) {
-				doReset();
-				display.getErrorText().setText(constants.loginInvalid());
-			}
-
-			@Override
-			protected void handleSuccess(LoginUserResult result) {
+		dispatcher.execute(new LoginUser(display.getUserNameValue().getValue(),display.getPasswordValue().getValue()), new HupaCallback<LoginUserResult>(dispatcher, eventBus, display) {
+			public void callback(LoginUserResult result) {
 				eventBus.fireEvent(new LoginEvent(result.getUser()));
 				doReset();
 			}
-			
-		});
+			public void callbackError(Throwable caught) {
+				display.getErrorText().setText(constants.loginInvalid());
+				doReset();
+			}
+		}); 
 	}
 	
 	/**

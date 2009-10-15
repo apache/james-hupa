@@ -71,7 +71,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 	 * (non-Javadoc)
 	 * @see org.apache.hupa.server.IMAPStoreCache#get(org.apache.hupa.shared.data.User)
 	 */
-	public synchronized IMAPStore get(User user) throws MessagingException {
+	public IMAPStore get(User user) throws MessagingException {
 		return get(user.getName(),user.getPassword());
 	}
 	
@@ -79,7 +79,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 	 * (non-Javadoc)
 	 * @see org.apache.hupa.server.IMAPStoreCache#get(java.lang.String, java.lang.String)
 	 */
-	public synchronized IMAPStore get(String username, String password) throws MessagingException {
+	public IMAPStore get(String username, String password) throws MessagingException {
 		CachedIMAPStore cstore = pool.get(username);
 		if (cstore == null) {
 			logger.debug("No cached store found for user " +username);
@@ -89,7 +89,6 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 			    try {
 			        cstore.validate();
 			    } catch (MessagingException e) {
-			        
 			        cstore = createCachedIMAPStore();
 			    }
 			} else {
@@ -104,14 +103,9 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 		}
 		
 		if (cstore.getStore().isConnected() == false) {
-			// TODO: Full demo-mode able to mock all actions (folders, messages ...) 
-			// setting IMAPServerAddress=demo-mode allows login in the application using
-			// any user and password. It is thought to play the client application without
-			// having any imap/smtp server installed. Very useful while developing and testing. 
 			try {
 				cstore.getStore().connect(address, port, username, password);
 			} catch (MessagingException e) {
-				if (!DEMO_MODE.equals(this.address))
 					throw (e);
 			}
 		}
@@ -121,7 +115,9 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 	
 	private CachedIMAPStore createCachedIMAPStore() throws NoSuchProviderException {
 		CachedIMAPStore cstore;
-		if (useSSL) {
+		if (DEMO_MODE.equals(this.address)) {
+			cstore = new CachedIMAPStore(new DemoModeIMAPStore(session), 300);
+		} else if (useSSL) {
 			cstore = new CachedIMAPStore((IMAPStore)session.getStore("imaps"),300);
 		} else {
 			cstore =  new CachedIMAPStore((IMAPStore)session.getStore("imap"),300);
@@ -153,18 +149,18 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 	}
 	
 	private final class CachedIMAPStore {
-		private long validTo;
+		private long validUntil;
 		private int validForMillis;
 		private IMAPStore store;
 		
 		public CachedIMAPStore(IMAPStore store, int validForSeconds) {
 			this.store = store;
 			this.validForMillis = validForSeconds * 1000;
-			this.validTo = System.currentTimeMillis() + validForMillis;
+			this.validUntil = System.currentTimeMillis() + validForMillis;
 		}
 		
 		public boolean isExpired() {
-			if (validTo < System.currentTimeMillis() && store.isConnected()) {
+			if (validUntil > System.currentTimeMillis() && store.isConnected()) {
 				return false;
 			}
 			return true;
@@ -172,7 +168,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 		
 		public void validate() throws MessagingException {
 			store.idle();
-			validTo = System.currentTimeMillis() + validForMillis;
+			validUntil = System.currentTimeMillis() + validForMillis;
 		}
 		
 		public IMAPStore getStore() {

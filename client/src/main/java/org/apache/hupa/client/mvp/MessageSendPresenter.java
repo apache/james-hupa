@@ -19,15 +19,6 @@
 
 package org.apache.hupa.client.mvp;
 
-import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
-import eu.maydu.gwt.validation.client.ValidationProcessor;
-import eu.maydu.gwt.validation.client.actions.FocusAction;
-import eu.maydu.gwt.validation.client.actions.StyleAction;
-import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
-import gwtupload.client.IUploader;
-import gwtupload.client.IUploader.OnFinishUploaderHandler;
-import gwtupload.client.IUploader.OnStartUploaderHandler;
-
 import java.util.ArrayList;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
@@ -37,7 +28,7 @@ import net.customware.gwt.presenter.client.place.PlaceRequest;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
-import org.apache.hupa.client.SessionAsyncCallback;
+import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.client.validation.NotEmptyValidator;
 import org.apache.hupa.shared.Util;
@@ -53,8 +44,8 @@ import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
-import org.apache.hupa.shared.rpc.EmptyResult;
 import org.apache.hupa.shared.rpc.ForwardMessage;
+import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.ReplyMessage;
 import org.apache.hupa.shared.rpc.SendMessage;
 import org.apache.hupa.widgets.ui.HasEnable;
@@ -62,39 +53,66 @@ import org.apache.hupa.widgets.ui.HasEnable;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
+
+import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
+import eu.maydu.gwt.validation.client.ValidationProcessor;
+import eu.maydu.gwt.validation.client.actions.FocusAction;
+import eu.maydu.gwt.validation.client.actions.StyleAction;
+import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
+import gwtupload.client.IUploader;
+import gwtupload.client.IUploadStatus.Status;
+import gwtupload.client.IUploader.OnCancelUploaderHandler;
+import gwtupload.client.IUploader.OnFinishUploaderHandler;
+import gwtupload.client.IUploader.OnStatusChangedHandler;
 
 public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.Display>{
 
 	private User user;
 	private DispatchAsync dispatcher;
 	public static final Place PLACE = new Place("MessageSend");
-	private ArrayList<MessageAttachment> aList = new ArrayList<MessageAttachment>();
+	private ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
 	private Type type = Type.NEW;
 	private IMAPFolder folder;
 	private Message oldmessage;
 	private ValidationMessages vMessages = new ValidationMessages();
 	private ValidationProcessor validator = new DefaultValidationProcessor(vMessages);
-	private MessageDetails oldDetails;
-	
-	private OnFinishUploaderHandler finishHandler = new  OnFinishUploaderHandler() {
+	@SuppressWarnings("unused")
+    private MessageDetails oldDetails;
+
+	private OnFinishUploaderHandler onFinishUploadHandler = new OnFinishUploaderHandler() {
 		public void onFinish(IUploader uploader) {
-			String name =  uploader.getFileName();
-			MessageAttachment attachment = new MessageAttachment();
-			attachment.setName(name);
-			aList.add(attachment);
-			display.getSendEnable().setEnabled(true);
-	    }
+			if (uploader.getStatus() == Status.SUCCESS) {
+				String name =  uploader.getInputName();
+				MessageAttachment attachment = new MessageAttachment();
+				attachment.setName(name);
+				attachments.add(attachment);
+				display.getSendEnable().setEnabled(true);
+			}
+        }
 	};
-		
-	private OnStartUploaderHandler startHandler = new  OnStartUploaderHandler() {
-	    public void onStart(IUploader uploader) {
-			display.getSendEnable().setEnabled(false);
-	    }
+	
+	private OnStatusChangedHandler onStatusChangedHandler = new OnStatusChangedHandler() {
+		public void onStatusChanged(IUploader uploader) {
+			Status stat = display.getUploader().getStatus();
+			if (stat == Status.INPROGRESS)
+				display.getSendEnable().setEnabled(false);
+			else
+				display.getSendEnable().setEnabled(true);
+        }
 	};
-		
+
+	private OnCancelUploaderHandler onCancelUploadHandler = new OnCancelUploaderHandler() {
+		public void onCancel(IUploader uploader) {
+			for (MessageAttachment attachment: attachments) {
+				if (attachment.getName().equals(uploader.getInputName()))
+					attachments.remove(attachment);
+			}
+        }
+	};
+	
 	@Inject
 	public MessageSendPresenter(Display display, EventBus eventBus, DispatchAsync dispatcher) {
 		super(display, eventBus);
@@ -160,8 +178,10 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 			}
 			
 		}));
-		registerHandler(display.getUploader().addOnStartUploadHandler(startHandler));
-		registerHandler(display.getUploader().addOnFinishUploadHandler(finishHandler));
+
+		registerHandler(display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler));
+		registerHandler(display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler));
+		registerHandler(display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler));
 		
 		registerHandler(display.getSendClick().addClickHandler(new ClickHandler() {
 
@@ -201,57 +221,45 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 					message.setSubject(display.getSubjectText().getText());
 					message.setText(display.getMessageText().getText());
 
-					message.setMessageAttachments(aList);
-				
+					message.setMessageAttachments(attachments);
+
+					// TODO: good handling of error messages, and use an error widget instead of Window.alert
 					if (type.equals(Type.NEW)) {
-						dispatcher.execute(new SendMessage(message), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
-
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							public void onSuccess(EmptyResult result) {
-								reset();
-								eventBus.fireEvent(new SentMessageEvent());
-							}
-							
-						}, eventBus,user));
+						dispatcher.execute(new SendMessage(message), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+                            public void callback(GenericResult result) {
+								if (result.isSuccess()) {
+									eventBus.fireEvent(new SentMessageEvent());
+									reset();
+								} else {
+									Window.alert(result.getMessage());
+								}	
+                            }
+						});
 					} else if(type.equals(Type.FORWARD)) {
-						dispatcher.execute(new ForwardMessage(message, folder, oldmessage.getUid()), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
-
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							public void onSuccess(EmptyResult result) {
-								reset();
-								eventBus.fireEvent(new SentMessageEvent());
-							}
-							
-						}, eventBus,user));
+						dispatcher.execute(new ForwardMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+                            public void callback(GenericResult result) {
+								if (result.isSuccess()) {
+									eventBus.fireEvent(new SentMessageEvent());
+									reset();
+								} else {
+									Window.alert(result.getMessage());
+								}	
+                            }
+						});
 					} else if(type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-					
 						boolean replyAll = type.equals(Type.REPLY_ALL);
-						dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid(), replyAll),new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
-
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							public void onSuccess(EmptyResult result) {
-								reset();
-								eventBus.fireEvent(new SentMessageEvent());
-							}
-							
-						}, eventBus,user));
-					
+						dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid(), replyAll), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+                            public void callback(GenericResult result) {
+								if (result.isSuccess()) {
+									eventBus.fireEvent(new SentMessageEvent());
+									reset();
+								} else {
+									Window.alert(result.getMessage());
+								}	
+                            }
+						});
 					}
 				}
-		
-			
 		}));
 		
 		registerHandler(display.getBackButtonClick().addClickHandler(new ClickHandler() {
@@ -269,7 +277,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 		display.getCcText().setText("");
 		display.getToText().setText("");
 		display.getSubjectText().setText("");
-		aList.clear();
+		attachments.clear();
 		folder = null;
 		oldmessage = null;
 		type = Type.NEW;

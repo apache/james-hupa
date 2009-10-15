@@ -19,7 +19,7 @@
 
 package org.apache.hupa.shared.rpc;
 
-public class MoveMessageResult extends EmptyResult{
+public class MoveMessageResult extends GenericResult{
 
 	/**
 	 * 

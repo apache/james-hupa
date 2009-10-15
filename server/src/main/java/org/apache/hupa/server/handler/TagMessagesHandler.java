@@ -33,7 +33,7 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.Tag;
 import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.rpc.EmptyResult;
+import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.TagMessage;
 
 import com.google.inject.Inject;
@@ -45,7 +45,7 @@ import com.sun.mail.imap.IMAPStore;
  * Handler which use user flags for supporting tagging of messages
  *
  */
-public class TagMessagesHandler extends AbstractSessionHandler<TagMessage, EmptyResult>{
+public class TagMessagesHandler extends AbstractSessionHandler<TagMessage, GenericResult>{
 
 	@Inject
 	public TagMessagesHandler(IMAPStoreCache cache, Log logger,
@@ -57,7 +57,7 @@ public class TagMessagesHandler extends AbstractSessionHandler<TagMessage, Empty
 	 * (non-Javadoc)
 	 * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
 	 */
-	protected EmptyResult executeInternal(TagMessage action,
+	protected GenericResult executeInternal(TagMessage action,
 			ExecutionContext context) throws ActionException {
 		User user = getUser();
 		ArrayList<Long> uids = action.getMessageUids();
@@ -74,7 +74,7 @@ public class TagMessagesHandler extends AbstractSessionHandler<TagMessage, Empty
 				Message m = messages[i];
 				m.getFlags().add(tag.toString());
 			}
-			return new EmptyResult();
+			return new GenericResult();
 		} catch (MessagingException e) {
 			logger.error("Error while tag messages " + uids.toString() + " for user " + user + " of folder" + action.getFolder(), e);
 			throw new ActionException(e);

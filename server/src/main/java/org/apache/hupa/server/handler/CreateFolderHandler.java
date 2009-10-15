@@ -30,7 +30,7 @@ import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.CreateFolder;
-import org.apache.hupa.shared.rpc.EmptyResult;
+import org.apache.hupa.shared.rpc.GenericResult;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -41,7 +41,7 @@ import com.sun.mail.imap.IMAPStore;
  * 
  *
  */
-public class CreateFolderHandler extends AbstractSessionHandler<CreateFolder, EmptyResult>{
+public class CreateFolderHandler extends AbstractSessionHandler<CreateFolder, GenericResult>{
 
 	@Inject
 	public CreateFolderHandler(IMAPStoreCache cache, Log logger,
@@ -50,7 +50,7 @@ public class CreateFolderHandler extends AbstractSessionHandler<CreateFolder, Em
 	}
 
 	@Override
-	protected EmptyResult executeInternal(CreateFolder action,
+	protected GenericResult executeInternal(CreateFolder action,
 			ExecutionContext context) throws ActionException {
 		User user = getUser();
 		IMAPFolder folder = action.getFolder();
@@ -60,7 +60,7 @@ public class CreateFolderHandler extends AbstractSessionHandler<CreateFolder, Em
 			Folder f = store.getFolder(folder.getFullName());
 			if (f.create(Folder.HOLDS_MESSAGES)) {
 				logger.info("Successfully create folder " + folder + " for user " + user);
-				return new EmptyResult();
+				return new GenericResult();
 			} else {
 				logger.info("Unable to create folder " + folder + " for user " + user);
 				throw new ActionException("Unable to create folder " + folder + " for user " + user);

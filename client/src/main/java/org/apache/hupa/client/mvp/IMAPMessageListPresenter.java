@@ -28,7 +28,7 @@ import net.customware.gwt.presenter.client.place.PlaceRequest;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
-import org.apache.hupa.client.SessionAsyncCallback;
+import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -43,7 +43,7 @@ import org.apache.hupa.shared.events.NewMessageEvent;
 import org.apache.hupa.shared.rpc.DeleteAllMessages;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
-import org.apache.hupa.shared.rpc.EmptyResult;
+import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.MoveMessage;
 import org.apache.hupa.shared.rpc.MoveMessageResult;
 import org.apache.hupa.shared.rpc.SetFlag;
@@ -58,7 +58,6 @@ import com.google.gwt.gen2.table.event.client.HasPageLoadHandlers;
 import com.google.gwt.gen2.table.event.client.HasRowSelectionHandlers;
 import com.google.gwt.gen2.table.event.client.RowSelectionEvent;
 import com.google.gwt.gen2.table.event.client.RowSelectionHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SourcesTableEvents;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.inject.Inject;
@@ -126,19 +125,13 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
 			public void onMoveMessageHandler(MoveMessageEvent event) {
 				final Message message = event.getMessage();
-				dispatcher.execute(new MoveMessage(event.getOldFolder(), event.getNewFolder(), message.getUid()), new SessionAsyncCallback<MoveMessageResult>(new AsyncCallback<MoveMessageResult>() {
-
-					public void onFailure(Throwable caught) {
-						GWT.log("ERROR while moving",caught);
-					}
-
-					public void onSuccess(MoveMessageResult result) {
+				dispatcher.execute(new MoveMessage(event.getOldFolder(), event.getNewFolder(), message.getUid()), new HupaCallback<MoveMessageResult>(dispatcher, eventBus) {
+					public void callback(MoveMessageResult result) {
 						ArrayList<Message> messageArray = new ArrayList<Message>();
 						messageArray.add(message);
 						display.removeMessages(messageArray);
 					}
-					
-				},eventBus,user));
+				}); 
 			}
 			
 		}));
@@ -199,17 +192,12 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		registerHandler(display.getConfirmDeleteAllDialogClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				dispatcher.execute(new DeleteAllMessages(folder), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
-
-					public void onFailure(Throwable caught) {
-						GWT.log("E=", caught);
-					}
-
-					public void onSuccess(DeleteMessageResult result) {
+				dispatcher.execute(new DeleteAllMessages(folder), new HupaCallback<DeleteMessageResult>(dispatcher, eventBus) {
+					public void callback(DeleteMessageResult result) {
 						display.reset();
 						eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,result.getCount()));
 					}
-				}, eventBus,user));
+				});
 			}
 			
 		}));
@@ -225,12 +213,8 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 						selectedMessages.remove(m);
 					}
 				}
-				dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, true, uids), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
-					public void onFailure(Throwable caught) {
-						GWT.log("ERR=", caught);
-					}
-
-					public void onSuccess(EmptyResult result) {
+				dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, true, uids), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+					public void callback(GenericResult result) {
 						GWT.log("S="+selectedMessages.size(), null);
 						for (int i = 0; i < selectedMessages.size(); i++) {
 							Message m = selectedMessages.get(i);
@@ -240,10 +224,8 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 						}
 						display.redraw();
 						eventBus.fireEvent(new DecreaseUnseenEvent(user, folder,selectedMessages.size()));
-												
 					}
-
-				}, eventBus, user));
+				});
 			}
 
 		}));
@@ -262,12 +244,8 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 					}
 				}
 				
-				dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, false, uids), new SessionAsyncCallback<EmptyResult>(new AsyncCallback<EmptyResult>() {
-					public void onFailure(Throwable caught) {
-						GWT.log("ERR=", caught);
-					}
-
-					public void onSuccess(EmptyResult result) {
+				dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, false, uids), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+					public void callback(GenericResult result) {
 						for (int i = 0; i < selectedMessages.size(); i++) {
 							Message m = selectedMessages.get(i);
 							if (m.getFlags().contains(IMAPFlag.SEEN)) {
@@ -276,10 +254,8 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 						}
 						display.redraw();
 						eventBus.fireEvent(new IncreaseUnseenEvent(user, folder,selectedMessages.size()));
-												
 					}
-
-				}, eventBus, user));
+				});
 			}
 			
 			
@@ -312,17 +288,12 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 		for (int i = 0; i < selectedMessages.size(); i++) {
 			uids.add(selectedMessages.get(i).getUid());
 		}
-		dispatcher.execute(new DeleteMessageByUid(folder,uids), new SessionAsyncCallback<DeleteMessageResult>(new AsyncCallback<DeleteMessageResult>() {
-
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-			}
-
-			public void onSuccess(DeleteMessageResult result) {
+		dispatcher.execute(new DeleteMessageByUid(folder,uids), new HupaCallback<DeleteMessageResult>(dispatcher, eventBus) {
+			public void callback(DeleteMessageResult result) {
 				display.removeMessages(selectedMessages);
 				eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,result.getCount()));
 			}
-		}, eventBus,user));
+		}); 
 	}
 	
 	public void bind(User user, IMAPFolder folder, String searchValue) {

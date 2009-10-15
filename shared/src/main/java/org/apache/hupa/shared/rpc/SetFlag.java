@@ -26,7 +26,7 @@ import net.customware.gwt.dispatch.shared.Action;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 
-public class SetFlag implements Action<EmptyResult>{
+public class SetFlag implements Action<GenericResult>{
 
 	private static final long serialVersionUID = 662741801793895357L;
 	private IMAPFlag flag;

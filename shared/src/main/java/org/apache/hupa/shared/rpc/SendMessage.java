@@ -24,7 +24,7 @@ import net.customware.gwt.dispatch.shared.Action;
 
 import org.apache.hupa.shared.data.SMTPMessage;
 
-public class SendMessage implements Action<EmptyResult>{
+public class SendMessage implements Action<GenericResult>{
 	
 	private static final long serialVersionUID = 973668124208945015L;
 

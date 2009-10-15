@@ -41,6 +41,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHTML;
@@ -72,7 +73,7 @@ public class IMAPMessageView extends Composite implements Display{
 	private Hyperlink backButton = new Hyperlink(constants.backButton(),"");
 	private FlowPanel attachments = new FlowPanel();
 	private MyDialogBox rawDialogBox = new MyDialogBox();
-	private Label rawLabel = new Label();
+	private Frame rawFrame = new Frame();
 	public final static int DELETE_BUTTON = 0;
 	public final static int REPLY_BUTTON = 1;
 	public final static int REPLY_ALL_BUTTON = 2;
@@ -167,13 +168,11 @@ public class IMAPMessageView extends Composite implements Display{
 		sPanel.add(msgArea);
 		mPanel.add(sPanel);
 
-	    DOM.setStyleAttribute(rawLabel.getElement(), "whiteSpace", "pre"); 
-	    ScrollPanel rawPanel = new ScrollPanel(rawLabel);
-	    rawPanel.setAlwaysShowScrollBars(false);
-	    rawPanel.setHeight("600px");
-	    rawPanel.setWidth("600px");
+	    // TODO: put this in css
+	    rawFrame.setHeight("600px");
+	    rawFrame.setWidth("600px");
 	    rawDialogBox.setText(constants.rawTitle());
-	    rawDialogBox.add(rawPanel);
+	    rawDialogBox.add(rawFrame);
 		rawDialogBox.setAnimationEnabled(true);
 		rawDialogBox.setAutoHideEnabled(true);
 		initWidget(mPanel);
@@ -269,8 +268,8 @@ public class IMAPMessageView extends Composite implements Display{
 		return rawDialogBox;
 	}
 
-	public HasText getShowRawMessageText() {
-		return rawLabel;
+	public Frame getShowRawMessageFrame() {
+		return rawFrame;
 	}
 	
 }

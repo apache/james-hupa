@@ -1,15 +1,16 @@
 package org.apache.hupa.client;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
+import net.customware.gwt.presenter.client.Display;
 import net.customware.gwt.presenter.client.EventBus;
 
 import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.ServerStatusEvent;
 import org.apache.hupa.shared.events.ServerStatusEvent.ServerStatus;
+import org.apache.hupa.shared.exception.InvalidSessionException;
 import org.apache.hupa.shared.rpc.CheckSession;
 import org.apache.hupa.shared.rpc.CheckSessionResult;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
@@ -19,7 +20,15 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
 	private EventBus eventBus = null;
 	private ServerStatusEvent available = new ServerStatusEvent(ServerStatus.Available); 
 	private ServerStatusEvent unavailable = new ServerStatusEvent(ServerStatus.Unavailable); 
+    private Display display = null;
 
+	@Inject
+	public HupaCallback(DispatchAsync dispatcher, EventBus bus, Display display) {
+		this(dispatcher, bus);
+		this.display = display;
+		this.display.startProcessing();
+	}
+	
 	@Inject
 	public HupaCallback(DispatchAsync dispatcher, EventBus bus) {
 		this.dispatcher = dispatcher;
@@ -34,9 +43,13 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
 		// server unaccessible, session error or server exception
 		dispatcher.execute(new CheckSession(), new AsyncCallback<CheckSessionResult>() {
 			public void onFailure(Throwable caught) {
-				// The server is unaccessible
-				eventBus.fireEvent(unavailable);
-				callbackError(originalCaught);
+				if (caught instanceof InvalidSessionException) {
+					eventBus.fireEvent(new LogoutEvent(null));
+				} else {
+					// The server is unaccessible
+					eventBus.fireEvent(unavailable);
+				}
+				finish();
 			}
 			public void onSuccess(CheckSessionResult result) {
 				if (!result.isValid()) {
@@ -47,7 +60,13 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
 					// So the original action failed because a server's exception 
 					eventBus.fireEvent(available);
 				}
+				finish();
+			}
+
+			private void finish() {
 				callbackError(originalCaught);
+				if (display != null)
+					display.stopProcessing();
 			}
 		});
 	}
@@ -60,10 +79,13 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
 		eventBus.fireEvent(available);
 		// Execute the original method
 		callback(result);
+		// If display is being used, stop it
+		if (display != null)
+			display.stopProcessing();
 	}
 	
 	/**
-	 * The callback code
+	 * The callback code which the user has to implement
 	 * @param result
 	 */
 	public abstract void callback(T result); 
@@ -75,6 +97,6 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
 	 * @param result
 	 */
 	public void callbackError(Throwable caught) {
-		GWT.log("Error", caught);
+		System.out.println("HupaCallBack Error: " + caught);
 	}
 }

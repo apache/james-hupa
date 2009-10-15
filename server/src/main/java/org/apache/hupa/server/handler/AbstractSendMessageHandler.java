@@ -29,6 +29,7 @@ import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.Address;
+import javax.mail.AuthenticationFailedException;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -48,12 +49,14 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
+import org.apache.hupa.server.DemoModeSMTPTransport;
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.rpc.EmptyResult;
+import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.SendMessage;
 
 import com.google.inject.Inject;
@@ -66,7 +69,7 @@ import com.sun.mail.imap.IMAPStore;
  * Handle sending of email messages
  * 
  */
-public abstract class AbstractSendMessageHandler<A extends SendMessage> extends AbstractSessionHandler<A,EmptyResult> {
+public abstract class AbstractSendMessageHandler<A extends SendMessage> extends AbstractSessionHandler<A,GenericResult> {
 
 	private final FileItemRegistry registry;
 	private final Properties props = new Properties();
@@ -135,6 +138,15 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
 		message.saveChanges();
 		return message;
 	}
+
+	protected void resetAttachments(A action) throws MessagingException, ActionException {
+		SMTPMessage m = action.getMessage();
+		ArrayList<MessageAttachment> attachments = m.getMessageAttachments();
+		if (attachments != null && ! attachments.isEmpty()) {
+			for(MessageAttachment attach : attachments) 
+				registry.remove(attach.getName());
+		}
+	}
 	
 	/**
 	 * Construct the multipart for the given attachments and return it
@@ -146,10 +158,12 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
 	 */
 	protected Multipart handleAttachments(Multipart multipart, ArrayList<MessageAttachment> attachments) throws MessagingException {
 		if (attachments != null) {
-			// lopp over the attachments
-			for (int i = 0; i < attachments.size(); i++) {
+			for(MessageAttachment attachment: attachments) {
 				// get the attachment from the registry
-				FileItem fItem = registry.get(attachments.get(i).getName());
+				FileItem fItem = registry.get(attachment.getName());
+				if (fItem == null)
+					continue;
+				
 				// Part two is attachment
 				MimeBodyPart messageBodyPart = new MimeBodyPart();
 				DataSource source = new FileItemDataStore(fItem);
@@ -160,51 +174,54 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
 		}
 		return multipart;
 	}
+
 	protected void sendMessage(User user, Session session, Message message) throws MessagingException {
 		Transport transport;
-		if (useSSL) {
+	
+		if (InMemoryIMAPStoreCache.DEMO_MODE.equals(address)) {
+			transport = new DemoModeSMTPTransport(session);
+		} else if (useSSL) {
 			transport = session.getTransport("smtps");
-
 		} else {
 			transport = session.getTransport("smtp");
 		}
-		// check if smtp auth is needed
+
 		if (auth) {
 			logger.debug("Use auth for smtp connection");
-
 			transport.connect(address,port,user.getName(), user.getPassword());
 		} else {
 			transport.connect(address, port, null,null);
 		}
+		
 		logger.info("Send message from " + message.getFrom()[0].toString()+ " to " + message.getRecipients(RecipientType.TO).toString());
 		transport.sendMessage(message, message.getAllRecipients());
-		
-		// store message in sent folder
-		IMAPStore iStore = cache.get(user);
-		IMAPFolder folder = (IMAPFolder) iStore.getFolder(user.getSettings().getSentFolderName());
-		
-		boolean exists = false;
-		if (folder.exists() == false) {
-			exists = folder.create(IMAPFolder.READ_WRITE);
-		} else {
-			exists = true;
-		}
-		if (exists) {
-			if (folder.isOpen() == false) {
-				folder.open(Folder.READ_WRITE);
-			}
-			message.setFlag(Flag.SEEN, true);
-			folder.appendMessages(new Message[] {message});
-			
-			try {
-				folder.close(false);
-			} catch (MessagingException e) {
-				// we don't care on close
-			}
-
-		}
-		
 	}
+
+	protected void saveSentMessage(User user, Message message) throws MessagingException {
+	    IMAPStore iStore = cache.get(user);
+	    IMAPFolder folder = (IMAPFolder) iStore.getFolder(user.getSettings().getSentFolderName());
+	    
+	    boolean exists = false;
+	    if (folder.exists() == false) {
+	    	exists = folder.create(IMAPFolder.READ_WRITE);
+	    } else {
+	    	exists = true;
+	    }
+	    if (exists) {
+	    	if (folder.isOpen() == false) {
+	    		folder.open(Folder.READ_WRITE);
+	    	}
+	    	message.setFlag(Flag.SEEN, true);
+	    	folder.appendMessages(new Message[] {message});
+	    	
+	    	try {
+	    		folder.close(false);
+	    	} catch (MessagingException e) {
+	    		// we don't care on close
+	    	}
+
+	    }
+    }
 	
 	
 
@@ -265,27 +282,35 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
 
 
 	@Override
-	protected EmptyResult executeInternal(A action, ExecutionContext context)
+	protected GenericResult executeInternal(A action, ExecutionContext context)
 			throws ActionException {
+		GenericResult result = new GenericResult();
 		try {
 			Session session = Session.getDefaultInstance(props);
 
 			Message message = createMessage(session, action);
 			message = fillBody(message,action);
-			
+
 			sendMessage(getUser(),session, message);
-			
+			saveSentMessage(getUser(), message);
+			resetAttachments(action);
 		
+			// TODO: notify the user more accurately where is the error
+			// if the message was sent and the storage in the sent folder failed, etc.
 		} catch (AddressException e) {
+			result.setError("Error while parsing recipient: " + e.getMessage());
 			logger.error("Error while parsing recipient", e);
-			throw new ActionException("Error while parsing recipient");
+		} catch (AuthenticationFailedException e) {
+			result.setError("Error while sending message: SMTP Authentication error.");
+			logger.error("SMTP Authentication error", e);
 		} catch (MessagingException e) {
+			result.setError("Error while sending message: " + e.getMessage());
 			logger.error("Error while sending message", e);
-			throw new ActionException("Error while sending message");
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			result.setError("Unexpected exception while sendig message: " + e.getMessage());
+			logger.error("Unexpected exception while sendig message: ", e);
 		}
-		return new EmptyResult();
+		return result;
 	}
 
 	/**

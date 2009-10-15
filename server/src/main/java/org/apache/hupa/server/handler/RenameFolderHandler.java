@@ -29,7 +29,7 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.rpc.EmptyResult;
+import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.RenameFolder;
 
 import com.google.inject.Inject;
@@ -40,7 +40,7 @@ import com.sun.mail.imap.IMAPStore;
  * Handler which handle renaming of folders
  *
  */
-public class RenameFolderHandler extends AbstractSessionHandler<RenameFolder, EmptyResult>{
+public class RenameFolderHandler extends AbstractSessionHandler<RenameFolder, GenericResult>{
 
 	@Inject
 	public RenameFolderHandler(IMAPStoreCache cache, Log logger,
@@ -52,7 +52,7 @@ public class RenameFolderHandler extends AbstractSessionHandler<RenameFolder, Em
 	 * (non-Javadoc)
 	 * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
 	 */
-	protected EmptyResult executeInternal(RenameFolder action,
+	protected GenericResult executeInternal(RenameFolder action,
 			ExecutionContext context) throws ActionException {
 		User user = getUser();
 		IMAPFolder folder = action.getFolder();
@@ -66,7 +66,7 @@ public class RenameFolderHandler extends AbstractSessionHandler<RenameFolder, Em
 				iFolder.close(false);
 			}
 			if (iFolder.renameTo(newFolder)) {
-				return new EmptyResult();
+				return new GenericResult();
 			}
 			throw new ActionException("Unable to rename Folder " + folder.getFullName() + " to " + newName + " for user " + user);
 

@@ -324,7 +324,7 @@
 			<dependency>
 				<groupId>gwtupload</groupId>
 				<artifactId>gwtupload</artifactId>
-				<version>0.5.1</version>
+				<version>0.5.3</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-fileupload</groupId>
