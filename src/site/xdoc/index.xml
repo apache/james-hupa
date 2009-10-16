@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!--
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
+  <!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements. See the NOTICE file distributed with this
+    work for additional information regarding copyright ownership. The ASF
+    licenses this file to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.    
--->
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
+    or agreed to in writing, software distributed under the License is
+    distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied. See the License for the specific language
+    governing permissions and limitations under the License.
+  -->
 <document>
   <properties>
     <title>Overview</title>
@@ -25,26 +21,26 @@
   <body>
     <section name="What is it?">
       <p>
-      	Hupa is IMAP-based Webmail written in GWT.
+        Hupa is IMAP-based Webmail written in GWT.
       </p>
     </section>
     <section name="News">
-   
-    <subsection name="2009">
-     
-      <h4>Sept/2009 - Hupa moved to James</h4>
-      <p>
-      	Hupa moved from Apache Labs to James this month.
+
+      <subsection name="2009">
+
+        <h4>Sept/2009 - Hupa moved to James</h4>
+        <p>
+          Hupa moved from Apache Labs to James this month.
       </p>
-    </subsection> 
-   
+      </subsection>
+
     </section>
-    
+
     <section name="releases">
       <p>
         <b>Latest: None</b>
-        <br/>
-        No releases done yet.
+        <br />
+        No releases done yet. Would like helping getting one together? <a href="dev/environment.html">Check this out</a>
       </p>
     </section>
   </body>

@@ -40,6 +40,9 @@
 
     </menu>
 
+    <menu name="Get Involved" inherit="top">
+      <item name="Setup" href="/dev/environment.html"/>
+    </menu>
 
     <menu name="Project">
       <item name="Bug Database" href="/issue-tracking.html"/>
