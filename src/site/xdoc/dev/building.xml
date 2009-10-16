@@ -46,13 +46,17 @@
           <code>${workspace_loc:/hupa-trunk}</code>
           (if your project is only named hupa, then it would be
           ${workspace_loc:/hupa}).
+          <br/>
           <img src="../images/dev/run-configurations-main.jpg" />
+          <br/>
           Underneath you should check Update Snaphots
           and on the Refresh Tab you
           should check Refresh Resources upon
           Completion and The Project
           Containing the selected Resource.
+          <br/>
           <img src="../images/dev/run-configurations-refresh.jpg" />
+          <br/>
           After all is set, click Apply and then click Run. It will take a hile
           to download all the dependencies. Once it is finished, it will refresh
           eclipse, and we are on the final step to start it up the first time.
