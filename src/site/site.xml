@@ -42,6 +42,7 @@
 
     <menu name="Get Involved" inherit="top">
       <item name="Setup" href="/dev/environment.html"/>
+      <item name="Building" href="/dev/building.html"/>
     </menu>
 
     <menu name="Project">
