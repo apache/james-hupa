@@ -23,112 +23,112 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MessageDetails implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7611536915564919521L;
-	private boolean isHTML;
-	private String text;
-	private ArrayList<MessageAttachment> aList;
-	private long uid;
-	private String raw;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7611536915564919521L;
+    private boolean isHTML;
+    private String text;
+    private ArrayList<MessageAttachment> aList;
+    private long uid;
+    private String raw;
 
-	
-	public long getUid() {
-		return uid;
-	}
+    
+    public long getUid() {
+        return uid;
+    }
 
-	public void setUid(long uid) {
-		this.uid = uid;
-	}
-	
-	/**
-	 * Set a raw String representation of the header
-	 * 
-	 * @param raw
-	 */
-	public void setRawHeader(String raw) {
-		this.raw = raw;
-	}
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+    
+    /**
+     * Set a raw String representation of the header
+     * 
+     * @param raw
+     */
+    public void setRawHeader(String raw) {
+        this.raw = raw;
+    }
 
-	/**
-	 * Return a raw String representation of the header
-	 * 
-	 * @return raw
-	 */
-	public String getRawHeader() {
-		return raw;
-	}
-	
-	/**
-	 * Set if the count is plain/html
-	 * 
-	 * @param isHTML
-	 */
-	public void setIsHTML(boolean isHTML) {
-		this.isHTML = isHTML;
-	}
+    /**
+     * Return a raw String representation of the header
+     * 
+     * @return raw
+     */
+    public String getRawHeader() {
+        return raw;
+    }
+    
+    /**
+     * Set if the count is plain/html
+     * 
+     * @param isHTML
+     */
+    public void setIsHTML(boolean isHTML) {
+        this.isHTML = isHTML;
+    }
 
-	/**
-	 * Return if the content is plain/html or plain/text
-	 * 
-	 * @return isHTML
-	 */
-	public boolean isHTML() {
-		return isHTML;
-	}
+    /**
+     * Return if the content is plain/html or plain/text
+     * 
+     * @return isHTML
+     */
+    public boolean isHTML() {
+        return isHTML;
+    }
 
-	/**
-	 * Set the body text of the content
-	 * 
-	 * @param text
-	 */
-	public void setText(String text) {
-		this.text = text;
-	}
+    /**
+     * Set the body text of the content
+     * 
+     * @param text
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	/**
-	 * Return the body text of the content
-	 * @return
-	 */
-	public String getText() {
-		return text;
-	}
+    /**
+     * Return the body text of the content
+     * @return
+     */
+    public String getText() {
+        return text;
+    }
 
-	/**
-	 * Set the attachments 
-	 * 
-	 * @param aList
-	 */
-	public void setMessageAttachments(ArrayList<MessageAttachment> aList) {
-		this.aList = aList;
-	}
+    /**
+     * Set the attachments 
+     * 
+     * @param aList
+     */
+    public void setMessageAttachments(ArrayList<MessageAttachment> aList) {
+        this.aList = aList;
+    }
 
-	/**
-	 * Return the attachments 
-	 * 
-	 * @return aList
-	 */
-	public ArrayList<MessageAttachment> getMessageAttachments() {
-		return aList;
-	}
+    /**
+     * Return the attachments 
+     * 
+     * @return aList
+     */
+    public ArrayList<MessageAttachment> getMessageAttachments() {
+        return aList;
+    }
 
 
-	public String toString() {
-		return String.valueOf(getUid());
-	}
-	
-	public boolean equals(Object obj) {
-		if (obj instanceof MessageDetails) {
-			if (((MessageDetails)obj).getUid() == getUid()) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public int hashCode() {
-		Long l = new Long(getUid());
-		return l.intValue() * 16;
-	}
+    public String toString() {
+        return String.valueOf(getUid());
+    }
+    
+    public boolean equals(Object obj) {
+        if (obj instanceof MessageDetails) {
+            if (((MessageDetails)obj).getUid() == getUid()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public int hashCode() {
+        Long l = new Long(getUid());
+        return l.intValue() * 16;
+    }
 }

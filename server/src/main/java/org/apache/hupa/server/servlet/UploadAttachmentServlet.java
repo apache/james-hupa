@@ -39,28 +39,28 @@ import com.google.inject.Inject;
  */
 public class UploadAttachmentServlet extends UploadAction{
 
-	private static final long serialVersionUID = 4936687307133529124L;
-	private FileItemRegistry registry;
-	
-	@Inject
-	public UploadAttachmentServlet(FileItemRegistry registry) {
-		this.registry = registry;
-	}
-	
-	@Override
-	public String executeAction(HttpServletRequest request, List<FileItem> sessionFiles) throws UploadActionException {
-		logger.info("Executing Action, files in session: " + sessionFiles.size() + " files in registry: " + registry.size());
-		// save file items in the registry
-		for(FileItem item: sessionFiles) 
-        	registry.add(item);
-		
-		// remove items from session but not remove the data from disk or memory
+    private static final long serialVersionUID = 4936687307133529124L;
+    private FileItemRegistry registry;
+    
+    @Inject
+    public UploadAttachmentServlet(FileItemRegistry registry) {
+        this.registry = registry;
+    }
+    
+    @Override
+    public String executeAction(HttpServletRequest request, List<FileItem> sessionFiles) throws UploadActionException {
+        logger.info("Executing Action, files in session: " + sessionFiles.size() + " files in registry: " + registry.size());
+        // save file items in the registry
+        for(FileItem item: sessionFiles) 
+            registry.add(item);
+        
+        // remove items from session but not remove the data from disk or memory
         removeSessionFileItems(request, false);
         return null;
-	}
-	
-	@Override
-	public void removeItem(HttpServletRequest request, FileItem item)  throws UploadActionException {
-	   registry.remove(item);
-	}
+    }
+    
+    @Override
+    public void removeItem(HttpServletRequest request, FileItem item)  throws UploadActionException {
+       registry.remove(item);
+    }
 }

@@ -40,66 +40,66 @@ import com.google.inject.Provider;
  * 
  */
 public class LoginUserHandler implements
-		ActionHandler<LoginUser, LoginUserResult> {
+        ActionHandler<LoginUser, LoginUserResult> {
 
-	private final IMAPStoreCache cache;
-	private final Log logger;
-	private final Provider<HttpSession> sessionProvider;
-	private final Provider<Settings> settingsProvider;
+    private final IMAPStoreCache cache;
+    private final Log logger;
+    private final Provider<HttpSession> sessionProvider;
+    private final Provider<Settings> settingsProvider;
 
-	@Inject
-	public LoginUserHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> sessionProvider, Provider<Settings> settingsProvider) {
-		this.cache = cache;
-		this.logger = logger;
-		this.sessionProvider = sessionProvider;
-		this.settingsProvider = settingsProvider;
-	}
+    @Inject
+    public LoginUserHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> sessionProvider, Provider<Settings> settingsProvider) {
+        this.cache = cache;
+        this.logger = logger;
+        this.sessionProvider = sessionProvider;
+        this.settingsProvider = settingsProvider;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#execute(net.customware.gwt.dispatch.shared.Action, net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
-	public LoginUserResult execute(LoginUser action, ExecutionContext context)
-			throws ActionException {
-		String username = action.getUserName();
-		String password = action.getPassword();
-		try {
-			
-			// construct a new user
-			User user = new User();
-			user.setName(username);
-			user.setPassword(password);
-			
-			// login
-			cache.get(user);
-			
-			user.setAuthenticated(true);
-			user.setSettings(settingsProvider.get());
-			// store the session id for later usage
-			HttpSession session = sessionProvider.get();
-			session.setAttribute("user", user);
-			return new LoginUserResult(user);
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#execute(net.customware.gwt.dispatch.shared.Action, net.customware.gwt.dispatch.server.ExecutionContext)
+     */
+    public LoginUserResult execute(LoginUser action, ExecutionContext context)
+            throws ActionException {
+        String username = action.getUserName();
+        String password = action.getPassword();
+        try {
+            
+            // construct a new user
+            User user = new User();
+            user.setName(username);
+            user.setPassword(password);
+            
+            // login
+            cache.get(user);
+            
+            user.setAuthenticated(true);
+            user.setSettings(settingsProvider.get());
+            // store the session id for later usage
+            HttpSession session = sessionProvider.get();
+            session.setAttribute("user", user);
+            return new LoginUserResult(user);
 
-		} catch (Exception e) {
-			logger.error("Unable to authenticate user " + username,e);
-			throw new ActionException(e);
-		}
-	}
+        } catch (Exception e) {
+            logger.error("Unable to authenticate user " + username,e);
+            throw new ActionException(e);
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#rollback(net.customware.gwt.dispatch.shared.Action, net.customware.gwt.dispatch.shared.Result, net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
-	public void rollback(LoginUser user, LoginUserResult result,
-			ExecutionContext context) throws ActionException {
-		// Nothing todo here
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#rollback(net.customware.gwt.dispatch.shared.Action, net.customware.gwt.dispatch.shared.Result, net.customware.gwt.dispatch.server.ExecutionContext)
+     */
+    public void rollback(LoginUser user, LoginUserResult result,
+            ExecutionContext context) throws ActionException {
+        // Nothing todo here
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<LoginUser> getActionType() {
-		return LoginUser.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<LoginUser> getActionType() {
+        return LoginUser.class;
+    }
 }

@@ -46,97 +46,97 @@ import com.sun.mail.imap.IMAPStore;
  */
 public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, FetchFoldersResult>{
 
-	@Inject
-	public FetchFoldersHandler(IMAPStoreCache cache, Log logger,Provider<HttpSession> provider) {
-		super(cache,logger,provider);
-	}
+    @Inject
+    public FetchFoldersHandler(IMAPStoreCache cache, Log logger,Provider<HttpSession> provider) {
+        super(cache,logger,provider);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
-	public FetchFoldersResult executeInternal(FetchFolders action, ExecutionContext arg1)
-	throws ActionException {
-		User user = getUser();
-		ArrayList<IMAPFolder> fList = new ArrayList<IMAPFolder>();
-		try {
-			// get the store for the user
-			IMAPStore store = cache.get(user);
-			com.sun.mail.imap.IMAPFolder folder = (com.sun.mail.imap.IMAPFolder) store.getDefaultFolder();
-			
-			Folder[] folders = folder.list();
-			// loop over all folders
-			for (int i = 0; i < folders.length; i++) {
-				Folder f = folders[i];
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
+     */
+    public FetchFoldersResult executeInternal(FetchFolders action, ExecutionContext arg1)
+    throws ActionException {
+        User user = getUser();
+        ArrayList<IMAPFolder> fList = new ArrayList<IMAPFolder>();
+        try {
+            // get the store for the user
+            IMAPStore store = cache.get(user);
+            com.sun.mail.imap.IMAPFolder folder = (com.sun.mail.imap.IMAPFolder) store.getDefaultFolder();
+            
+            Folder[] folders = folder.list();
+            // loop over all folders
+            for (int i = 0; i < folders.length; i++) {
+                Folder f = folders[i];
 
-				createIMAPFolderTree(fList, createFolder(f), f.list());
-				
-			}
-			
-			return new FetchFoldersResult(fList);
-		} catch (Exception e) {
-			logger.error("Unable to get folders for User " + user,e);
-			throw new ActionException("Unable to get folders for User "
-					+ user);
-		}
-	}
+                createIMAPFolderTree(fList, createFolder(f), f.list());
+                
+            }
+            
+            return new FetchFoldersResult(fList);
+        } catch (Exception e) {
+            logger.error("Unable to get folders for User " + user,e);
+            throw new ActionException("Unable to get folders for User "
+                    + user);
+        }
+    }
 
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<FetchFolders> getActionType() {
-		return FetchFolders.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<FetchFolders> getActionType() {
+        return FetchFolders.class;
+    }
 
-	/**
-	 * Create a new IMAPFolder from the given Folder
-	 * 
-	 * @param folder
-	 * @return imapFolder
-	 * @throws MessagingException
-	 */
-	private IMAPFolder createFolder(Folder folder) {
+    /**
+     * Create a new IMAPFolder from the given Folder
+     * 
+     * @param folder
+     * @return imapFolder
+     * @throws MessagingException
+     */
+    private IMAPFolder createFolder(Folder folder) {
 
-		String fullName = folder.getFullName();
-		String delimiter;
-		IMAPFolder iFolder = null;
-		
-		try {
-			delimiter = String.valueOf(folder.getSeparator());
-			iFolder = new IMAPFolder(fullName);
-			iFolder.setDelimiter(delimiter);
-			iFolder.setMessageCount(folder.getMessageCount());
-			iFolder.setSubscribed(folder.isSubscribed());
-			iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());
-			
-		} catch (MessagingException e) {
-			logger.error("Unable to construct folder " + folder.getFullName(),e);
-		}
-		
-		
-		return iFolder;
-	}
-	
-	/**
-	 * Create a folder tree 
-	 * 
-	 * @param fList
-	 * @param iFolder
-	 * @param childFolders
-	 * @throws MessagingException
-	 */
-	private void createIMAPFolderTree(List<IMAPFolder> fList,
-			IMAPFolder iFolder, Folder[] childFolders) throws MessagingException {
-		
-		for (int a = 0; a < childFolders.length; a++) {
-			IMAPFolder folder = createFolder(childFolders[a]);
-			if (folder != null) {
-				iFolder.getChildIMAPFolders().add(createFolder(childFolders[a]));
-			}
-		}
-		fList.add(iFolder);
-	}
+        String fullName = folder.getFullName();
+        String delimiter;
+        IMAPFolder iFolder = null;
+        
+        try {
+            delimiter = String.valueOf(folder.getSeparator());
+            iFolder = new IMAPFolder(fullName);
+            iFolder.setDelimiter(delimiter);
+            iFolder.setMessageCount(folder.getMessageCount());
+            iFolder.setSubscribed(folder.isSubscribed());
+            iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());
+            
+        } catch (MessagingException e) {
+            logger.error("Unable to construct folder " + folder.getFullName(),e);
+        }
+        
+        
+        return iFolder;
+    }
+    
+    /**
+     * Create a folder tree 
+     * 
+     * @param fList
+     * @param iFolder
+     * @param childFolders
+     * @throws MessagingException
+     */
+    private void createIMAPFolderTree(List<IMAPFolder> fList,
+            IMAPFolder iFolder, Folder[] childFolders) throws MessagingException {
+        
+        for (int a = 0; a < childFolders.length; a++) {
+            IMAPFolder folder = createFolder(childFolders[a]);
+            if (folder != null) {
+                iFolder.getChildIMAPFolders().add(createFolder(childFolders[a]));
+            }
+        }
+        fList.add(iFolder);
+    }
 
 }

@@ -29,43 +29,43 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class DeleteMessageEvent extends GwtEvent<DeleteMessageEventHandler>{
 
-	public final static Type<DeleteMessageEventHandler> TYPE = new Type<DeleteMessageEventHandler>();
-	private User user;
-	private IMAPFolder folder;
-	private ArrayList<Message> messageList;
-	@Override
-	protected void dispatch(DeleteMessageEventHandler handler) {
-		handler.onDeleteMessageEvent(this);
-	}
+    public final static Type<DeleteMessageEventHandler> TYPE = new Type<DeleteMessageEventHandler>();
+    private User user;
+    private IMAPFolder folder;
+    private ArrayList<Message> messageList;
+    @Override
+    protected void dispatch(DeleteMessageEventHandler handler) {
+        handler.onDeleteMessageEvent(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<DeleteMessageEventHandler> getAssociatedType() {
-		return TYPE;
-	}
-	
-	public DeleteMessageEvent(User user, IMAPFolder folder, ArrayList<Message> messageList) {
-		this.user = user;
-		this.folder = folder;
-		this.messageList = messageList;
-	}
-	public DeleteMessageEvent(User user, IMAPFolder folder, Message message) {
-		ArrayList<Message> mList = new ArrayList<Message>();
-		mList.add(message);
-		
-		this.user = user;
-		this.folder = folder;
-		this.messageList = mList;
-	}
-	public User getUser() {
-		return user;
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public ArrayList<Message> getMessages() {
-		return messageList;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<DeleteMessageEventHandler> getAssociatedType() {
+        return TYPE;
+    }
+    
+    public DeleteMessageEvent(User user, IMAPFolder folder, ArrayList<Message> messageList) {
+        this.user = user;
+        this.folder = folder;
+        this.messageList = messageList;
+    }
+    public DeleteMessageEvent(User user, IMAPFolder folder, Message message) {
+        ArrayList<Message> mList = new ArrayList<Message>();
+        mList.add(message);
+        
+        this.user = user;
+        this.folder = folder;
+        this.messageList = mList;
+    }
+    public User getUser() {
+        return user;
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
+    
+    public ArrayList<Message> getMessages() {
+        return messageList;
+    }
 
 }

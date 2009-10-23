@@ -25,23 +25,23 @@ import org.apache.hupa.shared.data.SMTPMessage;
 
 public class ForwardMessage extends SendMessage {
 
-	private static final long serialVersionUID = 1656671247843122192L;
-	private long uid;
-	private IMAPFolder folder;
+    private static final long serialVersionUID = 1656671247843122192L;
+    private long uid;
+    private IMAPFolder folder;
 
-	public ForwardMessage(SMTPMessage msg, IMAPFolder folder, long uid) {
-		this.uid = uid;
-		this.folder = folder;
-	}
-	
-	protected ForwardMessage() {
-	}
+    public ForwardMessage(SMTPMessage msg, IMAPFolder folder, long uid) {
+        this.uid = uid;
+        this.folder = folder;
+    }
+    
+    protected ForwardMessage() {
+    }
 
-	public long getReplyMessageUid() {
-		return uid;
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
+    public long getReplyMessageUid() {
+        return uid;
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
 }

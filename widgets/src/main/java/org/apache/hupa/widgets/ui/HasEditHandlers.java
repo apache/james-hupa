@@ -25,5 +25,5 @@ import com.google.gwt.event.shared.HandlerRegistration;
 
 public interface HasEditHandlers {
 
-	public HandlerRegistration addEditHandler(EditHandler handler);
+    public HandlerRegistration addEditHandler(EditHandler handler);
 }

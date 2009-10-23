@@ -23,78 +23,78 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class AbstractMessage implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5208272852772006815L;
-	private String from;
-	private String subject;
-	private ArrayList<String> to;
-	private ArrayList<String> cc;
-	private boolean hasAttachment;
-	
-	public boolean hasAttachment() {
-		return hasAttachment;
-	}
-	
-	public void setHasAttachments(boolean hasAttachments) {
-		this.hasAttachment = hasAttachments;
-	}
-	
-	/**
-	 * Set the From: header field
-	 * 
-	 * @param from
-	 */
-	public void setFrom(String from) {
-		this.from = from;
-	}
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5208272852772006815L;
+    private String from;
+    private String subject;
+    private ArrayList<String> to;
+    private ArrayList<String> cc;
+    private boolean hasAttachment;
+    
+    public boolean hasAttachment() {
+        return hasAttachment;
+    }
+    
+    public void setHasAttachments(boolean hasAttachments) {
+        this.hasAttachment = hasAttachments;
+    }
+    
+    /**
+     * Set the From: header field
+     * 
+     * @param from
+     */
+    public void setFrom(String from) {
+        this.from = from;
+    }
 
-	/**
-	 * Return the From: header field
-	 * 
-	 * @return from
-	 */
-	public String getFrom() {
-		return from;
-	}
+    /**
+     * Return the From: header field
+     * 
+     * @return from
+     */
+    public String getFrom() {
+        return from;
+    }
 
 
-	public void setCc(ArrayList<String> cc) {
-		this.cc = cc;
-	}
+    public void setCc(ArrayList<String> cc) {
+        this.cc = cc;
+    }
 
-	public ArrayList<String> getCc() {
-		return cc;
-	}
+    public ArrayList<String> getCc() {
+        return cc;
+    }
 
-	/**
-	 * Set the Subject: header field
-	 * 
-	 * @param subject
-	 */
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
+    /**
+     * Set the Subject: header field
+     * 
+     * @param subject
+     */
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
-	/**
-	 * Return the Subject: header field
-	 * 
-	 * @return subject
-	 */
-	public String getSubject() {
-		return subject;
-	}
+    /**
+     * Return the Subject: header field
+     * 
+     * @return subject
+     */
+    public String getSubject() {
+        return subject;
+    }
 
-	public  ArrayList<String> getTo() {
-		return to;
-	}
+    public  ArrayList<String> getTo() {
+        return to;
+    }
 
-	public void setTo( ArrayList<String> to) {
-		this.to = to;
-	}
-	
+    public void setTo( ArrayList<String> to) {
+        this.to = to;
+    }
+    
 
 
 }

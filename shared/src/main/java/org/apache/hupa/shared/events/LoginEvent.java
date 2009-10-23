@@ -25,25 +25,25 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class LoginEvent extends GwtEvent<LoginEventHandler>{
 
-	public static Type<LoginEventHandler> TYPE = new Type<LoginEventHandler>();
-	private User user;
-	
-	public LoginEvent(User user) {
-		this.user = user;
-	}
+    public static Type<LoginEventHandler> TYPE = new Type<LoginEventHandler>();
+    private User user;
+    
+    public LoginEvent(User user) {
+        this.user = user;
+    }
 
-	public User getUser() {
-		return user;
-	}
-	
-	@Override
-	public Type<LoginEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    public User getUser() {
+        return user;
+    }
+    
+    @Override
+    public Type<LoginEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
-	@Override
-	protected void dispatch(LoginEventHandler handler) {
-		handler.onLogin(this);
-	}
+    @Override
+    protected void dispatch(LoginEventHandler handler) {
+        handler.onLogin(this);
+    }
 
 }

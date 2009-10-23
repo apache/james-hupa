@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface EditHandler extends EventHandler{
 
-	public void onEditEvent(EditEvent event);
+    public void onEditEvent(EditEvent event);
 }

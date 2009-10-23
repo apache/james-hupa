@@ -23,23 +23,23 @@ import net.customware.gwt.dispatch.shared.Result;
 
 public class RawMessageResult implements Result{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6244846164658274324L;
-	private String rawMessage;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6244846164658274324L;
+    private String rawMessage;
 
-	protected RawMessageResult() {
-		
-	}
-	
-	public RawMessageResult(String rawMessage) {
-		this.rawMessage = rawMessage;
-	}
-	
-	
-	public String getRawMessage() {
-		return rawMessage;
-	}
-	
+    protected RawMessageResult() {
+        
+    }
+    
+    public RawMessageResult(String rawMessage) {
+        this.rawMessage = rawMessage;
+    }
+    
+    
+    public String getRawMessage() {
+        return rawMessage;
+    }
+    
 }

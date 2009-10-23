@@ -30,43 +30,43 @@ import com.google.inject.Inject;
 
 public class FileItemRegistry {
 
-	public Map<String,FileItem> map = new HashMap<String, FileItem>();
-	private Log logger;
-	
-	@Inject
-	public FileItemRegistry(Log logger) {
-		this.logger = logger;
-	}
-	
-	public void add(FileItem item) {
-		logger.debug("Store item " + item.getName() + " with name " + item.getFieldName());
-		map.put(item.getFieldName(), item);
-	}
-	
-	public void remove(String name) {
-		remove(get(name));
-	}
-	
-	public void remove(FileItem item) {
-		if (item != null) {
-			logger.debug("Remove item " + item.getName() + " with name " + item.getFieldName());
-			map.remove(item);
-			// Remove temporary stuff
-			item.delete();
-		}
-	}
-	
-	public void clear() {
-		for (Entry<String,FileItem> e: map.entrySet()) 
-			remove(e.getValue());
-	}
-	
-	public FileItem get(String name) {
-		logger.debug("Retrieve item " + name + " isNull=" + (map.get(name) == null));
-		return map.get(name);
-	}
-	
-	public int size() {
-		return map.size();
-	}
+    public Map<String,FileItem> map = new HashMap<String, FileItem>();
+    private Log logger;
+    
+    @Inject
+    public FileItemRegistry(Log logger) {
+        this.logger = logger;
+    }
+    
+    public void add(FileItem item) {
+        logger.debug("Store item " + item.getName() + " with name " + item.getFieldName());
+        map.put(item.getFieldName(), item);
+    }
+    
+    public void remove(String name) {
+        remove(get(name));
+    }
+    
+    public void remove(FileItem item) {
+        if (item != null) {
+            logger.debug("Remove item " + item.getName() + " with name " + item.getFieldName());
+            map.remove(item);
+            // Remove temporary stuff
+            item.delete();
+        }
+    }
+    
+    public void clear() {
+        for (Entry<String,FileItem> e: map.entrySet()) 
+            remove(e.getValue());
+    }
+    
+    public FileItem get(String name) {
+        logger.debug("Retrieve item " + name + " isNull=" + (map.get(name) == null));
+        return map.get(name);
+    }
+    
+    public int size() {
+        return map.size();
+    }
 }

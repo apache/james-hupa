@@ -55,77 +55,77 @@ import com.sun.mail.imap.IMAPStore;
  */
 public class ForwardMessageHandler extends AbstractSendMessageHandler<ForwardMessage>{
 
-	@Inject
-	public ForwardMessageHandler(Log logger, FileItemRegistry registry,
-			IMAPStoreCache store, Provider<HttpSession> provider,
-			@Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
-		super(logger, registry, store, provider, address, port, auth, useSSL);
-	}
+    @Inject
+    public ForwardMessageHandler(Log logger, FileItemRegistry registry,
+            IMAPStoreCache store, Provider<HttpSession> provider,
+            @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
+        super(logger, registry, store, provider, address, port, auth, useSSL);
+    }
 
-	@Override
-	protected Message createMessage(Session session, ForwardMessage action)
-			throws AddressException, MessagingException, ActionException {
-			MimeMessage message = new MimeMessage(session);
-			SMTPMessage m = action.getMessage();
-			message.setFrom(new InternetAddress(m.getFrom()));
-			ArrayList<String> to = m.getTo();
-			for (int i = 0; i < to.size(); i++) {
-				message.addRecipient(RecipientType.TO, new InternetAddress(to
-						.get(i)));
-			}
+    @Override
+    protected Message createMessage(Session session, ForwardMessage action)
+            throws AddressException, MessagingException, ActionException {
+            MimeMessage message = new MimeMessage(session);
+            SMTPMessage m = action.getMessage();
+            message.setFrom(new InternetAddress(m.getFrom()));
+            ArrayList<String> to = m.getTo();
+            for (int i = 0; i < to.size(); i++) {
+                message.addRecipient(RecipientType.TO, new InternetAddress(to
+                        .get(i)));
+            }
 
-			ArrayList<String> cc = m.getCc();
-			for (int i = 0; i < cc.size(); i++) {
-				message.addRecipient(RecipientType.CC, new InternetAddress(cc
-						.get(i)));
-			}
-			message.setSubject(m.getSubject());
-			message.saveChanges();
-			return message;
-	}
+            ArrayList<String> cc = m.getCc();
+            for (int i = 0; i < cc.size(); i++) {
+                message.addRecipient(RecipientType.CC, new InternetAddress(cc
+                        .get(i)));
+            }
+            message.setSubject(m.getSubject());
+            message.saveChanges();
+            return message;
+    }
 
-	@Override
-	protected Message fillBody(Message message,
-			ForwardMessage action) throws MessagingException, ActionException {
-		SMTPMessage m = action.getMessage();
+    @Override
+    protected Message fillBody(Message message,
+            ForwardMessage action) throws MessagingException, ActionException {
+        SMTPMessage m = action.getMessage();
 
-		// create the message part
-		MimeBodyPart messageBodyPart = new MimeBodyPart();
+        // create the message part
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
 
-		// fill message
-		messageBodyPart.setText(m.getText());
+        // fill message
+        messageBodyPart.setText(m.getText());
 
-		Multipart multipart = new MimeMultipart();
-		multipart.addBodyPart(messageBodyPart);
-		
-		IMAPStore store = cache.get(getUser());
-		
-		IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
-		if (folder.isOpen() == false) {
-			folder.open(Folder.READ_ONLY);
-		}
-		Message fMessage = folder.getMessageByUID(action.getReplyMessageUid());
-		
-		// Create and fill part for the forwarded content
-		messageBodyPart = new MimeBodyPart();
-		messageBodyPart.setDataHandler(fMessage.getDataHandler());
-		multipart.addBodyPart(messageBodyPart);
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+        
+        IMAPStore store = cache.get(getUser());
+        
+        IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
+        if (folder.isOpen() == false) {
+            folder.open(Folder.READ_ONLY);
+        }
+        Message fMessage = folder.getMessageByUID(action.getReplyMessageUid());
+        
+        // Create and fill part for the forwarded content
+        messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setDataHandler(fMessage.getDataHandler());
+        multipart.addBodyPart(messageBodyPart);
 
-		multipart = handleAttachments(multipart, m.getMessageAttachments());
-		
-		
-		// Put parts in message
-		message.setContent(multipart);
-		message.saveChanges();
-		return message;
-	}
+        multipart = handleAttachments(multipart, m.getMessageAttachments());
+        
+        
+        // Put parts in message
+        message.setContent(multipart);
+        message.saveChanges();
+        return message;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<ForwardMessage> getActionType() {
-		return ForwardMessage.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<ForwardMessage> getActionType() {
+        return ForwardMessage.class;
+    }
 
 }

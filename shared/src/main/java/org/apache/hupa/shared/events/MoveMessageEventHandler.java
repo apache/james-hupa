@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface MoveMessageEventHandler extends EventHandler{
 
-	public void onMoveMessageHandler(MoveMessageEvent event);
+    public void onMoveMessageHandler(MoveMessageEvent event);
 }

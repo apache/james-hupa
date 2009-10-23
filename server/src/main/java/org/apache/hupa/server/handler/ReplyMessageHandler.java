@@ -49,43 +49,43 @@ import com.sun.mail.imap.IMAPStore;
  */
 public class ReplyMessageHandler extends AbstractSendMessageHandler<ReplyMessage>{
 
-	@Inject
-	public ReplyMessageHandler(Log logger, FileItemRegistry registry,
-			IMAPStoreCache store, Provider<HttpSession> provider,
-			@Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
-		super(logger, registry, store, provider, address, port, auth, useSSL);
-	}
+    @Inject
+    public ReplyMessageHandler(Log logger, FileItemRegistry registry,
+            IMAPStoreCache store, Provider<HttpSession> provider,
+            @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
+        super(logger, registry, store, provider, address, port, auth, useSSL);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.server.handler.AbstractSendMessageHandler#createMessage(javax.mail.Session, org.apache.hupa.shared.rpc.SendMessage)
-	 */
-	protected Message createMessage(Session session, ReplyMessage action)
-			throws AddressException, MessagingException, ActionException {
-		IMAPStore store = cache.get(getUser());
-		IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
-		if (folder.isOpen() == false) {
-			folder.open(Folder.READ_ONLY);
-		}
-		Message rMessage =  folder.getMessageByUID(action.getReplyMessageUid()).reply(action.getReplyAll());
-		SMTPMessage m = action.getMessage();
-		// Use the new recipient list, maybe it has changed
-		rMessage.setRecipients(RecipientType.TO, getRecipients(m.getTo()));
-		rMessage.setRecipients(RecipientType.CC, getRecipients(m.getCc()));
-		rMessage.setRecipients(RecipientType.BCC, getRecipients(m.getBcc()));
-		rMessage.setFrom(new InternetAddress(m.getFrom()));
-		// replace subject
-		rMessage.setSubject(m.getSubject());
-		rMessage.saveChanges();
-		return rMessage;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.server.handler.AbstractSendMessageHandler#createMessage(javax.mail.Session, org.apache.hupa.shared.rpc.SendMessage)
+     */
+    protected Message createMessage(Session session, ReplyMessage action)
+            throws AddressException, MessagingException, ActionException {
+        IMAPStore store = cache.get(getUser());
+        IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
+        if (folder.isOpen() == false) {
+            folder.open(Folder.READ_ONLY);
+        }
+        Message rMessage =  folder.getMessageByUID(action.getReplyMessageUid()).reply(action.getReplyAll());
+        SMTPMessage m = action.getMessage();
+        // Use the new recipient list, maybe it has changed
+        rMessage.setRecipients(RecipientType.TO, getRecipients(m.getTo()));
+        rMessage.setRecipients(RecipientType.CC, getRecipients(m.getCc()));
+        rMessage.setRecipients(RecipientType.BCC, getRecipients(m.getBcc()));
+        rMessage.setFrom(new InternetAddress(m.getFrom()));
+        // replace subject
+        rMessage.setSubject(m.getSubject());
+        rMessage.saveChanges();
+        return rMessage;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<ReplyMessage> getActionType() {
-		return ReplyMessage.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<ReplyMessage> getActionType() {
+        return ReplyMessage.class;
+    }
 
 }

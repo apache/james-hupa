@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface MessagesReceivedEventHandler extends EventHandler{
 
-	public void onMessagesReceived(MessagesReceivedEvent event);
+    public void onMessagesReceived(MessagesReceivedEvent event);
 }

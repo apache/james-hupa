@@ -28,66 +28,66 @@ import java.io.Serializable;
  */
 public class MessageAttachment implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6896197131104882424L;
-	private String cType;
-	private int size;
-	private String name;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6896197131104882424L;
+    private String cType;
+    private int size;
+    private String name;
 
-	/**
-	 * Set the name of the attachment
-	 * 
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-		
-	}
+    /**
+     * Set the name of the attachment
+     * 
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+        
+    }
 
-	/**
-	 * Return the name of the attachment
-	 * 
-	 * @return name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Return the name of the attachment
+     * 
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Set the content-type of the attachment
-	 * 
-	 * @param cType
-	 */
-	public void setContentType(String cType) {
-		this.cType = cType;
-	}
-	
-	/**
-	 * Return the content-type of the attachment
-	 * 
-	 * @return cType
-	 */
-	public String getContentType() {
-		return cType;
-	}
+    /**
+     * Set the content-type of the attachment
+     * 
+     * @param cType
+     */
+    public void setContentType(String cType) {
+        this.cType = cType;
+    }
+    
+    /**
+     * Return the content-type of the attachment
+     * 
+     * @return cType
+     */
+    public String getContentType() {
+        return cType;
+    }
 
-	/**
-	 * Set the content size in bytes
-	 * 
-	 * @param size
-	 */
-	public void setSize(int size) {
-		this.size = size;
-	}
+    /**
+     * Set the content size in bytes
+     * 
+     * @param size
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
 
-	/**
-	 * Return the content size in bytes
-	 * 
-	 * @return size
-	 */
-	public int getSize() {
-		return size;
-	}
+    /**
+     * Return the content size in bytes
+     * 
+     * @return size
+     */
+    public int getSize() {
+        return size;
+    }
 }

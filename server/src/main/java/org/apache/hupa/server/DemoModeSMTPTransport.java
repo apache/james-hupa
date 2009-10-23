@@ -29,18 +29,18 @@ import javax.mail.URLName;
 
 public class DemoModeSMTPTransport extends Transport {
 
-	static final URLName demoUrl = new URLName(null, InMemoryIMAPStoreCache.DEMO_MODE, 143, null, null, null);
-	
-	public DemoModeSMTPTransport(Session session) {
-		super(session, demoUrl);
-	}
+    static final URLName demoUrl = new URLName(null, InMemoryIMAPStoreCache.DEMO_MODE, 143, null, null, null);
+    
+    public DemoModeSMTPTransport(Session session) {
+        super(session, demoUrl);
+    }
 
-	@Override
+    @Override
     public void sendMessage(Message msg, Address[] addresses) throws MessagingException {
     }
     
     @Override
     public void connect(String host, int port, String user, String password) throws MessagingException {
     }
-	
+    
 }

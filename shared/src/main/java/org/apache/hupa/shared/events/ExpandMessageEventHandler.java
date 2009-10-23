@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface ExpandMessageEventHandler extends EventHandler{
 
-	public void onExpandMessage(ExpandMessageEvent event);
+    public void onExpandMessage(ExpandMessageEvent event);
 }

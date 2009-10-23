@@ -24,6 +24,6 @@ import net.customware.gwt.dispatch.shared.Action;
 
 public class CheckSession implements Action<CheckSessionResult> {
 
-	private static final long serialVersionUID = 2255166545722718094L;
-	
+    private static final long serialVersionUID = 2255166545722718094L;
+    
 }

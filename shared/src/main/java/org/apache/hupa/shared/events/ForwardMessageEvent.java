@@ -29,43 +29,43 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
 
-	public final static Type<ForwardMessageEventHandler> TYPE = new Type<ForwardMessageEventHandler>();
-	private User user;
-	private IMAPFolder folder;
-	private Message message;
-	private MessageDetails details;
+    public final static Type<ForwardMessageEventHandler> TYPE = new Type<ForwardMessageEventHandler>();
+    private User user;
+    private IMAPFolder folder;
+    private Message message;
+    private MessageDetails details;
 
-	public ForwardMessageEvent(User user, IMAPFolder folder, Message message, MessageDetails details) {
-		this.user = user;
-		this.folder = folder;
-		this.message = message;
-		this.details = details;
-	}
+    public ForwardMessageEvent(User user, IMAPFolder folder, Message message, MessageDetails details) {
+        this.user = user;
+        this.folder = folder;
+        this.message = message;
+        this.details = details;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public IMAPFolder getFolder() {
-		return folder;
-	}
+    public IMAPFolder getFolder() {
+        return folder;
+    }
 
-	public Message getMessage() {
-		return message;
-	}
+    public Message getMessage() {
+        return message;
+    }
 
 
-	public MessageDetails getMessageDetails() {
-		return details;
-	}
+    public MessageDetails getMessageDetails() {
+        return details;
+    }
 
-	@Override
-	protected void dispatch(ForwardMessageEventHandler handler) {
-		handler.onForwardMessageEvent(this);
-	}
+    @Override
+    protected void dispatch(ForwardMessageEventHandler handler) {
+        handler.onForwardMessageEvent(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<ForwardMessageEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<ForwardMessageEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 }

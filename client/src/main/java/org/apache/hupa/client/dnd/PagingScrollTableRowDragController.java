@@ -39,111 +39,111 @@ import com.google.gwt.user.client.ui.Widget;
 public class PagingScrollTableRowDragController extends PickupDragController {
 
 
-	private HupaMessages messages = GWT.create(HupaMessages.class);
-	private HupaImageBundle bundle =GWT.create(HupaImageBundle.class);
-	private FixedWidthGrid draggableTable;
-	private PagingScrollTable parentTable;
-	private int dragRow;
-	private RowDragProxy proxyWidget;
+    private HupaMessages messages = GWT.create(HupaMessages.class);
+    private HupaImageBundle bundle =GWT.create(HupaImageBundle.class);
+    private FixedWidthGrid draggableTable;
+    private PagingScrollTable parentTable;
+    private int dragRow;
+    private RowDragProxy proxyWidget;
 
-	public PagingScrollTableRowDragController() {
-		this(RootPanel.get());
-		
-	}
-	public PagingScrollTableRowDragController(AbsolutePanel boundaryPanel) {
-		super(boundaryPanel, false);
-		setBehaviorDragProxy(true);
-		setBehaviorMultipleSelection(false);
-	}
+    public PagingScrollTableRowDragController() {
+        this(RootPanel.get());
+        
+    }
+    public PagingScrollTableRowDragController(AbsolutePanel boundaryPanel) {
+        super(boundaryPanel, false);
+        setBehaviorDragProxy(true);
+        setBehaviorMultipleSelection(false);
+    }
 
-	@Override
-	public void dragEnd() {
-		super.dragEnd();
+    @Override
+    public void dragEnd() {
+        super.dragEnd();
 
-		// cleanup
-		draggableTable = null;
-		parentTable = null;
-		dragRow = -1;
-		proxyWidget = null;
-	}
+        // cleanup
+        draggableTable = null;
+        parentTable = null;
+        dragRow = -1;
+        proxyWidget = null;
+    }
 
-	@Override
-	public void setBehaviorDragProxy(boolean dragProxyEnabled) {
-		if (!dragProxyEnabled) {
-			// TODO implement drag proxy behavior
-			throw new IllegalArgumentException();
-		}
-		super.setBehaviorDragProxy(dragProxyEnabled);
-	}
+    @Override
+    public void setBehaviorDragProxy(boolean dragProxyEnabled) {
+        if (!dragProxyEnabled) {
+            // TODO implement drag proxy behavior
+            throw new IllegalArgumentException();
+        }
+        super.setBehaviorDragProxy(dragProxyEnabled);
+    }
 
-	@Override
-	protected BoundaryDropController newBoundaryDropController(
-			AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
-		if (allowDroppingOnBoundaryPanel) {
-			throw new IllegalArgumentException();
-		}
-		return super.newBoundaryDropController(boundaryPanel,
-				allowDroppingOnBoundaryPanel);
-	}
+    @Override
+    protected BoundaryDropController newBoundaryDropController(
+            AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
+        if (allowDroppingOnBoundaryPanel) {
+            throw new IllegalArgumentException();
+        }
+        return super.newBoundaryDropController(boundaryPanel,
+                allowDroppingOnBoundaryPanel);
+    }
 
-	
-	@SuppressWarnings("unchecked")
-	protected Widget newDragProxy(DragContext context) {
-		
-		draggableTable = (FixedWidthGrid) context.draggable.getParent();
-		parentTable = (PagingScrollTable)draggableTable.getParent();
-		
-	    dragRow = getWidgetRow(context.draggable);
-	    
-	    proxyWidget = new RowDragProxy();
-		return proxyWidget;
-	}
+    
+    @SuppressWarnings("unchecked")
+    protected Widget newDragProxy(DragContext context) {
+        
+        draggableTable = (FixedWidthGrid) context.draggable.getParent();
+        parentTable = (PagingScrollTable)draggableTable.getParent();
+        
+        dragRow = getWidgetRow(context.draggable);
+        
+        proxyWidget = new RowDragProxy();
+        return proxyWidget;
+    }
 
-	private int getWidgetRow(Widget widget) {
-		FixedWidthGrid grid = draggableTable;
-	    for (int row = 0; row < grid.getRowCount(); row++) {
-	        for (int col = 0; col < grid.getCellCount(row); col++) {
-	            Widget w = grid.getWidget(row, col);
-	            if (w == widget) {
-	                return row;
-	            }
-	        }
-		}
-	    throw new RuntimeException("Unable to determine widget row");
-	}
-	
+    private int getWidgetRow(Widget widget) {
+        FixedWidthGrid grid = draggableTable;
+        for (int row = 0; row < grid.getRowCount(); row++) {
+            for (int col = 0; col < grid.getCellCount(row); col++) {
+                Widget w = grid.getWidget(row, col);
+                if (w == widget) {
+                    return row;
+                }
+            }
+        }
+        throw new RuntimeException("Unable to determine widget row");
+    }
+    
 
-	
-	public RowDragProxy getCurrentProxy() {
-		return proxyWidget;
-	}
-	
-	public Object getDragValue() {
-		return parentTable.getRowValue(dragRow);
-	}
+    
+    public RowDragProxy getCurrentProxy() {
+        return proxyWidget;
+    }
+    
+    public Object getDragValue() {
+        return parentTable.getRowValue(dragRow);
+    }
 
-	public class RowDragProxy extends Composite {
-		private String styleName = "hupa-droptarget-invalid";
-		private HorizontalPanel proxy = new HorizontalPanel();
-		public RowDragProxy() {
-			RoundedPanel proxyPanel = new RoundedPanel(RoundedPanel.ALL,1);
-			setIsValid(false);
-			proxy.add(bundle.moveMailIcon().createImage());
-			proxy.add(new Label(" " + messages.moveMessage()));
-		    proxyPanel.add(proxy);
-		    proxyPanel.setBorder();
-		    proxyPanel.setWidth("150px");		
-		    initWidget(proxyPanel);
-		}
-		
-		
-		public void setIsValid(boolean valid) {
-			if (valid) {
-				proxy.removeStyleName(styleName);
-			} else {
-				proxy.addStyleName(styleName);
-			}
-		}
-	}
+    public class RowDragProxy extends Composite {
+        private String styleName = "hupa-droptarget-invalid";
+        private HorizontalPanel proxy = new HorizontalPanel();
+        public RowDragProxy() {
+            RoundedPanel proxyPanel = new RoundedPanel(RoundedPanel.ALL,1);
+            setIsValid(false);
+            proxy.add(bundle.moveMailIcon().createImage());
+            proxy.add(new Label(" " + messages.moveMessage()));
+            proxyPanel.add(proxy);
+            proxyPanel.setBorder();
+            proxyPanel.setWidth("150px");        
+            initWidget(proxyPanel);
+        }
+        
+        
+        public void setIsValid(boolean valid) {
+            if (valid) {
+                proxy.removeStyleName(styleName);
+            } else {
+                proxy.addStyleName(styleName);
+            }
+        }
+    }
 
 }

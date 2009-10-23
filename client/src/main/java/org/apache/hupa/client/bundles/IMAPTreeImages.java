@@ -24,25 +24,25 @@ import com.google.gwt.user.client.ui.TreeImages;
 
 public interface IMAPTreeImages extends TreeImages {
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.google.gwt.user.client.ui.TreeImages#treeOpen()
-	 */
-	@Resource("folder_add.png")
-	AbstractImagePrototype treeOpen();
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.TreeImages#treeOpen()
+     */
+    @Resource("folder_add.png")
+    AbstractImagePrototype treeOpen();
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.google.gwt.user.client.ui.TreeImages#treeClosed()
-	 */
-	@Resource("folder_add.png")
-	AbstractImagePrototype treeClosed();
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.TreeImages#treeClosed()
+     */
+    @Resource("folder_add.png")
+    AbstractImagePrototype treeClosed();
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.google.gwt.user.client.ui.TreeImages#treeLeaf()
-	 */
-	@Resource("folder.png")
-	AbstractImagePrototype treeLeaf();
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.TreeImages#treeLeaf()
+     */
+    @Resource("folder.png")
+    AbstractImagePrototype treeLeaf();
 
 }

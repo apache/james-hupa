@@ -153,13 +153,13 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
 
     protected void loadTreeItems() {
         cachingDispatcher.execute(new FetchFolders(), new HupaCallback<FetchFoldersResult>(cachingDispatcher, eventBus, display) {
-			public void callback(FetchFoldersResult result) {
+            public void callback(FetchFoldersResult result) {
                 display.bindTreeItems(createTreeNodes(result.getFolders()));
                 // disable
                 display.getDeleteEnable().setEnabled(false);
                 display.getRenameEnable().setEnabled(false);
-			}
-		});
+            }
+        });
     }
 
     /**
@@ -183,13 +183,13 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
                         final String newName = (String) event.getNewValue();
                         if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
                             cachingDispatcher.execute(new RenameFolder(iFolder, newName), new HupaCallback<GenericResult>(cachingDispatcher, eventBus) {
-                				public void callback(GenericResult result) {
+                                public void callback(GenericResult result) {
                                     folder.setFullName(newName);
-                				}
-                				public void callbackError(Throwable caught) {
+                                }
+                                public void callbackError(Throwable caught) {
                                     record.cancelEdit();
-                				}
-                			}); 
+                                }
+                            }); 
                         }
                     }
                 }
@@ -327,13 +327,13 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
                     decreaseUnseen = false;
                 }
                 cachingDispatcher.executeWithCache(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaCallback<GetMessageDetailsResult>(cachingDispatcher, eventBus, display) {
-    				public void callback(GetMessageDetailsResult result) {
+                    public void callback(GetMessageDetailsResult result) {
                         if (decreaseUnseen) {
                             eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
                         }
                         showMessage(user, folder, message, result.getMessageDetails());
-    				}
-    			});
+                    }
+                });
             }
 
         }));

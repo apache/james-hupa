@@ -24,9 +24,9 @@ import net.customware.gwt.dispatch.shared.Action;
 
 public class LogoutUser implements Action<LogoutUserResult>{
 
-	private static final long serialVersionUID = 2255166545722718094L;
-	
-	public LogoutUser() {
-	}
-	
+    private static final long serialVersionUID = 2255166545722718094L;
+    
+    public LogoutUser() {
+    }
+    
 }

@@ -24,12 +24,12 @@ import com.google.gwt.user.client.ui.ImageBundle;
 
 public interface HupaImageBundle extends ImageBundle{
 
-	@Resource("attach.png")
-	public AbstractImagePrototype attachmentIcon();
-	
-	@Resource("email_link.png")
-	public AbstractImagePrototype readyToMoveMailIcon();
-	
-	@Resource("email.png")
-	public AbstractImagePrototype moveMailIcon();
+    @Resource("attach.png")
+    public AbstractImagePrototype attachmentIcon();
+    
+    @Resource("email_link.png")
+    public AbstractImagePrototype readyToMoveMailIcon();
+    
+    @Resource("email.png")
+    public AbstractImagePrototype moveMailIcon();
 }

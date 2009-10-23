@@ -26,39 +26,39 @@ import org.apache.hupa.shared.data.IMAPFolder;
 
 public class GetMessageDetails implements Action<GetMessageDetailsResult>{
 
-	private static final long serialVersionUID = 5826298202494313834L;
-	private IMAPFolder folder;
-	private long uid;
+    private static final long serialVersionUID = 5826298202494313834L;
+    private IMAPFolder folder;
+    private long uid;
 
-	public GetMessageDetails(IMAPFolder folder, long uid) {
-		this.folder = folder;
-		this.uid = uid;
-	}
+    public GetMessageDetails(IMAPFolder folder, long uid) {
+        this.folder = folder;
+        this.uid = uid;
+    }
 
-	@SuppressWarnings("unused")
-	private GetMessageDetails() {
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public long getUid() {
-		return uid;
-	}
-	
-	public boolean equals(Object obj) {
-		if (obj instanceof GetMessageDetails) {
-			GetMessageDetails action = (GetMessageDetails) obj;
-			if (action.getFolder().equals(getFolder()) && action.getUid() == getUid()) {
-				return true;
-			}
-		}
-		return false;
-		
-	}
-	
-	public int hashCode() {
-		return (int) (getFolder().hashCode() * getUid());
-	}
+    @SuppressWarnings("unused")
+    private GetMessageDetails() {
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
+    
+    public long getUid() {
+        return uid;
+    }
+    
+    public boolean equals(Object obj) {
+        if (obj instanceof GetMessageDetails) {
+            GetMessageDetails action = (GetMessageDetails) obj;
+            if (action.getFolder().equals(getFolder()) && action.getUid() == getUid()) {
+                return true;
+            }
+        }
+        return false;
+        
+    }
+    
+    public int hashCode() {
+        return (int) (getFolder().hashCode() * getUid());
+    }
 }

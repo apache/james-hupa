@@ -42,36 +42,36 @@ import com.sun.mail.imap.IMAPStore;
 public class NoopHandler extends AbstractSessionHandler<Noop, NoopResult>{
 
 
-	@Inject
-	public NoopHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> provider) {
-		super(cache,logger,provider);
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
-	public NoopResult executeInternal(Noop action, ExecutionContext context)
-			throws ActionException {
-		try {
-			IMAPStore store = cache.get(getUser());
-			if (store.getURLName() != null &&
-				!InMemoryIMAPStoreCache.DEMO_MODE.equals(store.getURLName().getHost()) ) {
-				// just send a noop to keep the connection alive
-				store.idle();
-			}
-			return new NoopResult();
-		} catch (Exception e) {
-			throw new ActionException("Unable to send NOOP " + e.getMessage());
-		}
-	}
+    @Inject
+    public NoopHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> provider) {
+        super(cache,logger,provider);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
+     */
+    public NoopResult executeInternal(Noop action, ExecutionContext context)
+            throws ActionException {
+        try {
+            IMAPStore store = cache.get(getUser());
+            if (store.getURLName() != null &&
+                !InMemoryIMAPStoreCache.DEMO_MODE.equals(store.getURLName().getHost()) ) {
+                // just send a noop to keep the connection alive
+                store.idle();
+            }
+            return new NoopResult();
+        } catch (Exception e) {
+            throw new ActionException("Unable to send NOOP " + e.getMessage());
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<Noop> getActionType() {
-		return Noop.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<Noop> getActionType() {
+        return Noop.class;
+    }
 
 }

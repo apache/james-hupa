@@ -26,25 +26,25 @@ package org.apache.hupa.widgets.ui;
  */
 public interface HasEditable {
 
-	/**
-	 * Start editing
-	 */
-	public void startEdit();
-	
-	/**
-	 * Cancel editing
-	 */
-	public void cancelEdit();
+    /**
+     * Start editing
+     */
+    public void startEdit();
+    
+    /**
+     * Cancel editing
+     */
+    public void cancelEdit();
 
-	/**
-	 * Stop editing
-	 */
-	public void stopEdit();
-	
-	/**
-	 * Return if editing is currently active
-	 * 
-	 * @return editing
-	 */
-	public boolean isEdit();
+    /**
+     * Stop editing
+     */
+    public void stopEdit();
+    
+    /**
+     * Return if editing is currently active
+     * 
+     * @return editing
+     */
+    public boolean isEdit();
 }

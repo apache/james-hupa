@@ -35,58 +35,58 @@ import net.customware.gwt.dispatch.shared.Result;
  */
 public class CachingDispatchAsync implements DispatchAsync {
 
-	private DispatchAsync dispatcher;
-	private Map<Action<Result>, Result> cache = new HashMap<Action<Result>, Result>();
+    private DispatchAsync dispatcher;
+    private Map<Action<Result>, Result> cache = new HashMap<Action<Result>, Result>();
 
-	@Inject
-	public CachingDispatchAsync(DispatchAsync dispatcher) {
-		this.dispatcher = dispatcher;
-	}
+    @Inject
+    public CachingDispatchAsync(DispatchAsync dispatcher) {
+        this.dispatcher = dispatcher;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.client.DispatchAsync#execute(A, com.google.gwt.user.client.rpc.AsyncCallback)
-	 */
-	public <A extends Action<R>, R extends Result> void execute(final A action,
-			final AsyncCallback<R> callback) {
-		dispatcher.execute(action, callback);
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.client.DispatchAsync#execute(A, com.google.gwt.user.client.rpc.AsyncCallback)
+     */
+    public <A extends Action<R>, R extends Result> void execute(final A action,
+            final AsyncCallback<R> callback) {
+        dispatcher.execute(action, callback);
+    }
 
-	/**
-	 * Execute the give Action. If the Action was executed before it will get fetched from the cache
-	 * 
-	 * @param <A> Action implementation
-	 * @param <R> Result implementation
-	 * @param action the action
-	 * @param callback the callback
-	 */
-	@SuppressWarnings("unchecked")
-	public <A extends Action<R>, R extends Result> void executeWithCache(
-			final A action, final AsyncCallback<R> callback) {
-		Result r = cache.get(action);
-		if (r != null) {
-			callback.onSuccess((R) r);
-		} else {
-			dispatcher.execute(action, new AsyncCallback<R>() {
+    /**
+     * Execute the give Action. If the Action was executed before it will get fetched from the cache
+     * 
+     * @param <A> Action implementation
+     * @param <R> Result implementation
+     * @param action the action
+     * @param callback the callback
+     */
+    @SuppressWarnings("unchecked")
+    public <A extends Action<R>, R extends Result> void executeWithCache(
+            final A action, final AsyncCallback<R> callback) {
+        Result r = cache.get(action);
+        if (r != null) {
+            callback.onSuccess((R) r);
+        } else {
+            dispatcher.execute(action, new AsyncCallback<R>() {
 
-				public void onFailure(Throwable caught) {
-					callback.onFailure(caught);
-				}
+                public void onFailure(Throwable caught) {
+                    callback.onFailure(caught);
+                }
 
-				public void onSuccess(R result) {
-					cache.put((Action) action, (Result) result);
-					callback.onSuccess(result);
-				}
+                public void onSuccess(R result) {
+                    cache.put((Action) action, (Result) result);
+                    callback.onSuccess(result);
+                }
 
-			});
-		}
-	}
+            });
+        }
+    }
 
-	/**
-	 * Clear the cache
-	 */
-	public void clear() {
-		cache.clear();
-	}
+    /**
+     * Clear the cache
+     */
+    public void clear() {
+        cache.clear();
+    }
 
 }

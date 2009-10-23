@@ -29,8 +29,8 @@ import com.google.inject.Singleton;
 @Singleton
 public class LogProvider implements Provider<Log>{
 
-	public Log get() {
-		return new Log4JLogger("HupaLogger");
-	}
+    public Log get() {
+        return new Log4JLogger("HupaLogger");
+    }
 
 }

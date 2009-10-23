@@ -27,54 +27,54 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ServerModulTest {
-	private String tmpDir = System.getProperty("java.io.tmpdir");
-	private ServerModul module = new ServerModul(tmpDir);
+    private String tmpDir = System.getProperty("java.io.tmpdir");
+    private ServerModul module = new ServerModul(tmpDir);
 
-	@Before
-	public void setUp() {
-		// create config directory
-		File f = new File(tmpDir + File.separator + ServerModul.CONF_DIR);
-		f.delete();
-		f.deleteOnExit();
-		f.mkdirs();
-	}
-	
-	@Test
-	public void testLoadProperties() throws Exception {
+    @Before
+    public void setUp() {
+        // create config directory
+        File f = new File(tmpDir + File.separator + ServerModul.CONF_DIR);
+        f.delete();
+        f.deleteOnExit();
+        f.mkdirs();
+    }
+    
+    @Test
+    public void testLoadProperties() throws Exception {
 
-		String fileName = tmpDir + File.separator +"foo.properties";
-		File file = new File(fileName);
-		file.createNewFile();
-		Properties p = module.loadProperties(fileName);
-		Assert.assertNotNull(p);
-		Assert.assertNull(p.get("IMAPServerAddress"));
-		file.delete();
-		
-		// load file from not absolute file
-		fileName = tmpDir + File.separator + ServerModul.CONF_DIR + File.separator + "foo2.properties";
-		file = new File(fileName);
-		file.createNewFile();
-		p = module.loadProperties(file.getName());
-		Assert.assertNotNull(p);
-		Assert.assertNull(p.get("IMAPServerAddress"));
-		file.delete();
-	}
+        String fileName = tmpDir + File.separator +"foo.properties";
+        File file = new File(fileName);
+        file.createNewFile();
+        Properties p = module.loadProperties(fileName);
+        Assert.assertNotNull(p);
+        Assert.assertNull(p.get("IMAPServerAddress"));
+        file.delete();
+        
+        // load file from not absolute file
+        fileName = tmpDir + File.separator + ServerModul.CONF_DIR + File.separator + "foo2.properties";
+        file = new File(fileName);
+        file.createNewFile();
+        p = module.loadProperties(file.getName());
+        Assert.assertNotNull(p);
+        Assert.assertNull(p.get("IMAPServerAddress"));
+        file.delete();
+    }
 
-	@Test
-	public void testLoadPropertiesWithEmptyFile() throws Exception {
-		File tmp = File.createTempFile("foo", ".properties");
-		tmp.deleteOnExit();
+    @Test
+    public void testLoadPropertiesWithEmptyFile() throws Exception {
+        File tmp = File.createTempFile("foo", ".properties");
+        tmp.deleteOnExit();
 
-		Properties p = module.loadProperties(tmp.toString());
-		Assert.assertNotNull(p);
-		Assert.assertNull(p.get("IMAPServerAddress"));
+        Properties p = module.loadProperties(tmp.toString());
+        Assert.assertNotNull(p);
+        Assert.assertNull(p.get("IMAPServerAddress"));
 
-		System.setProperty(ServerModul.SYS_PROP_CONFIG_FILE, tmp.toString());
-		p = module.loadProperties();
-		Assert.assertNotNull(p);
-		Assert.assertNull(p.get("IMAPServerAddress"));
-		System.clearProperty(ServerModul.SYS_PROP_CONFIG_FILE);
+        System.setProperty(ServerModul.SYS_PROP_CONFIG_FILE, tmp.toString());
+        p = module.loadProperties();
+        Assert.assertNotNull(p);
+        Assert.assertNull(p.get("IMAPServerAddress"));
+        System.clearProperty(ServerModul.SYS_PROP_CONFIG_FILE);
 
-	}
+    }
 
 }

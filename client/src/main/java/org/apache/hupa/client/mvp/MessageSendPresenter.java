@@ -70,309 +70,309 @@ import gwtupload.client.IUploader.OnStatusChangedHandler;
 
 public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.Display>{
 
-	private User user;
-	private DispatchAsync dispatcher;
-	public static final Place PLACE = new Place("MessageSend");
-	private ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
-	private Type type = Type.NEW;
-	private IMAPFolder folder;
-	private Message oldmessage;
-	private ValidationMessages vMessages = new ValidationMessages();
-	private ValidationProcessor validator = new DefaultValidationProcessor(vMessages);
-	@SuppressWarnings("unused")
+    private User user;
+    private DispatchAsync dispatcher;
+    public static final Place PLACE = new Place("MessageSend");
+    private ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
+    private Type type = Type.NEW;
+    private IMAPFolder folder;
+    private Message oldmessage;
+    private ValidationMessages vMessages = new ValidationMessages();
+    private ValidationProcessor validator = new DefaultValidationProcessor(vMessages);
+    @SuppressWarnings("unused")
     private MessageDetails oldDetails;
 
-	private OnFinishUploaderHandler onFinishUploadHandler = new OnFinishUploaderHandler() {
-		public void onFinish(IUploader uploader) {
-			if (uploader.getStatus() == Status.SUCCESS) {
-				String name =  uploader.getInputName();
-				MessageAttachment attachment = new MessageAttachment();
-				attachment.setName(name);
-				attachments.add(attachment);
-				display.getSendEnable().setEnabled(true);
-			}
+    private OnFinishUploaderHandler onFinishUploadHandler = new OnFinishUploaderHandler() {
+        public void onFinish(IUploader uploader) {
+            if (uploader.getStatus() == Status.SUCCESS) {
+                String name =  uploader.getInputName();
+                MessageAttachment attachment = new MessageAttachment();
+                attachment.setName(name);
+                attachments.add(attachment);
+                display.getSendEnable().setEnabled(true);
+            }
         }
-	};
-	
-	private OnStatusChangedHandler onStatusChangedHandler = new OnStatusChangedHandler() {
-		public void onStatusChanged(IUploader uploader) {
-			Status stat = display.getUploader().getStatus();
-			if (stat == Status.INPROGRESS)
-				display.getSendEnable().setEnabled(false);
-			else
-				display.getSendEnable().setEnabled(true);
+    };
+    
+    private OnStatusChangedHandler onStatusChangedHandler = new OnStatusChangedHandler() {
+        public void onStatusChanged(IUploader uploader) {
+            Status stat = display.getUploader().getStatus();
+            if (stat == Status.INPROGRESS)
+                display.getSendEnable().setEnabled(false);
+            else
+                display.getSendEnable().setEnabled(true);
         }
-	};
+    };
 
-	private OnCancelUploaderHandler onCancelUploadHandler = new OnCancelUploaderHandler() {
-		public void onCancel(IUploader uploader) {
-			for (MessageAttachment attachment: attachments) {
-				if (attachment.getName().equals(uploader.getInputName()))
-					attachments.remove(attachment);
-			}
+    private OnCancelUploaderHandler onCancelUploadHandler = new OnCancelUploaderHandler() {
+        public void onCancel(IUploader uploader) {
+            for (MessageAttachment attachment: attachments) {
+                if (attachment.getName().equals(uploader.getInputName()))
+                    attachments.remove(attachment);
+            }
         }
-	};
-	
-	@Inject
-	public MessageSendPresenter(Display display, EventBus eventBus, DispatchAsync dispatcher) {
-		super(display, eventBus);
-		this.dispatcher = dispatcher;		
-		
-		FocusAction fAction = new FocusAction();
-		validator.addValidators("cc", new EmailListValidator(display.getCcText())
-				.addActionForFailure(
-						new StyleAction("hupa-validationErrorBorder"))
-				.addActionForFailure(fAction));
-		validator.addValidators("bcc", new EmailListValidator(display.getBccText())
-				.addActionForFailure(
-						new StyleAction("hupa-validationErrorBorder"))
-				.addActionForFailure(fAction));
-		validator.addValidators("to", new EmailListValidator(display.getToText())
-				.addActionForFailure(
-						new StyleAction("hupa-validationErrorBorder"))
-				.addActionForFailure(fAction), new NotEmptyValidator(display.getToText())
-				.addActionForFailure(
-						new StyleAction("hupa-validationErrorBorder"))
-				.addActionForFailure(fAction));
-	}
+    };
+    
+    @Inject
+    public MessageSendPresenter(Display display, EventBus eventBus, DispatchAsync dispatcher) {
+        super(display, eventBus);
+        this.dispatcher = dispatcher;        
+        
+        FocusAction fAction = new FocusAction();
+        validator.addValidators("cc", new EmailListValidator(display.getCcText())
+                .addActionForFailure(
+                        new StyleAction("hupa-validationErrorBorder"))
+                .addActionForFailure(fAction));
+        validator.addValidators("bcc", new EmailListValidator(display.getBccText())
+                .addActionForFailure(
+                        new StyleAction("hupa-validationErrorBorder"))
+                .addActionForFailure(fAction));
+        validator.addValidators("to", new EmailListValidator(display.getToText())
+                .addActionForFailure(
+                        new StyleAction("hupa-validationErrorBorder"))
+                .addActionForFailure(fAction), new NotEmptyValidator(display.getToText())
+                .addActionForFailure(
+                        new StyleAction("hupa-validationErrorBorder"))
+                .addActionForFailure(fAction));
+    }
 
-	public enum Type {
-		NEW,
-		REPLY,
-		REPLY_ALL,
-		FORWARD
-	}
-	
-	public interface Display extends WidgetDisplay {
-		public HasText getFromText();
-		public HasText getToText();
-		public HasText getCcText();
-		public HasText getBccText();
-		public HasText getSubjectText();
-		public HasText getMessageText();
-		public HasClickHandlers getSendClick();
-		public HasEnable getSendEnable();
-		public IUploader getUploader();
-		public void resetUploader();
-		public HasClickHandlers getBackButtonClick();
-	}
+    public enum Type {
+        NEW,
+        REPLY,
+        REPLY_ALL,
+        FORWARD
+    }
+    
+    public interface Display extends WidgetDisplay {
+        public HasText getFromText();
+        public HasText getToText();
+        public HasText getCcText();
+        public HasText getBccText();
+        public HasText getSubjectText();
+        public HasText getMessageText();
+        public HasClickHandlers getSendClick();
+        public HasEnable getSendEnable();
+        public IUploader getUploader();
+        public void resetUploader();
+        public HasClickHandlers getBackButtonClick();
+    }
 
-	@Override
-	public Place getPlace() {
-		return PLACE;
-	}
+    @Override
+    public Place getPlace() {
+        return PLACE;
+    }
 
-	@Override
-	protected void onBind() {
-		registerHandler(eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
+    @Override
+    protected void onBind() {
+        registerHandler(eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
 
-			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
-				reset();
-			}
-			
-		}));
-		registerHandler(eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
+            public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
+                reset();
+            }
+            
+        }));
+        registerHandler(eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
 
-			public void onFolderSelectionEvent(FolderSelectionEvent event) {
-				reset();
-			}
-			
-		}));
+            public void onFolderSelectionEvent(FolderSelectionEvent event) {
+                reset();
+            }
+            
+        }));
 
-		registerHandler(display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler));
-		registerHandler(display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler));
-		registerHandler(display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler));
-		
-		registerHandler(display.getSendClick().addClickHandler(new ClickHandler() {
+        registerHandler(display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler));
+        registerHandler(display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler));
+        registerHandler(display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler));
+        
+        registerHandler(display.getSendClick().addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				
-					if (validator.validate() == false) {
-						return;
-					}
-					SMTPMessage message = new SMTPMessage();
-								
-					message.setFrom(display.getFromText().getText());
-					
-					ArrayList<String> to = new ArrayList<String>();
-					String[] toRaw = display.getToText().getText().split(",");
-					if (toRaw != null) {
-						for (int i = 0; i < toRaw.length;i++) {
-							String toRecip = toRaw[i].trim();
-							if (toRecip.length() > 0) {
-								to.add(toRaw[i].trim());
-							}
-						}
-					}
-					message.setTo(to);
-					
-					ArrayList<String> cc = new ArrayList<String>();
-					String[] ccRaw = display.getCcText().getText().split(",");
-					if (ccRaw != null) {
-						for (int i = 0; i < ccRaw.length;i++) {
-							String ccRecip = ccRaw[i].trim();
-							if (ccRecip.length() > 0) {
-								cc.add(ccRaw[i].trim());
-							}
-						}
-					}
-					message.setCc(cc);
-					
-					message.setSubject(display.getSubjectText().getText());
-					message.setText(display.getMessageText().getText());
-
-					message.setMessageAttachments(attachments);
-
-					// TODO: good handling of error messages, and use an error widget instead of Window.alert
-					if (type.equals(Type.NEW)) {
-						dispatcher.execute(new SendMessage(message), new HupaCallback<GenericResult>(dispatcher, eventBus) {
-                            public void callback(GenericResult result) {
-								if (result.isSuccess()) {
-									eventBus.fireEvent(new SentMessageEvent());
-									reset();
-								} else {
-									Window.alert(result.getMessage());
-								}	
+            public void onClick(ClickEvent event) {
+                
+                    if (validator.validate() == false) {
+                        return;
+                    }
+                    SMTPMessage message = new SMTPMessage();
+                                
+                    message.setFrom(display.getFromText().getText());
+                    
+                    ArrayList<String> to = new ArrayList<String>();
+                    String[] toRaw = display.getToText().getText().split(",");
+                    if (toRaw != null) {
+                        for (int i = 0; i < toRaw.length;i++) {
+                            String toRecip = toRaw[i].trim();
+                            if (toRecip.length() > 0) {
+                                to.add(toRaw[i].trim());
                             }
-						});
-					} else if(type.equals(Type.FORWARD)) {
-						dispatcher.execute(new ForwardMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
-                            public void callback(GenericResult result) {
-								if (result.isSuccess()) {
-									eventBus.fireEvent(new SentMessageEvent());
-									reset();
-								} else {
-									Window.alert(result.getMessage());
-								}	
+                        }
+                    }
+                    message.setTo(to);
+                    
+                    ArrayList<String> cc = new ArrayList<String>();
+                    String[] ccRaw = display.getCcText().getText().split(",");
+                    if (ccRaw != null) {
+                        for (int i = 0; i < ccRaw.length;i++) {
+                            String ccRecip = ccRaw[i].trim();
+                            if (ccRecip.length() > 0) {
+                                cc.add(ccRaw[i].trim());
                             }
-						});
-					} else if(type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-						boolean replyAll = type.equals(Type.REPLY_ALL);
-						dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid(), replyAll), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+                        }
+                    }
+                    message.setCc(cc);
+                    
+                    message.setSubject(display.getSubjectText().getText());
+                    message.setText(display.getMessageText().getText());
+
+                    message.setMessageAttachments(attachments);
+
+                    // TODO: good handling of error messages, and use an error widget instead of Window.alert
+                    if (type.equals(Type.NEW)) {
+                        dispatcher.execute(new SendMessage(message), new HupaCallback<GenericResult>(dispatcher, eventBus) {
                             public void callback(GenericResult result) {
-								if (result.isSuccess()) {
-									eventBus.fireEvent(new SentMessageEvent());
-									reset();
-								} else {
-									Window.alert(result.getMessage());
-								}	
+                                if (result.isSuccess()) {
+                                    eventBus.fireEvent(new SentMessageEvent());
+                                    reset();
+                                } else {
+                                    Window.alert(result.getMessage());
+                                }    
                             }
-						});
-					}
-				}
-		}));
-		
-		registerHandler(display.getBackButtonClick().addClickHandler(new ClickHandler() {
+                        });
+                    } else if(type.equals(Type.FORWARD)) {
+                        dispatcher.execute(new ForwardMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+                            public void callback(GenericResult result) {
+                                if (result.isSuccess()) {
+                                    eventBus.fireEvent(new SentMessageEvent());
+                                    reset();
+                                } else {
+                                    Window.alert(result.getMessage());
+                                }    
+                            }
+                        });
+                    } else if(type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
+                        boolean replyAll = type.equals(Type.REPLY_ALL);
+                        dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid(), replyAll), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+                            public void callback(GenericResult result) {
+                                if (result.isSuccess()) {
+                                    eventBus.fireEvent(new SentMessageEvent());
+                                    reset();
+                                } else {
+                                    Window.alert(result.getMessage());
+                                }    
+                            }
+                        });
+                    }
+                }
+        }));
+        
+        registerHandler(display.getBackButtonClick().addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new BackEvent());
-			}
-			
-		}));
-	}
+            public void onClick(ClickEvent event) {
+                eventBus.fireEvent(new BackEvent());
+            }
+            
+        }));
+    }
 
-	private void reset() {
-		display.resetUploader();
-		display.getBccText().setText("");
-		display.getCcText().setText("");
-		display.getToText().setText("");
-		display.getSubjectText().setText("");
-		attachments.clear();
-		folder = null;
-		oldmessage = null;
-		type = Type.NEW;
-	}
+    private void reset() {
+        display.resetUploader();
+        display.getBccText().setText("");
+        display.getCcText().setText("");
+        display.getToText().setText("");
+        display.getSubjectText().setText("");
+        attachments.clear();
+        folder = null;
+        oldmessage = null;
+        type = Type.NEW;
+    }
 
-	@Override
-	protected void onPlaceRequest(PlaceRequest request) {
-		String from = request.getParameter("from", user.getName());
-		display.getFromText().setText(from);
+    @Override
+    protected void onPlaceRequest(PlaceRequest request) {
+        String from = request.getParameter("from", user.getName());
+        display.getFromText().setText(from);
 
-		
-		String to = request.getParameter("to", null);
-		if (to != null) {
-			display.getToText().setText(to);
-		}
-		
-		String cc = request.getParameter("cc", null);
-		if (cc != null) {
-			display.getCcText().setText(cc);
-		}
-		
-		String bcc = request.getParameter("bcc", null);
-		if (bcc != null) {
-			display.getBccText().setText(bcc);
-		}
-		
-		String subject = request.getParameter("subject", null);
-		if (subject != null) {
-			display.getSubjectText().setText(subject);
-		}
-		
-		String bodytext = request.getParameter("bodytext", null);
-		if (bodytext != null) {
-			display.getMessageText().setText(bodytext);
-		}
-	}
+        
+        String to = request.getParameter("to", null);
+        if (to != null) {
+            display.getToText().setText(to);
+        }
+        
+        String cc = request.getParameter("cc", null);
+        if (cc != null) {
+            display.getCcText().setText(cc);
+        }
+        
+        String bcc = request.getParameter("bcc", null);
+        if (bcc != null) {
+            display.getBccText().setText(bcc);
+        }
+        
+        String subject = request.getParameter("subject", null);
+        if (subject != null) {
+            display.getSubjectText().setText(subject);
+        }
+        
+        String bodytext = request.getParameter("bodytext", null);
+        if (bodytext != null) {
+            display.getMessageText().setText(bodytext);
+        }
+    }
 
-	@Override
-	protected void onUnbind() {
-		// cancel the current upload when unbinding
-		display.getUploader().cancel();
-	}
+    @Override
+    protected void onUnbind() {
+        // cancel the current upload when unbinding
+        display.getUploader().cancel();
+    }
 
-	public void refreshDisplay() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void refreshDisplay() {
+        // TODO Auto-generated method stub
+        
+    }
 
-	public void revealDisplay() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void bind(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
-		this.oldmessage = oldmessage;
-		this.oldDetails = oldDetails;
-		this.folder = folder;
-		this.user = user;
-		this.type = type;
-		
-		bind();
-		
-		display.getFromText().setText(user.getName());
+    public void revealDisplay() {
+        // TODO Auto-generated method stub
+        
+    }
+    
+    public void bind(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
+        this.oldmessage = oldmessage;
+        this.oldDetails = oldDetails;
+        this.folder = folder;
+        this.user = user;
+        this.type = type;
+        
+        bind();
+        
+        display.getFromText().setText(user.getName());
 
-		if (type.equals(Type.FORWARD)) {
-			display.getSubjectText().setText("Fwd: " + oldmessage.getSubject());
-			display.getMessageText().setText("\n\n-------- Original Message -------\n" );
-		} else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-			display.getSubjectText().setText("Re: " + oldmessage.getSubject());
-			
-			String oldMessageText = oldDetails.getText();
-			StringBuffer messageText = new StringBuffer("\n\n-------- Message -------\n");
-			if ( oldMessageText != null) {
-				messageText.append(oldMessageText);
-			}
-			display.getMessageText().setText(messageText.toString());
+        if (type.equals(Type.FORWARD)) {
+            display.getSubjectText().setText("Fwd: " + oldmessage.getSubject());
+            display.getMessageText().setText("\n\n-------- Original Message -------\n" );
+        } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
+            display.getSubjectText().setText("Re: " + oldmessage.getSubject());
+            
+            String oldMessageText = oldDetails.getText();
+            StringBuffer messageText = new StringBuffer("\n\n-------- Message -------\n");
+            if ( oldMessageText != null) {
+                messageText.append(oldMessageText);
+            }
+            display.getMessageText().setText(messageText.toString());
 
-			if (type.equals(Type.REPLY)) {
-				display.getToText().setText(oldmessage.getFrom());
-			} else {
-				oldmessage.getCc().remove(user.getName());
-				display.getCcText().setText(Util.arrayToString(oldmessage.getCc()));
-				oldmessage.getTo().remove(user.getName());
+            if (type.equals(Type.REPLY)) {
+                display.getToText().setText(oldmessage.getFrom());
+            } else {
+                oldmessage.getCc().remove(user.getName());
+                display.getCcText().setText(Util.arrayToString(oldmessage.getCc()));
+                oldmessage.getTo().remove(user.getName());
 
-				display.getToText().setText(Util.arrayToString(oldmessage.getTo()));
+                display.getToText().setText(Util.arrayToString(oldmessage.getTo()));
 
-			}
-		}else {
-			display.getSubjectText().setText("");
-			display.getMessageText().setText("");
-		}
-	}
-	
-	public void bind(User user, Type type) {
-		bind(user,null,null,null, type);
-	}
-	
+            }
+        }else {
+            display.getSubjectText().setText("");
+            display.getMessageText().setText("");
+        }
+    }
+    
+    public void bind(User user, Type type) {
+        bind(user,null,null,null, type);
+    }
+    
 }

@@ -25,5 +25,5 @@ import com.google.gwt.event.shared.EventHandler;
 public interface ForwardMessageEventHandler extends EventHandler{
 
 
-	public void onForwardMessageEvent(ForwardMessageEvent event);
+    public void onForwardMessageEvent(ForwardMessageEvent event);
 }

@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface DecreaseUnseenEventHandler extends EventHandler{
 
-	public void onDecreaseUnseenEvent(DecreaseUnseenEvent event);
+    public void onDecreaseUnseenEvent(DecreaseUnseenEvent event);
 }

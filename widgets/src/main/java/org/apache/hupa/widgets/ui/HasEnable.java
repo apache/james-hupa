@@ -25,10 +25,10 @@ package org.apache.hupa.widgets.ui;
  */
 public interface HasEnable {
 
-	/**
-	 * Enable or disable 
-	 * 
-	 * @param enable
-	 */
-	public void setEnabled(boolean enable);
+    /**
+     * Enable or disable 
+     * 
+     * @param enable
+     */
+    public void setEnabled(boolean enable);
 }

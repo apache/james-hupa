@@ -40,90 +40,90 @@ import org.apache.hupa.shared.rpc.DeleteMessageResult;
 
 public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
 
-	
-	public void testDeleteFolderNotExists() throws MessagingException {
-		DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
-	
-		User user = createUser();
-		storeCache.addValidUser(user.getName(), user.getPassword());
-		session.setAttribute("user", user);
-		IMAPFolder folder = new IMAPFolder();
-		folder.setFullName("NOT_EXISTS");
-		DeleteMessageByUid action = new DeleteMessageByUid(folder,new ArrayList<Long>());
+    
+    public void testDeleteFolderNotExists() throws MessagingException {
+        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
+    
+        User user = createUser();
+        storeCache.addValidUser(user.getName(), user.getPassword());
+        session.setAttribute("user", user);
+        IMAPFolder folder = new IMAPFolder();
+        folder.setFullName("NOT_EXISTS");
+        DeleteMessageByUid action = new DeleteMessageByUid(folder,new ArrayList<Long>());
 
-		try {
-			handler.execute(action, null);
-			fail("Folder should not exists!");
-		} catch (ActionException e) {
-			//e.printStackTrace();
-		}
-	}
-	
-	public void testDeleteFolderExistsAndNotTrash() throws MessagingException {
-		Session s = Session.getInstance(new Properties());
-		DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
-	
-		User user = createUser();
-		storeCache.addValidUser(user.getName(), user.getPassword());
-		session.setAttribute("user", user);
-		IMAPFolder folder = new IMAPFolder();
-		folder.setFullName("EXISTS");
-		MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
-		store.clear();
+        try {
+            handler.execute(action, null);
+            fail("Folder should not exists!");
+        } catch (ActionException e) {
+            //e.printStackTrace();
+        }
+    }
+    
+    public void testDeleteFolderExistsAndNotTrash() throws MessagingException {
+        Session s = Session.getInstance(new Properties());
+        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
+    
+        User user = createUser();
+        storeCache.addValidUser(user.getName(), user.getPassword());
+        session.setAttribute("user", user);
+        IMAPFolder folder = new IMAPFolder();
+        folder.setFullName("EXISTS");
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
+        store.clear();
 
-		MockIMAPFolder f = (MockIMAPFolder)store.getFolder(folder.getFullName());
-		f.create(Folder.HOLDS_FOLDERS);
-		f.addMessages(new Message[] { new MimeMessage(s), new MimeMessage(s), new MimeMessage(s)});
-		ArrayList<Long> uids = new ArrayList<Long>();
-		uids.add(new Long(1));
-		uids.add(new Long(3));
-		DeleteMessageByUid action = new DeleteMessageByUid(folder, uids);
+        MockIMAPFolder f = (MockIMAPFolder)store.getFolder(folder.getFullName());
+        f.create(Folder.HOLDS_FOLDERS);
+        f.addMessages(new Message[] { new MimeMessage(s), new MimeMessage(s), new MimeMessage(s)});
+        ArrayList<Long> uids = new ArrayList<Long>();
+        uids.add(new Long(1));
+        uids.add(new Long(3));
+        DeleteMessageByUid action = new DeleteMessageByUid(folder, uids);
 
-		MockIMAPFolder f3 = (MockIMAPFolder) store.getFolder(user.getSettings().getTrashFolderName());
-		assertFalse("Trash folder not exists yet",f3.exists());
-		
-		try {
-			DeleteMessageResult result = handler.execute(action, null);
-			int count = result.getCount();
-			assertEquals("Only 1 message left", 1, f.getMessageCount());
-			
-			MockIMAPFolder f2 = (MockIMAPFolder) store.getFolder(user.getSettings().getTrashFolderName());
-			assertTrue("Trash folder created",f2.exists());
-			assertEquals("2 messages moved", 2, f2.getMessageCount());
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
-	public void testDeleteFolderExistsAndIsTrash() throws MessagingException {
-		Session s = Session.getInstance(new Properties());
-		DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
-	
-		User user = createUser();
-		storeCache.addValidUser(user.getName(), user.getPassword());
-		session.setAttribute("user", user);
-		IMAPFolder folder = new IMAPFolder();
-		folder.setFullName(user.getSettings().getTrashFolderName());
-		MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
-		store.clear();
-		
-		MockIMAPFolder f = (MockIMAPFolder)store.getFolder(folder.getFullName());
-		f.create(Folder.HOLDS_FOLDERS);
-		f.addMessages(new Message[] { new MimeMessage(s), new MimeMessage(s), new MimeMessage(s)});
-		ArrayList<Long> uids = new ArrayList<Long>();
-		uids.add(new Long(1));
-		uids.add(new Long(3));
-		DeleteMessageByUid action = new DeleteMessageByUid(folder, uids);
+        MockIMAPFolder f3 = (MockIMAPFolder) store.getFolder(user.getSettings().getTrashFolderName());
+        assertFalse("Trash folder not exists yet",f3.exists());
+        
+        try {
+            DeleteMessageResult result = handler.execute(action, null);
+            int count = result.getCount();
+            assertEquals("Only 1 message left", 1, f.getMessageCount());
+            
+            MockIMAPFolder f2 = (MockIMAPFolder) store.getFolder(user.getSettings().getTrashFolderName());
+            assertTrue("Trash folder created",f2.exists());
+            assertEquals("2 messages moved", 2, f2.getMessageCount());
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+    
+    public void testDeleteFolderExistsAndIsTrash() throws MessagingException {
+        Session s = Session.getInstance(new Properties());
+        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
+    
+        User user = createUser();
+        storeCache.addValidUser(user.getName(), user.getPassword());
+        session.setAttribute("user", user);
+        IMAPFolder folder = new IMAPFolder();
+        folder.setFullName(user.getSettings().getTrashFolderName());
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
+        store.clear();
+        
+        MockIMAPFolder f = (MockIMAPFolder)store.getFolder(folder.getFullName());
+        f.create(Folder.HOLDS_FOLDERS);
+        f.addMessages(new Message[] { new MimeMessage(s), new MimeMessage(s), new MimeMessage(s)});
+        ArrayList<Long> uids = new ArrayList<Long>();
+        uids.add(new Long(1));
+        uids.add(new Long(3));
+        DeleteMessageByUid action = new DeleteMessageByUid(folder, uids);
 
-		try {
-			DeleteMessageResult result = handler.execute(action, null);
-			int count = result.getCount();
+        try {
+            DeleteMessageResult result = handler.execute(action, null);
+            int count = result.getCount();
 
-			assertEquals("Only 1 message left", 1, f.getMessageCount());
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+            assertEquals("Only 1 message left", 1, f.getMessageCount());
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 }

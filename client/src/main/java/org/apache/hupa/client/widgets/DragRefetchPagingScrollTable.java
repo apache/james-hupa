@@ -34,84 +34,84 @@ import com.google.gwt.gen2.table.client.MutableTableModel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class DragRefetchPagingScrollTable<RowType> extends RefetchPagingScrollTable<RowType>{
-	private DragHandlerFactory factory;
-	private int cellIndex =-1;
-	private PagingScrollTableRowDragController tableRowDragController;
-	public DragRefetchPagingScrollTable(MutableTableModel<RowType> tableModel,
-			FixedWidthGrid dataTable, FixedWidthFlexTable headerTable,
-			DefaultTableDefinition<RowType> tableDefinition, PagingScrollTableRowDragController tableRowDragController,int dragColumn) {
-		super(tableModel, dataTable, headerTable, tableDefinition);
-		this.tableRowDragController = tableRowDragController;
-		tableRowDragController.addDragHandler(new DragHandlerAdapter() {
+    private DragHandlerFactory factory;
+    private int cellIndex =-1;
+    private PagingScrollTableRowDragController tableRowDragController;
+    public DragRefetchPagingScrollTable(MutableTableModel<RowType> tableModel,
+            FixedWidthGrid dataTable, FixedWidthFlexTable headerTable,
+            DefaultTableDefinition<RowType> tableDefinition, PagingScrollTableRowDragController tableRowDragController,int dragColumn) {
+        super(tableModel, dataTable, headerTable, tableDefinition);
+        this.tableRowDragController = tableRowDragController;
+        tableRowDragController.addDragHandler(new DragHandlerAdapter() {
 
-			@Override
-			public void onDragStart(DragStartEvent event) {
-				getDataTable().deselectAllRows();
-			}
-			
-		});
-	}
+            @Override
+            public void onDragStart(DragStartEvent event) {
+                getDataTable().deselectAllRows();
+            }
+            
+        });
+    }
 
-	/**
-	 * Factory which will create new Handler Widgets 
-	 * 	 */
-	public interface DragHandlerFactory {
-		public Widget createHandler();
-	}
+    /**
+     * Factory which will create new Handler Widgets 
+     *      */
+    public interface DragHandlerFactory {
+        public Widget createHandler();
+    }
 
-	@SuppressWarnings("unchecked")
-	public void setDragHandler(int newCellIndex,int cellWidth,DragHandlerFactory factory) {
-		this.factory = factory;
-		
-		if (newCellIndex < 0) {
-			throw new IllegalArgumentException("cellIndex needs to be higher then 0");
-		}
-		
-		DefaultTableDefinition tableDef = (DefaultTableDefinition) getTableDefinition();
-		
-		// remove old definition 
-		if (cellIndex != -1) {
-			tableDef.removeColumnDefinition(tableDef.getColumnDefinition(cellIndex));
-		}
-		
-		this.cellIndex = newCellIndex;
-		
-		// Create new ghost definition which will get used later to add the drag widget
-		DragColumnDefinition def = new DragColumnDefinition();
-		def.setColumnSortable(false);
-		def.setColumnTruncatable(false);
-		def.setMaximumColumnWidth(cellWidth);
-		def.setPreferredColumnWidth(cellWidth);
-		def.setMinimumColumnWidth(cellWidth);
-		tableDef.addColumnDefinition(cellIndex,def);
-	}
-	
-	
-	@Override
-	protected void setData(int firstRow, Iterator<RowType> rows) {
-		super.setData(firstRow, rows);
-		
-		if (getRowValues().size() >0 && factory != null && cellIndex > -1) {
-			for (int i = 0; i < getRowValues().size();i++) {
-				Widget handler = factory.createHandler();
-				getDataTable().setWidget(i, cellIndex, handler);
-				tableRowDragController.makeDraggable(handler);
-			}
-		}
-	}
-	
-	private final class DragColumnDefinition extends AbstractColumnDefinition<RowType, Boolean> {
-		
-		@Override
-		public Boolean getCellValue(RowType rowValue) {
-			return true;
-		}
+    @SuppressWarnings("unchecked")
+    public void setDragHandler(int newCellIndex,int cellWidth,DragHandlerFactory factory) {
+        this.factory = factory;
+        
+        if (newCellIndex < 0) {
+            throw new IllegalArgumentException("cellIndex needs to be higher then 0");
+        }
+        
+        DefaultTableDefinition tableDef = (DefaultTableDefinition) getTableDefinition();
+        
+        // remove old definition 
+        if (cellIndex != -1) {
+            tableDef.removeColumnDefinition(tableDef.getColumnDefinition(cellIndex));
+        }
+        
+        this.cellIndex = newCellIndex;
+        
+        // Create new ghost definition which will get used later to add the drag widget
+        DragColumnDefinition def = new DragColumnDefinition();
+        def.setColumnSortable(false);
+        def.setColumnTruncatable(false);
+        def.setMaximumColumnWidth(cellWidth);
+        def.setPreferredColumnWidth(cellWidth);
+        def.setMinimumColumnWidth(cellWidth);
+        tableDef.addColumnDefinition(cellIndex,def);
+    }
+    
+    
+    @Override
+    protected void setData(int firstRow, Iterator<RowType> rows) {
+        super.setData(firstRow, rows);
+        
+        if (getRowValues().size() >0 && factory != null && cellIndex > -1) {
+            for (int i = 0; i < getRowValues().size();i++) {
+                Widget handler = factory.createHandler();
+                getDataTable().setWidget(i, cellIndex, handler);
+                tableRowDragController.makeDraggable(handler);
+            }
+        }
+    }
+    
+    private final class DragColumnDefinition extends AbstractColumnDefinition<RowType, Boolean> {
+        
+        @Override
+        public Boolean getCellValue(RowType rowValue) {
+            return true;
+        }
 
-		@Override
-		public void setCellValue(RowType rowValue, Boolean cellValue) {
-		
-		}
-		
-	}
-	
+        @Override
+        public void setCellValue(RowType rowValue, Boolean cellValue) {
+        
+        }
+        
+    }
+    
 }

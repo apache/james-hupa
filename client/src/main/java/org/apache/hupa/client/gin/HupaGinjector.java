@@ -29,7 +29,7 @@ import com.google.gwt.inject.client.Ginjector;
 
 @GinModules({ClientDispatchModule.class,HupaClientModule.class})
 public interface HupaGinjector extends Ginjector {
-	public AppPresenter getAppPresenter();
-	public PlaceManager getPlaceManager();
-	public EventBus getEventBus();
+    public AppPresenter getAppPresenter();
+    public PlaceManager getPlaceManager();
+    public EventBus getEventBus();
 }

@@ -57,7 +57,7 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
 
     public LoginView() {
     
-    	VerticalPanel vPanel = new VerticalPanel();
+        VerticalPanel vPanel = new VerticalPanel();
         vPanel.setSpacing(5);
         vPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
         vPanel.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
@@ -149,67 +149,67 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
      * (non-Javadoc)
      * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getErrorText()
      */
-	public HasText getErrorText() {
-		return errorLabel;
-	}
+    public HasText getErrorText() {
+        return errorLabel;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getLoginClick()
-	 */
-	public HasClickHandlers getLoginClick() {
-		return loginButton;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getLoginClick()
+     */
+    public HasClickHandlers getLoginClick() {
+        return loginButton;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getPasswordValue()
-	 */
-	public HasValue<String> getPasswordValue() {
-		return passwordTextBox;
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getResetClick()
-	 */
-	public HasClickHandlers getResetClick() {
-		return resetButton;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getUserNameValue()
-	 */
-	public HasValue<String> getUserNameValue() {
-		return usernameTextBox;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getUserNameFocus()
-	 */
-	public Focusable getUserNameFocus() {
-		return usernameTextBox;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getPasswordValue()
+     */
+    public HasValue<String> getPasswordValue() {
+        return passwordTextBox;
+    }
 
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.presenter.client.widget.WidgetDisplay#asWidget()
-	 */
-	public Widget asWidget() {
-		return this;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getResetClick()
+     */
+    public HasClickHandlers getResetClick() {
+        return resetButton;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getUserNameValue()
+     */
+    public HasValue<String> getUserNameValue() {
+        return usernameTextBox;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getUserNameFocus()
+     */
+    public Focusable getUserNameFocus() {
+        return usernameTextBox;
+    }
 
 
-	public void startProcessing() {
-		loading.show();
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.presenter.client.widget.WidgetDisplay#asWidget()
+     */
+    public Widget asWidget() {
+        return this;
+    }
 
 
-	public void stopProcessing() {
-		loading.hide();
-	}
+    public void startProcessing() {
+        loading.show();
+    }
+
+
+    public void stopProcessing() {
+        loading.hide();
+    }
 }

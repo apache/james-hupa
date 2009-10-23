@@ -29,30 +29,30 @@ import org.apache.hupa.shared.data.Tag;
 
 public class TagMessage implements Action<GenericResult>{
 
-	private static final long serialVersionUID = 4323236257115412763L;
-	private IMAPFolder folder;
-	private ArrayList<Long> messageUids;
-	private Tag tag;
+    private static final long serialVersionUID = 4323236257115412763L;
+    private IMAPFolder folder;
+    private ArrayList<Long> messageUids;
+    private Tag tag;
 
-	protected TagMessage() {
-	}
-	
-	public TagMessage(Tag tag, IMAPFolder folder, ArrayList<Long> messageUids) {
-		this.tag = tag;
-		this.folder = folder;
-		this.messageUids = messageUids;
-	}
-	
-	public Tag getTag() {
-		return tag;
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public ArrayList<Long> getMessageUids() {
-		return messageUids;
-	}
+    protected TagMessage() {
+    }
+    
+    public TagMessage(Tag tag, IMAPFolder folder, ArrayList<Long> messageUids) {
+        this.tag = tag;
+        this.folder = folder;
+        this.messageUids = messageUids;
+    }
+    
+    public Tag getTag() {
+        return tag;
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
+    
+    public ArrayList<Long> getMessageUids() {
+        return messageUids;
+    }
 
 }

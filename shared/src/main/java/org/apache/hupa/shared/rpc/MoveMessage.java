@@ -25,29 +25,29 @@ import org.apache.hupa.shared.data.IMAPFolder;
 
 public class MoveMessage implements Action<MoveMessageResult>{
 
-	private static final long serialVersionUID = 7771146077050895244L;
-	private IMAPFolder oldFolder;
-	private IMAPFolder newFolder;
-	private long messageUid;
+    private static final long serialVersionUID = 7771146077050895244L;
+    private IMAPFolder oldFolder;
+    private IMAPFolder newFolder;
+    private long messageUid;
 
-	public MoveMessage(IMAPFolder oldFolder, IMAPFolder newFolder, long messageUid) {
-		this.oldFolder = oldFolder;
-		this.newFolder = newFolder;
-		this.messageUid = messageUid;
-	}
-	
-	protected MoveMessage() {
-	}
-	
-	public long getMessageUid() {
-		return messageUid;
-	}
-	
-	public IMAPFolder getOldFolder() {
-		return oldFolder;
-	}
-	
-	public IMAPFolder getNewFolder() {
-		return newFolder;
-	}
+    public MoveMessage(IMAPFolder oldFolder, IMAPFolder newFolder, long messageUid) {
+        this.oldFolder = oldFolder;
+        this.newFolder = newFolder;
+        this.messageUid = messageUid;
+    }
+    
+    protected MoveMessage() {
+    }
+    
+    public long getMessageUid() {
+        return messageUid;
+    }
+    
+    public IMAPFolder getOldFolder() {
+        return oldFolder;
+    }
+    
+    public IMAPFolder getNewFolder() {
+        return newFolder;
+    }
 }

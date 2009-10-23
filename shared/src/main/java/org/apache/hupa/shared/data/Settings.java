@@ -23,50 +23,50 @@ import java.io.Serializable;
 
 public class Settings implements Serializable{
 
-	public static final String DEFAULT_INBOX = "INBOX"; 
-	public static final String DEFAULT_TRASH = "Trash"; 
-	public static final String DEFAULT_SENT = "Sent"; 
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8051377307421345664L;
-	private String trashFolderName = DEFAULT_TRASH;
-	private String sentFolderName = DEFAULT_SENT;
-	private String inboxFolderName = DEFAULT_INBOX;
-	private int prefetchCount = 20;
-	
-	public String getInboxFolderName() {
-		return inboxFolderName;
-	}
-	
-	public void setInboxFolderName(String inboxFolderName) {
-		this.inboxFolderName = inboxFolderName;
-	}
-	
-	public String getTrashFolderName() {
-		return trashFolderName;
-	}
-	
-	public void setTrashFolderName(String trashFolderName) {
-		this.trashFolderName = trashFolderName;
-	}
-	
-	public String getSentFolderName() {
-		return sentFolderName;
-	}
-	
-	public void setSentFolderName(String sentFolderName) {
-		this.sentFolderName = sentFolderName;
-	}
-	
-	public int getPostFetchMessageCount() {
-		return prefetchCount;
-	}
-	
-	public void setPostFetchMessageCount(int prefetchCount) {
-		this.prefetchCount  = prefetchCount;
-	}
-	
-	
+    public static final String DEFAULT_INBOX = "INBOX"; 
+    public static final String DEFAULT_TRASH = "Trash"; 
+    public static final String DEFAULT_SENT = "Sent"; 
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8051377307421345664L;
+    private String trashFolderName = DEFAULT_TRASH;
+    private String sentFolderName = DEFAULT_SENT;
+    private String inboxFolderName = DEFAULT_INBOX;
+    private int prefetchCount = 20;
+    
+    public String getInboxFolderName() {
+        return inboxFolderName;
+    }
+    
+    public void setInboxFolderName(String inboxFolderName) {
+        this.inboxFolderName = inboxFolderName;
+    }
+    
+    public String getTrashFolderName() {
+        return trashFolderName;
+    }
+    
+    public void setTrashFolderName(String trashFolderName) {
+        this.trashFolderName = trashFolderName;
+    }
+    
+    public String getSentFolderName() {
+        return sentFolderName;
+    }
+    
+    public void setSentFolderName(String sentFolderName) {
+        this.sentFolderName = sentFolderName;
+    }
+    
+    public int getPostFetchMessageCount() {
+        return prefetchCount;
+    }
+    
+    public void setPostFetchMessageCount(int prefetchCount) {
+        this.prefetchCount  = prefetchCount;
+    }
+    
+    
 }

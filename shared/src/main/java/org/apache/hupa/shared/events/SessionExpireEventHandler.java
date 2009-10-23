@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface SessionExpireEventHandler extends EventHandler{
 
-	public void onSessionExpireEvent(SessionExpireEvent event);
+    public void onSessionExpireEvent(SessionExpireEvent event);
 }

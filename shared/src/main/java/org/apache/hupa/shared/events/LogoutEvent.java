@@ -24,24 +24,24 @@ import org.apache.hupa.shared.data.User;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class LogoutEvent extends GwtEvent<LogoutEventHandler>{
-	public static Type<LogoutEventHandler> TYPE = new Type<LogoutEventHandler>();
-	private User user;
-	public LogoutEvent(User user) {
-		this.user = user;
-	}
+    public static Type<LogoutEventHandler> TYPE = new Type<LogoutEventHandler>();
+    private User user;
+    public LogoutEvent(User user) {
+        this.user = user;
+    }
 
-	@Override
-	protected void dispatch(LogoutEventHandler handler) {
-		handler.onLogout(this);
-	}
+    @Override
+    protected void dispatch(LogoutEventHandler handler) {
+        handler.onLogout(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<LogoutEventHandler> getAssociatedType() {
-		return TYPE;
-	}
-	
-	public User getUser() {
-		return user;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<LogoutEventHandler> getAssociatedType() {
+        return TYPE;
+    }
+    
+    public User getUser() {
+        return user;
+    }
 
 }

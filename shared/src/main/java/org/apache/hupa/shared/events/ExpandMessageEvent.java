@@ -27,40 +27,40 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
 
-	public static Type<ExpandMessageEventHandler> TYPE = new Type<ExpandMessageEventHandler>();
-	private Message message;
-	private User user;
-	private IMAPFolder folder;
-	
-	public ExpandMessageEvent(User user, IMAPFolder folder, Message message) {
-		this.message = message;
-		this.folder = folder;
-		this.user = user;
-	}
-	
-	public Message getMessage() {
-		return message;
-	}
-	
-	public User getUser () {
-		return user;
-	}
-	
-	public IMAPFolder getFolder () {
-		return folder;
-	}
-	
-	
-	@Override
-	protected void dispatch(ExpandMessageEventHandler handler) {
-		handler.onExpandMessage(this);
-	}
+    public static Type<ExpandMessageEventHandler> TYPE = new Type<ExpandMessageEventHandler>();
+    private Message message;
+    private User user;
+    private IMAPFolder folder;
+    
+    public ExpandMessageEvent(User user, IMAPFolder folder, Message message) {
+        this.message = message;
+        this.folder = folder;
+        this.user = user;
+    }
+    
+    public Message getMessage() {
+        return message;
+    }
+    
+    public User getUser () {
+        return user;
+    }
+    
+    public IMAPFolder getFolder () {
+        return folder;
+    }
+    
+    
+    @Override
+    protected void dispatch(ExpandMessageEventHandler handler) {
+        handler.onExpandMessage(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<ExpandMessageEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<ExpandMessageEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
-	
+    
 
 }

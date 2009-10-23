@@ -41,47 +41,47 @@ import com.sun.mail.imap.IMAPStore;
 
 public class GetRawMessageHandler extends AbstractSessionHandler<RawMessage, RawMessageResult>{
 
-	@Inject
-	public GetRawMessageHandler(IMAPStoreCache cache, Log logger,
-			Provider<HttpSession> sessionProvider) {
-		super(cache, logger, sessionProvider);
-	}
+    @Inject
+    public GetRawMessageHandler(IMAPStoreCache cache, Log logger,
+            Provider<HttpSession> sessionProvider) {
+        super(cache, logger, sessionProvider);
+    }
 
-	@Override
-	protected RawMessageResult executeInternal(RawMessage action,
-			ExecutionContext context) throws ActionException {
-		User user = getUser();
-		long uid = action.getUid();
-		org.apache.hupa.shared.data.IMAPFolder folder = action.getFolder();
-		try {
-			IMAPStore store = cache.get(user);
-			IMAPFolder f = (IMAPFolder) store.getFolder(folder.getFullName());
-			if (f.isOpen() == false) {
-				f.open(Folder.READ_ONLY);
-			}
- 			Message m = f.getMessageByUID(action.getUid());
-			
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			m.writeTo(out);
-			if (f.isOpen()) {
-				f.close(false);
-			}
-			return new RawMessageResult(out.toString());
-		} catch (Exception e) {
-			logger.error("Unable to get raw content of msg for user " + user
-					+ " in folder " + folder + " with uid " + uid, e);
-			throw new ActionException("Unable to et raw content of msg for user " + user
-					+ " in folder " + folder + " with uid " + uid);
-		}
-		
-	}
+    @Override
+    protected RawMessageResult executeInternal(RawMessage action,
+            ExecutionContext context) throws ActionException {
+        User user = getUser();
+        long uid = action.getUid();
+        org.apache.hupa.shared.data.IMAPFolder folder = action.getFolder();
+        try {
+            IMAPStore store = cache.get(user);
+            IMAPFolder f = (IMAPFolder) store.getFolder(folder.getFullName());
+            if (f.isOpen() == false) {
+                f.open(Folder.READ_ONLY);
+            }
+             Message m = f.getMessageByUID(action.getUid());
+            
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            m.writeTo(out);
+            if (f.isOpen()) {
+                f.close(false);
+            }
+            return new RawMessageResult(out.toString());
+        } catch (Exception e) {
+            logger.error("Unable to get raw content of msg for user " + user
+                    + " in folder " + folder + " with uid " + uid, e);
+            throw new ActionException("Unable to et raw content of msg for user " + user
+                    + " in folder " + folder + " with uid " + uid);
+        }
+        
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<RawMessage> getActionType() {
-		return RawMessage.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<RawMessage> getActionType() {
+        return RawMessage.class;
+    }
 
 }

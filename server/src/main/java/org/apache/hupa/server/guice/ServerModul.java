@@ -67,114 +67,114 @@ import com.google.inject.name.Names;
  */
 public class ServerModul extends ActionHandlerModule {
 
-	public static final String SYS_PROP_CONFIG_FILE = "hupa.config.file";
+    public static final String SYS_PROP_CONFIG_FILE = "hupa.config.file";
 
-	public static final String[] CONFIG_PROPERTIES = {
-			System.getenv("HOME") + "/.hupa/config.properties",
-			"/etc/default/hupa", "config.properties" };
-	public static final String CONF_DIR = "WEB-INF" + File.separator + "conf" + File.separator;
+    public static final String[] CONFIG_PROPERTIES = {
+            System.getenv("HOME") + "/.hupa/config.properties",
+            "/etc/default/hupa", "config.properties" };
+    public static final String CONF_DIR = "WEB-INF" + File.separator + "conf" + File.separator;
 
-	private String configDir;
-	
-	public ServerModul(String rootPath) {
-		configDir = rootPath + File.separator + CONF_DIR;
-	}
+    private String configDir;
+    
+    public ServerModul(String rootPath) {
+        configDir = rootPath + File.separator + CONF_DIR;
+    }
 
-	@Override
-	protected void configureHandlers() {
-		bindHandler(CheckSessionHandler.class);
-		bindHandler(LoginUserHandler.class);
-		bindHandler(FetchFoldersHandler.class);
-		bindHandler(FetchMessagesHandler.class);
-		bindHandler(FetchRecentMessagesHandler.class);
-		bindHandler(LogoutUserHandler.class);
-		bindHandler(GetMessageDetailsHandler.class);
-		bindHandler(DeleteMessageByUidHandler.class);
-		bindHandler(DeleteAllMessagesHandler.class);
-		bindHandler(SendMessageHandler.class);
-		bindHandler(ReplyMessageHandler.class);
-		bindHandler(ForwardMessageHandler.class);
-		bindHandler(NoopHandler.class);
-		bindHandler(MoveMessageHandler.class);
-		bindHandler(RenameFolderHandler.class);
-		bindHandler(DeleteFolderHandler.class);
-		bindHandler(CreateFolderHandler.class);
-		bindHandler(TagMessagesHandler.class);
-		bindHandler(GetRawMessageHandler.class);
-		bindHandler(SetFlagsHandler.class);
-		bind(FileItemRegistry.class).in(Singleton.class);
-		bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(
-				Singleton.class);
-		bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);
-		bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(
-				Singleton.class);
-		bind(DownloadAttachmentServlet.class).in(Singleton.class);
-		bind(UploadAttachmentServlet.class).in(Singleton.class);
-		bind(MessageSourceServlet.class).in(Singleton.class);
-		bind(Session.class).toProvider(SessionProvider.class);
+    @Override
+    protected void configureHandlers() {
+        bindHandler(CheckSessionHandler.class);
+        bindHandler(LoginUserHandler.class);
+        bindHandler(FetchFoldersHandler.class);
+        bindHandler(FetchMessagesHandler.class);
+        bindHandler(FetchRecentMessagesHandler.class);
+        bindHandler(LogoutUserHandler.class);
+        bindHandler(GetMessageDetailsHandler.class);
+        bindHandler(DeleteMessageByUidHandler.class);
+        bindHandler(DeleteAllMessagesHandler.class);
+        bindHandler(SendMessageHandler.class);
+        bindHandler(ReplyMessageHandler.class);
+        bindHandler(ForwardMessageHandler.class);
+        bindHandler(NoopHandler.class);
+        bindHandler(MoveMessageHandler.class);
+        bindHandler(RenameFolderHandler.class);
+        bindHandler(DeleteFolderHandler.class);
+        bindHandler(CreateFolderHandler.class);
+        bindHandler(TagMessagesHandler.class);
+        bindHandler(GetRawMessageHandler.class);
+        bindHandler(SetFlagsHandler.class);
+        bind(FileItemRegistry.class).in(Singleton.class);
+        bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(
+                Singleton.class);
+        bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);
+        bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(
+                Singleton.class);
+        bind(DownloadAttachmentServlet.class).in(Singleton.class);
+        bind(UploadAttachmentServlet.class).in(Singleton.class);
+        bind(MessageSourceServlet.class).in(Singleton.class);
+        bind(Session.class).toProvider(SessionProvider.class);
 
-		Properties properties;
-		try {
-			// Bind addresses and ports for imap and smtp
-			properties = loadProperties();
-			// Configure default parameters for Hupa in demo mode
-			if (properties.get("IMAPServerAddress").equals(InMemoryIMAPStoreCache.DEMO_MODE)) {
-				properties.put("DefaultInboxFolder", DemoModeIMAPStore.DEMO_MODE_INBOX_FOLDER);
-				properties.put("DefaultTrashFolder", DemoModeIMAPStore.DEMO_MODE_TRASH_FOLDER);
-				properties.put("DefaultSentFolder", DemoModeIMAPStore.DEMO_MODE_SENT_FOLDER);
-			}
-			Names.bindProperties(binder(), properties);
-		} catch (Exception e) {
-			throw new RuntimeException("Unable to to configure hupa server," +
-					"\nmake sure that you have a valid /etc/default/hupa file" +
-					"\nor the web container has been started with the appropriate parameter:" +
-					" -Dhupa.config.file=your_hupa_properties_file", e);
-		}
-	}
+        Properties properties;
+        try {
+            // Bind addresses and ports for imap and smtp
+            properties = loadProperties();
+            // Configure default parameters for Hupa in demo mode
+            if (properties.get("IMAPServerAddress").equals(InMemoryIMAPStoreCache.DEMO_MODE)) {
+                properties.put("DefaultInboxFolder", DemoModeIMAPStore.DEMO_MODE_INBOX_FOLDER);
+                properties.put("DefaultTrashFolder", DemoModeIMAPStore.DEMO_MODE_TRASH_FOLDER);
+                properties.put("DefaultSentFolder", DemoModeIMAPStore.DEMO_MODE_SENT_FOLDER);
+            }
+            Names.bindProperties(binder(), properties);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to to configure hupa server," +
+                    "\nmake sure that you have a valid /etc/default/hupa file" +
+                    "\nor the web container has been started with the appropriate parameter:" +
+                    " -Dhupa.config.file=your_hupa_properties_file", e);
+        }
+    }
 
-	protected Properties loadProperties() throws Exception {
-		Properties properties = null;
+    protected Properties loadProperties() throws Exception {
+        Properties properties = null;
 
-		String fileName = System.getProperty(SYS_PROP_CONFIG_FILE);
-		if (fileName != null) {
-			properties = loadProperties(fileName);
-		}
+        String fileName = System.getProperty(SYS_PROP_CONFIG_FILE);
+        if (fileName != null) {
+            properties = loadProperties(fileName);
+        }
 
-		if (properties == null) {
-			for (String name : CONFIG_PROPERTIES) {
-			
-				properties = loadProperties(name);
-				if (properties != null)
-					break;
-			}
-		}
+        if (properties == null) {
+            for (String name : CONFIG_PROPERTIES) {
+            
+                properties = loadProperties(name);
+                if (properties != null)
+                    break;
+            }
+        }
 
-		return properties;
-	}
+        return properties;
+    }
 
-	protected Properties loadProperties(String name) {
+    protected Properties loadProperties(String name) {
 
-		if (name == null)
-			return null;
+        if (name == null)
+            return null;
 
-		Properties properties = null;
-		File file = new File(name);
-		
-		// check if the file is absolute. If not prefix it with the default config dir
-		if (file.isAbsolute() == false) {
-			file = new File(configDir + File.separator + file.getName());
-		}
-		if (file.exists()) {
-			try {
-				properties = new Properties();
-				properties.load(new FileInputStream(file));
-			} catch (Exception e) {
-				properties = null;	
-				e.printStackTrace();
-			}
-		}
+        Properties properties = null;
+        File file = new File(name);
+        
+        // check if the file is absolute. If not prefix it with the default config dir
+        if (file.isAbsolute() == false) {
+            file = new File(configDir + File.separator + file.getName());
+        }
+        if (file.exists()) {
+            try {
+                properties = new Properties();
+                properties.load(new FileInputStream(file));
+            } catch (Exception e) {
+                properties = null;    
+                e.printStackTrace();
+            }
+        }
 
-		return properties;
-	}
+        return properties;
+    }
 
 }

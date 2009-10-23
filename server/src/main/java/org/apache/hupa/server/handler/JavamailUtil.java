@@ -31,64 +31,64 @@ import org.apache.hupa.shared.data.Message.IMAPFlag;
  *
  */
 public class JavamailUtil {
-	
-	/**
-	 * Convert the given Flags to a ArrayList of IMAPFlags
-	 * 
-	 * @param flags
-	 * @return imapFlags
-	 */
-	public static ArrayList<IMAPFlag> convert(Flags flags) {
-		ArrayList<IMAPFlag> fList = new ArrayList<IMAPFlag>();
-		Flag[] flagArray = flags.getSystemFlags();
-		for (int i = 0; i < flagArray.length; i++) {
-			Flag flag = flagArray[i];
-			fList.add(convert(flag));
-		}
-		return fList;
-		
-	}
-	
-	public static IMAPFlag convert(Flag flag) {
-		if (flag.equals(Flag.SEEN)) {
-			return IMAPFlag.SEEN;
-		} else if (flag.equals(Flag.RECENT)) {
-			return IMAPFlag.RECENT;
-		} else if (flag.equals(Flag.ANSWERED)) {
-			return IMAPFlag.ANSWERED;
-		} else if (flag.equals(Flag.DELETED)) {
-			return IMAPFlag.DELETED;
-		}
-		throw new IllegalArgumentException("Flag not supported");
-	}
-	/**
-	 * Convert the given ArrayList of IMAPFlags to a Flags object
-	 * 
-	 * @param imapFlags
-	 * @return flags
-	 */
-	public static Flags convert(ArrayList<IMAPFlag> imapFlags) {
-		Flags iFlags = new Flags();
-		for ( int i = 0; i< imapFlags.size(); i++) {
-			IMAPFlag flag = imapFlags.get(i);
-			
-			iFlags.add(convert(flag));
-			
-		}
-		return iFlags;
-	}
+    
+    /**
+     * Convert the given Flags to a ArrayList of IMAPFlags
+     * 
+     * @param flags
+     * @return imapFlags
+     */
+    public static ArrayList<IMAPFlag> convert(Flags flags) {
+        ArrayList<IMAPFlag> fList = new ArrayList<IMAPFlag>();
+        Flag[] flagArray = flags.getSystemFlags();
+        for (int i = 0; i < flagArray.length; i++) {
+            Flag flag = flagArray[i];
+            fList.add(convert(flag));
+        }
+        return fList;
+        
+    }
+    
+    public static IMAPFlag convert(Flag flag) {
+        if (flag.equals(Flag.SEEN)) {
+            return IMAPFlag.SEEN;
+        } else if (flag.equals(Flag.RECENT)) {
+            return IMAPFlag.RECENT;
+        } else if (flag.equals(Flag.ANSWERED)) {
+            return IMAPFlag.ANSWERED;
+        } else if (flag.equals(Flag.DELETED)) {
+            return IMAPFlag.DELETED;
+        }
+        throw new IllegalArgumentException("Flag not supported");
+    }
+    /**
+     * Convert the given ArrayList of IMAPFlags to a Flags object
+     * 
+     * @param imapFlags
+     * @return flags
+     */
+    public static Flags convert(ArrayList<IMAPFlag> imapFlags) {
+        Flags iFlags = new Flags();
+        for ( int i = 0; i< imapFlags.size(); i++) {
+            IMAPFlag flag = imapFlags.get(i);
+            
+            iFlags.add(convert(flag));
+            
+        }
+        return iFlags;
+    }
 
-	public static Flag convert(IMAPFlag flag) {
-		if (flag.equals(IMAPFlag.SEEN)) {
-			return Flag.SEEN;
-		} else if (flag.equals(IMAPFlag.RECENT)) {
-			return Flag.RECENT;
-		} else if (flag.equals(IMAPFlag.ANSWERED)) {
-			return Flag.ANSWERED;
-		} else if (flag.equals(IMAPFlag.DELETED)) {
-			return Flag.DELETED;
-		}
-		throw new IllegalArgumentException("Flag not supported");
+    public static Flag convert(IMAPFlag flag) {
+        if (flag.equals(IMAPFlag.SEEN)) {
+            return Flag.SEEN;
+        } else if (flag.equals(IMAPFlag.RECENT)) {
+            return Flag.RECENT;
+        } else if (flag.equals(IMAPFlag.ANSWERED)) {
+            return Flag.ANSWERED;
+        } else if (flag.equals(IMAPFlag.DELETED)) {
+            return Flag.DELETED;
+        }
+        throw new IllegalArgumentException("Flag not supported");
 
-	}
+    }
 }

@@ -24,6 +24,6 @@ import net.customware.gwt.dispatch.shared.Action;
 
 public class Noop implements Action<NoopResult>{
 
-	private static final long serialVersionUID = 4076791577558340559L;
+    private static final long serialVersionUID = 4076791577558340559L;
 
 }

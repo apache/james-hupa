@@ -22,15 +22,15 @@ package org.apache.hupa.shared.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class BackEvent extends GwtEvent<BackEventHandler>{
-	public final static Type<BackEventHandler> TYPE = new Type<BackEventHandler>();
-	@Override
-	protected void dispatch(BackEventHandler handler) {
-		handler.onBackEvent(this);
-	}
+    public final static Type<BackEventHandler> TYPE = new Type<BackEventHandler>();
+    @Override
+    protected void dispatch(BackEventHandler handler) {
+        handler.onBackEvent(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<BackEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<BackEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
 }

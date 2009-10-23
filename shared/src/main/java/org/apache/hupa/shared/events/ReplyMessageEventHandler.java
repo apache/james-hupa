@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface ReplyMessageEventHandler extends EventHandler{
 
-	public void onReplyMessageEvent(ReplyMessageEvent event);
+    public void onReplyMessageEvent(ReplyMessageEvent event);
 }

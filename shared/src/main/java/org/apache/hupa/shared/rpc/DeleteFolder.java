@@ -25,18 +25,18 @@ import org.apache.hupa.shared.data.IMAPFolder;
 
 public class DeleteFolder implements Action<GenericResult>{
 
-	private static final long serialVersionUID = 7921329310932404439L;
-	
-	private IMAPFolder folder;
+    private static final long serialVersionUID = 7921329310932404439L;
+    
+    private IMAPFolder folder;
 
-	public DeleteFolder(IMAPFolder folder) {
-		this.folder = folder;
-	}
+    public DeleteFolder(IMAPFolder folder) {
+        this.folder = folder;
+    }
 
-	protected DeleteFolder() {
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
+    protected DeleteFolder() {
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
 }

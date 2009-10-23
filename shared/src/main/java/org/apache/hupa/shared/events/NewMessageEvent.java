@@ -23,16 +23,16 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class NewMessageEvent extends GwtEvent<NewMessageEventHandler>{
 
-	public static Type<NewMessageEventHandler> TYPE = new Type<NewMessageEventHandler>();
-	
-	@Override
-	protected void dispatch(NewMessageEventHandler handler) {
-		handler.onNewMessageEvent(this);
-	}
+    public static Type<NewMessageEventHandler> TYPE = new Type<NewMessageEventHandler>();
+    
+    @Override
+    protected void dispatch(NewMessageEventHandler handler) {
+        handler.onNewMessageEvent(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<NewMessageEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<NewMessageEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
 }

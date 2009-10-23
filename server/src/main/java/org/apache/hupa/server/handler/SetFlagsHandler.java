@@ -44,58 +44,58 @@ import com.sun.mail.imap.IMAPStore;
 
 public class SetFlagsHandler extends AbstractSessionHandler<SetFlag, GenericResult>{
 
-	@Inject
-	public SetFlagsHandler(IMAPStoreCache cache, Log logger,
-			Provider<HttpSession> sessionProvider) {
-		super(cache, logger, sessionProvider);
-	}
+    @Inject
+    public SetFlagsHandler(IMAPStoreCache cache, Log logger,
+            Provider<HttpSession> sessionProvider) {
+        super(cache, logger, sessionProvider);
+    }
 
-	@Override
-	protected GenericResult executeInternal(SetFlag action,
-			ExecutionContext context) throws ActionException {
-		User user = getUser();
-		IMAPFolder folder = action.getFolder();
-		ArrayList<Long> uids = action.getUids();
-		com.sun.mail.imap.IMAPFolder f = null;
-		try {
-			IMAPStore store = cache.get(user);
+    @Override
+    protected GenericResult executeInternal(SetFlag action,
+            ExecutionContext context) throws ActionException {
+        User user = getUser();
+        IMAPFolder folder = action.getFolder();
+        ArrayList<Long> uids = action.getUids();
+        com.sun.mail.imap.IMAPFolder f = null;
+        try {
+            IMAPStore store = cache.get(user);
 
-			f = (com.sun.mail.imap.IMAPFolder) store.getFolder(folder.getFullName());
-			if (f.isOpen() == false) {
-				f.open(Folder.READ_WRITE);
-			}
-			Message[] msgs = f.getMessagesByUID(toArray(uids));
-			Flag flag = JavamailUtil.convert(action.getFlag());
-			Flags flags = new Flags();
-			flags.add(flag);
-			
-			f.setFlags(msgs, flags, action.getValue());
-			return new GenericResult();
-		} catch (MessagingException e) {
-			String errorMsg = "Error while setting flags of messages with uids " + uids + " for user " + user;
-			logger.error(errorMsg,e);
-			throw new ActionException(errorMsg,e);
-		} finally {
-			if (f != null && f.isOpen()) {
-				try {
-					f.close(false);
-				} catch (MessagingException e) {
-					// ignore on close
-				}
-			}
-		}
-	}
+            f = (com.sun.mail.imap.IMAPFolder) store.getFolder(folder.getFullName());
+            if (f.isOpen() == false) {
+                f.open(Folder.READ_WRITE);
+            }
+            Message[] msgs = f.getMessagesByUID(toArray(uids));
+            Flag flag = JavamailUtil.convert(action.getFlag());
+            Flags flags = new Flags();
+            flags.add(flag);
+            
+            f.setFlags(msgs, flags, action.getValue());
+            return new GenericResult();
+        } catch (MessagingException e) {
+            String errorMsg = "Error while setting flags of messages with uids " + uids + " for user " + user;
+            logger.error(errorMsg,e);
+            throw new ActionException(errorMsg,e);
+        } finally {
+            if (f != null && f.isOpen()) {
+                try {
+                    f.close(false);
+                } catch (MessagingException e) {
+                    // ignore on close
+                }
+            }
+        }
+    }
 
-	public Class<SetFlag> getActionType() {
-		return SetFlag.class;
-	}
-	
-	private long[] toArray(ArrayList<Long> uids) {
-		long[] array = new long[uids.size()];
-		for (int i = 0; i < uids.size(); i++) {
-			array[i] = uids.get(i);
-		}
-		return array;
-	}
+    public Class<SetFlag> getActionType() {
+        return SetFlag.class;
+    }
+    
+    private long[] toArray(ArrayList<Long> uids) {
+        long[] array = new long[uids.size()];
+        for (int i = 0; i < uids.size(); i++) {
+            array[i] = uids.get(i);
+        }
+        return array;
+    }
 
 }

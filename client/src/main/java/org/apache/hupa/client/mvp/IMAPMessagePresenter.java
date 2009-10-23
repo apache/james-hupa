@@ -54,166 +54,166 @@ import com.google.inject.Inject;
 
 public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.Display>{
 
-	public interface Display extends WidgetDisplay{
-		public HasText getFrom();
+    public interface Display extends WidgetDisplay{
+        public HasText getFrom();
 
-		public HasText getTo();
+        public HasText getTo();
 
-		public HasText getCc();
+        public HasText getCc();
 
-		public HasText getSubject();
-		public Frame getShowRawMessageFrame();
-		public HasDialog getShowRawMessageDialog();
-		public HasHTML getContent();
-		public HasClickHandlers getShowRawMessageClick();
-		public HasClickHandlers getDeleteButtonClick();
-		public HasClickHandlers getReplyButtonClick();
-		public HasClickHandlers getReplyAllButtonClick();
-		public HasClickHandlers getForwardButtonClick();
-		public HasClickHandlers getBackButtonClick();
-		public void setAttachments(List<MessageAttachment> attachements, String folder,  long uid);
-	}
+        public HasText getSubject();
+        public Frame getShowRawMessageFrame();
+        public HasDialog getShowRawMessageDialog();
+        public HasHTML getContent();
+        public HasClickHandlers getShowRawMessageClick();
+        public HasClickHandlers getDeleteButtonClick();
+        public HasClickHandlers getReplyButtonClick();
+        public HasClickHandlers getReplyAllButtonClick();
+        public HasClickHandlers getForwardButtonClick();
+        public HasClickHandlers getBackButtonClick();
+        public void setAttachments(List<MessageAttachment> attachements, String folder,  long uid);
+    }
 
-	public static final Place PLACE = new Place("IMAPMessage");
-	private MessageDetails messageDetails;
-	private Message message;
-	private CachingDispatchAsync dispatcher;
-	private IMAPFolder folder;
-	private User user;
-	private boolean isBound = false;
+    public static final Place PLACE = new Place("IMAPMessage");
+    private MessageDetails messageDetails;
+    private Message message;
+    private CachingDispatchAsync dispatcher;
+    private IMAPFolder folder;
+    private User user;
+    private boolean isBound = false;
 
-	@Inject
-	private IMAPMessagePresenter(IMAPMessagePresenter.Display display,EventBus bus, CachingDispatchAsync dispatcher) {
-		super(display,bus);
-		this.dispatcher = dispatcher;
-	}
+    @Inject
+    private IMAPMessagePresenter(IMAPMessagePresenter.Display display,EventBus bus, CachingDispatchAsync dispatcher) {
+        super(display,bus);
+        this.dispatcher = dispatcher;
+    }
 
-	
-	public void bind(User user, IMAPFolder folder, Message message, MessageDetails messageDetails) {
-		this.message = message;
-		this.messageDetails = messageDetails;
-		this.folder = folder;
-		this.user = user;
-		if (isBound == false) { 
-			bind();
-		}
-		refreshDisplay();
-	}
+    
+    public void bind(User user, IMAPFolder folder, Message message, MessageDetails messageDetails) {
+        this.message = message;
+        this.messageDetails = messageDetails;
+        this.folder = folder;
+        this.user = user;
+        if (isBound == false) { 
+            bind();
+        }
+        refreshDisplay();
+    }
 
-	private void updateDisplay() {
-		display.getFrom().setText(message.getFrom());
-		display.getCc().setText(Util.arrayToString(message.getCc()));
-		display.getTo().setText(Util.arrayToString(message.getTo()));
-		display.getSubject().setText(message.getSubject());
-		String con = messageDetails.getText();
-		if (messageDetails.isHTML() == false) {
-			con = Util.toHtml(con);
-		}
-		display.getContent().setHTML(con);
-		display.setAttachments(messageDetails.getMessageAttachments(), folder.getFullName(),message.getUid());
-	}
-	
-	@Override
-	public Place getPlace() {
-		return PLACE;
-	}
+    private void updateDisplay() {
+        display.getFrom().setText(message.getFrom());
+        display.getCc().setText(Util.arrayToString(message.getCc()));
+        display.getTo().setText(Util.arrayToString(message.getTo()));
+        display.getSubject().setText(message.getSubject());
+        String con = messageDetails.getText();
+        if (messageDetails.isHTML() == false) {
+            con = Util.toHtml(con);
+        }
+        display.getContent().setHTML(con);
+        display.setAttachments(messageDetails.getMessageAttachments(), folder.getFullName(),message.getUid());
+    }
+    
+    @Override
+    public Place getPlace() {
+        return PLACE;
+    }
 
-	@Override
-	protected void onBind() {
-		registerHandler(display.getDeleteButtonClick().addClickHandler(new ClickHandler() {
+    @Override
+    protected void onBind() {
+        registerHandler(display.getDeleteButtonClick().addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				ArrayList<Long> uidList = new ArrayList<Long>();
-				uidList.add(message.getUid());
-				dispatcher.execute(new DeleteMessageByUid(folder, uidList), new HupaCallback<DeleteMessageResult>(dispatcher, eventBus) {
-					public void callback(DeleteMessageResult result) {
-						eventBus.fireEvent(new LoadMessagesEvent(user,folder));
-					}
-				}); 
-			}
+            public void onClick(ClickEvent event) {
+                ArrayList<Long> uidList = new ArrayList<Long>();
+                uidList.add(message.getUid());
+                dispatcher.execute(new DeleteMessageByUid(folder, uidList), new HupaCallback<DeleteMessageResult>(dispatcher, eventBus) {
+                    public void callback(DeleteMessageResult result) {
+                        eventBus.fireEvent(new LoadMessagesEvent(user,folder));
+                    }
+                }); 
+            }
 
-		}));
-		
-		registerHandler(display.getForwardButtonClick().addClickHandler(new ClickHandler() {
+        }));
+        
+        registerHandler(display.getForwardButtonClick().addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new ForwardMessageEvent(user,folder,message, messageDetails));
-			}
-			
-		}));
-		
-		registerHandler(display.getReplyButtonClick().addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                eventBus.fireEvent(new ForwardMessageEvent(user,folder,message, messageDetails));
+            }
+            
+        }));
+        
+        registerHandler(display.getReplyButtonClick().addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new ReplyMessageEvent(user,folder,message, messageDetails, false));
-			}
-			
-		}));
-		
-		registerHandler(display.getReplyAllButtonClick().addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                eventBus.fireEvent(new ReplyMessageEvent(user,folder,message, messageDetails, false));
+            }
+            
+        }));
+        
+        registerHandler(display.getReplyAllButtonClick().addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new ReplyMessageEvent(user,folder,message, messageDetails, true));
-			}
-			
-		}));
-		registerHandler(display.getBackButtonClick().addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                eventBus.fireEvent(new ReplyMessageEvent(user,folder,message, messageDetails, true));
+            }
+            
+        }));
+        registerHandler(display.getBackButtonClick().addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				eventBus.fireEvent(new BackEvent());
-			}
-			
-		}));
-		registerHandler(display.getShowRawMessageClick().addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                eventBus.fireEvent(new BackEvent());
+            }
+            
+        }));
+        registerHandler(display.getShowRawMessageClick().addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				String message_url = "/hupa/messageSourceServlet?uid=" + message.getUid() + "&folder=" + folder.getFullName();
-				display.getShowRawMessageFrame().setUrl(message_url);
-				display.getShowRawMessageDialog().center();
-			}
-			
-		}));
-		isBound = true;
-	}
+            public void onClick(ClickEvent event) {
+                String message_url = "/hupa/messageSourceServlet?uid=" + message.getUid() + "&folder=" + folder.getFullName();
+                display.getShowRawMessageFrame().setUrl(message_url);
+                display.getShowRawMessageDialog().center();
+            }
+            
+        }));
+        isBound = true;
+    }
 
-	@Override
-	protected void onPlaceRequest(PlaceRequest request) {
-		String from = request.getParameter("from", user.getName());
-		display.getFrom().setText(from);
+    @Override
+    protected void onPlaceRequest(PlaceRequest request) {
+        String from = request.getParameter("from", user.getName());
+        display.getFrom().setText(from);
 
-		
-		String to = request.getParameter("to", null);
-		if (to != null) {
-			display.getTo().setText(to);
-		}
-		
-		String cc = request.getParameter("cc", null);
-		if (cc != null) {
-			display.getCc().setText(cc);
-		}
-		
-		String subject = request.getParameter("subject", null);
-		if (subject != null) {
-			display.getSubject().setText(subject);
-		}
-		
-		String bodytext = request.getParameter("bodytext", null);
-		if (bodytext != null) {
-			display.getContent().setText(bodytext);
-		}
-	}
+        
+        String to = request.getParameter("to", null);
+        if (to != null) {
+            display.getTo().setText(to);
+        }
+        
+        String cc = request.getParameter("cc", null);
+        if (cc != null) {
+            display.getCc().setText(cc);
+        }
+        
+        String subject = request.getParameter("subject", null);
+        if (subject != null) {
+            display.getSubject().setText(subject);
+        }
+        
+        String bodytext = request.getParameter("bodytext", null);
+        if (bodytext != null) {
+            display.getContent().setText(bodytext);
+        }
+    }
 
-	@Override
-	protected void onUnbind() {
-		isBound = false;
-	}
+    @Override
+    protected void onUnbind() {
+        isBound = false;
+    }
 
-	public void refreshDisplay() {
-		updateDisplay();
-	}
+    public void refreshDisplay() {
+        updateDisplay();
+    }
 
-	public void revealDisplay() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void revealDisplay() {
+        // TODO Auto-generated method stub
+        
+    }
 }

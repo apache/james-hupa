@@ -27,43 +27,43 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class MoveMessageEvent extends GwtEvent<MoveMessageEventHandler> {
 
-	public final static Type<MoveMessageEventHandler> TYPE = new Type<MoveMessageEventHandler>();
-	private User user;
-	private IMAPFolder oldFolder;
-	private IMAPFolder newFolder;
-	private Message message;
+    public final static Type<MoveMessageEventHandler> TYPE = new Type<MoveMessageEventHandler>();
+    private User user;
+    private IMAPFolder oldFolder;
+    private IMAPFolder newFolder;
+    private Message message;
 
-	public MoveMessageEvent(User user, IMAPFolder oldFolder,
-			IMAPFolder newFolder, Message message) {
-		this.user = user;
-		this.oldFolder = oldFolder;
-		this.newFolder = newFolder;
-		this.message = message;
-	}
+    public MoveMessageEvent(User user, IMAPFolder oldFolder,
+            IMAPFolder newFolder, Message message) {
+        this.user = user;
+        this.oldFolder = oldFolder;
+        this.newFolder = newFolder;
+        this.message = message;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public IMAPFolder getOldFolder() {
-		return oldFolder;
-	}
+    public IMAPFolder getOldFolder() {
+        return oldFolder;
+    }
 
-	public IMAPFolder getNewFolder() {
-		return newFolder;
-	}
+    public IMAPFolder getNewFolder() {
+        return newFolder;
+    }
 
-	public Message getMessage() {
-		return message;
-	}
+    public Message getMessage() {
+        return message;
+    }
 
-	protected void dispatch(MoveMessageEventHandler handler) {
-		handler.onMoveMessageHandler(this);
-	}
+    protected void dispatch(MoveMessageEventHandler handler) {
+        handler.onMoveMessageHandler(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<MoveMessageEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<MoveMessageEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
 }

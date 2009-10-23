@@ -25,20 +25,20 @@ import org.apache.hupa.shared.data.IMAPFolder;
 
 public class DeleteMessageByUid extends DeleteMessage {
 
-	private static final long serialVersionUID = -5980938676368660849L;
+    private static final long serialVersionUID = -5980938676368660849L;
 
-	private ArrayList<Long> messageUids;
+    private ArrayList<Long> messageUids;
 
-	public DeleteMessageByUid(IMAPFolder folder, ArrayList<Long> messageUids) {
-		super(folder);
-		this.messageUids = messageUids;
-	}
-	
-	protected DeleteMessageByUid() {
-	}
-	
-	public ArrayList<Long> getMessageUids() {
-		return messageUids;
-	}
+    public DeleteMessageByUid(IMAPFolder folder, ArrayList<Long> messageUids) {
+        super(folder);
+        this.messageUids = messageUids;
+    }
+    
+    protected DeleteMessageByUid() {
+    }
+    
+    public ArrayList<Long> getMessageUids() {
+        return messageUids;
+    }
 
 }

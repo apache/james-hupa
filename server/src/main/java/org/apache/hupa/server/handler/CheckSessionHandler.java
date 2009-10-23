@@ -38,34 +38,34 @@ import com.google.inject.Provider;
  * Handler for asking the server if the session is valid
  */
 public class CheckSessionHandler implements ActionHandler<CheckSession, CheckSessionResult> {
-	
-	protected final Provider<HttpSession> sessionProvider;
-	protected final Log logger;
-	
-	@Inject
-	public CheckSessionHandler(Log logger, Provider<HttpSession> provider) {
-		this.sessionProvider = provider;
-		this.logger = logger;
-	}
+    
+    protected final Provider<HttpSession> sessionProvider;
+    protected final Log logger;
+    
+    @Inject
+    public CheckSessionHandler(Log logger, Provider<HttpSession> provider) {
+        this.sessionProvider = provider;
+        this.logger = logger;
+    }
 
-	public CheckSessionResult execute(CheckSession arg0, ExecutionContext arg1) throws ActionException {
-		CheckSessionResult ret = new CheckSessionResult();
-		try {
-			User user = (User) sessionProvider.get().getAttribute("user");
-			if (user != null && user.getAuthenticated())
-				ret.setUser(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ret;
-	}
+    public CheckSessionResult execute(CheckSession arg0, ExecutionContext arg1) throws ActionException {
+        CheckSessionResult ret = new CheckSessionResult();
+        try {
+            User user = (User) sessionProvider.get().getAttribute("user");
+            if (user != null && user.getAuthenticated())
+                ret.setUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
 
-	public Class<CheckSession> getActionType() {
-		return CheckSession.class;
-	}
+    public Class<CheckSession> getActionType() {
+        return CheckSession.class;
+    }
 
-	public void rollback(CheckSession arg0, CheckSessionResult arg1, ExecutionContext arg2) throws ActionException {
-	}
+    public void rollback(CheckSession arg0, CheckSessionResult arg1, ExecutionContext arg2) throws ActionException {
+    }
 
 
 }

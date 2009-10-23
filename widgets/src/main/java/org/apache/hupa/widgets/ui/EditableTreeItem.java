@@ -41,133 +41,133 @@ import com.google.gwt.user.client.ui.Widget;
  *
  */
 public class EditableTreeItem extends TreeItem implements HasEditable,HasEditHandlers{
-	protected TextBox editBox = new TextBox();
-	protected String oldValue;
-	protected Widget normalItem = new Label();
-	protected HandlerManager manager = new HandlerManager(this);
-	public EditableTreeItem() {
-		editBox.setWidth("100px");
-		editBox.addKeyDownHandler(new KeyDownHandler() {
+    protected TextBox editBox = new TextBox();
+    protected String oldValue;
+    protected Widget normalItem = new Label();
+    protected HandlerManager manager = new HandlerManager(this);
+    public EditableTreeItem() {
+        editBox.setWidth("100px");
+        editBox.addKeyDownHandler(new KeyDownHandler() {
 
-			public void onKeyDown(KeyDownEvent event) {
-				int code = event.getNativeKeyCode();
-				switch (code) {
-				// handle ENTER and ESCAPE keys
-				case KeyCodes.KEY_ENTER:
-					stopEdit();
-					break;
-				case KeyCodes.KEY_ESCAPE:
-					cancelEdit();
-					break;
+            public void onKeyDown(KeyDownEvent event) {
+                int code = event.getNativeKeyCode();
+                switch (code) {
+                // handle ENTER and ESCAPE keys
+                case KeyCodes.KEY_ENTER:
+                    stopEdit();
+                    break;
+                case KeyCodes.KEY_ESCAPE:
+                    cancelEdit();
+                    break;
 
-				default:
-					break;
-				}
+                default:
+                    break;
+                }
 
-			}
+            }
 
-		});
-		
-		// Just cancel the editing if the user click outside the TextBox
-		editBox.addBlurHandler(new BlurHandler() {
+        });
+        
+        // Just cancel the editing if the user click outside the TextBox
+        editBox.addBlurHandler(new BlurHandler() {
 
-			public void onBlur(BlurEvent event) {
-				cancelEdit();
-			}
-			
-		});
-		super.setWidget(normalItem);
-	}
-	
+            public void onBlur(BlurEvent event) {
+                cancelEdit();
+            }
+            
+        });
+        super.setWidget(normalItem);
+    }
+    
 
-	@Override
-	public void setText(String text) {
-		editBox.setText(text);
-		((HasText)normalItem).setText(text);
-	}
+    @Override
+    public void setText(String text) {
+        editBox.setText(text);
+        ((HasText)normalItem).setText(text);
+    }
 
 
-	@Override
-	public void setWidget(Widget newWidget) {
-		if (newWidget instanceof HasText) {
-			normalItem = newWidget;
-			super.setWidget(newWidget);
-		} else {
-			throw new IllegalArgumentException("Widget need to implement HasText");
-		}
-	}
+    @Override
+    public void setWidget(Widget newWidget) {
+        if (newWidget instanceof HasText) {
+            normalItem = newWidget;
+            super.setWidget(newWidget);
+        } else {
+            throw new IllegalArgumentException("Widget need to implement HasText");
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.widgets.HasEditable#cancelEdit()
-	 */
-	public void cancelEdit() {
-		showItem(oldValue);
-		manager.fireEvent(new EditEvent(EditEvent.EventType.Start,oldValue,null));
-	}
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.widgets.HasEditable#isEdit()
-	 */
-	public boolean isEdit() {
-		return getWidget().equals(editBox);
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.widgets.HasEditable#cancelEdit()
+     */
+    public void cancelEdit() {
+        showItem(oldValue);
+        manager.fireEvent(new EditEvent(EditEvent.EventType.Start,oldValue,null));
+    }
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.widgets.HasEditable#isEdit()
+     */
+    public boolean isEdit() {
+        return getWidget().equals(editBox);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.widgets.HasEditable#startEdit()
-	 */
-	public void startEdit() {
-		oldValue = getText();
-		showEditBox(oldValue);
-		manager.fireEvent(new EditEvent(EditEvent.EventType.Start,oldValue,null));
-	}
-	
-	/**
-	 * Show the editbox filled with the given value 
-	 * 
-	 * @param value
-	 */
-	protected void showEditBox(String value) {
-		editBox.setText(value);
-		editBox.setCursorPos(value.length());
-		editBox.setFocus(true);
-		super.setWidget(editBox);
-	}
-	
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.widgets.HasEditable#startEdit()
+     */
+    public void startEdit() {
+        oldValue = getText();
+        showEditBox(oldValue);
+        manager.fireEvent(new EditEvent(EditEvent.EventType.Start,oldValue,null));
+    }
+    
+    /**
+     * Show the editbox filled with the given value 
+     * 
+     * @param value
+     */
+    protected void showEditBox(String value) {
+        editBox.setText(value);
+        editBox.setCursorPos(value.length());
+        editBox.setFocus(true);
+        super.setWidget(editBox);
+    }
+    
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.widgets.HasEditable#stopEdit()
-	 */
-	public void stopEdit() {
-		showItem(editBox.getText());
-		manager.fireEvent(new EditEvent(EditEvent.EventType.Stop,oldValue,editBox.getText()));
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.widgets.HasEditable#stopEdit()
+     */
+    public void stopEdit() {
+        showItem(editBox.getText());
+        manager.fireEvent(new EditEvent(EditEvent.EventType.Stop,oldValue,editBox.getText()));
+    }
 
-	/**
-	 * Show the "normal" item with the given text
-	 * 
-	 * @param text
-	 */
-	protected void showItem(String text) {
-		((HasText)normalItem).setText(text);
-		setWidget(normalItem);
-	}
-	
-	@Override
-	public String getText() {
-		return ((HasText)normalItem).getText();
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.widgets.HasEditHandlers#addEditHandler(org.apache.hupa.client.widgets.EditHandler)
-	 */
-	public HandlerRegistration addEditHandler(EditHandler handler) {
-		return manager.addHandler(EditEvent.TYPE, handler);
-	}
-	
-	 
+    /**
+     * Show the "normal" item with the given text
+     * 
+     * @param text
+     */
+    protected void showItem(String text) {
+        ((HasText)normalItem).setText(text);
+        setWidget(normalItem);
+    }
+    
+    @Override
+    public String getText() {
+        return ((HasText)normalItem).getText();
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.widgets.HasEditHandlers#addEditHandler(org.apache.hupa.client.widgets.EditHandler)
+     */
+    public HandlerRegistration addEditHandler(EditHandler handler) {
+        return manager.addHandler(EditEvent.TYPE, handler);
+    }
+    
+     
 
 }

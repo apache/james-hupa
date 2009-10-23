@@ -29,20 +29,20 @@ import com.google.gwt.user.client.ui.TextBox;
  *
  */
 public class NumberOnlyTextBox extends TextBox implements KeyPressHandler{
-	
-	public NumberOnlyTextBox() {
-		addKeyPressHandler(this);
-	}
+    
+    public NumberOnlyTextBox() {
+        addKeyPressHandler(this);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.google.gwt.event.dom.client.KeyPressHandler#onKeyPress(com.google.gwt.event.dom.client.KeyPressEvent)
-	 */
-	public void onKeyPress(KeyPressEvent event) {
-		char keyCode = event.getCharCode();
-	    if (!Character.isDigit(keyCode)) {
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.KeyPressHandler#onKeyPress(com.google.gwt.event.dom.client.KeyPressEvent)
+     */
+    public void onKeyPress(KeyPressEvent event) {
+        char keyCode = event.getCharCode();
+        if (!Character.isDigit(keyCode)) {
             cancelKey();
         } 
-	}
-	
+    }
+    
 }

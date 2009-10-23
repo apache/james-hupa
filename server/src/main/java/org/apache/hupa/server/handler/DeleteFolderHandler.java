@@ -43,46 +43,46 @@ import com.sun.mail.imap.IMAPStore;
  */
 public class DeleteFolderHandler extends AbstractSessionHandler<DeleteFolder, GenericResult>{
 
-	@Inject
-	public DeleteFolderHandler(IMAPStoreCache cache, Log logger,
-			Provider<HttpSession> sessionProvider) {
-		super(cache, logger, sessionProvider);
-	}
+    @Inject
+    public DeleteFolderHandler(IMAPStoreCache cache, Log logger,
+            Provider<HttpSession> sessionProvider) {
+        super(cache, logger, sessionProvider);
+    }
 
-	@Override
-	protected GenericResult executeInternal(DeleteFolder action,
-			ExecutionContext context) throws ActionException {
-		User user = getUser();
-		IMAPFolder folder = action.getFolder();
-		try {
-			IMAPStore store = cache.get(user);
-			
-			Folder f = store.getFolder(folder.getFullName());
-			
-			// close the folder if its open
-			if (f.isOpen()) {
-				f.close(false);
-			}
-			
-			// recursive delete the folder
-			if (f.delete(true)) {
-				logger.info("Successfully delete folder " + folder + " for user " + user);
-				return new GenericResult();
-			} else {
-				throw new ActionException("Unable to delete folder " + folder + " for user " + user);
-			}
-		} catch (Exception e) {
-			logger.error("Error while deleting folder " + folder + " for user " + user,e);
-			throw new ActionException("Error while deleting folder " + folder + " for user " + user,e);
-		}
-	}
+    @Override
+    protected GenericResult executeInternal(DeleteFolder action,
+            ExecutionContext context) throws ActionException {
+        User user = getUser();
+        IMAPFolder folder = action.getFolder();
+        try {
+            IMAPStore store = cache.get(user);
+            
+            Folder f = store.getFolder(folder.getFullName());
+            
+            // close the folder if its open
+            if (f.isOpen()) {
+                f.close(false);
+            }
+            
+            // recursive delete the folder
+            if (f.delete(true)) {
+                logger.info("Successfully delete folder " + folder + " for user " + user);
+                return new GenericResult();
+            } else {
+                throw new ActionException("Unable to delete folder " + folder + " for user " + user);
+            }
+        } catch (Exception e) {
+            logger.error("Error while deleting folder " + folder + " for user " + user,e);
+            throw new ActionException("Error while deleting folder " + folder + " for user " + user,e);
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<DeleteFolder> getActionType() {
-		return DeleteFolder.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<DeleteFolder> getActionType() {
+        return DeleteFolder.class;
+    }
 
 }

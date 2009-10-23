@@ -42,56 +42,56 @@ import com.sun.mail.imap.IMAPStore;
  */
 public class MessageSourceServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1245563204035792963L;
-	private InMemoryIMAPStoreCache cache;
-	private Log logger;
+    private static final long serialVersionUID = 1245563204035792963L;
+    private InMemoryIMAPStoreCache cache;
+    private Log logger;
 
-	@Inject
-	public MessageSourceServlet(InMemoryIMAPStoreCache cache, Log logger) {
-		this.cache = cache;
-		this.logger = logger;
-	}
+    @Inject
+    public MessageSourceServlet(InMemoryIMAPStoreCache cache, Log logger) {
+        this.cache = cache;
+        this.logger = logger;
+    }
 
-	/**
-	 * Handle to write back the requested attachment
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /**
+     * Handle to write back the requested attachment
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
 
-		String message_uid = (String) request.getParameter("uid");
-		String folder = (String) request.getParameter("folder");
-		
-		try {
-			long uid = Long.parseLong(message_uid);
+        String message_uid = (String) request.getParameter("uid");
+        String folder = (String) request.getParameter("folder");
+        
+        try {
+            long uid = Long.parseLong(message_uid);
 
-			IMAPStore store = cache.get(user);
-			IMAPFolder f = (IMAPFolder) store.getFolder(folder);
-			if (f.isOpen() == false) {
-				f.open(Folder.READ_ONLY);
-			}
+            IMAPStore store = cache.get(user);
+            IMAPFolder f = (IMAPFolder) store.getFolder(folder);
+            if (f.isOpen() == false) {
+                f.open(Folder.READ_ONLY);
+            }
 
-			Message m = f.getMessageByUID(uid);
+            Message m = f.getMessageByUID(uid);
 
-			response.setContentType("text/plain");
-			OutputStream outs = response.getOutputStream();
-			m.writeTo(outs);
-			outs.flush();
-			outs.close();
+            response.setContentType("text/plain");
+            OutputStream outs = response.getOutputStream();
+            m.writeTo(outs);
+            outs.flush();
+            outs.close();
 
-			if (f.isOpen()) {
-				f.close(false);
-			}
-		} catch (Exception e) {
-			logger.error("Unable to get raw content of msg for user " + user + " in folder " + folder + " with uid " + message_uid, e);
-			throw new ServletException("Unable to get raw content of msg for user " + user + " in folder " + folder + " with uid " + message_uid);
-		}
-	}
+            if (f.isOpen()) {
+                f.close(false);
+            }
+        } catch (Exception e) {
+            logger.error("Unable to get raw content of msg for user " + user + " in folder " + folder + " with uid " + message_uid, e);
+            throw new ServletException("Unable to get raw content of msg for user " + user + " in folder " + folder + " with uid " + message_uid);
+        }
+    }
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 
 }

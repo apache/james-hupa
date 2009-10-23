@@ -43,103 +43,103 @@ import com.google.gwt.gen2.table.event.client.TableEvent.Row;
  *
  */
 public class RefetchPagingScrollTable<RowType> extends PagingScrollTable<RowType>{
-	private ArrayList<RowType> selectedRows = new ArrayList<RowType>();
+    private ArrayList<RowType> selectedRows = new ArrayList<RowType>();
 
-	
-	public RefetchPagingScrollTable(MutableTableModel<RowType> tableModel,
-			FixedWidthGrid dataTable, FixedWidthFlexTable headerTable,
-			TableDefinition<RowType> tableDefinition) {
-		super(tableModel, dataTable, headerTable, tableDefinition);
+    
+    public RefetchPagingScrollTable(MutableTableModel<RowType> tableModel,
+            FixedWidthGrid dataTable, FixedWidthFlexTable headerTable,
+            TableDefinition<RowType> tableDefinition) {
+        super(tableModel, dataTable, headerTable, tableDefinition);
 
-		getDataTable().addRowSelectionHandler(new RowSelectionHandler() {
+        getDataTable().addRowSelectionHandler(new RowSelectionHandler() {
 
-			public void onRowSelection(RowSelectionEvent event) {
-				Iterator<Row> rowIndexIt = event.getSelectedRows().iterator();
-				while(rowIndexIt.hasNext()) {
-					RowType row = getRowValue(rowIndexIt.next().getRowIndex());
-					if (selectedRows.contains(row) == false) {
-						selectedRows.add(row);
-					}
-				}
-				
-				Iterator<Row> rowDeselectIndexIt = event.getDeselectedRows().iterator();
-				while(rowDeselectIndexIt.hasNext()) {
-					RowType row = getRowValue(rowDeselectIndexIt.next().getRowIndex());
-					selectedRows.remove(row);
-				}
-			}
-			
-		});
-	}
-	
-	/**
-	 * Get selected rows
-	 * 
-	 * @return rows
-	 */
-	public ArrayList<RowType> getSelectedRows() {
-		return selectedRows;
-	}
+            public void onRowSelection(RowSelectionEvent event) {
+                Iterator<Row> rowIndexIt = event.getSelectedRows().iterator();
+                while(rowIndexIt.hasNext()) {
+                    RowType row = getRowValue(rowIndexIt.next().getRowIndex());
+                    if (selectedRows.contains(row) == false) {
+                        selectedRows.add(row);
+                    }
+                }
+                
+                Iterator<Row> rowDeselectIndexIt = event.getDeselectedRows().iterator();
+                while(rowDeselectIndexIt.hasNext()) {
+                    RowType row = getRowValue(rowDeselectIndexIt.next().getRowIndex());
+                    selectedRows.remove(row);
+                }
+            }
+            
+        });
+    }
+    
+    /**
+     * Get selected rows
+     * 
+     * @return rows
+     */
+    public ArrayList<RowType> getSelectedRows() {
+        return selectedRows;
+    }
 
-	/**
-	 * Remove the given rows from the underlying dataTable 
-	 * 
-	 * @param rows
-	 */
-	@SuppressWarnings("unchecked")
-	public void removeRows(ArrayList<RowType> rows) {
-		ArrayList<Integer> rowsIndex = new ArrayList<Integer>();
-		for (int i = 0; i < rows.size(); i++) {
-			int rowIndex = getRowValues().indexOf(rows.get(i));
-			if (rowsIndex.contains(rowIndex) == false) {
-				rowsIndex.add(rowIndex);
-			}
-		}
-		// Check if we found any rows to remove
-		if (rowsIndex.isEmpty() == false) {
-			// remove the row value on deletion
-			for (int i = 0; i <rowsIndex.size();i++) {
-				int index = rowsIndex.get(i) -i;
-				selectedRows.remove(getRowValue(index));
-				getRowValues().remove(index);
+    /**
+     * Remove the given rows from the underlying dataTable 
+     * 
+     * @param rows
+     */
+    @SuppressWarnings("unchecked")
+    public void removeRows(ArrayList<RowType> rows) {
+        ArrayList<Integer> rowsIndex = new ArrayList<Integer>();
+        for (int i = 0; i < rows.size(); i++) {
+            int rowIndex = getRowValues().indexOf(rows.get(i));
+            if (rowsIndex.contains(rowIndex) == false) {
+                rowsIndex.add(rowIndex);
+            }
+        }
+        // Check if we found any rows to remove
+        if (rowsIndex.isEmpty() == false) {
+            // remove the row value on deletion
+            for (int i = 0; i <rowsIndex.size();i++) {
+                int index = rowsIndex.get(i) -i;
+                selectedRows.remove(getRowValue(index));
+                getRowValues().remove(index);
 
-				((MutableTableModel) getTableModel()).removeRow(index);
-			}
-			
-			// Check if we need to refetch rows
-			if (getTableModel().getRowCount() > (getPageCount() * getPageSize())) {
-				// request new rows to fill the table again
-				Request r = new Request(getAbsoluteLastRowIndex(),rowsIndex.size());
-				getTableModel().requestRows(r, new Callback<RowType>() {
+                ((MutableTableModel) getTableModel()).removeRow(index);
+            }
+            
+            // Check if we need to refetch rows
+            if (getTableModel().getRowCount() > (getPageCount() * getPageSize())) {
+                // request new rows to fill the table again
+                Request r = new Request(getAbsoluteLastRowIndex(),rowsIndex.size());
+                getTableModel().requestRows(r, new Callback<RowType>() {
 
-					public void onFailure(Throwable caught) {
-					// Nothing todo
-					}
+                    public void onFailure(Throwable caught) {
+                    // Nothing todo
+                    }
 
-					public void onRowsReady(Request request,
-							Response<RowType> response) {
-						// Add the new row values
-						Iterator<RowType> it = response.getRowValues();
-						while (it.hasNext()) {
-							getRowValues().add(it.next());
-						}
-						// copy the selected rows to reset it after reloading the data
-						Iterator<Integer> selected = new HashSet<Integer>(getDataTable().getSelectedRows()).iterator();
-					
-						// set the data
-						setData(getAbsoluteFirstRowIndex(), getRowValues().iterator());
-					
-						// select the rows again
-						while (selected.hasNext()) {
-							getDataTable().selectRow(selected.next(), false);
-						}
-					}
-				
-				});
-			} else {
-				// redraw the table to eliminate empty rows
-				redraw();
-			}
-		}
-	}
+                    public void onRowsReady(Request request,
+                            Response<RowType> response) {
+                        // Add the new row values
+                        Iterator<RowType> it = response.getRowValues();
+                        while (it.hasNext()) {
+                            getRowValues().add(it.next());
+                        }
+                        // copy the selected rows to reset it after reloading the data
+                        Iterator<Integer> selected = new HashSet<Integer>(getDataTable().getSelectedRows()).iterator();
+                    
+                        // set the data
+                        setData(getAbsoluteFirstRowIndex(), getRowValues().iterator());
+                    
+                        // select the rows again
+                        while (selected.hasNext()) {
+                            getDataTable().selectRow(selected.next(), false);
+                        }
+                    }
+                
+                });
+            } else {
+                // redraw the table to eliminate empty rows
+                redraw();
+            }
+        }
+    }
 }

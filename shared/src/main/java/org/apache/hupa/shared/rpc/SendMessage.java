@@ -25,21 +25,21 @@ import net.customware.gwt.dispatch.shared.Action;
 import org.apache.hupa.shared.data.SMTPMessage;
 
 public class SendMessage implements Action<GenericResult>{
-	
-	private static final long serialVersionUID = 973668124208945015L;
+    
+    private static final long serialVersionUID = 973668124208945015L;
 
-	private SMTPMessage msg;
-	
-	public SendMessage(SMTPMessage msg) {
-		this.msg = msg;
-	}
-	
-	protected SendMessage() {
-		
-	}
-	
-	public SMTPMessage getMessage() {
-		return msg;
-	}
-	
+    private SMTPMessage msg;
+    
+    public SendMessage(SMTPMessage msg) {
+        this.msg = msg;
+    }
+    
+    protected SendMessage() {
+        
+    }
+    
+    public SMTPMessage getMessage() {
+        return msg;
+    }
+    
 }

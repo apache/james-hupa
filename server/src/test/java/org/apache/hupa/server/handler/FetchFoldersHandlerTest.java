@@ -36,61 +36,61 @@ import org.apache.hupa.shared.rpc.FetchFoldersResult;
 
 public class FetchFoldersHandlerTest extends AbstractHandlerTest{
 
-	public void testInvalidSessionId() {
-		User user = createUser();
-		FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
-		try {
-			handler.execute(new FetchFolders(), null);
-			fail("Invalid session");
-			
-		} catch (InvalidSessionException e) {
-			//e.printStackTrace();
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
-	public void testNoFolders() {
-		User user = createUser();
-		session.setAttribute("user", user);
-		storeCache.addValidUser(user.getName(), user.getPassword());
-		FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
-		try {
-			FetchFoldersResult result = handler.execute(new FetchFolders(), null);
-			assertTrue(result.getFolders().isEmpty());
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
-	public void testFoundFolders() throws MessagingException {
-		User user = createUser();
-		session.setAttribute("user", user);
-		storeCache.addValidUser(user.getName(), user.getPassword());
-		
-		MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
-		store.getFolder("INBOX.WHATEVER").create(Folder.HOLDS_FOLDERS);
-		store.getFolder("INBOX.WHATEVER1").create(Folder.HOLDS_FOLDERS);
-		store.getFolder("INBOX.WHATEVER.XXX").create(Folder.HOLDS_FOLDERS);
+    public void testInvalidSessionId() {
+        User user = createUser();
+        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
+        try {
+            handler.execute(new FetchFolders(), null);
+            fail("Invalid session");
+            
+        } catch (InvalidSessionException e) {
+            //e.printStackTrace();
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+    
+    public void testNoFolders() {
+        User user = createUser();
+        session.setAttribute("user", user);
+        storeCache.addValidUser(user.getName(), user.getPassword());
+        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
+        try {
+            FetchFoldersResult result = handler.execute(new FetchFolders(), null);
+            assertTrue(result.getFolders().isEmpty());
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+    
+    public void testFoundFolders() throws MessagingException {
+        User user = createUser();
+        session.setAttribute("user", user);
+        storeCache.addValidUser(user.getName(), user.getPassword());
+        
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
+        store.getFolder("INBOX.WHATEVER").create(Folder.HOLDS_FOLDERS);
+        store.getFolder("INBOX.WHATEVER1").create(Folder.HOLDS_FOLDERS);
+        store.getFolder("INBOX.WHATEVER.XXX").create(Folder.HOLDS_FOLDERS);
 
-		FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
-		try {
-			FetchFoldersResult result = handler.execute(new FetchFolders(), null);
-			ArrayList<IMAPFolder> folders = result.getFolders();
-			assertFalse(folders.isEmpty());
-			assertEquals(3, folders.size());
-			assertEquals("INBOX.WHATEVER",folders.get(0).getFullName());
-			assertEquals("INBOX.WHATEVER1",folders.get(1).getFullName());
-			assertEquals("INBOX.WHATEVER.XXX",folders.get(2).getFullName());
-			assertEquals("XXX",folders.get(2).getName());
+        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
+        try {
+            FetchFoldersResult result = handler.execute(new FetchFolders(), null);
+            ArrayList<IMAPFolder> folders = result.getFolders();
+            assertFalse(folders.isEmpty());
+            assertEquals(3, folders.size());
+            assertEquals("INBOX.WHATEVER",folders.get(0).getFullName());
+            assertEquals("INBOX.WHATEVER1",folders.get(1).getFullName());
+            assertEquals("INBOX.WHATEVER.XXX",folders.get(2).getFullName());
+            assertEquals("XXX",folders.get(2).getName());
 
-			assertEquals("INBOX.WHATEVER.XXX",folders.get(0).getChildIMAPFolders().get(0).getFullName());
+            assertEquals("INBOX.WHATEVER.XXX",folders.get(0).getChildIMAPFolders().get(0).getFullName());
 
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 }

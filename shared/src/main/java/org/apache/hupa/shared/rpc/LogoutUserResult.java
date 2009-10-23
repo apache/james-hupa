@@ -25,21 +25,21 @@ import org.apache.hupa.shared.data.User;
 
 public class LogoutUserResult implements Result {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1788523843461596092L;
-	private User user;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1788523843461596092L;
+    private User user;
 
-	public LogoutUserResult(User user) {
-		this.user = user;
-	}
-	
-	@SuppressWarnings("unused")
-	private LogoutUserResult() {
-	}
-	
-	public User getUser() {
-		return user;
-	}
+    public LogoutUserResult(User user) {
+        this.user = user;
+    }
+    
+    @SuppressWarnings("unused")
+    private LogoutUserResult() {
+    }
+    
+    public User getUser() {
+        return user;
+    }
 }

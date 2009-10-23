@@ -24,8 +24,8 @@ import net.customware.gwt.dispatch.shared.Action;
 
 public class FetchFolders implements Action<FetchFoldersResult>{
 
-	private static final long serialVersionUID = 8515539585915762904L;
+    private static final long serialVersionUID = 8515539585915762904L;
 
-	public FetchFolders() {
-	}
+    public FetchFolders() {
+    }
 }

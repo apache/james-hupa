@@ -26,42 +26,42 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class IncreaseUnseenEvent extends GwtEvent<IncreaseUnseenEventHandler>{
 
-	public final static Type<IncreaseUnseenEventHandler> TYPE = new Type<IncreaseUnseenEventHandler>();
-	private User user;
-	private IMAPFolder folder;
-	private int amount;
-	
-	public IncreaseUnseenEvent(User user, IMAPFolder folder) {
-		this(user, folder, 1);
-	}
-	
-	public IncreaseUnseenEvent(User user, IMAPFolder folder, int amount) {
-		this.user =user;
-		this.folder = folder;
-		this.amount = amount;
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public User getUser() {
-		return user;
-	}
-	
-	public int getAmount() {
-		return amount;
-	}
-	
-	@Override
-	protected void dispatch(IncreaseUnseenEventHandler handler) {
-		handler.onIncreaseUnseenEvent(this);
-		
-	}
+    public final static Type<IncreaseUnseenEventHandler> TYPE = new Type<IncreaseUnseenEventHandler>();
+    private User user;
+    private IMAPFolder folder;
+    private int amount;
+    
+    public IncreaseUnseenEvent(User user, IMAPFolder folder) {
+        this(user, folder, 1);
+    }
+    
+    public IncreaseUnseenEvent(User user, IMAPFolder folder, int amount) {
+        this.user =user;
+        this.folder = folder;
+        this.amount = amount;
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
+    
+    public User getUser() {
+        return user;
+    }
+    
+    public int getAmount() {
+        return amount;
+    }
+    
+    @Override
+    protected void dispatch(IncreaseUnseenEventHandler handler) {
+        handler.onIncreaseUnseenEvent(this);
+        
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<IncreaseUnseenEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<IncreaseUnseenEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
 }

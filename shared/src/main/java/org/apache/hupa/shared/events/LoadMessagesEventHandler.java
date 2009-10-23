@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface LoadMessagesEventHandler extends EventHandler{
 
-	public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent);
+    public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent);
 }

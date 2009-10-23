@@ -28,50 +28,50 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
 
-	public final static Type<ReplyMessageEventHandler> TYPE = new Type<ReplyMessageEventHandler>();
-	private User user;
-	private IMAPFolder folder;
-	private Message message;
-	private MessageDetails details;
-	private boolean replyAll;
+    public final static Type<ReplyMessageEventHandler> TYPE = new Type<ReplyMessageEventHandler>();
+    private User user;
+    private IMAPFolder folder;
+    private Message message;
+    private MessageDetails details;
+    private boolean replyAll;
 
-	@Override
-	protected void dispatch(ReplyMessageEventHandler handler) {
-		handler.onReplyMessageEvent(this);
-	}
+    @Override
+    protected void dispatch(ReplyMessageEventHandler handler) {
+        handler.onReplyMessageEvent(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<ReplyMessageEventHandler> getAssociatedType() {
-		return TYPE;
-	}
-	
-	public ReplyMessageEvent(User user, IMAPFolder folder, Message message, MessageDetails details, boolean replyAll) {
-		this.user = user;
-		this.folder = folder;
-		this.message = message;
-		this.replyAll = replyAll;
-		this.details = details;
-	}
-	
-	public User getUser() {
-		return user;
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public Message getMessage() {
-		return message;
-	}
-	
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<ReplyMessageEventHandler> getAssociatedType() {
+        return TYPE;
+    }
+    
+    public ReplyMessageEvent(User user, IMAPFolder folder, Message message, MessageDetails details, boolean replyAll) {
+        this.user = user;
+        this.folder = folder;
+        this.message = message;
+        this.replyAll = replyAll;
+        this.details = details;
+    }
+    
+    public User getUser() {
+        return user;
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
+    
+    public Message getMessage() {
+        return message;
+    }
+    
 
-	public MessageDetails getMessageDetails() {
-		return details;
-	}
+    public MessageDetails getMessageDetails() {
+        return details;
+    }
 
-	public boolean getReplyAll() {
-		return replyAll;
-	}
+    public boolean getReplyAll() {
+        return replyAll;
+    }
 
 }

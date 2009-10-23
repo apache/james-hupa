@@ -26,42 +26,42 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 
-	public final static Type<DecreaseUnseenEventHandler> TYPE = new Type<DecreaseUnseenEventHandler>();
-	private User user;
-	private IMAPFolder folder;
-	private int amount;
-	
-	public DecreaseUnseenEvent(User user, IMAPFolder folder) {
-		this(user, folder, 1);
-	}
-	
-	public DecreaseUnseenEvent(User user, IMAPFolder folder, int amount) {
-		this.user =user;
-		this.folder = folder;
-		this.amount = amount;
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public User getUser() {
-		return user;
-	}
-	
-	public int getAmount() {
-		return amount;
-	}
-	
-	@Override
-	protected void dispatch(DecreaseUnseenEventHandler handler) {
-		handler.onDecreaseUnseenEvent(this);
-		
-	}
+    public final static Type<DecreaseUnseenEventHandler> TYPE = new Type<DecreaseUnseenEventHandler>();
+    private User user;
+    private IMAPFolder folder;
+    private int amount;
+    
+    public DecreaseUnseenEvent(User user, IMAPFolder folder) {
+        this(user, folder, 1);
+    }
+    
+    public DecreaseUnseenEvent(User user, IMAPFolder folder, int amount) {
+        this.user =user;
+        this.folder = folder;
+        this.amount = amount;
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
+    
+    public User getUser() {
+        return user;
+    }
+    
+    public int getAmount() {
+        return amount;
+    }
+    
+    @Override
+    protected void dispatch(DecreaseUnseenEventHandler handler) {
+        handler.onDecreaseUnseenEvent(this);
+        
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<DecreaseUnseenEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<DecreaseUnseenEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
 }

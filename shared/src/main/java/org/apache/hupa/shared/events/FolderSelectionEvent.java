@@ -25,31 +25,31 @@ import org.apache.hupa.shared.data.User;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class FolderSelectionEvent extends GwtEvent<FolderSelectionEventHandler>{
-	
-	private User user;
-	private IMAPFolder folder;
-	public final static Type<FolderSelectionEventHandler> TYPE = new Type<FolderSelectionEventHandler>();
-	public FolderSelectionEvent(User user, IMAPFolder folder) {
-		this.user =user;
-		this.folder = folder;
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public User getUser() {
-		return user;
-	}
+    
+    private User user;
+    private IMAPFolder folder;
+    public final static Type<FolderSelectionEventHandler> TYPE = new Type<FolderSelectionEventHandler>();
+    public FolderSelectionEvent(User user, IMAPFolder folder) {
+        this.user =user;
+        this.folder = folder;
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
+    
+    public User getUser() {
+        return user;
+    }
 
-	@Override
-	protected void dispatch(FolderSelectionEventHandler handler) {
-		handler.onFolderSelectionEvent(this);
-	}
+    @Override
+    protected void dispatch(FolderSelectionEventHandler handler) {
+        handler.onFolderSelectionEvent(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<FolderSelectionEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<FolderSelectionEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
 }

@@ -36,36 +36,36 @@ import com.google.inject.Provider;
 import junit.framework.TestCase;
 
 public abstract class AbstractHandlerTest extends TestCase{
-	public final static String VALID_ID ="VALID_ID";
-	
-	protected HttpSession session = new MockHttpSession(VALID_ID);
-	
-	protected MockIMAPStoreCache storeCache = new MockIMAPStoreCache( new Provider<Session>() {
+    public final static String VALID_ID ="VALID_ID";
+    
+    protected HttpSession session = new MockHttpSession(VALID_ID);
+    
+    protected MockIMAPStoreCache storeCache = new MockIMAPStoreCache( new Provider<Session>() {
 
-		public Session get() {
-			Session session = Session.getDefaultInstance(new Properties());
-			session.addProvider(MockIMAPStore.getProvider());
-			return session;
-		}
-		
-	});
-	
-	protected Provider<HttpSession> sessionProvider = new Provider<HttpSession>() {
-		public HttpSession get() {
-			return session;
-		}
-		
-	};
-	
-	public void tearDown() {
-		storeCache.clear();
-	}
-	
-	protected User createUser() {
-		User user = new User();
-		user.setName("test");
-		user.setPassword("password");
-		user.setSettings(new Settings());
-		return user;
-	}
+        public Session get() {
+            Session session = Session.getDefaultInstance(new Properties());
+            session.addProvider(MockIMAPStore.getProvider());
+            return session;
+        }
+        
+    });
+    
+    protected Provider<HttpSession> sessionProvider = new Provider<HttpSession>() {
+        public HttpSession get() {
+            return session;
+        }
+        
+    };
+    
+    public void tearDown() {
+        storeCache.clear();
+    }
+    
+    protected User createUser() {
+        User user = new User();
+        user.setName("test");
+        user.setPassword("password");
+        user.setSettings(new Settings());
+        return user;
+    }
 }

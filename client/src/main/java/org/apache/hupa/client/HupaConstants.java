@@ -25,90 +25,90 @@ import com.google.gwt.i18n.client.Constants;
 
 public interface HupaConstants extends Constants, UploaderConstants {
 
-	public String usernameLabel();
+    public String usernameLabel();
 
-	public String passwordLabel();
+    public String passwordLabel();
 
-	public String saveLoginLabel();
+    public String saveLoginLabel();
 
-	public String loginButton();
+    public String loginButton();
 
-	public String resetButton();
+    public String resetButton();
 
-	public String logoutButton();
+    public String logoutButton();
 
-	public String deleteMailButton();
+    public String deleteMailButton();
 
-	public String newMailButton();
+    public String newMailButton();
 
-	public String replyMailButton();
+    public String replyMailButton();
 
-	public String replyAllMailButton();
+    public String replyAllMailButton();
 
-	public String headerTo();
+    public String headerTo();
 
-	public String headerCc();
+    public String headerCc();
 
-	public String headerSubject();
+    public String headerSubject();
 
-	public String headerReceivedDate();
+    public String headerReceivedDate();
 
-	public String productName();
+    public String productName();
 
-	public String headerFrom();
-	public String mailTableFrom();
-	public String mailTableSubject();
-	public String mailTableDate();
-	
-	public String loginInvalid();
+    public String headerFrom();
+    public String mailTableFrom();
+    public String mailTableSubject();
+    public String mailTableDate();
+    
+    public String loginInvalid();
 
-	public String searchButton();
+    public String searchButton();
 
-	public String emptyMailTable();
+    public String emptyMailTable();
 
-	public String attachments();
+    public String attachments();
 
-	public String headerBcc();
+    public String headerBcc();
 
-	public String sendButton();
+    public String sendButton();
 
-	public String forwardMailButton();
-	
-	public String loading();
+    public String forwardMailButton();
+    
+    public String loading();
 
-	public String okButton();
+    public String okButton();
 
-	public String cancelButton();
+    public String cancelButton();
 
-	public String select();
+    public String select();
 
-	public String all();
+    public String all();
 
-	public String none();
+    public String none();
 
-	public String newFolder();
-	public String renameFolder();
-	public String deleteFolder();
+    public String newFolder();
+    public String renameFolder();
+    public String deleteFolder();
 
-	public String pageNext();
+    public String pageNext();
 
-	public String pageLast();
+    public String pageLast();
 
-	public String pagePrev();
+    public String pagePrev();
 
-	public String pageFirst();
-	
-	public String loginAs();
+    public String pageFirst();
+    
+    public String loginAs();
 
-	public String backButton();
+    public String backButton();
 
-	public String rawButton();
-	
-	public String sessionTimedOut();
-	public String rawTitle();
-	
-	public String deleteAll();
-	
-	public String markSeen();
-	public String markUnseen();
+    public String rawButton();
+    
+    public String sessionTimedOut();
+    public String rawTitle();
+    
+    public String deleteAll();
+    
+    public String markSeen();
+    public String markUnseen();
 }

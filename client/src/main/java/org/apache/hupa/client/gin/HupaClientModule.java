@@ -43,18 +43,18 @@ import com.google.inject.Singleton;
 
 public class HupaClientModule extends AbstractPresenterModule {
 
-	@Override
-	protected void configure() {		
-		bind(EventBus.class).to(DefaultEventBus.class).in(Singleton.class);
-		bind(PlaceManager.class).in(Singleton.class);
-		bindPresenter(LoginPresenter.class,LoginPresenter.Display.class, LoginView.class);
-		bindPresenter(IMAPMessageListPresenter.class,IMAPMessageListPresenter.Display.class,IMAPMessageListView.class);
-		bindPresenter(IMAPMessagePresenter.class,IMAPMessagePresenter.Display.class,IMAPMessageView.class);
-		bindPresenter(MainPresenter.class,MainPresenter.Display.class,MainView.class);
-		bindPresenter(MessageSendPresenter.class, MessageSendPresenter.Display.class, MessageSendView.class);
-		bindPresenter(AppPresenter.class, AppPresenter.Display.class, AppView.class);
-		bind(CachingDispatchAsync.class);
-		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
-	}
+    @Override
+    protected void configure() {        
+        bind(EventBus.class).to(DefaultEventBus.class).in(Singleton.class);
+        bind(PlaceManager.class).in(Singleton.class);
+        bindPresenter(LoginPresenter.class,LoginPresenter.Display.class, LoginView.class);
+        bindPresenter(IMAPMessageListPresenter.class,IMAPMessageListPresenter.Display.class,IMAPMessageListView.class);
+        bindPresenter(IMAPMessagePresenter.class,IMAPMessagePresenter.Display.class,IMAPMessageView.class);
+        bindPresenter(MainPresenter.class,MainPresenter.Display.class,MainView.class);
+        bindPresenter(MessageSendPresenter.class, MessageSendPresenter.Display.class, MessageSendView.class);
+        bindPresenter(AppPresenter.class, AppPresenter.Display.class, AppView.class);
+        bind(CachingDispatchAsync.class);
+        bind(PagingScrollTableRowDragController.class).in(Singleton.class);
+    }
 
 }

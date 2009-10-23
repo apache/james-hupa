@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface FolderSelectionEventHandler extends EventHandler{
 
-	public void onFolderSelectionEvent(FolderSelectionEvent event);
+    public void onFolderSelectionEvent(FolderSelectionEvent event);
 }

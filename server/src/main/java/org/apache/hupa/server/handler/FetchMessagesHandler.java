@@ -41,59 +41,59 @@ import com.google.inject.Provider;
  * 
  */
 public class FetchMessagesHandler extends
-		AbstractFetchMessagesHandler<FetchMessages> {
+        AbstractFetchMessagesHandler<FetchMessages> {
 
-	@Inject
-	public FetchMessagesHandler(IMAPStoreCache cache, Log logger,
-			Provider<HttpSession> provider) {
-		super(cache, logger, provider);
-	}
+    @Inject
+    public FetchMessagesHandler(IMAPStoreCache cache, Log logger,
+            Provider<HttpSession> provider) {
+        super(cache, logger, provider);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<FetchMessages> getActionType() {
-		return FetchMessages.class;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<FetchMessages> getActionType() {
+        return FetchMessages.class;
+    }
 
-	@Override
-	protected Message[] getMessagesToConvert(com.sun.mail.imap.IMAPFolder f,
-			FetchMessages action) throws MessagingException {
-		String searchString = action.getSearchString();
-		int start = action.getStart();
-		int offset = action.getOffset();
-		int end = start + offset;
+    @Override
+    protected Message[] getMessagesToConvert(com.sun.mail.imap.IMAPFolder f,
+            FetchMessages action) throws MessagingException {
+        String searchString = action.getSearchString();
+        int start = action.getStart();
+        int offset = action.getOffset();
+        int end = start + offset;
 
-		int exists = f.getMessageCount();
+        int exists = f.getMessageCount();
 
-		if (end > exists) {
-			end = exists;
-		}
+        if (end > exists) {
+            end = exists;
+        }
 
-		int firstIndex = exists - end;
-		if (firstIndex < 1) {
-			firstIndex = 1;
-		}
-		int lastIndex = exists - start;
-		Message[] messages;
+        int firstIndex = exists - end;
+        if (firstIndex < 1) {
+            firstIndex = 1;
+        }
+        int lastIndex = exists - start;
+        Message[] messages;
 
-		// check if a searchString was given, and if so use it
-		if (searchString == null) {
-			messages = f.getMessages(firstIndex, lastIndex);
-		} else {
-			SearchTerm subjectTerm = new SubjectTerm(searchString);
-			SearchTerm fromTerm = new FromStringTerm(searchString);
-			SearchTerm bodyTerm = new BodyTerm(searchString);
-			SearchTerm orTerm = new OrTerm(new SearchTerm[] { subjectTerm,
-					fromTerm, bodyTerm });
-			messages = f.search(orTerm);
-			if (end > messages.length) {
-				end = messages.length;
-			}
-			exists = messages.length;
-		}
-		return messages;
-	}
+        // check if a searchString was given, and if so use it
+        if (searchString == null) {
+            messages = f.getMessages(firstIndex, lastIndex);
+        } else {
+            SearchTerm subjectTerm = new SubjectTerm(searchString);
+            SearchTerm fromTerm = new FromStringTerm(searchString);
+            SearchTerm bodyTerm = new BodyTerm(searchString);
+            SearchTerm orTerm = new OrTerm(new SearchTerm[] { subjectTerm,
+                    fromTerm, bodyTerm });
+            messages = f.search(orTerm);
+            if (end > messages.length) {
+                end = messages.length;
+            }
+            exists = messages.length;
+        }
+        return messages;
+    }
 }

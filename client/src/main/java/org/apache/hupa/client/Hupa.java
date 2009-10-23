@@ -31,14 +31,14 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class Hupa implements EntryPoint{
-	private final HupaGinjector injector = GWT.create(HupaGinjector.class);
-	
-	public void onModuleLoad() {
-		
-		AppPresenter aPres = injector.getAppPresenter();
-		aPres.bind();
+    private final HupaGinjector injector = GWT.create(HupaGinjector.class);
+    
+    public void onModuleLoad() {
+        
+        AppPresenter aPres = injector.getAppPresenter();
+        aPres.bind();
        
-		RootPanel.get().add(aPres.getDisplay().asWidget());
+        RootPanel.get().add(aPres.getDisplay().asWidget());
         EventBus bus = injector.getEventBus();
         // Needed because of this bug:
         // http://code.google.com/p/gwt-presenter/issues/detail?id=6

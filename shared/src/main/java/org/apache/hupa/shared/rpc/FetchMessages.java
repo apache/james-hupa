@@ -24,37 +24,37 @@ import net.customware.gwt.dispatch.shared.Action;
 import org.apache.hupa.shared.data.IMAPFolder;
 
 public class FetchMessages implements Action<FetchMessagesResult>{
-	
-	private static final long serialVersionUID = -3181183289937321202L;
-	private IMAPFolder folder;
-	private int start;
-	private int offset;
-	private String searchString;
+    
+    private static final long serialVersionUID = -3181183289937321202L;
+    private IMAPFolder folder;
+    private int start;
+    private int offset;
+    private String searchString;
 
-	protected FetchMessages() {
-	}
-	
-	public FetchMessages(IMAPFolder folder,int start, int offset,String searchString) {
-		this.folder = folder;
-		this.start = start;
-		this.offset = offset;
-		this.searchString = searchString;
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public int getStart() {
-		return start;
-	}
-	
-	public int getOffset() {
-		return offset;
-	}
+    protected FetchMessages() {
+    }
+    
+    public FetchMessages(IMAPFolder folder,int start, int offset,String searchString) {
+        this.folder = folder;
+        this.start = start;
+        this.offset = offset;
+        this.searchString = searchString;
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
+    
+    public int getStart() {
+        return start;
+    }
+    
+    public int getOffset() {
+        return offset;
+    }
 
-	public String getSearchString() {
-		return searchString;
-	}
+    public String getSearchString() {
+        return searchString;
+    }
 
 }

@@ -25,23 +25,23 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class SessionExpireEvent extends GwtEvent<SessionExpireEventHandler>{
 
-	public final static Type<SessionExpireEventHandler> TYPE = new Type<SessionExpireEventHandler>();
-	private User user;
-	@Override
-	protected void dispatch(SessionExpireEventHandler handler) {
-		handler.onSessionExpireEvent(this);
-	}
+    public final static Type<SessionExpireEventHandler> TYPE = new Type<SessionExpireEventHandler>();
+    private User user;
+    @Override
+    protected void dispatch(SessionExpireEventHandler handler) {
+        handler.onSessionExpireEvent(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<SessionExpireEventHandler> getAssociatedType() {
-		return TYPE;
-	}
-	
-	public SessionExpireEvent(User user) {
-		this.user = user;
-	}
-	
-	public User getUser() {
-		return user;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<SessionExpireEventHandler> getAssociatedType() {
+        return TYPE;
+    }
+    
+    public SessionExpireEvent(User user) {
+        this.user = user;
+    }
+    
+    public User getUser() {
+        return user;
+    }
 }

@@ -1,0 +1,78 @@
+.GWTUpld {
+	font-family: Verdana, Arial;
+	font-size: 12px;
+}
+.GWTUpld form {
+	padding-top: 5px;
+}
+.GWTUpld .upld-status {
+	font-family: arial;
+	font-size: 12px;
+	font-weight: bold;
+}
+.GWTUpld .upld-status div.cancel {
+	background: url(images/cancel-upld.gif) no-repeat;
+	width: 12px;
+	height: 12px;
+	cursor: pointer;
+	border: 1px solid white;
+}
+.GWTUpld .upld-status div.cancel:hover {
+	border: 1px dotted red;
+}
+.GWTUpld .upld-status .filename {
+	overflow: hidden;
+	white-space: nowrap;
+	padding-left: 4px;
+	margin-right: 10px;
+	height: 100%;
+}
+.GWTUpld .upld-status .status {
+	padding-left: 8px;
+	white-space: nowrap;
+	height: 100%;
+}
+.GWTUpld .upld-status .status-success {
+	color: green;
+}
+.GWTUpld .upld-status .status-error,
+.GWTUpld .upld-status .status-canceled {
+	color: red;
+}
+.GWTUpld .prgbar-back {
+	background: #ffffff none repeat scroll 0 0;
+	border: 1px solid #999999;
+	height: 0.8em;
+	overflow: hidden;
+	padding: 1px;
+	width: 100px;
+	float: left;
+}
+.GWTUpld .prgbar-done {
+	background: #d4e4ff none repeat scroll 0 0;
+	font-size: 0;
+	height: 100%;
+	float: left;
+}
+.GWTUpld .prgbar-msg {
+	z-index: 9;
+	position: absolute;
+	font-size: 9px;
+	font-weight: normal;
+	margin-left: 3px;
+}
+.GWTUpld .changed {
+	color: red;
+	font-weight: bold;  
+	text-decoration: blink;
+}
+.gwt-PopupPanel .GWTUpld {
+	border: 2px groove #F6A828;
+	padding: 10px;
+	background: beige;
+  -moz-border-radius-bottomleft: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -moz-border-radius-topleft: 6px;
+  -moz-border-radius-topright: 6px;
+	
+}

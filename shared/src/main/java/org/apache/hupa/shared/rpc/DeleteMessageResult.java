@@ -26,37 +26,37 @@ import org.apache.hupa.shared.data.User;
 
 public class DeleteMessageResult implements Result{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5149203502019947912L;
-	private User user;
-	private IMAPFolder folder;
-	private int deleteCount;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5149203502019947912L;
+    private User user;
+    private IMAPFolder folder;
+    private int deleteCount;
 
 
-	
-	@SuppressWarnings("unused")
-	private DeleteMessageResult() {
-		
-	}
-	
-	public DeleteMessageResult(User user,IMAPFolder folder, int deleteCount) {
-		this.user = user;
-		this.folder = folder;
-		this.deleteCount = deleteCount;
-	}
-	
-	public int getCount() {
-		return deleteCount;
-	}
-	
-	public User getUser() {
-		return user;
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
+    
+    @SuppressWarnings("unused")
+    private DeleteMessageResult() {
+        
+    }
+    
+    public DeleteMessageResult(User user,IMAPFolder folder, int deleteCount) {
+        this.user = user;
+        this.folder = folder;
+        this.deleteCount = deleteCount;
+    }
+    
+    public int getCount() {
+        return deleteCount;
+    }
+    
+    public User getUser() {
+        return user;
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
 
 }

@@ -43,42 +43,42 @@ import com.sun.mail.imap.IMAPStore;
  */
 public class CreateFolderHandler extends AbstractSessionHandler<CreateFolder, GenericResult>{
 
-	@Inject
-	public CreateFolderHandler(IMAPStoreCache cache, Log logger,
-			Provider<HttpSession> sessionProvider) {
-		super(cache, logger, sessionProvider);
-	}
+    @Inject
+    public CreateFolderHandler(IMAPStoreCache cache, Log logger,
+            Provider<HttpSession> sessionProvider) {
+        super(cache, logger, sessionProvider);
+    }
 
-	@Override
-	protected GenericResult executeInternal(CreateFolder action,
-			ExecutionContext context) throws ActionException {
-		User user = getUser();
-		IMAPFolder folder = action.getFolder();
-		
-		try {
-			IMAPStore store = cache.get(user);
-			Folder f = store.getFolder(folder.getFullName());
-			if (f.create(Folder.HOLDS_MESSAGES)) {
-				logger.info("Successfully create folder " + folder + " for user " + user);
-				return new GenericResult();
-			} else {
-				logger.info("Unable to create folder " + folder + " for user " + user);
-				throw new ActionException("Unable to create folder " + folder + " for user " + user);
+    @Override
+    protected GenericResult executeInternal(CreateFolder action,
+            ExecutionContext context) throws ActionException {
+        User user = getUser();
+        IMAPFolder folder = action.getFolder();
+        
+        try {
+            IMAPStore store = cache.get(user);
+            Folder f = store.getFolder(folder.getFullName());
+            if (f.create(Folder.HOLDS_MESSAGES)) {
+                logger.info("Successfully create folder " + folder + " for user " + user);
+                return new GenericResult();
+            } else {
+                logger.info("Unable to create folder " + folder + " for user " + user);
+                throw new ActionException("Unable to create folder " + folder + " for user " + user);
 
-			}
-		} catch (Exception e) {
-			logger.error("Error while creating folder " + folder + " for user " + user, e);
-			throw new ActionException("Error while creating folder " + folder + " for user " + user, e);
+            }
+        } catch (Exception e) {
+            logger.error("Error while creating folder " + folder + " for user " + user, e);
+            throw new ActionException("Error while creating folder " + folder + " for user " + user, e);
 
-		}
-	}
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<CreateFolder> getActionType() {
-		return CreateFolder.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<CreateFolder> getActionType() {
+        return CreateFolder.class;
+    }
 
 }

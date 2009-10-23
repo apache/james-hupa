@@ -22,5 +22,5 @@ package org.apache.hupa.shared.events;
 import com.google.gwt.event.shared.EventHandler;
 
 public interface ServerStatusEventHandler extends EventHandler{
-	public void onServerStatusChange(ServerStatusEvent event);
+    public void onServerStatusChange(ServerStatusEvent event);
 }

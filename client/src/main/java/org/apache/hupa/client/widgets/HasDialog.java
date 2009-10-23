@@ -20,7 +20,7 @@
 package org.apache.hupa.client.widgets;
 
 public interface HasDialog {
-	public void show();
-	public void hide();
-	public void center();
+    public void show();
+    public void hide();
+    public void center();
 }

@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface DeleteMessageEventHandler extends EventHandler{
 
-	public void onDeleteMessageEvent(DeleteMessageEvent event);
+    public void onDeleteMessageEvent(DeleteMessageEvent event);
 }

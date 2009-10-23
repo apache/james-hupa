@@ -28,68 +28,68 @@ import java.util.Date;
  */
 public class Message extends AbstractMessage {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -101492974974136423L;
-	private long uid;
-	private ArrayList<IMAPFlag> flags;
-	private ArrayList<Tag> tags;
-	private Date rDate;
-	
-	public enum IMAPFlag {
-		SEEN, DELETED, RECENT, ANSWERED, JUNK, DRAFT
-	}
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -101492974974136423L;
+    private long uid;
+    private ArrayList<IMAPFlag> flags;
+    private ArrayList<Tag> tags;
+    private Date rDate;
+    
+    public enum IMAPFlag {
+        SEEN, DELETED, RECENT, ANSWERED, JUNK, DRAFT
+    }
 
-	public void setFlags(ArrayList<IMAPFlag> flags) {
-		this.flags = flags;
-	}
+    public void setFlags(ArrayList<IMAPFlag> flags) {
+        this.flags = flags;
+    }
 
-	public ArrayList<IMAPFlag> getFlags() {
-		return flags;
-	}
-	
-	public void setTags(ArrayList<Tag> tags) {
-		this.tags = tags;
-	}
-	
-	public ArrayList<Tag> getTags() {
-		return tags;
-	}
-	
-	public long getUid() {
-		return uid;
-	}
+    public ArrayList<IMAPFlag> getFlags() {
+        return flags;
+    }
+    
+    public void setTags(ArrayList<Tag> tags) {
+        this.tags = tags;
+    }
+    
+    public ArrayList<Tag> getTags() {
+        return tags;
+    }
+    
+    public long getUid() {
+        return uid;
+    }
 
-	public void setUid(long uid) {
-		this.uid = uid;
-	}
-	
-	
-	public void setReceivedDate(Date rDate) {
-		this.rDate = rDate;
-	}
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+    
+    
+    public void setReceivedDate(Date rDate) {
+        this.rDate = rDate;
+    }
 
-	public Date getReceivedDate() {
-		return rDate;
-	}
-	
+    public Date getReceivedDate() {
+        return rDate;
+    }
+    
 
-	public String toString() {
-		return String.valueOf(getUid());
-	}
-	
-	public boolean equals(Object obj) {
-		if (obj instanceof Message) {
-			if (((Message)obj).getUid() == getUid()) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public int hashCode() {
-		Long l = new Long(getUid());
-		return l.intValue() * 16;
-	}
+    public String toString() {
+        return String.valueOf(getUid());
+    }
+    
+    public boolean equals(Object obj) {
+        if (obj instanceof Message) {
+            if (((Message)obj).getUid() == getUid()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public int hashCode() {
+        Long l = new Long(getUid());
+        return l.intValue() * 16;
+    }
 }

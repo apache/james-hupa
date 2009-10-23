@@ -28,20 +28,20 @@ import org.apache.hupa.shared.rpc.NoopResult;
 
 public class NoopHandlerTest extends AbstractHandlerTest{
 
-	public void testNoop() {
-		NoopHandler handler = new NoopHandler(storeCache,new MockLog(),sessionProvider);
-		User user = createUser();
-		Noop action = new Noop();
-		storeCache.addValidUser(user.getName(), user.getPassword());
-		session.setAttribute("user", user);
-		try {
-			NoopResult result = handler.execute(action, null);
-			assertNotNull(result);
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail();
+    public void testNoop() {
+        NoopHandler handler = new NoopHandler(storeCache,new MockLog(),sessionProvider);
+        User user = createUser();
+        Noop action = new Noop();
+        storeCache.addValidUser(user.getName(), user.getPassword());
+        session.setAttribute("user", user);
+        try {
+            NoopResult result = handler.execute(action, null);
+            assertNotNull(result);
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
 
-		}
-		
-	}
+        }
+        
+    }
 }

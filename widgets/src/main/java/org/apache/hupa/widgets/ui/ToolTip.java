@@ -42,64 +42,64 @@ import com.google.gwt.user.client.ui.Widget;
  *
  */
 public class ToolTip extends Label {
-	private int y = 0;
-	private int x = 0;
-	private final PopupPanel popup = new PopupPanel();
-	private final Timer showTimer = new Timer() {
+    private int y = 0;
+    private int x = 0;
+    private final PopupPanel popup = new PopupPanel();
+    private final Timer showTimer = new Timer() {
 
-		@Override
-		public void run() {
-			popup.setPopupPosition(y,x);
-			popup.show();
-		}
-		
-	};
-	public ToolTip(final Widget w) {
-		if (!(w instanceof HasMouseOverHandlers) || (!( w instanceof HasMouseOutHandlers)) || (!(w instanceof HasMouseMoveHandlers))) {
-			throw new IllegalArgumentException("Widget must implement HasMouseOverHandlers and HasMouseOutHandlers");
-		}
-		((HasMouseOverHandlers) w).addMouseOverHandler(new MouseOverHandler() {
+        @Override
+        public void run() {
+            popup.setPopupPosition(y,x);
+            popup.show();
+        }
+        
+    };
+    public ToolTip(final Widget w) {
+        if (!(w instanceof HasMouseOverHandlers) || (!( w instanceof HasMouseOutHandlers)) || (!(w instanceof HasMouseMoveHandlers))) {
+            throw new IllegalArgumentException("Widget must implement HasMouseOverHandlers and HasMouseOutHandlers");
+        }
+        ((HasMouseOverHandlers) w).addMouseOverHandler(new MouseOverHandler() {
 
-			public void onMouseOver(MouseOverEvent event) {
-				showTimer.schedule(1000);
-			}
-			
-		});
-		
-		((HasMouseOutHandlers)w).addMouseOutHandler(new MouseOutHandler() {
+            public void onMouseOver(MouseOverEvent event) {
+                showTimer.schedule(1000);
+            }
+            
+        });
+        
+        ((HasMouseOutHandlers)w).addMouseOutHandler(new MouseOutHandler() {
 
-			public void onMouseOut(MouseOutEvent event) {
-				showTimer.cancel();
-				popup.hide();
-			}
-			
-		});
-		
-		((HasMouseMoveHandlers) w).addMouseMoveHandler(new MouseMoveHandler() {
+            public void onMouseOut(MouseOutEvent event) {
+                showTimer.cancel();
+                popup.hide();
+            }
+            
+        });
+        
+        ((HasMouseMoveHandlers) w).addMouseMoveHandler(new MouseMoveHandler() {
 
-			public void onMouseMove(MouseMoveEvent event) {
-				y = event.getScreenY();
-				x = w.getAbsoluteTop() + w.getOffsetHeight();
-			}
-			
-		});
-		popup.addCloseHandler(new CloseHandler<PopupPanel>() {
+            public void onMouseMove(MouseMoveEvent event) {
+                y = event.getScreenY();
+                x = w.getAbsoluteTop() + w.getOffsetHeight();
+            }
+            
+        });
+        popup.addCloseHandler(new CloseHandler<PopupPanel>() {
 
-			public void onClose(CloseEvent<PopupPanel> event) {
-				showTimer.cancel();
-			}
-			
-		});
-		addStyleName("hupa-ToolTip");
-		popup.addStyleName("hupa-ToolTip");
-		popup.setAnimationEnabled(true);
-		popup.setAutoHideEnabled(true);
-	}
-	
-	public void setText(String text) {
-		super.setText(text);
-		popup.setWidget(this);
-	}
-	
-	
+            public void onClose(CloseEvent<PopupPanel> event) {
+                showTimer.cancel();
+            }
+            
+        });
+        addStyleName("hupa-ToolTip");
+        popup.addStyleName("hupa-ToolTip");
+        popup.setAnimationEnabled(true);
+        popup.setAutoHideEnabled(true);
+    }
+    
+    public void setText(String text) {
+        super.setText(text);
+        popup.setWidget(this);
+    }
+    
+    
 }

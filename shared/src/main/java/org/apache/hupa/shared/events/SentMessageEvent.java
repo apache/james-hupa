@@ -22,15 +22,15 @@ package org.apache.hupa.shared.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class SentMessageEvent extends GwtEvent<SentMessageEventHandler>{
-	public static Type<SentMessageEventHandler> TYPE = new Type<SentMessageEventHandler>();
-	@Override
-	protected void dispatch(SentMessageEventHandler handler) {
-		handler.onSentMessageEvent(this);
-	}
+    public static Type<SentMessageEventHandler> TYPE = new Type<SentMessageEventHandler>();
+    @Override
+    protected void dispatch(SentMessageEventHandler handler) {
+        handler.onSentMessageEvent(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<SentMessageEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<SentMessageEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
 }

@@ -21,28 +21,28 @@ package org.apache.hupa.shared.data;
 
 public class Tag {
 
-	public static String PREFIX = "TAG.";
-	private String tagName;
-	
-	@SuppressWarnings("unused")
-	private Tag() {
-		
-	}
-	
-	public Tag(String tagName) {
-		this.tagName = tagName;
-	}
-	
-	public String getName() {
-		return tagName;
-	}
-	
-	public String getPrefix() {
-		return PREFIX;
-	}
-	
-	public String toString() {
-		return PREFIX + tagName;
-	}
-	
+    public static String PREFIX = "TAG.";
+    private String tagName;
+    
+    @SuppressWarnings("unused")
+    private Tag() {
+        
+    }
+    
+    public Tag(String tagName) {
+        this.tagName = tagName;
+    }
+    
+    public String getName() {
+        return tagName;
+    }
+    
+    public String getPrefix() {
+        return PREFIX;
+    }
+    
+    public String toString() {
+        return PREFIX + tagName;
+    }
+    
 }

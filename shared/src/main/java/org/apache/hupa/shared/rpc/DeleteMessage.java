@@ -25,19 +25,19 @@ import org.apache.hupa.shared.data.IMAPFolder;
 
 public class DeleteMessage implements Action<DeleteMessageResult>{
 
-	private static final long serialVersionUID = 801294103124082592L;
-	private IMAPFolder folder;
+    private static final long serialVersionUID = 801294103124082592L;
+    private IMAPFolder folder;
 
-	public DeleteMessage(IMAPFolder folder) {
-		this.folder = folder;
-	}
-	
-	protected DeleteMessage() {
-		
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
+    public DeleteMessage(IMAPFolder folder) {
+        this.folder = folder;
+    }
+    
+    protected DeleteMessage() {
+        
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
 
 }

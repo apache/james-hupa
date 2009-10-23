@@ -22,29 +22,29 @@ package org.apache.hupa.shared.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class ServerStatusEvent extends GwtEvent<ServerStatusEventHandler> {
-	public static Type<ServerStatusEventHandler> TYPE = new Type<ServerStatusEventHandler>();
+    public static Type<ServerStatusEventHandler> TYPE = new Type<ServerStatusEventHandler>();
 
-	public enum ServerStatus {
-		Unknown, Available, Unavailable, Error
-	}
-	
-	private ServerStatus status = ServerStatus.Unknown;
-	public ServerStatusEvent(ServerStatus status) {
-		this.status = status;
-	}
-	
-	public ServerStatus getStatus() {
-		return status;
-	}
+    public enum ServerStatus {
+        Unknown, Available, Unavailable, Error
+    }
+    
+    private ServerStatus status = ServerStatus.Unknown;
+    public ServerStatusEvent(ServerStatus status) {
+        this.status = status;
+    }
+    
+    public ServerStatus getStatus() {
+        return status;
+    }
 
-	@Override
-	protected void dispatch(ServerStatusEventHandler handler) {
-		handler.onServerStatusChange(this);
-	}
+    @Override
+    protected void dispatch(ServerStatusEventHandler handler) {
+        handler.onServerStatusChange(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<ServerStatusEventHandler> getAssociatedType() {
-		return TYPE;
-	}
-	
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<ServerStatusEventHandler> getAssociatedType() {
+        return TYPE;
+    }
+    
 }

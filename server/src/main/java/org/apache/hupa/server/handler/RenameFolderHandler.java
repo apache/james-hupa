@@ -42,47 +42,47 @@ import com.sun.mail.imap.IMAPStore;
  */
 public class RenameFolderHandler extends AbstractSessionHandler<RenameFolder, GenericResult>{
 
-	@Inject
-	public RenameFolderHandler(IMAPStoreCache cache, Log logger,
-			Provider<HttpSession> sessionProvider) {
-		super(cache, logger, sessionProvider);
-	}
+    @Inject
+    public RenameFolderHandler(IMAPStoreCache cache, Log logger,
+            Provider<HttpSession> sessionProvider) {
+        super(cache, logger, sessionProvider);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
-	protected GenericResult executeInternal(RenameFolder action,
-			ExecutionContext context) throws ActionException {
-		User user = getUser();
-		IMAPFolder folder = action.getFolder();
-		String newName = action.getNewName();
-		try {
-			IMAPStore store = cache.get(user);
-			com.sun.mail.imap.IMAPFolder iFolder = (com.sun.mail.imap.IMAPFolder) store.getFolder(folder.getFullName());
-			Folder newFolder = store.getFolder(newName);
-			
-			if (iFolder.isOpen()) {
-				iFolder.close(false);
-			}
-			if (iFolder.renameTo(newFolder)) {
-				return new GenericResult();
-			}
-			throw new ActionException("Unable to rename Folder " + folder.getFullName() + " to " + newName + " for user " + user);
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
+     */
+    protected GenericResult executeInternal(RenameFolder action,
+            ExecutionContext context) throws ActionException {
+        User user = getUser();
+        IMAPFolder folder = action.getFolder();
+        String newName = action.getNewName();
+        try {
+            IMAPStore store = cache.get(user);
+            com.sun.mail.imap.IMAPFolder iFolder = (com.sun.mail.imap.IMAPFolder) store.getFolder(folder.getFullName());
+            Folder newFolder = store.getFolder(newName);
+            
+            if (iFolder.isOpen()) {
+                iFolder.close(false);
+            }
+            if (iFolder.renameTo(newFolder)) {
+                return new GenericResult();
+            }
+            throw new ActionException("Unable to rename Folder " + folder.getFullName() + " to " + newName + " for user " + user);
 
-		} catch (Exception e) {
-			logger.error("Error while renaming Folder " + folder.getFullName() + " to " + newName + " for user " + user,e);
-			throw new ActionException("Error while renaming Folder " + folder.getFullName() + " to " + newName + " for user " + user,e);
-		}
+        } catch (Exception e) {
+            logger.error("Error while renaming Folder " + folder.getFullName() + " to " + newName + " for user " + user,e);
+            throw new ActionException("Error while renaming Folder " + folder.getFullName() + " to " + newName + " for user " + user,e);
+        }
 
-	}
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<RenameFolder> getActionType() {
-		return RenameFolder.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<RenameFolder> getActionType() {
+        return RenameFolder.class;
+    }
 
 }

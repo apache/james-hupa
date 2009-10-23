@@ -25,20 +25,20 @@ import net.customware.gwt.dispatch.shared.Result;
 
 public class CheckSessionResult implements Result {
 
-	private static final long serialVersionUID = -4785233314922498952L;
-	boolean valid = false;
+    private static final long serialVersionUID = -4785233314922498952L;
+    boolean valid = false;
 
-	private User user;
+    private User user;
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public boolean isValid() {
-		return user != null && user.getAuthenticated();
-	}
+    public boolean isValid() {
+        return user != null && user.getAuthenticated();
+    }
 }

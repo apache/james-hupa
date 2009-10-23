@@ -21,9 +21,9 @@ package org.apache.hupa.shared.rpc;
 
 public class MoveMessageResult extends GenericResult{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 341407423455525004L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 341407423455525004L;
 
 }

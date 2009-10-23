@@ -30,11 +30,11 @@ import com.google.inject.servlet.ServletModule;
 
 
 public class DispatchServletModule extends ServletModule{
-	 @Override
-	    public void configureServlets() {
-		 	serve("/hupa/dispatch").with(DispatchServiceServlet.class );
-		 	serve("/hupa/downloadAttachmentServlet").with(DownloadAttachmentServlet.class);
-		 	serve("/hupa/uploadAttachmentServlet").with(UploadAttachmentServlet.class);
-		 	serve("/hupa/messageSourceServlet").with(MessageSourceServlet.class);
-	    }
+     @Override
+        public void configureServlets() {
+             serve("/hupa/dispatch").with(DispatchServiceServlet.class );
+             serve("/hupa/downloadAttachmentServlet").with(DownloadAttachmentServlet.class);
+             serve("/hupa/uploadAttachmentServlet").with(UploadAttachmentServlet.class);
+             serve("/hupa/messageSourceServlet").with(MessageSourceServlet.class);
+        }
 }

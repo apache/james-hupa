@@ -32,54 +32,54 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ConfirmDialogBox extends MyDialogBox implements HasClickHandlers {
-	private HupaConstants constants = GWT.create(HupaConstants.class);
-	private Label text = new Label();
-	private ButtonBar bar = new ButtonBar();
-	private VerticalPanel panel = new VerticalPanel();
-	private Button okButton = new Button(constants.okButton());
-	private Button cancelButton = new Button(constants.cancelButton());
-	
-	public ConfirmDialogBox() {	
-		super();
-		setModal(true);
-		setAnimationEnabled(true);
-		setAutoHideEnabled(false);
-		panel.setSpacing(10);
-		panel.add(text);
-		bar.add(okButton);
-		bar.add(cancelButton);
-		panel.add(bar);
-		panel.setCellHorizontalAlignment(bar, VerticalPanel.ALIGN_RIGHT);
-		
-		cancelButton.addClickHandler(new ClickHandler() {
+    private HupaConstants constants = GWT.create(HupaConstants.class);
+    private Label text = new Label();
+    private ButtonBar bar = new ButtonBar();
+    private VerticalPanel panel = new VerticalPanel();
+    private Button okButton = new Button(constants.okButton());
+    private Button cancelButton = new Button(constants.cancelButton());
+    
+    public ConfirmDialogBox() {    
+        super();
+        setModal(true);
+        setAnimationEnabled(true);
+        setAutoHideEnabled(false);
+        panel.setSpacing(10);
+        panel.add(text);
+        bar.add(okButton);
+        bar.add(cancelButton);
+        panel.add(bar);
+        panel.setCellHorizontalAlignment(bar, VerticalPanel.ALIGN_RIGHT);
+        
+        cancelButton.addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				hide();
-			}
-			
-		});
-		okButton.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                hide();
+            }
+            
+        });
+        okButton.addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				hide();
-			}
-			
-		});
-		add(panel);
-	}
-	
-	public void setText(String value) {
-		text.setText(value);
-	}
+            public void onClick(ClickEvent event) {
+                hide();
+            }
+            
+        });
+        add(panel);
+    }
+    
+    public void setText(String value) {
+        text.setText(value);
+    }
 
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return okButton.addClickHandler(handler);
-	}
-	
-	public void show() {
-		super.show();
-		center();
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return okButton.addClickHandler(handler);
+    }
+    
+    public void show() {
+        super.show();
+        center();
 
-	}
+    }
 
 }

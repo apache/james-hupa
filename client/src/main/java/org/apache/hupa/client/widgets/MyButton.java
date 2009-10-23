@@ -24,11 +24,11 @@ import org.cobogw.gwt.user.client.ui.Button;
 
 public class MyButton extends Button implements HasEnable{
 
-	public MyButton(String sendButton) {
-		super(sendButton);
-	}
+    public MyButton(String sendButton) {
+        super(sendButton);
+    }
 
-	public MyButton() {
-		super();
-	}
+    public MyButton() {
+        super();
+    }
 }

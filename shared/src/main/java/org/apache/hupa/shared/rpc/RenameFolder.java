@@ -25,24 +25,24 @@ import org.apache.hupa.shared.data.IMAPFolder;
 
 public class RenameFolder implements Action<GenericResult>{
 
-	private static final long serialVersionUID = 1924419911921600320L;
-	private IMAPFolder folder;
-	private String newName;
+    private static final long serialVersionUID = 1924419911921600320L;
+    private IMAPFolder folder;
+    private String newName;
 
-	public RenameFolder(IMAPFolder folder, String newName) {
-		this.folder = folder;
-		this.newName = newName;
-	}
-	
-	protected RenameFolder() {
-		
-	}
-	
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public String getNewName() {
-		return newName;
-	}
+    public RenameFolder(IMAPFolder folder, String newName) {
+        this.folder = folder;
+        this.newName = newName;
+    }
+    
+    protected RenameFolder() {
+        
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
+    
+    public String getNewName() {
+        return newName;
+    }
 }

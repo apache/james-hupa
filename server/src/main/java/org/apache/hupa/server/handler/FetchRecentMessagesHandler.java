@@ -36,26 +36,26 @@ import com.google.inject.Provider;
 
 public class FetchRecentMessagesHandler extends AbstractFetchMessagesHandler<FetchRecentMessages> {
 
-	@Inject
-	public FetchRecentMessagesHandler(IMAPStoreCache cache, Log logger,
-			Provider<HttpSession> provider) {
-		super(cache, logger, provider);
-	}
+    @Inject
+    public FetchRecentMessagesHandler(IMAPStoreCache cache, Log logger,
+            Provider<HttpSession> provider) {
+        super(cache, logger, provider);
+    }
 
-	
-	@Override
-	protected Message[] getMessagesToConvert(com.sun.mail.imap.IMAPFolder f,
-			FetchRecentMessages action) throws MessagingException {
-		Message[] messages = f.search(new FlagTerm(new Flags(Flag.RECENT), true));
-		return messages;
-	}
+    
+    @Override
+    protected Message[] getMessagesToConvert(com.sun.mail.imap.IMAPFolder f,
+            FetchRecentMessages action) throws MessagingException {
+        Message[] messages = f.search(new FlagTerm(new Flags(Flag.RECENT), true));
+        return messages;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<FetchRecentMessages> getActionType() {
-		return FetchRecentMessages.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<FetchRecentMessages> getActionType() {
+        return FetchRecentMessages.class;
+    }
 
 }

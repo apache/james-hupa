@@ -42,51 +42,51 @@ import com.google.inject.Provider;
  */
 public abstract class AbstractSessionHandler<A extends Action<R>,R extends Result> implements ActionHandler<A, R> {
 
-	protected final Provider<HttpSession> sessionProvider;
-	protected final IMAPStoreCache cache;
-	protected final Log logger;
+    protected final Provider<HttpSession> sessionProvider;
+    protected final IMAPStoreCache cache;
+    protected final Log logger;
 
-	@Inject
-	public AbstractSessionHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> sessionProvider) {
-		this.sessionProvider = sessionProvider;
-		this.cache = cache;
-		this.logger = logger;
-	}
+    @Inject
+    public AbstractSessionHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> sessionProvider) {
+        this.sessionProvider = sessionProvider;
+        this.cache = cache;
+        this.logger = logger;
+    }
 
-	/**
-	 * Execute executeInternal method
-	 */
-	public R execute(A action, ExecutionContext context) throws ActionException {
-		return executeInternal(action, context);
-	}
-	
-	/**
-	 * Not implemented. Should get overridden if needed
-	 */
-	public void rollback(A action, R result,
-			ExecutionContext context) throws ActionException {
-		// Not implemented
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#execute(net.customware.gwt.dispatch.shared.Action, net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
-	protected abstract R executeInternal(A action, ExecutionContext context) throws ActionException;
-	
-	/**
-	 * Return the User stored in session with the given id
-	 * 
-	 * @param sessionId 
-	 * @return user
-	 * @throws ActionException
-	 */
-	protected User getUser() throws ActionException{
-		User user = (User) sessionProvider.get().getAttribute("user");
-		if (user == null) {
-			throw new InvalidSessionException("User not found in session with id " + sessionProvider.get().getId());
-		} else {
-			return user;
-		}
-	}
+    /**
+     * Execute executeInternal method
+     */
+    public R execute(A action, ExecutionContext context) throws ActionException {
+        return executeInternal(action, context);
+    }
+    
+    /**
+     * Not implemented. Should get overridden if needed
+     */
+    public void rollback(A action, R result,
+            ExecutionContext context) throws ActionException {
+        // Not implemented
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#execute(net.customware.gwt.dispatch.shared.Action, net.customware.gwt.dispatch.server.ExecutionContext)
+     */
+    protected abstract R executeInternal(A action, ExecutionContext context) throws ActionException;
+    
+    /**
+     * Return the User stored in session with the given id
+     * 
+     * @param sessionId 
+     * @return user
+     * @throws ActionException
+     */
+    protected User getUser() throws ActionException{
+        User user = (User) sessionProvider.get().getAttribute("user");
+        if (user == null) {
+            throw new InvalidSessionException("User not found in session with id " + sessionProvider.get().getId());
+        } else {
+            return user;
+        }
+    }
 }

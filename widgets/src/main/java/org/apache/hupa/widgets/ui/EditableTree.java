@@ -31,40 +31,40 @@ import com.google.gwt.user.client.ui.TreeItem;
  *
  */
 public class EditableTree extends Tree {
-	public EditableTree(TreeImages images, boolean leaf) {
-		super(images, leaf);
-	}
+    public EditableTree(TreeImages images, boolean leaf) {
+        super(images, leaf);
+    }
 
-	public EditableTree() {
-		super();
-	}
-	
-	public EditableTree(TreeImages images) {
-		super(images);
-	}
-	
-	/**
-	 * Prevent  Event.ONCLICK, Event.ONMOUSEDOWN, Event.ONKEYDOWN from bubble down if the item is in editing mode
-	 */
-	public void onBrowserEvent(Event event) {
-		TreeItem item = getSelectedItem();
-		
-		// Check if the selectedItem is Editable and if so make sure the events are not fired
-		if (item instanceof HasEditable) {
-			if (item != null && ((HasEditable) item).isEdit()) {
-				int type = DOM.eventGetType(event);
-				switch (type) {
-				case Event.ONCLICK:
-					return;
-				case Event.ONMOUSEDOWN:
-					return;
-				case Event.ONKEYDOWN:
-					return;
-				default:
-					break;
-				}
-			}
-		}
-		super.onBrowserEvent(event);
-	}
+    public EditableTree() {
+        super();
+    }
+    
+    public EditableTree(TreeImages images) {
+        super(images);
+    }
+    
+    /**
+     * Prevent  Event.ONCLICK, Event.ONMOUSEDOWN, Event.ONKEYDOWN from bubble down if the item is in editing mode
+     */
+    public void onBrowserEvent(Event event) {
+        TreeItem item = getSelectedItem();
+        
+        // Check if the selectedItem is Editable and if so make sure the events are not fired
+        if (item instanceof HasEditable) {
+            if (item != null && ((HasEditable) item).isEdit()) {
+                int type = DOM.eventGetType(event);
+                switch (type) {
+                case Event.ONCLICK:
+                    return;
+                case Event.ONMOUSEDOWN:
+                    return;
+                case Event.ONKEYDOWN:
+                    return;
+                default:
+                    break;
+                }
+            }
+        }
+        super.onBrowserEvent(event);
+    }
 }

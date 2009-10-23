@@ -27,22 +27,22 @@ import net.customware.gwt.dispatch.shared.Result;
 
 public class FetchFoldersResult implements Result{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6215610133650989605L;
-	private ArrayList<IMAPFolder> folders;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6215610133650989605L;
+    private ArrayList<IMAPFolder> folders;
 
-	public FetchFoldersResult(ArrayList<IMAPFolder> folders) {
-		this.folders=folders;
-	}
-	
-	@SuppressWarnings("unused")
-	private FetchFoldersResult() {
-		
-	}
-	
-	public ArrayList<IMAPFolder> getFolders() {
-		return folders;
-	}
+    public FetchFoldersResult(ArrayList<IMAPFolder> folders) {
+        this.folders=folders;
+    }
+    
+    @SuppressWarnings("unused")
+    private FetchFoldersResult() {
+        
+    }
+    
+    public ArrayList<IMAPFolder> getFolders() {
+        return folders;
+    }
 }

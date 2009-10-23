@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface NewMessageEventHandler extends EventHandler{
 
-	public void onNewMessageEvent(NewMessageEvent event);
+    public void onNewMessageEvent(NewMessageEvent event);
 }

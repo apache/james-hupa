@@ -35,72 +35,72 @@ import org.apache.hupa.shared.rpc.CreateFolder;
 
 public class CreateFolderHandlerTest extends AbstractHandlerTest{
 
-	
-	public void testCreate() throws MessagingException {
-		User user = createUser();
+    
+    public void testCreate() throws MessagingException {
+        User user = createUser();
 
-		session.setAttribute("user", user);
-		storeCache.addValidUser(user.getName(),user.getPassword());
-		IMAPFolder folder = createFolder();
-		MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
-		Folder f1 = store.getFolder(folder.getFullName());
-		assertFalse("not exists",f1.exists());
-		
-		CreateFolderHandler handler = new CreateFolderHandler(storeCache,new MockLog(),sessionProvider);
-		try {
-			handler.execute(new CreateFolder(folder), null);
-			Folder f = store.getFolder(folder.getFullName());
-			assertTrue("exists",f.exists());
-			
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail();
-		}
-		
-	}
-	
-	
-	public void testDuplicateFolder() throws MessagingException {
-		User user = createUser();
+        session.setAttribute("user", user);
+        storeCache.addValidUser(user.getName(),user.getPassword());
+        IMAPFolder folder = createFolder();
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
+        Folder f1 = store.getFolder(folder.getFullName());
+        assertFalse("not exists",f1.exists());
+        
+        CreateFolderHandler handler = new CreateFolderHandler(storeCache,new MockLog(),sessionProvider);
+        try {
+            handler.execute(new CreateFolder(folder), null);
+            Folder f = store.getFolder(folder.getFullName());
+            assertTrue("exists",f.exists());
+            
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
+        }
+        
+    }
+    
+    
+    public void testDuplicateFolder() throws MessagingException {
+        User user = createUser();
 
-		session.setAttribute("user", user);
-		storeCache.addValidUser(user.getName(),user.getPassword());
-		IMAPFolder folder = createFolder();
-		MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
-		Folder f1 = store.getFolder(folder.getFullName());
-		
-		f1.create(Folder.HOLDS_FOLDERS);
+        session.setAttribute("user", user);
+        storeCache.addValidUser(user.getName(),user.getPassword());
+        IMAPFolder folder = createFolder();
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
+        Folder f1 = store.getFolder(folder.getFullName());
+        
+        f1.create(Folder.HOLDS_FOLDERS);
 
-		CreateFolderHandler handler = new CreateFolderHandler(storeCache,new MockLog(),sessionProvider);
-		try {
-			handler.execute(new CreateFolder(folder), null);
-			fail("Folder already exists");
-		} catch (ActionException e) {
-			// folder already exists
-			// e.printStackTrace();
-		}
-		
-	}
-	
-	public void testInvalidSessionId() {
-		IMAPFolder folder = createFolder();
-		CreateFolderHandler handler = new CreateFolderHandler(storeCache,new MockLog(),sessionProvider);
-		try {
-			handler.execute(new CreateFolder(folder), null);
-			fail("Invalid session");
-			
-		} catch (InvalidSessionException e) {
-			// e.printStackTrace();
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
-	private IMAPFolder createFolder() {
-		IMAPFolder folder = new IMAPFolder();
-		folder.setFullName("NewFolder");
-		folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPERATOR));
-		return folder;
-	}
+        CreateFolderHandler handler = new CreateFolderHandler(storeCache,new MockLog(),sessionProvider);
+        try {
+            handler.execute(new CreateFolder(folder), null);
+            fail("Folder already exists");
+        } catch (ActionException e) {
+            // folder already exists
+            // e.printStackTrace();
+        }
+        
+    }
+    
+    public void testInvalidSessionId() {
+        IMAPFolder folder = createFolder();
+        CreateFolderHandler handler = new CreateFolderHandler(storeCache,new MockLog(),sessionProvider);
+        try {
+            handler.execute(new CreateFolder(folder), null);
+            fail("Invalid session");
+            
+        } catch (InvalidSessionException e) {
+            // e.printStackTrace();
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+    
+    private IMAPFolder createFolder() {
+        IMAPFolder folder = new IMAPFolder();
+        folder.setFullName("NewFolder");
+        folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPERATOR));
+        return folder;
+    }
 }

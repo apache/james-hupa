@@ -26,30 +26,30 @@ import com.google.inject.Provider;
 import com.google.inject.name.Named;
 
 public class DefaultUserSettingsProvider implements Provider<Settings> {
-	private String inboxFolder;
-	private String sentFolder;
-	private String trashFolder;
-	private int postCount;
+    private String inboxFolder;
+    private String sentFolder;
+    private String trashFolder;
+    private int postCount;
 
-	@Inject
-	public DefaultUserSettingsProvider(@Named("DefaultInboxFolder") String inboxFolder, @Named("DefaultSentFolder") String sentFolder, @Named("DefaultTrashFolder") String trashFolder, @Named("PostFetchMessageCount") int postCount) {
-		this.inboxFolder = inboxFolder;
-		this.sentFolder = sentFolder;
-		this.trashFolder = trashFolder;
-		this.postCount = postCount;
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see com.google.inject.Provider#get()
-	 */
-	public Settings get() {
-		Settings settings = new Settings();
-		settings.setInboxFolderName(inboxFolder);
-		settings.setSentFolderName(sentFolder);
-		settings.setTrashFolderName(trashFolder);
-		settings.setPostFetchMessageCount(postCount);
-		return settings;
-	}
+    @Inject
+    public DefaultUserSettingsProvider(@Named("DefaultInboxFolder") String inboxFolder, @Named("DefaultSentFolder") String sentFolder, @Named("DefaultTrashFolder") String trashFolder, @Named("PostFetchMessageCount") int postCount) {
+        this.inboxFolder = inboxFolder;
+        this.sentFolder = sentFolder;
+        this.trashFolder = trashFolder;
+        this.postCount = postCount;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see com.google.inject.Provider#get()
+     */
+    public Settings get() {
+        Settings settings = new Settings();
+        settings.setInboxFolderName(inboxFolder);
+        settings.setSentFolderName(sentFolder);
+        settings.setTrashFolderName(trashFolder);
+        settings.setPostFetchMessageCount(postCount);
+        return settings;
+    }
 
 }

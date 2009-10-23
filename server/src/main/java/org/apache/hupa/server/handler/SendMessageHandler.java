@@ -45,34 +45,34 @@ import com.google.inject.name.Named;
  */
 public class SendMessageHandler extends AbstractSendMessageHandler<SendMessage> {
 
-	@Inject
-	public SendMessageHandler(Log logger, FileItemRegistry registry,
-			IMAPStoreCache store, Provider<HttpSession> provider,@Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
-		super(logger, registry, store, provider, address, port, auth,useSSL);
-	}
+    @Inject
+    public SendMessageHandler(Log logger, FileItemRegistry registry,
+            IMAPStoreCache store, Provider<HttpSession> provider,@Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
+        super(logger, registry, store, provider, address, port, auth,useSSL);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.server.handler.AbstractSendMessageHandler#createMessage(javax.mail.Session, org.apache.hupa.shared.rpc.SendMessage)
-	 */
-	protected Message createMessage(Session session, SendMessage action)
-			throws AddressException, MessagingException {
-		MimeMessage message = new MimeMessage(session);
-		SMTPMessage m = action.getMessage();
-		message.setFrom(new InternetAddress(m.getFrom()));
-		message.setRecipients(RecipientType.TO, getRecipients(m.getTo()));
-		message.setRecipients(RecipientType.CC, getRecipients(m.getCc()));
-		message.setRecipients(RecipientType.BCC, getRecipients(m.getBcc()));
-		message.setSubject(m.getSubject());
-		return message;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.server.handler.AbstractSendMessageHandler#createMessage(javax.mail.Session, org.apache.hupa.shared.rpc.SendMessage)
+     */
+    protected Message createMessage(Session session, SendMessage action)
+            throws AddressException, MessagingException {
+        MimeMessage message = new MimeMessage(session);
+        SMTPMessage m = action.getMessage();
+        message.setFrom(new InternetAddress(m.getFrom()));
+        message.setRecipients(RecipientType.TO, getRecipients(m.getTo()));
+        message.setRecipients(RecipientType.CC, getRecipients(m.getCc()));
+        message.setRecipients(RecipientType.BCC, getRecipients(m.getBcc()));
+        message.setSubject(m.getSubject());
+        return message;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<SendMessage> getActionType() {
-		return SendMessage.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<SendMessage> getActionType() {
+        return SendMessage.class;
+    }
 
 }

@@ -26,39 +26,39 @@ import org.apache.hupa.shared.data.User;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class LoadMessagesEvent extends GwtEvent<LoadMessagesEventHandler>{
-	public static Type<LoadMessagesEventHandler> TYPE = new Type<LoadMessagesEventHandler>();
-	private User user;
-	private IMAPFolder folder;
-	private String searchValue;
-	
-	public LoadMessagesEvent(User user, IMAPFolder folder) {
-		this(user,folder,null);
-	}
-	
-	public LoadMessagesEvent(User user, IMAPFolder folder, String searchValue) {
-		this.user = user;
-		this.folder = folder;
-		this.searchValue = searchValue;
-	}
-	public User getUser() {
-		return user;
-	}
-	public IMAPFolder getFolder() {
-		return folder;
-	}
-	
-	public String getSearchValue() {
-		return searchValue;
-	}
-	
-	@Override
-	protected void dispatch(LoadMessagesEventHandler handler) {
-		handler.onLoadMessagesEvent(this);
-	}
+    public static Type<LoadMessagesEventHandler> TYPE = new Type<LoadMessagesEventHandler>();
+    private User user;
+    private IMAPFolder folder;
+    private String searchValue;
+    
+    public LoadMessagesEvent(User user, IMAPFolder folder) {
+        this(user,folder,null);
+    }
+    
+    public LoadMessagesEvent(User user, IMAPFolder folder, String searchValue) {
+        this.user = user;
+        this.folder = folder;
+        this.searchValue = searchValue;
+    }
+    public User getUser() {
+        return user;
+    }
+    public IMAPFolder getFolder() {
+        return folder;
+    }
+    
+    public String getSearchValue() {
+        return searchValue;
+    }
+    
+    @Override
+    protected void dispatch(LoadMessagesEventHandler handler) {
+        handler.onLoadMessagesEvent(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<LoadMessagesEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<LoadMessagesEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
 }

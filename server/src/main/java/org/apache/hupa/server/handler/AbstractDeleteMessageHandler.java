@@ -43,81 +43,81 @@ import com.sun.mail.imap.IMAPStore;
  * @param <Action>
  */
 public abstract class AbstractDeleteMessageHandler<Action extends DeleteMessage>
-		extends AbstractSessionHandler<Action, DeleteMessageResult> {
+        extends AbstractSessionHandler<Action, DeleteMessageResult> {
 
-	@Inject
-	public AbstractDeleteMessageHandler(IMAPStoreCache cache, Log logger,
-			Provider<HttpSession> sessionProvider) {
-		super(cache, logger, sessionProvider);
-	}
+    @Inject
+    public AbstractDeleteMessageHandler(IMAPStoreCache cache, Log logger,
+            Provider<HttpSession> sessionProvider) {
+        super(cache, logger, sessionProvider);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
-	public DeleteMessageResult executeInternal(Action action,
-			ExecutionContext context) throws ActionException {
-		org.apache.hupa.shared.data.IMAPFolder folder = action.getFolder();
-		User user = getUser();
-		try {
-			IMAPStore store = cache.get(user);
-			com.sun.mail.imap.IMAPFolder f = (com.sun.mail.imap.IMAPFolder) store
-					.getFolder(folder.getFullName());
-			// check if the folder is open, if not open it "rw"
-			if (f.isOpen() == false) {
-				f.open(com.sun.mail.imap.IMAPFolder.READ_WRITE);
-			}
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
+     */
+    public DeleteMessageResult executeInternal(Action action,
+            ExecutionContext context) throws ActionException {
+        org.apache.hupa.shared.data.IMAPFolder folder = action.getFolder();
+        User user = getUser();
+        try {
+            IMAPStore store = cache.get(user);
+            com.sun.mail.imap.IMAPFolder f = (com.sun.mail.imap.IMAPFolder) store
+                    .getFolder(folder.getFullName());
+            // check if the folder is open, if not open it "rw"
+            if (f.isOpen() == false) {
+                f.open(com.sun.mail.imap.IMAPFolder.READ_WRITE);
+            }
 
-			Message[] mArray = getMessagesToDelete(action);
-			
-			// check if the delete was triggered not in the trash folder
-			if (folder.getFullName().equalsIgnoreCase(
-					user.getSettings().getTrashFolderName()) == false) {
-				com.sun.mail.imap.IMAPFolder trashFolder = (com.sun.mail.imap.IMAPFolder) store
-						.getFolder(user.getSettings().getTrashFolderName());
+            Message[] mArray = getMessagesToDelete(action);
+            
+            // check if the delete was triggered not in the trash folder
+            if (folder.getFullName().equalsIgnoreCase(
+                    user.getSettings().getTrashFolderName()) == false) {
+                com.sun.mail.imap.IMAPFolder trashFolder = (com.sun.mail.imap.IMAPFolder) store
+                        .getFolder(user.getSettings().getTrashFolderName());
 
-				boolean trashFound = false;
-				// if the trash folder does not exist we create it
-				if (trashFolder.exists() == false) {
-					trashFound = trashFolder
-							.create(com.sun.mail.imap.IMAPFolder.READ_WRITE);
-				} else {
-					trashFound = true;
-				}
+                boolean trashFound = false;
+                // if the trash folder does not exist we create it
+                if (trashFolder.exists() == false) {
+                    trashFound = trashFolder
+                            .create(com.sun.mail.imap.IMAPFolder.READ_WRITE);
+                } else {
+                    trashFound = true;
+                }
 
-				// Check if we are able to copy the messages to the trash folder
-				if (trashFound) {
-					// copy the messages to the trashfolder
-					f.copyMessages(mArray, trashFolder);
-				}
-			}
+                // Check if we are able to copy the messages to the trash folder
+                if (trashFound) {
+                    // copy the messages to the trashfolder
+                    f.copyMessages(mArray, trashFolder);
+                }
+            }
 
-			
-			// delete the messages from the folder
-			f.setFlags(mArray, new Flags(Flags.Flag.DELETED), true);
-			
-			try {
-				f.expunge(mArray);
-				f.close(false);
-			} catch (MessagingException e) {
-				// prolly UID expunge is not supported
-				f.close(true);
-			}
-			return new DeleteMessageResult(user, folder, mArray.length);
+            
+            // delete the messages from the folder
+            f.setFlags(mArray, new Flags(Flags.Flag.DELETED), true);
+            
+            try {
+                f.expunge(mArray);
+                f.close(false);
+            } catch (MessagingException e) {
+                // prolly UID expunge is not supported
+                f.close(true);
+            }
+            return new DeleteMessageResult(user, folder, mArray.length);
 
-		} catch (MessagingException e) {
-			logger.error("Error while deleting messages for user " + user
-					+ " in folder" + action.getFolder(), e);
-			throw new ActionException("Error while deleting messages");
-		}
-	}
+        } catch (MessagingException e) {
+            logger.error("Error while deleting messages for user " + user
+                    + " in folder" + action.getFolder(), e);
+            throw new ActionException("Error while deleting messages");
+        }
+    }
 
-	/**
-	 * Return an array holding all messages which should get deleted by the given action
-	 * 
-	 * @param action
-	 * @return messages
-	 * @throws ActionException
-	 */
-	protected abstract Message[] getMessagesToDelete(Action action) throws ActionException;
+    /**
+     * Return an array holding all messages which should get deleted by the given action
+     * 
+     * @param action
+     * @return messages
+     * @throws ActionException
+     */
+    protected abstract Message[] getMessagesToDelete(Action action) throws ActionException;
 }

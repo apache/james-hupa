@@ -30,39 +30,39 @@ import org.apache.hupa.shared.rpc.LoginUserResult;
 import com.google.inject.Provider;
 
 public class LoginUserHandlerTest extends AbstractHandlerTest{
-	private LoginUserHandler handler = new LoginUserHandler(storeCache, new MockLog(),sessionProvider, new Provider<Settings>() {
+    private LoginUserHandler handler = new LoginUserHandler(storeCache, new MockLog(),sessionProvider, new Provider<Settings>() {
 
-		public Settings get() {
-			return new Settings();
-		}
-	});
-	public void testInvalidLogin() {
-		try {
-			handler.execute(new LoginUser("invalid","invalid"), null);
-			fail("Should throw an exception");
-		} catch (ActionException e) {
-			//e.printStackTrace();
-		}
-		assertNull("no user stored in session", session.getAttribute("user"));
-	}
-	
-	public void testValidLogin() {
-		String username = "valid";
-		String password = "valid";
-		storeCache.addValidUser(username, password);
-		
-		try {
-			LoginUserResult result = handler.execute(new LoginUser(username,password), null);
-			User u = result.getUser();
-			
-			assertEquals("Authenticated", true, u.getAuthenticated());
-			assertEquals("Authenticated", username, u.getName());
-			assertEquals("Authenticated", password, u.getPassword());
-			assertEquals("User stored in session", u, session.getAttribute("user"));
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail("Should throw an exception");
-		}
-	}
-	
+        public Settings get() {
+            return new Settings();
+        }
+    });
+    public void testInvalidLogin() {
+        try {
+            handler.execute(new LoginUser("invalid","invalid"), null);
+            fail("Should throw an exception");
+        } catch (ActionException e) {
+            //e.printStackTrace();
+        }
+        assertNull("no user stored in session", session.getAttribute("user"));
+    }
+    
+    public void testValidLogin() {
+        String username = "valid";
+        String password = "valid";
+        storeCache.addValidUser(username, password);
+        
+        try {
+            LoginUserResult result = handler.execute(new LoginUser(username,password), null);
+            User u = result.getUser();
+            
+            assertEquals("Authenticated", true, u.getAuthenticated());
+            assertEquals("Authenticated", username, u.getName());
+            assertEquals("Authenticated", password, u.getPassword());
+            assertEquals("User stored in session", u, session.getAttribute("user"));
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail("Should throw an exception");
+        }
+    }
+    
 }

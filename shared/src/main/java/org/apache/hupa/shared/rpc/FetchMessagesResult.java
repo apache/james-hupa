@@ -45,45 +45,45 @@ import net.customware.gwt.dispatch.shared.Result;
 
 public class FetchMessagesResult implements Result{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8692400285949934424L;
-	private ArrayList<Message> messages;
-	private int start;
-	private int offset;
-	private int realCount;
-	private int realUnreadCount;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8692400285949934424L;
+    private ArrayList<Message> messages;
+    private int start;
+    private int offset;
+    private int realCount;
+    private int realUnreadCount;
 
-	@SuppressWarnings("unused")
-	private FetchMessagesResult() {
-	}
-	
-	public FetchMessagesResult(ArrayList<Message> messages,int start,int offset,int realCount, int realUnreadCount) {
-		this.messages = messages;
-		this.start = start;
-		this.offset = offset;
-		this.realCount = realCount;
-		this.realUnreadCount = realUnreadCount;
-	}
-	
-	public ArrayList<Message> getMessages() {
-		return messages;
-	}
-	
-	public int getOffset() {
-		return offset;
-	}
-	
-	public int getStart() {
-		return start;
-	}
-	
-	public int getRealCount() {
-		return realCount;
-	}
-	
-	public int getRealUnreadCount() {
-		return realUnreadCount;
-	}
+    @SuppressWarnings("unused")
+    private FetchMessagesResult() {
+    }
+    
+    public FetchMessagesResult(ArrayList<Message> messages,int start,int offset,int realCount, int realUnreadCount) {
+        this.messages = messages;
+        this.start = start;
+        this.offset = offset;
+        this.realCount = realCount;
+        this.realUnreadCount = realUnreadCount;
+    }
+    
+    public ArrayList<Message> getMessages() {
+        return messages;
+    }
+    
+    public int getOffset() {
+        return offset;
+    }
+    
+    public int getStart() {
+        return start;
+    }
+    
+    public int getRealCount() {
+        return realCount;
+    }
+    
+    public int getRealUnreadCount() {
+        return realUnreadCount;
+    }
 }

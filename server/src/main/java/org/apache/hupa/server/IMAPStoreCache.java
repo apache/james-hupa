@@ -26,8 +26,8 @@ import org.apache.hupa.shared.data.User;
 import com.sun.mail.imap.IMAPStore;
 
 public interface IMAPStoreCache {
-	public IMAPStore get(User user) throws MessagingException;
-	public IMAPStore get(String username,String password) throws MessagingException;
-	public void delete(User user);
-	public void delete(String username);
+    public IMAPStore get(User user) throws MessagingException;
+    public IMAPStore get(String username,String password) throws MessagingException;
+    public void delete(User user);
+    public void delete(String username);
 }

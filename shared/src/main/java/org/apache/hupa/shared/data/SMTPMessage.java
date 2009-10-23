@@ -22,51 +22,51 @@ package org.apache.hupa.shared.data;
 import java.util.ArrayList;
 
 public class SMTPMessage extends AbstractMessage{
-	private static final long serialVersionUID = 7331361994526216161L;
-	private ArrayList<String> bcc;
-	private String text;
-	private ArrayList<MessageAttachment> aList;
-	
-	public ArrayList<String> getBcc() {
-		return bcc;
-	}
-	public void setBcc( ArrayList<String> bcc) {
-		this.bcc = bcc;
-	}
-	
-	/**
-	 * Set the body text of the content
-	 * 
-	 * @param text
-	 */
-	public void setText(String text) {
-		this.text = text;
-	}
+    private static final long serialVersionUID = 7331361994526216161L;
+    private ArrayList<String> bcc;
+    private String text;
+    private ArrayList<MessageAttachment> aList;
+    
+    public ArrayList<String> getBcc() {
+        return bcc;
+    }
+    public void setBcc( ArrayList<String> bcc) {
+        this.bcc = bcc;
+    }
+    
+    /**
+     * Set the body text of the content
+     * 
+     * @param text
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	/**
-	 * Return the body text of the content
-	 * @return
-	 */
-	public String getText() {
-		return text;
-	}
+    /**
+     * Return the body text of the content
+     * @return
+     */
+    public String getText() {
+        return text;
+    }
 
-	/**
-	 * Set the attachments 
-	 * 
-	 * @param aList
-	 */
-	public void setMessageAttachments(ArrayList<MessageAttachment> aList) {
-		this.aList = aList;
-	}
+    /**
+     * Set the attachments 
+     * 
+     * @param aList
+     */
+    public void setMessageAttachments(ArrayList<MessageAttachment> aList) {
+        this.aList = aList;
+    }
 
-	/**
-	 * Return the attachments 
-	 * 
-	 * @return aList
-	 */
-	public ArrayList<MessageAttachment> getMessageAttachments() {
-		return aList;
-	}
+    /**
+     * Return the attachments 
+     * 
+     * @return aList
+     */
+    public ArrayList<MessageAttachment> getMessageAttachments() {
+        return aList;
+    }
 
 }

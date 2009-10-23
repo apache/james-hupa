@@ -29,16 +29,16 @@ public class LoginUserResult implements Result{
      * 
      */
     private static final long serialVersionUID = -8740775403377441876L;
-	private User user;
+    private User user;
 
     public LoginUserResult(User user) {
-    	this.user = user;
+        this.user = user;
     }
     
-	@SuppressWarnings("unused")
-	private LoginUserResult() {}
+    @SuppressWarnings("unused")
+    private LoginUserResult() {}
     
     public User getUser() {
-    	return user;
+        return user;
     }
 }

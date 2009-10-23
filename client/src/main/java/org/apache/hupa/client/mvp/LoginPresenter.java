@@ -46,103 +46,103 @@ import com.google.inject.Inject;
 public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
     private HupaConstants constants = GWT.create(HupaConstants.class);
 
-	public interface Display extends WidgetDisplay{
-		public HasClickHandlers getLoginClick();
-		public HasClickHandlers getResetClick();
-		public HasValue<String> getUserNameValue();
-		public HasValue<String> getPasswordValue();
-		public Focusable getUserNameFocus();
-		public HasText getErrorText();
-	}
-	
-	private DispatchAsync dispatcher;
-	public static final Place PLACE = new Place("Login");
+    public interface Display extends WidgetDisplay{
+        public HasClickHandlers getLoginClick();
+        public HasClickHandlers getResetClick();
+        public HasValue<String> getUserNameValue();
+        public HasValue<String> getPasswordValue();
+        public Focusable getUserNameFocus();
+        public HasText getErrorText();
+    }
+    
+    private DispatchAsync dispatcher;
+    public static final Place PLACE = new Place("Login");
 
-	@Inject
-	public LoginPresenter(LoginPresenter.Display display,EventBus bus,DispatchAsync dispatcher) {
-		super(display,bus);
-		this.dispatcher = dispatcher;
-	}
+    @Inject
+    public LoginPresenter(LoginPresenter.Display display,EventBus bus,DispatchAsync dispatcher) {
+        super(display,bus);
+        this.dispatcher = dispatcher;
+    }
 
-	
-	/**
-	 * Try to login the user
-	 */
-	private void doLogin() {
-		dispatcher.execute(new LoginUser(display.getUserNameValue().getValue(),display.getPasswordValue().getValue()), new HupaCallback<LoginUserResult>(dispatcher, eventBus, display) {
-			public void callback(LoginUserResult result) {
-				eventBus.fireEvent(new LoginEvent(result.getUser()));
-				doReset();
-			}
-			public void callbackError(Throwable caught) {
-				display.getErrorText().setText(constants.loginInvalid());
-				doReset();
-			}
-		}); 
-	}
-	
-	/**
-	 * Reset display
-	 */
-	private void doReset() {
-		display.getUserNameValue().setValue("");
-		display.getPasswordValue().setValue("");
-		display.getErrorText().setText("");
-		display.getUserNameFocus().setFocus(true);
-	}
+    
+    /**
+     * Try to login the user
+     */
+    private void doLogin() {
+        dispatcher.execute(new LoginUser(display.getUserNameValue().getValue(),display.getPasswordValue().getValue()), new HupaCallback<LoginUserResult>(dispatcher, eventBus, display) {
+            public void callback(LoginUserResult result) {
+                eventBus.fireEvent(new LoginEvent(result.getUser()));
+                doReset();
+            }
+            public void callbackError(Throwable caught) {
+                display.getErrorText().setText(constants.loginInvalid());
+                doReset();
+            }
+        }); 
+    }
+    
+    /**
+     * Reset display
+     */
+    private void doReset() {
+        display.getUserNameValue().setValue("");
+        display.getPasswordValue().setValue("");
+        display.getErrorText().setText("");
+        display.getUserNameFocus().setFocus(true);
+    }
 
-	@Override
-	public Place getPlace() {
-		return PLACE;
-	}
+    @Override
+    public Place getPlace() {
+        return PLACE;
+    }
 
-	@Override
-	protected void onBind() {
-		registerHandler(display.getLoginClick().addClickHandler(new ClickHandler() {
+    @Override
+    protected void onBind() {
+        registerHandler(display.getLoginClick().addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				doLogin();
-			}
-			
-		}));
-		registerHandler(display.getResetClick().addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                doLogin();
+            }
+            
+        }));
+        registerHandler(display.getResetClick().addClickHandler(new ClickHandler() {
 
-			public void onClick(ClickEvent event) {
-				doReset();
-			}
-			
-		}));
-		
-		registerHandler(eventBus.addHandler(SessionExpireEvent.TYPE, new SessionExpireEventHandler() {
+            public void onClick(ClickEvent event) {
+                doReset();
+            }
+            
+        }));
+        
+        registerHandler(eventBus.addHandler(SessionExpireEvent.TYPE, new SessionExpireEventHandler() {
 
-			public void onSessionExpireEvent(SessionExpireEvent event) {
-				display.getErrorText().setText(constants.sessionTimedOut());
-			}
-			
-		}));
-	}
+            public void onSessionExpireEvent(SessionExpireEvent event) {
+                display.getErrorText().setText(constants.sessionTimedOut());
+            }
+            
+        }));
+    }
 
-	@Override
-	protected void onPlaceRequest(PlaceRequest request) {
-		String username = request.getParameter("username",null);
-		if (username != null) {
-			display.getUserNameValue().setValue(username);
-		}
-	}
+    @Override
+    protected void onPlaceRequest(PlaceRequest request) {
+        String username = request.getParameter("username",null);
+        if (username != null) {
+            display.getUserNameValue().setValue(username);
+        }
+    }
 
-	@Override
-	protected void onUnbind() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    protected void onUnbind() {
+        // TODO Auto-generated method stub
+        
+    }
 
-	public void refreshDisplay() {
-		// TODO Auto-generated method stub
-	
-	}
+    public void refreshDisplay() {
+        // TODO Auto-generated method stub
+    
+    }
 
-	public void revealDisplay() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void revealDisplay() {
+        // TODO Auto-generated method stub
+        
+    }
 }

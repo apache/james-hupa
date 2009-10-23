@@ -36,133 +36,133 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class AppView extends Composite implements AppPresenter.Display {
-	private SimplePanel mainPanel = new SimplePanel();
-	private HupaConstants constants = GWT.create(HupaConstants.class);
-	private HorizontalPanel northTop = new HorizontalPanel();
-	private Hyperlink logoutButton = new Hyperlink(constants.logoutButton(),"");
-	private SimplePanel topNavigatorPanel = new SimplePanel();
-	private HTML dummy = new HTML("&nbsp");
-	private Label userName = new Label();
-	private HorizontalPanel loginInfoPanel = new HorizontalPanel();
-	private ServerStatusPanel serverStatusPanel  = new ServerStatusPanel();
-	
-	private class ServerStatusPanel extends PopupPanel {
-		HTML messageLabel = new HTML("");
-		ServerStatusPanel() {
-			add(messageLabel);
-			addStyleName("hupa-server-status");
-			setPopupPosition(400, 1);
-			setAnimationEnabled(true);
-		}
-		// TODO: i18n (take a look to gmail's messages when the server is unacessible)
-		public void setStatus(ServerStatus status) {
-			if (status == ServerStatus.Available) {
-				messageLabel.setHTML("<h2>Server is available now.</h2>");
-				hide();
-			} else {
-				messageLabel.setHTML("<h2>Server unavailable</h2>");
-				show();
-			}
-		}
-	}
+    private SimplePanel mainPanel = new SimplePanel();
+    private HupaConstants constants = GWT.create(HupaConstants.class);
+    private HorizontalPanel northTop = new HorizontalPanel();
+    private Hyperlink logoutButton = new Hyperlink(constants.logoutButton(),"");
+    private SimplePanel topNavigatorPanel = new SimplePanel();
+    private HTML dummy = new HTML("&nbsp");
+    private Label userName = new Label();
+    private HorizontalPanel loginInfoPanel = new HorizontalPanel();
+    private ServerStatusPanel serverStatusPanel  = new ServerStatusPanel();
+    
+    private class ServerStatusPanel extends PopupPanel {
+        HTML messageLabel = new HTML("");
+        ServerStatusPanel() {
+            add(messageLabel);
+            addStyleName("hupa-server-status");
+            setPopupPosition(400, 1);
+            setAnimationEnabled(true);
+        }
+        // TODO: i18n (take a look to gmail's messages when the server is unacessible)
+        public void setStatus(ServerStatus status) {
+            if (status == ServerStatus.Available) {
+                messageLabel.setHTML("<h2>Server is available now.</h2>");
+                hide();
+            } else {
+                messageLabel.setHTML("<h2>Server unavailable</h2>");
+                show();
+            }
+        }
+    }
 
-	public AppView() {
-		VerticalPanel vPanel = new VerticalPanel();
+    public AppView() {
+        VerticalPanel vPanel = new VerticalPanel();
 
-		vPanel.setSpacing(3);
-		vPanel.setWidth("100%");
-		vPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-		vPanel.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
+        vPanel.setSpacing(3);
+        vPanel.setWidth("100%");
+        vPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
+        vPanel.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
 
-		topNavigatorPanel.setHeight("20px");
-		vPanel.add(topNavigatorPanel);
+        topNavigatorPanel.setHeight("20px");
+        vPanel.add(topNavigatorPanel);
 
-		loginInfoPanel.setSpacing(5);
-		loginInfoPanel.add(new Label(constants.loginAs() + ":"));
-		loginInfoPanel.add(userName);
-		userName.getElement().getStyle().setProperty("textDecoration",
-				"underline");
-		userName.getElement().getStyle().setProperty("fontWeight", "bold");
+        loginInfoPanel.setSpacing(5);
+        loginInfoPanel.add(new Label(constants.loginAs() + ":"));
+        loginInfoPanel.add(userName);
+        userName.getElement().getStyle().setProperty("textDecoration",
+                "underline");
+        userName.getElement().getStyle().setProperty("fontWeight", "bold");
 
-		//northTop.setSpacing(5);
-		northTop.setStyleName("hupa-MainButtonBar");
-		northTop.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
-		northTop.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
+        //northTop.setSpacing(5);
+        northTop.setStyleName("hupa-MainButtonBar");
+        northTop.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
+        northTop.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
 
-		northTop.setWidth("100%");
-		northTop.setHeight("100%");
-		northTop.add(loginInfoPanel);
-		northTop.setCellHorizontalAlignment(loginInfoPanel,
-				HorizontalPanel.ALIGN_LEFT);
-		northTop.add(logoutButton);
+        northTop.setWidth("100%");
+        northTop.setHeight("100%");
+        northTop.add(loginInfoPanel);
+        northTop.setCellHorizontalAlignment(loginInfoPanel,
+                HorizontalPanel.ALIGN_LEFT);
+        northTop.add(logoutButton);
 
-		Label header = new Label(constants.productName());
-		header.setHeight("25px");
-		header.setStyleName("hupa-Header");
-		vPanel.add(header);
-		vPanel.setCellHorizontalAlignment(header, VerticalPanel.ALIGN_LEFT);
-		vPanel.setCellVerticalAlignment(header, VerticalPanel.ALIGN_MIDDLE);
+        Label header = new Label(constants.productName());
+        header.setHeight("25px");
+        header.setStyleName("hupa-Header");
+        vPanel.add(header);
+        vPanel.setCellHorizontalAlignment(header, VerticalPanel.ALIGN_LEFT);
+        vPanel.setCellVerticalAlignment(header, VerticalPanel.ALIGN_MIDDLE);
 
-		vPanel.add(mainPanel);
+        vPanel.add(mainPanel);
 
-		dummy.setHeight("100%");
-		showTopNavigation(false);
-		initWidget(vPanel);
-	}
+        dummy.setHeight("100%");
+        showTopNavigation(false);
+        initWidget(vPanel);
+    }
 
-	public void setMain(Widget w) {
-		mainPanel.setWidget(w);
-	}
+    public void setMain(Widget w) {
+        mainPanel.setWidget(w);
+    }
 
-	public Widget asWidget() {
-		return this;
-	}
+    public Widget asWidget() {
+        return this;
+    }
 
-	public void startProcessing() {
-		// TODO Auto-generated method stub
+    public void startProcessing() {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	public void stopProcessing() {
-		// TODO Auto-generated method stub
+    public void stopProcessing() {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.hupa.client.mvp.AppPresenter.Display#getLogoutClick()
-	 */
-	public HasClickHandlers getLogoutClick() {
-		return logoutButton;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.apache.hupa.client.mvp.AppPresenter.Display#getLogoutClick()
+     */
+    public HasClickHandlers getLogoutClick() {
+        return logoutButton;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.apache.hupa.client.mvp.AppPresenter.Display#showTopNavigation(boolean
-	 * )
-	 */
-	public void showTopNavigation(boolean show) {
-		if (show) {
-			topNavigatorPanel.setWidget(northTop);
-		} else {
-			topNavigatorPanel.setWidget(dummy);
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.apache.hupa.client.mvp.AppPresenter.Display#showTopNavigation(boolean
+     * )
+     */
+    public void showTopNavigation(boolean show) {
+        if (show) {
+            topNavigatorPanel.setWidget(northTop);
+        } else {
+            topNavigatorPanel.setWidget(dummy);
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.hupa.client.mvp.AppPresenter.Display#getUserText()
-	 */
-	public HasText getUserText() {
-		return userName;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.apache.hupa.client.mvp.AppPresenter.Display#getUserText()
+     */
+    public HasText getUserText() {
+        return userName;
+    }
 
-	public void setServerStatus(ServerStatus status) {
-		serverStatusPanel.setStatus(status);
-	}
+    public void setServerStatus(ServerStatus status) {
+        serverStatusPanel.setStatus(status);
+    }
 
 }

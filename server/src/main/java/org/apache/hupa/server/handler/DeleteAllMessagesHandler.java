@@ -38,42 +38,42 @@ import com.sun.mail.imap.IMAPStore;
 
 public class DeleteAllMessagesHandler extends AbstractDeleteMessageHandler<DeleteAllMessages>{
 
-	@Inject
-	public DeleteAllMessagesHandler(IMAPStoreCache cache, Log logger,
-			Provider<HttpSession> sessionProvider) {
-		super(cache, logger, sessionProvider);
-	}
+    @Inject
+    public DeleteAllMessagesHandler(IMAPStoreCache cache, Log logger,
+            Provider<HttpSession> sessionProvider) {
+        super(cache, logger, sessionProvider);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.server.handler.AbstractDeleteMessageHandler#getMessagesToDelete(org.apache.hupa.shared.rpc.DeleteMessage)
-	 */
-	protected Message[] getMessagesToDelete(DeleteAllMessages action)
-			throws ActionException {
-		User user = getUser();
-		try {
-			logger.info("Delete all messages in folder " + action.getFolder() + " for user " + user);
-			IMAPStore store =cache.get(user);
-			IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
-			if (folder.isOpen() == false) {
-				folder.open(Folder.READ_WRITE);
-			}
-			return folder.getMessages();
-		} catch (MessagingException e) {
-			String errorMsg = "Error while deleting all messages in folder " + action.getFolder() + " for user " + user;
-			logger.error(errorMsg, e);
-			throw new ActionException(errorMsg);
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.server.handler.AbstractDeleteMessageHandler#getMessagesToDelete(org.apache.hupa.shared.rpc.DeleteMessage)
+     */
+    protected Message[] getMessagesToDelete(DeleteAllMessages action)
+            throws ActionException {
+        User user = getUser();
+        try {
+            logger.info("Delete all messages in folder " + action.getFolder() + " for user " + user);
+            IMAPStore store =cache.get(user);
+            IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
+            if (folder.isOpen() == false) {
+                folder.open(Folder.READ_WRITE);
+            }
+            return folder.getMessages();
+        } catch (MessagingException e) {
+            String errorMsg = "Error while deleting all messages in folder " + action.getFolder() + " for user " + user;
+            logger.error(errorMsg, e);
+            throw new ActionException(errorMsg);
 
-		}
-		
-	}
+        }
+        
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<DeleteAllMessages> getActionType() {
-		return DeleteAllMessages.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<DeleteAllMessages> getActionType() {
+        return DeleteAllMessages.class;
+    }
 
 }

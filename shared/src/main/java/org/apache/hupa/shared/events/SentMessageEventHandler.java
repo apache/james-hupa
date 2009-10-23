@@ -23,5 +23,5 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface SentMessageEventHandler extends EventHandler{
 
-	public void onSentMessageEvent(SentMessageEvent ev);
+    public void onSentMessageEvent(SentMessageEvent ev);
 }

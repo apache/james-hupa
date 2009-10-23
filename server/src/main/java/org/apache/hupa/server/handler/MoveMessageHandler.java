@@ -45,49 +45,49 @@ import com.sun.mail.imap.IMAPStore;
  */
 public class MoveMessageHandler extends AbstractSessionHandler<MoveMessage, MoveMessageResult>{
 
-	@Inject
-	public MoveMessageHandler(IMAPStoreCache cache, Log logger,
-			Provider<HttpSession> sessionProvider) {
-		super(cache, logger, sessionProvider);
-	}
+    @Inject
+    public MoveMessageHandler(IMAPStoreCache cache, Log logger,
+            Provider<HttpSession> sessionProvider) {
+        super(cache, logger, sessionProvider);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
-	protected MoveMessageResult executeInternal(MoveMessage action,
-			ExecutionContext context) throws ActionException {
-		User user = getUser();
-		try {
-			IMAPStore store = cache.get(user);
-			IMAPFolder folder = (IMAPFolder)store.getFolder(action.getOldFolder().getFullName());
-			if (folder.isOpen() == false) {
-				folder.open(Folder.READ_WRITE);
-			}
-			Message m = folder.getMessageByUID(action.getMessageUid());
-			Message[] mArray = new Message[] {m};
-			folder.copyMessages(mArray, store.getFolder(action.getNewFolder().getFullName()));
-			folder.setFlags(mArray, new Flags(Flags.Flag.DELETED), true);
-			try {
-				folder.expunge(mArray);
-				folder.close(false);
-			} catch (MessagingException e) {
-				// prolly UID expunge is not supported
-				folder.close(true);
-			}
-			return new MoveMessageResult();
-		} catch (MessagingException e) {
-			logger.error("Error while moving message " + action.getMessageUid() + " from folder " + action.getOldFolder() + " to " + action.getNewFolder(),e);
-			throw new ActionException(e);
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
+     */
+    protected MoveMessageResult executeInternal(MoveMessage action,
+            ExecutionContext context) throws ActionException {
+        User user = getUser();
+        try {
+            IMAPStore store = cache.get(user);
+            IMAPFolder folder = (IMAPFolder)store.getFolder(action.getOldFolder().getFullName());
+            if (folder.isOpen() == false) {
+                folder.open(Folder.READ_WRITE);
+            }
+            Message m = folder.getMessageByUID(action.getMessageUid());
+            Message[] mArray = new Message[] {m};
+            folder.copyMessages(mArray, store.getFolder(action.getNewFolder().getFullName()));
+            folder.setFlags(mArray, new Flags(Flags.Flag.DELETED), true);
+            try {
+                folder.expunge(mArray);
+                folder.close(false);
+            } catch (MessagingException e) {
+                // prolly UID expunge is not supported
+                folder.close(true);
+            }
+            return new MoveMessageResult();
+        } catch (MessagingException e) {
+            logger.error("Error while moving message " + action.getMessageUid() + " from folder " + action.getOldFolder() + " to " + action.getNewFolder(),e);
+            throw new ActionException(e);
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<MoveMessage> getActionType() {
-		return MoveMessage.class;
-	}
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<MoveMessage> getActionType() {
+        return MoveMessage.class;
+    }
 
 }

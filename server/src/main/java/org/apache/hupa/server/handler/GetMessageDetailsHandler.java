@@ -50,182 +50,182 @@ import com.google.inject.Provider;
 import com.sun.mail.imap.IMAPStore;
 
 public class GetMessageDetailsHandler extends
-		AbstractSessionHandler<GetMessageDetails, GetMessageDetailsResult> {
+        AbstractSessionHandler<GetMessageDetails, GetMessageDetailsResult> {
 
-	@Inject
-	public GetMessageDetailsHandler(IMAPStoreCache cache, Log logger,
-			Provider<HttpSession> sProvider) {
-		super(cache, logger, sProvider);
-	}
+    @Inject
+    public GetMessageDetailsHandler(IMAPStoreCache cache, Log logger,
+            Provider<HttpSession> sProvider) {
+        super(cache, logger, sProvider);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal
-	 * (org.apache.hupa.shared.rpc.Session,
-	 * net.customware.gwt.dispatch.server.ExecutionContext)
-	 */
-	public GetMessageDetailsResult executeInternal(GetMessageDetails action,
-			ExecutionContext arg1) throws ActionException {
-		return new GetMessageDetailsResult(exposeMessage(getUser(), action.getFolder(), action.getUid()));
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal
+     * (org.apache.hupa.shared.rpc.Session,
+     * net.customware.gwt.dispatch.server.ExecutionContext)
+     */
+    public GetMessageDetailsResult executeInternal(GetMessageDetails action,
+            ExecutionContext arg1) throws ActionException {
+        return new GetMessageDetailsResult(exposeMessage(getUser(), action.getFolder(), action.getUid()));
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
-	 */
-	public Class<GetMessageDetails> getActionType() {
-		return GetMessageDetails.class;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
+     */
+    public Class<GetMessageDetails> getActionType() {
+        return GetMessageDetails.class;
+    }
 
-	protected MessageDetails exposeMessage(User user, IMAPFolder folder,
-			long uid) throws ActionException {
-		IMAPStore store = null;
-		com.sun.mail.imap.IMAPFolder f = null;
-		try {
-			store = cache.get(user);
+    protected MessageDetails exposeMessage(User user, IMAPFolder folder,
+            long uid) throws ActionException {
+        IMAPStore store = null;
+        com.sun.mail.imap.IMAPFolder f = null;
+        try {
+            store = cache.get(user);
 
-			f = (com.sun.mail.imap.IMAPFolder) store
-					.getFolder(folder.getFullName());
+            f = (com.sun.mail.imap.IMAPFolder) store
+                    .getFolder(folder.getFullName());
 
-			if (f.isOpen() == false) {
-				f.open(com.sun.mail.imap.IMAPFolder.READ_WRITE);
-			}
-			MimeMessage message = (MimeMessage) f.getMessageByUID(uid);
-			MessageDetails mDetails = new MessageDetails();
-			mDetails.setUid(uid);
+            if (f.isOpen() == false) {
+                f.open(com.sun.mail.imap.IMAPFolder.READ_WRITE);
+            }
+            MimeMessage message = (MimeMessage) f.getMessageByUID(uid);
+            MessageDetails mDetails = new MessageDetails();
+            mDetails.setUid(uid);
 
-			boolean isHTML = false;
-			Object con = message.getContent();
+            boolean isHTML = false;
+            Object con = message.getContent();
 
-			StringBuffer sbPlain = new StringBuffer();
-			ArrayList<MessageAttachment> attachmentList = new ArrayList<MessageAttachment>();
+            StringBuffer sbPlain = new StringBuffer();
+            ArrayList<MessageAttachment> attachmentList = new ArrayList<MessageAttachment>();
 
-			handleParts(message, con, sbPlain, isHTML, attachmentList);
+            handleParts(message, con, sbPlain, isHTML, attachmentList);
 
-			mDetails.setText(sbPlain.toString());
+            mDetails.setText(sbPlain.toString());
 
-			mDetails.setIsHTML(isHTML);
-			mDetails.setMessageAttachments(attachmentList);
+            mDetails.setIsHTML(isHTML);
+            mDetails.setMessageAttachments(attachmentList);
 
-			mDetails.setRawHeader(message.getAllHeaders().toString());
+            mDetails.setRawHeader(message.getAllHeaders().toString());
 
-			f.setFlags(new Message[] { message }, new Flags(Flag.SEEN), true);
+            f.setFlags(new Message[] { message }, new Flags(Flag.SEEN), true);
 
-			return mDetails;
-		} catch (Exception e) {
-			logger.error("Unable to expose msg for user " + user
-					+ " in folder " + folder + " with uid " + uid, e);
-			throw new ActionException("Unable to expose msg for user " + user
-					+ " in folder " + folder + " with uid " + uid);
+            return mDetails;
+        } catch (Exception e) {
+            logger.error("Unable to expose msg for user " + user
+                    + " in folder " + folder + " with uid " + uid, e);
+            throw new ActionException("Unable to expose msg for user " + user
+                    + " in folder " + folder + " with uid " + uid);
 
-		} finally {
-			if (f != null && f.isOpen()) {
-				try {
-					f.close(false);
-				} catch (MessagingException e) {
-					// ignore on close
-				}
-			}
-		}
-	}
+        } finally {
+            if (f != null && f.isOpen()) {
+                try {
+                    f.close(false);
+                } catch (MessagingException e) {
+                    // ignore on close
+                }
+            }
+        }
+    }
 
-	/**
-	 * Handle the parts of the given message. The method will call itself recursively to handle all nested parts
-	 * @param message the MimeMessage 
-	 * @param con the current processing Content
-	 * @param sbPlain the StringBuffer to fill with text
-	 * @param isHTML identicate if the message is HTML
-	 * @param attachmentList ArrayList with attachments
-	 * @throws UnsupportedEncodingException
-	 * @throws MessagingException
-	 * @throws IOException
-	 */
-	private void handleParts(MimeMessage message, Object con,
-			StringBuffer sbPlain, boolean isHTML,
-			ArrayList<MessageAttachment> attachmentList)
-			throws UnsupportedEncodingException, MessagingException,
-			IOException {
-		if (con instanceof String) {
-			if (message.getContentType().startsWith("text/html")) {
-				isHTML = true;
-			} else {
-				isHTML = false;
-			}
-			sbPlain.append((String) con);
+    /**
+     * Handle the parts of the given message. The method will call itself recursively to handle all nested parts
+     * @param message the MimeMessage 
+     * @param con the current processing Content
+     * @param sbPlain the StringBuffer to fill with text
+     * @param isHTML identicate if the message is HTML
+     * @param attachmentList ArrayList with attachments
+     * @throws UnsupportedEncodingException
+     * @throws MessagingException
+     * @throws IOException
+     */
+    private void handleParts(MimeMessage message, Object con,
+            StringBuffer sbPlain, boolean isHTML,
+            ArrayList<MessageAttachment> attachmentList)
+            throws UnsupportedEncodingException, MessagingException,
+            IOException {
+        if (con instanceof String) {
+            if (message.getContentType().startsWith("text/html")) {
+                isHTML = true;
+            } else {
+                isHTML = false;
+            }
+            sbPlain.append((String) con);
 
-		} else if (con instanceof Multipart) {
+        } else if (con instanceof Multipart) {
 
-			Multipart mp = (Multipart) con;
-			String multipartContentType = mp.getContentType().toLowerCase();
-			System.out.println("mc: " + multipartContentType);
+            Multipart mp = (Multipart) con;
+            String multipartContentType = mp.getContentType().toLowerCase();
+            System.out.println("mc: " + multipartContentType);
 
-			if (multipartContentType.startsWith("multipart/alternative")) {
-				handleMultiPartAlternative(mp, sbPlain, isHTML);
-			} else {
-				for (int i = 0; i < mp.getCount(); i++) {
-					Part part = mp.getBodyPart(i);
+            if (multipartContentType.startsWith("multipart/alternative")) {
+                handleMultiPartAlternative(mp, sbPlain, isHTML);
+            } else {
+                for (int i = 0; i < mp.getCount(); i++) {
+                    Part part = mp.getBodyPart(i);
 
-					String contentType = part.getContentType().toLowerCase();
-					System.out.println("c: " + contentType);
+                    String contentType = part.getContentType().toLowerCase();
+                    System.out.println("c: " + contentType);
 
-					if (contentType.startsWith("text/plain")) {
-						isHTML = false;
-					} else if (contentType.startsWith("text/html")) {
-						isHTML = true;
-						sbPlain.append((String) part.getContent());
+                    if (contentType.startsWith("text/plain")) {
+                        isHTML = false;
+                    } else if (contentType.startsWith("text/html")) {
+                        isHTML = true;
+                        sbPlain.append((String) part.getContent());
 
-					} else if (contentType.startsWith("message/rfc822")) {
-						// Extract the message and pass it
-						MimeMessage msg = (MimeMessage) part.getDataHandler()
-								.getContent();
-						handleParts(msg, msg.getContent(), sbPlain, isHTML,
-								attachmentList);
+                    } else if (contentType.startsWith("message/rfc822")) {
+                        // Extract the message and pass it
+                        MimeMessage msg = (MimeMessage) part.getDataHandler()
+                                .getContent();
+                        handleParts(msg, msg.getContent(), sbPlain, isHTML,
+                                attachmentList);
 
-					} else {
+                    } else {
 
-						if (part.getFileName() != null) {
-							MessageAttachment attachment = new MessageAttachment();
-							attachment.setName(MimeUtility.decodeText(part
-									.getFileName()));
-							attachment.setContentType(part.getContentType());
-							attachment.setSize(part.getSize());
+                        if (part.getFileName() != null) {
+                            MessageAttachment attachment = new MessageAttachment();
+                            attachment.setName(MimeUtility.decodeText(part
+                                    .getFileName()));
+                            attachment.setContentType(part.getContentType());
+                            attachment.setSize(part.getSize());
 
-							attachmentList.add(attachment);
-						} else {
-							handleParts(message, part, sbPlain, isHTML,
-									attachmentList);
-						}
-					}
+                            attachmentList.add(attachment);
+                        } else {
+                            handleParts(message, part, sbPlain, isHTML,
+                                    attachmentList);
+                        }
+                    }
 
-				}
-			}
+                }
+            }
 
-		}
-	}
-	
-	private void handleMultiPartAlternative(Multipart mp,StringBuffer sbPlain, boolean isHTML) throws MessagingException, IOException {
-		String text = null;
-		for (int i = 0; i < mp.getCount(); i++) {
-			Part part = mp.getBodyPart(i);
-			
-			String contentType = part.getContentType().toLowerCase();
-			System.out.println("c: " + contentType);
+        }
+    }
+    
+    private void handleMultiPartAlternative(Multipart mp,StringBuffer sbPlain, boolean isHTML) throws MessagingException, IOException {
+        String text = null;
+        for (int i = 0; i < mp.getCount(); i++) {
+            Part part = mp.getBodyPart(i);
+            
+            String contentType = part.getContentType().toLowerCase();
+            System.out.println("c: " + contentType);
 
-			if (contentType.startsWith("text/plain")) {
-				// we prefer plain text of html.. Does this make sense for a webmail client ?
-				isHTML = false;
-				text = (String) part.getContent();
-				break;
+            if (contentType.startsWith("text/plain")) {
+                // we prefer plain text of html.. Does this make sense for a webmail client ?
+                isHTML = false;
+                text = (String) part.getContent();
+                break;
 
-			} else if (contentType.startsWith("text/html")) {
-				isHTML = true;
-				text = (String) part.getContent();
-			} 
-		}
-		sbPlain.append(text);
-	}
+            } else if (contentType.startsWith("text/html")) {
+                isHTML = true;
+                text = (String) part.getContent();
+            } 
+        }
+        sbPlain.append(text);
+    }
 
 }

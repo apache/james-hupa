@@ -30,28 +30,28 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 public class Loading extends Composite{
-	private HupaConstants constants = GWT.create(HupaConstants.class);
-	private SimplePanel sPanel = new SimplePanel();
-	private HorizontalPanel panel = new HorizontalPanel();
-	public Loading(boolean small) {
-		panel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
-		panel.setVerticalAlignment(HorizontalPanel.ALIGN_MIDDLE);
-		panel.add(new Image(GWT.getModuleBaseURL() + "../images/ajax-loader.gif"));
-		if (small == false) {
-			panel.add(new Label(" " + constants.loading()));
-		}
-		
-		initWidget(sPanel);
-	}
-	
-	public void show() {
-		sPanel.clear();
-		sPanel.add(panel);
-	}
-	
-	public void hide() {
-		sPanel.clear();
-		sPanel.add(new HTML("&nbsp"));
-	}
+    private HupaConstants constants = GWT.create(HupaConstants.class);
+    private SimplePanel sPanel = new SimplePanel();
+    private HorizontalPanel panel = new HorizontalPanel();
+    public Loading(boolean small) {
+        panel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
+        panel.setVerticalAlignment(HorizontalPanel.ALIGN_MIDDLE);
+        panel.add(new Image(GWT.getModuleBaseURL() + "../images/ajax-loader.gif"));
+        if (small == false) {
+            panel.add(new Label(" " + constants.loading()));
+        }
+        
+        initWidget(sPanel);
+    }
+    
+    public void show() {
+        sPanel.clear();
+        sPanel.add(panel);
+    }
+    
+    public void hide() {
+        sPanel.clear();
+        sPanel.add(new HTML("&nbsp"));
+    }
 
 }

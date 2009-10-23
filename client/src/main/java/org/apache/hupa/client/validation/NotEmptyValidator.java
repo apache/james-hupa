@@ -28,24 +28,24 @@ import eu.maydu.gwt.validation.client.Validator;
 import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
 
 public class NotEmptyValidator extends Validator<NotEmptyValidator> {
-	private HasText text;
+    private HasText text;
 
-	public NotEmptyValidator(HasText text) {
-		this.text = text;
-	}
-	@Override
-	public void invokeActions(ValidationResult result) {
-		for (ValidationAction<HasText> action : getFailureActions())
-			action.invoke(result, text);
-	}
+    public NotEmptyValidator(HasText text) {
+        this.text = text;
+    }
+    @Override
+    public void invokeActions(ValidationResult result) {
+        for (ValidationAction<HasText> action : getFailureActions())
+            action.invoke(result, text);
+    }
 
-	@Override
-	public <V extends ValidationMessages> ValidationResult validate(
-			V messages) {
-		if (text.getText().trim().length() < 1) {
-			return new ValidationResult();
-		}
-		return null;
-	}
-	
+    @Override
+    public <V extends ValidationMessages> ValidationResult validate(
+            V messages) {
+        if (text.getText().trim().length() < 1) {
+            return new ValidationResult();
+        }
+        return null;
+    }
+    
 }

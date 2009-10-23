@@ -23,14 +23,14 @@ import org.apache.hupa.shared.data.IMAPFolder;
 
 public class FetchRecentMessages extends FetchMessages{
 
-	private static final long serialVersionUID = 4380357285905033821L;
+    private static final long serialVersionUID = 4380357285905033821L;
 
-	protected FetchRecentMessages() {
-	}
-	
-	public FetchRecentMessages(IMAPFolder folder, int start,
-			int offset, String searchString) {
-		super(folder, start, offset, searchString);
-	}
+    protected FetchRecentMessages() {
+    }
+    
+    public FetchRecentMessages(IMAPFolder folder, int start,
+            int offset, String searchString) {
+        super(folder, start, offset, searchString);
+    }
 
 }

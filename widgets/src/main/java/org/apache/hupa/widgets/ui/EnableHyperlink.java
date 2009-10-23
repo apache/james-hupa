@@ -35,82 +35,82 @@ import com.google.gwt.user.client.ui.SimplePanel;
  *
  */
 public class EnableHyperlink extends Composite implements HasClickHandlers,HasHTML,HasText, HasEnable{
-	private SimplePanel panel = new SimplePanel();
-	private Hyperlink link;
-	private HTML html;
-	
-	public EnableHyperlink(String text, String historyToken) {
-		this(text,false,historyToken);
-	}
-	
-	public EnableHyperlink(String text, boolean asHTML, String historyToken) {
-		link = new Hyperlink(text,asHTML,historyToken);
-		html = new HTML();
-		if (asHTML) {
-			html.setHTML(text);
-		} else {
-			html.setText(text);
-		}
-		
-		// mimic hyperlink 
-		html.getElement().getStyle().setProperty("textDecoration", "underline");
-		
-		// use color code to workaround for https://issues.apache.org/jira/browse/HUPA-27
-		html.getElement().getStyle().setProperty("color", "#8d8d8d");
-		panel.setWidget(link);
-		initWidget(panel);
-	}
-	/*
-	 * (non-Javadoc)
-	 * @see com.google.gwt.event.dom.client.HasClickHandlers#addClickHandler(com.google.gwt.event.dom.client.ClickHandler)
-	 */
-	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		return link.addClickHandler(handler);
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see com.google.gwt.user.client.ui.HasText#getText()
-	 */
-	public String getText() {
-		return link.getText();
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see com.google.gwt.user.client.ui.HasText#setText(java.lang.String)
-	 */
-	public void setText(String text) {
-		link.setText(text);
-		html.setText(text);
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see com.google.gwt.user.client.ui.HasHTML#getHTML()
-	 */
-	public String getHTML() {
-		return link.getHTML();
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see com.google.gwt.user.client.ui.HasHTML#setHTML(java.lang.String)
-	 */
-	public void setHTML(String html) {
-		this.html.setHTML(html);
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.hupa.client.widgets.HasEnable#setEnabled(boolean)
-	 */
-	public void setEnabled(boolean enable) {
-		if (enable) {
-			panel.setWidget(link);
-		} else {
-			panel.setWidget(html);
-		}
-	}
+    private SimplePanel panel = new SimplePanel();
+    private Hyperlink link;
+    private HTML html;
+    
+    public EnableHyperlink(String text, String historyToken) {
+        this(text,false,historyToken);
+    }
+    
+    public EnableHyperlink(String text, boolean asHTML, String historyToken) {
+        link = new Hyperlink(text,asHTML,historyToken);
+        html = new HTML();
+        if (asHTML) {
+            html.setHTML(text);
+        } else {
+            html.setText(text);
+        }
+        
+        // mimic hyperlink 
+        html.getElement().getStyle().setProperty("textDecoration", "underline");
+        
+        // use color code to workaround for https://issues.apache.org/jira/browse/HUPA-27
+        html.getElement().getStyle().setProperty("color", "#8d8d8d");
+        panel.setWidget(link);
+        initWidget(panel);
+    }
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.HasClickHandlers#addClickHandler(com.google.gwt.event.dom.client.ClickHandler)
+     */
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+        return link.addClickHandler(handler);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.HasText#getText()
+     */
+    public String getText() {
+        return link.getText();
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.HasText#setText(java.lang.String)
+     */
+    public void setText(String text) {
+        link.setText(text);
+        html.setText(text);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.HasHTML#getHTML()
+     */
+    public String getHTML() {
+        return link.getHTML();
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.HasHTML#setHTML(java.lang.String)
+     */
+    public void setHTML(String html) {
+        this.html.setHTML(html);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.widgets.HasEnable#setEnabled(boolean)
+     */
+    public void setEnabled(boolean enable) {
+        if (enable) {
+            panel.setWidget(link);
+        } else {
+            panel.setWidget(html);
+        }
+    }
 
 }

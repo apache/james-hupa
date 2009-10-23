@@ -29,25 +29,25 @@ import org.apache.hupa.shared.rpc.LogoutUserResult;
 
 public class LogoutUserHandlerTest extends AbstractHandlerTest{
 
-	
-	public void testLogout() {
-		String username = "test";
-		String password = "pass";
-		User user = new User();
-		user.setName(username);
-		user.setPassword(password);
-		user.setAuthenticated(true);
-		session.setAttribute("user", user);
-		LogoutUserHandler handler = new LogoutUserHandler(storeCache,new MockLog(),sessionProvider);
-		try {
-			LogoutUserResult result = handler.execute(new LogoutUser(), null);
-			assertFalse("Not authenticated anymore", result.getUser().getAuthenticated());
-			assertNull("User removed", session.getAttribute("user"));
-			
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail();
-		}
-		
-	}
+    
+    public void testLogout() {
+        String username = "test";
+        String password = "pass";
+        User user = new User();
+        user.setName(username);
+        user.setPassword(password);
+        user.setAuthenticated(true);
+        session.setAttribute("user", user);
+        LogoutUserHandler handler = new LogoutUserHandler(storeCache,new MockLog(),sessionProvider);
+        try {
+            LogoutUserResult result = handler.execute(new LogoutUser(), null);
+            assertFalse("Not authenticated anymore", result.getUser().getAuthenticated());
+            assertNull("User removed", session.getAttribute("user"));
+            
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
+        }
+        
+    }
 }

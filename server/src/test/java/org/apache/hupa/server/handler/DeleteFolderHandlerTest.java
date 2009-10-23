@@ -34,65 +34,65 @@ import org.apache.hupa.shared.rpc.DeleteFolder;
 
 public class DeleteFolderHandlerTest extends AbstractHandlerTest{
 
-	public void testDelete() throws MessagingException {
-		User user = createUser();
+    public void testDelete() throws MessagingException {
+        User user = createUser();
 
-		session.setAttribute("user", user);
-		storeCache.addValidUser(user.getName(),user.getPassword());
-		IMAPFolder folder = createFolder();
-		MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
-		Folder f1 = store.getFolder(folder.getFullName());
-		f1.create(Folder.HOLDS_FOLDERS);
-		
-		DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
+        session.setAttribute("user", user);
+        storeCache.addValidUser(user.getName(),user.getPassword());
+        IMAPFolder folder = createFolder();
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
+        Folder f1 = store.getFolder(folder.getFullName());
+        f1.create(Folder.HOLDS_FOLDERS);
+        
+        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
 
-		try {
-			handler.execute(new DeleteFolder(folder), null);
-			Folder f = store.getFolder(folder.getFullName());
-			assertFalse("not exists",f.exists());
-			
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail();
-		}
-		
-	}
-	
-	public void testDeleteNonExistFolder() throws MessagingException {
-		User user = createUser();
+        try {
+            handler.execute(new DeleteFolder(folder), null);
+            Folder f = store.getFolder(folder.getFullName());
+            assertFalse("not exists",f.exists());
+            
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
+        }
+        
+    }
+    
+    public void testDeleteNonExistFolder() throws MessagingException {
+        User user = createUser();
 
-		session.setAttribute("user", user);
-		storeCache.addValidUser(user.getName(),user.getPassword());
-		IMAPFolder folder = createFolder();
-		DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
+        session.setAttribute("user", user);
+        storeCache.addValidUser(user.getName(),user.getPassword());
+        IMAPFolder folder = createFolder();
+        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
 
-		try {
-			handler.execute(new DeleteFolder(folder), null);
-			fail("Folder should not exist");
-		} catch (ActionException e) {
-			//e.printStackTrace();
-		}	
-	}
-	
-	public void testInvalidSessionId() {
-		IMAPFolder folder = createFolder();
-		DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
-		try {
-			handler.execute(new DeleteFolder(folder), null);
-			fail("Invalid session");
-			
-		} catch (InvalidSessionException e) {
-			//e.printStackTrace();
-		} catch (ActionException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
-	private IMAPFolder createFolder() {
-		IMAPFolder folder = new IMAPFolder();
-		folder.setFullName("NewFolder");
-		folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPERATOR));
-		return folder;
-	}
+        try {
+            handler.execute(new DeleteFolder(folder), null);
+            fail("Folder should not exist");
+        } catch (ActionException e) {
+            //e.printStackTrace();
+        }    
+    }
+    
+    public void testInvalidSessionId() {
+        IMAPFolder folder = createFolder();
+        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
+        try {
+            handler.execute(new DeleteFolder(folder), null);
+            fail("Invalid session");
+            
+        } catch (InvalidSessionException e) {
+            //e.printStackTrace();
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+    
+    private IMAPFolder createFolder() {
+        IMAPFolder folder = new IMAPFolder();
+        folder.setFullName("NewFolder");
+        folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPERATOR));
+        return folder;
+    }
 }

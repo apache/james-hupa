@@ -27,44 +27,44 @@ import eu.maydu.gwt.validation.client.Validator;
 import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
 
 public class EmailListValidator extends Validator<EmailListValidator>{
-	private HasText text;
-	private String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-	public EmailListValidator(HasText text) {
-		this.text = text;
-	}
+    private HasText text;
+    private String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    public EmailListValidator(HasText text) {
+        this.text = text;
+    }
 
-	@Override
-	public void invokeActions(ValidationResult result) {
-		for (ValidationAction<HasText> action : getFailureActions())
-			action.invoke(result, text);
-	}
+    @Override
+    public void invokeActions(ValidationResult result) {
+        for (ValidationAction<HasText> action : getFailureActions())
+            action.invoke(result, text);
+    }
 
-	@Override
-	public <V extends ValidationMessages> ValidationResult validate(
-			V messages) {
-		if (isValidAddressList(text.getText()) == false) {
-			return new ValidationResult();
-		}
-		return null;
-	}
+    @Override
+    public <V extends ValidationMessages> ValidationResult validate(
+            V messages) {
+        if (isValidAddressList(text.getText()) == false) {
+            return new ValidationResult();
+        }
+        return null;
+    }
 
-	private boolean isValidAddressList(String text) {
-		if (text.length() > 0) {
-			String[] addresses = text.split(",");
-			if (addresses == null || addresses.length == 0) {
-				return isValidAddress(text);
-			} else {
-				for (int i = 0; i < addresses.length; i++) {
-					if (isValidAddress(addresses[i]) == false) {
-						return false;
-					}
-				}
-			}
-		}
-		return true;
-	}
+    private boolean isValidAddressList(String text) {
+        if (text.length() > 0) {
+            String[] addresses = text.split(",");
+            if (addresses == null || addresses.length == 0) {
+                return isValidAddress(text);
+            } else {
+                for (int i = 0; i < addresses.length; i++) {
+                    if (isValidAddress(addresses[i]) == false) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 
-	private boolean isValidAddress(String email) {
-		return email.matches(emailRegex);
-	}
+    private boolean isValidAddress(String email) {
+        return email.matches(emailRegex);
+    }
 }

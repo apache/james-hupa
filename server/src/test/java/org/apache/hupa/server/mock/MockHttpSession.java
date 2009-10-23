@@ -32,100 +32,100 @@ import javax.servlet.http.HttpSessionContext;
 
 @SuppressWarnings("deprecation")
 public class MockHttpSession implements HttpSession{
-	private Map<String,Object> attributeMap = new HashMap<String, Object>();
-	private Map<String,Object> valueMap = new HashMap<String, Object>();
-	private long cTime;
-	private String id;
-	
-	public MockHttpSession(String id) {
-		cTime = System.currentTimeMillis();
-		this.id = id;
-	}
-	
-	public Object getAttribute(String name) {
-		return attributeMap.get(name);
-	}
+    private Map<String,Object> attributeMap = new HashMap<String, Object>();
+    private Map<String,Object> valueMap = new HashMap<String, Object>();
+    private long cTime;
+    private String id;
+    
+    public MockHttpSession(String id) {
+        cTime = System.currentTimeMillis();
+        this.id = id;
+    }
+    
+    public Object getAttribute(String name) {
+        return attributeMap.get(name);
+    }
 
-	
-	@SuppressWarnings("unchecked")
-	public Enumeration getAttributeNames() {
-		return new Enumeration() {
-			Iterator it = attributeMap.keySet().iterator();
-			public boolean hasMoreElements() {
-				return it.hasNext();
-			}
+    
+    @SuppressWarnings("unchecked")
+    public Enumeration getAttributeNames() {
+        return new Enumeration() {
+            Iterator it = attributeMap.keySet().iterator();
+            public boolean hasMoreElements() {
+                return it.hasNext();
+            }
 
-			public Object nextElement() {
-				return it.next();
-			}
-			
-		};
-	}
+            public Object nextElement() {
+                return it.next();
+            }
+            
+        };
+    }
 
-	public long getCreationTime() {
-		return cTime;
-	}
+    public long getCreationTime() {
+        return cTime;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public long getLastAccessedTime() {
-		return 0;
-	}
+    public long getLastAccessedTime() {
+        return 0;
+    }
 
-	public int getMaxInactiveInterval() {
-		return 0;
-	}
+    public int getMaxInactiveInterval() {
+        return 0;
+    }
 
-	public ServletContext getServletContext() {
-		return null;
-	}
+    public ServletContext getServletContext() {
+        return null;
+    }
 
-	public HttpSessionContext getSessionContext() {
-		return null;
-	}
+    public HttpSessionContext getSessionContext() {
+        return null;
+    }
 
-	public Object getValue(String name) {
-		return valueMap.get(name);
-	}
+    public Object getValue(String name) {
+        return valueMap.get(name);
+    }
 
-	public String[] getValueNames() {
-		List<String> names = new ArrayList<String>();
-		Iterator<String> it = valueMap.keySet().iterator();
-		while (it.hasNext()) {
-			names.add(it.next());
-		}
-		return names.toArray(new String[names.size()]);
-	}
+    public String[] getValueNames() {
+        List<String> names = new ArrayList<String>();
+        Iterator<String> it = valueMap.keySet().iterator();
+        while (it.hasNext()) {
+            names.add(it.next());
+        }
+        return names.toArray(new String[names.size()]);
+    }
 
-	public void invalidate() {
-	}
+    public void invalidate() {
+    }
 
-	public boolean isNew() {
-		return false;
-	}
+    public boolean isNew() {
+        return false;
+    }
 
-	public void putValue(String name, Object value) {
-		valueMap.put(name, value);
-	}
+    public void putValue(String name, Object value) {
+        valueMap.put(name, value);
+    }
 
-	public void removeAttribute(String name) {
-		attributeMap.remove(name);
-	}
+    public void removeAttribute(String name) {
+        attributeMap.remove(name);
+    }
 
-	public void removeValue(String name) {
-		valueMap.remove(name);
-	
-	}
+    public void removeValue(String name) {
+        valueMap.remove(name);
+    
+    }
 
-	public void setAttribute(String name, Object value) {
-		attributeMap.put(name, value);
-	}
+    public void setAttribute(String name, Object value) {
+        attributeMap.put(name, value);
+    }
 
-	public void setMaxInactiveInterval(int interval) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setMaxInactiveInterval(int interval) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

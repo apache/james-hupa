@@ -25,23 +25,23 @@ import net.customware.gwt.dispatch.shared.Result;
 
 public class GetMessageDetailsResult implements Result{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6738085246457556043L;
-	private MessageDetails message;
-	
-	@SuppressWarnings("unused")
-	private GetMessageDetailsResult() {
-		
-	}
-	
-	public GetMessageDetailsResult(MessageDetails message) {
-		this.message = message;
-	}
-	
-	public MessageDetails getMessageDetails() {
-		return message;
-	}
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6738085246457556043L;
+    private MessageDetails message;
+    
+    @SuppressWarnings("unused")
+    private GetMessageDetailsResult() {
+        
+    }
+    
+    public GetMessageDetailsResult(MessageDetails message) {
+        this.message = message;
+    }
+    
+    public MessageDetails getMessageDetails() {
+        return message;
+    }
 
 }
