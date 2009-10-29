@@ -416,11 +416,6 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
         registerHandler(eventBus.addHandler(DecreaseUnseenEvent.TYPE, new DecreaseUnseenEventHandler() {
 
             public void onDecreaseUnseenEvent(DecreaseUnseenEvent event) {
-                // Check if the folder was the trash folder. If not increase the
-                // message count of the trash folder
-                if (user.getSettings().getTrashFolderName().equalsIgnoreCase(event.getFolder().getFullName()) == false) {
-                    display.increaseUnseenMessageCount(new IMAPFolder(user.getSettings().getTrashFolderName()), event.getAmount());
-                }
                 display.decreaseUnseenMessageCount(event.getFolder(), event.getAmount());
             }
 

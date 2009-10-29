@@ -23,6 +23,9 @@ import java.util.Properties;
 
 import junit.framework.Assert;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -73,6 +76,23 @@ public class ServerModulTest {
         p = module.loadProperties();
         Assert.assertNotNull(p);
         Assert.assertNull(p.get("IMAPServerAddress"));
+        System.clearProperty(ServerModul.SYS_PROP_CONFIG_FILE);
+
+    }
+
+    @Test
+    public void testLoadDemoProperties() throws Exception {
+        File tmp = File.createTempFile("foo", ".properties");
+        tmp.deleteOnExit();
+        FileUtils.writeStringToFile(tmp, "IMAPServerAddress=" + InMemoryIMAPStoreCache.DEMO_MODE);
+
+        System.setProperty(ServerModul.SYS_PROP_CONFIG_FILE, tmp.toString());
+        Properties p = module.loadProperties();
+        Assert.assertNotNull(p);
+        Assert.assertEquals(MockIMAPFolder.mockSettings.getInboxFolderName(), p.get("DefaultInboxFolder"));
+        Assert.assertEquals(MockIMAPFolder.mockSettings.getTrashFolderName(), p.get("DefaultTrashFolder"));
+        Assert.assertEquals(MockIMAPFolder.mockSettings.getSentFolderName(), p.get("DefaultSentFolder"));
+        
         System.clearProperty(ServerModul.SYS_PROP_CONFIG_FILE);
 
     }

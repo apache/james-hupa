@@ -45,4 +45,12 @@ public class FetchFoldersResult implements Result{
     public ArrayList<IMAPFolder> getFolders() {
         return folders;
     }
+    
+    public String toString() {
+    	String ret = "";
+    	for (IMAPFolder f: folders) {
+    		ret += f.getFullName() + " ";
+    	}
+    	return ret;
+    }
 }

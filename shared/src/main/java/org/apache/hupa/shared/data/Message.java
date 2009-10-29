@@ -38,8 +38,10 @@ public class Message extends AbstractMessage {
     private Date rDate;
     
     public enum IMAPFlag {
-        SEEN, DELETED, RECENT, ANSWERED, JUNK, DRAFT
+        SEEN, DELETED, RECENT, ANSWERED, JUNK, DRAFT, FLAGGED, USER
     }
+
+    
 
     public void setFlags(ArrayList<IMAPFlag> flags) {
         this.flags = flags;
@@ -71,7 +73,7 @@ public class Message extends AbstractMessage {
     }
 
     public Date getReceivedDate() {
-        return rDate;
+        return rDate == null ? new Date(): rDate;
     }
     
 

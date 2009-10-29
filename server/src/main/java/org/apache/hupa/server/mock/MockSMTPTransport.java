@@ -17,31 +17,32 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.server.handler;
+package org.apache.hupa.server.mock;
 
-import net.customware.gwt.dispatch.shared.ActionException;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.URLName;
 
-import org.apache.hupa.server.mock.MockLog;
-import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.rpc.Noop;
-import org.apache.hupa.shared.rpc.NoopResult;
+import org.apache.hupa.server.InMemoryIMAPStoreCache;
 
-public class NoopHandlerTest extends AbstractHandlerTest{
 
-    public void testNoop() {
-        NoopHandler handler = new NoopHandler(storeCache,new MockLog(),httpSessionProvider);
-        User user = createUser();
-        Noop action = new Noop();
-        storeCache.addValidUser(user.getName(), user.getPassword());
-        httpSession.setAttribute("user", user);
-        try {
-            NoopResult result = handler.execute(action, null);
-            assertNotNull(result);
-        } catch (ActionException e) {
-            e.printStackTrace();
-            fail();
+public class MockSMTPTransport extends Transport {
 
-        }
-        
+    static final URLName demoUrl = new URLName(null, InMemoryIMAPStoreCache.DEMO_MODE, 143, null, null, null);
+    
+    public MockSMTPTransport(Session session) {
+        super(session, demoUrl);
     }
+
+    @Override
+    public void sendMessage(Message msg, Address[] addresses) throws MessagingException {
+    }
+    
+    @Override
+    public void connect(String host, int port, String user, String password) throws MessagingException {
+    }
+    
 }

@@ -33,6 +33,14 @@ public class MessageDetails implements Serializable{
     private long uid;
     private String raw;
 
+    public String toString() {
+        return "uid=" + String.valueOf(getUid()) +
+        " isHTML=" + isHTML +
+        " text.length=" + (text != null ? text.length() : 0) + 
+        " raw.length=" + (raw != null ? raw.length() : 0) + 
+        " attachments=" + (aList != null ? aList.size() : 0); 
+    }
+    
     
     public long getUid() {
         return uid;
@@ -114,10 +122,6 @@ public class MessageDetails implements Serializable{
     }
 
 
-    public String toString() {
-        return String.valueOf(getUid());
-    }
-    
     public boolean equals(Object obj) {
         if (obj instanceof MessageDetails) {
             if (((MessageDetails)obj).getUid() == getUid()) {

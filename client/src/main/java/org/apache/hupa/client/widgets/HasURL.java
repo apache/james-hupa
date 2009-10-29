@@ -17,31 +17,9 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.server.handler;
+package org.apache.hupa.client.widgets;
 
-import net.customware.gwt.dispatch.shared.ActionException;
-
-import org.apache.hupa.server.mock.MockLog;
-import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.rpc.Noop;
-import org.apache.hupa.shared.rpc.NoopResult;
-
-public class NoopHandlerTest extends AbstractHandlerTest{
-
-    public void testNoop() {
-        NoopHandler handler = new NoopHandler(storeCache,new MockLog(),httpSessionProvider);
-        User user = createUser();
-        Noop action = new Noop();
-        storeCache.addValidUser(user.getName(), user.getPassword());
-        httpSession.setAttribute("user", user);
-        try {
-            NoopResult result = handler.execute(action, null);
-            assertNotNull(result);
-        } catch (ActionException e) {
-            e.printStackTrace();
-            fail();
-
-        }
-        
-    }
+public interface HasURL {
+    public String getUrl();
+    public void setUrl(String url);
 }

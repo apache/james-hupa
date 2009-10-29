@@ -29,8 +29,8 @@ import org.apache.hupa.shared.rpc.LoginUserResult;
 
 import com.google.inject.Provider;
 
-public class LoginUserHandlerTest extends AbstractHandlerTest{
-    private LoginUserHandler handler = new LoginUserHandler(storeCache, new MockLog(),sessionProvider, new Provider<Settings>() {
+public class LoginUserHandlerTest extends AbstractHandlerTest {
+    private LoginUserHandler handler = new LoginUserHandler(storeCache, new MockLog(),httpSessionProvider, new Provider<Settings>() {
 
         public Settings get() {
             return new Settings();
@@ -43,7 +43,7 @@ public class LoginUserHandlerTest extends AbstractHandlerTest{
         } catch (ActionException e) {
             //e.printStackTrace();
         }
-        assertNull("no user stored in session", session.getAttribute("user"));
+        assertNull("no user stored in session", httpSession.getAttribute("user"));
     }
     
     public void testValidLogin() {
@@ -58,7 +58,7 @@ public class LoginUserHandlerTest extends AbstractHandlerTest{
             assertEquals("Authenticated", true, u.getAuthenticated());
             assertEquals("Authenticated", username, u.getName());
             assertEquals("Authenticated", password, u.getPassword());
-            assertEquals("User stored in session", u, session.getAttribute("user"));
+            assertEquals("User stored in session", u, httpSession.getAttribute("user"));
         } catch (ActionException e) {
             e.printStackTrace();
             fail("Should throw an exception");

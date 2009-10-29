@@ -42,11 +42,11 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
 
     
     public void testDeleteFolderNotExists() throws MessagingException {
-        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
+        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),httpSessionProvider);
     
         User user = createUser();
         storeCache.addValidUser(user.getName(), user.getPassword());
-        session.setAttribute("user", user);
+        httpSession.setAttribute("user", user);
         IMAPFolder folder = new IMAPFolder();
         folder.setFullName("NOT_EXISTS");
         DeleteMessageByUid action = new DeleteMessageByUid(folder,new ArrayList<Long>());
@@ -61,11 +61,11 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
     
     public void testDeleteFolderExistsAndNotTrash() throws MessagingException {
         Session s = Session.getInstance(new Properties());
-        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
+        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),httpSessionProvider);
     
         User user = createUser();
         storeCache.addValidUser(user.getName(), user.getPassword());
-        session.setAttribute("user", user);
+        httpSession.setAttribute("user", user);
         IMAPFolder folder = new IMAPFolder();
         folder.setFullName("EXISTS");
         MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
@@ -75,8 +75,8 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
         f.create(Folder.HOLDS_FOLDERS);
         f.addMessages(new Message[] { new MimeMessage(s), new MimeMessage(s), new MimeMessage(s)});
         ArrayList<Long> uids = new ArrayList<Long>();
-        uids.add(new Long(1));
-        uids.add(new Long(3));
+        uids.add(0l);
+        uids.add(2l);
         DeleteMessageByUid action = new DeleteMessageByUid(folder, uids);
 
         MockIMAPFolder f3 = (MockIMAPFolder) store.getFolder(user.getSettings().getTrashFolderName());
@@ -98,11 +98,11 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
     
     public void testDeleteFolderExistsAndIsTrash() throws MessagingException {
         Session s = Session.getInstance(new Properties());
-        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),sessionProvider);
+        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),httpSessionProvider);
     
         User user = createUser();
         storeCache.addValidUser(user.getName(), user.getPassword());
-        session.setAttribute("user", user);
+        httpSession.setAttribute("user", user);
         IMAPFolder folder = new IMAPFolder();
         folder.setFullName(user.getSettings().getTrashFolderName());
         MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
@@ -112,8 +112,8 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
         f.create(Folder.HOLDS_FOLDERS);
         f.addMessages(new Message[] { new MimeMessage(s), new MimeMessage(s), new MimeMessage(s)});
         ArrayList<Long> uids = new ArrayList<Long>();
-        uids.add(new Long(1));
-        uids.add(new Long(3));
+        uids.add(0l);
+        uids.add(2l);
         DeleteMessageByUid action = new DeleteMessageByUid(folder, uids);
 
         try {

@@ -19,6 +19,10 @@
 
 package org.apache.hupa.server.mock;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,24 +32,42 @@ import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.Flags.Flag;
+import javax.mail.internet.MimeMessage;
 import javax.mail.search.SearchTerm;
+
+import org.apache.hupa.shared.data.Settings;
 
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
 public class MockIMAPFolder extends IMAPFolder {
 
+    public static final char SEPARATOR = '.';
+	public static final String DEMO_MODE_SENT_FOLDER = "Demo-Sent";
+	public static final String DEMO_MODE_TRASH_FOLDER = "Demo-Trash";
+	public static final String DEMO_MODE_INBOX_FOLDER = "Demo-Inbox";
+	public static final String DEMO_MODE_DEFAULT_FOLDER = "";
+	public static final String DEMO_MODE_MESSAGES_LOCATION = "mime" + File.separator;
+
+	public List<Message> messages = new ArrayList<Message>();
     private boolean closed;
     private boolean exists;
-    public final static char SEPERATOR = '.';
+    
+    public final static Settings mockSettings = new Settings() {
+		private static final long serialVersionUID = -6650449479903482066L;
+		{
+			setInboxFolderName(MockIMAPFolder.DEMO_MODE_INBOX_FOLDER);
+			setSentFolderName(MockIMAPFolder.DEMO_MODE_SENT_FOLDER);
+			setTrashFolderName(MockIMAPFolder.DEMO_MODE_TRASH_FOLDER);
+		}
+	};
 
     public MockIMAPFolder(String fullName, IMAPStore store) {
-        super(fullName, SEPERATOR, store);
+        super(fullName, (DEMO_MODE_DEFAULT_FOLDER.equals(fullName) ? '\0' : SEPARATOR), store);
     }
-
-    public List<Message> messages = new ArrayList<Message>();
 
     @Override
     public synchronized Message[] addMessages(Message[] mArray)
@@ -53,6 +75,11 @@ public class MockIMAPFolder extends IMAPFolder {
         checkExists();
         messages.addAll(Arrays.asList(mArray));
         return mArray;
+    }
+    
+    @Override
+    public void appendMessages(Message[] msgs) throws MessagingException {
+    	addMessages(msgs);
     }
 
     @Override
@@ -73,6 +100,21 @@ public class MockIMAPFolder extends IMAPFolder {
         checkExists();
         ((MockIMAPFolder) folder).addMessages(messages);
 
+    }
+    
+    public void loadDemoMessages(Session session) {
+    	for(int i=0;;i++) {
+        	URL url = Thread.currentThread().getContextClassLoader().getResource(DEMO_MODE_MESSAGES_LOCATION + i + ".msg");
+        	if (url == null) break;
+    		try {
+	            FileInputStream is = new FileInputStream(url.getFile());
+	            addMessages(new Message[]{new MimeMessage(session, is)});
+            } catch (MessagingException e) {
+	            e.printStackTrace();
+            } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+            }
+    	}
     }
 
     @Override
@@ -125,7 +167,7 @@ public class MockIMAPFolder extends IMAPFolder {
         if (messages.size() < msgnum) {
             throw new MessagingException();
         }
-        return messages.get(msgnum - 1);
+        return messages.get(msgnum);
     }
 
     @Override
@@ -266,16 +308,9 @@ public class MockIMAPFolder extends IMAPFolder {
     public synchronized Message[] getMessages(int start, int end)
             throws MessagingException {
         checkExists();
-        int realStart = start - 1;
-        int realEnd = end - 1;
-        int range = realEnd - realStart;
-        int count = 0;
-        Message[] array = new Message[range];
-        while (realStart < realEnd) {
-            array[count] = messages.get(realStart);
-            realStart++;
-            count++;
-        }
+        Message[] array = new Message[end- --start];
+        for (int i=0; start<end; i++,start++) 
+            array[i] = messages.get(start);
         return array;
     }
 
@@ -320,7 +355,12 @@ public class MockIMAPFolder extends IMAPFolder {
 
     @Override
     public synchronized int getUnreadMessageCount() throws MessagingException {
-        return 1900;
+    	int ret = getMessageCount();
+    	for (Message msg: messages) {
+    		if (msg.getFlags().contains(Flag.SEEN))
+    			ret --;
+    	}
+        return ret;
     }
 
     private void checkExists() throws MessagingException {

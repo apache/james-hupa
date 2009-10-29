@@ -6,8 +6,9 @@
 	<classpathentry kind="src" output="widgets/target/classes" path="widgets/src/main/java"/>
 	<classpathentry kind="src" output="client/war/WEB-INF/classes" path="client/src/main/java"/>
 	<classpathentry excluding="**" kind="src" output="client/war/WEB-INF/classes" path="client/src/main/resources"/>
+	<classpathentry kind="src" output="client/war/WEB-INF/classes" path="server/src/main/resources"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

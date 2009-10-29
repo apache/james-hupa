@@ -4,6 +4,28 @@ After that change to hupa directory and execute the following cmd:
 
 * mvn clean package
 
+###### Configuring server side  ################
+
+Hupa uses a properties file to know the IMAP and SMTP servers configuration.
+There is an example configuration file in 'server/src/main/webapp/WEB-INF/conf/config.properties'
+
+- You can put your configuration parameters in either of these files:
+  $HOME/.hupa/config.properties
+  /etc/default/hupa
+- Or anywhere if you start your application server with the parameter:
+  -Dhupa.config.file=full_path_to_your_properties_file
+
+###### Using hupa in demo mode #################
+
+In demo mode there is not necessary any imap or smtp server.
+A bunch of example messages and folders are shown to the useri to be manipulated.
+Almost every hupa feature work in demo mode.
+
+To enable demo mode for incomming messages set 'IMAPServerAddress=demo-mode' and
+'SMTPServerAddress=demo-mode' for outgoing messages.
+
+To login into the system in thi mode use the user 'demo' with password 'demo'  
+
 ###### Eclipse GWT Plugin notes ################
 
 - If you want to run hupa in hosted mode be sure to add the following line as "vm argument" in the Run configuration:

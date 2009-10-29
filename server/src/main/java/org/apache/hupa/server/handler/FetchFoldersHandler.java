@@ -68,13 +68,11 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
             // loop over all folders
             for (int i = 0; i < folders.length; i++) {
                 Folder f = folders[i];
-
                 createIMAPFolderTree(fList, createFolder(f), f.list());
-                
             }
-            
             return new FetchFoldersResult(fList);
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error("Unable to get folders for User " + user,e);
             throw new ActionException("Unable to get folders for User "
                     + user);
@@ -99,7 +97,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
      */
     private IMAPFolder createFolder(Folder folder) {
 
-        String fullName = folder.getFullName();
+    	String fullName = folder.getFullName();
         String delimiter;
         IMAPFolder iFolder = null;
         
@@ -107,6 +105,8 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
             delimiter = String.valueOf(folder.getSeparator());
             iFolder = new IMAPFolder(fullName);
             iFolder.setDelimiter(delimiter);
+            if("[Gmail]".equals(folder.getFullName()))
+            	return iFolder;
             iFolder.setMessageCount(folder.getMessageCount());
             iFolder.setSubscribed(folder.isSubscribed());
             iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());

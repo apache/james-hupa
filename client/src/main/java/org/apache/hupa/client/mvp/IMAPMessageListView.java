@@ -376,8 +376,12 @@ public class IMAPMessageListView extends Composite implements Display{
             
             dispatcher.execute(new FetchMessages(folder, request.getStartRow(), request.getNumRows(),searchValue),new HupaCallback<FetchMessagesResult>(dispatcher, eventBus) {
                 public void callback(final FetchMessagesResult result) {
-                    eventBus.fireEvent(new MessagesReceivedEvent(folder,result.getMessages()));
-                     TableModelHelper.Response<Message> response = new TableModelHelper.Response<Message>() {
+                	// Update folder information before notifying presenter
+                	folder.setMessageCount(result.getRealCount());
+                	folder.setUnseenMessageCount(result.getRealUnreadCount());
+                	// Notify presenter to update folder tree view
+                    eventBus.fireEvent(new MessagesReceivedEvent(folder, result.getMessages()));
+                    TableModelHelper.Response<Message> response = new TableModelHelper.Response<Message>() {
                         @Override
                         public Iterator<Message> getRowValues() {
                             return result.getMessages().iterator();

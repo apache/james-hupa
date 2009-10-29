@@ -25,6 +25,8 @@ import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.client.mvp.IMAPMessagePresenter.Display;
 import org.apache.hupa.client.widgets.HasDialog;
+import org.apache.hupa.client.widgets.HasURL;
+import org.apache.hupa.client.widgets.Iframe;
 import org.apache.hupa.client.widgets.Loading;
 import org.apache.hupa.client.widgets.MyDialogBox;
 import org.apache.hupa.shared.data.MessageAttachment;
@@ -41,7 +43,6 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHTML;
@@ -73,7 +74,7 @@ public class IMAPMessageView extends Composite implements Display{
     private Hyperlink backButton = new Hyperlink(constants.backButton(),"");
     private FlowPanel attachments = new FlowPanel();
     private MyDialogBox rawDialogBox = new MyDialogBox();
-    private Frame rawFrame = new Frame();
+    private Iframe rawFrame = new Iframe();
     public final static int DELETE_BUTTON = 0;
     public final static int REPLY_BUTTON = 1;
     public final static int REPLY_ALL_BUTTON = 2;
@@ -264,11 +265,11 @@ public class IMAPMessageView extends Composite implements Display{
         return showRawButton;
     }
 
-    public HasDialog getShowRawMessageDialog() {
+    public HasDialog getRawMessageDialog() {
         return rawDialogBox;
     }
 
-    public Frame getShowRawMessageFrame() {
+    public HasURL getRawMessageURL() {
         return rawFrame;
     }
     

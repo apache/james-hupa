@@ -31,6 +31,7 @@ import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.widgets.HasDialog;
+import org.apache.hupa.client.widgets.HasURL;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -62,8 +63,8 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
         public HasText getCc();
 
         public HasText getSubject();
-        public Frame getShowRawMessageFrame();
-        public HasDialog getShowRawMessageDialog();
+        public HasURL getRawMessageURL();
+        public HasDialog getRawMessageDialog();
         public HasHTML getContent();
         public HasClickHandlers getShowRawMessageClick();
         public HasClickHandlers getDeleteButtonClick();
@@ -106,8 +107,10 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
         display.getTo().setText(Util.arrayToString(message.getTo()));
         display.getSubject().setText(message.getSubject());
         String con = messageDetails.getText();
+        // TODO: do this in the server so it is easier to test.
+        // The server should send all the messages as html.
         if (messageDetails.isHTML() == false) {
-            con = Util.toHtml(con);
+        	con = "<pre>" + Util.escapeHtmlTags(con) + "</pre>";
         }
         display.getContent().setHTML(con);
         display.setAttachments(messageDetails.getMessageAttachments(), folder.getFullName(),message.getUid());
@@ -168,8 +171,8 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 
             public void onClick(ClickEvent event) {
                 String message_url = "/hupa/messageSourceServlet?uid=" + message.getUid() + "&folder=" + folder.getFullName();
-                display.getShowRawMessageFrame().setUrl(message_url);
-                display.getShowRawMessageDialog().center();
+                display.getRawMessageURL().setUrl(message_url);
+                display.getRawMessageDialog().center();
             }
             
         }));

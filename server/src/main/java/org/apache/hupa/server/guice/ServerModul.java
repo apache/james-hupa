@@ -28,7 +28,6 @@ import javax.mail.Session;
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.DemoModeIMAPStore;
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
@@ -52,6 +51,7 @@ import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.handler.SetFlagsHandler;
 import org.apache.hupa.server.handler.TagMessagesHandler;
+import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
 import org.apache.hupa.server.servlet.MessageSourceServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
@@ -71,7 +71,8 @@ public class ServerModul extends ActionHandlerModule {
 
     public static final String[] CONFIG_PROPERTIES = {
             System.getenv("HOME") + "/.hupa/config.properties",
-            "/etc/default/hupa", "config.properties" };
+            "/etc/default/hupa"
+            };
     public static final String CONF_DIR = "WEB-INF" + File.separator + "conf" + File.separator;
 
     private String configDir;
@@ -117,12 +118,6 @@ public class ServerModul extends ActionHandlerModule {
         try {
             // Bind addresses and ports for imap and smtp
             properties = loadProperties();
-            // Configure default parameters for Hupa in demo mode
-            if (properties.get("IMAPServerAddress").equals(InMemoryIMAPStoreCache.DEMO_MODE)) {
-                properties.put("DefaultInboxFolder", DemoModeIMAPStore.DEMO_MODE_INBOX_FOLDER);
-                properties.put("DefaultTrashFolder", DemoModeIMAPStore.DEMO_MODE_TRASH_FOLDER);
-                properties.put("DefaultSentFolder", DemoModeIMAPStore.DEMO_MODE_SENT_FOLDER);
-            }
             Names.bindProperties(binder(), properties);
         } catch (Exception e) {
             throw new RuntimeException("Unable to to configure hupa server," +
@@ -142,13 +137,29 @@ public class ServerModul extends ActionHandlerModule {
 
         if (properties == null) {
             for (String name : CONFIG_PROPERTIES) {
-            
                 properties = loadProperties(name);
                 if (properties != null)
                     break;
             }
         }
 
+        // Configure default parameters for Hupa in demo mode
+        if (properties == null || InMemoryIMAPStoreCache.DEMO_MODE.equals(properties.get("IMAPServerAddress"))) {
+            properties = new Properties();
+			properties.put("IMAPServerAddress", InMemoryIMAPStoreCache.DEMO_MODE);
+			properties.put("IMAPServerPort", "143");
+			properties.put("IMAPS", "false");
+			properties.put("SMTPServerAddress", InMemoryIMAPStoreCache.DEMO_MODE);
+			properties.put("SMTPServerPort", "25");
+			properties.put("SMTPS", "false");
+			properties.put("SMTPAuth", "false");
+			
+			properties.put("DefaultInboxFolder", MockIMAPFolder.mockSettings.getInboxFolderName());
+			properties.put("DefaultTrashFolder", MockIMAPFolder.mockSettings.getTrashFolderName());
+			properties.put("DefaultSentFolder", MockIMAPFolder.mockSettings.getSentFolderName());
+			properties.put("PostFetchMessageCount", "0");
+        }
+        
         return properties;
     }
 
@@ -173,7 +184,7 @@ public class ServerModul extends ActionHandlerModule {
                 e.printStackTrace();
             }
         }
-
+        
         return properties;
     }
 

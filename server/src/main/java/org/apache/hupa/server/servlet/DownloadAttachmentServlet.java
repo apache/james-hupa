@@ -34,7 +34,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
@@ -75,74 +74,79 @@ public class DownloadAttachmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
+    	
+    	User user = (User) request.getSession().getAttribute("user");
+    	if (user == null)
+    		throw new ServletException("Invalid session");
+    	
         String message_uuid = request.getParameter("message_uuid");
         String attachmentName = request.getParameter("attachment_name");
-        String sessionId = request.getParameter("sessionId");
         String folderName = request.getParameter("folder_name");
-        HttpSession session = request.getSession();
-        if (session.getId().equals(sessionId)) {
-            response.setContentType("application/download");
-            response.setHeader("Content-disposition", "attachment; filename="
-                    + attachmentName + "");
-            InputStream in = null;
-            OutputStream out = response.getOutputStream();
-            
+        response.setHeader("Content-disposition", "attachment; filename="
+                + attachmentName + "");
+        InputStream in = null;
+        OutputStream out = response.getOutputStream();
 
-            IMAPFolder folder = null;
-            try {
-                Store store = cache.get((User) request.getSession().getAttribute(
-                "user"));
-                folder = (IMAPFolder) store.getFolder(folderName);
-                if (folder.isOpen() == false) {
-                    folder.open(Folder.READ_ONLY);
-                }
-                Message m = folder.getMessageByUID(Long.parseLong(message_uuid));
-                Object content = m.getContent();
-                Part part  = handleMultiPart(content, attachmentName);
-                in = part.getInputStream();
-                if (in != null) {
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    int bytesComplete = 0;
-                    while ((bytesRead = in.read(buffer)) != -1) {
-                        bytesComplete = bytesComplete + bytesRead;
-                        out.write(buffer, 0, bytesRead); // write
-                    }
-                    out.flush();
-                    response.setContentLength(bytesComplete);
-                } else {
-                    response.setContentLength(0);
-                }
-            } catch (Exception e) {
-                logger.error("Error while downloading attachment "
-                        + attachmentName + " of message " + message_uuid
-                        + " for sessionId " + sessionId, e);
-            } finally {
-                if (in != null) {
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        // ignore on close
-                    }
-                }
-                if (out != null) {
-                    try {
-                        out.close();
-                    } catch (IOException e) {
-                        // ignore on close
-                    }
-                }
-                if (folder != null) {
-                    try {
-                        folder.close(false);
-                    } catch (MessagingException e) {
-                        // ignore on close
-                    }
-                }
-
+        IMAPFolder folder = null;
+        try {
+            Store store = cache.get(user);
+            folder = (IMAPFolder) store.getFolder(folderName);
+            if (folder.isOpen() == false) {
+                folder.open(Folder.READ_ONLY);
             }
-        }
+            Message m = folder.getMessageByUID(Long.parseLong(message_uuid));
+            
+            Object content = m.getContent();
+            Part part  = handleMultiPart(content, attachmentName);
+            if (part.getContentType()!=null)
+            	response.setContentType(part.getContentType());
+            else
+                response.setContentType("application/download");
+            
+            in = part.getInputStream();
+            if (in != null) {
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                int bytesComplete = 0;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    bytesComplete = bytesComplete + bytesRead;
+                    out.write(buffer, 0, bytesRead); // write
+                }
+                response.setContentLength(bytesComplete);
+            } else {
+                response.setContentLength(0);
+            }
+            
+            out.flush();
+            
+        } catch (Exception e) {
+            logger.error("Error while downloading attachment "
+                    + attachmentName + " of message " + message_uuid
+                    + " for user " + user.getName(), e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    // ignore on close
+                }
+            }
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    // ignore on close
+                }
+            }
+            if (folder != null) {
+                try {
+                    folder.close(false);
+                } catch (MessagingException e) {
+                    // ignore on close
+                }
+            }
 
+        }
     }
     
     /**
@@ -154,45 +158,40 @@ public class DownloadAttachmentServlet extends HttpServlet {
      * @param content
      *            Content which should checked for attachments
      * @param attachmentName
-     *            The attachmentname for the searched attachment
+     *            The attachmentname or the unique id for the searched attachment
      * @throws MessagingException
      * @throws IOException
      */
-    private Part handleMultiPart(Object content, String attachmentName)
+    static protected Part handleMultiPart(Object content, String attachmentName)
             throws MessagingException, IOException {
         if (content instanceof Multipart) {
             Multipart part = (Multipart) content;
             for (int i = 0; i < part.getCount(); i++) {
-                Part p = part.getBodyPart(i);
-                if (isAttachment(p)) {
-                    if (MimeUtility.decodeText(p.getFileName()).equals(
-                            attachmentName)) {
-                        return p;
+                Part bodyPart = part.getBodyPart(i);
+                String fileName = bodyPart.getFileName();
+                String[] contentId = bodyPart.getHeader("Content-ID");
+                if (bodyPart.isMimeType("multipart/*")) {
+                    Part p = handleMultiPart(bodyPart.getContent(), attachmentName);
+                    if (p != null)
+                    	return p;
+                } else {
+                	if (contentId != null) {
+                    	for (String id: contentId) {
+                    		id = id.replaceAll("^.*<(.+)>.*$", "$1");
+                    		if (attachmentName.equals(id))
+                    			return bodyPart;
+                    	}
+                    } 
+                	if (fileName != null){
+                        if (attachmentName.equalsIgnoreCase(MimeUtility.decodeText(fileName))) 
+                            return bodyPart;
                     }
-
-                } else if (p.isMimeType("multipart/*")) {
-                    return handleMultiPart(p.getContent(), attachmentName);
-                }
+                } 
             }
+        } else {
+        	System.out.println("Unknown content: " + content.getClass().getName());
         }
         return null;
-    }
-
-    /**
-     * Check if the given Part is an attachment
-     * 
-     * @param part
-     * @return isAttachment
-     * @throws MessagingException
-     */
-    private boolean isAttachment(Part part) throws MessagingException {
-        String disposition = part.getDisposition();
-        if (part.getContentType().toLowerCase().startsWith("application/")
-                || (disposition != null && (disposition.equals(Part.ATTACHMENT) || disposition
-                        .equals(Part.INLINE)))) {
-            return true;
-        }
-        return false;
     }
 
 }

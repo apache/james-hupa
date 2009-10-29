@@ -37,14 +37,14 @@ public class DeleteFolderHandlerTest extends AbstractHandlerTest{
     public void testDelete() throws MessagingException {
         User user = createUser();
 
-        session.setAttribute("user", user);
+        httpSession.setAttribute("user", user);
         storeCache.addValidUser(user.getName(),user.getPassword());
         IMAPFolder folder = createFolder();
         MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
         Folder f1 = store.getFolder(folder.getFullName());
         f1.create(Folder.HOLDS_FOLDERS);
         
-        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
+        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),httpSessionProvider);
 
         try {
             handler.execute(new DeleteFolder(folder), null);
@@ -61,10 +61,10 @@ public class DeleteFolderHandlerTest extends AbstractHandlerTest{
     public void testDeleteNonExistFolder() throws MessagingException {
         User user = createUser();
 
-        session.setAttribute("user", user);
+        httpSession.setAttribute("user", user);
         storeCache.addValidUser(user.getName(),user.getPassword());
         IMAPFolder folder = createFolder();
-        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
+        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),httpSessionProvider);
 
         try {
             handler.execute(new DeleteFolder(folder), null);
@@ -76,7 +76,7 @@ public class DeleteFolderHandlerTest extends AbstractHandlerTest{
     
     public void testInvalidSessionId() {
         IMAPFolder folder = createFolder();
-        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),sessionProvider);
+        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache,new MockLog(),httpSessionProvider);
         try {
             handler.execute(new DeleteFolder(folder), null);
             fail("Invalid session");
@@ -92,7 +92,7 @@ public class DeleteFolderHandlerTest extends AbstractHandlerTest{
     private IMAPFolder createFolder() {
         IMAPFolder folder = new IMAPFolder();
         folder.setFullName("NewFolder");
-        folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPERATOR));
+        folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPARATOR));
         return folder;
     }
 }

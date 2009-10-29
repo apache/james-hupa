@@ -26,6 +26,7 @@ import javax.mail.MessagingException;
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
+import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLog;
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -37,12 +38,10 @@ import org.apache.hupa.shared.rpc.FetchFoldersResult;
 public class FetchFoldersHandlerTest extends AbstractHandlerTest{
 
     public void testInvalidSessionId() {
-        User user = createUser();
-        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
+        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),httpSessionProvider);
         try {
             handler.execute(new FetchFolders(), null);
             fail("Invalid session");
-            
         } catch (InvalidSessionException e) {
             //e.printStackTrace();
         } catch (ActionException e) {
@@ -53,9 +52,9 @@ public class FetchFoldersHandlerTest extends AbstractHandlerTest{
     
     public void testNoFolders() {
         User user = createUser();
-        session.setAttribute("user", user);
+        httpSession.setAttribute("user", user);
         storeCache.addValidUser(user.getName(), user.getPassword());
-        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
+        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),httpSessionProvider);
         try {
             FetchFoldersResult result = handler.execute(new FetchFolders(), null);
             assertTrue(result.getFolders().isEmpty());
@@ -67,26 +66,26 @@ public class FetchFoldersHandlerTest extends AbstractHandlerTest{
     
     public void testFoundFolders() throws MessagingException {
         User user = createUser();
-        session.setAttribute("user", user);
+        httpSession.setAttribute("user", user);
         storeCache.addValidUser(user.getName(), user.getPassword());
         
         MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
-        store.getFolder("INBOX.WHATEVER").create(Folder.HOLDS_FOLDERS);
-        store.getFolder("INBOX.WHATEVER1").create(Folder.HOLDS_FOLDERS);
-        store.getFolder("INBOX.WHATEVER.XXX").create(Folder.HOLDS_FOLDERS);
+        store.getFolder("WHATEVER").create(Folder.HOLDS_FOLDERS);
+        store.getFolder("WHATEVER1").create(Folder.HOLDS_FOLDERS);
+        store.getFolder("WHATEVER.XXX").create(Folder.HOLDS_FOLDERS);
 
-        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),sessionProvider);
+        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),httpSessionProvider);
         try {
             FetchFoldersResult result = handler.execute(new FetchFolders(), null);
             ArrayList<IMAPFolder> folders = result.getFolders();
             assertFalse(folders.isEmpty());
             assertEquals(3, folders.size());
-            assertEquals("INBOX.WHATEVER",folders.get(0).getFullName());
-            assertEquals("INBOX.WHATEVER1",folders.get(1).getFullName());
-            assertEquals("INBOX.WHATEVER.XXX",folders.get(2).getFullName());
+            assertEquals("WHATEVER",folders.get(0).getFullName());
+            assertEquals("WHATEVER1",folders.get(1).getFullName());
+            assertEquals("WHATEVER" + MockIMAPFolder.SEPARATOR + "XXX",folders.get(2).getFullName());
             assertEquals("XXX",folders.get(2).getName());
 
-            assertEquals("INBOX.WHATEVER.XXX",folders.get(0).getChildIMAPFolders().get(0).getFullName());
+            assertEquals("WHATEVER" + MockIMAPFolder.SEPARATOR + "XXX",folders.get(0).getChildIMAPFolders().get(0).getFullName());
 
         } catch (ActionException e) {
             e.printStackTrace();

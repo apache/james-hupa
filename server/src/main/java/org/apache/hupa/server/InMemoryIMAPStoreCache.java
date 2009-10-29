@@ -28,6 +28,7 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 
 import org.apache.commons.logging.Log;
+import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.shared.data.User;
 
 import com.google.inject.Inject;
@@ -116,7 +117,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
     private CachedIMAPStore createCachedIMAPStore() throws NoSuchProviderException {
         CachedIMAPStore cstore;
         if (DEMO_MODE.equals(this.address)) {
-            cstore = new CachedIMAPStore(new DemoModeIMAPStore(session), 300);
+            cstore = new CachedIMAPStore(new MockIMAPStore(session), 300);
         } else if (useSSL) {
             cstore = new CachedIMAPStore((IMAPStore)session.getStore("imaps"),300);
         } else {

@@ -49,10 +49,10 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.DemoModeSMTPTransport;
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.server.mock.MockSMTPTransport;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.User;
@@ -179,7 +179,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         Transport transport;
     
         if (InMemoryIMAPStoreCache.DEMO_MODE.equals(address)) {
-            transport = new DemoModeSMTPTransport(session);
+            transport = new MockSMTPTransport(session);
         } else if (useSSL) {
             transport = session.getTransport("smtps");
         } else {

@@ -21,10 +21,9 @@ package org.apache.hupa.server.guice;
 
 
 import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
+import org.apache.hupa.server.servlet.HupaDispatchServlet;
 import org.apache.hupa.server.servlet.MessageSourceServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
-
-import net.customware.gwt.dispatch.server.service.DispatchServiceServlet;
 
 import com.google.inject.servlet.ServletModule;
 
@@ -32,7 +31,7 @@ import com.google.inject.servlet.ServletModule;
 public class DispatchServletModule extends ServletModule{
      @Override
         public void configureServlets() {
-             serve("/hupa/dispatch").with(DispatchServiceServlet.class );
+             serve("/hupa/dispatch").with(HupaDispatchServlet.class );
              serve("/hupa/downloadAttachmentServlet").with(DownloadAttachmentServlet.class);
              serve("/hupa/uploadAttachmentServlet").with(UploadAttachmentServlet.class);
              serve("/hupa/messageSourceServlet").with(MessageSourceServlet.class);

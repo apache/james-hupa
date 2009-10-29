@@ -30,6 +30,8 @@ import javax.mail.Provider;
 import javax.mail.Session;
 import javax.mail.URLName;
 
+import org.apache.hupa.server.InMemoryIMAPStoreCache;
+
 import com.sun.mail.imap.IMAPStore;
 
 public class MockIMAPStore extends IMAPStore{
@@ -38,9 +40,33 @@ public class MockIMAPStore extends IMAPStore{
     private Map<String, Integer> validServers = new HashMap<String, Integer>();
     private boolean connected = false;
     private List<MockIMAPFolder> folders = new ArrayList<MockIMAPFolder>();
+    static final URLName demoUrl = new URLName(null, InMemoryIMAPStoreCache.DEMO_MODE, 143, null, null, null);
     
+    /**
+     * Demo mode constructor
+     */
+    public MockIMAPStore(Session session) {
+        this(session, demoUrl);
+    }
+
+    /**
+     * Default constructor
+     */
     public MockIMAPStore(Session session, URLName url) {
         super(session, url);
+        
+        if (InMemoryIMAPStoreCache.DEMO_MODE.equals(url.getHost())) {
+            validServers.put(InMemoryIMAPStoreCache.DEMO_MODE, 143);
+            validLogins.put("demo", "demo");
+            try {
+                new MockIMAPFolder(MockIMAPFolder.DEMO_MODE_INBOX_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
+                new MockIMAPFolder(MockIMAPFolder.DEMO_MODE_SENT_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
+                new MockIMAPFolder(MockIMAPFolder.DEMO_MODE_TRASH_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
+                ((MockIMAPFolder)getFolder(MockIMAPFolder.DEMO_MODE_INBOX_FOLDER)).loadDemoMessages(session);
+            } catch (Exception e) {
+            	e.printStackTrace();
+            }
+        }
     }
 
     public static Provider getProvider() {
@@ -66,7 +92,7 @@ public class MockIMAPStore extends IMAPStore{
                 if(recursive == false) {
                     break;
                 }
-            } else if (folders.get(i).getFullName().startsWith(folder.getFullName() + MockIMAPFolder.SEPERATOR)) {
+            } else if (folders.get(i).getFullName().startsWith(folder.getFullName() + MockIMAPFolder.SEPARATOR)) {
                 folders.remove(i);
             }
             
@@ -77,7 +103,7 @@ public class MockIMAPStore extends IMAPStore{
     public MockIMAPFolder getParent(MockIMAPFolder folder) {
         for (int i = 0; i < folders.size(); i++) {
             MockIMAPFolder f = folders.get(i);
-            if ((f.getFullName() +MockIMAPFolder.SEPERATOR + folder.getName()).equals(folder.getFullName())) {
+            if ((f.getFullName() + MockIMAPFolder.SEPARATOR + folder.getName()).equals(folder.getFullName())) {
                 return f;
             }
         }
@@ -85,15 +111,26 @@ public class MockIMAPStore extends IMAPStore{
     }
     
     public List<MockIMAPFolder> getChilds(MockIMAPFolder folder) {
-        List<MockIMAPFolder> childs = new ArrayList<MockIMAPFolder>();
-        for (int i = 0; i < folders.size(); i++) {
-            MockIMAPFolder f = folders.get(i);
-            if (f.getFullName().startsWith(folder.getFullName() + MockIMAPFolder.SEPERATOR)) {
-                childs.add(f);
-            }
-        }
-        return childs;
-    }
+		List<MockIMAPFolder> childs = new ArrayList<MockIMAPFolder>();
+		if (MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER.equals(folder.getFullName())) {
+			for(MockIMAPFolder f: folders) {
+				if (! MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER.equals(f.getFullName()))
+					childs.add(f);
+			}
+			return folders;
+		} else {
+			for (int i = 0; i < folders.size(); i++) {
+				MockIMAPFolder f = folders.get(i);
+				if (f.getFullName().startsWith(
+				        folder.getFullName() + MockIMAPFolder.SEPARATOR)) {
+					childs.add(f);
+					
+				}
+			}
+		}
+		return childs;
+	}
+    
     public void setValidLogins(Map<String,String> validLogins) {
         this.validLogins = validLogins;
     }
@@ -116,11 +153,11 @@ public class MockIMAPStore extends IMAPStore{
 
     @Override
     public synchronized Folder getDefaultFolder() throws MessagingException {
-        return getFolder("INBOX");
+    	return getFolder(MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER);
     }
 
     @Override
-    public synchronized Folder getFolder(String name) throws MessagingException {
+    public synchronized Folder getFolder(String name) {
         for (int i = 0; i < folders.size(); i++) {
             MockIMAPFolder mfolder = folders.get(i);
             if (mfolder.getFullName().equals(name)) {
@@ -151,9 +188,9 @@ public class MockIMAPStore extends IMAPStore{
         Integer myPort = validServers.get(host);
         if (myPort != null && myPort.intValue() == port) {
             connect(username,password);
+        } else {
+        	throw new MessagingException("Can't connect to host");
         }
-        throw new MessagingException("Can't connect to host");
-
     }
 
     @Override

@@ -17,30 +17,9 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.server;
+package org.apache.hupa.client.widgets;
 
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.URLName;
+import com.google.gwt.user.client.ui.Frame;
 
-
-public class DemoModeSMTPTransport extends Transport {
-
-    static final URLName demoUrl = new URLName(null, InMemoryIMAPStoreCache.DEMO_MODE, 143, null, null, null);
-    
-    public DemoModeSMTPTransport(Session session) {
-        super(session, demoUrl);
-    }
-
-    @Override
-    public void sendMessage(Message msg, Address[] addresses) throws MessagingException {
-    }
-    
-    @Override
-    public void connect(String host, int port, String user, String password) throws MessagingException {
-    }
-    
+public class Iframe extends Frame implements HasURL {
 }

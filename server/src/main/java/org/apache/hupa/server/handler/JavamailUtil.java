@@ -54,12 +54,19 @@ public class JavamailUtil {
             return IMAPFlag.SEEN;
         } else if (flag.equals(Flag.RECENT)) {
             return IMAPFlag.RECENT;
-        } else if (flag.equals(Flag.ANSWERED)) {
+        } else if (flag.equals(Flag.ANSWERED)) { 
             return IMAPFlag.ANSWERED;
         } else if (flag.equals(Flag.DELETED)) {
             return IMAPFlag.DELETED;
+        } else if (flag.equals(Flag.DRAFT)) {
+            return IMAPFlag.DRAFT;
+        } else if (flag.equals(Flag.FLAGGED)) {
+            return IMAPFlag.FLAGGED;
+        } else if (flag.equals(Flag.USER)) {
+            return IMAPFlag.USER;
         }
-        throw new IllegalArgumentException("Flag not supported");
+        
+        throw new IllegalArgumentException("Flag not supported " + flag);
     }
     /**
      * Convert the given ArrayList of IMAPFlags to a Flags object

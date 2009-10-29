@@ -82,9 +82,10 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             
             Message[] messages = getMessagesToConvert(f,action);
             
-            return new FetchMessagesResult(convert(action, f, messages),start,offset,exists,f.getUnreadMessageCount());
+            return new FetchMessagesResult(convert(offset, f, messages),start, offset,exists,f.getUnreadMessageCount());
             
         } catch (Exception e) {
+        	e.printStackTrace();
             logger.error("Error while fetching headers for user " + user.getName() + " in folder " + folder,e);
             throw new ActionException(
                     "Error while fetching headers for user " + user.getName() + " in folder " + folder);
@@ -102,17 +103,17 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
     
     protected abstract Message[] getMessagesToConvert(com.sun.mail.imap.IMAPFolder f, A action) throws MessagingException;
     
-    protected ArrayList<org.apache.hupa.shared.data.Message> convert(FetchMessages action, com.sun.mail.imap.IMAPFolder f, Message[] messages) throws MessagingException {
+    protected ArrayList<org.apache.hupa.shared.data.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
         ArrayList<org.apache.hupa.shared.data.Message> mList = new ArrayList<org.apache.hupa.shared.data.Message>();
         // Setup fetchprofile to limit the stuff which is fetched 
         FetchProfile fp = new FetchProfile();
         fp.add(FetchProfile.Item.ENVELOPE);
         fp.add(FetchProfile.Item.FLAGS);
         fp.add(FetchProfile.Item.CONTENT_INFO);
-        f.fetch(messages, fp);
-
+        folder.fetch(messages, fp);
+        
         // loop over the fetched messages
-        for (int i = 0; i < messages.length; i++) {
+        for (int i = 0; i < messages.length && i < offset; i++) {
             org.apache.hupa.shared.data.Message msg = new org.apache.hupa.shared.data.Message();
             Message m = messages[i];                
             String from = null;
@@ -162,7 +163,6 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 
             // Add flags
             ArrayList<IMAPFlag> iFlags = JavamailUtil.convert(m.getFlags());
-            
           
             ArrayList<Tag> tags = new ArrayList<Tag>();
             String[] userFlags = m.getFlags().getUserFlags();
@@ -173,15 +173,13 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                 }
             }
             
-            msg.setUid(f.getUID(m));
+            msg.setUid(folder.getUID(m));
             msg.setFlags(iFlags);
             msg.setTags(tags);
             msg.setHasAttachments(hasAttachment(m));
             
             mList.add(0, msg);
-            if (i > action.getOffset()) {
-                break;
-            }
+            
         }
         return mList;
     }

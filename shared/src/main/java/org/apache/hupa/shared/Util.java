@@ -39,11 +39,10 @@ public class Util {
         return string;
     }
 
-    public static String toHtml(String string) {
+    public static String escapeHtmlTags(String string) {
         if (string != null) {
             string = string.replaceAll(STRING_LT, HTML_LT);
             string = string.replaceAll(STRING_GT, HTML_GT);
-            string = string.replaceAll(STRING_CR, HTML_CR);
         }
         return string;
     }
