@@ -93,7 +93,6 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
         IMAPFolder clientfolder = new IMAPFolder("WHATEVER");
         MessageDetails details = handler.exposeMessage(user, clientfolder, 0);
     	assertTrue(details.isHTML());
-        System.out.println(details.getText());
         assertTrue(details.getText().contains("img src=\"/hupa/downloadAttachmentServlet?folder_name=WHATEVER&message_uuid=0&attachment_name=1.1934304663@web28309.mail.ukl.yahoo.com\""));
     	
     }

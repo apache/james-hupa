@@ -50,7 +50,7 @@ public class MockIMAPFolder extends IMAPFolder {
 	public static final String DEMO_MODE_TRASH_FOLDER = "Demo-Trash";
 	public static final String DEMO_MODE_INBOX_FOLDER = "Demo-Inbox";
 	public static final String DEMO_MODE_DEFAULT_FOLDER = "";
-	public static final String DEMO_MODE_MESSAGES_LOCATION = "mime" + File.separator;
+	public static final String DEMO_MODE_MESSAGES_LOCATION = "mime/";
 
 	public List<Message> messages = new ArrayList<Message>();
     private boolean closed;
