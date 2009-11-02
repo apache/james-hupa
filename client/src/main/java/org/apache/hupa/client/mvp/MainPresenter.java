@@ -233,7 +233,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
         messagePresenter.unbind();
         sendPresenter.unbind();
 
-        messageListPresenter.bind(user, folder, searchValue);
+        messageListPresenter.bind(user, folder);
         if (refresh) {
             messageListPresenter.refreshDisplay();
         }

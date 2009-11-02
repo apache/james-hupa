@@ -296,10 +296,9 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         }); 
     }
     
-    public void bind(User user, IMAPFolder folder, String searchValue) {
+    public void bind(User user, IMAPFolder folder) {
         this.user = user;
         this.folder = folder;
-        this.searchValue  = searchValue;
         display.setPostFetchMessageCount(user.getSettings().getPostFetchMessageCount());
         // workaround
         if (isBound == false) {
@@ -371,5 +370,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         }
 
     };
+    
+  
 
 }

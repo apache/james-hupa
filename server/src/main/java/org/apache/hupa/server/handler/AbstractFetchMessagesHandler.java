@@ -60,6 +60,9 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             ExecutionContext context) throws ActionException {
         User user = getUser();
         IMAPFolder folder = action.getFolder();
+        if (folder == null) {
+        	folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+        }
         com.sun.mail.imap.IMAPFolder f = null;
         try {
             IMAPStore store = cache.get(user);

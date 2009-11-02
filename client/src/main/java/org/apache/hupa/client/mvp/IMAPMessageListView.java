@@ -21,13 +21,8 @@ package org.apache.hupa.client.mvp;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-import net.customware.gwt.dispatch.client.DispatchAsync;
-import net.customware.gwt.presenter.client.EventBus;
-
-import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.bundles.HupaImageBundle;
@@ -43,9 +38,6 @@ import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
-import org.apache.hupa.shared.events.MessagesReceivedEvent;
-import org.apache.hupa.shared.rpc.FetchMessages;
-import org.apache.hupa.shared.rpc.FetchMessagesResult;
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
@@ -65,18 +57,18 @@ import com.google.gwt.gen2.table.client.FixedWidthFlexTable;
 import com.google.gwt.gen2.table.client.FixedWidthGrid;
 import com.google.gwt.gen2.table.client.FixedWidthGridBulkRenderer;
 import com.google.gwt.gen2.table.client.MutableTableModel;
-import com.google.gwt.gen2.table.client.TableModelHelper;
 import com.google.gwt.gen2.table.client.AbstractScrollTable.ColumnResizePolicy;
 import com.google.gwt.gen2.table.client.AbstractScrollTable.ResizePolicy;
 import com.google.gwt.gen2.table.client.AbstractScrollTable.ScrollPolicy;
 import com.google.gwt.gen2.table.client.AbstractScrollTable.SortPolicy;
 import com.google.gwt.gen2.table.client.SelectionGrid.SelectionPolicy;
 import com.google.gwt.gen2.table.client.TableDefinition.AbstractCellView;
-import com.google.gwt.gen2.table.client.TableModelHelper.Request;
 import com.google.gwt.gen2.table.event.client.HasPageLoadHandlers;
 import com.google.gwt.gen2.table.event.client.HasRowSelectionHandlers;
 import com.google.gwt.gen2.table.event.client.PageLoadEvent;
 import com.google.gwt.gen2.table.event.client.PageLoadHandler;
+import com.google.gwt.gen2.table.event.client.RowCountChangeEvent;
+import com.google.gwt.gen2.table.event.client.RowCountChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
@@ -96,15 +88,11 @@ public class IMAPMessageListView extends Composite implements Display{
     private HupaConstants constants = GWT.create(HupaConstants.class);
     private HupaMessages messages = GWT.create(HupaMessages.class);
     private HupaImageBundle imageBundle = GWT.create(HupaImageBundle.class);
-    private DispatchAsync dispatcher;
-    private User user;
-    private IMAPFolder folder;
-    private String searchValue;
+
     private PagingOptions options;
     private DragRefetchPagingScrollTable<Message> mailTable;
-    private CachedTableModel<Message> cTableModel = new CachedTableModel<Message>(new IMAPMessageTableModel());
+    private CachedTableModel<Message> cTableModel;
 
-    private EventBus eventBus;
     private FixedWidthGrid dataTable = createDataTable();
     private MyButton deleteMailButton = new MyButton(constants.deleteMailButton());
     private    Button newMailButton = new Button(constants.newMailButton());
@@ -120,13 +108,16 @@ public class IMAPMessageListView extends Composite implements Display{
 
     
     @Inject
-    public IMAPMessageListView(DispatchAsync dispatcher,EventBus bus, PagingScrollTableRowDragController controller) {
-        this.eventBus = bus;
-        this.dispatcher = dispatcher;
-        
-        VerticalPanel vPanel = new VerticalPanel();
-
+    public IMAPMessageListView(PagingScrollTableRowDragController controller, MessageTableModel mTableModel) {
+    	this.cTableModel = new CachedTableModel<Message>(mTableModel);
         cTableModel.setRowCount(MutableTableModel.UNKNOWN_ROW_COUNT);
+        mTableModel.addRowCountChangeHandler(new RowCountChangeHandler() {
+			
+			public void onRowCountChange(RowCountChangeEvent event) {
+				cTableModel.setRowCount(event.getNewRowCount());
+			}
+		});
+        VerticalPanel vPanel = new VerticalPanel();
         mailTable = new DragRefetchPagingScrollTable<Message>(
                 cTableModel, dataTable, new FixedWidthFlexTable(),
                 createTableDefinitation(),controller,1);
@@ -351,64 +342,7 @@ public class IMAPMessageListView extends Composite implements Display{
         return cList;
     }
     
-    /**
-     * TableModel which retrieve the messages for the user
-     *
-     */
-    private final class IMAPMessageTableModel extends MutableTableModel<Message> {
-
-        @Override
-        public void requestRows(
-                final Request request,
-                final com.google.gwt.gen2.table.client.TableModel.Callback<Message> callback) {
-            
-            // if the given user or folder is null, its safe to return an empty list
-            if (user == null || folder == null) {
-                callback.onRowsReady(request, new TableModelHelper.Response<Message>() {
-
-                    @Override
-                    public Iterator<Message> getRowValues() {
-                        return new ArrayList<Message>().iterator();
-                    }
-                    
-                });
-            }
-            
-            dispatcher.execute(new FetchMessages(folder, request.getStartRow(), request.getNumRows(),searchValue),new HupaCallback<FetchMessagesResult>(dispatcher, eventBus) {
-                public void callback(final FetchMessagesResult result) {
-                	// Update folder information before notifying presenter
-                	folder.setMessageCount(result.getRealCount());
-                	folder.setUnseenMessageCount(result.getRealUnreadCount());
-                	// Notify presenter to update folder tree view
-                    eventBus.fireEvent(new MessagesReceivedEvent(folder, result.getMessages()));
-                    TableModelHelper.Response<Message> response = new TableModelHelper.Response<Message>() {
-                        @Override
-                        public Iterator<Message> getRowValues() {
-                            return result.getMessages().iterator();
-                        }
-                    };
-                    cTableModel.setRowCount(result.getRealCount());
-                    callback.onRowsReady(request,response);
-                }
-            }); 
-        }
-
-        @Override
-        protected boolean onRowInserted(int beforeRow) {
-            return true;
-        }
-
-        @Override
-        protected boolean onRowRemoved(int row) {    
-            return true;
-        }
-
-        @Override
-        protected boolean onSetRowValue(int row, Message rowValue) {
-            return true;
-        }
-        
-    }
+   
 
     
     /**
@@ -497,9 +431,6 @@ public class IMAPMessageListView extends Composite implements Display{
      * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#reloadData(org.apache.hupa.shared.data.User, org.apache.hupa.shared.data.IMAPFolder, java.lang.String)
      */
     public void reloadData(User user, IMAPFolder folder,String searchValue) {
-        this.user = user;
-        this.folder = folder;
-        this.searchValue = searchValue;
         cTableModel.clearCache();
         mailTable.getTableModel().setRowCount(MutableTableModel.UNKNOWN_ROW_COUNT);
         mailTable.reloadPage();
@@ -510,8 +441,6 @@ public class IMAPMessageListView extends Composite implements Display{
      * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#reset()
      */
     public void reset() {
-        this.user = null;
-        this.folder = null;
         pageBox.setSelectedIndex(0);
         cTableModel.clearCache();
         cTableModel.setRowCount(0);

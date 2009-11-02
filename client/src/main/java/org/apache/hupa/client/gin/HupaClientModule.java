@@ -38,6 +38,7 @@ import org.apache.hupa.client.mvp.LoginPresenter;
 import org.apache.hupa.client.mvp.LoginView;
 import org.apache.hupa.client.mvp.MainPresenter;
 import org.apache.hupa.client.mvp.MainView;
+import org.apache.hupa.client.mvp.MessageTableModel;
 
 import com.google.inject.Singleton;
 
@@ -55,6 +56,7 @@ public class HupaClientModule extends AbstractPresenterModule {
         bindPresenter(AppPresenter.class, AppPresenter.Display.class, AppView.class);
         bind(CachingDispatchAsync.class);
         bind(PagingScrollTableRowDragController.class).in(Singleton.class);
+        bind(MessageTableModel.class).in(Singleton.class);
     }
 
 }
