@@ -69,16 +69,17 @@ public class ServerModul extends ActionHandlerModule {
 
     public static final String SYS_PROP_CONFIG_FILE = "hupa.config.file";
 
+    public static final String CONFIG_FILE_NAME = "config.properties";
     public static final String[] CONFIG_PROPERTIES = {
-            System.getenv("HOME") + "/.hupa/config.properties",
+            System.getenv("HOME") + "/.hupa/" + CONFIG_FILE_NAME,
             "/etc/default/hupa"
             };
-    public static final String CONF_DIR = "WEB-INF" + File.separator + "conf" + File.separator;
+    public static final String CONF_DIR = "WEB-INF/conf/";
 
     private String configDir;
     
     public ServerModul(String rootPath) {
-        configDir = rootPath + File.separator + CONF_DIR;
+        configDir = rootPath + "/" + CONF_DIR;
     }
 
     @Override
@@ -129,17 +130,20 @@ public class ServerModul extends ActionHandlerModule {
 
     protected Properties loadProperties() throws Exception {
         Properties properties = null;
-
-        String fileName = System.getProperty(SYS_PROP_CONFIG_FILE);
-        if (fileName != null) {
-            properties = loadProperties(fileName);
-        }
+        properties = loadProperties(configDir + CONFIG_FILE_NAME);
 
         if (properties == null) {
-            for (String name : CONFIG_PROPERTIES) {
-                properties = loadProperties(name);
-                if (properties != null)
-                    break;
+            String fileName = System.getProperty(SYS_PROP_CONFIG_FILE);
+            if (fileName != null) {
+                properties = loadProperties(fileName);
+            }
+
+            if (properties == null) {
+                for (String name : CONFIG_PROPERTIES) {
+                    properties = loadProperties(name);
+                    if (properties != null)
+                        break;
+                }
             }
         }
 
