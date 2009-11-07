@@ -25,7 +25,9 @@ import gwtupload.client.IUploader;
 import gwtupload.client.MultiUploader;
 
 import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.client.widgets.Loading;
 import org.apache.hupa.client.widgets.MyButton;
+import org.apache.hupa.widgets.ui.EnableHyperlink;
 import org.apache.hupa.widgets.ui.HasEnable;
 
 import com.google.gwt.core.client.GWT;
@@ -57,8 +59,8 @@ public class MessageSendView extends Composite implements
     private MultiUploader uploader = new MultiUploader(uploadStatus);
     private TextArea text = new TextArea();
     private MyButton sendButton = new MyButton(constants.sendButton());
-    private Hyperlink backButton = new Hyperlink(constants.backButton(),"");
-
+    private EnableHyperlink backButton = new EnableHyperlink(constants.backButton(),"");
+    private Loading sendProgress = new Loading(true);
 
     public MessageSendView() {
         final VerticalPanel mPanel = new VerticalPanel();
@@ -161,6 +163,7 @@ public class MessageSendView extends Composite implements
         buttonBar.setWidth("100%");
         buttonBar.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
         buttonBar.add(sendButton);
+        buttonBar.add(sendProgress);
         buttonBar.add(backButton);
         buttonBar.setCellHorizontalAlignment(backButton, HorizontalPanel.ALIGN_RIGHT);
 
@@ -184,8 +187,9 @@ public class MessageSendView extends Composite implements
      * @see net.customware.gwt.presenter.client.Display#startProcessing()
      */
     public void startProcessing() {
-        // TODO Auto-generated method stub
-
+        sendProgress.show();
+        sendButton.setEnabled(false);
+        backButton.setEnabled(false);
     }
 
     /*
@@ -193,8 +197,9 @@ public class MessageSendView extends Composite implements
      * @see net.customware.gwt.presenter.client.Display#stopProcessing()
      */
     public void stopProcessing() {
-        // TODO Auto-generated method stub
-
+        sendProgress.hide();
+        sendButton.setEnabled(true);
+        backButton.setEnabled(true);
     }
 
     /*

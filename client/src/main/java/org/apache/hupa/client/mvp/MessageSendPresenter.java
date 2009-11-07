@@ -224,7 +224,10 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                     message.setMessageAttachments(attachments);
 
                     // TODO: good handling of error messages, and use an error widget instead of Window.alert
+                    
                     if (type.equals(Type.NEW)) {
+                        display.startProcessing();
+
                         dispatcher.execute(new SendMessage(message), new HupaCallback<GenericResult>(dispatcher, eventBus) {
                             public void callback(GenericResult result) {
                                 if (result.isSuccess()) {
@@ -233,9 +236,13 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                                 } else {
                                     Window.alert(result.getMessage());
                                 }    
+                                display.stopProcessing();
+
                             }
                         });
                     } else if(type.equals(Type.FORWARD)) {
+                        display.startProcessing();
+
                         dispatcher.execute(new ForwardMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
                             public void callback(GenericResult result) {
                                 if (result.isSuccess()) {
@@ -244,9 +251,13 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                                 } else {
                                     Window.alert(result.getMessage());
                                 }    
+                                display.stopProcessing();
+
                             }
                         });
                     } else if(type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
+                        display.startProcessing();
+
                         boolean replyAll = type.equals(Type.REPLY_ALL);
                         dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid(), replyAll), new HupaCallback<GenericResult>(dispatcher, eventBus) {
                             public void callback(GenericResult result) {
@@ -256,6 +267,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                                 } else {
                                     Window.alert(result.getMessage());
                                 }    
+                                display.stopProcessing();
                             }
                         });
                     }
