@@ -38,7 +38,7 @@ import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
 /**
- * Handle download of attachments
+ * Handle viewing of message source
  */
 public class MessageSourceServlet extends HttpServlet {
 

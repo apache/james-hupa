@@ -42,6 +42,7 @@ public class PagingScrollTableRowDragController extends PickupDragController {
     private HupaMessages messages = GWT.create(HupaMessages.class);
     private HupaImageBundle bundle =GWT.create(HupaImageBundle.class);
     private FixedWidthGrid draggableTable;
+    @SuppressWarnings("unchecked")
     private PagingScrollTable parentTable;
     private int dragRow;
     private RowDragProxy proxyWidget;
