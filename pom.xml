@@ -24,7 +24,7 @@
 	<description>
 		Hupa is a GWT based Webmail
     </description>
-	<url>http://labs.apache.org</url>
+	<url>http://james.apache.org/hupa</url>
 	<inceptionYear>2009</inceptionYear>
 	<packaging>pom</packaging>
 	<parent>
