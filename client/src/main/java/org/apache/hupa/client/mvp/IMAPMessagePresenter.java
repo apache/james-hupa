@@ -45,6 +45,7 @@ import org.apache.hupa.shared.events.ReplyMessageEvent;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -169,7 +170,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
         registerHandler(display.getShowRawMessageClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
-                String message_url = "/hupa/messageSourceServlet?uid=" + message.getUid() + "&folder=" + folder.getFullName();
+                String message_url = GWT.getModuleBaseURL() + "messageSourceServlet?uid=" + message.getUid() + "&folder=" + folder.getFullName();
                 display.getRawMessageURL().setUrl(message_url);
                 display.getRawMessageDialog().center();
             }
