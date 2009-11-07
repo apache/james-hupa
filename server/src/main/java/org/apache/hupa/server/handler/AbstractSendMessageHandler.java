@@ -41,7 +41,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
-import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -193,8 +192,16 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
             transport.connect(address, port, null,null);
         }
         
-        logger.info("Send message from " + message.getFrom()[0].toString()+ " to " + message.getRecipients(RecipientType.TO).toString());
-        transport.sendMessage(message, message.getAllRecipients());
+        Address[] recips = message.getAllRecipients();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < recips.length; i++) {
+            sb.append(recips[i]);
+            if (i != recips.length -1) {
+                sb.append(", ");
+            }
+        }
+        logger.info("Send message from " + message.getFrom()[0].toString()+ " to " + sb.toString());
+        transport.sendMessage(message, recips);
     }
 
     protected void saveSentMessage(User user, Message message) throws MessagingException {
