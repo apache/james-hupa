@@ -27,6 +27,11 @@ import eu.maydu.gwt.validation.client.ValidationResult;
 import eu.maydu.gwt.validation.client.Validator;
 import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
 
+/**
+ * Validator which checks if the HasText implementation is empty or not
+ * 
+ *
+ */
 public class NotEmptyValidator extends Validator<NotEmptyValidator> {
     private HasText text;
 

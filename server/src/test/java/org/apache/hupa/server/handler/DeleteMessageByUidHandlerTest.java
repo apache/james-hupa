@@ -36,7 +36,6 @@ import org.apache.hupa.server.mock.MockLog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
-import org.apache.hupa.shared.rpc.DeleteMessageResult;
 
 public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
 
@@ -83,8 +82,7 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
         assertFalse("Trash folder not exists yet",f3.exists());
         
         try {
-            DeleteMessageResult result = handler.execute(action, null);
-            int count = result.getCount();
+            handler.execute(action, null);
             assertEquals("Only 1 message left", 1, f.getMessageCount());
             
             MockIMAPFolder f2 = (MockIMAPFolder) store.getFolder(user.getSettings().getTrashFolderName());
@@ -117,8 +115,7 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
         DeleteMessageByUid action = new DeleteMessageByUid(folder, uids);
 
         try {
-            DeleteMessageResult result = handler.execute(action, null);
-            int count = result.getCount();
+            handler.execute(action, null);
 
             assertEquals("Only 1 message left", 1, f.getMessageCount());
         } catch (ActionException e) {
