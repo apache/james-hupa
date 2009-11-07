@@ -353,7 +353,13 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         bind();
         
         display.getFromText().setText(user.getName());
+        display.getToText().setText("");
+        display.getCcText().setText("");
+        display.getBccText().setText("");
+        display.getSubjectText().setText("");
+        display.getMessageText().setText("");
 
+        display.getMessageText().setText("");
         if (type.equals(Type.FORWARD)) {
             display.getSubjectText().setText("Fwd: " + oldmessage.getSubject());
             display.getMessageText().setText("\n\n-------- Original Message -------\n" );
@@ -377,9 +383,6 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                 display.getToText().setText(Util.arrayToString(oldmessage.getTo()));
 
             }
-        }else {
-            display.getSubjectText().setText("");
-            display.getMessageText().setText("");
         }
     }
     
