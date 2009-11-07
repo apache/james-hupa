@@ -288,9 +288,11 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         for (int i = 0; i < selectedMessages.size(); i++) {
             uids.add(selectedMessages.get(i).getUid());
         }
+        // maybe its better to just remove the messages from the table and expect the removal will work
+        display.removeMessages(selectedMessages);
+
         dispatcher.execute(new DeleteMessageByUid(folder,uids), new HupaCallback<DeleteMessageResult>(dispatcher, eventBus) {
             public void callback(DeleteMessageResult result) {
-                display.removeMessages(selectedMessages);
                 eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,result.getCount()));
             }
         }); 
