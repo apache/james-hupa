@@ -21,13 +21,11 @@ package org.apache.hupa.client.mvp;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.Place;
-import net.customware.gwt.presenter.client.place.PlaceRequest;
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.client.HupaWidgetDisplay;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.SessionExpireEvent;
 import org.apache.hupa.shared.events.SessionExpireEventHandler;
@@ -46,7 +44,7 @@ import com.google.inject.Inject;
 public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
     private HupaConstants constants = GWT.create(HupaConstants.class);
 
-    public interface Display extends WidgetDisplay{
+    public interface Display extends HupaWidgetDisplay{
         public HasClickHandlers getLoginClick();
         public HasClickHandlers getResetClick();
         public HasValue<String> getUserNameValue();
@@ -56,7 +54,6 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
     }
     
     private DispatchAsync dispatcher;
-    public static final Place PLACE = new Place("Login");
 
     @Inject
     public LoginPresenter(LoginPresenter.Display display,EventBus bus,DispatchAsync dispatcher) {
@@ -92,11 +89,6 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
     }
 
     @Override
-    public Place getPlace() {
-        return PLACE;
-    }
-
-    @Override
     protected void onBind() {
         registerHandler(display.getLoginClick().addClickHandler(new ClickHandler() {
 
@@ -123,25 +115,13 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
     }
 
     @Override
-    protected void onPlaceRequest(PlaceRequest request) {
-        String username = request.getParameter("username",null);
-        if (username != null) {
-            display.getUserNameValue().setValue(username);
-        }
-    }
-
-    @Override
     protected void onUnbind() {
         // TODO Auto-generated method stub
         
     }
 
-    public void refreshDisplay() {
-        // TODO Auto-generated method stub
-    
-    }
-
-    public void revealDisplay() {
+    @Override
+    protected void onRevealDisplay() {
         // TODO Auto-generated method stub
         
     }

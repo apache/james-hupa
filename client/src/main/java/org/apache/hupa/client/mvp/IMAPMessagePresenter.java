@@ -23,13 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.Place;
-import net.customware.gwt.presenter.client.place.PlaceRequest;
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.HupaCallback;
+import org.apache.hupa.client.HupaWidgetDisplay;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.HasURL;
 import org.apache.hupa.shared.Util;
@@ -55,7 +53,7 @@ import com.google.inject.Inject;
 
 public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.Display>{
 
-    public interface Display extends WidgetDisplay{
+    public interface Display extends HupaWidgetDisplay{
         public HasText getFrom();
 
         public HasText getTo();
@@ -75,7 +73,6 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
         public void setAttachments(List<MessageAttachment> attachements, String folder,  long uid);
     }
 
-    public static final Place PLACE = new Place("IMAPMessage");
     private MessageDetails messageDetails;
     private Message message;
     private CachingDispatchAsync dispatcher;
@@ -98,7 +95,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
         if (isBound == false) { 
             bind();
         }
-        refreshDisplay();
+        updateDisplay();
     }
 
     private void updateDisplay() {
@@ -114,11 +111,6 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
         }
         display.getContent().setHTML(con);
         display.setAttachments(messageDetails.getMessageAttachments(), folder.getFullName(),message.getUid());
-    }
-    
-    @Override
-    public Place getPlace() {
-        return PLACE;
     }
 
     @Override
@@ -179,43 +171,15 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
         isBound = true;
     }
 
-    @Override
-    protected void onPlaceRequest(PlaceRequest request) {
-        String from = request.getParameter("from", user.getName());
-        display.getFrom().setText(from);
-
-        
-        String to = request.getParameter("to", null);
-        if (to != null) {
-            display.getTo().setText(to);
-        }
-        
-        String cc = request.getParameter("cc", null);
-        if (cc != null) {
-            display.getCc().setText(cc);
-        }
-        
-        String subject = request.getParameter("subject", null);
-        if (subject != null) {
-            display.getSubject().setText(subject);
-        }
-        
-        String bodytext = request.getParameter("bodytext", null);
-        if (bodytext != null) {
-            display.getContent().setText(bodytext);
-        }
-    }
 
     @Override
     protected void onUnbind() {
         isBound = false;
     }
 
-    public void refreshDisplay() {
-        updateDisplay();
-    }
 
-    public void revealDisplay() {
+    @Override
+    protected void onRevealDisplay() {
         // TODO Auto-generated method stub
         
     }

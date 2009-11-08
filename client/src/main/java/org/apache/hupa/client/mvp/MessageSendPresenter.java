@@ -23,12 +23,10 @@ import java.util.ArrayList;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.Place;
-import net.customware.gwt.presenter.client.place.PlaceRequest;
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.HupaCallback;
+import org.apache.hupa.client.HupaWidgetDisplay;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.client.validation.NotEmptyValidator;
 import org.apache.hupa.shared.Util;
@@ -70,9 +68,7 @@ import gwtupload.client.IUploader.OnStatusChangedHandler;
 
 public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.Display>{
 
-    private User user;
     private DispatchAsync dispatcher;
-    public static final Place PLACE = new Place("MessageSend");
     private ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
     private Type type = Type.NEW;
     private IMAPFolder folder;
@@ -143,7 +139,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         FORWARD
     }
     
-    public interface Display extends WidgetDisplay {
+    public interface Display extends HupaWidgetDisplay {
         public HasText getFromText();
         public HasText getToText();
         public HasText getCcText();
@@ -156,12 +152,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         public void resetUploader();
         public HasClickHandlers getBackButtonClick();
     }
-
-    @Override
-    public Place getPlace() {
-        return PLACE;
-    }
-
+    
     @Override
     protected void onBind() {
         registerHandler(eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
@@ -295,37 +286,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         type = Type.NEW;
     }
 
-    @Override
-    protected void onPlaceRequest(PlaceRequest request) {
-        String from = request.getParameter("from", user.getName());
-        display.getFromText().setText(from);
-
-        
-        String to = request.getParameter("to", null);
-        if (to != null) {
-            display.getToText().setText(to);
-        }
-        
-        String cc = request.getParameter("cc", null);
-        if (cc != null) {
-            display.getCcText().setText(cc);
-        }
-        
-        String bcc = request.getParameter("bcc", null);
-        if (bcc != null) {
-            display.getBccText().setText(bcc);
-        }
-        
-        String subject = request.getParameter("subject", null);
-        if (subject != null) {
-            display.getSubjectText().setText(subject);
-        }
-        
-        String bodytext = request.getParameter("bodytext", null);
-        if (bodytext != null) {
-            display.getMessageText().setText(bodytext);
-        }
-    }
+   
 
     @Override
     protected void onUnbind() {
@@ -333,21 +294,10 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         display.getUploader().cancel();
     }
 
-    public void refreshDisplay() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void revealDisplay() {
-        // TODO Auto-generated method stub
-        
-    }
-    
     public void bind(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
         this.oldmessage = oldmessage;
         this.oldDetails = oldDetails;
         this.folder = folder;
-        this.user = user;
         this.type = type;
         
         bind();
@@ -388,6 +338,12 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
     
     public void bind(User user, Type type) {
         bind(user,null,null,null, type);
+    }
+
+    @Override
+    protected void onRevealDisplay() {
+        // TODO Auto-generated method stub
+        
     }
     
 }

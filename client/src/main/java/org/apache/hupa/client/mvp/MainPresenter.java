@@ -25,13 +25,11 @@ import java.util.Comparator;
 import java.util.List;
 
 import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.Place;
-import net.customware.gwt.presenter.client.place.PlaceRequest;
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.HupaCallback;
+import org.apache.hupa.client.HupaWidgetDisplay;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
@@ -90,7 +88,7 @@ import com.google.inject.Inject;
 
 public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
 
-    public interface Display extends WidgetDisplay {
+    public interface Display extends HupaWidgetDisplay {
         public HasClickHandlers getSearchClick();
 
         public HasValue<String> getSearchValue();
@@ -139,8 +137,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
     private MessageSendPresenter sendPresenter;
     private IMAPTreeItem tItem;
     private HasEditable editableTreeItem;
-    public static final Place PLACE = new Place("Main");
-
+    
     @Inject
     public MainPresenter(MainPresenter.Display display, EventBus bus, CachingDispatchAsync cachingDispatcher, IMAPMessageListPresenter messageListPresenter, IMAPMessagePresenter messagePresenter,
             MessageSendPresenter sendPresenter) {
@@ -235,7 +232,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
 
         messageListPresenter.bind(user, folder);
         if (refresh) {
-            messageListPresenter.refreshDisplay();
+            messageListPresenter.revealDisplay();
         }
         display.setCenter(messageListPresenter.getDisplay().asWidget());
     }
@@ -282,17 +279,13 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
         cachingDispatcher.clear();
     }
 
-    @Override
-    public Place getPlace() {
-        return PLACE;
-    }
 
     public void bind(User user) {
         this.user = user;
         folder = new IMAPFolder(user.getSettings().getInboxFolderName());
 
         bind();
-        refreshDisplay();
+        revealDisplay();
     }
 
     @Override
@@ -527,9 +520,6 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
 
     }
 
-    @Override
-    protected void onPlaceRequest(PlaceRequest request) {
-    }
 
     @Override
     protected void onUnbind() {
@@ -540,13 +530,9 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
 
     }
 
-    public void refreshDisplay() {
+    @Override
+    protected void onRevealDisplay() {
         loadTreeItems();
         showMessageTable(user, folder, null, true);
-    }
-
-    public void revealDisplay() {
-        // TODO Auto-generated method stub
-
     }
 }

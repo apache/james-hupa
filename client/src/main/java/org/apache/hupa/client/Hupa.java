@@ -19,9 +19,7 @@
 
 package org.apache.hupa.client;
 
-import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.place.PlaceManager;
-import net.customware.gwt.presenter.client.place.PlaceRequestEvent;
 
 import org.apache.hupa.client.gin.HupaGinjector;
 import org.apache.hupa.client.mvp.AppPresenter;
@@ -45,12 +43,8 @@ public class Hupa implements EntryPoint{
         aPres.bind();
        
         RootPanel.get().add(aPres.getDisplay().asWidget());
-        EventBus bus = injector.getEventBus();
-        // Needed because of this bug:
-        // http://code.google.com/p/gwt-presenter/issues/detail?id=6
-        PlaceManager placeManager = injector.getPlaceManager();
-        bus.addHandler( PlaceRequestEvent.getType(), placeManager );
 
+        PlaceManager placeManager = injector.getPlaceManager();
         placeManager.fireCurrentPlace();
     }
 

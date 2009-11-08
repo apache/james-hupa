@@ -20,7 +20,6 @@
 package org.apache.hupa.client;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
-import net.customware.gwt.presenter.client.Display;
 import net.customware.gwt.presenter.client.EventBus;
 
 import org.apache.hupa.shared.events.LogoutEvent;
@@ -39,12 +38,13 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
     private EventBus eventBus = null;
     private ServerStatusEvent available = new ServerStatusEvent(ServerStatus.Available); 
     private ServerStatusEvent unavailable = new ServerStatusEvent(ServerStatus.Unavailable); 
-    private Display display = null;
+    private HupaWidgetDisplay display = null;
 
     @Inject
-    public HupaCallback(DispatchAsync dispatcher, EventBus bus, Display display) {
+    public HupaCallback(DispatchAsync dispatcher, EventBus bus, HupaWidgetDisplay display) {
         this(dispatcher, bus);
         this.display = display;
+        
         this.display.startProcessing();
     }
     

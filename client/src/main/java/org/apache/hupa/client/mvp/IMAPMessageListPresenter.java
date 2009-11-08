@@ -23,12 +23,10 @@ import java.util.ArrayList;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.Place;
-import net.customware.gwt.presenter.client.place.PlaceRequest;
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.HupaCallback;
+import org.apache.hupa.client.HupaWidgetDisplay;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -65,7 +63,7 @@ import com.google.inject.Inject;
 @SuppressWarnings("deprecation")
 public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPresenter.Display>{
     
-    public interface Display extends WidgetDisplay{
+    public interface Display extends HupaWidgetDisplay {
         public HasRowSelectionHandlers getDataTableSelection();
         public HasPageLoadHandlers getDataTableLoad();
         public void addTableListener(TableListener listener) ;
@@ -103,19 +101,12 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
     private String searchValue;
     private DispatchAsync dispatcher;
     private ShowMessageTableListener tableListener = new ShowMessageTableListener();
-    private boolean isBound = false;
-    public final static Place PLACE = new Place("IMAPMessageList");
-    
+    private boolean isBound = false;    
     
     @Inject
     public IMAPMessageListPresenter(IMAPMessageListPresenter.Display display,EventBus bus,DispatchAsync dispatcher) {
         super(display,bus);
         this.dispatcher = dispatcher;
-    }
-    
-    @Override
-    public Place getPlace() {
-        return PLACE;
     }
 
     @Override
@@ -310,15 +301,6 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         //refreshDisplay();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.customware.gwt.presenter.client.BasicPresenter#onPlaceRequest(net.customware.gwt.presenter.client.place.PlaceRequest)
-     */
-    protected void onPlaceRequest(PlaceRequest request) {
-        // TODO Auto-generated method stub
-        
-    }
-
 
     /*
      * (non-Javadoc)
@@ -332,24 +314,6 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         isBound = false;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.customware.gwt.presenter.client.Presenter#refreshDisplay()
-     */
-    public void refreshDisplay() {
-        display.reset();
-        display.deselectAllMessages();
-
-        display.reloadData(user, folder, searchValue);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see net.customware.gwt.presenter.client.Presenter#revealDisplay()
-     */
-    public void revealDisplay() {
-        display.redraw();
-    }
     
     private final class ShowMessageTableListener implements TableListener {
 
@@ -371,6 +335,16 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             eventBus.fireEvent(new ExpandMessageEvent(user,folder,message));
         }
 
+    }
+
+    @Override
+    protected void onRevealDisplay() {
+        display.reset();
+        display.deselectAllMessages();
+
+        display.reloadData(user, folder, searchValue);
+        display.redraw();      
+        
     };
     
   

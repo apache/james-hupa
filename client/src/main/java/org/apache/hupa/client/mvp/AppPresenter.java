@@ -22,8 +22,6 @@ package org.apache.hupa.client.mvp;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.Place;
-import net.customware.gwt.presenter.client.place.PlaceRequest;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
@@ -102,12 +100,6 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
     }
 
     @Override
-    public Place getPlace() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     protected void onBind() {
         registerHandler(eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 
@@ -168,25 +160,11 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
         checkSession();
     }
     
-    @Override
-    protected void onPlaceRequest(PlaceRequest request) {
-        // TODO Auto-generated method stub
-    }
 
     @Override
     protected void onUnbind() {
         loginPresenter.unbind();
         mainPresenter.unbind();
-    }
-
-    public void refreshDisplay() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void revealDisplay() {
-        // TODO Auto-generated method stub
-        
     }
 
     private void doLogout() {
@@ -232,6 +210,12 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
                 });
             }
         }
+    }
+
+    @Override
+    protected void onRevealDisplay() {
+        // TODO Auto-generated method stub
+        
     };
 
 }
