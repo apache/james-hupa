@@ -29,6 +29,10 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 
+/**
+ * Widget which shows a Loading state
+ *
+ */
 public class Loading extends Composite{
     private HupaConstants constants = GWT.create(HupaConstants.class);
     private SimplePanel sPanel = new SimplePanel();
@@ -44,11 +48,17 @@ public class Loading extends Composite{
         initWidget(sPanel);
     }
     
+    /**
+     * Show the Loading image
+     */
     public void show() {
         sPanel.clear();
         sPanel.add(panel);
     }
     
+    /**
+     * Hde the Loading image
+     */
     public void hide() {
         sPanel.clear();
         sPanel.add(new HTML("&nbsp"));

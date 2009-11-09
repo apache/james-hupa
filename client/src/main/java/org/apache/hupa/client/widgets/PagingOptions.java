@@ -40,6 +40,10 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 
+/**
+ * PagingOptions for using to control the PagingScrollTable
+ *
+ */
 public class PagingOptions extends Composite {
     private HupaConstants constants = GWT.create(HupaConstants.class);
     
@@ -158,7 +162,8 @@ public class PagingOptions extends Composite {
         initWidget(pagingPanel);
     }
     
-    private void loading(boolean isLoading) {
+
+    protected void loading(boolean isLoading) {
         if (isLoading) {
             loading.show();
             panel.setWidget(loading);
@@ -168,7 +173,8 @@ public class PagingOptions extends Composite {
         }
     
     }
-    private void updateControl(int startCount, int endCount, int rows) {
+    
+    protected void updateControl(int startCount, int endCount, int rows) {
         if (rows == TableModel.UNKNOWN_ROW_COUNT) {
             startCount = 0;
             endCount = 0;
@@ -201,23 +207,47 @@ public class PagingOptions extends Composite {
         text.setText(startCount + " - " + endCount + " of " + rows);
 
     }
+    
+    /**
+     * Reset the currentPage to 0 
+     */
     public void reset() {
         currentPage = 0;
         text.setText("0 - 0 of 0");
     }
     
+    /**
+     * Return the Link to navigate to the first page
+     * 
+     * @return firstLink
+     */
     public EnableHyperlink getFirstLink() {
         return firstLink;
     }
     
+    /**
+     * Return the Link to navigate to the previous page
+     * 
+     * @return prevLink
+     */
     public EnableHyperlink getPrevLink() {
         return prevLink;
     }
     
+    /**
+     * Return the Link to navigate to the next page
+     * 
+     * @return nextLink
+     */
     public EnableHyperlink getNextLink() {
         return nextLink;
     }
     
+    /**
+     * Return the Link to navigate to the last page
+     * 
+     * @return lastLink
+     */
     public EnableHyperlink getLastLink() {
         return lastLink;
     }

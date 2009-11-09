@@ -22,13 +22,18 @@ package org.apache.hupa.client.widgets;
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.cobogw.gwt.user.client.ui.Button;
 
-public class MyButton extends Button implements HasEnable{
+/**
+ * Button which supports enabling / disabling
+ * 
+ *
+ */
+public class EnableButton extends Button implements HasEnable{
 
-    public MyButton(String sendButton) {
+    public EnableButton(String sendButton) {
         super(sendButton);
     }
 
-    public MyButton() {
+    public EnableButton() {
         super();
     }
 }

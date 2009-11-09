@@ -31,7 +31,7 @@ import org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable;
 import org.apache.hupa.client.widgets.HasDialog;
-import org.apache.hupa.client.widgets.MyButton;
+import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.client.widgets.PagingOptions;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable.DragHandlerFactory;
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -94,13 +94,13 @@ public class IMAPMessageListView extends Composite implements Display{
     private CachedTableModel<Message> cTableModel;
 
     private FixedWidthGrid dataTable = createDataTable();
-    private MyButton deleteMailButton = new MyButton(constants.deleteMailButton());
+    private EnableButton deleteMailButton = new EnableButton(constants.deleteMailButton());
     private    Button newMailButton = new Button(constants.newMailButton());
     private Button deleteAllMailButton = new Button(constants.deleteAll());
     private ConfirmDialogBox confirmBox = new ConfirmDialogBox();
     private ConfirmDialogBox confirmDeleteAllBox = new ConfirmDialogBox();
-    private MyButton markSeenButton = new MyButton(constants.markSeen());
-    private MyButton markUnSeenButton = new MyButton(constants.markUnseen());
+    private EnableButton markSeenButton = new EnableButton(constants.markSeen());
+    private EnableButton markUnSeenButton = new EnableButton(constants.markUnseen());
 
     private ListBox pageBox = new ListBox();
     private Hyperlink allLink = new Hyperlink(constants.all(),"");    
