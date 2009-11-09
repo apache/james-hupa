@@ -38,7 +38,7 @@ public class Loading extends Composite{
         panel.setVerticalAlignment(HorizontalPanel.ALIGN_MIDDLE);
         panel.add(new Image(GWT.getModuleBaseURL() + "../images/ajax-loader.gif"));
         if (small == false) {
-            panel.add(new Label(" " + constants.loading()));
+            panel.add(new Label(constants.loading()));
         }
         
         initWidget(sPanel);
