@@ -23,10 +23,10 @@ import java.util.ArrayList;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
+import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.HupaCallback;
-import org.apache.hupa.client.HupaWidgetDisplay;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.client.validation.NotEmptyValidator;
 import org.apache.hupa.shared.Util;
@@ -159,7 +159,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         FORWARD
     }
     
-    public interface Display extends HupaWidgetDisplay {
+    public interface Display extends WidgetDisplay {
         public HasText getFromText();
         public HasText getToText();
         public HasText getCcText();
@@ -171,6 +171,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         public IUploader getUploader();
         public void resetUploader();
         public HasClickHandlers getBackButtonClick();
+        public void setLoading(boolean loading);
     }
     
     @Override
@@ -237,7 +238,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                     // TODO: good handling of error messages, and use an error widget instead of Window.alert
                     
                     if (type.equals(Type.NEW)) {
-                        display.startProcessing();
+                        display.setLoading(true);
 
                         dispatcher.execute(new SendMessage(message), new HupaCallback<GenericResult>(dispatcher, eventBus) {
                             public void callback(GenericResult result) {
@@ -247,12 +248,12 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                                 } else {
                                     Window.alert(result.getMessage());
                                 }    
-                                display.stopProcessing();
+                                display.setLoading(false);
 
                             }
                         });
                     } else if(type.equals(Type.FORWARD)) {
-                        display.startProcessing();
+                        display.setLoading(true);
 
                         dispatcher.execute(new ForwardMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
                             public void callback(GenericResult result) {
@@ -262,12 +263,12 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                                 } else {
                                     Window.alert(result.getMessage());
                                 }    
-                                display.stopProcessing();
+                                display.setLoading(false);
 
                             }
                         });
                     } else if(type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-                        display.startProcessing();
+                        display.setLoading(true);
 
                         boolean replyAll = type.equals(Type.REPLY_ALL);
                         dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid(), replyAll), new HupaCallback<GenericResult>(dispatcher, eventBus) {
@@ -278,7 +279,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                                 } else {
                                     Window.alert(result.getMessage());
                                 }    
-                                display.stopProcessing();
+                                display.setLoading(false);
                             }
                         });
                     }

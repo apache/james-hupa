@@ -23,10 +23,10 @@ import java.util.ArrayList;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
+import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.HupaCallback;
-import org.apache.hupa.client.HupaWidgetDisplay;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -63,7 +63,7 @@ import com.google.inject.Inject;
 @SuppressWarnings("deprecation")
 public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPresenter.Display>{
     
-    public interface Display extends HupaWidgetDisplay {
+    public interface Display extends WidgetDisplay {
         public HasRowSelectionHandlers getDataTableSelection();
         public HasPageLoadHandlers getDataTableLoad();
         public void addTableListener(TableListener listener) ;

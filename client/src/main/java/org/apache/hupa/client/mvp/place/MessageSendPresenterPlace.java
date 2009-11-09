@@ -16,13 +16,25 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
+package org.apache.hupa.client.mvp.place;
 
-package org.apache.hupa.client;
+import org.apache.hupa.client.mvp.MessageSendPresenter;
 
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
-public interface HupaWidgetDisplay extends WidgetDisplay{
+import net.customware.gwt.presenter.client.gin.ProvidedPresenterPlace;
 
-    public void startProcessing();
-    public void stopProcessing();
+public class MessageSendPresenterPlace extends ProvidedPresenterPlace<MessageSendPresenter>{
+
+    @Inject
+    public MessageSendPresenterPlace(Provider<MessageSendPresenter> presenter) {
+        super(presenter);
+    }
+
+    @Override
+    public String getName() {
+        return "MessageSend";
+    }
+
 }

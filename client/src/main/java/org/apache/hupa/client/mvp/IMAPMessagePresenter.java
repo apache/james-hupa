@@ -23,11 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.customware.gwt.presenter.client.EventBus;
+import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.HupaCallback;
-import org.apache.hupa.client.HupaWidgetDisplay;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.HasURL;
 import org.apache.hupa.shared.Util;
@@ -53,7 +53,7 @@ import com.google.inject.Inject;
 
 public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.Display>{
 
-    public interface Display extends HupaWidgetDisplay{
+    public interface Display extends WidgetDisplay{
         public HasText getFrom();
 
         public HasText getTo();

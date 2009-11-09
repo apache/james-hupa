@@ -16,23 +16,35 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package org.apache.hupa.client.mvp;
+
+package org.apache.hupa.client.mvp.place;
+
+import org.apache.hupa.client.mvp.LoginPresenter;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 import net.customware.gwt.presenter.client.gin.ProvidedPresenterPlace;
+import net.customware.gwt.presenter.client.place.PlaceRequest;
 
-public class MainPresenterPlace extends ProvidedPresenterPlace<MainPresenter>{
+public class LoginPresenterPlace extends ProvidedPresenterPlace<LoginPresenter>{
 
     @Inject
-    public MainPresenterPlace(Provider<MainPresenter> presenter) {
+    public LoginPresenterPlace(Provider<LoginPresenter> presenter) {
         super(presenter);
     }
 
     @Override
     public String getName() {
-        return "Main";
+        return "Login";
+    }
+
+    @Override
+    protected void preparePresenter(PlaceRequest request, LoginPresenter presenter) {
+        String user = request.getParameter("user", null);
+        if (user != null) {
+            presenter.getDisplay().getUserNameValue().setValue(user);
+        }
     }
 
 }

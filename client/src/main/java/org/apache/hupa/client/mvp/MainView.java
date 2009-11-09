@@ -101,6 +101,7 @@ public class MainView extends Composite implements MainPresenter.Display {
     private EnableHyperlink deleteFolderButton = new EnableHyperlink(constants.deleteFolder(), "");
     private ConfirmDialogBox confirmFolderDeleteBox = new ConfirmDialogBox();
     private Loading loader = new Loading(false);
+    private Loading messageLoader = new Loading(true);
     private List<DropController> dropControllerList = new ArrayList<DropController>();
     private EventBus bus;
     private PagingScrollTableRowDragController controller;
@@ -191,6 +192,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         });
         hPanel.add(searchBox);
         hPanel.add(searchButton);
+        hPanel.add(messageLoader);
         barPanel.add(hPanel);
         barPanel.setCellHorizontalAlignment(hPanel, HorizontalPanel.ALIGN_LEFT);
         barPanel.add(loading);
@@ -300,25 +302,32 @@ public class MainView extends Composite implements MainPresenter.Display {
         return this;
     }
 
+
     /*
      * (non-Javadoc)
-     * 
-     * @see net.customware.gwt.presenter.client.Display#startProcessing()
+     * @see org.apache.hupa.client.mvp.MainPresenter.Display#setLoadingFolders(boolean)
      */
-    public void startProcessing() {
-        loader.show();
-        panel.clear();
-        panel.add(loader);
+    public void setLoadingFolders(boolean load) {
+        if (load) {
+            loader.show();
+            panel.clear();
+            panel.add(loader);
+        } else {
+            panel.clear();
+            panel.add(folderPanel);
+        }
     }
 
     /*
      * (non-Javadoc)
-     * 
-     * @see net.customware.gwt.presenter.client.Display#stopProcessing()
+     * @see org.apache.hupa.client.mvp.MainPresenter.Display#setLoadingMessage(boolean)
      */
-    public void stopProcessing() {
-        panel.clear();
-        panel.add(folderPanel);
+    public void setLoadingMessage(boolean load) {
+        if (load) {
+            messageLoader.show();
+        } else {
+            messageLoader.hide();
+        }
     }
 
     /**

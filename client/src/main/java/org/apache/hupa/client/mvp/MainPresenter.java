@@ -131,9 +131,9 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
         public void decreaseUnseenMessageCount(IMAPFolder folder, int amount);
         
-        public void startProcessing();
-        
-        public void stopProcessing();
+        public void setLoadingFolders(boolean loading);
+        public void setLoadingMessage(boolean loading);
+
     }
 
     private CachingDispatchAsync cachingDispatcher;
@@ -157,14 +157,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     }
 
     protected void loadTreeItems() {
-        display.startProcessing();
+        display.setLoadingFolders(true);
         cachingDispatcher.execute(new FetchFolders(), new HupaCallback<FetchFoldersResult>(cachingDispatcher, eventBus, display) {
             public void callback(FetchFoldersResult result) {
                 display.bindTreeItems(createTreeNodes(result.getFolders()));
                 // disable
                 display.getDeleteEnable().setEnabled(false);
                 display.getRenameEnable().setEnabled(false);
-                display.stopProcessing();
+                display.setLoadingFolders(false);
 
             }
         });
@@ -312,11 +312,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                 } else {
                     decreaseUnseen = false;
                 }
+
+                display.setLoadingMessage(true);
                 cachingDispatcher.executeWithCache(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaCallback<GetMessageDetailsResult>(cachingDispatcher, eventBus, display) {
                     public void callback(GetMessageDetailsResult result) {
                         if (decreaseUnseen) {
                             eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
                         }
+                        display.setLoadingMessage(false);
                         showMessage(user, folder, message, result.getMessageDetails());
                     }
                 });

@@ -186,24 +186,22 @@ public class MessageSendView extends Composite implements
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.customware.gwt.presenter.client.Display#startProcessing()
-     */
-    public void startProcessing() {
-        sendProgress.show();
-        sendButton.setEnabled(false);
-        backButton.setEnabled(false);
-    }
 
     /*
      * (non-Javadoc)
-     * @see net.customware.gwt.presenter.client.Display#stopProcessing()
-     */
-    public void stopProcessing() {
-        sendProgress.hide();
-        sendButton.setEnabled(true);
-        backButton.setEnabled(true);
+     * @see org.apache.hupa.client.mvp.MessageSendPresenter.Display#setLoading(boolean)
+     */ 
+    public void setLoading(boolean load) {
+        if (load) {
+            sendProgress.show();
+            sendButton.setEnabled(false);
+            backButton.setEnabled(false);
+        } else {
+            sendProgress.hide();
+            sendButton.setEnabled(true);
+            backButton.setEnabled(true);
+        }
+
     }
 
     /*

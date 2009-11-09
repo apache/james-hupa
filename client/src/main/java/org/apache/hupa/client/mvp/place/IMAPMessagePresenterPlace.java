@@ -16,19 +16,25 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
+package org.apache.hupa.client.mvp.place;
 
-package org.apache.hupa.client.mvp;
+import org.apache.hupa.client.mvp.IMAPMessagePresenter;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
-import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.DefaultPlaceManager;
+import net.customware.gwt.presenter.client.gin.ProvidedPresenterPlace;
 
-public class HupaPlaceManager extends DefaultPlaceManager{
+public class IMAPMessagePresenterPlace extends ProvidedPresenterPlace<IMAPMessagePresenter>{
 
     @Inject
-    public HupaPlaceManager(EventBus eventBus, LoginPresenterPlace loginPresenterPlace, MainPresenterPlace mainPresenterPlace,IMAPMessageListPresenterPlace messageListPresenterPlace, IMAPMessagePresenterPlace imapMessagePresenterPlace, MessageSendPresenterPlace sendPresenterPlace) {
-        super(eventBus, loginPresenterPlace, mainPresenterPlace, messageListPresenterPlace, imapMessagePresenterPlace, sendPresenterPlace);
+    public IMAPMessagePresenterPlace(Provider<IMAPMessagePresenter> presenter) {
+        super(presenter);
+    }
+
+    @Override
+    public String getName() {
+        return "IMAPMessage";
     }
 
 }

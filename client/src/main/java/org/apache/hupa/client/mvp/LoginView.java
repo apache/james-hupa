@@ -212,16 +212,13 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
      * (non-Javadoc)
      * @see org.apache.hupa.client.HupaWidgetDisplay#startProcessing()
      */
-    public void startProcessing() {
-        loading.show();
+    public void setLoading(boolean load) {
+        if (load) {
+            loading.show();
+        } else {
+            loading.hide();
+
+        }
     }
 
-
-    /*
-     * (non-Javadoc)
-     * @see org.apache.hupa.client.HupaWidgetDisplay#stopProcessing()
-     */
-    public void stopProcessing() {
-        loading.hide();
-    }
 }

@@ -28,13 +28,9 @@ import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
 import org.apache.hupa.client.mvp.AppPresenter;
 import org.apache.hupa.client.mvp.AppView;
-import org.apache.hupa.client.mvp.HupaPlaceManager;
 import org.apache.hupa.client.mvp.IMAPMessageListPresenter;
-import org.apache.hupa.client.mvp.IMAPMessageListPresenterPlace;
 import org.apache.hupa.client.mvp.IMAPMessageListView;
 import org.apache.hupa.client.mvp.IMAPMessagePresenter;
-import org.apache.hupa.client.mvp.LoginPresenterPlace;
-import org.apache.hupa.client.mvp.MainPresenterPlace;
 import org.apache.hupa.client.mvp.MessageSendPresenter;
 import org.apache.hupa.client.mvp.MessageSendView;
 import org.apache.hupa.client.mvp.IMAPMessageView;
@@ -43,6 +39,10 @@ import org.apache.hupa.client.mvp.LoginView;
 import org.apache.hupa.client.mvp.MainPresenter;
 import org.apache.hupa.client.mvp.MainView;
 import org.apache.hupa.client.mvp.MessageTableModel;
+import org.apache.hupa.client.mvp.place.HupaPlaceManager;
+import org.apache.hupa.client.mvp.place.IMAPMessageListPresenterPlace;
+import org.apache.hupa.client.mvp.place.LoginPresenterPlace;
+import org.apache.hupa.client.mvp.place.MainPresenterPlace;
 
 import com.google.inject.Singleton;
 

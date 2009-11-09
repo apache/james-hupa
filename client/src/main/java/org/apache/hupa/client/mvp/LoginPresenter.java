@@ -21,11 +21,11 @@ package org.apache.hupa.client.mvp;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
+import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.HupaConstants;
-import org.apache.hupa.client.HupaWidgetDisplay;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.SessionExpireEvent;
 import org.apache.hupa.shared.events.SessionExpireEventHandler;
@@ -49,13 +49,14 @@ import com.google.inject.Inject;
 public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
     private HupaConstants constants = GWT.create(HupaConstants.class);
 
-    public interface Display extends HupaWidgetDisplay{
+    public interface Display extends WidgetDisplay{
         public HasClickHandlers getLoginClick();
         public HasClickHandlers getResetClick();
         public HasValue<String> getUserNameValue();
         public HasValue<String> getPasswordValue();
         public Focusable getUserNameFocus();
         public HasText getErrorText();
+        public void setLoading(boolean loading);
     }
     
     private DispatchAsync dispatcher;
@@ -70,12 +71,17 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
      * Try to login the user
      */
     private void doLogin() {
+        display.setLoading(true);
         dispatcher.execute(new LoginUser(display.getUserNameValue().getValue(),display.getPasswordValue().getValue()), new HupaCallback<LoginUserResult>(dispatcher, eventBus, display) {
             public void callback(LoginUserResult result) {
+                display.setLoading(false);
+
                 eventBus.fireEvent(new LoginEvent(result.getUser()));
                 doReset();
             }
             public void callbackError(Throwable caught) {
+                display.setLoading(false);
+
                 display.getErrorText().setText(constants.loginInvalid());
                 doReset();
             }
