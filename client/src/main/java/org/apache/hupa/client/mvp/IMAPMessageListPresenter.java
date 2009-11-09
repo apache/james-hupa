@@ -101,7 +101,6 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
     private String searchValue;
     private DispatchAsync dispatcher;
     private ShowMessageTableListener tableListener = new ShowMessageTableListener();
-    private boolean isBound = false;    
     
     @Inject
     public IMAPMessageListPresenter(IMAPMessageListPresenter.Display display,EventBus bus,DispatchAsync dispatcher) {
@@ -268,8 +267,8 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             
             
         }));
+        
         display.addTableListener(tableListener);
-        isBound = true;
     }
 
     
@@ -289,18 +288,15 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         }); 
     }
     
-    public void bind(User user, IMAPFolder folder) {
+    public void setUser(User user) {
         this.user = user;
-        this.folder = folder;
-        display.setPostFetchMessageCount(user.getSettings().getPostFetchMessageCount());
-        // workaround
-        if (isBound == false) {
-            bind();
-        }
-        
-        //refreshDisplay();
     }
 
+    public void setFolder(IMAPFolder folder) {
+        this.folder = folder;
+    }
+    
+   
 
     /*
      * (non-Javadoc)
@@ -311,7 +307,6 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         for (int i = 0; i < regList.size(); i++) {
             regList.get(i).removeHandler();
         }
-        isBound = false;
     }
 
     
@@ -341,10 +336,12 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
     protected void onRevealDisplay() {
         display.reset();
         display.deselectAllMessages();
-
         display.reloadData(user, folder, searchValue);
-        display.redraw();      
         
+    }
+
+    public void setSearchValue(String searchValue) {
+        this.searchValue = searchValue;
     };
     
   

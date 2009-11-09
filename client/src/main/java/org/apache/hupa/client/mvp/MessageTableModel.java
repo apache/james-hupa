@@ -83,7 +83,7 @@ public class MessageTableModel extends MutableTableModel<Message> {
 			
 			public void onLogin(LoginEvent event) {
 				user = event.getUser();
-				folder = null;
+				folder = new IMAPFolder(user.getSettings().getInboxFolderName());
 				searchValue = null;
 			}
 		});
@@ -126,7 +126,11 @@ public class MessageTableModel extends MutableTableModel<Message> {
                 TableModelHelper.Response<Message> response = new TableModelHelper.Response<Message>() {
                     @Override
                     public Iterator<Message> getRowValues() {
-                        return result.getMessages().iterator();
+                        if (result != null && result.getMessages() != null) {
+                            return result.getMessages().iterator();
+                        } else {
+                            return new ArrayList<Message>().iterator();
+                        }
                     }
                 };
                 setRowCount(result.getRealCount());

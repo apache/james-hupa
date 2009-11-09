@@ -20,6 +20,7 @@
 package org.apache.hupa.client;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
+import net.customware.gwt.presenter.client.Display;
 import net.customware.gwt.presenter.client.EventBus;
 
 import org.apache.hupa.shared.events.LogoutEvent;
@@ -38,14 +39,14 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
     private EventBus eventBus = null;
     private ServerStatusEvent available = new ServerStatusEvent(ServerStatus.Available); 
     private ServerStatusEvent unavailable = new ServerStatusEvent(ServerStatus.Unavailable); 
-    private HupaWidgetDisplay display = null;
+    private Display display = null;
 
     @Inject
-    public HupaCallback(DispatchAsync dispatcher, EventBus bus, HupaWidgetDisplay display) {
+    public HupaCallback(DispatchAsync dispatcher, EventBus bus, Display display) {
         this(dispatcher, bus);
         this.display = display;
         
-        this.display.startProcessing();
+        //this.display.startProcessing();
     }
     
     @Inject
@@ -84,8 +85,8 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
 
             private void finish() {
                 callbackError(originalCaught);
-                if (display != null)
-                    display.stopProcessing();
+                //if (display != null)
+                    //display.stopProcessing();
             }
         });
     }
@@ -99,8 +100,8 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
         // Execute the original method
         callback(result);
         // If display is being used, stop it
-        if (display != null)
-            display.stopProcessing();
+        //if (display != null)
+            //display.stopProcessing();
     }
     
     /**

@@ -25,6 +25,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import net.customware.gwt.presenter.client.EventBus;
+import net.customware.gwt.presenter.client.place.PlaceRequest;
+import net.customware.gwt.presenter.client.place.PlaceRequestEvent;
+import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
+import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
@@ -52,6 +56,8 @@ import org.apache.hupa.shared.events.IncreaseUnseenEvent;
 import org.apache.hupa.shared.events.IncreaseUnseenEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
+import org.apache.hupa.shared.events.LoginEvent;
+import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.MessagesReceivedEvent;
 import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
 import org.apache.hupa.shared.events.NewMessageEvent;
@@ -80,22 +86,21 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.gen2.table.client.TableModelHelper.Request;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
+public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Display> {
 
-    public interface Display extends HupaWidgetDisplay {
+    public interface Display extends WidgetContainerDisplay {
         public HasClickHandlers getSearchClick();
 
         public HasValue<String> getSearchValue();
 
         public void fillOracle(ArrayList<Message> messages);
-
-        public void setCenter(Widget widget);
 
         public HasSelectionHandlers<TreeItem> getTree();
 
@@ -126,6 +131,8 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
         public void increaseUnseenMessageCount(IMAPFolder folder, int amount);
 
         public void decreaseUnseenMessageCount(IMAPFolder folder, int amount);
+        public void startProcessing();
+        public void stopProcessing();
     }
 
     private CachingDispatchAsync cachingDispatcher;
@@ -141,7 +148,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
     @Inject
     public MainPresenter(MainPresenter.Display display, EventBus bus, CachingDispatchAsync cachingDispatcher, IMAPMessageListPresenter messageListPresenter, IMAPMessagePresenter messagePresenter,
             MessageSendPresenter sendPresenter) {
-        super(display, bus);
+        super(display, bus, messageListPresenter, messagePresenter, sendPresenter);
         this.cachingDispatcher = cachingDispatcher;
         this.messageListPresenter = messageListPresenter;
         this.messagePresenter = messagePresenter;
@@ -149,12 +156,15 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
     }
 
     protected void loadTreeItems() {
+        display.startProcessing();
         cachingDispatcher.execute(new FetchFolders(), new HupaCallback<FetchFoldersResult>(cachingDispatcher, eventBus, display) {
             public void callback(FetchFoldersResult result) {
                 display.bindTreeItems(createTreeNodes(result.getFolders()));
                 // disable
                 display.getDeleteEnable().setEnabled(false);
                 display.getRenameEnable().setEnabled(false);
+                display.stopProcessing();
+
             }
         });
     }
@@ -227,22 +237,20 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
         this.folder = folder;
         this.searchValue = searchValue;
 
-        messagePresenter.unbind();
-        sendPresenter.unbind();
-
-        messageListPresenter.bind(user, folder);
-        if (refresh) {
-            messageListPresenter.revealDisplay();
-        }
-        display.setCenter(messageListPresenter.getDisplay().asWidget());
+        PlaceRequest request = new PlaceRequest("MessageList").with("user", user.getName()).with("folder", folder.getFullName()).with("search", searchValue);
+       
+        eventBus.fireEvent(new PlaceRequestEvent(request));
     }
 
     private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {
-        sendPresenter.unbind();
-        messageListPresenter.unbind();
+        //sendPresenter.unbind();
+        //messageListPresenter.unbind();
 
         messagePresenter.bind(user, folder, message, details);
-        display.setCenter(messagePresenter.getDisplay().asWidget());
+        PlaceRequest request = new PlaceRequest("IMAPMessage");
+        eventBus.fireEvent(new PlaceRequestEvent(request));
+
+        //display.setCenter(messagePresenter.getDisplay().asWidget());
     }
 
     private void showNewMessage() {
@@ -250,7 +258,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
         messageListPresenter.unbind();
 
         sendPresenter.bind(user, Type.NEW);
-        display.setCenter(sendPresenter.getDisplay().asWidget());
+        //display.setCenter(sendPresenter.getDisplay().asWidget());
     }
 
     private void showForwardMessage(ForwardMessageEvent event) {
@@ -258,7 +266,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
         messageListPresenter.unbind();
 
         sendPresenter.bind(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD);
-        display.setCenter(sendPresenter.getDisplay().asWidget());
+        //display.setCenter(sendPresenter.getDisplay().asWidget());
     }
 
     private void showReplyMessage(ReplyMessageEvent event) {
@@ -271,7 +279,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
             sendPresenter.bind(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY);
 
         }
-        display.setCenter(sendPresenter.getDisplay().asWidget());
+        //display.setCenter(sendPresenter.getDisplay().asWidget());
     }
 
     private void reset() {
@@ -280,17 +288,9 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
     }
 
 
-    public void bind(User user) {
-        this.user = user;
-        folder = new IMAPFolder(user.getSettings().getInboxFolderName());
-
-        bind();
-        revealDisplay();
-    }
-
     @Override
     protected void onBind() {
-
+        super.onBind();
         registerHandler(eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
 
             public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
@@ -363,6 +363,8 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
         registerHandler(eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
 
             public void onFolderSelectionEvent(FolderSelectionEvent event) {
+                user = event.getUser();
+                folder = event.getFolder();
                 showMessageTable(user, event.getFolder(), searchValue, true);
             }
 
@@ -517,15 +519,22 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
             }
 
         }));
+        
+        registerHandler(eventBus.addHandler(LoginEvent.TYPE,  new LoginEventHandler() {
+
+            public void onLogin(LoginEvent event) {
+                user = event.getUser();
+                folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+            }
+            
+        }));
 
     }
 
 
     @Override
     protected void onUnbind() {
-        messagePresenter.unbind();
-        sendPresenter.unbind();
-        messageListPresenter.unbind();
+        super.onUnbind();
         reset();
 
     }
@@ -534,5 +543,7 @@ public class MainPresenter extends WidgetPresenter<MainPresenter.Display> {
     protected void onRevealDisplay() {
         loadTreeItems();
         showMessageTable(user, folder, null, true);
+
+        super.onRevealDisplay();
     }
 }

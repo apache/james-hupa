@@ -139,13 +139,10 @@ public class MainView extends Composite implements MainPresenter.Display {
         RoundedPanel buttonPanel = new RoundedPanel(RoundedPanel.ALL, 1);
         buttonPanel.setBorder();
         buttonPanel.add(folderButtonBar);
-
         folderPanel.add(buttonPanel);
         folderPanel.add(folderTree);
-
         panel.add(loader);
         confirmFolderDeleteBox.setText(messages.confirmDeleteFolder());
-
         bus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 
             public void onLogin(LoginEvent event) {
@@ -227,11 +224,6 @@ public class MainView extends Composite implements MainPresenter.Display {
             }
         }
         searchBox.setText("");
-    }
-
-    public void setCenter(Widget widget) {
-        centerWidget = widget;
-        center.setWidget(centerWidget);
     }
 
     /*
@@ -583,5 +575,19 @@ public class MainView extends Composite implements MainPresenter.Display {
                 break;
             }
         }
+    }
+
+    public void addWidget(Widget widget) {
+        showWidget(widget);
+    }
+
+    public void removeWidget(Widget widget) {
+        centerWidget = null;
+        center.remove(widget); 
+    }
+
+    public void showWidget(Widget widget) {
+        centerWidget = widget;
+        center.setWidget(centerWidget); 
     }
 }

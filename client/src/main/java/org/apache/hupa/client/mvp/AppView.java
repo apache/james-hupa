@@ -111,7 +111,6 @@ public class AppView extends Composite implements AppPresenter.Display {
     }
 
     public void setMain(Widget w) {
-        mainPanel.setWidget(w);
     }
 
     public Widget asWidget() {
@@ -161,8 +160,36 @@ public class AppView extends Composite implements AppPresenter.Display {
         return userName;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.AppPresenter.Display#setServerStatus(org.apache.hupa.shared.events.ServerStatusEvent.ServerStatus)
+     */
     public void setServerStatus(ServerStatus status) {
         serverStatusPanel.setStatus(status);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.presenter.client.widget.WidgetContainerDisplay#addWidget(com.google.gwt.user.client.ui.Widget)
+     */
+    public void addWidget(Widget widget) {
+        mainPanel.setWidget(widget);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.presenter.client.widget.WidgetContainerDisplay#removeWidget(com.google.gwt.user.client.ui.Widget)
+     */
+    public void removeWidget(Widget widget) {
+        mainPanel.remove(widget);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.presenter.client.widget.WidgetContainerDisplay#showWidget(com.google.gwt.user.client.ui.Widget)
+     */
+    public void showWidget(Widget widget) {
+        mainPanel.setWidget(widget);
     }
 
 }

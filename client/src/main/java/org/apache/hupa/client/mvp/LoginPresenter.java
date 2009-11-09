@@ -60,7 +60,6 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
         super(display,bus);
         this.dispatcher = dispatcher;
     }
-
     
     /**
      * Try to login the user

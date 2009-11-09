@@ -22,8 +22,10 @@ package org.apache.hupa.client.mvp;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.widget.WidgetDisplay;
-import net.customware.gwt.presenter.client.widget.WidgetPresenter;
+import net.customware.gwt.presenter.client.place.PlaceRequest;
+import net.customware.gwt.presenter.client.place.PlaceRequestEvent;
+import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
+import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
 
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.shared.data.User;
@@ -53,23 +55,21 @@ import com.google.gwt.user.client.Window.ClosingEvent;
 import com.google.gwt.user.client.Window.ClosingHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
+public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>{
 
     private static final int NOOP_INTERVAL = 15000;
 
-    public interface Display extends WidgetDisplay {
+    public interface Display extends WidgetContainerDisplay {
         public HasClickHandlers getLogoutClick();
         public void showTopNavigation(boolean show);
-        public void setMain(Widget w);
         public HasText getUserText();
         public void setServerStatus(ServerStatus status);
     }
     
-    private LoginPresenter loginPresenter;
-    private MainPresenter mainPresenter;
+    //private LoginPresenter loginPresenter;
+    //private MainPresenter mainPresenter;
     private Timer noopTimer = new NoopTimer();
 
     private DispatchAsync dispatcher;
@@ -78,29 +78,32 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
 
     @Inject
     public AppPresenter(Display display, DispatchAsync dispatcher,final EventBus bus, LoginPresenter loginPresenter, MainPresenter mainPresenter) {
-        super(display,bus);
-        this.dispatcher = dispatcher;
-        this.loginPresenter = loginPresenter;
-        this.mainPresenter = mainPresenter;        
+        super(display,bus, loginPresenter, mainPresenter);
+        this.dispatcher = dispatcher;  
     }
 
     private void showMain(User user) {
-        loginPresenter.unbind();
-        mainPresenter.bind(user);
         display.showTopNavigation(true);
-        display.setMain(mainPresenter.getDisplay().asWidget());
+        PlaceRequest request = new PlaceRequest("Main");
+        request = request.with("user", user.getName());
+        
+        eventBus.fireEvent(new PlaceRequestEvent(request));
     }
     
     
-    private void showLogin() {
-        mainPresenter.unbind();
-        loginPresenter.bind();
+    private void showLogin(String username) {
         display.showTopNavigation(false);
-        display.setMain(loginPresenter.getDisplay().asWidget());
+        PlaceRequest request = new PlaceRequest("Login");
+        if (username != null) {
+            request = request.with("user", username);
+        }
+        
+        eventBus.fireEvent(new PlaceRequestEvent(request));
     }
 
     @Override
     protected void onBind() {
+        super.onBind();
         registerHandler(eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 
             public void onLogin(LoginEvent event) {
@@ -115,7 +118,12 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
         registerHandler(eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
 
             public void onLogout(LogoutEvent event) {
-                showLogin();
+                User u = event.getUser();
+                String username = null;
+                if (u != null) {
+                    username = u.getName();
+                }
+                showLogin(username);
                 noopTimer.cancel();
             }
             
@@ -161,12 +169,6 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
     }
     
 
-    @Override
-    protected void onUnbind() {
-        loginPresenter.unbind();
-        mainPresenter.unbind();
-    }
-
     private void doLogout() {
         if (user != null) {
             dispatcher.execute(new LogoutUser(), new HupaCallback<LogoutUserResult>(dispatcher, eventBus) {
@@ -182,7 +184,7 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
             public void onFailure(Throwable caught) {
                 serverStatus = ServerStatus.Unavailable;
                 display.setServerStatus(serverStatus);
-                showLogin();
+                showLogin(null);
             }
             public void onSuccess(CheckSessionResult result) {
                 serverStatus = ServerStatus.Available;
@@ -190,7 +192,7 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
                 if (result.isValid()) {
                     eventBus.fireEvent(new LoginEvent(result.getUser()));
                 } else {
-                    showLogin();
+                    showLogin(null);
                 }
             }
         });
@@ -212,10 +214,5 @@ public class AppPresenter extends WidgetPresenter<AppPresenter.Display>{
         }
     }
 
-    @Override
-    protected void onRevealDisplay() {
-        // TODO Auto-generated method stub
-        
-    };
-
+    
 }

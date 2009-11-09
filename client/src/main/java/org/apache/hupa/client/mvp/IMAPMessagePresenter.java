@@ -78,7 +78,6 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
     private CachingDispatchAsync dispatcher;
     private IMAPFolder folder;
     private User user;
-    private boolean isBound = false;
 
     @Inject
     private IMAPMessagePresenter(IMAPMessagePresenter.Display display,EventBus bus, CachingDispatchAsync dispatcher) {
@@ -91,11 +90,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
         this.message = message;
         this.messageDetails = messageDetails;
         this.folder = folder;
-        this.user = user;
-        if (isBound == false) { 
-            bind();
-        }
-        updateDisplay();
+        this.user = user;        
     }
 
     private void updateDisplay() {
@@ -168,19 +163,16 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
             }
             
         }));
-        isBound = true;
     }
 
 
     @Override
     protected void onUnbind() {
-        isBound = false;
     }
 
 
     @Override
     protected void onRevealDisplay() {
-        // TODO Auto-generated method stub
-        
+        updateDisplay();
     }
 }
