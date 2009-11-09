@@ -342,7 +342,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
     public void setSearchValue(String searchValue) {
         this.searchValue = searchValue;
-    };
+    }
     
   
 

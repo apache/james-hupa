@@ -63,6 +63,7 @@ public class MessageTableModel extends MutableTableModel<Message> {
 		this.eventBus = eventBus;
 		this.dispatcher = dispatcher;
 
+		// bind some Events 
 		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
 			
 			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {

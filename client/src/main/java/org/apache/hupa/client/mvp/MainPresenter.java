@@ -22,18 +22,15 @@ package org.apache.hupa.client.mvp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.place.PlaceRequest;
 import net.customware.gwt.presenter.client.place.PlaceRequestEvent;
 import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
-import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.HupaCallback;
-import org.apache.hupa.client.HupaWidgetDisplay;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
@@ -86,25 +83,24 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.gen2.table.client.TableModelHelper.Request;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TreeItem;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Display> {
 
     public interface Display extends WidgetContainerDisplay {
+        
         public HasClickHandlers getSearchClick();
 
         public HasValue<String> getSearchValue();
 
-        public void fillOracle(ArrayList<Message> messages);
+        public void fillSearchOracle(ArrayList<Message> messages);
 
         public HasSelectionHandlers<TreeItem> getTree();
 
-        public void bindTreeItems(List<IMAPTreeItem> treeList);
+        public void bindTreeItems(ArrayList<IMAPTreeItem> treeList);
 
         public HasClickHandlers getRenameClick();
 
@@ -131,7 +127,9 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         public void increaseUnseenMessageCount(IMAPFolder folder, int amount);
 
         public void decreaseUnseenMessageCount(IMAPFolder folder, int amount);
+        
         public void startProcessing();
+        
         public void stopProcessing();
     }
 
@@ -175,8 +173,8 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
      * @param list
      * @return
      */
-    private List<IMAPTreeItem> createTreeNodes(List<IMAPFolder> list) {
-        List<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
+    private ArrayList<IMAPTreeItem> createTreeNodes(ArrayList<IMAPFolder> list) {
+        ArrayList<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
 
         for (int i = 0; i < list.size(); i++) {
             IMAPFolder iFolder = list.get(i);
@@ -204,9 +202,9 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             });
             record.setUserObject(iFolder);
 
-            List<IMAPFolder> childFolders = iFolder.getChildIMAPFolders();
+            ArrayList<IMAPFolder> childFolders = iFolder.getChildIMAPFolders();
             if (childFolders != null && childFolders.isEmpty() == false) {
-                List<IMAPTreeItem> items = createTreeNodes(childFolders);
+                ArrayList<IMAPTreeItem> items = createTreeNodes(childFolders);
                 for (int a = 0; a < items.size(); a++) {
                     record.addItem(items.get(a));
                 }
@@ -243,43 +241,33 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     }
 
     private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {
-        //sendPresenter.unbind();
-        //messageListPresenter.unbind();
-
         messagePresenter.bind(user, folder, message, details);
         PlaceRequest request = new PlaceRequest("IMAPMessage");
         eventBus.fireEvent(new PlaceRequestEvent(request));
-
-        //display.setCenter(messagePresenter.getDisplay().asWidget());
     }
 
     private void showNewMessage() {
-        messagePresenter.unbind();
-        messageListPresenter.unbind();
-
-        sendPresenter.bind(user, Type.NEW);
+        sendPresenter.bind(user);
+        PlaceRequest request = new PlaceRequest("MessageSend");
+        eventBus.fireEvent(new PlaceRequestEvent(request));
         //display.setCenter(sendPresenter.getDisplay().asWidget());
     }
 
     private void showForwardMessage(ForwardMessageEvent event) {
-        messagePresenter.unbind();
-        messageListPresenter.unbind();
-
         sendPresenter.bind(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD);
-        //display.setCenter(sendPresenter.getDisplay().asWidget());
+        PlaceRequest request = new PlaceRequest("MessageSend");
+        eventBus.fireEvent(new PlaceRequestEvent(request));
     }
 
     private void showReplyMessage(ReplyMessageEvent event) {
-        messagePresenter.unbind();
-        messageListPresenter.unbind();
-
         if (event.getReplyAll()) {
             sendPresenter.bind(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY_ALL);
         } else {
             sendPresenter.bind(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY);
 
         }
-        //display.setCenter(sendPresenter.getDisplay().asWidget());
+        PlaceRequest request = new PlaceRequest("MessageSend");
+        eventBus.fireEvent(new PlaceRequestEvent(request));
     }
 
     private void reset() {
@@ -303,7 +291,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             public void onMessagesReceived(MessagesReceivedEvent event) {
 
                 // fill the oracle
-                display.fillOracle(event.getMessages());
+                display.fillSearchOracle(event.getMessages());
             }
 
         }));
@@ -534,9 +522,9 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
     @Override
     protected void onUnbind() {
-        super.onUnbind();
         reset();
 
+        super.onUnbind();
     }
 
     @Override

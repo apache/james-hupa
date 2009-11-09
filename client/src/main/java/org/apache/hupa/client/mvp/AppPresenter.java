@@ -57,6 +57,11 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
 
+/**
+ * Presenter which flips the in the LoginPresenter or the LoginPresenter depending on if the user is 
+ * logged in or not
+ *
+ */
 public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>{
 
     private static final int NOOP_INTERVAL = 15000;
@@ -67,9 +72,7 @@ public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>
         public HasText getUserText();
         public void setServerStatus(ServerStatus status);
     }
-    
-    //private LoginPresenter loginPresenter;
-    //private MainPresenter mainPresenter;
+
     private Timer noopTimer = new NoopTimer();
 
     private DispatchAsync dispatcher;

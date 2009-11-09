@@ -41,6 +41,11 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.inject.Inject;
 
+/**
+ * Presenter which handles the Login of and user to the IMAP-Server
+ * 
+ *
+ */
 public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
     private HupaConstants constants = GWT.create(HupaConstants.class);
 
@@ -115,13 +120,11 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
 
     @Override
     protected void onUnbind() {
-        // TODO Auto-generated method stub
-        
+        // Nothing to do
     }
 
     @Override
     protected void onRevealDisplay() {
-        // TODO Auto-generated method stub
-        
+        // Nothing to do
     }
 }

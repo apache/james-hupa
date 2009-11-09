@@ -66,6 +66,10 @@ import gwtupload.client.IUploader.OnCancelUploaderHandler;
 import gwtupload.client.IUploader.OnFinishUploaderHandler;
 import gwtupload.client.IUploader.OnStatusChangedHandler;
 
+/**
+ * Presenter which handles the sending, reply, replay-all, forward of mails
+ *
+ */
 public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.Display>{
 
     private DispatchAsync dispatcher;
@@ -132,10 +136,26 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                 .addActionForFailure(fAction));
     }
 
+    /**
+     * The Type for which the SendPresenter will get used
+     *
+     */
     public enum Type {
+        /**
+         * Compose new Mail
+         */
         NEW,
+        /**
+         * Reply to Mail
+         */
         REPLY,
+        /**
+         * Reply-all to mail
+         */
         REPLY_ALL,
+        /**
+         * Forward mail
+         */
         FORWARD
     }
     
@@ -274,6 +294,9 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         }));
     }
 
+    /**
+     * Reset everything
+     */
     private void reset() {
         display.resetUploader();
         display.getBccText().setText("");
@@ -294,14 +317,21 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         display.getUploader().cancel();
     }
 
+    /**
+     * Bind the given values to this presenter
+     * 
+     * @param user the user
+     * @param folder the currently selected folder
+     * @param oldmessage the oldmessage ( if there is any)
+     * @param oldDetails the olddetails ( if there are any)
+     * @param type the type 
+     */
     public void bind(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
         this.oldmessage = oldmessage;
         this.oldDetails = oldDetails;
         this.folder = folder;
         this.type = type;
-        
-        bind();
-        
+       
         display.getFromText().setText(user.getName());
         display.getToText().setText("");
         display.getCcText().setText("");
@@ -336,14 +366,18 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         }
     }
     
-    public void bind(User user, Type type) {
-        bind(user,null,null,null, type);
+    /**
+     * Bind the given user to the presenter
+     * 
+     * @param user
+     */
+    public void bind(User user) {
+        bind(user,null,null,null, Type.NEW);
     }
 
     @Override
     protected void onRevealDisplay() {
-        // TODO Auto-generated method stub
-        
+        // DO Nothing
     }
     
 }

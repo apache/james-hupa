@@ -72,6 +72,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
+/**
+ * MainView acts like a container of other widgets which will get displayed after the user successfully logged in
+ * 
+ *
+ */
 public class MainView extends Composite implements MainPresenter.Display {
 
     private DockPanel dockPanel;
@@ -204,15 +209,27 @@ public class MainView extends Composite implements MainPresenter.Display {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.MainPresenter.Display#getSearchClick()
+     */
     public HasClickHandlers getSearchClick() {
         return searchButton;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.MainPresenter.Display#getSearchValue()
+     */
     public HasValue<String> getSearchValue() {
         return searchBox;
     }
 
-    public void fillOracle(ArrayList<Message> messages) {
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.MainPresenter.Display#fillSearchOracle(java.util.ArrayList)
+     */
+    public void fillSearchOracle(ArrayList<Message> messages) {
         for (int i = 0; i < messages.size(); i++) {
             String subject = messages.get(i).getSubject();
             String from = messages.get(i).getFrom();
@@ -228,12 +245,9 @@ public class MainView extends Composite implements MainPresenter.Display {
 
     /*
      * (non-Javadoc)
-     * 
-     * @see
-     * org.apache.hupa.client.mvp.IMAPFolderPresenter.Display#bindTreeItems(
-     * java.util.List)
+     * @see org.apache.hupa.client.mvp.MainPresenter.Display#bindTreeItems(java.util.ArrayList)
      */
-    public void bindTreeItems(List<IMAPTreeItem> treeList) {
+    public void bindTreeItems(ArrayList<IMAPTreeItem> treeList) {
         folderTree.clear();
         for (int i = 0; i < dropControllerList.size(); i++) {
             controller.unregisterDropController(dropControllerList.get(i));
@@ -553,6 +567,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         }
     }
 
+    
     private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolder folder) {
         if (folder.getFullName().equalsIgnoreCase(((IMAPFolder) item.getUserObject()).getFullName())) {
             return item;
@@ -566,6 +581,10 @@ public class MainView extends Composite implements MainPresenter.Display {
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.MainPresenter.Display#updateTreeItem(org.apache.hupa.shared.data.IMAPFolder)
+     */
     public void updateTreeItem(IMAPFolder folder) {
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
@@ -577,15 +596,27 @@ public class MainView extends Composite implements MainPresenter.Display {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.presenter.client.widget.WidgetContainerDisplay#addWidget(com.google.gwt.user.client.ui.Widget)
+     */
     public void addWidget(Widget widget) {
         showWidget(widget);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.presenter.client.widget.WidgetContainerDisplay#removeWidget(com.google.gwt.user.client.ui.Widget)
+     */
     public void removeWidget(Widget widget) {
         centerWidget = null;
         center.remove(widget); 
     }
 
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.presenter.client.widget.WidgetContainerDisplay#showWidget(com.google.gwt.user.client.ui.Widget)
+     */
     public void showWidget(Widget widget) {
         centerWidget = widget;
         center.setWidget(centerWidget); 

@@ -27,8 +27,8 @@ import net.customware.gwt.presenter.client.place.DefaultPlaceManager;
 public class HupaPlaceManager extends DefaultPlaceManager{
 
     @Inject
-    public HupaPlaceManager(EventBus eventBus, LoginPresenterPlace loginPresenterPlace, MainPresenterPlace mainPresenterPlace,IMAPMessageListPresenterPlace messageListPresenterPlace, IMAPMessagePresenterPlace imapMessagePresenterPlace) {
-        super(eventBus, loginPresenterPlace, mainPresenterPlace, messageListPresenterPlace, imapMessagePresenterPlace );
+    public HupaPlaceManager(EventBus eventBus, LoginPresenterPlace loginPresenterPlace, MainPresenterPlace mainPresenterPlace,IMAPMessageListPresenterPlace messageListPresenterPlace, IMAPMessagePresenterPlace imapMessagePresenterPlace, MessageSendPresenterPlace sendPresenterPlace) {
+        super(eventBus, loginPresenterPlace, mainPresenterPlace, messageListPresenterPlace, imapMessagePresenterPlace, sendPresenterPlace);
     }
 
 }

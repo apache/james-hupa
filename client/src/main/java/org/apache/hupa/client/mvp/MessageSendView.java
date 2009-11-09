@@ -45,6 +45,11 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * View which displays a form which handle sending of mails
+ * 
+ *
+ */
 public class MessageSendView extends Composite implements
         MessageSendPresenter.Display {
     private HupaConstants constants = GWT.create(HupaConstants.class);

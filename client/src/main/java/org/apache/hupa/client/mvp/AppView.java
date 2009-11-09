@@ -35,6 +35,11 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * AppView is the main WidgetContainer which show the LoginView or the MainView depending on if 
+ * the user is logged in or not
+ *
+ */
 public class AppView extends Composite implements AppPresenter.Display {
     private SimplePanel mainPanel = new SimplePanel();
     private HupaConstants constants = GWT.create(HupaConstants.class);
@@ -84,7 +89,6 @@ public class AppView extends Composite implements AppPresenter.Display {
                 "underline");
         userName.getElement().getStyle().setProperty("fontWeight", "bold");
 
-        //northTop.setSpacing(5);
         northTop.setStyleName("hupa-MainButtonBar");
         northTop.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
         northTop.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
@@ -110,21 +114,13 @@ public class AppView extends Composite implements AppPresenter.Display {
         initWidget(vPanel);
     }
 
-    public void setMain(Widget w) {
-    }
 
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.presenter.client.widget.WidgetDisplay#asWidget()
+     */
     public Widget asWidget() {
         return this;
-    }
-
-    public void startProcessing() {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void stopProcessing() {
-        // TODO Auto-generated method stub
-
     }
 
     /*

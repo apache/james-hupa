@@ -18,12 +18,14 @@
  ****************************************************************/
 package org.apache.hupa.client.mvp;
 
+import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 import net.customware.gwt.presenter.client.gin.ProvidedPresenterPlace;
 
 public class MessageSendPresenterPlace extends ProvidedPresenterPlace<MessageSendPresenter>{
 
+    @Inject
     public MessageSendPresenterPlace(Provider<MessageSendPresenter> presenter) {
         super(presenter);
     }

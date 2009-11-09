@@ -42,6 +42,10 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * View which shows the Login from
+ *
+ */
 public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.Display{
     
     private HupaConstants constants = GWT.create(HupaConstants.class);
@@ -204,11 +208,19 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
     }
 
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.HupaWidgetDisplay#startProcessing()
+     */
     public void startProcessing() {
         loading.show();
     }
 
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.HupaWidgetDisplay#stopProcessing()
+     */
     public void stopProcessing() {
         loading.hide();
     }
