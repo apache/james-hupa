@@ -86,11 +86,13 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
     }
 
     
-    public void bind(User user, IMAPFolder folder, Message message, MessageDetails messageDetails) {
+    public void reveal(User user, IMAPFolder folder, Message message, MessageDetails messageDetails) {
         this.message = message;
         this.messageDetails = messageDetails;
         this.folder = folder;
-        this.user = user;        
+        this.user = user;
+        updateDisplay();
+        firePresenterChangedEvent();
     }
 
     private void updateDisplay() {
@@ -173,6 +175,6 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 
     @Override
     protected void onRevealDisplay() {
-        updateDisplay();
+
     }
 }

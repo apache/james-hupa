@@ -18,14 +18,10 @@
  ****************************************************************/
 package org.apache.hupa.client.mvp;
 
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.User;
-
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 import net.customware.gwt.presenter.client.gin.ProvidedPresenterPlace;
-import net.customware.gwt.presenter.client.place.PlaceRequest;
 
 public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMessageListPresenter>{
 
@@ -38,17 +34,4 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
     public String getName() {
         return "MessageList";
     }
-
-    @Override
-    protected void preparePresenter(PlaceRequest request, IMAPMessageListPresenter presenter) {
-        String username = request.getParameter("user", "unknown");
-        String folder = request.getParameter("folder", "INBOX");
-        String searchValue = request.getParameter("search", null);
-        User user = new User();
-        user.setName(username);
-        presenter.setUser(user);
-        presenter.setFolder(new IMAPFolder(folder));
-        presenter.setSearchValue(searchValue);
-    }    
-
 }

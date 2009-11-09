@@ -287,16 +287,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             }
         }); 
     }
-    
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setFolder(IMAPFolder folder) {
-        this.folder = folder;
-    }
-    
-   
+ 
 
     /*
      * (non-Javadoc)
@@ -339,11 +330,12 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         display.reloadData(user, folder, searchValue);
         
     }
-
-    public void setSearchValue(String searchValue) {
-        this.searchValue = searchValue;
-    }
     
-  
+    public void reveal(User user, IMAPFolder folder, String searchValue) {
+        this.user = user;
+        this.folder = folder;
+        this.searchValue = searchValue;
+        firePresenterChangedEvent();
+    }
 
 }

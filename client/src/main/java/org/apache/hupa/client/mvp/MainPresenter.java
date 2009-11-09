@@ -88,6 +88,9 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.inject.Inject;
 
+/**
+ *
+ */
 public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Display> {
 
     public interface Display extends WidgetContainerDisplay {
@@ -234,44 +237,46 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         this.user = user;
         this.folder = folder;
         this.searchValue = searchValue;
-
-        PlaceRequest request = new PlaceRequest("MessageList").with("user", user.getName()).with("folder", folder.getFullName()).with("search", searchValue);
-       
+        messageListPresenter.reveal(user, folder, searchValue);
+        PlaceRequest request = new PlaceRequest("MessageList");
         eventBus.fireEvent(new PlaceRequestEvent(request));
     }
 
     private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {
-        messagePresenter.bind(user, folder, message, details);
+        messagePresenter.reveal(user, folder, message, details);
         PlaceRequest request = new PlaceRequest("IMAPMessage");
         eventBus.fireEvent(new PlaceRequestEvent(request));
     }
 
     private void showNewMessage() {
-        sendPresenter.bind(user);
+        sendPresenter.reveal(user);
         PlaceRequest request = new PlaceRequest("MessageSend");
         eventBus.fireEvent(new PlaceRequestEvent(request));
-        //display.setCenter(sendPresenter.getDisplay().asWidget());
     }
 
     private void showForwardMessage(ForwardMessageEvent event) {
-        sendPresenter.bind(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD);
+        sendPresenter.reveal(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD);
         PlaceRequest request = new PlaceRequest("MessageSend");
         eventBus.fireEvent(new PlaceRequestEvent(request));
     }
 
     private void showReplyMessage(ReplyMessageEvent event) {
         if (event.getReplyAll()) {
-            sendPresenter.bind(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY_ALL);
+            sendPresenter.reveal(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY_ALL);
         } else {
-            sendPresenter.bind(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY);
+            sendPresenter.reveal(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY);
 
         }
         PlaceRequest request = new PlaceRequest("MessageSend");
         eventBus.fireEvent(new PlaceRequestEvent(request));
     }
 
+    /**
+     * Reset the presenter and display
+     */
     private void reset() {
         display.getSearchValue().setValue("");
+        // clear the cache
         cachingDispatcher.clear();
     }
 
@@ -529,6 +534,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
     @Override
     protected void onRevealDisplay() {
+        // load IMAPFolder and the message table
         loadTreeItems();
         showMessageTable(user, folder, null, true);
 
