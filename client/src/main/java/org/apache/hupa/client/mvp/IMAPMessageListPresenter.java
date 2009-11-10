@@ -50,11 +50,12 @@ import org.apache.hupa.shared.rpc.MoveMessageResult;
 import org.apache.hupa.shared.rpc.SetFlag;
 import org.apache.hupa.widgets.ui.HasEnable;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.gen2.event.shared.HandlerRegistration;
 import com.google.gwt.gen2.table.event.client.HasPageChangeHandlers;
 import com.google.gwt.gen2.table.event.client.HasPageLoadHandlers;
 import com.google.gwt.gen2.table.event.client.HasRowSelectionHandlers;
@@ -103,9 +104,11 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         public HasPageChangeHandlers getDataTablePageChange();
         public void goToPage(int page);
         public int getCurrentPage();
+        public int getRowsPerPageIndex();
+        public void setRowsPerPageIndex(int index);
+        public HasChangeHandlers getRowsPerPageChange();
     }
 
-    private ArrayList<HandlerRegistration> regList = new ArrayList<HandlerRegistration>();
     private User user;
     private IMAPFolder folder;
     private DispatchAsync dispatcher;
@@ -267,7 +270,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             }
             
         }));
-        regList.add(display.getDataTableSelection().addRowSelectionHandler(new RowSelectionHandler() {
+        registerHandler(new HandlerRegistrationAdapter(display.getDataTableSelection().addRowSelectionHandler(new RowSelectionHandler() {
                 public void onRowSelection(RowSelectionEvent event) {
                     if (event.getSelectedRows().size() == 0) {
                         display.getDeleteEnable().setEnabled(false);
@@ -282,7 +285,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
                 
             
             
-        }));
+        })));
         
         registerHandler(display.getRefreshClick().addClickHandler(new ClickHandler() {
 
@@ -299,6 +302,13 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             }
             
         })));
+        registerHandler(display.getRowsPerPageChange().addChangeHandler(new ChangeHandler() {
+
+            public void onChange(ChangeEvent event) {
+                firePresenterRevealedEvent(true);
+            }
+            
+        }));
         display.addTableListener(tableListener);
     }
 
@@ -326,9 +336,6 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
      */
     protected void onUnbind() {
         display.removeTableListener(tableListener);
-        for (int i = 0; i < regList.size(); i++) {
-            regList.get(i).removeHandler();
-        }
     }
 
     

@@ -22,7 +22,11 @@ package org.apache.hupa.client;
 import com.google.gwt.event.shared.HandlerRegistration;
 
 
-
+/**
+ * Class to act as Adapter between HandlerRegistration in gwt 1.6+ and gwt-incubator
+ *
+ */
+@SuppressWarnings("deprecation")
 public class HandlerRegistrationAdapter implements HandlerRegistration{
     com.google.gwt.gen2.event.shared.HandlerRegistration registration;
 
@@ -31,6 +35,10 @@ public class HandlerRegistrationAdapter implements HandlerRegistration{
     }
 
 
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.event.shared.HandlerRegistration#removeHandler()
+     */
     public void removeHandler() {
         registration.removeHandler();
     }

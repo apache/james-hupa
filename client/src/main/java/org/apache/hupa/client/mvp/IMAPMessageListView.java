@@ -43,6 +43,7 @@ import org.cobogw.gwt.user.client.ui.ButtonBar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -670,19 +671,63 @@ public class IMAPMessageListView extends Composite implements Display{
         return markUnSeenButton;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getRefreshClick()
+     */
     public HasClickHandlers getRefreshClick() {
         return refreshLink;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#goToPage(int)
+     */
     public void goToPage(int page) {
         mailTable.gotoPage(page, false);
     }
     
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getCurrentPage()
+     */
     public int getCurrentPage() {
         return mailTable.getCurrentPage();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getDataTablePageChange()
+     */
     public HasPageChangeHandlers getDataTablePageChange() {
         return mailTable;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getRowsPerPageIndex()
+     */
+    public int getRowsPerPageIndex() {
+        return pageBox.getSelectedIndex();
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#setRowsPerPageIndex(int)
+     */
+    public void setRowsPerPageIndex(int index) {
+        if (pageBox.getItemCount() < index) {
+            index = 0;
+        }             
+        pageBox.setSelectedIndex(index);
+        mailTable.setPageSize(Integer.parseInt(pageBox.getItemText(index)));
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getRowsPerPageChange()
+     */
+    public HasChangeHandlers getRowsPerPageChange() {
+        return pageBox;
     }
 }

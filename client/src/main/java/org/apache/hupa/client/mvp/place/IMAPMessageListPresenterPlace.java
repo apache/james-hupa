@@ -29,6 +29,8 @@ import net.customware.gwt.presenter.client.place.PlaceRequest;
 
 public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMessageListPresenter>{
 
+    private final static String ROWS_PER_PAGE_INDEX = "rowsPerPageIndex";
+    private final static String PAGE = "page";
     @Inject
     public IMAPMessageListPresenterPlace(Provider<IMAPMessageListPresenter> presenter) {
         super(presenter);
@@ -43,19 +45,28 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
     protected void preparePresenter(PlaceRequest request, IMAPMessageListPresenter presenter) {
         int page = 0;
         try {
-            page = Integer.parseInt(request.getParameter("page", "0"));
+            page = Integer.parseInt(request.getParameter(PAGE, "0"));
         } catch (NumberFormatException e) {
-            e.printStackTrace();
             // ignore
         }
         presenter.getDisplay().goToPage(page);
+        
+        int rowsPerPageIndex = 0;
+        try {
+            rowsPerPageIndex = Integer.parseInt(request.getParameter(ROWS_PER_PAGE_INDEX, "0"));
+        } catch (NumberFormatException e) {
+            // ignore
+        }
+        presenter.getDisplay().setRowsPerPageIndex(rowsPerPageIndex);
+
         GWT.log("PRES="+request.toString(),null);
 
     }
 
     @Override
     protected PlaceRequest prepareRequest(PlaceRequest request, IMAPMessageListPresenter presenter) {
-        request = request.with("page", presenter.getDisplay().getCurrentPage() +"");
+        request = request.with(PAGE, presenter.getDisplay().getCurrentPage() +"");
+        request = request.with(ROWS_PER_PAGE_INDEX, presenter.getDisplay().getRowsPerPageIndex() + "");
         GWT.log("REQ="+request.toString(),null);
 
         return request;
