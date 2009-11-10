@@ -103,6 +103,7 @@ public class IMAPMessageListView extends Composite implements Display{
     private ListBox pageBox = new ListBox();
     private Hyperlink allLink = new Hyperlink(constants.all(),"");    
     private Hyperlink noneLink = new Hyperlink(constants.none(),"");
+    private Hyperlink refreshLink = new Hyperlink(constants.refresh(),"");
 
     
     @Inject
@@ -190,7 +191,7 @@ public class IMAPMessageListView extends Composite implements Display{
         markButtonBar.add(markSeenButton);
         markButtonBar.add(markUnSeenButton);
         buttonBar.add(markButtonBar);
-        
+        buttonBar.add(refreshLink);
         pageBox.addItem("20");
         pageBox.addItem("50");
         pageBox.addItem("100");
@@ -666,5 +667,9 @@ public class IMAPMessageListView extends Composite implements Display{
      */
     public HasEnable getMarkUnseenEnable() {
         return markUnSeenButton;
+    }
+
+    public HasClickHandlers getRefreshClick() {
+        return refreshLink;
     }
 }

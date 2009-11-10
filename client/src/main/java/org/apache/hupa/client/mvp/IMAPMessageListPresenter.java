@@ -93,6 +93,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         public HasClickHandlers getMarkUnseenClick();
         public HasEnable getMarkSeenEnable();
         public HasEnable getMarkUnseenEnable();
+        public HasClickHandlers getRefreshClick();
         public void redraw();
     }
 
@@ -272,6 +273,15 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
                 }
                 
             
+            
+        }));
+        
+        registerHandler(display.getRefreshClick().addClickHandler(new ClickHandler() {
+
+            public void onClick(ClickEvent event) {
+                display.reset();
+                display.reloadData();
+            }
             
         }));
         

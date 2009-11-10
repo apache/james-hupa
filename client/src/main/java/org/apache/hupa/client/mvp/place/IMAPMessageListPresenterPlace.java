@@ -24,6 +24,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 import net.customware.gwt.presenter.client.gin.ProvidedPresenterPlace;
+import net.customware.gwt.presenter.client.place.PlaceRequest;
 
 public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMessageListPresenter>{
 
@@ -36,4 +37,31 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
     public String getName() {
         return "MessageList";
     }
+
+    @Override
+    protected void preparePresenter(PlaceRequest request, IMAPMessageListPresenter presenter) {
+        int count = 20;
+        try {
+            count = Integer.parseInt(request.getParameter("count", "20"));
+        } catch (NumberFormatException e) {
+            // ignore
+        }
+        int page = 0;
+        try {
+            page = Integer.parseInt(request.getParameter("page", "0"));
+        } catch (NumberFormatException e) {
+            // ignore
+        }
+        String folder = request.getParameter("folder", "INBOX");
+        presenter.getDisplay();
+        super.preparePresenter(request, presenter);
+    }
+
+    @Override
+    protected PlaceRequest prepareRequest(PlaceRequest request, IMAPMessageListPresenter presenter) {
+        // TODO Auto-generated method stub
+        return super.prepareRequest(request, presenter);
+    }
+    
+    
 }
