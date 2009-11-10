@@ -34,9 +34,7 @@ import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.client.widgets.PagingOptions;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable.DragHandlerFactory;
-import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
-import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.cobogw.gwt.user.client.ui.Button;
@@ -426,13 +424,8 @@ public class IMAPMessageListView extends Composite implements Display{
         return mailTable.getDataTable();
     }
     
-    /*
-     * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#reloadData(org.apache.hupa.shared.data.User, org.apache.hupa.shared.data.IMAPFolder, java.lang.String)
-     */
-    public void reloadData(User user, IMAPFolder folder,String searchValue) {
-        cTableModel.clearCache();
-        mailTable.getTableModel().setRowCount(MutableTableModel.UNKNOWN_ROW_COUNT);
+
+    public void reloadData() {
         mailTable.reloadPage();
     }
     
@@ -443,9 +436,8 @@ public class IMAPMessageListView extends Composite implements Display{
     public void reset() {
         pageBox.setSelectedIndex(0);
         cTableModel.clearCache();
-        cTableModel.setRowCount(0);
-        mailTable.reloadPage();
-        options.reset();
+        cTableModel.setRowCount(CachedTableModel.UNKNOWN_ROW_COUNT);
+        mailTable.gotoFirstPage();
     }
 
     /*
@@ -464,25 +456,6 @@ public class IMAPMessageListView extends Composite implements Display{
     public Widget asWidget() {
         return this;
     }
-
-    /*
-     * (non-Javadoc)
-     * @see net.customware.gwt.presenter.client.Display#startProcessing()
-     */
-    public void startProcessing() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see net.customware.gwt.presenter.client.Display#stopProcessing()
-     */
-    public void stopProcessing() {
-        // TODO Auto-generated method stub
-        
-    }
-
 
     /*
      * (non-Javadoc)

@@ -22,8 +22,6 @@ package org.apache.hupa.client.mvp;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.PlaceRequest;
-import net.customware.gwt.presenter.client.place.PlaceRequestEvent;
 import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
 
@@ -78,30 +76,26 @@ public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>
     private DispatchAsync dispatcher;
     private User user;
     private ServerStatus serverStatus = ServerStatus.Available;
-
+    private MainPresenter mainPresenter;
+    private LoginPresenter loginPresenter;
+    
     @Inject
     public AppPresenter(Display display, DispatchAsync dispatcher,final EventBus bus, LoginPresenter loginPresenter, MainPresenter mainPresenter) {
         super(display,bus, loginPresenter, mainPresenter);
+        this.mainPresenter = mainPresenter;
+        this.loginPresenter = loginPresenter;
         this.dispatcher = dispatcher;  
     }
 
     private void showMain(User user) {
         display.showTopNavigation(true);
-        PlaceRequest request = new PlaceRequest("Main");
-        request = request.with("user", user.getName());
-        
-        eventBus.fireEvent(new PlaceRequestEvent(request));
+        mainPresenter.revealDisplay(user);
     }
     
     
     private void showLogin(String username) {
         display.showTopNavigation(false);
-        PlaceRequest request = new PlaceRequest("Login");
-        if (username != null) {
-            request = request.with("user", username);
-        }
-        
-        eventBus.fireEvent(new PlaceRequestEvent(request));
+        loginPresenter.revealDisplay();
     }
 
     @Override

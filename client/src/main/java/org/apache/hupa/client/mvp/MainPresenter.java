@@ -24,8 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.PlaceRequest;
-import net.customware.gwt.presenter.client.place.PlaceRequestEvent;
 import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
 
@@ -139,7 +137,6 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     private CachingDispatchAsync cachingDispatcher;
     private User user;
     private IMAPFolder folder;
-    private String searchValue;
     private IMAPMessageListPresenter messageListPresenter;
     private IMAPMessagePresenter messagePresenter;
     private MessageSendPresenter sendPresenter;
@@ -233,42 +230,32 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         return tList;
     }
 
-    private void showMessageTable(User user, IMAPFolder folder, String searchValue, boolean refresh) {
+    private void showMessageTable(User user, IMAPFolder folder) {
         this.user = user;
         this.folder = folder;
-        this.searchValue = searchValue;
-        messageListPresenter.reveal(user, folder, searchValue);
-        PlaceRequest request = new PlaceRequest("MessageList");
-        eventBus.fireEvent(new PlaceRequestEvent(request));
+        messageListPresenter.revealDisplay(user, folder);
     }
 
     private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {
-        messagePresenter.reveal(user, folder, message, details);
-        PlaceRequest request = new PlaceRequest("IMAPMessage");
-        eventBus.fireEvent(new PlaceRequestEvent(request));
+        messagePresenter.revealDisplay(user, folder, message, details);
     }
 
     private void showNewMessage() {
-        sendPresenter.reveal(user);
-        PlaceRequest request = new PlaceRequest("MessageSend");
-        eventBus.fireEvent(new PlaceRequestEvent(request));
+        sendPresenter.revealDisplay(user);
     }
 
     private void showForwardMessage(ForwardMessageEvent event) {
-        sendPresenter.reveal(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD);
-        PlaceRequest request = new PlaceRequest("MessageSend");
-        eventBus.fireEvent(new PlaceRequestEvent(request));
+        sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD);
     }
 
     private void showReplyMessage(ReplyMessageEvent event) {
         if (event.getReplyAll()) {
-            sendPresenter.reveal(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY_ALL);
+            sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY_ALL);
         } else {
-            sendPresenter.reveal(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY);
+            sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY);
 
         }
-        PlaceRequest request = new PlaceRequest("MessageSend");
-        eventBus.fireEvent(new PlaceRequestEvent(request));
+        sendPresenter.revealDisplay();
     }
 
     /**
@@ -287,7 +274,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         registerHandler(eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
 
             public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
-                showMessageTable(loadMessagesEvent.getUser(), loadMessagesEvent.getFolder(), loadMessagesEvent.getSearchValue(), true);
+                showMessageTable(loadMessagesEvent.getUser(), loadMessagesEvent.getFolder());
             }
 
         }));
@@ -337,7 +324,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         registerHandler(eventBus.addHandler(SentMessageEvent.TYPE, new SentMessageEventHandler() {
 
             public void onSentMessageEvent(SentMessageEvent ev) {
-                showMessageTable(user, folder, searchValue, false);
+                showMessageTable(user, folder);
             }
 
         }));
@@ -361,7 +348,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             public void onFolderSelectionEvent(FolderSelectionEvent event) {
                 user = event.getUser();
                 folder = event.getFolder();
-                showMessageTable(user, event.getFolder(), searchValue, true);
+                showMessageTable(user, event.getFolder());
             }
 
         }));
@@ -381,7 +368,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         registerHandler(eventBus.addHandler(BackEvent.TYPE, new BackEventHandler() {
 
             public void onBackEvent(BackEvent event) {
-                showMessageTable(user, folder, searchValue, false);
+                showMessageTable(user, folder);
             }
 
         }));
@@ -535,11 +522,17 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         super.onUnbind();
     }
 
+    
+    public void revealDisplay(User user) {
+        this.user = user;
+        loadTreeItems();  
+        firePresenterChangedEvent();
+        revealDisplay();
+    }
+    
     @Override
     protected void onRevealDisplay() {
-        // load IMAPFolder and the message table
-        loadTreeItems();
-        showMessageTable(user, folder, null, true);
+        showMessageTable(user, folder);
 
         super.onRevealDisplay();
     }

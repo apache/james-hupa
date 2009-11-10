@@ -34,6 +34,8 @@ import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
+import org.apache.hupa.shared.events.FolderSelectionEvent;
+import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.IncreaseUnseenEvent;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
@@ -47,7 +49,6 @@ import org.apache.hupa.shared.rpc.MoveMessageResult;
 import org.apache.hupa.shared.rpc.SetFlag;
 import org.apache.hupa.widgets.ui.HasEnable;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -75,7 +76,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         public HasClickHandlers getDeleteAllClick();
         public HasEnable getDeleteEnable();
 
-        public void reloadData(User user, IMAPFolder folder,String searchValue);
+        public void reloadData();
         public void removeMessages(ArrayList<Message> messages);
         public ArrayList<Message> getSelectedMessages();
         public void reset();
@@ -98,7 +99,6 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
     private ArrayList<HandlerRegistration> regList = new ArrayList<HandlerRegistration>();
     private User user;
     private IMAPFolder folder;
-    private String searchValue;
     private DispatchAsync dispatcher;
     private ShowMessageTableListener tableListener = new ShowMessageTableListener();
     
@@ -205,7 +205,6 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
                 }
                 dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, true, uids), new HupaCallback<GenericResult>(dispatcher, eventBus) {
                     public void callback(GenericResult result) {
-                        GWT.log("S="+selectedMessages.size(), null);
                         for (int i = 0; i < selectedMessages.size(); i++) {
                             Message m = selectedMessages.get(i);
                             if (m.getFlags().contains(IMAPFlag.SEEN) == false) {
@@ -250,7 +249,15 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             
             
         }));
-        
+        registerHandler(eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
+
+            public void onFolderSelectionEvent(FolderSelectionEvent event) {
+                folder = event.getFolder();
+                user = event.getUser();
+                firePresenterRevealedEvent(true);
+            }
+            
+        }));
         regList.add(display.getDataTableSelection().addRowSelectionHandler(new RowSelectionHandler() {
                 public void onRowSelection(RowSelectionEvent event) {
                     if (event.getSelectedRows().size() == 0) {
@@ -325,17 +332,21 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
     @Override
     protected void onRevealDisplay() {
-        display.reset();
-        display.deselectAllMessages();
-        display.reloadData(user, folder, searchValue);
+        //display.reset();
+        //display.deselectAllMessages();
+        display.reloadData();
         
     }
     
-    public void reveal(User user, IMAPFolder folder, String searchValue) {
+    public void revealDisplay(User user, IMAPFolder folder) {
         this.user = user;
+        if (this.folder == null || this.folder.getFullName().equals(folder.getFullName()) == false) {
+            display.reset();
+            display.deselectAllMessages();
+        }
         this.folder = folder;
-        this.searchValue = searchValue;
         firePresenterChangedEvent();
+        revealDisplay();
     }
 
 }

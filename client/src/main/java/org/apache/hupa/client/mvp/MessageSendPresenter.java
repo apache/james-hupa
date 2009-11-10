@@ -327,7 +327,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
      * @param oldDetails the olddetails ( if there are any)
      * @param type the type 
      */
-    public void reveal(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
+    public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
         this.oldmessage = oldmessage;
         this.oldDetails = oldDetails;
         this.folder = folder;
@@ -366,6 +366,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
             }
         }
         firePresenterChangedEvent();
+        revealDisplay();
     }
     
     /**
@@ -373,8 +374,8 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
      * 
      * @param user
      */
-    public void reveal(User user) {
-        reveal(user,null,null,null, Type.NEW);
+    public void revealDisplay(User user) {
+        revealDisplay(user,null,null,null, Type.NEW);
     }
 
     @Override
