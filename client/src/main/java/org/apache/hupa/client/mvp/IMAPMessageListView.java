@@ -61,6 +61,7 @@ import com.google.gwt.gen2.table.client.AbstractScrollTable.ScrollPolicy;
 import com.google.gwt.gen2.table.client.AbstractScrollTable.SortPolicy;
 import com.google.gwt.gen2.table.client.SelectionGrid.SelectionPolicy;
 import com.google.gwt.gen2.table.client.TableDefinition.AbstractCellView;
+import com.google.gwt.gen2.table.event.client.HasPageChangeHandlers;
 import com.google.gwt.gen2.table.event.client.HasPageLoadHandlers;
 import com.google.gwt.gen2.table.event.client.HasRowSelectionHandlers;
 import com.google.gwt.gen2.table.event.client.PageLoadEvent;
@@ -671,5 +672,17 @@ public class IMAPMessageListView extends Composite implements Display{
 
     public HasClickHandlers getRefreshClick() {
         return refreshLink;
+    }
+
+    public void goToPage(int page) {
+        mailTable.gotoPage(page, false);
+    }
+    
+    public int getCurrentPage() {
+        return mailTable.getCurrentPage();
+    }
+
+    public HasPageChangeHandlers getDataTablePageChange() {
+        return mailTable;
     }
 }

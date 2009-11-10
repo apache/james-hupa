@@ -17,23 +17,21 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.client.mvp.place;
+package org.apache.hupa.client;
 
-import com.google.inject.Inject;
+import com.google.gwt.event.shared.HandlerRegistration;
 
-import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.DefaultPlaceManager;
 
-/**
- * PlaceManager implementation for Hupa
- * 
- *
- */
-public class HupaPlaceManager extends DefaultPlaceManager{
 
-    @Inject
-    public HupaPlaceManager(EventBus eventBus, LoginPresenterPlace loginPresenterPlace, MainPresenterPlace mainPresenterPlace,IMAPMessageListPresenterPlace messageListPresenterPlace, IMAPMessagePresenterPlace imapMessagePresenterPlace, MessageSendPresenterPlace sendPresenterPlace) {
-        super(eventBus, loginPresenterPlace, messageListPresenterPlace, imapMessagePresenterPlace, sendPresenterPlace);
+public class HandlerRegistrationAdapter implements HandlerRegistration{
+    com.google.gwt.gen2.event.shared.HandlerRegistration registration;
+
+    public HandlerRegistrationAdapter(com.google.gwt.gen2.event.shared.HandlerRegistration registration) {
+        this.registration = registration;
     }
 
+
+    public void removeHandler() {
+        registration.removeHandler();
+    }
 }

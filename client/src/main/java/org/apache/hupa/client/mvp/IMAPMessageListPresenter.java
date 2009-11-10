@@ -26,6 +26,7 @@ import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
+import org.apache.hupa.client.HandlerRegistrationAdapter;
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -49,12 +50,16 @@ import org.apache.hupa.shared.rpc.MoveMessageResult;
 import org.apache.hupa.shared.rpc.SetFlag;
 import org.apache.hupa.widgets.ui.HasEnable;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.gen2.event.shared.HandlerRegistration;
+import com.google.gwt.gen2.table.event.client.HasPageChangeHandlers;
 import com.google.gwt.gen2.table.event.client.HasPageLoadHandlers;
 import com.google.gwt.gen2.table.event.client.HasRowSelectionHandlers;
+import com.google.gwt.gen2.table.event.client.PageChangeEvent;
+import com.google.gwt.gen2.table.event.client.PageChangeHandler;
 import com.google.gwt.gen2.table.event.client.RowSelectionEvent;
 import com.google.gwt.gen2.table.event.client.RowSelectionHandler;
 import com.google.gwt.user.client.ui.SourcesTableEvents;
@@ -95,6 +100,9 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         public HasEnable getMarkUnseenEnable();
         public HasClickHandlers getRefreshClick();
         public void redraw();
+        public HasPageChangeHandlers getDataTablePageChange();
+        public void goToPage(int page);
+        public int getCurrentPage();
     }
 
     private ArrayList<HandlerRegistration> regList = new ArrayList<HandlerRegistration>();
@@ -284,7 +292,13 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             }
             
         }));
-        
+        registerHandler(new HandlerRegistrationAdapter(display.getDataTablePageChange().addPageChangeHandler(new PageChangeHandler() {
+
+            public void onPageChange(PageChangeEvent event) {
+                firePresenterRevealedEvent(true);
+            }
+            
+        })));
         display.addTableListener(tableListener);
     }
 
@@ -342,8 +356,6 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
     @Override
     protected void onRevealDisplay() {
-        //display.reset();
-        //display.deselectAllMessages();
         display.reloadData();
         
     }
@@ -355,7 +367,6 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             display.deselectAllMessages();
         }
         this.folder = folder;
-        firePresenterChangedEvent();
         revealDisplay();
     }
 

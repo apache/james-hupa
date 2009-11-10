@@ -20,6 +20,7 @@ package org.apache.hupa.client.mvp.place;
 
 import org.apache.hupa.client.mvp.IMAPMessageListPresenter;
 
+import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -40,27 +41,24 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
 
     @Override
     protected void preparePresenter(PlaceRequest request, IMAPMessageListPresenter presenter) {
-        int count = 20;
-        try {
-            count = Integer.parseInt(request.getParameter("count", "20"));
-        } catch (NumberFormatException e) {
-            // ignore
-        }
         int page = 0;
         try {
             page = Integer.parseInt(request.getParameter("page", "0"));
         } catch (NumberFormatException e) {
+            e.printStackTrace();
             // ignore
         }
-        String folder = request.getParameter("folder", "INBOX");
-        presenter.getDisplay();
-        super.preparePresenter(request, presenter);
+        presenter.getDisplay().goToPage(page);
+        GWT.log("PRES="+request.toString(),null);
+
     }
 
     @Override
     protected PlaceRequest prepareRequest(PlaceRequest request, IMAPMessageListPresenter presenter) {
-        // TODO Auto-generated method stub
-        return super.prepareRequest(request, presenter);
+        request = request.with("page", presenter.getDisplay().getCurrentPage() +"");
+        GWT.log("REQ="+request.toString(),null);
+
+        return request;
     }
     
     
