@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
 
 import com.google.inject.Inject;
@@ -60,14 +61,14 @@ public class MessageSourceServlet extends HttpServlet {
 
         User user = (User) request.getSession().getAttribute("user");
 
-        String message_uid = (String) request.getParameter("uid");
-        String folder = (String) request.getParameter("folder");
+        String message_uuid = request.getParameter(SConsts.PARAM_UID);
+        String folderName = request.getParameter(SConsts.PARAM_FOLDER);
         
         try {
-            long uid = Long.parseLong(message_uid);
+            long uid = Long.parseLong(message_uuid);
 
             IMAPStore store = cache.get(user);
-            IMAPFolder f = (IMAPFolder) store.getFolder(folder);
+            IMAPFolder f = (IMAPFolder) store.getFolder(folderName);
             if (f.isOpen() == false) {
                 f.open(Folder.READ_ONLY);
             }
@@ -84,8 +85,9 @@ public class MessageSourceServlet extends HttpServlet {
                 f.close(false);
             }
         } catch (Exception e) {
-            logger.error("Unable to get raw content of msg for user " + user + " in folder " + folder + " with uid " + message_uid, e);
-            throw new ServletException("Unable to get raw content of msg for user " + user + " in folder " + folder + " with uid " + message_uid);
+        	String msg = "Unable to get raw content of msg for user " + user + " in folder " + folderName + " with uid " + message_uuid;
+            logger.error(msg, e);
+            throw new ServletException(msg);
         }
     }
 

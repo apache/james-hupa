@@ -81,14 +81,12 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         public HasClickHandlers getDeleteClick();
         public HasClickHandlers getDeleteAllClick();
         public HasEnable getDeleteEnable();
-
         public void reloadData();
         public void removeMessages(ArrayList<Message> messages);
         public ArrayList<Message> getSelectedMessages();
         public void reset();
         public HasDialog getConfirmDeleteDialog();
         public HasDialog getConfirmDeleteAllDialog();
-
         public HasClickHandlers getConfirmDeleteDialogClick();
         public HasClickHandlers getConfirmDeleteAllDialogClick();
         public void selectAllMessages();

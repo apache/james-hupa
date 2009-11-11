@@ -24,6 +24,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 import net.customware.gwt.presenter.client.gin.ProvidedPresenterPlace;
+import net.customware.gwt.presenter.client.place.PlaceRequest;
 
 public class MainPresenterPlace extends ProvidedPresenterPlace<MainPresenter>{
 
@@ -36,5 +37,19 @@ public class MainPresenterPlace extends ProvidedPresenterPlace<MainPresenter>{
     public String getName() {
         return "Main";
     }
+
+    @Override
+    protected void preparePresenter(PlaceRequest request, MainPresenter presenter) {
+        // TODO Auto-generated method stub
+        super.preparePresenter(request, presenter);
+    }
+
+    @Override
+    protected PlaceRequest prepareRequest(PlaceRequest request, MainPresenter presenter) {
+        // TODO Auto-generated method stub
+        return super.prepareRequest(request, presenter);
+    }
+    
+    
 
 }

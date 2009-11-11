@@ -41,7 +41,6 @@ import org.apache.hupa.server.handler.FetchMessagesHandler;
 import org.apache.hupa.server.handler.FetchRecentMessagesHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
 import org.apache.hupa.server.handler.GetMessageDetailsHandler;
-import org.apache.hupa.server.handler.GetRawMessageHandler;
 import org.apache.hupa.server.handler.LoginUserHandler;
 import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.MoveMessageHandler;
@@ -102,7 +101,6 @@ public class ServerModul extends ActionHandlerModule {
         bindHandler(DeleteFolderHandler.class);
         bindHandler(CreateFolderHandler.class);
         bindHandler(TagMessagesHandler.class);
-        bindHandler(GetRawMessageHandler.class);
         bindHandler(SetFlagsHandler.class);
         bind(FileItemRegistry.class).in(Singleton.class);
         bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(

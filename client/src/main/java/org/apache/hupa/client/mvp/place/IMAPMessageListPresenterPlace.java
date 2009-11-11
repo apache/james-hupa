@@ -18,6 +18,7 @@
  ****************************************************************/
 package org.apache.hupa.client.mvp.place;
 
+
 import org.apache.hupa.client.mvp.IMAPMessageListPresenter;
 
 import com.google.gwt.core.client.GWT;
@@ -67,6 +68,7 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
     protected PlaceRequest prepareRequest(PlaceRequest request, IMAPMessageListPresenter presenter) {
         request = request.with(PAGE, presenter.getDisplay().getCurrentPage() +"");
         request = request.with(ROWS_PER_PAGE_INDEX, presenter.getDisplay().getRowsPerPageIndex() + "");
+      
         GWT.log("REQ="+request.toString(),null);
 
         return request;

@@ -24,6 +24,7 @@ import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
 import org.apache.hupa.server.servlet.HupaDispatchServlet;
 import org.apache.hupa.server.servlet.MessageSourceServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
+import org.apache.hupa.shared.SConsts;
 
 import com.google.inject.servlet.ServletModule;
 
@@ -31,9 +32,9 @@ import com.google.inject.servlet.ServletModule;
 public class DispatchServletModule extends ServletModule{
      @Override
         public void configureServlets() {
-             serve("/hupa/dispatch").with(HupaDispatchServlet.class );
-             serve("/hupa/downloadAttachmentServlet").with(DownloadAttachmentServlet.class);
-             serve("/hupa/uploadAttachmentServlet").with(UploadAttachmentServlet.class);
-             serve("/hupa/messageSourceServlet").with(MessageSourceServlet.class);
+             serve("/" + SConsts.HUPA + SConsts.SERVLET_DISPATCH).with(HupaDispatchServlet.class );
+             serve("/" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD).with(DownloadAttachmentServlet.class);
+             serve("/" + SConsts.HUPA + SConsts.SERVLET_UPLOAD).with(UploadAttachmentServlet.class);
+             serve("/" + SConsts.HUPA + SConsts.SERVLET_SOURCE).with(MessageSourceServlet.class);
         }
 }

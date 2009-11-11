@@ -28,6 +28,7 @@ import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.widgets.Loading;
 import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.widgets.ui.HasEnable;
 
 import com.google.gwt.core.client.GWT;
@@ -156,7 +157,7 @@ public class MessageSendView extends Composite implements
         text.setVisibleLines(50);
 
         uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
-        uploader.setServletPath(GWT.getModuleBaseURL() + "uploadAttachmentServlet");
+        uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
         uploader.avoidRepeatFiles(true);
         uploader.setI18Constants(constants);
         
@@ -275,8 +276,7 @@ public class MessageSendView extends Composite implements
     public void resetUploader() {
         uploader.removeFromParent();
         uploader = new MultiUploader();
-        uploader.setServletPath(GWT.getModuleBaseURL()
-                + "uploadAttachmentServlet");
+        uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
         uploader.avoidRepeatFiles(true);
         detailGrid.setWidget(5, 1, uploader);        
     }

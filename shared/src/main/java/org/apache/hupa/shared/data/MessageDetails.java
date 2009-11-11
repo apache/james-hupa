@@ -27,7 +27,6 @@ public class MessageDetails implements Serializable{
      * 
      */
     private static final long serialVersionUID = 7611536915564919521L;
-    private boolean isHTML;
     private String text;
     private ArrayList<MessageAttachment> aList;
     private long uid;
@@ -35,7 +34,6 @@ public class MessageDetails implements Serializable{
 
     public String toString() {
         return "uid=" + String.valueOf(getUid()) +
-        " isHTML=" + isHTML +
         " text.length=" + (text != null ? text.length() : 0) + 
         " raw.length=" + (raw != null ? raw.length() : 0) + 
         " attachments=" + (aList != null ? aList.size() : 0); 
@@ -68,24 +66,6 @@ public class MessageDetails implements Serializable{
         return raw;
     }
     
-    /**
-     * Set if the count is plain/html
-     * 
-     * @param isHTML
-     */
-    public void setIsHTML(boolean isHTML) {
-        this.isHTML = isHTML;
-    }
-
-    /**
-     * Return if the content is plain/html or plain/text
-     * 
-     * @return isHTML
-     */
-    public boolean isHTML() {
-        return isHTML;
-    }
-
     /**
      * Set the body text of the content
      * 

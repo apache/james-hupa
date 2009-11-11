@@ -21,7 +21,9 @@ package org.apache.hupa.client.mvp;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
@@ -69,6 +71,8 @@ import com.google.gwt.gen2.table.event.client.PageLoadEvent;
 import com.google.gwt.gen2.table.event.client.PageLoadHandler;
 import com.google.gwt.gen2.table.event.client.RowCountChangeEvent;
 import com.google.gwt.gen2.table.event.client.RowCountChangeHandler;
+import com.google.gwt.gen2.table.event.client.RowSelectionEvent;
+import com.google.gwt.gen2.table.event.client.RowSelectionHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
@@ -730,4 +734,5 @@ public class IMAPMessageListView extends Composite implements Display{
     public HasChangeHandlers getRowsPerPageChange() {
         return pageBox;
     }
+    
 }

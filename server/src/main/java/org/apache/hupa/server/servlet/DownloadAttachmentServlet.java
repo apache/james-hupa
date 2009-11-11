@@ -37,6 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
 
 import com.google.inject.Inject;
@@ -79,9 +80,9 @@ public class DownloadAttachmentServlet extends HttpServlet {
     	if (user == null)
     		throw new ServletException("Invalid session");
     	
-        String message_uuid = request.getParameter("message_uuid");
-        String attachmentName = request.getParameter("attachment_name");
-        String folderName = request.getParameter("folder_name");
+        String message_uuid = request.getParameter(SConsts.PARAM_UID);
+        String attachmentName = request.getParameter(SConsts.PARAM_NAME);
+        String folderName = request.getParameter(SConsts.PARAM_FOLDER);
         response.setHeader("Content-disposition", "attachment; filename="
                 + attachmentName + "");
         InputStream in = null;

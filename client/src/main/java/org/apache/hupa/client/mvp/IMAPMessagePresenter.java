@@ -30,6 +30,7 @@ import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.HasURL;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -101,13 +102,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
         display.getCc().setText(Util.arrayToString(message.getCc()));
         display.getTo().setText(Util.arrayToString(message.getTo()));
         display.getSubject().setText(message.getSubject());
-        String con = messageDetails.getText();
-        // TODO: do this in the server so it is easier to test.
-        // The server should send all the messages as html.
-        if (messageDetails.isHTML() == false) {
-        	con = "<pre>" + Util.escapeHtmlTags(con) + "</pre>";
-        }
-        display.getContent().setHTML(con);
+        display.getContent().setHTML(messageDetails.getText());
         display.setAttachments(messageDetails.getMessageAttachments(), folder.getFullName(),message.getUid());
     }
 
@@ -160,7 +155,10 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
         registerHandler(display.getShowRawMessageClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
-                String message_url = GWT.getModuleBaseURL() + "messageSourceServlet?uid=" + message.getUid() + "&folder=" + folder.getFullName();
+                String message_url = GWT.getModuleBaseURL() + SConsts.SERVLET_SOURCE + 
+                "?" + SConsts.PARAM_UID + "=" + message.getUid() + 
+                "&" + SConsts.PARAM_FOLDER + "=" + folder.getFullName();
+                
                 display.getRawMessageURL().setUrl(message_url);
                 display.getRawMessageDialog().center();
             }

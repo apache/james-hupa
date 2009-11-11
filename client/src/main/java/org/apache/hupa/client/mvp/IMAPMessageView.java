@@ -29,6 +29,7 @@ import org.apache.hupa.client.widgets.HasURL;
 import org.apache.hupa.client.widgets.Iframe;
 import org.apache.hupa.client.widgets.Loading;
 import org.apache.hupa.client.widgets.MyDialogBox;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
@@ -230,10 +231,11 @@ public class IMAPMessageView extends Composite implements Display{
 
                     public void onClick(ClickEvent event) {
                          DOM.setElementAttribute(RootPanel.get("__download")
-                                 .getElement(), "src", GWT.getModuleBaseURL()
-                                 + "downloadAttachmentServlet?attachment_name="
-                                 + a.getName() + "&folder_name=" + folder
-                                 + "&message_uuid=" + uid);
+                                 .getElement(), "src", 
+                                 GWT.getModuleBaseURL() + SConsts.SERVLET_DOWNLOAD 
+                                 + "?" + SConsts.PARAM_NAME + "=" + a.getName() 
+                                 + "&" + SConsts.PARAM_FOLDER + "=" + folder
+                                 + "&" + SConsts.PARAM_UID + "=" + uid);
                     }
 
                 });

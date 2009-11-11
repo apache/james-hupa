@@ -48,3 +48,10 @@ To login into the system in thi mode use the user 'demo' with password 'demo'
        copy 'client/src/main/webapp/WEB-INF/web.xml' to 'war/WEB-INF'
   Then, set project's output directory to: /hupa/war/WEB-INF/classes
        properties -> Java Build Path -> Source -> Default output folder
+
+- If you compile hupa with google's eclipse plugin and you get the message:
+  >> 'GWT module hupa needs to be (re)compiled, please run a compile or use the Compile/Browse button in hosted mode'
+ 
+  Configure the plugin to compile only the 'Hupa' module.
+  Properties -> Google -> Web Toolkit -> Entry Point Modules -> Hupa - org.apache.hupa
+ 

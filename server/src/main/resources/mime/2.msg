@@ -35,6 +35,16 @@ nobody@foo.com> wrote:
 Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
+<html>
+<head>
+</head>
+<body>
+ <script language="whatever">
+  var whatever = 1;
+ </script>
+ <style>
+ .aClass{}
+ </style>
 Thanks a lot! I will give it a shot tonight.<br><br><br><br>=
 Cheers,<br>Donald<br><br><br><br><br><div class=3D"gmail_quote">On Thu, Oc=
 t 15, 2009 at 11:35 AM, Pe=F1a <span dir=3D"ltr">&lt;<a h=
@@ -46,6 +56,14 @@ ct =A0I told you in the wiki<br>
 <br>
 Regards<br>
 Manolo<br>
+
+Web Page: <a href="http://code.google.com/intl/es/webtoolkit/">GWT</a><br/>
+Email Address: <a href="mailto:donald@example.com">donald@example.com</a>
 </blockquote></div><br>
+</body>
+ <script language="whatever">
+  var whatever = 1;
+ </script>
+</html>
 
 --000e0cd1fd7203f7ae0475f6134e--

@@ -81,6 +81,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TreeItem;
@@ -151,6 +152,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         this.messageListPresenter = messageListPresenter;
         this.messagePresenter = messagePresenter;
         this.sendPresenter = sendPresenter;
+        
     }
 
     protected void loadTreeItems() {
@@ -511,6 +513,9 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             }
             
         }));
+        
+        // Export native javascript methods
+        exportJSMethods(this);
 
     }
 
@@ -533,7 +538,29 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     @Override
     protected void onRevealDisplay() {
         showMessageTable(user, folder);
-
         super.onRevealDisplay();
     }
+    
+    public void openLink(String url) {
+        Window.open(url, "_blank", "");
+    }
+
+    public void mailTo(String mailto) {
+        sendPresenter.revealDisplay(user, mailto);
+    }
+    
+    private native void exportJSMethods(MainPresenter presenter) /*-{
+      $wnd.openLink = function(url) {
+        try {
+           presenter.@org.apache.hupa.client.mvp.MainPresenter::openLink(Ljava/lang/String;) (url);
+        } catch(e) {}
+        return false;
+      };
+      $wnd.mailTo = function(mail) {
+        try {
+           presenter.@org.apache.hupa.client.mvp.MainPresenter::mailTo(Ljava/lang/String;) (mail);
+        } catch(e) {}
+        return false;
+      };
+    }-*/;
 }
