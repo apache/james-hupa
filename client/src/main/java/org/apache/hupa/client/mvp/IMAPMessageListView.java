@@ -21,9 +21,7 @@ package org.apache.hupa.client.mvp;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
@@ -32,8 +30,8 @@ import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
 import org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable;
-import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.EnableButton;
+import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.PagingOptions;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable.DragHandlerFactory;
 import org.apache.hupa.shared.data.Message;
@@ -71,8 +69,6 @@ import com.google.gwt.gen2.table.event.client.PageLoadEvent;
 import com.google.gwt.gen2.table.event.client.PageLoadHandler;
 import com.google.gwt.gen2.table.event.client.RowCountChangeEvent;
 import com.google.gwt.gen2.table.event.client.RowCountChangeHandler;
-import com.google.gwt.gen2.table.event.client.RowSelectionEvent;
-import com.google.gwt.gen2.table.event.client.RowSelectionHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
@@ -688,7 +684,9 @@ public class IMAPMessageListView extends Composite implements Display{
      * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#goToPage(int)
      */
     public void goToPage(int page) {
-        mailTable.gotoPage(page, false);
+        if (page != mailTable.getCurrentPage()) {
+            mailTable.gotoPage(page, false);
+        }
     }
     
     /*
@@ -720,11 +718,13 @@ public class IMAPMessageListView extends Composite implements Display{
      * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#setRowsPerPageIndex(int)
      */
     public void setRowsPerPageIndex(int index) {
-        if (pageBox.getItemCount() < index) {
-            index = 0;
+        if (pageBox.getItemCount() >= index) {
+            if (index != pageBox.getSelectedIndex()) {
+                pageBox.setSelectedIndex(index);
+                mailTable.setPageSize(Integer.parseInt(pageBox.getItemText(index)));
+            }
         }             
-        pageBox.setSelectedIndex(index);
-        mailTable.setPageSize(Integer.parseInt(pageBox.getItemText(index)));
+        
     }
 
     /*

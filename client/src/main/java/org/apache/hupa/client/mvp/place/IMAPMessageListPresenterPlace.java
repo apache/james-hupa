@@ -47,6 +47,9 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
         int page = 0;
         try {
             page = Integer.parseInt(request.getParameter(PAGE, "0"));
+            if (page < 0 ) {
+                page = 0;
+            }
         } catch (NumberFormatException e) {
             // ignore
         }
@@ -55,6 +58,9 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
         int rowsPerPageIndex = 0;
         try {
             rowsPerPageIndex = Integer.parseInt(request.getParameter(ROWS_PER_PAGE_INDEX, "0"));
+            if (rowsPerPageIndex < 0) {
+                rowsPerPageIndex = 0;
+            }
         } catch (NumberFormatException e) {
             // ignore
         }

@@ -264,7 +264,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             public void onFolderSelectionEvent(FolderSelectionEvent event) {
                 folder = event.getFolder();
                 user = event.getUser();
-                firePresenterRevealedEvent(true);
+                firePresenterChangedEvent();
             }
             
         }));
@@ -296,14 +296,16 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         registerHandler(new HandlerRegistrationAdapter(display.getDataTablePageChange().addPageChangeHandler(new PageChangeHandler() {
 
             public void onPageChange(PageChangeEvent event) {
-                firePresenterRevealedEvent(true);
+                //firePresenterRevealedEvent(true);
+                firePresenterChangedEvent();
             }
             
         })));
         registerHandler(display.getRowsPerPageChange().addChangeHandler(new ChangeHandler() {
 
             public void onChange(ChangeEvent event) {
-                firePresenterRevealedEvent(true);
+                //firePresenterRevealedEvent(true);
+                firePresenterChangedEvent();
             }
             
         }));
@@ -361,16 +363,17 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
     @Override
     protected void onRevealDisplay() {
-        display.reloadData();
-        
+        display.reloadData();  
     }
     
     public void revealDisplay(User user, IMAPFolder folder) {
         this.user = user;
+       
         if (this.folder == null || this.folder.getFullName().equals(folder.getFullName()) == false) {
             display.reset();
             display.deselectAllMessages();
         }
+        
         this.folder = folder;
         revealDisplay();
     }
