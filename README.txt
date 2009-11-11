@@ -18,35 +18,38 @@ There is an example configuration file in 'server/src/main/webapp/WEB-INF/conf/c
 ###### Using hupa in demo mode #################
 
 In demo mode there is not necessary any imap or smtp server.
-A bunch of example messages and folders are shown to the useri to be manipulated.
+A bunch of example messages and folders are shown to the user to be manipulated.
 Almost every hupa feature work in demo mode.
 
-To enable demo mode for incomming messages set 'IMAPServerAddress=demo-mode' and
+To enable demo mode for incoming messages set 'IMAPServerAddress=demo-mode' and
 'SMTPServerAddress=demo-mode' for outgoing messages.
 
 To login into the system in thi mode use the user 'demo' with password 'demo'  
 
 ###### Eclipse GWT Plugin notes ################
 
-- If you want to run hupa in hosted mode be sure to add the following line as "vm argument" in the Run configuration:
-  -Dhupa.config.file=${project_loc}/server/src/main/webapp/WEB-INF/conf/config.properties
+- If you want to run hupa in hosted mode:
+  * be sure to add the following line as "vm argument" in the Run configuration:
+    -Dhupa.config.file=${project_loc}/server/src/main/webapp/WEB-INF/conf/config.properties 
+  * be sure to add the following line as "program argument" in the Run configuration:   
+    -war ${project_loc}/client/war
 
 - If you receive this kind of errors in eclipse:
   >> 'Access restriction: The constructor Data[...] is not accessible due to restriction on required library [...]/jre/lib/rt.jar'
 
-  Change the order of the libraries puting 'JRE System Library' at the bottom.
+  Change the order of the libraries putting 'JRE System Library' at the bottom.
 
 - To avoid these gwt-pugin's messages
-  >> 'The output directory for the project should be set to /hupa/war/WEB-INF/classes'
+  >> 'The output directory for the project should be set to /hupa/client/war/WEB-INF/classes'
   >> 'The web.xml file does not exist'
 
   In unix-like environments make these symbolic links: 
        $ ln -s client/war war
-       $ ln -s ../../src/main/webapp/WEB-INF/web.xml war/WEB-INF/web.xml
+       $ ln -s ../../src/main/webapp/WEB-INF/web.xml client/war/WEB-INF/web.xml
   In windows 
        copy recursively 'client/war' to 'war'
-       copy 'client/src/main/webapp/WEB-INF/web.xml' to 'war/WEB-INF'
-  Then, set project's output directory to: /hupa/war/WEB-INF/classes
+       copy 'client/src/main/webapp/WEB-INF/web.xml' to 'client/war/WEB-INF'
+  Then, set project's output directory to: /hupa/client/war/WEB-INF/classes
        properties -> Java Build Path -> Source -> Default output folder
 
 - If you compile hupa with google's eclipse plugin and you get the message:
