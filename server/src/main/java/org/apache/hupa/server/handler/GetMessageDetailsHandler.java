@@ -269,14 +269,14 @@ public class GetMessageDetailsHandler extends
     static Pattern regex_badAttrs = Pattern.compile("(?si)(<)(\\w+)(\\s.+?)onClick=(\".+?\"|'.+?')(.*?</)(\\2)(\\s*>)");
     static String repl_badAttrs = "$1$2$3 $5$6$7";
     
-    static Pattern regex_orphandHttpLinks = Pattern.compile("(?si)(?!.*<a\\s?[^>]*?>.+</a\\s*>.*)(>[^<>]*)" + HTML_LINK_REGEXP + "([^<>]*<)");
+    static Pattern regex_orphandHttpLinks = Pattern.compile("(?si)(?!.*<a\\s?[^>]*?>.+</a\\s*>.*)(<[^<]*?>[^<>]*)" + HTML_LINK_REGEXP + "([^<>]*<[^>]*?>)");
     static String repl_orphandHttpLinks = "$1<a href=\"$2\">$2</a>$3";
     
     static Pattern regex_existingHttpLinks = Pattern.compile("(?si)<a\\s[^>]*?href=[\"']?" + HTML_LINK_REGEXP + "[\"']?");
     static String repl_existingHttpLinks = "<a onClick=\"openLink('$1');return false;\" href=\"$1\"";
 
-    static Pattern regex_orphandEmailLinks = Pattern.compile("(?si)(?!.*<a\\s?[^>]*?>.+</a\\s*>.*)<([A-z]+?)(.*?)>(.*[\\s>])" + EMAIL_REGEXP + "(.*)</\\1>");
-    static String repl_orphandEmailLinks = "<$1$2>$3<a href=\"mailto:$4\">$4</a>$5</$1>";
+    static Pattern regex_orphandEmailLinks = Pattern.compile("(?si)(?!.*<a\\s?[^>]*?>.+</a\\s*>.*)(<[^<]*?>[^<>]*)" + EMAIL_REGEXP + "([^<>]*<[^>]*?>)");
+    static String repl_orphandEmailLinks = "$1<a href=\"mailto:$2\">$2</a>$3";
 
     static Pattern regex_existingEmailLinks = Pattern.compile("(?si)<a\\s[^>]*?href=[\"']*mailto:[\"']?([^\"]+)[\"']?");
     static String repl_existngEmailLinks = "<a onClick=\"mailTo('$1');return false;\" href=\"mailto:$1\"";

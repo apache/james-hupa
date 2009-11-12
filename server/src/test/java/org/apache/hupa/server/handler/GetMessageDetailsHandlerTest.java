@@ -80,9 +80,10 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
         assertEquals("-- <div> .. \"<a onClick=\"openLink('http://whatever');return false;\" href=\"http://whatever\">http://whatever</a>\" .. </div>", res);
         
     }
-    
+
     public void testRegexEmailLinks() {
         String txt, res;
+        
         txt = ".. <a href=\"mailTo:someone@somedomain.com\">..</a> ..";
         res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_existingEmailLinks, GetMessageDetailsHandler.repl_existngEmailLinks);
         assertEquals(".. <a onClick=\"mailTo('someone@somedomain.com');return false;\" href=\"mailto:someone@somedomain.com\">..</a> ..", res);
@@ -119,6 +120,10 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
     	
     	res = handler.txtDocumentToHtml("", "aFolder", 9999l);
     	assertTrue(res.length()==0);
+    	
+    	// TODO: test this
+    	//http://accounts.myspace.com.deaaaf.me.uk/msp/index.php?fuseaction=update&code=78E2BL6-EKY5L893K4MHSA-74ESO-D743U41GYB18J-FA18EI698V4M&email=postmaster@hotelsearch.com
+
     	
     }
 
@@ -164,6 +169,23 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
 	    assertTrue(res.length()==0);
 
 	}
+
+	public void testRegexEmailsInsideTagAttributes() {
+        String msg, res;
+        msg = ".. <a href=\"http://whatever?param1=whatever&email= dock@example.com&param3\">..</a> ..";
+        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        assertFalse(res.contains("mailTo("));
+
+        msg = ".. <a href=bla > http://whatever?param1=whatever&email=dock@example.com&param3 </a> ..";
+        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        assertFalse(res.contains("mailTo("));
+        assertFalse(res.contains("openLink("));
+
+        msg = ".. <div > http://whatever?param1=whatever&email=dock@example.com&param3 <p> ..";
+        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        assertFalse(res.contains("mailTo("));
+        assertTrue(res.contains("openLink("));
+    }
 
 	private MessageDetails loadMessageDetails(String msgFile) throws Exception {
         return handler.mimeToDetails(loadMessage(msgFile), "theFolder", 9999l);

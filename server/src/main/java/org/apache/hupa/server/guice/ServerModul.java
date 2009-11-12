@@ -128,21 +128,22 @@ public class ServerModul extends ActionHandlerModule {
 
     protected Properties loadProperties() throws Exception {
         Properties properties = null;
-        properties = loadProperties(configDir + CONFIG_FILE_NAME);
+
+        String fileName = System.getProperty(SYS_PROP_CONFIG_FILE);
+        if (fileName != null) {
+            properties = loadProperties(fileName);
+        }
 
         if (properties == null) {
-            String fileName = System.getProperty(SYS_PROP_CONFIG_FILE);
-            if (fileName != null) {
-                properties = loadProperties(fileName);
+            for (String name : CONFIG_PROPERTIES) {
+                properties = loadProperties(name);
+                if (properties != null)
+                    break;
             }
+        }
 
-            if (properties == null) {
-                for (String name : CONFIG_PROPERTIES) {
-                    properties = loadProperties(name);
-                    if (properties != null)
-                        break;
-                }
-            }
+        if (properties == null) {
+            properties = loadProperties(configDir + CONFIG_FILE_NAME);
         }
 
         // Configure default parameters for Hupa in demo mode
