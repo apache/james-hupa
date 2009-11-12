@@ -38,6 +38,8 @@ import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
 import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.IncreaseUnseenEvent;
+import org.apache.hupa.shared.events.LogoutEvent;
+import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
 import org.apache.hupa.shared.events.NewMessageEvent;
@@ -116,11 +118,19 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
     public IMAPMessageListPresenter(IMAPMessageListPresenter.Display display,EventBus bus,DispatchAsync dispatcher) {
         super(display,bus);
         this.dispatcher = dispatcher;
+        
+        // add this event on constructor because we don't want to remove it on unbind
+        eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
+
+            public void onLogout(LogoutEvent logoutEvent) {
+                getDisplay().reset();
+            }
+            
+        });
     }
 
     @Override
     protected void onBind() {
-        
         registerHandler(eventBus.addHandler(MoveMessageEvent.TYPE, new MoveMessageEventHandler() {
 
             public void onMoveMessageHandler(MoveMessageEvent event) {
