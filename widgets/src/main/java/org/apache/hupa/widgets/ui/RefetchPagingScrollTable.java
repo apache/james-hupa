@@ -107,13 +107,13 @@ public class RefetchPagingScrollTable<RowType> extends PagingScrollTable<RowType
             }
             
             // Check if we need to refetch rows
-            if (getTableModel().getRowCount() > (getPageCount() * getPageSize())) {
+            if (getTableModel().getRowCount() >= getPageSize()) {
                 // request new rows to fill the table again
-                Request r = new Request(getAbsoluteLastRowIndex(),rowsIndex.size());
+                Request r = new Request(getAbsoluteLastRowIndex() +1,rowsIndex.size());
                 getTableModel().requestRows(r, new Callback<RowType>() {
 
                     public void onFailure(Throwable caught) {
-                    // Nothing todo
+                        // Nothing todo
                     }
 
                     public void onRowsReady(Request request,

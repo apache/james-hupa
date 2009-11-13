@@ -35,6 +35,8 @@ import com.google.gwt.gen2.table.event.client.PageLoadEvent;
 import com.google.gwt.gen2.table.event.client.PageLoadHandler;
 import com.google.gwt.gen2.table.event.client.PagingFailureEvent;
 import com.google.gwt.gen2.table.event.client.PagingFailureHandler;
+import com.google.gwt.gen2.table.event.client.RowCountChangeEvent;
+import com.google.gwt.gen2.table.event.client.RowCountChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -156,6 +158,24 @@ public class PagingOptions extends Composite {
 
             public void onClick(ClickEvent event) {
                 table.gotoLastPage();
+            }
+            
+        });
+        
+        table.getTableModel().addRowCountChangeHandler(new RowCountChangeHandler() {
+
+            public void onRowCountChange(RowCountChangeEvent event) {
+                int startCount =  currentPage * table.getPageSize();
+                
+                if (currentPage == 0) {
+                    startCount = 0;
+                }
+                
+                int endCount  = startCount + table.getPageSize();
+                
+                int rows =event.getNewRowCount();
+                updateControl(startCount, endCount, rows);
+
             }
             
         });
