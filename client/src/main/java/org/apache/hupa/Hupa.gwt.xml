@@ -38,4 +38,71 @@
   
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.apache.hupa.client.Hupa'/>
+  
+    <!--  
+        Modifies the default gwt's language detection algorithm, in order 
+        to include the locale reported by the browser.
+        
+        This modification has been sent to gwt, if it were accepted and included
+        in the original I18N.gwt.xml, this code could be removed.
+        see: http://code.google.com/p/google-web-toolkit/issues/detail?id=4228
+  -->
+    <property-provider name="locale">
+    <![CDATA[
+      try {
+      var locale;
+
+      // Look for the locale as a url argument
+      if (locale == null) {
+        var args = location.search;
+        var startLang = args.indexOf("locale=");
+        if (startLang >= 0) {
+          var language = args.substring(startLang);
+          var begin = language.indexOf("=") + 1;
+          var end = language.indexOf("&");
+          if (end == -1) {
+            end = language.length;
+          }
+          locale = language.substring(begin, end);
+        }
+      }
+
+      if (locale == null) {
+        // Look for the locale on the web page
+        locale = __gwt_getMetaProperty("locale")
+      }
+
+      if (locale == null) {
+        // Look for an override computed by other means in the selection script
+        locale = $wnd['__gwt_Locale'];
+      }
+
+      if (locale == null) {
+        // Use the browser's locale
+        locale = navigator.browserLanguage ? navigator.browserLanguage : navigator.language;
+        if (locale != null) {
+           locale = locale.replace(/-/g, '_');
+        }
+      }
+      
+      if (locale == null) {
+        return "default";
+      }
+
+      while (!__gwt_isKnownPropertyValue("locale",  locale)) {
+        var lastIndex = locale.lastIndexOf("_");
+        if (lastIndex == -1) {
+              locale = "default";
+          break;
+        } else {
+          locale = locale.substring(0,lastIndex);
+        }
+      }
+      return locale;
+    } catch(e){
+      alert("Unexpected exception in locale detection, using default: " + e);
+      return "default";
+    }
+  ]]>
+  </property-provider>
 </module>
