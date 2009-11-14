@@ -19,7 +19,6 @@ public class DownloadAttachmentServletTest extends AbstractHandlerTest {
 		Part part = DownloadAttachmentServlet.handleMultiPart(message
 		        .getContent(), "1.1934304663@web28309.mail.ukl.yahoo.com");
 		assertNotNull(part);
-		System.out.println(part.getContentType());
 	}
 
 }

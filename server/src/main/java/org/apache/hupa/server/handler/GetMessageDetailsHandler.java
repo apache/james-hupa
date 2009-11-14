@@ -165,7 +165,6 @@ public class GetMessageDetailsHandler extends
             IOException {
     	boolean isHTML = false;
         if (con instanceof String) {
-            System.out.println("sc: " + message.getContentType());
             if (message.getContentType().startsWith("text/html")) {
                 isHTML = true;
             } else {
@@ -177,7 +176,6 @@ public class GetMessageDetailsHandler extends
 
             Multipart mp = (Multipart) con;
             String multipartContentType = mp.getContentType().toLowerCase();
-            System.out.println("mc: " + multipartContentType);
             
             String text = null;
 
@@ -188,7 +186,6 @@ public class GetMessageDetailsHandler extends
                     Part part = mp.getBodyPart(i);
 
                     String contentType = part.getContentType().toLowerCase();
-                    System.out.println("c: " + contentType);
 
                     if (text == null && contentType.startsWith("text/plain") ) {
                         isHTML = false;
@@ -230,7 +227,6 @@ public class GetMessageDetailsHandler extends
             Part part = mp.getBodyPart(i);
             
             String contentType = part.getContentType().toLowerCase();
-            System.out.println("m: " + contentType);
 
             // we prefer html
             if (text == null && contentType.startsWith("text/plain")) {
@@ -250,9 +246,9 @@ public class GetMessageDetailsHandler extends
     static Pattern regex_http = Pattern.compile(HTML_LINK_REGEXP);
     static String repl_http = "<a href=\"$1\">$1</a>";
 
-    static String EMAIL_REGEXP =  "\\b([A-z0-9._%\\+\\-]+@[A-z0-9\\.\\-]+\\.[A-z]{2,4})\\b";
-    static Pattern regex_email = Pattern.compile(EMAIL_REGEXP);
-    static String repl_email = "<a href=\"mailto:$1\">$1</a>";
+    static String EMAIL_REGEXP =  "\\b(?<![A-z0-9._%\\+\\-=])([A-z][A-z0-9._%\\+\\-]+@[A-z0-9\\.\\-]+\\.[A-z]{2,4})";
+    static Pattern regex_email = Pattern.compile("\\b"+ EMAIL_REGEXP);
+    static String repl_email = "<a href=\"mailto:$1\">$1</a>$1";
     
     static Pattern regex_inlineImg = Pattern.compile("(?si)(<\\s*img\\s+.*?src=[\"'])cid:([^\"']+[\"'])");
     static String repl_inlineImg = "$1" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD 
@@ -266,8 +262,9 @@ public class GetMessageDetailsHandler extends
     static Pattern regex_unneededTags = Pattern.compile("(?si)(</?(html|body)[^>]*?>)");
     static String repl_unneededTags = "";
 
-    static Pattern regex_badAttrs = Pattern.compile("(?si)(<)(\\w+)(\\s.+?)onClick=(\".+?\"|'.+?')(.*?</)(\\2)(\\s*>)");
-    static String repl_badAttrs = "$1$2$3 $5$6$7";
+    static String EVENT_ATTR_REGEX = "(?:on[dbl]*click)|(?:onmouse[a-z]+)|(?:onkey[a-z]+)";
+    static Pattern regex_badAttrs = Pattern.compile("(?si)(<\\w+[^<>]*)\\s+("+ EVENT_ATTR_REGEX + ")=[\"']?([^\\s<>]+?)[\"']?([\\s>])");
+    static String repl_badAttrs = "$1$4";
     
     static Pattern regex_orphandHttpLinks = Pattern.compile("(?si)(?!.*<a\\s?[^>]*?>.+</a\\s*>.*)(<[^<]*?>[^<>]*)" + HTML_LINK_REGEXP + "([^<>]*<[^>]*?>)");
     static String repl_orphandHttpLinks = "$1<a href=\"$2\">$2</a>$3";
@@ -281,8 +278,15 @@ public class GetMessageDetailsHandler extends
     static Pattern regex_existingEmailLinks = Pattern.compile("(?si)<a\\s[^>]*?href=[\"']*mailto:[\"']?([^\"]+)[\"']?");
     static String repl_existngEmailLinks = "<a onClick=\"mailTo('$1');return false;\" href=\"mailto:$1\"";
     
-    protected String replaceAll(String txt, Pattern pattern, String repl) {
-        return pattern.matcher(txt).replaceAll(repl);
+    
+    protected String replaceAll(String txt, Pattern pattern, String replacement) {
+        return pattern.matcher(txt).replaceAll(replacement);
+    }
+    
+    protected String replaceAllRecursive(String txt, Pattern pattern, String replacement) {
+        while (pattern.matcher(txt).find())
+            txt = pattern.matcher(txt).replaceAll(replacement);
+        return txt;
     }
 
     protected String txtDocumentToHtml(String txt, String folderName, long uuid) {
@@ -321,7 +325,7 @@ public class GetMessageDetailsHandler extends
         // Remove body and html tags
         html = replaceAll(html, regex_unneededTags, repl_unneededTags);
         // Remove all onClick attributes 
-        html = replaceAll(html, regex_badAttrs, repl_badAttrs);
+        html = replaceAllRecursive(html, regex_badAttrs, repl_badAttrs);
         // Add <a> tags to links which are not already into <a>
         html = replaceAll(html, regex_orphandHttpLinks, repl_orphandHttpLinks);
         // Add javascript method to <a> in order to open links in a different window

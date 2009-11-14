@@ -42,9 +42,13 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
 
     public void testRegexEmail() {
         String txt, res;
-        txt = "!aBcD091_%55-+.aa@abc01-01.dd-a.aBc+";
+        txt = "!'BcD091_%55-+.aa@abc01-01.dd-a.aBc+";
         res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_email, "");
-        assertEquals("!+", res);
+        assertEquals("!'+", res);
+
+        txt = "!'=BcD091_%55-+.aa@abc01-01.dd-a.aBc+";
+        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_email, "");
+        assertEquals(txt, res);
     }
 
     public void testRegexInlineImg() {
@@ -60,6 +64,18 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
         res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_badTags, GetMessageDetailsHandler.repl_badTags);
         res = handler.replaceAll(res, GetMessageDetailsHandler.regex_unneededTags, GetMessageDetailsHandler.repl_unneededTags);
         assertEquals("...", res);
+    }
+
+    public void testRegexBadAttributes() {
+
+        String txt, res;
+        txt = "... <div attr=a onClick=\"something('');\"> ...";
+        res = handler.replaceAllRecursive(txt, GetMessageDetailsHandler.regex_badAttrs, GetMessageDetailsHandler.repl_badAttrs);
+        assertEquals("... <div attr=a> ...", res);
+
+        txt = "... <div attr=a onClick=\"something('');\" attr=b onMouseOver=whatever attr=c onKeyup=\"\" /> ...";
+        res = handler.replaceAllRecursive(txt, GetMessageDetailsHandler.regex_badAttrs, GetMessageDetailsHandler.repl_badAttrs);
+        assertEquals("... <div attr=a attr=b attr=c /> ...", res);
     }
     
     public void testRegexHtmlLinks() {
@@ -185,6 +201,12 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
         res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
         assertFalse(res.contains("mailTo("));
         assertTrue(res.contains("openLink("));
+        
+        msg = "http://accounts.myspace.com.deaaaf.me.uk/msp/index.php?fuseaction=update&code=78E2BL6-EKY5L893K4MHSA-74ESO-D743U41GYB18J-FA18EI698V4M&email=somehone@somewere.com";
+        res = handler.txtDocumentToHtml(msg, "aFolder", 9999l);
+        assertFalse(res.contains("mailTo("));
+        assertTrue(res.contains("openLink("));
+        
     }
 
 	private MessageDetails loadMessageDetails(String msgFile) throws Exception {
