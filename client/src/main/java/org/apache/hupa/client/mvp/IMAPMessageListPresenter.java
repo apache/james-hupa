@@ -109,6 +109,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         public HasChangeHandlers getRowsPerPageChange();
     }
 
+    private String searchValue;
     private User user;
     private IMAPFolder folder;
     private DispatchAsync dispatcher;
@@ -376,14 +377,15 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         display.reloadData();  
     }
     
-    public void revealDisplay(User user, IMAPFolder folder) {
+    public void revealDisplay(User user, IMAPFolder folder, String searchValue) {
         this.user = user;
        
-        if (this.folder == null || this.folder.getFullName().equals(folder.getFullName()) == false) {
+        if (this.folder == null || this.folder.getFullName().equals(folder.getFullName()) == false 
+                || (searchValue == null && this.searchValue != null) || (searchValue != null && searchValue.equals(this.searchValue) == false)) {
             display.reset();
             display.deselectAllMessages();
         }
-        
+        this.searchValue = searchValue;
         this.folder = folder;
         revealDisplay();
     }

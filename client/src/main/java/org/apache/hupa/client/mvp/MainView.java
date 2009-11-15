@@ -242,7 +242,7 @@ public class MainView extends Composite implements MainPresenter.Display {
                 oracle.add(from.trim());
             }
         }
-        searchBox.setText("");
+        //searchBox.setText("");
     }
 
     /*

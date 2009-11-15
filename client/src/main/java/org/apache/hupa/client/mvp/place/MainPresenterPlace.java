@@ -19,7 +19,10 @@
 package org.apache.hupa.client.mvp.place;
 
 import org.apache.hupa.client.mvp.MainPresenter;
+import org.eclipse.swt.widgets.Display;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -28,6 +31,8 @@ import net.customware.gwt.presenter.client.place.PlaceRequest;
 
 public class MainPresenterPlace extends ProvidedPresenterPlace<MainPresenter>{
 
+    private static String FOLDER = "folder";
+    private static String SEARCH = "search";
     @Inject
     public MainPresenterPlace(Provider<MainPresenter> presenter) {
         super(presenter);
@@ -40,13 +45,21 @@ public class MainPresenterPlace extends ProvidedPresenterPlace<MainPresenter>{
 
     @Override
     protected void preparePresenter(PlaceRequest request, MainPresenter presenter) {
-        // TODO Auto-generated method stub
+        String searchValue = request.getParameter(SEARCH, "");
+        presenter.getDisplay().getSearchValue().setValue(searchValue);
+        GWT.log("Pres=" + request.toString(),null);
         super.preparePresenter(request, presenter);
     }
 
     @Override
     protected PlaceRequest prepareRequest(PlaceRequest request, MainPresenter presenter) {
-        // TODO Auto-generated method stub
+        String searchValue = presenter.getDisplay().getSearchValue().getValue();
+        if (searchValue != null && searchValue.length() > 0) {
+            request = request.with(SEARCH, searchValue);
+
+        }
+        GWT.log("Req=" + request.toString(),null);
+
         return super.prepareRequest(request, presenter);
     }
     

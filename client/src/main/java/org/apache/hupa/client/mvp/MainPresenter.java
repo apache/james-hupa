@@ -138,6 +138,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     private CachingDispatchAsync cachingDispatcher;
     private User user;
     private IMAPFolder folder;
+    private String searchValue;
     private IMAPMessageListPresenter messageListPresenter;
     private IMAPMessagePresenter messagePresenter;
     private MessageSendPresenter sendPresenter;
@@ -232,10 +233,13 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         return tList;
     }
 
-    private void showMessageTable(User user, IMAPFolder folder) {
+    private void showMessageTable(User user, IMAPFolder folder, String searchValue) {
         this.user = user;
         this.folder = folder;
-        messageListPresenter.revealDisplay(user, folder);
+        this.searchValue = searchValue;
+        firePresenterChangedEvent();
+
+        messageListPresenter.revealDisplay(user, folder, searchValue);
     }
 
     private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {
@@ -276,7 +280,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         registerHandler(eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
 
             public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
-                showMessageTable(loadMessagesEvent.getUser(), loadMessagesEvent.getFolder());
+                showMessageTable(loadMessagesEvent.getUser(), loadMessagesEvent.getFolder(), loadMessagesEvent.getSearchValue());
             }
 
         }));
@@ -326,7 +330,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         registerHandler(eventBus.addHandler(SentMessageEvent.TYPE, new SentMessageEventHandler() {
 
             public void onSentMessageEvent(SentMessageEvent ev) {
-                showMessageTable(user, folder);
+                showMessageTable(user, folder, searchValue);
             }
 
         }));
@@ -350,7 +354,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             public void onFolderSelectionEvent(FolderSelectionEvent event) {
                 user = event.getUser();
                 folder = event.getFolder();
-                showMessageTable(user, event.getFolder());
+                showMessageTable(user, event.getFolder(), searchValue);
             }
 
         }));
@@ -370,7 +374,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         registerHandler(eventBus.addHandler(BackEvent.TYPE, new BackEventHandler() {
 
             public void onBackEvent(BackEvent event) {
-                showMessageTable(user, folder);
+                showMessageTable(user, folder, searchValue);
             }
 
         }));
@@ -537,7 +541,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     
     @Override
     protected void onRevealDisplay() {
-        showMessageTable(user, folder);
+        showMessageTable(user, folder, searchValue);
         super.onRevealDisplay();
     }
     

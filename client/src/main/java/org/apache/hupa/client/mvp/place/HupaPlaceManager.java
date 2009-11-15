@@ -33,7 +33,7 @@ public class HupaPlaceManager extends DefaultPlaceManager{
 
     @Inject
     public HupaPlaceManager(EventBus eventBus, LoginPresenterPlace loginPresenterPlace, MainPresenterPlace mainPresenterPlace,IMAPMessageListPresenterPlace messageListPresenterPlace, IMAPMessagePresenterPlace imapMessagePresenterPlace, MessageSendPresenterPlace sendPresenterPlace) {
-        super(eventBus, loginPresenterPlace, messageListPresenterPlace, imapMessagePresenterPlace, sendPresenterPlace);
+        super(eventBus, loginPresenterPlace, mainPresenterPlace, messageListPresenterPlace, imapMessagePresenterPlace, sendPresenterPlace);
     }
 
 }
