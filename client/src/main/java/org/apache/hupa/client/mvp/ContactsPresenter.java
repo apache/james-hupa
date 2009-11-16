@@ -16,17 +16,41 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-
 package org.apache.hupa.client.mvp;
 
-import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
+import com.google.inject.Inject;
 
-public interface NameAwareWidgetContainerDisplay extends WidgetContainerDisplay{
+import net.customware.gwt.presenter.client.EventBus;
+import net.customware.gwt.presenter.client.widget.WidgetDisplay;
+import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
-    /**
-     * Return the name for the Display to show
-     * 
-     * @return name
-     */
-    public String getName();
+public class ContactsPresenter extends WidgetPresenter<ContactsPresenter.Display>{
+
+    @Inject
+    public ContactsPresenter(Display display, EventBus eventBus) {
+        super(display, eventBus);
+    }
+
+    public interface Display extends NameAwareWidgetDisplay, WidgetDisplay {
+        
+    }
+    
+    @Override
+    protected void onBind() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    protected void onRevealDisplay() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    protected void onUnbind() {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

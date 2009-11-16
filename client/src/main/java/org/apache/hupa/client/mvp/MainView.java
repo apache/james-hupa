@@ -74,7 +74,7 @@ public class MainView extends Composite implements MainPresenter.Display {
 
     private DockPanel dockPanel;
     private VerticalPanel north;
-    private HupaConstants constants = GWT.create(HupaConstants.class);
+    private HupaConstants constants;
     private RoundedPanel west;
     private IMAPTreeImages tImages = GWT.create(IMAPTreeImages.class);
     private Tree folderTree = new Tree(tImages, true);
@@ -82,13 +82,13 @@ public class MainView extends Composite implements MainPresenter.Display {
     private Widget centerWidget;
     private RoundedPanel center;
     private IMAPMessageListView mListView;
-    private HupaMessages messages = GWT.create(HupaMessages.class);
+    private HupaMessages messages;
     private VerticalPanel folderPanel = new VerticalPanel();
     private SimplePanel panel = new SimplePanel();
     private HorizontalPanel folderButtonBar = new HorizontalPanel();
-    private EnableHyperlink newFolderButton = new EnableHyperlink(constants.newFolder(), "");
-    private EnableHyperlink renameFolderButton = new EnableHyperlink(constants.renameFolder(), "");
-    private EnableHyperlink deleteFolderButton = new EnableHyperlink(constants.deleteFolder(), "");
+    private EnableHyperlink newFolderButton;
+    private EnableHyperlink renameFolderButton;
+    private EnableHyperlink deleteFolderButton;
     private ConfirmDialogBox confirmFolderDeleteBox = new ConfirmDialogBox();
     private Loading loader = new Loading(false);
     private Loading messageLoader = new Loading(true);
@@ -98,10 +98,16 @@ public class MainView extends Composite implements MainPresenter.Display {
     protected User user;
 
     @Inject
-    public MainView(EventBus bus, PagingScrollTableRowDragController controllerProvider) {
+    public MainView(EventBus bus, PagingScrollTableRowDragController controllerProvider, HupaConstants constants, HupaMessages messages) {
+        this.constants = constants;
+        this.messages = messages;
         this.controller = controllerProvider;
         this.bus = bus;
 
+        newFolderButton = new EnableHyperlink(constants.newFolder(), "");
+        renameFolderButton = new EnableHyperlink(constants.renameFolder(), "");
+        deleteFolderButton = new EnableHyperlink(constants.deleteFolder(), "");
+        
         dockPanel = new DockPanel();
 
         dockPanel.setSpacing(10);
@@ -565,6 +571,6 @@ public class MainView extends Composite implements MainPresenter.Display {
      * @see org.apache.hupa.client.mvp.NameAwareDisplay#getName()
      */
     public String getName() {
-        return "Email";
+        return constants.mailTab();
     }
 }

@@ -45,6 +45,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 /**
  * View which displays a form which handle sending of mails
@@ -53,7 +54,6 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class MessageSendView extends Composite implements
         MessageSendPresenter.Display {
-    private HupaConstants constants = GWT.create(HupaConstants.class);
     private Grid detailGrid = new Grid(6, 3);
     private Label from = new Label();
     private TextBox to = new TextBox();
@@ -63,11 +63,14 @@ public class MessageSendView extends Composite implements
     private BaseUploadStatus uploadStatus = new BaseUploadStatus();
     private MultiUploader uploader = new MultiUploader(uploadStatus);
     private TextArea text = new TextArea();
-    private EnableButton sendButton = new EnableButton(constants.sendButton());
-    private EnableHyperlink backButton = new EnableHyperlink(constants.backButton(),"");
+    private EnableButton sendButton;
+    private EnableHyperlink backButton;
     private Loading sendProgress = new Loading(true);
 
-    public MessageSendView() {
+    @Inject
+    public MessageSendView(HupaConstants constants) {
+        sendButton = new EnableButton(constants.sendButton());
+        backButton = new EnableHyperlink(constants.backButton(),"");
         final VerticalPanel mPanel = new VerticalPanel();
         //mPanel.setWidth("100%");
         mPanel.setWidth(Window.getClientWidth() -200 +"px");

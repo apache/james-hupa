@@ -13,8 +13,8 @@ public class ContainerPresenter extends WidgetContainerPresenter<WidgetContainer
     private MainPresenter presenter;
     
     @Inject
-    public ContainerPresenter(WidgetContainerDisplay display, EventBus eventBus, MainPresenter presenter) {
-        super(display, eventBus, presenter);
+    public ContainerPresenter(WidgetContainerDisplay display, EventBus eventBus, MainPresenter presenter, ContactsPresenter contactPresenter) {
+        super(display, eventBus, presenter,contactPresenter);
         this.presenter = presenter;
         // TODO Auto-generated constructor stub
     }

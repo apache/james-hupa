@@ -22,7 +22,6 @@ package org.apache.hupa.client.mvp;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.shared.events.ServerStatusEvent.ServerStatus;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
@@ -34,6 +33,7 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 /**
  * AppView is the main WidgetContainer which show the LoginView or the MainView depending on if 
@@ -42,9 +42,8 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class AppView extends Composite implements AppPresenter.Display {
     private SimplePanel mainPanel = new SimplePanel();
-    private HupaConstants constants = GWT.create(HupaConstants.class);
     private HorizontalPanel northTop = new HorizontalPanel();
-    private Hyperlink logoutButton = new Hyperlink(constants.logoutButton(),"");
+    private Hyperlink logoutButton;
     private SimplePanel topNavigatorPanel = new SimplePanel();
     private HTML dummy = new HTML("&nbsp");
     private Label userName = new Label();
@@ -71,7 +70,10 @@ public class AppView extends Composite implements AppPresenter.Display {
         }
     }
 
-    public AppView() {
+    @Inject
+    public AppView(HupaConstants constants) {
+        logoutButton = new Hyperlink(constants.logoutButton(),"");
+
         VerticalPanel vPanel = new VerticalPanel();
 
         vPanel.setSpacing(3);
@@ -108,6 +110,7 @@ public class AppView extends Composite implements AppPresenter.Display {
         vPanel.setCellVerticalAlignment(header, VerticalPanel.ALIGN_MIDDLE);
 
         vPanel.add(mainPanel);
+        vPanel.setCellHorizontalAlignment(mainPanel, VerticalPanel.ALIGN_LEFT);
 
         dummy.setHeight("100%");
         showTopNavigation(false);

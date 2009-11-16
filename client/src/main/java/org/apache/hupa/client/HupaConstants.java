@@ -113,4 +113,8 @@ public interface HupaConstants extends Constants, UploaderConstants {
     public String markUnseen();
 
     public String refresh();
+
+    public String contactsTab();
+
+    public String mailTab();
 }

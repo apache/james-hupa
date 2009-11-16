@@ -41,7 +41,6 @@ import org.apache.hupa.widgets.ui.HasEnable;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
@@ -92,35 +91,48 @@ import com.google.inject.Inject;
 @SuppressWarnings("deprecation")
 public class IMAPMessageListView extends Composite implements Display{
 
-    private HupaConstants constants = GWT.create(HupaConstants.class);
-    private HupaMessages messages = GWT.create(HupaMessages.class);
-    private HupaImageBundle imageBundle = GWT.create(HupaImageBundle.class);
+    @SuppressWarnings("unused")
+    private HupaMessages messages;
+    private HupaImageBundle imageBundle;
 
     private PagingOptions options;
     private DragRefetchPagingScrollTable<Message> mailTable;
     private CachedTableModel<Message> cTableModel;
 
     private FixedWidthGrid dataTable = createDataTable();
-    private EnableButton deleteMailButton = new EnableButton(constants.deleteMailButton());
-    private    Button newMailButton = new Button(constants.newMailButton());
-    private Button deleteAllMailButton = new Button(constants.deleteAll());
+    private EnableButton deleteMailButton;
+    private Button newMailButton;
+    private Button deleteAllMailButton;
     private ConfirmDialogBox confirmBox = new ConfirmDialogBox();
     private ConfirmDialogBox confirmDeleteAllBox = new ConfirmDialogBox();
-    private EnableButton markSeenButton = new EnableButton(constants.markSeen());
-    private EnableButton markUnSeenButton = new EnableButton(constants.markUnseen());
+    private EnableButton markSeenButton;
+    private EnableButton markUnSeenButton;
 
     private ListBox pageBox = new ListBox();
-    private Hyperlink allLink = new Hyperlink(constants.all(),"");    
-    private Hyperlink noneLink = new Hyperlink(constants.none(),"");
-    private Hyperlink refreshLink = new Hyperlink(constants.refresh(),"");
+    private Hyperlink allLink;    
+    private Hyperlink noneLink;
+    private Hyperlink refreshLink;
     private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
     private SuggestBox searchBox = new SuggestBox(oracle);
-    private Button searchButton = new Button(constants.searchButton());
+    private Button searchButton;
     private Loading expandLoading = new Loading(false);
     
     @Inject
-    public IMAPMessageListView(PagingScrollTableRowDragController controller, MessageTableModel mTableModel) {
-    	this.cTableModel = new CachedTableModel<Message>(mTableModel);
+    public IMAPMessageListView(final PagingScrollTableRowDragController controller, final MessageTableModel mTableModel, final HupaConstants constants, final HupaMessages messages, final HupaImageBundle imageBundle) {
+    	this.messages = messages;
+    	this.imageBundle = imageBundle;
+    	
+    	deleteMailButton = new EnableButton(constants.deleteMailButton());
+        newMailButton = new Button(constants.newMailButton());
+        deleteAllMailButton = new Button(constants.deleteAll());
+        markSeenButton = new EnableButton(constants.markSeen());
+        markUnSeenButton = new EnableButton(constants.markUnseen());
+        allLink = new Hyperlink(constants.all(),"");    
+        noneLink = new Hyperlink(constants.none(),"");
+        refreshLink = new Hyperlink(constants.refresh(),"");
+        searchButton = new Button(constants.searchButton());
+        
+        this.cTableModel = new CachedTableModel<Message>(mTableModel);
         cTableModel.setRowCount(MutableTableModel.UNKNOWN_ROW_COUNT);
         mTableModel.addRowCountChangeHandler(new RowCountChangeHandler() {
 			

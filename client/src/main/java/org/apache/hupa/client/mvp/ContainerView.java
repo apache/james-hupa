@@ -40,14 +40,14 @@ public class ContainerView extends Composite implements WidgetContainerDisplay {
     }
     
     /**
-     * Widgets which should get add to the Container needs to implements the NameAwareWidgetContainerDisplay interface
+     * Widgets which should get add to the Container needs to implements the NameAwareWidgetDisplay interface
      * 
      * (non-Javadoc)
      * @see net.customware.gwt.presenter.client.widget.WidgetContainerDisplay#addWidget(com.google.gwt.user.client.ui.Widget)
      */
     public void addWidget(Widget widget) {
-        if (widget instanceof NameAwareWidgetContainerDisplay) {
-            tabPanel.add(widget,((NameAwareWidgetContainerDisplay) widget).getName());
+        if (widget instanceof NameAwareWidgetDisplay) {
+            tabPanel.add(widget,((NameAwareWidgetDisplay) widget).getName());
         } else {
             throw new IllegalArgumentException("Given widget must implement NameAwareWidgetContainerDisplay");
         }

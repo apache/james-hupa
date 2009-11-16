@@ -56,11 +56,12 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 public class IMAPMessageView extends Composite implements Display{
     
-    private HupaImageBundle imageBundle = GWT.create(HupaImageBundle.class);
-    private HupaConstants constants = GWT.create(HupaConstants.class);
+    private HupaImageBundle imageBundle;
+    //private HupaConstants constants = GWT.create(HupaConstants.class);
     private Grid detailGrid = new Grid(5, 2);
     private Label from = new Label();
     private Label cc = new Label();
@@ -71,8 +72,8 @@ public class IMAPMessageView extends Composite implements Display{
     private Button replyMsgButton = new Button();
     private Button replyAllMsgButton = new Button();
     private Button forwardMsgButton = new Button();
-    private Hyperlink showRawButton = new Hyperlink(constants.rawButton(),"");
-    private Hyperlink backButton = new Hyperlink(constants.backButton(),"");
+    private Hyperlink showRawButton;
+    private Hyperlink backButton;
     private FlowPanel attachments = new FlowPanel();
     private MyDialogBox rawDialogBox = new MyDialogBox();
     private Iframe rawFrame = new Iframe();
@@ -81,7 +82,12 @@ public class IMAPMessageView extends Composite implements Display{
     public final static int REPLY_ALL_BUTTON = 2;
     private Loading loading  = new Loading(true);
     private SimplePanel container = new SimplePanel();
-    public IMAPMessageView() {
+    
+    @Inject
+    public IMAPMessageView(HupaConstants constants, HupaImageBundle imageBundle) {
+        this.imageBundle = imageBundle;
+        showRawButton = new Hyperlink(constants.rawButton(),"");
+        backButton = new Hyperlink(constants.backButton(),"");
         final VerticalPanel mPanel = new VerticalPanel();
         mPanel.setWidth(Window.getClientWidth() -200 +"px");
         

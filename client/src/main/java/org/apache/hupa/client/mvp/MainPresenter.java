@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import net.customware.gwt.presenter.client.EventBus;
+import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
@@ -90,7 +91,7 @@ import com.google.inject.Inject;
  */
 public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Display> {
 
-    public interface Display extends NameAwareWidgetContainerDisplay {
+    public interface Display extends NameAwareWidgetDisplay, WidgetContainerDisplay {
       
         public HasSelectionHandlers<TreeItem> getTree();
 
