@@ -510,11 +510,6 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         revealDisplay();
     }
     
-    @Override
-    protected void onRevealDisplay() {
-        showMessageTable(user, folder, searchValue);
-        super.onRevealDisplay();
-    }
     
     public void openLink(String url) {
         Window.open(url, "_blank", "");
