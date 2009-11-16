@@ -17,12 +17,10 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.client.widgets;
+package org.apache.hupa.widgets.ui;
 
-import org.apache.hupa.client.HupaConstants;
-import org.apache.hupa.widgets.ui.EnableHyperlink;
+import org.apache.hupa.widgets.PagingOptionsConstants;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.gen2.table.client.PagingScrollTable;
@@ -46,20 +44,22 @@ import com.google.gwt.user.client.ui.SimplePanel;
  * PagingOptions for using to control the PagingScrollTable
  *
  */
-public class PagingOptions extends Composite {
-    private HupaConstants constants = GWT.create(HupaConstants.class);
-    
+public class PagingOptions extends Composite {    
     private HorizontalPanel pagingPanel = new HorizontalPanel();
-    private EnableHyperlink firstLink = new EnableHyperlink("<< " + constants.pageFirst(),"");
-    private EnableHyperlink prevLink = new EnableHyperlink("< " + constants.pagePrev(),"");
-    private EnableHyperlink lastLink = new EnableHyperlink(constants.pageLast() + " >>","");
-    private EnableHyperlink nextLink = new EnableHyperlink(constants.pageNext() + " >","");
+    private EnableHyperlink firstLink;
+    private EnableHyperlink prevLink;
+    private EnableHyperlink lastLink;
+    private EnableHyperlink nextLink;
     private Label text = new Label();
     private int currentPage = 1;
-    private Loading loading = new Loading(true);
+    private Loading loading = new Loading();
     private SimplePanel panel = new SimplePanel();
     
-    public PagingOptions(final PagingScrollTable<?> table) {
+    public PagingOptions(final PagingScrollTable<?> table, PagingOptionsConstants constants) {
+        firstLink = new EnableHyperlink("<< " + constants.pageFirst(),"");
+        prevLink = new EnableHyperlink("< " + constants.pagePrev(),"");
+        lastLink = new EnableHyperlink(constants.pageLast() + " >>","");
+        nextLink = new EnableHyperlink(constants.pageNext() + " >","");
         pagingPanel.setSpacing(3);
 
         pagingPanel.add(panel);

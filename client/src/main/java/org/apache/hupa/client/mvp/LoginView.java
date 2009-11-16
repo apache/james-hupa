@@ -20,7 +20,7 @@
 package org.apache.hupa.client.mvp;
 
 import org.apache.hupa.client.HupaConstants;
-import org.apache.hupa.client.widgets.Loading;
+import org.apache.hupa.widgets.ui.Loading;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
 import org.cobogw.gwt.user.client.ui.RoundedPanel;
@@ -52,14 +52,15 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
     private TextBox usernameTextBox = new TextBox();
     private PasswordTextBox passwordTextBox = new PasswordTextBox();
     private Label errorLabel = new Label();
-    private Loading loading = new Loading(false);
+    private Loading loading;
     private int minUsernameLength = 1;
     private int minPasswordLength = 1;
 
     @Inject
     public LoginView(HupaConstants constants) {
         loginButton = new Button(constants.loginButton());
-        resetButton = new Button(constants.resetButton());        
+        resetButton = new Button(constants.resetButton());  
+        loading = new Loading(constants.loading());
         VerticalPanel vPanel = new VerticalPanel();
         vPanel.setSpacing(5);
         vPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);

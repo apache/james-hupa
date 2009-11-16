@@ -32,12 +32,12 @@ import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable;
 import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.client.widgets.HasDialog;
-import org.apache.hupa.client.widgets.Loading;
-import org.apache.hupa.client.widgets.PagingOptions;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable.DragHandlerFactory;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.widgets.ui.HasEnable;
+import org.apache.hupa.widgets.ui.Loading;
+import org.apache.hupa.widgets.ui.PagingOptions;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
 
@@ -115,7 +115,7 @@ public class IMAPMessageListView extends Composite implements Display{
     private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
     private SuggestBox searchBox = new SuggestBox(oracle);
     private Button searchButton;
-    private Loading expandLoading = new Loading(false);
+    private Loading expandLoading;
     
     @Inject
     public IMAPMessageListView(final PagingScrollTableRowDragController controller, final MessageTableModel mTableModel, final HupaConstants constants, final HupaMessages messages, final HupaImageBundle imageBundle) {
@@ -131,7 +131,7 @@ public class IMAPMessageListView extends Composite implements Display{
         noneLink = new Hyperlink(constants.none(),"");
         refreshLink = new Hyperlink(constants.refresh(),"");
         searchButton = new Button(constants.searchButton());
-        
+        expandLoading = new Loading(constants.loading());
         this.cTableModel = new CachedTableModel<Message>(mTableModel);
         cTableModel.setRowCount(MutableTableModel.UNKNOWN_ROW_COUNT);
         mTableModel.addRowCountChangeHandler(new RowCountChangeHandler() {
@@ -199,7 +199,7 @@ public class IMAPMessageListView extends Composite implements Display{
         });
         mailTable.fillWidth();
         
-        options = new PagingOptions(mailTable);
+        options = new PagingOptions(mailTable, constants);
         
         HorizontalPanel buttonBar = new HorizontalPanel();
         buttonBar.setSpacing(5);

@@ -25,9 +25,9 @@ import gwtupload.client.IUploader;
 import gwtupload.client.MultiUploader;
 
 import org.apache.hupa.client.HupaConstants;
-import org.apache.hupa.client.widgets.Loading;
 import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
+import org.apache.hupa.widgets.ui.Loading;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.widgets.ui.HasEnable;
 
@@ -65,7 +65,7 @@ public class MessageSendView extends Composite implements
     private TextArea text = new TextArea();
     private EnableButton sendButton;
     private EnableHyperlink backButton;
-    private Loading sendProgress = new Loading(true);
+    private Loading sendProgress = new Loading();
 
     @Inject
     public MessageSendView(HupaConstants constants) {

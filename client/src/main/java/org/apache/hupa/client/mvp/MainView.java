@@ -31,7 +31,6 @@ import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
-import org.apache.hupa.client.widgets.Loading;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.User;
@@ -46,6 +45,7 @@ import org.apache.hupa.widgets.event.EditHandler;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
 import org.apache.hupa.widgets.ui.HasEditable;
 import org.apache.hupa.widgets.ui.HasEnable;
+import org.apache.hupa.widgets.ui.Loading;
 import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
@@ -90,8 +90,8 @@ public class MainView extends Composite implements MainPresenter.Display {
     private EnableHyperlink renameFolderButton;
     private EnableHyperlink deleteFolderButton;
     private ConfirmDialogBox confirmFolderDeleteBox = new ConfirmDialogBox();
-    private Loading loader = new Loading(false);
-    private Loading messageLoader = new Loading(true);
+    private Loading loader;
+    private Loading messageLoader = new Loading();
     private List<DropController> dropControllerList = new ArrayList<DropController>();
     private EventBus bus;
     private PagingScrollTableRowDragController controller;
@@ -103,7 +103,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         this.messages = messages;
         this.controller = controllerProvider;
         this.bus = bus;
-
+        loader = new Loading(constants.loading());
         newFolderButton = new EnableHyperlink(constants.newFolder(), "");
         renameFolderButton = new EnableHyperlink(constants.renameFolder(), "");
         deleteFolderButton = new EnableHyperlink(constants.deleteFolder(), "");

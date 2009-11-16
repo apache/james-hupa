@@ -19,11 +19,13 @@
 
 package org.apache.hupa.client;
 
+import org.apache.hupa.widgets.PagingOptionsConstants;
+
 import gwtupload.client.IUploader.UploaderConstants;
 
 import com.google.gwt.i18n.client.Constants;
 
-public interface HupaConstants extends Constants, UploaderConstants {
+public interface HupaConstants extends Constants, UploaderConstants, PagingOptionsConstants {
 
     public String usernameLabel();
 
@@ -90,14 +92,7 @@ public interface HupaConstants extends Constants, UploaderConstants {
     public String renameFolder();
     public String deleteFolder();
 
-    public String pageNext();
-
-    public String pageLast();
-
-    public String pagePrev();
-
-    public String pageFirst();
-    
+  
     public String loginAs();
 
     public String backButton();

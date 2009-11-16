@@ -17,9 +17,7 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.client.widgets;
-
-import org.apache.hupa.client.HupaConstants;
+package org.apache.hupa.widgets.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;
@@ -34,18 +32,21 @@ import com.google.gwt.user.client.ui.SimplePanel;
  *
  */
 public class Loading extends Composite{
-    private HupaConstants constants = GWT.create(HupaConstants.class);
     private SimplePanel sPanel = new SimplePanel();
     private HorizontalPanel panel = new HorizontalPanel();
-    public Loading(boolean small) {
+    public Loading(String loadingMsg) {
         panel.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
         panel.setVerticalAlignment(HorizontalPanel.ALIGN_MIDDLE);
         panel.add(new Image(GWT.getModuleBaseURL() + "../images/ajax-loader.gif"));
-        if (small == false) {
-            panel.add(new Label(constants.loading()));
+        if (loadingMsg != null) {
+            panel.add(new Label(loadingMsg));
         }
         
         initWidget(sPanel);
+    }
+    
+    public Loading() {
+        this(null);
     }
     
     /**

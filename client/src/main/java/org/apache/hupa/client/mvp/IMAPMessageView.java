@@ -27,10 +27,10 @@ import org.apache.hupa.client.mvp.IMAPMessagePresenter.Display;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.HasURL;
 import org.apache.hupa.client.widgets.Iframe;
-import org.apache.hupa.client.widgets.Loading;
 import org.apache.hupa.client.widgets.MyDialogBox;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.MessageAttachment;
+import org.apache.hupa.widgets.ui.Loading;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
 
@@ -80,7 +80,7 @@ public class IMAPMessageView extends Composite implements Display{
     public final static int DELETE_BUTTON = 0;
     public final static int REPLY_BUTTON = 1;
     public final static int REPLY_ALL_BUTTON = 2;
-    private Loading loading  = new Loading(true);
+    private Loading loading  = new Loading();
     private SimplePanel container = new SimplePanel();
     
     @Inject
