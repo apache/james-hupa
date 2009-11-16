@@ -32,6 +32,8 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
 
     private final static String ROWS_PER_PAGE_INDEX = "rowsPerPageIndex";
     private final static String PAGE = "page";
+    private final static String SEARCH = "search";
+
     @Inject
     public IMAPMessageListPresenterPlace(Provider<IMAPMessageListPresenter> presenter) {
         super(presenter);
@@ -66,6 +68,9 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
         }
         presenter.getDisplay().setRowsPerPageIndex(rowsPerPageIndex);
 
+        String searchValue = request.getParameter(SEARCH, "");
+        presenter.getDisplay().getSearchValue().setValue(searchValue);
+        
         GWT.log("PRES="+request.toString(),null);
 
     }
@@ -75,6 +80,12 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
         request = request.with(PAGE, presenter.getDisplay().getCurrentPage() +"");
         request = request.with(ROWS_PER_PAGE_INDEX, presenter.getDisplay().getRowsPerPageIndex() + "");
       
+        String searchValue = presenter.getDisplay().getSearchValue().getValue();
+        if (searchValue != null && searchValue.length() > 0) {
+            request = request.with(SEARCH, searchValue);
+
+        }
+        
         GWT.log("REQ="+request.toString(),null);
 
         return request;

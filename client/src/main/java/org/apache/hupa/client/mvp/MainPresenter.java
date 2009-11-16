@@ -82,7 +82,6 @@ import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.inject.Inject;
 
@@ -92,13 +91,7 @@ import com.google.inject.Inject;
 public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Display> {
 
     public interface Display extends NameAwareWidgetContainerDisplay {
-        
-        public HasClickHandlers getSearchClick();
-
-        public HasValue<String> getSearchValue();
-
-        public void fillSearchOracle(ArrayList<Message> messages);
-
+      
         public HasSelectionHandlers<TreeItem> getTree();
 
         public void bindTreeItems(ArrayList<IMAPTreeItem> treeList);
@@ -267,7 +260,6 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
      * Reset the presenter and display
      */
     private void reset() {
-        display.getSearchValue().setValue("");
         // clear the cache
         cachingDispatcher.clear();
     }
@@ -283,15 +275,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             }
 
         }));
-        registerHandler(eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
 
-            public void onMessagesReceived(MessagesReceivedEvent event) {
-
-                // fill the oracle
-                display.fillSearchOracle(event.getMessages());
-            }
-
-        }));
 
         registerHandler(eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
 
@@ -354,18 +338,6 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                 user = event.getUser();
                 folder = event.getFolder();
                 showMessageTable(user, event.getFolder(), searchValue);
-            }
-
-        }));
-
-        registerHandler(display.getSearchClick().addClickHandler(new ClickHandler() {
-
-            public void onClick(ClickEvent event) {
-                String searchValue = null;
-                if (display.getSearchValue().getValue().trim().length() > 0) {
-                    searchValue = display.getSearchValue().getValue().trim();
-                }
-                eventBus.fireEvent(new LoadMessagesEvent(user, folder, searchValue));
             }
 
         }));

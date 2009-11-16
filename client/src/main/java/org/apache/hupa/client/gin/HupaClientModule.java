@@ -45,7 +45,7 @@ import org.apache.hupa.client.mvp.MessageTableModel;
 import org.apache.hupa.client.mvp.place.HupaPlaceManager;
 import org.apache.hupa.client.mvp.place.IMAPMessageListPresenterPlace;
 import org.apache.hupa.client.mvp.place.LoginPresenterPlace;
-import org.apache.hupa.client.mvp.place.MainPresenterPlace;
+import org.apache.hupa.client.mvp.place.MessageSendPresenterPlace;
 
 import com.google.inject.Singleton;
 
@@ -66,8 +66,8 @@ public class HupaClientModule extends AbstractPresenterModule {
         bind(PagingScrollTableRowDragController.class).in(Singleton.class);
         bind(MessageTableModel.class).in(Singleton.class);
         bind(LoginPresenterPlace.class).in(Singleton.class);
-        bind(MainPresenterPlace.class).in(Singleton.class);
         bind(IMAPMessageListPresenterPlace.class).in(Singleton.class);
+        bind(MessageSendPresenterPlace.class).in(Singleton.class);
     }
 
 }

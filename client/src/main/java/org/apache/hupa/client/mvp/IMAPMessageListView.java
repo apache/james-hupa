@@ -32,6 +32,7 @@ import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable;
 import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.client.widgets.HasDialog;
+import org.apache.hupa.client.widgets.Loading;
 import org.apache.hupa.client.widgets.PagingOptions;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable.DragHandlerFactory;
 import org.apache.hupa.shared.data.Message;
@@ -45,6 +46,9 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.gen2.table.client.AbstractColumnDefinition;
@@ -73,9 +77,12 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -106,7 +113,10 @@ public class IMAPMessageListView extends Composite implements Display{
     private Hyperlink allLink = new Hyperlink(constants.all(),"");    
     private Hyperlink noneLink = new Hyperlink(constants.none(),"");
     private Hyperlink refreshLink = new Hyperlink(constants.refresh(),"");
-
+    private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
+    private SuggestBox searchBox = new SuggestBox(oracle);
+    private Button searchButton = new Button(constants.searchButton());
+    private Loading expandLoading = new Loading(false);
     
     @Inject
     public IMAPMessageListView(PagingScrollTableRowDragController controller, MessageTableModel mTableModel) {
@@ -204,15 +214,38 @@ public class IMAPMessageListView extends Composite implements Display{
             }
             
         });
+      
+        
+        HorizontalPanel searchPanel = new HorizontalPanel();
+        searchPanel.setSpacing(5);
+        searchPanel.setVerticalAlignment(HorizontalPanel.ALIGN_MIDDLE);
+
+        searchBox.setAnimationEnabled(true);
+        searchBox.setAutoSelectEnabled(false);
+        searchBox.setWidth("150px");
+        searchBox.setLimit(20);
+        searchBox.addKeyUpHandler(new KeyUpHandler() {
+
+            public void onKeyUp(KeyUpEvent event) {
+                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                    searchButton.click();
+                }
+            }
+
+        });
+        searchPanel.add(searchBox);
+        searchPanel.add(searchButton);
+
         HorizontalPanel hPanel = new HorizontalPanel();
         hPanel.setStyleName("hupa-MailTableControl");
         hPanel.setSpacing(10);
         hPanel.add(buttonBar);
+        hPanel.add(searchPanel);
         hPanel.add(pageBox);
-        hPanel.setCellHorizontalAlignment(pageBox, HorizontalPanel.ALIGN_RIGHT);
-        
-    
-        
+        hPanel.setCellHorizontalAlignment(searchPanel, HorizontalPanel.ALIGN_RIGHT);        
+        hPanel.setCellHorizontalAlignment(pageBox, HorizontalPanel.ALIGN_RIGHT);        
+        hPanel.setCellVerticalAlignment(pageBox, HorizontalPanel.ALIGN_MIDDLE);        
+
         hPanel.setWidth("100%");
         hPanel.setHeight("100%");
         vPanel.add(hPanel);
@@ -223,9 +256,12 @@ public class IMAPMessageListView extends Composite implements Display{
         bar.add(new HTML(constants.select() +":"));
         bar.add(allLink);
         bar.add(noneLink);
+
         
         barPanel.add(bar);
         barPanel.setCellHorizontalAlignment(bar, HorizontalPanel.ALIGN_LEFT);
+        barPanel.add(expandLoading);
+
         barPanel.add(options);
         barPanel.setCellHorizontalAlignment(options, HorizontalPanel.ALIGN_RIGHT);
         barPanel.setWidth("100%");
@@ -735,4 +771,46 @@ public class IMAPMessageListView extends Composite implements Display{
         return pageBox;
     }
     
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.MainPresenter.Display#getSearchClick()
+     */
+    public HasClickHandlers getSearchClick() {
+        return searchButton;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.MainPresenter.Display#getSearchValue()
+     */
+    public HasValue<String> getSearchValue() {
+        return searchBox;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.MainPresenter.Display#fillSearchOracle(java.util.ArrayList)
+     */
+    public void fillSearchOracle(ArrayList<Message> messages) {
+        for (int i = 0; i < messages.size(); i++) {
+            String subject = messages.get(i).getSubject();
+            String from = messages.get(i).getFrom();
+            if (subject != null && subject.trim().length() > 0) {
+                oracle.add(subject.trim());
+            }
+            if (from != null && from.trim().length() > 0) {
+                oracle.add(from.trim());
+            }
+        }
+        //searchBox.setText("");
+    }
+
+    public void setExpandLoading(boolean expanding) {
+        if (expanding) {
+            expandLoading.show();
+        } else {
+            expandLoading.hide();
+        }
+    }
 }

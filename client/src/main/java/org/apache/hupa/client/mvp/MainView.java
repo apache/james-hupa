@@ -46,7 +46,6 @@ import org.apache.hupa.widgets.event.EditHandler;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
 import org.apache.hupa.widgets.ui.HasEditable;
 import org.apache.hupa.widgets.ui.HasEnable;
-import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
@@ -55,17 +54,11 @@ import com.allen_sauer.gwt.dnd.client.drop.DropController;
 import com.allen_sauer.gwt.dnd.client.drop.SimpleDropController;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -85,10 +78,7 @@ public class MainView extends Composite implements MainPresenter.Display {
     private RoundedPanel west;
     private IMAPTreeImages tImages = GWT.create(IMAPTreeImages.class);
     private Tree folderTree = new Tree(tImages, true);
-    private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
-    private SuggestBox searchBox = new SuggestBox(oracle);
-    private Button searchButton = new Button(constants.searchButton());
-    private Loading loading = new Loading(false);
+  
     private Widget centerWidget;
     private RoundedPanel center;
     private IMAPMessageListView mListView;
@@ -170,36 +160,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         north = new VerticalPanel();
         north.setWidth("100%");
 
-        HorizontalPanel barPanel = new HorizontalPanel();
-        barPanel.setWidth("100%");
 
-        HorizontalPanel hPanel = new HorizontalPanel();
-        hPanel.setSpacing(5);
-        hPanel.setVerticalAlignment(HorizontalPanel.ALIGN_MIDDLE);
-
-        searchBox.setAnimationEnabled(true);
-        searchBox.setAutoSelectEnabled(false);
-        searchBox.setWidth("250px");
-        searchBox.setLimit(20);
-        searchBox.addKeyUpHandler(new KeyUpHandler() {
-
-            public void onKeyUp(KeyUpEvent event) {
-                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-                    searchButton.click();
-                }
-            }
-
-        });
-        hPanel.add(searchBox);
-        hPanel.add(searchButton);
-        hPanel.add(messageLoader);
-        barPanel.add(hPanel);
-        barPanel.setCellHorizontalAlignment(hPanel, HorizontalPanel.ALIGN_LEFT);
-        barPanel.add(loading);
-        barPanel.setCellHorizontalAlignment(loading, HorizontalPanel.ALIGN_RIGHT);
-        barPanel.setCellVerticalAlignment(loading, HorizontalPanel.ALIGN_MIDDLE);
-
-        north.add(barPanel);
 
     }
 
@@ -211,39 +172,6 @@ public class MainView extends Composite implements MainPresenter.Display {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.MainPresenter.Display#getSearchClick()
-     */
-    public HasClickHandlers getSearchClick() {
-        return searchButton;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.MainPresenter.Display#getSearchValue()
-     */
-    public HasValue<String> getSearchValue() {
-        return searchBox;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.MainPresenter.Display#fillSearchOracle(java.util.ArrayList)
-     */
-    public void fillSearchOracle(ArrayList<Message> messages) {
-        for (int i = 0; i < messages.size(); i++) {
-            String subject = messages.get(i).getSubject();
-            String from = messages.get(i).getFrom();
-            if (subject != null && subject.trim().length() > 0) {
-                oracle.add(subject.trim());
-            }
-            if (from != null && from.trim().length() > 0) {
-                oracle.add(from.trim());
-            }
-        }
-        //searchBox.setText("");
-    }
 
     /*
      * (non-Javadoc)
