@@ -76,20 +76,20 @@ public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>
     private DispatchAsync dispatcher;
     private User user;
     private ServerStatus serverStatus = ServerStatus.Available;
-    private MainPresenter mainPresenter;
+    private ContainerPresenter containerPresenter;
     private LoginPresenter loginPresenter;
     
     @Inject
-    public AppPresenter(Display display, DispatchAsync dispatcher,final EventBus bus, LoginPresenter loginPresenter, MainPresenter mainPresenter) {
-        super(display,bus, loginPresenter, mainPresenter);
-        this.mainPresenter = mainPresenter;
+    public AppPresenter(Display display, DispatchAsync dispatcher,final EventBus bus, LoginPresenter loginPresenter, ContainerPresenter containerPresenter) {
+        super(display,bus, loginPresenter, containerPresenter);
+        this.containerPresenter = containerPresenter;
         this.loginPresenter = loginPresenter;
         this.dispatcher = dispatcher;  
     }
 
     private void showMain(User user) {
         display.showTopNavigation(true);
-        mainPresenter.revealDisplay(user);
+        containerPresenter.revealDisplay(user);
     }
     
     

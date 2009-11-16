@@ -19,10 +19,8 @@
 package org.apache.hupa.client.mvp.place;
 
 import org.apache.hupa.client.mvp.MainPresenter;
-import org.eclipse.swt.widgets.Display;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 

@@ -23,11 +23,14 @@ import net.customware.gwt.presenter.client.DefaultEventBus;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.gin.AbstractPresenterModule;
 import net.customware.gwt.presenter.client.place.PlaceManager;
+import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
 
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
 import org.apache.hupa.client.mvp.AppPresenter;
 import org.apache.hupa.client.mvp.AppView;
+import org.apache.hupa.client.mvp.ContainerPresenter;
+import org.apache.hupa.client.mvp.ContainerView;
 import org.apache.hupa.client.mvp.IMAPMessageListPresenter;
 import org.apache.hupa.client.mvp.IMAPMessageListView;
 import org.apache.hupa.client.mvp.IMAPMessagePresenter;
@@ -58,6 +61,7 @@ public class HupaClientModule extends AbstractPresenterModule {
         bindPresenter(MainPresenter.class,MainPresenter.Display.class,MainView.class);
         bindPresenter(MessageSendPresenter.class, MessageSendPresenter.Display.class, MessageSendView.class);
         bindPresenter(AppPresenter.class, AppPresenter.Display.class, AppView.class);
+        bindPresenter(ContainerPresenter.class, WidgetContainerDisplay.class, ContainerView.class);
         bind(CachingDispatchAsync.class);
         bind(PagingScrollTableRowDragController.class).in(Singleton.class);
         bind(MessageTableModel.class).in(Singleton.class);

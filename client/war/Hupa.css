@@ -8,6 +8,18 @@
     border-color:					#E0ECFF;
 }
 
+.gwt-TabBar .gwt-TabBarItem-selected {
+    background-color:				#E0ECFF;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+    background-color:				#E0ECFF;
+}
+
+.hupa-Container-Navigation { 
+	border: 2px solid #E0ECFF;
+} 
+
 .cbg-Button, .gwt-HTML, .gwt-Label, .gwt-Tree .gwt-TreeItem, .gwt-SuggestBoxPopup .item, hupa-LoginForm, .hupa-IMAPMessageWidget-Header-Content, .hupa-ToolTip, .hupa-IMAPFolder, .gwt-ListBox, .gwt-HyperLink, .gwt-TextBox{
     font-size:						12px;
 	font-family: 					Arial, Helvetica, sans-serif;

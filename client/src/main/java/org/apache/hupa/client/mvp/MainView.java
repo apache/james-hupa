@@ -630,4 +630,13 @@ public class MainView extends Composite implements MainPresenter.Display {
         centerWidget = widget;
         center.setWidget(centerWidget); 
     }
+
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.NameAwareDisplay#getName()
+     */
+    public String getName() {
+        return "Email";
+    }
 }
