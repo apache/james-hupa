@@ -51,7 +51,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
     private boolean useSSL = false;
     
     @Inject
-    public InMemoryIMAPStoreCache(Log logger,@Named("IMAPServerAddress") String address, @Named("IMAPServerPort") int port, @Named("IMAPS") boolean useSSL,Provider<Session> sessionProvider) {
+    public InMemoryIMAPStoreCache(Log logger,@Named("IMAPServerAddress") String address, @Named("IMAPServerPort") int port, @Named("IMAPS") boolean useSSL, @Named("IMAPConnectionPoolSize") int connectionPoolSize, @Named("IMAPConnectionPoolTimeout") int timeout, Provider<Session> sessionProvider) {
         this.logger = logger;
         this.address = address;
         this.port = port;
@@ -60,6 +60,12 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
         props.setProperty("mail.mime.decodetext.strict", "false");
         if (useSSL) {
             props.setProperty("mail.store.protocol", "imaps");
+            props.setProperty("mail.imaps.connectionpoolsize", connectionPoolSize +"");
+            props.setProperty("mail.imaps.connectionpooltimeout", timeout + "");
+        } else {
+            props.setProperty("mail.imap.connectionpoolsize", connectionPoolSize + "");
+            props.setProperty("mail.imap.connectionpooltimeout", timeout + "");
+
         }
         session = sessionProvider.get();
         System.setProperty("mail.mime.decodetext.strict", "false");

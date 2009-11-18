@@ -26,7 +26,7 @@ public class DemoModeTest extends AbstractHandlerTest {
 
 	private LoginUser demoUser = new LoginUser("demo", "demo");
 	
-	private InMemoryIMAPStoreCache memoryStore = new InMemoryIMAPStoreCache(logger, InMemoryIMAPStoreCache.DEMO_MODE, 143, false, provider);
+	private InMemoryIMAPStoreCache memoryStore = new InMemoryIMAPStoreCache(logger, InMemoryIMAPStoreCache.DEMO_MODE, 143, false, 1, 300000, provider);
 	
     private LoginUserHandler loginUserHandler = new LoginUserHandler(memoryStore, logger, httpSessionProvider, settingsProvider);
     
