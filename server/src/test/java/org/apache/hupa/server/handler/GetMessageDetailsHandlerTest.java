@@ -38,6 +38,10 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
         txt = "<!'https://www.aaa.1:#@%/;$()~_?+-=\\.&<br/>";
         res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_http, "");
         assertEquals("<!'<br/>", res);
+
+        txt = "... a b c http://somewhere d e f ...";
+        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_http, GetMessageDetailsHandler.repl_http);
+        assertEquals("... a b c <a href=\"http://somewhere\">http://somewhere</a> d e f ...", res);
     }
 
     public void testRegexEmail() {
@@ -49,6 +53,10 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
         txt = "!'=BcD091_%55-+.aa@abc01-01.dd-a.aBc+";
         res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_email, "");
         assertEquals(txt, res);
+
+        txt = "... a b c aaa@aaa.bbb d e f ...";
+        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_email, GetMessageDetailsHandler.repl_email);
+        assertEquals(res, "... a b c <a href=\"mailto:aaa@aaa.bbb\">aaa@aaa.bbb</a> d e f ...");
     }
 
     public void testRegexInlineImg() {
@@ -136,10 +144,6 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
     	
     	res = handler.txtDocumentToHtml("", "aFolder", 9999l);
     	assertTrue(res.length()==0);
-    	
-    	// TODO: test this
-    	//http://accounts.myspace.com.deaaaf.me.uk/msp/index.php?fuseaction=update&code=78E2BL6-EKY5L893K4MHSA-74ESO-D743U41GYB18J-FA18EI698V4M&email=postmaster@hotelsearch.com
-
     	
     }
 

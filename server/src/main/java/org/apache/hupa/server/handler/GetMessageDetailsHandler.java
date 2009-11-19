@@ -248,7 +248,7 @@ public class GetMessageDetailsHandler extends
 
     static String EMAIL_REGEXP =  "\\b(?<![A-z0-9._%\\+\\-=])([A-z][A-z0-9._%\\+\\-]+@[A-z0-9\\.\\-]+\\.[A-z]{2,4})";
     static Pattern regex_email = Pattern.compile("\\b"+ EMAIL_REGEXP);
-    static String repl_email = "<a href=\"mailto:$1\">$1</a>$1";
+    static String repl_email = "<a href=\"mailto:$1\">$1</a>";
     
     static Pattern regex_inlineImg = Pattern.compile("(?si)(<\\s*img\\s+.*?src=[\"'])cid:([^\"']+[\"'])");
     static String repl_inlineImg = "$1" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD 

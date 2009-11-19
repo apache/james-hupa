@@ -149,18 +149,20 @@ public class ServerModul extends ActionHandlerModule {
         // Configure default parameters for Hupa in demo mode
         if (properties == null || InMemoryIMAPStoreCache.DEMO_MODE.equals(properties.get("IMAPServerAddress"))) {
             properties = new Properties();
-			properties.put("IMAPServerAddress", InMemoryIMAPStoreCache.DEMO_MODE);
-			properties.put("IMAPServerPort", "143");
-			properties.put("IMAPS", "false");
-			properties.put("SMTPServerAddress", InMemoryIMAPStoreCache.DEMO_MODE);
-			properties.put("SMTPServerPort", "25");
-			properties.put("SMTPS", "false");
-			properties.put("SMTPAuth", "false");
-			
-			properties.put("DefaultInboxFolder", MockIMAPFolder.mockSettings.getInboxFolderName());
-			properties.put("DefaultTrashFolder", MockIMAPFolder.mockSettings.getTrashFolderName());
-			properties.put("DefaultSentFolder", MockIMAPFolder.mockSettings.getSentFolderName());
-			properties.put("PostFetchMessageCount", "0");
+            properties.put("IMAPServerAddress", InMemoryIMAPStoreCache.DEMO_MODE);
+            properties.put("IMAPServerPort", "143");
+            properties.put("IMAPS", "false");
+            properties.put("SMTPServerAddress", InMemoryIMAPStoreCache.DEMO_MODE);
+            properties.put("SMTPServerPort", "25");
+            properties.put("SMTPS", "false");
+            properties.put("SMTPAuth", "false");
+            properties.put("IMAPConnectionPoolSize", "4");
+            properties.put("IMAPConnectionPoolTimeout", "300000");
+            
+            properties.put("DefaultInboxFolder", MockIMAPFolder.mockSettings.getInboxFolderName());
+            properties.put("DefaultTrashFolder", MockIMAPFolder.mockSettings.getTrashFolderName());
+            properties.put("DefaultSentFolder", MockIMAPFolder.mockSettings.getSentFolderName());
+            properties.put("PostFetchMessageCount", "0");
         }
         
         return properties;
