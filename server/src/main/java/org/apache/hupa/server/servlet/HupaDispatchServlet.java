@@ -36,32 +36,32 @@ import net.customware.gwt.dispatch.shared.Result;
  */
 @Singleton
 public class HupaDispatchServlet extends DispatchServiceServlet {
-	
-	private Log logger;
-	
-	@Inject
+    
+    private Log logger;
+    
+    @Inject
     public HupaDispatchServlet( Dispatch dispatch, Log logger) {
-    	super(dispatch);
-    	this.logger = logger;
+        super(dispatch);
+        this.logger = logger;
     }
 
     
     @Override
     public Result execute( Action<?> action ) throws ActionException {
-    	try {
-        	logger.info("HupaDispatchServlet: executing: " + action.getClass().getName().replaceAll("^.*\\.",""));
-        	return super.execute(action);
+        try {
+            logger.info("HupaDispatchServlet: executing: " + action.getClass().getName().replaceAll("^.*\\.",""));
+            return super.execute(action);
         } catch (ActionException e) {
-        	logger.error("HupaDispatchServlet returns an ActionException:" + e.getMessage());
-        	e.printStackTrace();
-        	throw e;
+            logger.error("HupaDispatchServlet returns an ActionException:" + e.getMessage());
+            e.printStackTrace();
+            throw e;
         } catch (Exception e) {
-        	e.printStackTrace();
-        	logger.error("HupaDispatchServlet unexpected Exception:" + e.getMessage());
-        	return null;
+            e.printStackTrace();
+            logger.error("HupaDispatchServlet unexpected Exception:" + e.getMessage());
+            return null;
         }
     }
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
 }

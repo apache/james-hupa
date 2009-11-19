@@ -51,56 +51,56 @@ import com.google.inject.Inject;
  */
 public class MessageTableModel extends MutableTableModel<Message> {
 
-	private EventBus eventBus;
-	private DispatchAsync dispatcher;
-	private User user;
-	private IMAPFolder folder;
-	private String searchValue;
+    private EventBus eventBus;
+    private DispatchAsync dispatcher;
+    private User user;
+    private IMAPFolder folder;
+    private String searchValue;
 
-	@Inject
-	public MessageTableModel(EventBus eventBus, DispatchAsync dispatcher){
-		
-		this.eventBus = eventBus;
-		this.dispatcher = dispatcher;
+    @Inject
+    public MessageTableModel(EventBus eventBus, DispatchAsync dispatcher){
+        
+        this.eventBus = eventBus;
+        this.dispatcher = dispatcher;
 
-		// bind some Events 
-		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
-			
-			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
-				user = loadMessagesEvent.getUser();
-				folder = loadMessagesEvent.getFolder();
-				searchValue = loadMessagesEvent.getSearchValue();
-			}
-		});
-		eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
-			
-			public void onFolderSelectionEvent(FolderSelectionEvent event) {
-				user = event.getUser();
-				folder = event.getFolder();
-				searchValue = null;
-			}
-		});
-		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
-			
-			public void onLogin(LoginEvent event) {
-				user = event.getUser();
-				folder = new IMAPFolder(user.getSettings().getInboxFolderName());
-				searchValue = null;
-			}
-		});
-		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
-			
-			public void onLogout(LogoutEvent logoutEvent) {
-				user = null;
-				folder = null;
-				searchValue = null;
-			}
-		});
-		
-		
-	}
+        // bind some Events 
+        eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
+            
+            public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
+                user = loadMessagesEvent.getUser();
+                folder = loadMessagesEvent.getFolder();
+                searchValue = loadMessagesEvent.getSearchValue();
+            }
+        });
+        eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
+            
+            public void onFolderSelectionEvent(FolderSelectionEvent event) {
+                user = event.getUser();
+                folder = event.getFolder();
+                searchValue = null;
+            }
+        });
+        eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
+            
+            public void onLogin(LoginEvent event) {
+                user = event.getUser();
+                folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+                searchValue = null;
+            }
+        });
+        eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
+            
+            public void onLogout(LogoutEvent logoutEvent) {
+                user = null;
+                folder = null;
+                searchValue = null;
+            }
+        });
+        
+        
+    }
 
-	@Override 
+    @Override 
     public void requestRows(
             final Request request,
             final com.google.gwt.gen2.table.client.TableModel.Callback<Message> callback) {
@@ -119,10 +119,10 @@ public class MessageTableModel extends MutableTableModel<Message> {
         
         dispatcher.execute(new FetchMessages(folder, request.getStartRow(), request.getNumRows(), searchValue),new HupaCallback<FetchMessagesResult>(dispatcher, eventBus) {
             public void callback(final FetchMessagesResult result) {
-            	// Update folder information before notifying presenter
-            	folder.setMessageCount(result.getRealCount());
-            	folder.setUnseenMessageCount(result.getRealUnreadCount());
-            	// Notify presenter to update folder tree view
+                // Update folder information before notifying presenter
+                folder.setMessageCount(result.getRealCount());
+                folder.setUnseenMessageCount(result.getRealUnreadCount());
+                // Notify presenter to update folder tree view
                 eventBus.fireEvent(new MessagesReceivedEvent(folder, result.getMessages()));
                 TableModelHelper.Response<Message> response = new TableModelHelper.Response<Message>() {
                     @Override

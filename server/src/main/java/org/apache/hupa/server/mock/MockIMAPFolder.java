@@ -45,24 +45,24 @@ import com.sun.mail.imap.IMAPStore;
 public class MockIMAPFolder extends IMAPFolder {
 
     public static final char SEPARATOR = '.';
-	public static final String DEMO_MODE_SENT_FOLDER = "Demo-Sent";
-	public static final String DEMO_MODE_TRASH_FOLDER = "Demo-Trash";
-	public static final String DEMO_MODE_INBOX_FOLDER = "Demo-Inbox";
-	public static final String DEMO_MODE_DEFAULT_FOLDER = "";
-	public static final String DEMO_MODE_MESSAGES_LOCATION = "mime/";
+    public static final String DEMO_MODE_SENT_FOLDER = "Demo-Sent";
+    public static final String DEMO_MODE_TRASH_FOLDER = "Demo-Trash";
+    public static final String DEMO_MODE_INBOX_FOLDER = "Demo-Inbox";
+    public static final String DEMO_MODE_DEFAULT_FOLDER = "";
+    public static final String DEMO_MODE_MESSAGES_LOCATION = "mime/";
 
-	public List<Message> messages = new ArrayList<Message>();
+    public List<Message> messages = new ArrayList<Message>();
     private boolean closed;
     private boolean exists;
     
     public final static Settings mockSettings = new Settings() {
-		private static final long serialVersionUID = -6650449479903482066L;
-		{
-			setInboxFolderName(MockIMAPFolder.DEMO_MODE_INBOX_FOLDER);
-			setSentFolderName(MockIMAPFolder.DEMO_MODE_SENT_FOLDER);
-			setTrashFolderName(MockIMAPFolder.DEMO_MODE_TRASH_FOLDER);
-		}
-	};
+        private static final long serialVersionUID = -6650449479903482066L;
+        {
+            setInboxFolderName(MockIMAPFolder.DEMO_MODE_INBOX_FOLDER);
+            setSentFolderName(MockIMAPFolder.DEMO_MODE_SENT_FOLDER);
+            setTrashFolderName(MockIMAPFolder.DEMO_MODE_TRASH_FOLDER);
+        }
+    };
 
     public MockIMAPFolder(String fullName, IMAPStore store) {
         super(fullName, (DEMO_MODE_DEFAULT_FOLDER.equals(fullName) ? '\0' : SEPARATOR), store);
@@ -78,7 +78,7 @@ public class MockIMAPFolder extends IMAPFolder {
     
     @Override
     public void appendMessages(Message[] msgs) throws MessagingException {
-    	addMessages(msgs);
+        addMessages(msgs);
     }
 
     @Override
@@ -102,18 +102,18 @@ public class MockIMAPFolder extends IMAPFolder {
     }
     
     public void loadDemoMessages(Session session) {
-    	for(int i=0;;i++) {
-        	URL url = Thread.currentThread().getContextClassLoader().getResource(DEMO_MODE_MESSAGES_LOCATION + i + ".msg");
-        	if (url == null) break;
-    		try {
-	            FileInputStream is = new FileInputStream(url.getFile());
-	            addMessages(new Message[]{new MimeMessage(session, is)});
+        for(int i=0;;i++) {
+            URL url = Thread.currentThread().getContextClassLoader().getResource(DEMO_MODE_MESSAGES_LOCATION + i + ".msg");
+            if (url == null) break;
+            try {
+                FileInputStream is = new FileInputStream(url.getFile());
+                addMessages(new Message[]{new MimeMessage(session, is)});
             } catch (MessagingException e) {
-	            e.printStackTrace();
+                e.printStackTrace();
             } catch (FileNotFoundException e) {
-	            e.printStackTrace();
+                e.printStackTrace();
             }
-    	}
+        }
     }
 
     @Override
@@ -354,11 +354,11 @@ public class MockIMAPFolder extends IMAPFolder {
 
     @Override
     public synchronized int getUnreadMessageCount() throws MessagingException {
-    	int ret = getMessageCount();
-    	for (Message msg: messages) {
-    		if (msg.getFlags().contains(Flag.SEEN))
-    			ret --;
-    	}
+        int ret = getMessageCount();
+        for (Message msg: messages) {
+            if (msg.getFlags().contains(Flag.SEEN))
+                ret --;
+        }
         return ret;
     }
 

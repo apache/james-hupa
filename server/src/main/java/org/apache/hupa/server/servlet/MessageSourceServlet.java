@@ -85,7 +85,7 @@ public class MessageSourceServlet extends HttpServlet {
                 f.close(false);
             }
         } catch (Exception e) {
-        	String msg = "Unable to get raw content of msg for user " + user + " in folder " + folderName + " with uid " + message_uuid;
+            String msg = "Unable to get raw content of msg for user " + user + " in folder " + folderName + " with uid " + message_uuid;
             logger.error(msg, e);
             throw new ServletException(msg);
         }

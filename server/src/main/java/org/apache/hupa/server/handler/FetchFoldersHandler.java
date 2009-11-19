@@ -97,7 +97,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
      */
     private IMAPFolder createFolder(Folder folder) {
 
-    	String fullName = folder.getFullName();
+        String fullName = folder.getFullName();
         String delimiter;
         IMAPFolder iFolder = null;
         
@@ -106,7 +106,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
             iFolder = new IMAPFolder(fullName);
             iFolder.setDelimiter(delimiter);
             if("[Gmail]".equals(folder.getFullName()))
-            	return iFolder;
+                return iFolder;
             iFolder.setMessageCount(folder.getMessageCount());
             iFolder.setSubscribed(folder.isSubscribed());
             iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());

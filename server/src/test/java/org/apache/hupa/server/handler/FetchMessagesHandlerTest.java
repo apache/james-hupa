@@ -36,84 +36,84 @@ import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
 public class FetchMessagesHandlerTest extends AbstractHandlerTest{
 
-	FetchMessagesHandler handler = new FetchMessagesHandler(storeCache, logger, httpSessionProvider);
-	
+    FetchMessagesHandler handler = new FetchMessagesHandler(storeCache, logger, httpSessionProvider);
+    
     public void setUp() {
-    	super.setUp();
+        super.setUp();
         httpSession.setAttribute("user", user);
     }
     
     public void testConvert() throws Exception {
-    	
+        
         MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
         MockIMAPFolder f = (MockIMAPFolder)store.getFolder("WHATEVER"); 
         f.create(Folder.HOLDS_MESSAGES);
         
-    	ByteArrayInputStream is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
-    	MimeMessage m1 = new MimeMessage(session, is);
-    	is = new ByteArrayInputStream("From: =?ISO-8859-1?Q?Manolo_Pe=F1a?= <penya@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
-    	MimeMessage m2 = new MimeMessage(session, is);
-    	is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: =?ISO-8859-1?Q?Monta=F1a?=\n\ndata".getBytes());
-    	MimeMessage m3 = new MimeMessage(session, is);
-    	
-    	ArrayList<org.apache.hupa.shared.data.Message> msgs = handler.convert(2, f, new Message[]{m1, m2, m3});
-    	assertEquals(2, msgs.size());
-    	
-    	msgs = handler.convert(10, f, new Message[]{m1, m2, m3});
-    	assertEquals(3, msgs.size());
+        ByteArrayInputStream is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
+        MimeMessage m1 = new MimeMessage(session, is);
+        is = new ByteArrayInputStream("From: =?ISO-8859-1?Q?Manolo_Pe=F1a?= <penya@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
+        MimeMessage m2 = new MimeMessage(session, is);
+        is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: =?ISO-8859-1?Q?Monta=F1a?=\n\ndata".getBytes());
+        MimeMessage m3 = new MimeMessage(session, is);
+        
+        ArrayList<org.apache.hupa.shared.data.Message> msgs = handler.convert(2, f, new Message[]{m1, m2, m3});
+        assertEquals(2, msgs.size());
+        
+        msgs = handler.convert(10, f, new Message[]{m1, m2, m3});
+        assertEquals(3, msgs.size());
 
-    	msgs = handler.convert(10, f, new Message[]{m2});
-    	assertEquals("Manolo Pe\u00F1a <penya@foo.com>",  msgs.get(0).getFrom());
-    	
-    	msgs = handler.convert(10, f, new Message[]{m3});
-    	assertEquals("Monta\u00F1a",  msgs.get(0).getSubject());
+        msgs = handler.convert(10, f, new Message[]{m2});
+        assertEquals("Manolo Pe\u00F1a <penya@foo.com>",  msgs.get(0).getFrom());
+        
+        msgs = handler.convert(10, f, new Message[]{m3});
+        assertEquals("Monta\u00F1a",  msgs.get(0).getSubject());
     }
 
     public void testFetchMessages() throws Exception {
 
-    	MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
         MockIMAPFolder serverfolder = (MockIMAPFolder)store.getFolder("WHATEVER"); 
         serverfolder.create(Folder.HOLDS_MESSAGES);
         
         IMAPFolder clientfolder = new IMAPFolder("WHATEVER");
-    	FetchMessagesResult result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
-    	assertEquals(0, result.getRealCount());
-    	
-    	ByteArrayInputStream is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
-    	MimeMessage msg = new MimeMessage(session, is);
-    	serverfolder.addMessages(new Message[]{msg});
-    	
-    	result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
-    	assertEquals(1, result.getRealCount());
-    	assertEquals(1, result.getMessages().size());
-    	
-    	result = handler.execute(new FetchMessages(clientfolder, 0, 10, null), null);
-    	assertEquals(1, result.getRealCount());
-    	assertEquals(1, result.getMessages().size());
+        FetchMessagesResult result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
+        assertEquals(0, result.getRealCount());
+        
+        ByteArrayInputStream is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
+        MimeMessage msg = new MimeMessage(session, is);
+        serverfolder.addMessages(new Message[]{msg});
+        
+        result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
+        assertEquals(1, result.getRealCount());
+        assertEquals(1, result.getMessages().size());
+        
+        result = handler.execute(new FetchMessages(clientfolder, 0, 10, null), null);
+        assertEquals(1, result.getRealCount());
+        assertEquals(1, result.getMessages().size());
 
-    	is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
-    	msg = new MimeMessage(session, is);
-    	serverfolder.appendMessages(new Message[]{msg});
-    	
-    	result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
-    	assertEquals(2, result.getRealCount());
-    	assertEquals(2, result.getMessages().size());
-    	
-    	result = handler.execute(new FetchMessages(clientfolder, 0, 10, null), null);
-    	assertEquals(2, serverfolder.getMessageCount());
-    	assertEquals(2, serverfolder.getUnreadMessageCount());
-    	assertEquals(2, result.getRealCount());
-    	assertEquals(2, result.getMessages().size());
-    	assertEquals(2, result.getMessages().size());
-    	
-    	msg.setFlags(new Flags(Flag.SEEN), true);
-    	assertEquals(1, serverfolder.getUnreadMessageCount());
-    	
-    	serverfolder.appendMessages(new Message[]{msg});
-    	result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
-    	assertEquals(3, result.getRealCount());
-    	assertEquals(1, result.getRealUnreadCount());
-    	
+        is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
+        msg = new MimeMessage(session, is);
+        serverfolder.appendMessages(new Message[]{msg});
+        
+        result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
+        assertEquals(2, result.getRealCount());
+        assertEquals(2, result.getMessages().size());
+        
+        result = handler.execute(new FetchMessages(clientfolder, 0, 10, null), null);
+        assertEquals(2, serverfolder.getMessageCount());
+        assertEquals(2, serverfolder.getUnreadMessageCount());
+        assertEquals(2, result.getRealCount());
+        assertEquals(2, result.getMessages().size());
+        assertEquals(2, result.getMessages().size());
+        
+        msg.setFlags(new Flags(Flag.SEEN), true);
+        assertEquals(1, serverfolder.getUnreadMessageCount());
+        
+        serverfolder.appendMessages(new Message[]{msg});
+        result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
+        assertEquals(3, result.getRealCount());
+        assertEquals(1, result.getRealUnreadCount());
+        
     }
     
 }

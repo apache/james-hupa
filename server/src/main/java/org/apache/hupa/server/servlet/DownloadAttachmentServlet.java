@@ -75,11 +75,11 @@ public class DownloadAttachmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-    	
-    	User user = (User) request.getSession().getAttribute("user");
-    	if (user == null)
-    		throw new ServletException("Invalid session");
-    	
+        
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null)
+            throw new ServletException("Invalid session");
+        
         String message_uuid = request.getParameter(SConsts.PARAM_UID);
         String attachmentName = request.getParameter(SConsts.PARAM_NAME);
         String folderName = request.getParameter(SConsts.PARAM_FOLDER);
@@ -100,7 +100,7 @@ public class DownloadAttachmentServlet extends HttpServlet {
             Object content = m.getContent();
             Part part  = handleMultiPart(content, attachmentName);
             if (part.getContentType()!=null)
-            	response.setContentType(part.getContentType());
+                response.setContentType(part.getContentType());
             else
                 response.setContentType("application/download");
             
@@ -174,23 +174,23 @@ public class DownloadAttachmentServlet extends HttpServlet {
                 if (bodyPart.isMimeType("multipart/*")) {
                     Part p = handleMultiPart(bodyPart.getContent(), attachmentName);
                     if (p != null)
-                    	return p;
+                        return p;
                 } else {
-                	if (contentId != null) {
-                    	for (String id: contentId) {
-                    		id = id.replaceAll("^.*<(.+)>.*$", "$1");
-                    		if (attachmentName.equals(id))
-                    			return bodyPart;
-                    	}
+                    if (contentId != null) {
+                        for (String id: contentId) {
+                            id = id.replaceAll("^.*<(.+)>.*$", "$1");
+                            if (attachmentName.equals(id))
+                                return bodyPart;
+                        }
                     } 
-                	if (fileName != null){
+                    if (fileName != null){
                         if (attachmentName.equalsIgnoreCase(MimeUtility.decodeText(fileName))) 
                             return bodyPart;
                     }
                 } 
             }
         } else {
-        	System.out.println("Unknown content: " + content.getClass().getName());
+            System.out.println("Unknown content: " + content.getClass().getName());
         }
         return null;
     }

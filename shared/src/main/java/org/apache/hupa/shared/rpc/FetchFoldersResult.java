@@ -47,10 +47,10 @@ public class FetchFoldersResult implements Result{
     }
     
     public String toString() {
-    	String ret = "";
-    	for (IMAPFolder f: folders) {
-    		ret += f.getFullName() + " ";
-    	}
-    	return ret;
+        String ret = "";
+        for (IMAPFolder f: folders) {
+            ret += f.getFullName() + " ";
+        }
+        return ret;
     }
 }

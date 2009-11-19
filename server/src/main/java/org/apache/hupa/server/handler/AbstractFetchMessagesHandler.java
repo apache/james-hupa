@@ -61,7 +61,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         User user = getUser();
         IMAPFolder folder = action.getFolder();
         if (folder == null) {
-        	folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+            folder = new IMAPFolder(user.getSettings().getInboxFolderName());
         }
         com.sun.mail.imap.IMAPFolder f = null;
         try {
@@ -88,7 +88,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             return new FetchMessagesResult(convert(offset, f, messages),start, offset,exists,f.getUnreadMessageCount());
             
         } catch (Exception e) {
-        	e.printStackTrace();
+            e.printStackTrace();
             logger.error("Error while fetching headers for user " + user.getName() + " in folder " + folder,e);
             throw new ActionException(
                     "Error while fetching headers for user " + user.getName() + " in folder " + folder);

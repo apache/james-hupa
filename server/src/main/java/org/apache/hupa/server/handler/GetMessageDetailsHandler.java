@@ -122,30 +122,30 @@ public class GetMessageDetailsHandler extends
         }
     }
 
-	protected MessageDetails mimeToDetails(MimeMessage message, String folderName, long uid)
+    protected MessageDetails mimeToDetails(MimeMessage message, String folderName, long uid)
             throws IOException, MessagingException,
             UnsupportedEncodingException {
-	    MessageDetails mDetails = new MessageDetails();
+        MessageDetails mDetails = new MessageDetails();
 
-	    
-	    Object con = message.getContent();
+        
+        Object con = message.getContent();
 
-	    StringBuffer sbPlain = new StringBuffer();
-	    ArrayList<MessageAttachment> attachmentList = new ArrayList<MessageAttachment>();
+        StringBuffer sbPlain = new StringBuffer();
+        ArrayList<MessageAttachment> attachmentList = new ArrayList<MessageAttachment>();
 
-	    
-	    boolean isHTML = handleParts(message, con, sbPlain, attachmentList);
+        
+        boolean isHTML = handleParts(message, con, sbPlain, attachmentList);
 
         if (isHTML) {
-        	mDetails.setText(filterHtmlDocument(sbPlain.toString(), folderName, uid));
+            mDetails.setText(filterHtmlDocument(sbPlain.toString(), folderName, uid));
         } else {
-        	mDetails.setText(txtDocumentToHtml(sbPlain.toString(), folderName, uid));
+            mDetails.setText(txtDocumentToHtml(sbPlain.toString(), folderName, uid));
         }
 
-	    mDetails.setMessageAttachments(attachmentList);
+        mDetails.setMessageAttachments(attachmentList);
 
-	    mDetails.setRawHeader(message.getAllHeaders().toString());
-	    return mDetails;
+        mDetails.setRawHeader(message.getAllHeaders().toString());
+        return mDetails;
     }
 
     /**
@@ -163,7 +163,7 @@ public class GetMessageDetailsHandler extends
             ArrayList<MessageAttachment> attachmentList)
             throws UnsupportedEncodingException, MessagingException,
             IOException {
-    	boolean isHTML = false;
+        boolean isHTML = false;
         if (con instanceof String) {
             if (message.getContentType().startsWith("text/html")) {
                 isHTML = true;
@@ -213,7 +213,7 @@ public class GetMessageDetailsHandler extends
 
                 }
                 if (text != null)
-                	sbPlain.append(text);
+                    sbPlain.append(text);
             }
 
         }

@@ -119,10 +119,10 @@ public class IMAPMessageListView extends Composite implements Display{
     
     @Inject
     public IMAPMessageListView(final PagingScrollTableRowDragController controller, final MessageTableModel mTableModel, final HupaConstants constants, final HupaMessages messages, final HupaImageBundle imageBundle) {
-    	this.messages = messages;
-    	this.imageBundle = imageBundle;
-    	
-    	deleteMailButton = new EnableButton(constants.deleteMailButton());
+        this.messages = messages;
+        this.imageBundle = imageBundle;
+        
+        deleteMailButton = new EnableButton(constants.deleteMailButton());
         newMailButton = new Button(constants.newMailButton());
         deleteAllMailButton = new Button(constants.deleteAll());
         markSeenButton = new EnableButton(constants.markSeen());
@@ -135,11 +135,11 @@ public class IMAPMessageListView extends Composite implements Display{
         this.cTableModel = new CachedTableModel<Message>(mTableModel);
         cTableModel.setRowCount(MutableTableModel.UNKNOWN_ROW_COUNT);
         mTableModel.addRowCountChangeHandler(new RowCountChangeHandler() {
-			
-			public void onRowCountChange(RowCountChangeEvent event) {
-				cTableModel.setRowCount(event.getNewRowCount());
-			}
-		});
+            
+            public void onRowCountChange(RowCountChangeEvent event) {
+                cTableModel.setRowCount(event.getNewRowCount());
+            }
+        });
         VerticalPanel vPanel = new VerticalPanel();
         mailTable = new DragRefetchPagingScrollTable<Message>(
                 cTableModel, dataTable, new FixedWidthFlexTable(),

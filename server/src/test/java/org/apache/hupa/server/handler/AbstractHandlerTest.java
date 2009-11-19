@@ -42,19 +42,19 @@ import org.apache.hupa.shared.data.User;
 import com.google.inject.Provider;
 
 public abstract class AbstractHandlerTest extends TestCase{
-	
+    
     public final static String VALID_ID ="VALID_ID";
     
     protected Log logger = new MockLog();
     
     User user = createUser();
     
-	protected Session session = Session.getInstance(new Properties());
-	protected Provider<Session> provider = new Provider<Session> () {
-		public Session get() {
-			return session;
+    protected Session session = Session.getInstance(new Properties());
+    protected Provider<Session> provider = new Provider<Session> () {
+        public Session get() {
+            return session;
         }
-	};
+    };
 
     protected HttpSession httpSession = new MockHttpSession(VALID_ID);
     protected Provider<HttpSession> httpSessionProvider = new Provider<HttpSession>() {
@@ -64,11 +64,11 @@ public abstract class AbstractHandlerTest extends TestCase{
         
     };
     
-	protected Provider<Settings> settingsProvider = new Provider<Settings> () {
-		public Settings get() {
-			return MockIMAPFolder.mockSettings;
+    protected Provider<Settings> settingsProvider = new Provider<Settings> () {
+        public Settings get() {
+            return MockIMAPFolder.mockSettings;
         }
-	};
+    };
     
     protected MockIMAPStoreCache storeCache = new MockIMAPStoreCache( new Provider<Session>() {
         public Session get() {
@@ -94,12 +94,12 @@ public abstract class AbstractHandlerTest extends TestCase{
         return user;
     }
     
-	protected MimeMessage loadMessage(String msgFile) throws Exception {
-		msgFile = MockIMAPFolder.DEMO_MODE_MESSAGES_LOCATION + msgFile;
-	    URL url = Thread.currentThread().getContextClassLoader().getResource(msgFile);
-    	assertNotNull("Check that the file " + msgFile + " is in the classpath", url);
+    protected MimeMessage loadMessage(String msgFile) throws Exception {
+        msgFile = MockIMAPFolder.DEMO_MODE_MESSAGES_LOCATION + msgFile;
+        URL url = Thread.currentThread().getContextClassLoader().getResource(msgFile);
+        assertNotNull("Check that the file " + msgFile + " is in the classpath", url);
     
-    	FileInputStream is = new FileInputStream(url.getFile());
+        FileInputStream is = new FileInputStream(url.getFile());
         return new MimeMessage(session, is);
     }
 

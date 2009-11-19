@@ -64,7 +64,7 @@ public class MockIMAPStore extends IMAPStore{
                 new MockIMAPFolder(MockIMAPFolder.DEMO_MODE_TRASH_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
                 ((MockIMAPFolder)getFolder(MockIMAPFolder.DEMO_MODE_INBOX_FOLDER)).loadDemoMessages(session);
             } catch (Exception e) {
-            	e.printStackTrace();
+                e.printStackTrace();
             }
         }
     }
@@ -111,25 +111,25 @@ public class MockIMAPStore extends IMAPStore{
     }
     
     public List<MockIMAPFolder> getChilds(MockIMAPFolder folder) {
-		List<MockIMAPFolder> childs = new ArrayList<MockIMAPFolder>();
-		if (MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER.equals(folder.getFullName())) {
-			for(MockIMAPFolder f: folders) {
-				if (! MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER.equals(f.getFullName()))
-					childs.add(f);
-			}
-			return folders;
-		} else {
-			for (int i = 0; i < folders.size(); i++) {
-				MockIMAPFolder f = folders.get(i);
-				if (f.getFullName().startsWith(
-				        folder.getFullName() + MockIMAPFolder.SEPARATOR)) {
-					childs.add(f);
-					
-				}
-			}
-		}
-		return childs;
-	}
+        List<MockIMAPFolder> childs = new ArrayList<MockIMAPFolder>();
+        if (MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER.equals(folder.getFullName())) {
+            for(MockIMAPFolder f: folders) {
+                if (! MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER.equals(f.getFullName()))
+                    childs.add(f);
+            }
+            return folders;
+        } else {
+            for (int i = 0; i < folders.size(); i++) {
+                MockIMAPFolder f = folders.get(i);
+                if (f.getFullName().startsWith(
+                        folder.getFullName() + MockIMAPFolder.SEPARATOR)) {
+                    childs.add(f);
+                    
+                }
+            }
+        }
+        return childs;
+    }
     
     public void setValidLogins(Map<String,String> validLogins) {
         this.validLogins = validLogins;
@@ -153,7 +153,7 @@ public class MockIMAPStore extends IMAPStore{
 
     @Override
     public synchronized Folder getDefaultFolder() throws MessagingException {
-    	return getFolder(MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER);
+        return getFolder(MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER);
     }
 
     @Override
@@ -189,7 +189,7 @@ public class MockIMAPStore extends IMAPStore{
         if (myPort != null && myPort.intValue() == port) {
             connect(username,password);
         } else {
-        	throw new MessagingException("Can't connect to host");
+            throw new MessagingException("Can't connect to host");
         }
     }
 

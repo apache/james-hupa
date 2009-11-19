@@ -24,10 +24,10 @@ import org.apache.hupa.shared.rpc.LoginUser;
 
 public class DemoModeTest extends AbstractHandlerTest {
 
-	private LoginUser demoUser = new LoginUser("demo", "demo");
-	
-	private InMemoryIMAPStoreCache memoryStore = new InMemoryIMAPStoreCache(logger, InMemoryIMAPStoreCache.DEMO_MODE, 143, false, 1, 300000, provider);
-	
+    private LoginUser demoUser = new LoginUser("demo", "demo");
+    
+    private InMemoryIMAPStoreCache memoryStore = new InMemoryIMAPStoreCache(logger, InMemoryIMAPStoreCache.DEMO_MODE, 143, false, 1, 300000, provider);
+    
     private LoginUserHandler loginUserHandler = new LoginUserHandler(memoryStore, logger, httpSessionProvider, settingsProvider);
     
     private FetchFoldersHandler fetchFoldersHandler = new FetchFoldersHandler(memoryStore, logger, httpSessionProvider);
@@ -35,7 +35,7 @@ public class DemoModeTest extends AbstractHandlerTest {
     private FetchMessagesHandler fetchMessagesHandler = new FetchMessagesHandler(memoryStore, logger, httpSessionProvider);
 
     public void testDemoLoginUser() {
-    	LoginUser badUser = new LoginUser("baduser", "whatever");
+        LoginUser badUser = new LoginUser("baduser", "whatever");
         try {
             loginUserHandler.execute(demoUser, null);
         } catch (ActionException e) {
@@ -61,21 +61,21 @@ public class DemoModeTest extends AbstractHandlerTest {
     }
 
     public void testReadMessageFile() throws Exception {
-    	URL url = Thread.currentThread().getContextClassLoader().getResource(MockIMAPFolder.DEMO_MODE_MESSAGES_LOCATION + "0.msg");
-    	assertNotNull("There aren't message files for demo mode, check that the files mime/\\d.msg are in your classpath", url);
+        URL url = Thread.currentThread().getContextClassLoader().getResource(MockIMAPFolder.DEMO_MODE_MESSAGES_LOCATION + "0.msg");
+        assertNotNull("There aren't message files for demo mode, check that the files mime/\\d.msg are in your classpath", url);
     }
     
     public void testLoadMessageFiles() throws Exception {
-    	MockIMAPStore store = new MockIMAPStore(session);
-    	MockIMAPFolder folder = new MockIMAPFolder("WHATEVER", store);
-    	folder.create(Folder.HOLDS_MESSAGES);
-    	folder.loadDemoMessages(session);
-    	assertTrue(folder.getMessages().length > 0);
-    	
-    	for (Message m: folder.getMessages()) {
-    		assertEquals(m, folder.getMessageByUID(folder.getUID(m)));
-    	}
-    	
+        MockIMAPStore store = new MockIMAPStore(session);
+        MockIMAPFolder folder = new MockIMAPFolder("WHATEVER", store);
+        folder.create(Folder.HOLDS_MESSAGES);
+        folder.loadDemoMessages(session);
+        assertTrue(folder.getMessages().length > 0);
+        
+        for (Message m: folder.getMessages()) {
+            assertEquals(m, folder.getMessageByUID(folder.getUID(m)));
+        }
+        
     }
 
     public void testDemoFetchMessages() throws Exception {
@@ -83,10 +83,10 @@ public class DemoModeTest extends AbstractHandlerTest {
             User user = loginUserHandler.execute(demoUser, null).getUser();
             fetchFoldersHandler.execute(new FetchFolders(), null);
             IMAPFolder folder = new IMAPFolder(user.getSettings().getInboxFolderName());
-        	FetchMessagesResult result = fetchMessagesHandler.execute(new FetchMessages(folder, 0, 10, null), null);
-        	assertEquals(8, result.getRealCount());
-        	assertEquals(8, result.getMessages().size());
-        	assertEquals(8, result.getRealUnreadCount());
+            FetchMessagesResult result = fetchMessagesHandler.execute(new FetchMessages(folder, 0, 10, null), null);
+            assertEquals(8, result.getRealCount());
+            assertEquals(8, result.getMessages().size());
+            assertEquals(8, result.getRealUnreadCount());
         } catch (ActionException e) {
             e.printStackTrace();
             fail("Shouldn't throw an exception");
