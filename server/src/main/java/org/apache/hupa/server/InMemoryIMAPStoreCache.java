@@ -19,7 +19,6 @@
 
 package org.apache.hupa.server;
 
-import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -31,7 +30,6 @@ import javax.mail.Session;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.shared.data.User;
-import org.mortbay.io.WriterOutputStream;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -71,7 +69,6 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
         }
         session = sessionProvider.get();
         if (logger.isDebugEnabled()) {
-            session.setDebugOut(new PrintStream(new WriterOutputStream(new DebugLogWriter(logger))));
             session.setDebug(true);
         }
         System.setProperty("mail.mime.decodetext.strict", "false");
