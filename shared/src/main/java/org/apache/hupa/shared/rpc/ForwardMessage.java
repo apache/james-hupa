@@ -30,6 +30,7 @@ public class ForwardMessage extends SendMessage {
     private IMAPFolder folder;
 
     public ForwardMessage(SMTPMessage msg, IMAPFolder folder, long uid) {
+        super(msg);
         this.uid = uid;
         this.folder = folder;
     }

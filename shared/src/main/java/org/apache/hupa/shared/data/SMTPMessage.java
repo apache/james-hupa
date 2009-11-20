@@ -27,6 +27,22 @@ public class SMTPMessage extends AbstractMessage{
     private String text;
     private ArrayList<MessageAttachment> aList;
     
+    public String toString() {
+        String bccList = "";
+        if (bcc !=null) 
+            for (String s: bcc)
+                bccList += s + " ";
+        
+        String attachNames = "";
+        for (MessageAttachment m: aList) 
+            attachNames += m.getName() + " ";
+        
+        return super.toString()
+             + "Bcc='" + bccList
+             + "'\nAttachments=" + attachNames
+             + "'\nMessage:\n" + text;
+    }
+    
     public ArrayList<String> getBcc() {
         return bcc;
     }

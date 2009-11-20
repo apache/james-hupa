@@ -34,6 +34,25 @@ public class AbstractMessage implements Serializable{
     private ArrayList<String> cc;
     private boolean hasAttachment;
     
+    public String toString() {
+        String toList = "";
+        if (to != null)
+            for (String s: to)
+                toList += s + " ";
+
+        String ccList = "";
+        if (cc != null)
+            for (String s: cc)
+                ccList += s + " ";
+
+        return "From='" + from 
+             + "' To='" + toList
+             + "' CC='" + ccList
+             + "' Subject='" + subject
+             + "' Attachments=" + hasAttachment;
+    }
+
+    
     public boolean hasAttachment() {
         return hasAttachment;
     }
