@@ -26,10 +26,11 @@ import gwtupload.client.MultiUploader;
 
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.widgets.EnableButton;
-import org.apache.hupa.widgets.ui.EnableHyperlink;
-import org.apache.hupa.widgets.ui.Loading;
 import org.apache.hupa.shared.SConsts;
+import org.apache.hupa.widgets.editor.Editor;
+import org.apache.hupa.widgets.ui.EnableHyperlink;
 import org.apache.hupa.widgets.ui.HasEnable;
+import org.apache.hupa.widgets.ui.Loading;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -38,10 +39,10 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -62,7 +63,7 @@ public class MessageSendView extends Composite implements
     private TextBox subject = new TextBox();
     private BaseUploadStatus uploadStatus = new BaseUploadStatus();
     private MultiUploader uploader = new MultiUploader(uploadStatus);
-    private TextArea text = new TextArea();
+    private Editor editor = new Editor();
     private EnableButton sendButton;
     private EnableHyperlink backButton;
     private Loading sendProgress = new Loading();
@@ -73,7 +74,7 @@ public class MessageSendView extends Composite implements
         backButton = new EnableHyperlink(constants.backButton(),"");
         final VerticalPanel mPanel = new VerticalPanel();
         //mPanel.setWidth("100%");
-        mPanel.setWidth(Window.getClientWidth() -200 +"px");
+        mPanel.setWidth(Window.getClientWidth() -10 +"px");
         
         Window.addResizeHandler(new ResizeHandler() {
 
@@ -155,9 +156,8 @@ public class MessageSendView extends Composite implements
 
         subject.setWidth("100%");
 
-        text.setWidth("100%");
-        text.setHeight("400px");
-        text.setVisibleLines(50);
+        editor.setWidth("100%");
+        editor.setHeight("400px");
 
         uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
         uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
@@ -177,7 +177,7 @@ public class MessageSendView extends Composite implements
 
         mPanel.add(buttonBar);
 
-        mPanel.add(text);
+        mPanel.add(editor);
         initWidget(mPanel);
 
     }
@@ -237,7 +237,7 @@ public class MessageSendView extends Composite implements
      * @see org.apache.hupa.client.mvp.MessageSendPresenter.Display#getMessageText()
      */
     public HasText getMessageText() {
-        return text;
+        return editor;
     }
 
     /*
@@ -298,5 +298,9 @@ public class MessageSendView extends Composite implements
      */
     public HasClickHandlers getBackButtonClick() {
         return backButton;
+    }
+
+    public HasHTML getMessageHTML() {
+        return editor;
     }
 }

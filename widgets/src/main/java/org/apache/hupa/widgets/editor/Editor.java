@@ -34,16 +34,16 @@ public class Editor extends VerticalPanel implements HasHTML {
     public Editor() {
         area.ensureDebugId("hupa-editor-area");
         // Note: rich-area is created in an iframe, so Hupa's style sheets 
-        // are not available, unless we inject then to the generated iframe
+        // are not available, unless we inject them to the generated iframe
         area.setSize("100%", "20em");
         
         Toolbar toolbar = new Toolbar(area);
         toolbar.ensureDebugId("hupa-editor-toolbar");
-        toolbar.setWidth("100%");
         
-        setStyleName("hupa-editor");
-        add(toolbar);
-        add(area);
+        super.setStyleName("hupa-editor");
+        super.add(toolbar);
+        super.add(area);
+        super.setWidth("100%");
 
     }
     
@@ -51,13 +51,23 @@ public class Editor extends VerticalPanel implements HasHTML {
     public void setSize(String width, String height) {
         area.setSize(width, height);
     }
+    
+    @Override
+    public void setWidth(String width){
+        area.setWidth(width);
+    }
+
+    @Override
+    public void setHeight(String height){
+        area.setHeight(height);
+    }
 
     public String getHTML() {
         return area.getHTML();
     }
 
     public void setHTML(String html) {
-        area.setHTML(html);
+        area.setHTML("<font style='font-family: arial' size=2>" + html + "</font>");
     }
 
     public String getText() {

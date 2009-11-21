@@ -114,18 +114,21 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
 
         SMTPMessage m = action.getMessage();
         ArrayList<MessageAttachment> attachments = m.getMessageAttachments();
+        
+        // Create the body
+        Multipart body = createMultipartAlternative(m.getText());
+        
         // check if there are any attachments to include
         if (attachments == null || attachments.isEmpty()) {
-            message.setText(m.getText());
+            message.setContent(body);
         } else {
             // create the message part
             MimeBodyPart messageBodyPart = new MimeBodyPart();
 
             // fill message
-            messageBodyPart.setText(m.getText());
+            messageBodyPart.setContent(body);
 
             Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart);
             
             multipart = handleAttachments(multipart, attachments);
             
@@ -136,6 +139,33 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         // save message 
         message.saveChanges();
         return message;
+    }
+    
+    protected String htmlToText(String s){
+        s=s.replaceAll("\n", " ");
+        s=s.replaceAll("(?si)<br\\s*?/?>", "\n");
+        s=s.replaceAll("(?si)</div\\s*?>", "\n");
+        s=s.replaceAll("(\\w)<.*?>(\\w)", "$1 $2");
+        s=s.replaceAll("<.*?>", "");
+        s=s.replaceAll("[ \t]+", " ");
+        return s;
+    }
+    
+    protected Multipart createMultipartAlternative(String html) throws MessagingException {
+        MimeMultipart mimeMultipart= new MimeMultipart();
+        mimeMultipart.setSubType("alternative");
+        
+        MimeBodyPart txtPart= new MimeBodyPart();
+        txtPart.setContent(htmlToText(html), "text/plain");
+        mimeMultipart.addBodyPart(txtPart);
+        
+        MimeBodyPart htmlPart= new MimeBodyPart();
+        htmlPart.setContent(html, "text/html");
+        htmlPart.setHeader("Content-Type", "text/html; format=flowed");
+        mimeMultipart.addBodyPart(htmlPart);
+        
+        return mimeMultipart;
+   
     }
 
     protected void resetAttachments(A action) throws MessagingException, ActionException {

@@ -315,9 +315,6 @@ public class GetMessageDetailsHandler extends
         if (html == null || html.length()==0)
             return html;
 
-        // wrap the entire html document in a classed div
-        html = "<div class='hupa-email-content'>\n" + html + "\n</div>\n";
-        
         // Replace in-line images links to use Hupa's download servlet
         html = replaceAll(html, regex_inlineImg, repl_inlineImg).replaceAll("%%FOLDER%%",folderName).replaceAll("%%UID%%", String.valueOf(uuid));
         // Remove head, script and style tags to avoid interferences with Hupa

@@ -52,6 +52,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
 
@@ -165,7 +166,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         public HasText getCcText();
         public HasText getBccText();
         public HasText getSubjectText();
-        public HasText getMessageText();
+        public HasHTML getMessageHTML();
         public HasClickHandlers getSendClick();
         public HasEnable getSendEnable();
         public IUploader getUploader();
@@ -231,7 +232,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                     message.setCc(cc);
                     
                     message.setSubject(display.getSubjectText().getText());
-                    message.setText(display.getMessageText().getText());
+                    message.setText(display.getMessageHTML().getHTML());
 
                     message.setMessageAttachments(attachments);
 
@@ -317,7 +318,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         // cancel the current upload when unbinding
         display.getUploader().cancel();
     }
-
+    
     /**
      * Bind the given values to this presenter
      * 
@@ -338,21 +339,14 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         display.getCcText().setText("");
         display.getBccText().setText("");
         display.getSubjectText().setText("");
-        display.getMessageText().setText("");
+        display.getMessageHTML().setHTML("");
 
-        display.getMessageText().setText("");
         if (type.equals(Type.FORWARD)) {
             display.getSubjectText().setText("Fwd: " + oldmessage.getSubject());
-            display.getMessageText().setText("\n\n-------- Original Message -------\n" );
+            display.getMessageHTML().setHTML(wrapMessage(oldmessage, oldDetails));
         } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
             display.getSubjectText().setText("Re: " + oldmessage.getSubject());
-            
-            String oldMessageText = oldDetails.getText();
-            StringBuffer messageText = new StringBuffer("\n\n-------- Message -------\n");
-            if ( oldMessageText != null) {
-                messageText.append(oldMessageText);
-            }
-            display.getMessageText().setText(messageText.toString());
+            display.getMessageHTML().setHTML(wrapMessage(oldmessage, oldDetails));
 
             if (type.equals(Type.REPLY)) {
                 display.getToText().setText(oldmessage.getFrom());
@@ -392,5 +386,16 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
     protected void onRevealDisplay() {
         // DO Nothing
     }
+    
+    private String wrapMessage(Message message, MessageDetails details){
+        String ret;
+        ret = "<font size=2 style='font-family: arial'>";
+        ret += "<br><br>On " + message.getReceivedDate() + ", " + message.getFrom() +". wrote:<br>";
+        ret += "<blockquote style='border-left: 1px solid rgb(204, 204, 204); margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;'>";
+        ret += details.getText();
+        ret += "</blockquote></font>";
+        return ret;
+    }
+
     
 }

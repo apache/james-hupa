@@ -121,15 +121,6 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
         
     }
 
-    public void testHtmlIsWrapped() throws Exception {
-        
-        String html = handler.filterHtmlDocument("whatever", "foldername", 111l);
-        assertEquals("<div class='hupa-email-content'>\nwhatever\n</div>\n", html);
-        
-        html = handler.txtDocumentToHtml("whatever", "foldername", 111l);
-        assertEquals("<div class='hupa-email-content'>\nwhatever\n</div>\n", html);
-    }
-    
     public void testTextDocumentToHtml() throws Exception {
 
         String msg = "...\nhttp://www.example.com/path/action.do;s=1;a=2?p=abcd\n...";
@@ -167,11 +158,11 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
         msg = "...\n...<img   \n   src=\"cid:1.1934304663@web28309.mail.ukl.yahoo.com\" width=200\n....";
         res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
-        assertEquals("<div class='hupa-email-content'>\n...\n...<img   \n   src=\"" + 
+        assertEquals("...\n...<img   \n   src=\"" + 
                 SConsts.HUPA + SConsts.SERVLET_DOWNLOAD + "?" 
                 + SConsts.PARAM_FOLDER + "=aFolder&" 
                 + SConsts.PARAM_UID + "=9999&"
-                + SConsts.PARAM_NAME + "=1.1934304663@web28309.mail.ukl.yahoo.com\" width=200\n....\n</div>\n", res);
+                + SConsts.PARAM_NAME + "=1.1934304663@web28309.mail.ukl.yahoo.com\" width=200\n....", res);
         
         msg = "\n\n.... <Script \ntype=\"whatever\"\n>\nalert('hello');\n</script > ---\n\n";
         res = handler.filterHtmlDocument(msg, "aFolder", 9999l);

@@ -19,13 +19,14 @@
 
 package org.apache.hupa.client;
 
-import org.apache.hupa.widgets.PagingOptionsConstants;
-
 import gwtupload.client.IUploader.UploaderConstants;
+
+import org.apache.hupa.widgets.PagingOptionsConstants;
+import org.apache.hupa.widgets.editor.ToolbarConstants;
 
 import com.google.gwt.i18n.client.Constants;
 
-public interface HupaConstants extends Constants, UploaderConstants, PagingOptionsConstants {
+public interface HupaConstants extends Constants, UploaderConstants, PagingOptionsConstants, ToolbarConstants {
 
     public String usernameLabel();
 
