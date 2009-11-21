@@ -23,29 +23,16 @@ import net.customware.gwt.presenter.client.place.PlaceManager;
 
 import org.apache.hupa.client.gin.HupaGinjector;
 import org.apache.hupa.client.mvp.AppPresenter;
-import org.apache.hupa.widgets.editor.Editor;
-import org.apache.hupa.widgets.editor.Toolbar;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class Hupa implements EntryPoint{
     private final HupaGinjector injector = GWT.create(HupaGinjector.class);
     
     public void onModuleLoad() {
-        if (null != Window.Location.getParameter("test"))
-            onModuleLoadMine();
-        else
-            onModuleLoadOrg();
-        
-    }
-    
-    public void onModuleLoadOrg() {
         // remove the loading message from the browser
         com.google.gwt.user.client.Element loading = DOM.getElementById("loading");
 
@@ -59,14 +46,6 @@ public class Hupa implements EntryPoint{
 
         PlaceManager placeManager = injector.getPlaceManager();
         placeManager.fireCurrentPlace();
-    }
-
-    public void onModuleLoadMine() {
-        
-        DOM.setInnerHTML(RootPanel.get("loading").getElement(), "");
-        
-        RootPanel.get().add(new Editor());
-        
     }
 
 }
