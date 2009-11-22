@@ -42,7 +42,6 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 
     public static final String DEMO_MODE = "demo-mode";
     
-    private Properties props = new Properties();
     private Session session;
     protected Log logger;
     private final Map<String,CachedIMAPStore> pool = new HashMap<String ,CachedIMAPStore>();
@@ -56,6 +55,12 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
         this.address = address;
         this.port = port;
         this.useSSL = useSSL;
+      
+        session = sessionProvider.get();
+        if (logger.isDebugEnabled()) {
+            session.setDebug(true);
+        }
+        Properties props = session.getProperties();
         
         props.setProperty("mail.mime.decodetext.strict", "false");
         if (useSSL) {
@@ -66,10 +71,6 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
             props.setProperty("mail.imap.connectionpoolsize", connectionPoolSize + "");
             props.setProperty("mail.imap.connectionpooltimeout", timeout + "");
 
-        }
-        session = sessionProvider.get();
-        if (logger.isDebugEnabled()) {
-            session.setDebug(true);
         }
         System.setProperty("mail.mime.decodetext.strict", "false");
         
