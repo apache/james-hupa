@@ -15,20 +15,22 @@
 	</parent>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<executions>
-					<!-- GWT version detected from dependencyManagement -->
-					<execution>
-						<goals>
-							<goal>resources</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
+	<resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.java</include>
+          <include>**/*.gwt.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.*</include>
+        </includes>
+      </resource>
+    </resources>
+
 	</build>
 
 	<dependencies>
