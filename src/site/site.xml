@@ -37,7 +37,7 @@
     
     <menu name="Hupa" inherit="top">
       <item name="Overview" href="/index.html"/>
-
+      <item name="Screenshots" href="/screenshots.html"/>
     </menu>
 
     <menu name="Get Involved" inherit="top">
