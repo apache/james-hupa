@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
@@ -45,13 +46,13 @@ import com.sun.mail.imap.IMAPFolder;
 
 /**
  * Handle download of attachments
- * 
+ *
  *
  */
 public class DownloadAttachmentServlet extends HttpServlet {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1245563204035792963L;
     private InMemoryIMAPStoreCache cache;
@@ -75,11 +76,11 @@ public class DownloadAttachmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        
+
         User user = (User) request.getSession().getAttribute("user");
         if (user == null)
             throw new ServletException("Invalid session");
-        
+
         String message_uuid = request.getParameter(SConsts.PARAM_UID);
         String attachmentName = request.getParameter(SConsts.PARAM_NAME);
         String folderName = request.getParameter(SConsts.PARAM_FOLDER);
@@ -96,14 +97,14 @@ public class DownloadAttachmentServlet extends HttpServlet {
                 folder.open(Folder.READ_ONLY);
             }
             Message m = folder.getMessageByUID(Long.parseLong(message_uuid));
-            
+
             Object content = m.getContent();
             Part part  = handleMultiPart(content, attachmentName);
             if (part.getContentType()!=null)
                 response.setContentType(part.getContentType());
             else
                 response.setContentType("application/download");
-            
+
             in = part.getInputStream();
             if (in != null) {
                 byte[] buffer = new byte[4096];
@@ -117,28 +118,16 @@ public class DownloadAttachmentServlet extends HttpServlet {
             } else {
                 response.setContentLength(0);
             }
-            
+
             out.flush();
-            
+
         } catch (Exception e) {
             logger.error("Error while downloading attachment "
                     + attachmentName + " of message " + message_uuid
                     + " for user " + user.getName(), e);
         } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    // ignore on close
-                }
-            }
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    // ignore on close
-                }
-            }
+            IOUtils.closeQuietly(in);
+            IOUtils.closeQuietly(out);
             if (folder != null) {
                 try {
                     folder.close(false);
@@ -149,11 +138,11 @@ public class DownloadAttachmentServlet extends HttpServlet {
 
         }
     }
-    
+
     /**
      * Loop over MuliPart and write the content to the Outputstream if a
      * attachment with the given name was found.
-     * 
+     *
      * @param out
      *            Outputstream to write the content to
      * @param content
@@ -182,12 +171,12 @@ public class DownloadAttachmentServlet extends HttpServlet {
                             if (attachmentName.equals(id))
                                 return bodyPart;
                         }
-                    } 
+                    }
                     if (fileName != null){
-                        if (attachmentName.equalsIgnoreCase(MimeUtility.decodeText(fileName))) 
+                        if (attachmentName.equalsIgnoreCase(MimeUtility.decodeText(fileName)))
                             return bodyPart;
                     }
-                } 
+                }
             }
         } else {
             System.out.println("Unknown content: " + content.getClass().getName());
