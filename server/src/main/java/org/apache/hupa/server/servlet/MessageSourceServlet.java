@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
@@ -63,7 +64,7 @@ public class MessageSourceServlet extends HttpServlet {
 
         String message_uuid = request.getParameter(SConsts.PARAM_UID);
         String folderName = request.getParameter(SConsts.PARAM_FOLDER);
-        
+        OutputStream outs = null;
         try {
             long uid = Long.parseLong(message_uuid);
 
@@ -76,10 +77,9 @@ public class MessageSourceServlet extends HttpServlet {
             Message m = f.getMessageByUID(uid);
 
             response.setContentType("text/plain");
-            OutputStream outs = response.getOutputStream();
+            outs = response.getOutputStream();
             m.writeTo(outs);
             outs.flush();
-            outs.close();
 
             if (f.isOpen()) {
                 f.close(false);
@@ -88,6 +88,8 @@ public class MessageSourceServlet extends HttpServlet {
             String msg = "Unable to get raw content of msg for user " + user + " in folder " + folderName + " with uid " + message_uuid;
             logger.error(msg, e);
             throw new ServletException(msg);
+        } finally {
+            IOUtils.closeQuietly(outs);
         }
     }
 
