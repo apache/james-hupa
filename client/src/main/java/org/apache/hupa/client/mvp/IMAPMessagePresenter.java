@@ -99,8 +99,8 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 
     private void updateDisplay() {
         display.getFrom().setText(message.getFrom());
-        display.getCc().setText(Util.arrayToString(message.getCc()));
-        display.getTo().setText(Util.arrayToString(message.getTo()));
+        display.getCc().setText(Util.listToString(message.getCc()));
+        display.getTo().setText(Util.listToString(message.getTo()));
         display.getSubject().setText(message.getSubject());
         display.getContent().setHTML(messageDetails.getText());
         display.setAttachments(messageDetails.getMessageAttachments(), folder.getFullName(),message.getUid());

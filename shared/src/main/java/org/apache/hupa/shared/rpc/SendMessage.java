@@ -42,4 +42,8 @@ public class SendMessage implements Action<GenericResult>{
         return msg;
     }
     
+    public void setMessage(SMTPMessage msg) {
+        this.msg = msg;
+    }
+    
 }

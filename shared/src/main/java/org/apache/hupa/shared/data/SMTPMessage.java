@@ -20,10 +20,11 @@
 package org.apache.hupa.shared.data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SMTPMessage extends AbstractMessage{
     private static final long serialVersionUID = 7331361994526216161L;
-    private ArrayList<String> bcc;
+    private List<String> bcc;
     private String text;
     private ArrayList<MessageAttachment> aList;
     
@@ -43,10 +44,10 @@ public class SMTPMessage extends AbstractMessage{
              + "'\nMessage:\n" + text;
     }
     
-    public ArrayList<String> getBcc() {
+    public List<String> getBcc() {
         return bcc;
     }
-    public void setBcc( ArrayList<String> bcc) {
+    public void setBcc( List<String> bcc) {
         this.bcc = bcc;
     }
     

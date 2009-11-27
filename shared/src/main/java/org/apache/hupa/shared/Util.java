@@ -19,7 +19,7 @@
 
 package org.apache.hupa.shared;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Util {
     
@@ -47,11 +47,11 @@ public class Util {
         return string;
     }
     
-    public static String arrayToString(ArrayList<String> aList) {
+    public static String listToString(List<String> list) {
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < aList.size(); i++) {
-            sb.append(aList.get(i));
-            if (i < aList.size()-1) {
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i));
+            if (i < list.size()-1) {
                 sb.append(", ");
             }
         }

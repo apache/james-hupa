@@ -30,8 +30,9 @@ import javax.mail.Provider;
 import javax.mail.Session;
 import javax.mail.URLName;
 
-import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.server.guice.DemoModeConstants;
 
+import com.google.inject.Inject;
 import com.sun.mail.imap.IMAPStore;
 
 public class MockIMAPStore extends IMAPStore{
@@ -40,11 +41,12 @@ public class MockIMAPStore extends IMAPStore{
     private Map<String, Integer> validServers = new HashMap<String, Integer>();
     private boolean connected = false;
     private List<MockIMAPFolder> folders = new ArrayList<MockIMAPFolder>();
-    static final URLName demoUrl = new URLName(null, InMemoryIMAPStoreCache.DEMO_MODE, 143, null, null, null);
+    static final URLName demoUrl = new URLName(null, DemoModeConstants.DEMO_MODE, 143, null, null, null);
     
     /**
      * Demo mode constructor
      */
+    @Inject
     public MockIMAPStore(Session session) {
         this(session, demoUrl);
     }
@@ -54,15 +56,14 @@ public class MockIMAPStore extends IMAPStore{
      */
     public MockIMAPStore(Session session, URLName url) {
         super(session, url);
-        
-        if (InMemoryIMAPStoreCache.DEMO_MODE.equals(url.getHost())) {
-            validServers.put(InMemoryIMAPStoreCache.DEMO_MODE, 143);
-            validLogins.put("demo", "demo");
+        if (DemoModeConstants.DEMO_MODE.equals(url.getHost())) {
+            validServers.put(DemoModeConstants.DEMO_MODE, 143);
+            validLogins.put(DemoModeConstants.DEMO_LOGIN, DemoModeConstants.DEMO_LOGIN);
             try {
-                new MockIMAPFolder(MockIMAPFolder.DEMO_MODE_INBOX_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
-                new MockIMAPFolder(MockIMAPFolder.DEMO_MODE_SENT_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
-                new MockIMAPFolder(MockIMAPFolder.DEMO_MODE_TRASH_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
-                ((MockIMAPFolder)getFolder(MockIMAPFolder.DEMO_MODE_INBOX_FOLDER)).loadDemoMessages(session);
+                new MockIMAPFolder(DemoModeConstants.DEMO_MODE_INBOX_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
+                new MockIMAPFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
+                new MockIMAPFolder(DemoModeConstants.DEMO_MODE_TRASH_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
+                ((MockIMAPFolder)getFolder(DemoModeConstants.DEMO_MODE_INBOX_FOLDER)).loadDemoMessages(session);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -112,9 +113,9 @@ public class MockIMAPStore extends IMAPStore{
     
     public List<MockIMAPFolder> getChilds(MockIMAPFolder folder) {
         List<MockIMAPFolder> childs = new ArrayList<MockIMAPFolder>();
-        if (MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER.equals(folder.getFullName())) {
+        if (DemoModeConstants.DEMO_MODE_DEFAULT_FOLDER.equals(folder.getFullName())) {
             for(MockIMAPFolder f: folders) {
-                if (! MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER.equals(f.getFullName()))
+                if (! DemoModeConstants.DEMO_MODE_DEFAULT_FOLDER.equals(f.getFullName()))
                     childs.add(f);
             }
             return folders;
@@ -153,7 +154,7 @@ public class MockIMAPStore extends IMAPStore{
 
     @Override
     public synchronized Folder getDefaultFolder() throws MessagingException {
-        return getFolder(MockIMAPFolder.DEMO_MODE_DEFAULT_FOLDER);
+        return getFolder(DemoModeConstants.DEMO_MODE_DEFAULT_FOLDER);
     }
 
     @Override

@@ -352,10 +352,10 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                 display.getToText().setText(oldmessage.getFrom());
             } else {
                 oldmessage.getCc().remove(user.getName());
-                display.getCcText().setText(Util.arrayToString(oldmessage.getCc()));
+                display.getCcText().setText(Util.listToString(oldmessage.getCc()));
                 oldmessage.getTo().remove(user.getName());
 
-                display.getToText().setText(Util.arrayToString(oldmessage.getTo()));
+                display.getToText().setText(Util.listToString(oldmessage.getTo()));
 
             }
         }

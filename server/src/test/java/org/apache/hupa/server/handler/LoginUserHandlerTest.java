@@ -21,7 +21,6 @@ package org.apache.hupa.server.handler;
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
-import org.apache.hupa.server.mock.MockLog;
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.LoginUser;
@@ -30,12 +29,13 @@ import org.apache.hupa.shared.rpc.LoginUserResult;
 import com.google.inject.Provider;
 
 public class LoginUserHandlerTest extends AbstractHandlerTest {
-    private LoginUserHandler handler = new LoginUserHandler(storeCache, new MockLog(),httpSessionProvider, new Provider<Settings>() {
-
+    
+    private LoginUserHandler handler = new LoginUserHandler(storeCache, logger, httpSessionProvider, new Provider<Settings>() {
         public Settings get() {
             return new Settings();
         }
     });
+    
     public void testInvalidLogin() {
         try {
             handler.execute(new LoginUser("invalid","invalid"), null);

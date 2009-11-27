@@ -17,37 +17,40 @@
  * under the License.                                           *
  ****************************************************************/
 
+package org.apache.hupa.server.guice;
 
-package org.apache.hupa.server.handler;
 
-import net.customware.gwt.dispatch.shared.ActionException;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
 
-import org.apache.hupa.server.mock.MockLog;
-import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.rpc.LogoutUser;
-import org.apache.hupa.shared.rpc.LogoutUserResult;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.servlet.GuiceServletContextListener;
 
-public class LogoutUserHandlerTest extends AbstractHandlerTest{
+/**
+ * Simple GuiceServletContextListener which just create the injector
+ * 
+ * @author norman
+ *
+ */
+public class GuiceServletConfig extends GuiceServletContextListener{
 
-    
-    public void testLogout() {
-        String username = "test";
-        String password = "pass";
-        User user = new User();
-        user.setName(username);
-        user.setPassword(password);
-        user.setAuthenticated(true);
-        httpSession.setAttribute("user", user);
-        LogoutUserHandler handler = new LogoutUserHandler(storeCache, logger, httpSessionProvider);
-        try {
-            LogoutUserResult result = handler.execute(new LogoutUser(), null);
-            assertFalse("Not authenticated anymore", result.getUser().getAuthenticated());
-            assertNull("User removed", httpSession.getAttribute("user"));
-            
-        } catch (ActionException e) {
-            e.printStackTrace();
-            fail();
-        }
-        
+    private ServletContext context;
+    @Override
+    public void contextDestroyed(ServletContextEvent servletContextEvent) {
+        context = null;
+        super.contextDestroyed(servletContextEvent);
     }
+
+    @Override
+    public void contextInitialized(ServletContextEvent servletContextEvent) {
+        context = servletContextEvent.getServletContext();
+        super.contextInitialized(servletContextEvent);
+    }
+
+    @Override
+    protected Injector getInjector() {
+        return Guice.createInjector(new GuiceServerModule(context.getRealPath("/")),new DispatchServletModule());
+    }
+
 }

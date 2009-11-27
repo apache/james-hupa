@@ -24,19 +24,17 @@ import java.util.Properties;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.hupa.server.InMemoryIMAPStoreCache;
-import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ServerModulTest {
     private String tmpDir = System.getProperty("java.io.tmpdir");
-    private ServerModul module = new ServerModul(tmpDir);
+    private GuiceServerModule module = new GuiceServerModule(tmpDir);
 
     @Before
     public void setUp() {
         // create config directory
-        File f = new File(tmpDir + File.separator + ServerModul.CONF_DIR);
+        File f = new File(tmpDir + File.separator + GuiceServerModule.CONF_DIR);
         f.delete();
         f.deleteOnExit();
         f.mkdirs();
@@ -54,7 +52,7 @@ public class ServerModulTest {
         file.delete();
         
         // load file from not absolute file
-        fileName = tmpDir + File.separator + ServerModul.CONF_DIR + File.separator + "foo2.properties";
+        fileName = tmpDir + File.separator + GuiceServerModule.CONF_DIR + File.separator + "foo2.properties";
         file = new File(fileName);
         file.createNewFile();
         p = module.loadProperties(file.getName());
@@ -72,11 +70,11 @@ public class ServerModulTest {
         Assert.assertNotNull(p);
         Assert.assertNull(p.get("IMAPServerAddress"));
 
-        System.setProperty(ServerModul.SYS_PROP_CONFIG_FILE, tmp.toString());
+        System.setProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE, tmp.toString());
         p = module.loadProperties();
         Assert.assertNotNull(p);
         Assert.assertNull(p.get("IMAPServerAddress"));
-        System.clearProperty(ServerModul.SYS_PROP_CONFIG_FILE);
+        System.clearProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE);
 
     }
 
@@ -84,16 +82,16 @@ public class ServerModulTest {
     public void testLoadDemoProperties() throws Exception {
         File tmp = File.createTempFile("foo", ".properties");
         tmp.deleteOnExit();
-        FileUtils.writeStringToFile(tmp, "IMAPServerAddress=" + InMemoryIMAPStoreCache.DEMO_MODE);
+        FileUtils.writeStringToFile(tmp, "IMAPServerAddress=" + DemoModeConstants.DEMO_MODE);
 
-        System.setProperty(ServerModul.SYS_PROP_CONFIG_FILE, tmp.toString());
+        System.setProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE, tmp.toString());
         Properties p = module.loadProperties();
         Assert.assertNotNull(p);
-        Assert.assertEquals(MockIMAPFolder.mockSettings.getInboxFolderName(), p.get("DefaultInboxFolder"));
-        Assert.assertEquals(MockIMAPFolder.mockSettings.getTrashFolderName(), p.get("DefaultTrashFolder"));
-        Assert.assertEquals(MockIMAPFolder.mockSettings.getSentFolderName(), p.get("DefaultSentFolder"));
+        Assert.assertEquals(DemoModeConstants.mockSettings.getInboxFolderName(), p.get("DefaultInboxFolder"));
+        Assert.assertEquals(DemoModeConstants.mockSettings.getTrashFolderName(), p.get("DefaultTrashFolder"));
+        Assert.assertEquals(DemoModeConstants.mockSettings.getSentFolderName(), p.get("DefaultSentFolder"));
         
-        System.clearProperty(ServerModul.SYS_PROP_CONFIG_FILE);
+        System.clearProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE);
 
     }
 

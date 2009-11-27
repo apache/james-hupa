@@ -28,6 +28,7 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 
 import org.apache.commons.logging.Log;
+import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.shared.data.User;
 
@@ -40,8 +41,6 @@ import com.sun.mail.imap.IMAPStore;
 @Singleton
 public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 
-    public static final String DEMO_MODE = "demo-mode";
-    
     private Session session;
     protected Log logger;
     private final Map<String,CachedIMAPStore> pool = new HashMap<String ,CachedIMAPStore>();
@@ -91,7 +90,9 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
      * @see org.apache.hupa.server.IMAPStoreCache#get(java.lang.String, java.lang.String)
      */
     public IMAPStore get(String username, String password) throws MessagingException {
+
         CachedIMAPStore cstore = pool.get(username);
+
         if (cstore == null) {
             logger.debug("No cached store found for user " +username);
             cstore = createCachedIMAPStore();
@@ -126,16 +127,16 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
     
     private CachedIMAPStore createCachedIMAPStore() throws NoSuchProviderException {
         CachedIMAPStore cstore;
-        if (DEMO_MODE.equals(this.address)) {
+        if (DemoModeConstants.DEMO_MODE.equals(this.address)) {
             cstore = new CachedIMAPStore(new MockIMAPStore(session), 300);
         } else if (useSSL) {
             cstore = new CachedIMAPStore((IMAPStore)session.getStore("imaps"),300);
         } else {
-            cstore =  new CachedIMAPStore((IMAPStore)session.getStore("imap"),300);
+            cstore = new CachedIMAPStore((IMAPStore)session.getStore("imap"),300);
         }
-        
         return cstore;
     }
+    
     /*
      * (non-Javadoc)
      * @see org.apache.hupa.server.IMAPStoreCache#delete(org.apache.hupa.shared.data.User)

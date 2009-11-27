@@ -38,6 +38,6 @@
 	</filter-mapping>
 
 	<listener>
-		<listener-class>org.apache.hupa.server.guice.MyGuiceServletConfig</listener-class>
+		<listener-class>org.apache.hupa.server.guice.GuiceServletConfig</listener-class>
 	</listener>
 </web-app>

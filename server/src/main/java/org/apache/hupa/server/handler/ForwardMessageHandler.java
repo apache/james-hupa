@@ -19,7 +19,7 @@
 
 package org.apache.hupa.server.handler;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -68,14 +68,14 @@ public class ForwardMessageHandler extends AbstractSendMessageHandler<ForwardMes
             MimeMessage message = new MimeMessage(session);
             SMTPMessage m = action.getMessage();
             message.setFrom(new InternetAddress(m.getFrom()));
-            ArrayList<String> to = m.getTo();
+            List<String> to = m.getTo();
             for (int i = 0; i < to.size(); i++) {
                 message.addRecipient(RecipientType.TO, new InternetAddress(to
                         .get(i)));
             }
 
-            ArrayList<String> cc = m.getCc();
-            for (int i = 0; i < cc.size(); i++) {
+            List<String> cc = m.getCc();
+            for (int i = 0; cc != null && i < cc.size(); i++) {
                 message.addRecipient(RecipientType.CC, new InternetAddress(cc
                         .get(i)));
             }

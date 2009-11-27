@@ -37,7 +37,8 @@ import javax.mail.Flags.Flag;
 import javax.mail.internet.MimeMessage;
 import javax.mail.search.SearchTerm;
 
-import org.apache.hupa.shared.data.Settings;
+import org.apache.hupa.server.guice.DemoModeConstants;
+
 
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
@@ -45,27 +46,12 @@ import com.sun.mail.imap.IMAPStore;
 public class MockIMAPFolder extends IMAPFolder {
 
     public static final char SEPARATOR = '.';
-    public static final String DEMO_MODE_SENT_FOLDER = "Demo-Sent";
-    public static final String DEMO_MODE_TRASH_FOLDER = "Demo-Trash";
-    public static final String DEMO_MODE_INBOX_FOLDER = "Demo-Inbox";
-    public static final String DEMO_MODE_DEFAULT_FOLDER = "";
-    public static final String DEMO_MODE_MESSAGES_LOCATION = "mime/";
-
     public List<Message> messages = new ArrayList<Message>();
     private boolean closed;
     private boolean exists;
     
-    public final static Settings mockSettings = new Settings() {
-        private static final long serialVersionUID = -6650449479903482066L;
-        {
-            setInboxFolderName(MockIMAPFolder.DEMO_MODE_INBOX_FOLDER);
-            setSentFolderName(MockIMAPFolder.DEMO_MODE_SENT_FOLDER);
-            setTrashFolderName(MockIMAPFolder.DEMO_MODE_TRASH_FOLDER);
-        }
-    };
-
     public MockIMAPFolder(String fullName, IMAPStore store) {
-        super(fullName, (DEMO_MODE_DEFAULT_FOLDER.equals(fullName) ? '\0' : SEPARATOR), store);
+        super(fullName, (DemoModeConstants.DEMO_MODE_DEFAULT_FOLDER.equals(fullName) ? '\0' : SEPARATOR), store);
     }
 
     @Override
@@ -103,7 +89,7 @@ public class MockIMAPFolder extends IMAPFolder {
     
     public void loadDemoMessages(Session session) {
         for(int i=0;;i++) {
-            URL url = Thread.currentThread().getContextClassLoader().getResource(DEMO_MODE_MESSAGES_LOCATION + i + ".msg");
+            URL url = Thread.currentThread().getContextClassLoader().getResource(DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + i + ".msg");
             if (url == null) break;
             try {
                 FileInputStream is = new FileInputStream(url.getFile());

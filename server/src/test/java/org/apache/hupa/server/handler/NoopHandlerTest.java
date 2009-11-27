@@ -21,7 +21,6 @@ package org.apache.hupa.server.handler;
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
-import org.apache.hupa.server.mock.MockLog;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.Noop;
 import org.apache.hupa.shared.rpc.NoopResult;
@@ -29,7 +28,7 @@ import org.apache.hupa.shared.rpc.NoopResult;
 public class NoopHandlerTest extends AbstractHandlerTest{
 
     public void testNoop() {
-        NoopHandler handler = new NoopHandler(storeCache,new MockLog(),httpSessionProvider);
+        NoopHandler handler = new NoopHandler(storeCache, logger, httpSessionProvider);
         User user = createUser();
         Noop action = new Noop();
         storeCache.addValidUser(user.getName(), user.getPassword());

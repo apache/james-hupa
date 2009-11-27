@@ -30,6 +30,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 @SuppressWarnings("deprecation")
 public class MockHttpSession implements HttpSession{
     private Map<String,Object> attributeMap = new HashMap<String, Object>();
@@ -37,7 +40,8 @@ public class MockHttpSession implements HttpSession{
     private long cTime;
     private String id;
     
-    public MockHttpSession(String id) {
+    @Inject
+    public MockHttpSession(@Named("DefaultUserSessionId") String id) {
         cTime = System.currentTimeMillis();
         this.id = id;
     }

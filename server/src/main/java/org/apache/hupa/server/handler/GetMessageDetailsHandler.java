@@ -158,7 +158,7 @@ public class GetMessageDetailsHandler extends
      * @throws MessagingException
      * @throws IOException
      */
-    private boolean handleParts(MimeMessage message, Object con,
+    protected boolean handleParts(MimeMessage message, Object con,
             StringBuffer sbPlain,
             ArrayList<MessageAttachment> attachmentList)
             throws UnsupportedEncodingException, MessagingException,

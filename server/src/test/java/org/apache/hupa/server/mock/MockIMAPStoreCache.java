@@ -29,30 +29,45 @@ import javax.mail.Session;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.User;
 
+import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.sun.mail.imap.IMAPStore;
 
-public class MockIMAPStoreCache implements IMAPStoreCache{
+public class MockIMAPStoreCache implements IMAPStoreCache {
     private Provider<Session> provider;
-    private Map<String,String> users = new HashMap<String, String>();
-    private Map<String,MockIMAPStore> stores = new HashMap<String, MockIMAPStore>();
+    private Map<String, String> users = new HashMap<String, String>();
+    private Map<String, IMAPStore> stores = new HashMap<String, IMAPStore>();
+
+    @Inject
     public MockIMAPStoreCache(Provider<Session> provider) {
-        this.provider = provider;
+        this.provider = provider; 
     }
-    
-    public void addValidUser(String username, String password) {
+
+    public void addValidUser(User user, IMAPStore store) {
+        addValidUser(user.getName(), user.getPassword(), store);
+    }
+
+    public void addValidUser(String username, String password, IMAPStore store) {
         users.put(username, password);
+        stores.put(username, store);
+    }
+
+    public void addValidUser(User user) {
+        addValidUser(user.getName(), user.getPassword());
+    }
+
+    public void addValidUser(String username, String password) {
         try {
-            stores.put(username, (MockIMAPStore) provider.get().getStore("mockimap"));
+            addValidUser(username, password, (IMAPStore)provider.get().getStore("mockimap"));
         } catch (NoSuchProviderException e) {
             throw new RuntimeException("Invalid store");
         }
     }
-    
+
     public void clear() {
         users.clear();
     }
-    
+
     public void delete(User user) {
         users.remove(user.getName());
     }
@@ -62,11 +77,10 @@ public class MockIMAPStoreCache implements IMAPStoreCache{
     }
 
     public IMAPStore get(User user) throws MessagingException {
-        return get(user.getName(),user.getPassword());
+        return get(user.getName(), user.getPassword());
     }
 
-    public IMAPStore get(String username, String password)
-            throws MessagingException {
+    public IMAPStore get(String username, String password) throws MessagingException {
         String pass = users.get(username);
         if (pass != null && pass.equals(password)) {
             return stores.get(username);

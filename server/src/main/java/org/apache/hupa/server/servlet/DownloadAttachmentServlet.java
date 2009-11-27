@@ -99,7 +99,7 @@ public class DownloadAttachmentServlet extends HttpServlet {
             Message m = folder.getMessageByUID(Long.parseLong(message_uuid));
 
             Object content = m.getContent();
-            Part part  = handleMultiPart(content, attachmentName);
+            Part part  = handleMultiPart(logger, content, attachmentName);
             if (part.getContentType()!=null)
                 response.setContentType(part.getContentType());
             else
@@ -152,7 +152,7 @@ public class DownloadAttachmentServlet extends HttpServlet {
      * @throws MessagingException
      * @throws IOException
      */
-    static protected Part handleMultiPart(Object content, String attachmentName)
+    static protected Part handleMultiPart(Log logger, Object content, String attachmentName)
             throws MessagingException, IOException {
         if (content instanceof Multipart) {
             Multipart part = (Multipart) content;
@@ -161,7 +161,7 @@ public class DownloadAttachmentServlet extends HttpServlet {
                 String fileName = bodyPart.getFileName();
                 String[] contentId = bodyPart.getHeader("Content-ID");
                 if (bodyPart.isMimeType("multipart/*")) {
-                    Part p = handleMultiPart(bodyPart.getContent(), attachmentName);
+                    Part p = handleMultiPart(logger, bodyPart.getContent(), attachmentName);
                     if (p != null)
                         return p;
                 } else {
@@ -179,7 +179,7 @@ public class DownloadAttachmentServlet extends HttpServlet {
                 }
             }
         } else {
-            System.out.println("Unknown content: " + content.getClass().getName());
+            logger.error("Unknown content: " + content.getClass().getName());
         }
         return null;
     }

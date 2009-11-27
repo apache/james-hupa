@@ -17,40 +17,17 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.server.guice;
 
+package org.apache.hupa.server.mock;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
+import org.apache.commons.logging.Log;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.servlet.GuiceServletContextListener;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
-/**
- * Simple GuiceServletContextListener which just create the injector
- * 
- * @author norman
- *
- */
-public class MyGuiceServletConfig extends GuiceServletContextListener{
-
-    private ServletContext context;
-    @Override
-    public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        context = null;
-        super.contextDestroyed(servletContextEvent);
+@Singleton
+public class MockLogProvider implements Provider<Log>{
+    public Log get() {
+        return new MockLog();
     }
-
-    @Override
-    public void contextInitialized(ServletContextEvent servletContextEvent) {
-        context = servletContextEvent.getServletContext();
-        super.contextInitialized(servletContextEvent);
-    }
-
-    @Override
-    protected Injector getInjector() {
-        return Guice.createInjector(new ServerModul(context.getRealPath("/")),new DispatchServletModule());
-    }
-
 }

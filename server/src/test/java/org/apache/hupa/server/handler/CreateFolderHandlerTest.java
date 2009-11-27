@@ -46,7 +46,7 @@ public class CreateFolderHandlerTest extends AbstractHandlerTest{
         Folder f1 = store.getFolder(folder.getFullName());
         assertFalse("not exists",f1.exists());
         
-        CreateFolderHandler handler = new CreateFolderHandler(storeCache,new MockLog(),httpSessionProvider);
+        CreateFolderHandler handler = new CreateFolderHandler(storeCache, logger,httpSessionProvider);
         try {
             handler.execute(new CreateFolder(folder), null);
             Folder f = store.getFolder(folder.getFullName());
@@ -71,7 +71,7 @@ public class CreateFolderHandlerTest extends AbstractHandlerTest{
         
         f1.create(Folder.HOLDS_FOLDERS);
 
-        CreateFolderHandler handler = new CreateFolderHandler(storeCache,new MockLog(),httpSessionProvider);
+        CreateFolderHandler handler = new CreateFolderHandler(storeCache, logger, httpSessionProvider);
         try {
             handler.execute(new CreateFolder(folder), null);
             fail("Folder already exists");
@@ -84,7 +84,7 @@ public class CreateFolderHandlerTest extends AbstractHandlerTest{
     
     public void testInvalidSessionId() {
         IMAPFolder folder = createFolder();
-        CreateFolderHandler handler = new CreateFolderHandler(storeCache,new MockLog(),httpSessionProvider);
+        CreateFolderHandler handler = new CreateFolderHandler(storeCache, logger, httpSessionProvider);
         try {
             handler.execute(new CreateFolder(folder), null);
             fail("Invalid session");

@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -40,6 +42,7 @@ import javax.mail.Flags.Flag;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpSession;
 
@@ -50,7 +53,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockSMTPTransport;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.SMTPMessage;
@@ -78,7 +81,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
     private boolean useSSL = false;
 
     @Inject
-    public AbstractSendMessageHandler(Log logger, FileItemRegistry registry,IMAPStoreCache store, Provider<HttpSession> provider, @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
+    public AbstractSendMessageHandler(Log logger, FileItemRegistry registry, IMAPStoreCache store, Provider<HttpSession> provider, @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
         super(store,logger,provider);
         this.registry = registry;
         this.auth = auth;
@@ -109,8 +112,9 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      * @return filledMessage
      * @throws MessagingException
      * @throws ActionException
+     * @throws IOException 
      */
-    protected Message fillBody(Message message, A action) throws MessagingException, ActionException {
+    protected Message fillBody(Message message, A action) throws MessagingException, ActionException, IOException {
 
         SMTPMessage m = action.getMessage();
         ArrayList<MessageAttachment> attachments = m.getMessageAttachments();
@@ -122,19 +126,16 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         if (attachments == null || attachments.isEmpty()) {
             message.setContent(body);
         } else {
-            // create the message part
+            // create the message part with the  body
             MimeBodyPart messageBodyPart = new MimeBodyPart();
-
-            // fill message
             messageBodyPart.setContent(body);
 
+            // create the multipart which contains the message and attachments
             Multipart multipart = new MimeMultipart();
-            
+            multipart.addBodyPart(messageBodyPart);
             multipart = handleAttachments(multipart, attachments);
             
-            // Put parts in message
             message.setContent(multipart);
-
         }
         // save message 
         message.saveChanges();
@@ -192,7 +193,6 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
                 FileItem fItem = registry.get(attachment.getName());
                 if (fItem == null)
                     continue;
-                
                 // Part two is attachment
                 MimeBodyPart messageBodyPart = new MimeBodyPart();
                 DataSource source = new FileItemDataStore(fItem);
@@ -207,7 +207,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
     protected void sendMessage(User user, Session session, Message message) throws MessagingException {
         Transport transport;
     
-        if (InMemoryIMAPStoreCache.DEMO_MODE.equals(address)) {
+        if (DemoModeConstants.DEMO_MODE.equals(address)) {
             transport = new MockSMTPTransport(session);
         } else if (useSSL) {
             transport = session.getTransport("smtps");
@@ -266,7 +266,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      * DataStore which wrap a FileItem
      * 
      */
-    private class FileItemDataStore implements DataSource {
+    protected static class FileItemDataStore implements DataSource {
 
         private FileItem item;
 
@@ -349,6 +349,17 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         }
         return result;
     }
+    
+    /**
+     * Get a Address array for a set of address passed as arguments 
+     * 
+     * @param addresses
+     * @return Address array
+     * @throws AddressException
+     */
+    static protected Address[] getRecipients(String... addresses) throws AddressException {
+        return getRecipients(Arrays.asList(addresses));
+    }
 
     /**
      * Get a Address array for the given ArrayList 
@@ -357,7 +368,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      * @return addressArray
      * @throws AddressException
      */
-    protected Address[] getRecipients(ArrayList<String> recipients) throws AddressException {
+    static protected Address[] getRecipients(List<String> recipients) throws AddressException {
         if (recipients == null) {
             return new InternetAddress[]{};
         }
@@ -366,6 +377,76 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
             array[i] = new InternetAddress(recipients.get(i));
         }
         return array;
+
+    }
+    
+    /**
+     * Generate a mime-message 
+     * 
+     * 
+     * @param session
+     * @param text
+     * @param html
+     * @param items
+     * @return
+     * @throws MessagingException
+     * @throws IOException
+     */
+    public static Message composeMessage (Session session, String text, String html, List<FileItem> items) throws MessagingException, IOException {
+        Message message = new MimeMessage(session);
+
+        MimeBodyPart txtPart = null;
+        MimeBodyPart htmlPart = null;
+        MimeMultipart mimeMultipart = null;
+
+        if (text != null) {
+            txtPart = new MimeBodyPart();
+            txtPart.setContent(text, "text/plain");
+        }
+        if (html != null) {
+            htmlPart = new MimeBodyPart();
+            htmlPart.setContent(html, "text/html");
+        }
+        if (html != null && text != null) {
+            mimeMultipart = new MimeMultipart();
+            mimeMultipart.setSubType("alternative");
+            mimeMultipart.addBodyPart(txtPart);
+            mimeMultipart.addBodyPart(htmlPart);
+        }
+
+        if (items == null || items.size() == 0) {
+            if (mimeMultipart != null) {
+                message.setContent(mimeMultipart);
+            } else if (html != null) {
+                message.setText(html);
+                message.setHeader("Content-type", "text/html");
+            } else if (text != null) {
+                message.setText(text);
+            }
+        } else {
+            Multipart multipart = new MimeMultipart();
+            MimeBodyPart bodyPart = new MimeBodyPart();
+            if (mimeMultipart != null) {
+                bodyPart.setContent(mimeMultipart);
+            } else if (html != null) {
+                bodyPart.setText(html);
+                bodyPart.setHeader("Content-type", "text/html");
+            } else if (text != null) {
+                bodyPart.setText(text);
+            }
+            multipart.addBodyPart(bodyPart);
+            for (FileItem fileItem: items) {
+                MimeBodyPart messageBodyPart = new MimeBodyPart();
+                DataSource source = new AbstractSendMessageHandler.FileItemDataStore(fileItem);
+                messageBodyPart.setDataHandler(new DataHandler(source));
+                messageBodyPart.setFileName(source.getName());
+                multipart.addBodyPart(messageBodyPart);
+            }
+            message.setContent(multipart);
+        }
+
+        message.saveChanges();
+        return message;
 
     }
 

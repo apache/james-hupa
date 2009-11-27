@@ -50,7 +50,6 @@ import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.handler.SetFlagsHandler;
 import org.apache.hupa.server.handler.TagMessagesHandler;
-import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
 import org.apache.hupa.server.servlet.MessageSourceServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
@@ -64,7 +63,7 @@ import com.google.inject.name.Names;
  * 
  * 
  */
-public class ServerModul extends ActionHandlerModule {
+public class GuiceServerModule extends ActionHandlerModule {
 
     public static final String SYS_PROP_CONFIG_FILE = "hupa.config.file";
 
@@ -77,7 +76,7 @@ public class ServerModul extends ActionHandlerModule {
 
     private String configDir;
     
-    public ServerModul(String rootPath) {
+    public GuiceServerModule(String rootPath) {
         configDir = rootPath + "/" + CONF_DIR;
     }
 
@@ -146,23 +145,9 @@ public class ServerModul extends ActionHandlerModule {
             properties = loadProperties(configDir + CONFIG_FILE_NAME);
         }
 
-        // Configure default parameters for Hupa in demo mode
-        if (properties == null || InMemoryIMAPStoreCache.DEMO_MODE.equals(properties.get("IMAPServerAddress"))) {
-            properties = new Properties();
-            properties.put("IMAPServerAddress", InMemoryIMAPStoreCache.DEMO_MODE);
-            properties.put("IMAPServerPort", "143");
-            properties.put("IMAPS", "false");
-            properties.put("SMTPServerAddress", InMemoryIMAPStoreCache.DEMO_MODE);
-            properties.put("SMTPServerPort", "25");
-            properties.put("SMTPS", "false");
-            properties.put("SMTPAuth", "false");
-            properties.put("IMAPConnectionPoolSize", "4");
-            properties.put("IMAPConnectionPoolTimeout", "300000");
-            
-            properties.put("DefaultInboxFolder", MockIMAPFolder.mockSettings.getInboxFolderName());
-            properties.put("DefaultTrashFolder", MockIMAPFolder.mockSettings.getTrashFolderName());
-            properties.put("DefaultSentFolder", MockIMAPFolder.mockSettings.getSentFolderName());
-            properties.put("PostFetchMessageCount", "0");
+        // Put Hupa in demo mode
+        if (properties == null || DemoModeConstants.DEMO_MODE.equals(properties.get("IMAPServerAddress"))) {
+            properties = DemoModeConstants.demoProperties;
         }
         
         return properties;

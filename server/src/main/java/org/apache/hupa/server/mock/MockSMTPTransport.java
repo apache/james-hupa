@@ -26,12 +26,12 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.URLName;
 
-import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.server.guice.DemoModeConstants;
 
 
 public class MockSMTPTransport extends Transport {
 
-    static final URLName demoUrl = new URLName(null, InMemoryIMAPStoreCache.DEMO_MODE, 143, null, null, null);
+    static final URLName demoUrl = new URLName(null, DemoModeConstants.DEMO_MODE, 143, null, null, null);
     
     public MockSMTPTransport(Session session) {
         super(session, demoUrl);

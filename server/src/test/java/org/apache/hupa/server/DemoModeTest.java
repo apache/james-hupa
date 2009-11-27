@@ -7,6 +7,7 @@ import javax.mail.Message;
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
+import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.handler.AbstractHandlerTest;
 import org.apache.hupa.server.handler.FetchFoldersHandler;
 import org.apache.hupa.server.handler.FetchMessagesHandler;
@@ -26,7 +27,7 @@ public class DemoModeTest extends AbstractHandlerTest {
 
     private LoginUser demoUser = new LoginUser("demo", "demo");
     
-    private InMemoryIMAPStoreCache memoryStore = new InMemoryIMAPStoreCache(logger, InMemoryIMAPStoreCache.DEMO_MODE, 143, false, 1, 300000, provider);
+    private InMemoryIMAPStoreCache memoryStore = new InMemoryIMAPStoreCache(logger, DemoModeConstants.DEMO_MODE, 143, false, 1, 300000, provider);
     
     private LoginUserHandler loginUserHandler = new LoginUserHandler(memoryStore, logger, httpSessionProvider, settingsProvider);
     
@@ -61,7 +62,7 @@ public class DemoModeTest extends AbstractHandlerTest {
     }
 
     public void testReadMessageFile() throws Exception {
-        URL url = Thread.currentThread().getContextClassLoader().getResource(MockIMAPFolder.DEMO_MODE_MESSAGES_LOCATION + "0.msg");
+        URL url = Thread.currentThread().getContextClassLoader().getResource(DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + "0.msg");
         assertNotNull("There aren't message files for demo mode, check that the files mime/\\d.msg are in your classpath", url);
     }
     

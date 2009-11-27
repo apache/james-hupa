@@ -39,11 +39,11 @@ import com.sun.mail.imap.IMAPStore;
  * 
  *
  */
-public class NoopHandler extends AbstractSessionHandler<Noop, NoopResult>{
+public class PrepareNewMessageHandler extends AbstractSessionHandler<Noop, NoopResult>{
 
 
     @Inject
-    public NoopHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> provider) {
+    public PrepareNewMessageHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> provider) {
         super(cache,logger,provider);
     }
     

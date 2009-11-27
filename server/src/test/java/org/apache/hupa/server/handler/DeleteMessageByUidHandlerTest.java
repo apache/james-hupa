@@ -41,7 +41,7 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
 
     
     public void testDeleteFolderNotExists() throws MessagingException {
-        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),httpSessionProvider);
+        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache, logger, httpSessionProvider);
     
         User user = createUser();
         storeCache.addValidUser(user.getName(), user.getPassword());
@@ -60,7 +60,7 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
     
     public void testDeleteFolderExistsAndNotTrash() throws MessagingException {
         Session s = Session.getInstance(new Properties());
-        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),httpSessionProvider);
+        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache, logger, httpSessionProvider);
     
         User user = createUser();
         storeCache.addValidUser(user.getName(), user.getPassword());
@@ -96,7 +96,7 @@ public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
     
     public void testDeleteFolderExistsAndIsTrash() throws MessagingException {
         Session s = Session.getInstance(new Properties());
-        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache,new MockLog(),httpSessionProvider);
+        DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache, logger, httpSessionProvider);
     
         User user = createUser();
         storeCache.addValidUser(user.getName(), user.getPassword());

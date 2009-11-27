@@ -31,8 +31,8 @@ import javax.servlet.http.HttpSession;
 import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
+import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockHttpSession;
-import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockIMAPStoreCache;
 import org.apache.hupa.server.mock.MockLog;
@@ -66,7 +66,7 @@ public abstract class AbstractHandlerTest extends TestCase{
     
     protected Provider<Settings> settingsProvider = new Provider<Settings> () {
         public Settings get() {
-            return MockIMAPFolder.mockSettings;
+            return DemoModeConstants.mockSettings;
         }
     };
     
@@ -95,7 +95,7 @@ public abstract class AbstractHandlerTest extends TestCase{
     }
     
     protected MimeMessage loadMessage(String msgFile) throws Exception {
-        msgFile = MockIMAPFolder.DEMO_MODE_MESSAGES_LOCATION + msgFile;
+        msgFile = DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + msgFile;
         URL url = Thread.currentThread().getContextClassLoader().getResource(msgFile);
         assertNotNull("Check that the file " + msgFile + " is in the classpath", url);
     

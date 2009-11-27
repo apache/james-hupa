@@ -38,7 +38,7 @@ import org.apache.hupa.shared.rpc.FetchFoldersResult;
 public class FetchFoldersHandlerTest extends AbstractHandlerTest{
 
     public void testInvalidSessionId() {
-        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),httpSessionProvider);
+        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache, logger, httpSessionProvider);
         try {
             handler.execute(new FetchFolders(), null);
             fail("Invalid session");
@@ -54,7 +54,7 @@ public class FetchFoldersHandlerTest extends AbstractHandlerTest{
         User user = createUser();
         httpSession.setAttribute("user", user);
         storeCache.addValidUser(user.getName(), user.getPassword());
-        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),httpSessionProvider);
+        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache, logger, httpSessionProvider);
         try {
             FetchFoldersResult result = handler.execute(new FetchFolders(), null);
             assertTrue(result.getFolders().isEmpty());
@@ -74,7 +74,7 @@ public class FetchFoldersHandlerTest extends AbstractHandlerTest{
         store.getFolder("WHATEVER1").create(Folder.HOLDS_FOLDERS);
         store.getFolder("WHATEVER.XXX").create(Folder.HOLDS_FOLDERS);
 
-        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache,new MockLog(),httpSessionProvider);
+        FetchFoldersHandler handler = new FetchFoldersHandler(storeCache, logger, httpSessionProvider);
         try {
             FetchFoldersResult result = handler.execute(new FetchFolders(), null);
             ArrayList<IMAPFolder> folders = result.getFolders();
