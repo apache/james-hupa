@@ -19,7 +19,6 @@
 
 package org.apache.hupa.server.handler;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -28,8 +27,8 @@ import net.customware.gwt.dispatch.shared.ActionException;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.guice.DemoModeConstants;
-import org.apache.hupa.shared.rpc.Noop;
-import org.apache.hupa.shared.rpc.NoopResult;
+import org.apache.hupa.shared.rpc.Idle;
+import org.apache.hupa.shared.rpc.IdleResult;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -40,11 +39,11 @@ import com.sun.mail.imap.IMAPStore;
  * 
  *
  */
-public class NoopHandler extends AbstractSessionHandler<Noop, NoopResult>{
+public class IdleHandler extends AbstractSessionHandler<Idle, IdleResult>{
 
 
     @Inject
-    public NoopHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> provider) {
+    public IdleHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> provider) {
         super(cache,logger,provider);
     }
     
@@ -52,7 +51,7 @@ public class NoopHandler extends AbstractSessionHandler<Noop, NoopResult>{
      * (non-Javadoc)
      * @see org.apache.hupa.server.handler.AbstractSessionHandler#executeInternal(org.apache.hupa.shared.rpc.Session, net.customware.gwt.dispatch.server.ExecutionContext)
      */
-    public NoopResult executeInternal(Noop action, ExecutionContext context)
+    public IdleResult executeInternal(Idle action, ExecutionContext context)
             throws ActionException {
         try {
             IMAPStore store = cache.get(getUser());
@@ -64,10 +63,12 @@ public class NoopHandler extends AbstractSessionHandler<Noop, NoopResult>{
                 if (store.hasCapability("IDLE")) {
                     // just send a noop to keep the connection alive
                     store.idle();
+                } else {
+                    return new IdleResult(false);
                 }
                
             }
-            return new NoopResult();
+            return new IdleResult(true);
         } catch (Exception e) {
             throw new ActionException("Unable to send NOOP " + e.getMessage());
         }
@@ -77,8 +78,8 @@ public class NoopHandler extends AbstractSessionHandler<Noop, NoopResult>{
      * (non-Javadoc)
      * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
      */
-    public Class<Noop> getActionType() {
-        return Noop.class;
+    public Class<Idle> getActionType() {
+        return Idle.class;
     }
 
 }

@@ -44,7 +44,7 @@ import org.apache.hupa.server.handler.GetMessageDetailsHandler;
 import org.apache.hupa.server.handler.LoginUserHandler;
 import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.MoveMessageHandler;
-import org.apache.hupa.server.handler.NoopHandler;
+import org.apache.hupa.server.handler.IdleHandler;
 import org.apache.hupa.server.handler.RenameFolderHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
@@ -94,7 +94,7 @@ public class GuiceServerModule extends ActionHandlerModule {
         bindHandler(SendMessageHandler.class);
         bindHandler(ReplyMessageHandler.class);
         bindHandler(ForwardMessageHandler.class);
-        bindHandler(NoopHandler.class);
+        bindHandler(IdleHandler.class);
         bindHandler(MoveMessageHandler.class);
         bindHandler(RenameFolderHandler.class);
         bindHandler(DeleteFolderHandler.class);

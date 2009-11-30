@@ -41,6 +41,7 @@ public class MockIMAPStore extends IMAPStore{
     private Map<String, Integer> validServers = new HashMap<String, Integer>();
     private boolean connected = false;
     private List<MockIMAPFolder> folders = new ArrayList<MockIMAPFolder>();
+    private List<String> capList;
     static final URLName demoUrl = new URLName(null, DemoModeConstants.DEMO_MODE, 143, null, null, null);
     
     /**
@@ -211,6 +212,16 @@ public class MockIMAPStore extends IMAPStore{
             return;
         } 
         throw new AuthenticationFailedException("Invalid login");
+    }
+
+    @Override
+    public synchronized boolean hasCapability(String capability) throws MessagingException {
+        if (capList == null) return false;
+        return capList.contains(capability);
+    }
+    
+    public void setCapabilities(List<String> capList) {
+        this.capList = capList;
     }
 
 }

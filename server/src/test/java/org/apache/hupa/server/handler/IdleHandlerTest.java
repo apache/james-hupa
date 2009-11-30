@@ -22,19 +22,19 @@ package org.apache.hupa.server.handler;
 import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.rpc.Noop;
-import org.apache.hupa.shared.rpc.NoopResult;
+import org.apache.hupa.shared.rpc.Idle;
+import org.apache.hupa.shared.rpc.IdleResult;
 
-public class NoopHandlerTest extends AbstractHandlerTest{
+public class IdleHandlerTest extends AbstractHandlerTest{
 
     public void testNoop() {
-        NoopHandler handler = new NoopHandler(storeCache, logger, httpSessionProvider);
+        IdleHandler handler = new IdleHandler(storeCache, logger, httpSessionProvider);
         User user = createUser();
-        Noop action = new Noop();
+        Idle action = new Idle();
         storeCache.addValidUser(user.getName(), user.getPassword());
         httpSession.setAttribute("user", user);
         try {
-            NoopResult result = handler.execute(action, null);
+            IdleResult result = handler.execute(action, null);
             assertNotNull(result);
         } catch (ActionException e) {
             e.printStackTrace();

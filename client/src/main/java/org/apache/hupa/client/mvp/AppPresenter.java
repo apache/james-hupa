@@ -40,8 +40,8 @@ import org.apache.hupa.shared.rpc.CheckSession;
 import org.apache.hupa.shared.rpc.CheckSessionResult;
 import org.apache.hupa.shared.rpc.LogoutUser;
 import org.apache.hupa.shared.rpc.LogoutUserResult;
-import org.apache.hupa.shared.rpc.Noop;
-import org.apache.hupa.shared.rpc.NoopResult;
+import org.apache.hupa.shared.rpc.Idle;
+import org.apache.hupa.shared.rpc.IdleResult;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -71,7 +71,7 @@ public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>
         public void setServerStatus(ServerStatus status);
     }
 
-    private Timer noopTimer = new NoopTimer();
+    private Timer noopTimer = new IdleTimer();
 
     private DispatchAsync dispatcher;
     private User user;
@@ -195,14 +195,19 @@ public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>
         });
     }
     
-    private class NoopTimer extends Timer {
+    private class IdleTimer extends Timer {
         boolean running = false;
         public void run() {
             if (!running) {
                 running = true;
-                dispatcher.execute(new Noop(), new HupaCallback<NoopResult>(dispatcher, eventBus) {
-                    public void callback(NoopResult result) {
+                dispatcher.execute(new Idle(), new HupaCallback<IdleResult>(dispatcher, eventBus) {
+                    public void callback(IdleResult result) {
                         running = false;
+                        // check if the server is not supporting the Idle command.
+                        // if so cancel this Timer
+                        if (result.isSupported() == false) {
+                            IdleTimer.this.cancel();
+                        }
                         // Noop
                         // TODO: put code here to read new events from server (new messages ...)
                     }

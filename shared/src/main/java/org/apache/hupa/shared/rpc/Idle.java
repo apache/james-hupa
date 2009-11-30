@@ -19,10 +19,11 @@
 
 package org.apache.hupa.shared.rpc;
 
-import net.customware.gwt.dispatch.shared.Result;
+import net.customware.gwt.dispatch.shared.Action;
 
-public class NoopResult implements Result {
 
-    private static final long serialVersionUID = 5530385273335407315L;
+public class Idle implements Action<IdleResult>{
+
+    private static final long serialVersionUID = 4076791577558340559L;
 
 }

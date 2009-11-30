@@ -19,11 +19,28 @@
 
 package org.apache.hupa.shared.rpc;
 
-import net.customware.gwt.dispatch.shared.Action;
+import net.customware.gwt.dispatch.shared.Result;
 
+public class IdleResult implements Result {
 
-public class Noop implements Action<NoopResult>{
-
-    private static final long serialVersionUID = 4076791577558340559L;
+    private static final long serialVersionUID = 5530385273335407315L;
+    private boolean supported;
+    
+    protected IdleResult() {
+        
+    }
+    
+    public IdleResult(boolean supported) {
+        this.supported = supported;
+    }
+    
+    /**
+     * Return if the IDLE command is supported by the server
+     * 
+     * @return supported
+     */
+    public boolean isSupported() {
+        return supported;
+    }
 
 }
