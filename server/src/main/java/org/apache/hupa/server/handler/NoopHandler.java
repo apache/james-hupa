@@ -19,6 +19,7 @@
 
 package org.apache.hupa.server.handler;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -55,10 +56,16 @@ public class NoopHandler extends AbstractSessionHandler<Noop, NoopResult>{
             throws ActionException {
         try {
             IMAPStore store = cache.get(getUser());
+            
             if (store.getURLName() != null &&
                 !DemoModeConstants.DEMO_MODE.equals(store.getURLName().getHost()) ) {
-                // just send a noop to keep the connection alive
-                store.idle();
+               
+                // check if the store supports the IDLE command
+                if (store.hasCapability("IDLE")) {
+                    // just send a noop to keep the connection alive
+                    store.idle();
+                }
+               
             }
             return new NoopResult();
         } catch (Exception e) {
