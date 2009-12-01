@@ -27,14 +27,12 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.server.mock.MockLog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.exception.InvalidSessionException;
 import org.apache.hupa.shared.rpc.CreateFolder;
 
 public class CreateFolderHandlerTest extends AbstractHandlerTest{
-
     
     public void testCreate() throws MessagingException {
         User user = createUser();

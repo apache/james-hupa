@@ -22,7 +22,6 @@ package org.apache.hupa.server.handler;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import javax.mail.Flags;
 import javax.mail.Message;
@@ -39,7 +38,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.shared.SConsts;
+import static org.apache.hupa.server.utils.RegexPatterns.*;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
@@ -199,13 +198,15 @@ public class GetMessageDetailsHandler extends
                         isHTML =  handleParts(msg, msg.getContent(), sbPlain, attachmentList);
                     } else {
                         if (part.getFileName() != null) {
-                            MessageAttachment attachment = new MessageAttachment();
-                            attachment.setName(MimeUtility.decodeText(part
-                                    .getFileName()));
-                            attachment.setContentType(part.getContentType());
-                            attachment.setSize(part.getSize());
-
-                            attachmentList.add(attachment);
+                            // Inline images are not added to the attachment list
+                            // TODO: improve the in-line images detection 
+                            if (part.getHeader("Content-ID") == null) {
+                                MessageAttachment attachment = new MessageAttachment();
+                                attachment.setName(MimeUtility.decodeText(part.getFileName()));
+                                attachment.setContentType(part.getContentType());
+                                attachment.setSize(part.getSize());
+                                attachmentList.add(attachment);
+                            }
                         } else {
                             isHTML = handleParts(message, part.getContent(), sbPlain, attachmentList);
                         }
@@ -241,69 +242,21 @@ public class GetMessageDetailsHandler extends
         return isHTML;
     }
     
-    
-    static String HTML_LINK_REGEXP =  "\\b?(https?://[\\w\\d:#@%/;$\\(\\)~_\\?\\+\\-=\\\\.&]*)\\b?";
-    static Pattern regex_http = Pattern.compile(HTML_LINK_REGEXP);
-    static String repl_http = "<a href=\"$1\">$1</a>";
-
-    static String EMAIL_REGEXP =  "\\b(?<![A-z0-9._%\\+\\-=])([A-z][A-z0-9._%\\+\\-]+@[A-z0-9\\.\\-]+\\.[A-z]{2,4})";
-    static Pattern regex_email = Pattern.compile("\\b"+ EMAIL_REGEXP);
-    static String repl_email = "<a href=\"mailto:$1\">$1</a>";
-    
-    static Pattern regex_inlineImg = Pattern.compile("(?si)(<\\s*img\\s+.*?src=[\"'])cid:([^\"']+[\"'])");
-    static String repl_inlineImg = "$1" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD 
-                            + "?" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
-                            + "&" + SConsts.PARAM_UID + "=%%UID%%" 
-                            + "&" + SConsts.PARAM_NAME + "=$2";
-
-    static Pattern regex_badTags = Pattern.compile("(?si)<(script|style|head).*?</\\1\\s*>");
-    static String repl_badTags = "";
-
-    static Pattern regex_unneededTags = Pattern.compile("(?si)(</?(html|body)[^>]*?>)");
-    static String repl_unneededTags = "";
-
-    static String EVENT_ATTR_REGEX = "(?:on[dbl]*click)|(?:onmouse[a-z]+)|(?:onkey[a-z]+)";
-    static Pattern regex_badAttrs = Pattern.compile("(?si)(<\\w+[^<>]*)\\s+("+ EVENT_ATTR_REGEX + ")=[\"']?([^\\s<>]+?)[\"']?([\\s>])");
-    static String repl_badAttrs = "$1$4";
-    
-    static Pattern regex_orphandHttpLinks = Pattern.compile("(?si)(?!.*<a\\s?[^>]*?>.+</a\\s*>.*)(<[^<]*?>[^<>]*)" + HTML_LINK_REGEXP + "([^<>]*<[^>]*?>)");
-    static String repl_orphandHttpLinks = "$1<a href=\"$2\">$2</a>$3";
-    
-    static Pattern regex_existingHttpLinks = Pattern.compile("(?si)<a\\s[^>]*?href=[\"']?" + HTML_LINK_REGEXP + "[\"']?");
-    static String repl_existingHttpLinks = "<a onClick=\"openLink('$1');return false;\" href=\"$1\"";
-
-    static Pattern regex_orphandEmailLinks = Pattern.compile("(?si)(?!.*<a\\s?[^>]*?>.+</a\\s*>.*)(<[^<]*?>[^<>]*)" + EMAIL_REGEXP + "([^<>]*<[^>]*?>)");
-    static String repl_orphandEmailLinks = "$1<a href=\"mailto:$2\">$2</a>$3";
-
-    static Pattern regex_existingEmailLinks = Pattern.compile("(?si)<a\\s[^>]*?href=[\"']*mailto:[\"']?([^\"]+)[\"']?");
-    static String repl_existngEmailLinks = "<a onClick=\"mailTo('$1');return false;\" href=\"mailto:$1\"";
-    
-    
-    protected String replaceAll(String txt, Pattern pattern, String replacement) {
-        return pattern.matcher(txt).replaceAll(replacement);
-    }
-    
-    protected String replaceAllRecursive(String txt, Pattern pattern, String replacement) {
-        while (pattern.matcher(txt).find())
-            txt = pattern.matcher(txt).replaceAll(replacement);
-        return txt;
-    }
-
     protected String txtDocumentToHtml(String txt, String folderName, long uuid) {
         
         if (txt == null || txt.length()==0)
             return txt;
 
         // escape html tags symbols 
-        txt = txt.replaceAll("<", "&lt;");
-        txt = txt.replaceAll(">", "&gt;");
+        txt = replaceAll(txt, regex_lt, repl_lt);
+        txt = replaceAll(txt, regex_gt, repl_gt);
         
         // enclose between <a> http links and emails
-        txt = replaceAll(txt, regex_http, repl_http);
+        txt = replaceAll(txt, regex_htmllink, repl_htmllink);
         txt = replaceAll(txt, regex_email, repl_email);
         
         // put break lines
-        txt = txt.replaceAll("\r", "").replaceAll("\n", "<br/>\n");
+        txt = replaceAll(txt, regex_nl, repl_nl);
         
         txt = filterHtmlDocument(txt, folderName, uuid);
 

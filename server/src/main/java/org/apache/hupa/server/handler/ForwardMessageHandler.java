@@ -19,26 +19,31 @@
 
 package org.apache.hupa.server.handler;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.activation.DataSource;
+import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.rpc.ForwardMessage;
 
@@ -50,82 +55,124 @@ import com.sun.mail.imap.IMAPStore;
 
 /**
  * Handler which handles the forwarding of a message
- * @author norman
- *
+ * 
  */
-public class ForwardMessageHandler extends AbstractSendMessageHandler<ForwardMessage>{
+public class ForwardMessageHandler extends AbstractSendMessageHandler<ForwardMessage> {
 
     @Inject
-    public ForwardMessageHandler(Log logger, FileItemRegistry registry,
-            IMAPStoreCache store, Provider<HttpSession> provider,
-            @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
-        super(logger, registry, store, provider, address, port, auth, useSSL);
+    public ForwardMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider, @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port,
+            @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
+        super(logger, store, provider, address, port, auth, useSSL);
     }
 
     @Override
-    protected Message createMessage(Session session, ForwardMessage action)
-            throws AddressException, MessagingException, ActionException {
-            MimeMessage message = new MimeMessage(session);
-            SMTPMessage m = action.getMessage();
-            message.setFrom(new InternetAddress(m.getFrom()));
-            List<String> to = m.getTo();
-            for (int i = 0; i < to.size(); i++) {
-                message.addRecipient(RecipientType.TO, new InternetAddress(to
-                        .get(i)));
-            }
-
-            List<String> cc = m.getCc();
-            for (int i = 0; cc != null && i < cc.size(); i++) {
-                message.addRecipient(RecipientType.CC, new InternetAddress(cc
-                        .get(i)));
-            }
-            message.setSubject(m.getSubject());
-            message.saveChanges();
-            return message;
-    }
-
-    @Override
-    protected Message fillBody(Message message,
-            ForwardMessage action) throws MessagingException, ActionException {
+    protected Message createMessage(Session session, ForwardMessage action) throws AddressException, MessagingException, ActionException {
+        MimeMessage message = new MimeMessage(session);
         SMTPMessage m = action.getMessage();
-
-        // create the message part
-        MimeBodyPart messageBodyPart = new MimeBodyPart();
-
-        // fill message
-        messageBodyPart.setText(m.getText());
-
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(messageBodyPart);
-        
-        IMAPStore store = cache.get(getUser());
-        
-        IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
-        if (folder.isOpen() == false) {
-            folder.open(Folder.READ_ONLY);
+        message.setFrom(new InternetAddress(m.getFrom()));
+        List<String> to = m.getTo();
+        for (int i = 0; i < to.size(); i++) {
+            message.addRecipient(RecipientType.TO, new InternetAddress(to.get(i)));
         }
-        Message fMessage = folder.getMessageByUID(action.getReplyMessageUid());
-        
-        // Create and fill part for the forwarded content
-        messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setDataHandler(fMessage.getDataHandler());
-        multipart.addBodyPart(messageBodyPart);
 
-        multipart = handleAttachments(multipart, m.getMessageAttachments());
-        
-        
-        // Put parts in message
-        message.setContent(multipart);
+        List<String> cc = m.getCc();
+        for (int i = 0; cc != null && i < cc.size(); i++) {
+            message.addRecipient(RecipientType.CC, new InternetAddress(cc.get(i)));
+        }
+        message.setSubject(m.getSubject());
         message.saveChanges();
         return message;
     }
 
+
+    @Override
+    @SuppressWarnings("unchecked")
+    protected List getAttachments(ForwardMessage action) throws MessagingException, ActionException {
+        List<BodyPart> items = new ArrayList<BodyPart>();
+        IMAPStore store = cache.get(getUser());
+
+        IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
+        if (folder.isOpen() == false) {
+            folder.open(Folder.READ_ONLY);
+        }
+        // Put the original attachments in the list 
+        Message msg = folder.getMessageByUID(action.getReplyMessageUid());
+        try {
+            items = MessageUtils.extractMessageAttachments(logger, msg.getContent());
+            logger.debug("Forwarding a message, extracted: " + items.size() + " from original.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Put in the list the attachments uploaded by the user
+        items.addAll(super.getAttachments(action));
+        return items;
+    }
+
     /*
      * (non-Javadoc)
+     * 
      * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
      */
     public Class<ForwardMessage> getActionType() {
         return ForwardMessage.class;
+    }
+
+    /**
+     * DataStore which wrap a FileItem
+     * 
+     */
+    protected static class PartDataStore implements DataSource {
+
+        private FileItem item;
+
+        public PartDataStore(FileItem item) {
+            this.item = item;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.activation.DataSource#getContentType()
+         */
+        public String getContentType() {
+            return item.getContentType();
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.activation.DataSource#getInputStream()
+         */
+        public InputStream getInputStream() throws IOException {
+            return item.getInputStream();
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.activation.DataSource#getName()
+         */
+        public String getName() {
+            String fullName = item.getName();
+
+            // Strip path from file
+            int index = fullName.lastIndexOf(File.separator);
+            if (index == -1) {
+                return fullName;
+            } else {
+                return fullName.substring(index + 1, fullName.length());
+            }
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.activation.DataSource#getOutputStream()
+         */
+        public OutputStream getOutputStream() throws IOException {
+            return null;
+        }
+
     }
 
 }

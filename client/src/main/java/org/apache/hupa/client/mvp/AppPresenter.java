@@ -62,7 +62,7 @@ import com.google.inject.Inject;
  */
 public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>{
 
-    private static final int NOOP_INTERVAL = 15000;
+    private static final int NOOP_INTERVAL = 150000;
 
     public interface Display extends WidgetContainerDisplay {
         public HasClickHandlers getLogoutClick();

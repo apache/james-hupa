@@ -29,8 +29,8 @@ import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.rpc.SendMessage;
 
@@ -46,9 +46,9 @@ import com.google.inject.name.Named;
 public class SendMessageHandler extends AbstractSendMessageHandler<SendMessage> {
 
     @Inject
-    public SendMessageHandler(Log logger, FileItemRegistry registry,
-            IMAPStoreCache store, Provider<HttpSession> provider,@Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
-        super(logger, registry, store, provider, address, port, auth,useSSL);
+    public SendMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider,
+            @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
+        super(logger, store, provider, address, port, auth,useSSL);
     }
 
     /*
@@ -60,9 +60,9 @@ public class SendMessageHandler extends AbstractSendMessageHandler<SendMessage> 
         MimeMessage message = new MimeMessage(session);
         SMTPMessage m = action.getMessage();
         message.setFrom(new InternetAddress(m.getFrom()));
-        message.setRecipients(RecipientType.TO, getRecipients(m.getTo()));
-        message.setRecipients(RecipientType.CC, getRecipients(m.getCc()));
-        message.setRecipients(RecipientType.BCC, getRecipients(m.getBcc()));
+        message.setRecipients(RecipientType.TO, MessageUtils.getRecipients(m.getTo()));
+        message.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
+        message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
         message.setSubject(m.getSubject());
         return message;
     }

@@ -23,7 +23,6 @@ import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
@@ -50,7 +49,6 @@ public class GuiceTestModule extends AbstractModule {
         Names.bindProperties(binder(), DemoModeConstants.demoProperties);
 
         bind(Log.class).toProvider(MockLogProvider.class).in(Singleton.class);
-        bind(FileItemRegistry.class).in(Singleton.class);
         bind(Session.class).toProvider(SessionProvider.class);
         bind(HttpSession.class).to(MockHttpSession.class).in(Singleton.class);
 

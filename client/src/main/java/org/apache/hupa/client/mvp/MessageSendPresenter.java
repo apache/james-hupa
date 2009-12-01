@@ -192,10 +192,6 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
             
         }));
 
-        registerHandler(display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler));
-        registerHandler(display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler));
-        registerHandler(display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler));
-        
         registerHandler(display.getSendClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
@@ -294,6 +290,8 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
             }
             
         }));
+        
+        reset();
     }
 
     /**
@@ -301,6 +299,10 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
      */
     private void reset() {
         display.resetUploader();
+        display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler);
+        display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler);
+        display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler);
+        
         display.getBccText().setText("");
         display.getCcText().setText("");
         display.getToText().setText("");

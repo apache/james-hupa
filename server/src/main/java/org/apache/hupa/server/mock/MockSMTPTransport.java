@@ -19,6 +19,9 @@
 
 package org.apache.hupa.server.mock;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -28,21 +31,25 @@ import javax.mail.URLName;
 
 import org.apache.hupa.server.guice.DemoModeConstants;
 
-
 public class MockSMTPTransport extends Transport {
 
     static final URLName demoUrl = new URLName(null, DemoModeConstants.DEMO_MODE, 143, null, null, null);
-    
+
     public MockSMTPTransport(Session session) {
         super(session, demoUrl);
     }
 
     @Override
     public void sendMessage(Message msg, Address[] addresses) throws MessagingException {
+        try {
+            msg.writeTo(new OutputStream() {
+                public void write(int b) throws IOException {}
+            });
+        } catch (IOException e) {}
     }
-    
+
     @Override
     public void connect(String host, int port, String user, String password) throws MessagingException {
     }
-    
+
 }

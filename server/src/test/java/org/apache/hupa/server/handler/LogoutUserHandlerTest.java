@@ -22,13 +22,11 @@ package org.apache.hupa.server.handler;
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
-import org.apache.hupa.server.mock.MockLog;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.LogoutUser;
 import org.apache.hupa.shared.rpc.LogoutUserResult;
 
 public class LogoutUserHandlerTest extends AbstractHandlerTest{
-
     
     public void testLogout() {
         String username = "test";

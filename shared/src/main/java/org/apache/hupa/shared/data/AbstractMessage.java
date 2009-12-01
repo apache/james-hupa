@@ -20,7 +20,7 @@
 package org.apache.hupa.shared.data;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 public class AbstractMessage implements Serializable{
     
@@ -30,8 +30,8 @@ public class AbstractMessage implements Serializable{
     private static final long serialVersionUID = 5208272852772006815L;
     private String from;
     private String subject;
-    private List<String> to;
-    private List<String> cc;
+    private ArrayList<String> to;
+    private ArrayList<String> cc;
     private boolean hasAttachment;
     
     public String toString() {
@@ -80,11 +80,11 @@ public class AbstractMessage implements Serializable{
     }
 
 
-    public void setCc(List<String> cc) {
+    public void setCc(ArrayList<String> cc) {
         this.cc = cc;
     }
 
-    public List<String> getCc() {
+    public ArrayList<String> getCc() {
         return cc;
     }
 
@@ -106,11 +106,11 @@ public class AbstractMessage implements Serializable{
         return subject;
     }
 
-    public  List<String> getTo() {
+    public ArrayList<String> getTo() {
         return to;
     }
 
-    public void setTo(List<String> to) {
+    public void setTo(ArrayList<String> to) {
         this.to = to;
     }
     

@@ -27,6 +27,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.logging.Log;
 import org.apache.hupa.server.FileItemRegistry;
 
 import com.google.inject.Inject;
@@ -40,19 +41,33 @@ import com.google.inject.Inject;
 public class UploadAttachmentServlet extends UploadAction{
 
     private static final long serialVersionUID = 4936687307133529124L;
-    private FileItemRegistry registry;
+    
+    
+
+    private Log logger;
     
     @Inject
-    public UploadAttachmentServlet(FileItemRegistry registry) {
-        this.registry = registry;
+    public UploadAttachmentServlet(Log logger) {
+        this.logger = logger;
+    }
+    
+    private FileItemRegistry getSessionRegistry(HttpServletRequest request) {
+        FileItemRegistry registry = (FileItemRegistry)request.getSession().getAttribute("registry");
+        if (registry == null) {
+            registry = new FileItemRegistry(logger);
+            request.getSession().setAttribute("registry", registry);
+        }
+        return registry;
     }
     
     @Override
     public String executeAction(HttpServletRequest request, List<FileItem> sessionFiles) throws UploadActionException {
-        logger.info("Executing Action, files in session: " + sessionFiles.size() + " files in registry: " + registry.size());
-        // save file items in the registry
+
+        logger.info("Executing Action, files in session: " + sessionFiles.size() + " previous files in registry: " + getSessionRegistry(request).size());
+        // save file items in the user session's registry
         for(FileItem item: sessionFiles) 
-            registry.add(item);
+            getSessionRegistry(request).add(item);
+
         
         // remove items from session but not remove the data from disk or memory
         removeSessionFileItems(request, false);
@@ -61,6 +76,6 @@ public class UploadAttachmentServlet extends UploadAction{
     
     @Override
     public void removeItem(HttpServletRequest request, FileItem item)  throws UploadActionException {
-       registry.remove(item);
+       getSessionRegistry(request).remove(item);
     }
 }

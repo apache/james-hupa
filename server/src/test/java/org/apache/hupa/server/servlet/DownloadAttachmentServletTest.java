@@ -4,19 +4,21 @@ import javax.mail.Part;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.hupa.server.handler.AbstractHandlerTest;
+import org.apache.hupa.server.utils.MessageUtils;
+import org.apache.hupa.server.utils.TestUtils;
 
 public class DownloadAttachmentServletTest extends AbstractHandlerTest {
 
     public void testDownloadAttachmentByName() throws Exception {
-        MimeMessage message = loadMessage("7.msg");
-        Part part = DownloadAttachmentServlet.handleMultiPart(logger, message
+        MimeMessage message = TestUtils.loadMessageFromFile(session, "7.msg");
+        Part part = MessageUtils.handleMultiPart(logger, message
                 .getContent(), "Image.4FB480B138F7456382ABBD1EE7B0748A");
         assertNotNull(part);
     }
     
     public void testDownloadAttachmentByContentId() throws Exception {
-        MimeMessage message = loadMessage("7.msg");
-        Part part = DownloadAttachmentServlet.handleMultiPart(logger, message
+        MimeMessage message = TestUtils.loadMessageFromFile(session, "7.msg");
+        Part part = MessageUtils.handleMultiPart(logger, message
                 .getContent(), "1.1934304663@web28309.mail.ukl.yahoo.com");
         assertNotNull(part);
     }

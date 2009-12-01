@@ -26,10 +26,8 @@ import java.io.OutputStream;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.Store;
-import javax.mail.internet.MimeUtility;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
 
@@ -99,7 +98,7 @@ public class DownloadAttachmentServlet extends HttpServlet {
             Message m = folder.getMessageByUID(Long.parseLong(message_uuid));
 
             Object content = m.getContent();
-            Part part  = handleMultiPart(logger, content, attachmentName);
+            Part part  = MessageUtils.handleMultiPart(logger, content, attachmentName);
             if (part.getContentType()!=null)
                 response.setContentType(part.getContentType());
             else
@@ -137,51 +136,6 @@ public class DownloadAttachmentServlet extends HttpServlet {
             }
 
         }
-    }
-
-    /**
-     * Loop over MuliPart and write the content to the Outputstream if a
-     * attachment with the given name was found.
-     *
-     * @param out
-     *            Outputstream to write the content to
-     * @param content
-     *            Content which should checked for attachments
-     * @param attachmentName
-     *            The attachmentname or the unique id for the searched attachment
-     * @throws MessagingException
-     * @throws IOException
-     */
-    static protected Part handleMultiPart(Log logger, Object content, String attachmentName)
-            throws MessagingException, IOException {
-        if (content instanceof Multipart) {
-            Multipart part = (Multipart) content;
-            for (int i = 0; i < part.getCount(); i++) {
-                Part bodyPart = part.getBodyPart(i);
-                String fileName = bodyPart.getFileName();
-                String[] contentId = bodyPart.getHeader("Content-ID");
-                if (bodyPart.isMimeType("multipart/*")) {
-                    Part p = handleMultiPart(logger, bodyPart.getContent(), attachmentName);
-                    if (p != null)
-                        return p;
-                } else {
-                    if (contentId != null) {
-                        for (String id: contentId) {
-                            id = id.replaceAll("^.*<(.+)>.*$", "$1");
-                            if (attachmentName.equals(id))
-                                return bodyPart;
-                        }
-                    }
-                    if (fileName != null){
-                        if (attachmentName.equalsIgnoreCase(MimeUtility.decodeText(fileName)))
-                            return bodyPart;
-                    }
-                }
-            }
-        } else {
-            logger.error("Unknown content: " + content.getClass().getName());
-        }
-        return null;
     }
 
 }

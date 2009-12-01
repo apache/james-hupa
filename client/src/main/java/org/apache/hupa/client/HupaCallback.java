@@ -39,6 +39,8 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
     private EventBus eventBus = null;
     private ServerStatusEvent available = new ServerStatusEvent(ServerStatus.Available); 
     private ServerStatusEvent unavailable = new ServerStatusEvent(ServerStatus.Unavailable); 
+
+    @SuppressWarnings("unused")
     private Display display = null;
 
     @Inject

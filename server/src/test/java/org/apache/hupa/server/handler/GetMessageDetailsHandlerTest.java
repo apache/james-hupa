@@ -23,117 +23,33 @@ import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.hupa.server.mock.MockIMAPFolder;
-import org.apache.hupa.server.mock.MockIMAPStore;
+import org.apache.hupa.server.HupaTestCase;
+import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.guice.DemoModeConstants;
+import org.apache.hupa.server.mock.MockIMAPStoreCache;
+import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.User;
 
-public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPStore;
+
+public class GetMessageDetailsHandlerTest extends HupaTestCase {
     
-    GetMessageDetailsHandler handler = new GetMessageDetailsHandler(storeCache, logger, httpSessionProvider);
-
-    public void testRegexHtml() {
-        String txt, res;
-        txt = "<!'https://www.aaa.1:#@%/;$()~_?+-=\\.&<br/>";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_http, "");
-        assertEquals("<!'<br/>", res);
-
-        txt = "... a b c http://somewhere d e f ...";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_http, GetMessageDetailsHandler.repl_http);
-        assertEquals("... a b c <a href=\"http://somewhere\">http://somewhere</a> d e f ...", res);
-    }
-
-    public void testRegexEmail() {
-        String txt, res;
-        txt = "!'BcD091_%55-+.aa@abc01-01.dd-a.aBc+";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_email, "");
-        assertEquals("!'+", res);
-
-        txt = "!'=BcD091_%55-+.aa@abc01-01.dd-a.aBc+";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_email, "");
-        assertEquals(txt, res);
-
-        txt = "... a b c aaa@aaa.bbb d e f ...";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_email, GetMessageDetailsHandler.repl_email);
-        assertEquals(res, "... a b c <a href=\"mailto:aaa@aaa.bbb\">aaa@aaa.bbb</a> d e f ...");
-    }
-
-    public void testRegexInlineImg() {
-        String txt, res;
-        txt = ".. <img\nsrc=\"cid:abcd\"\nwhatever=/>click</a\n> ..";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_inlineImg, GetMessageDetailsHandler.repl_inlineImg);
-        assertEquals(".. <img\nsrc=\"hupa/downloadAttachmentServlet?folder=%%FOLDER%%&uid=%%UID%%&name=abcd\"\nwhatever=/>click</a\n> ..", res);
-    }
-    
-    public void testRegexBadTags() {
-        String txt, res;
-        txt = "<html><head>h<tag></head><body>.<style>..</style>.<script type=>//</script></body>.</html>";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_badTags, GetMessageDetailsHandler.repl_badTags);
-        res = handler.replaceAll(res, GetMessageDetailsHandler.regex_unneededTags, GetMessageDetailsHandler.repl_unneededTags);
-        assertEquals("...", res);
-    }
-
-    public void testRegexBadAttributes() {
-
-        String txt, res;
-        txt = "... <div attr=a onClick=\"something('');\"> ...";
-        res = handler.replaceAllRecursive(txt, GetMessageDetailsHandler.regex_badAttrs, GetMessageDetailsHandler.repl_badAttrs);
-        assertEquals("... <div attr=a> ...", res);
-
-        txt = "... <div attr=a onClick=\"something('');\" attr=b onMouseOver=whatever attr=c onKeyup=\"\" /> ...";
-        res = handler.replaceAllRecursive(txt, GetMessageDetailsHandler.regex_badAttrs, GetMessageDetailsHandler.repl_badAttrs);
-        assertEquals("... <div attr=a attr=b attr=c /> ...", res);
-    }
-    
-    public void testRegexHtmlLinks() {
-        String txt, res;
-        txt = ".. <a href=\"http://whatever\">..</a> ..";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_existingHttpLinks, GetMessageDetailsHandler.repl_existingHttpLinks);
-        assertEquals(".. <a onClick=\"openLink('http://whatever');return false;\" href=\"http://whatever\">..</a> ..", res);
-
-        txt = "-- <div> .. <img src=\"http://whatever\"/> .. </div>";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_orphandHttpLinks, GetMessageDetailsHandler.repl_orphandHttpLinks);
-        assertEquals(txt, res);
-        
-        txt = "-- <div> .. \"http://whatever\" .. </div>";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_orphandHttpLinks, GetMessageDetailsHandler.repl_orphandHttpLinks);
-        assertEquals("-- <div> .. \"<a href=\"http://whatever\">http://whatever</a>\" .. </div>", res);
-
-        res = handler.replaceAll(res, GetMessageDetailsHandler.regex_existingHttpLinks, GetMessageDetailsHandler.repl_existingHttpLinks);
-        assertEquals("-- <div> .. \"<a onClick=\"openLink('http://whatever');return false;\" href=\"http://whatever\">http://whatever</a>\" .. </div>", res);
-        
-    }
-
-    public void testRegexEmailLinks() {
-        String txt, res;
-        
-        txt = ".. <a href=\"mailTo:someone@somedomain.com\">..</a> ..";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_existingEmailLinks, GetMessageDetailsHandler.repl_existngEmailLinks);
-        assertEquals(".. <a onClick=\"mailTo('someone@somedomain.com');return false;\" href=\"mailto:someone@somedomain.com\">..</a> ..", res);
-        
-        txt = "-- <div> .. someone@somedomain.com .. </div>";
-        res = handler.replaceAll(txt, GetMessageDetailsHandler.regex_orphandEmailLinks, GetMessageDetailsHandler.repl_orphandEmailLinks);
-        assertEquals("-- <div> .. <a href=\"mailto:someone@somedomain.com\">someone@somedomain.com</a> .. </div>", res);
-
-        res = handler.replaceAll(res, GetMessageDetailsHandler.regex_existingEmailLinks, GetMessageDetailsHandler.repl_existngEmailLinks);
-        assertEquals("-- <div> .. <a onClick=\"mailTo('someone@somedomain.com');return false;\" href=\"mailto:someone@somedomain.com\">someone@somedomain.com</a> .. </div>", res);
-        
-    }
-
     public void testTextDocumentToHtml() throws Exception {
 
         String msg = "...\nhttp://www.example.com/path/action.do;s=1;a=2?p=abcd\n...";
-        String res = handler.txtDocumentToHtml(msg, "aFolder", 9999l);
+        String res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertTrue(res.contains("onClick=\"openLink('http://"));
         
         msg = "...\nnobody@subdomain.the-domain.org\n...";
-        res = handler.txtDocumentToHtml(msg, "aFolder", 9999l);
+        res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertTrue(res.contains("onClick=\"mailTo('nobody@"));
         
-        res = handler.txtDocumentToHtml("", "aFolder", 9999l);
+        res = getDetailsMsgHndl.txtDocumentToHtml("", "aFolder", 9999l);
         assertTrue(res.length()==0);
         
     }
@@ -141,42 +57,42 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
     public void testFilterHtmlDocument() throws Exception {
 
         String msg = "<div>...\nhttp://whatever\n...</div>";
-        String res = handler.txtDocumentToHtml(msg, "aFolder", 9999l);
+        String res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertTrue(res.contains("onClick=\"openLink('http://whatever"));
         
         msg = "...\n<a\nhref=https://www.example.com/path/action.do;s=1;a=2?p=abcd\n...";
-        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertTrue(res.contains("onClick=\"openLink('https://"));
 
         msg = "...\n<a\nhref=mailTo:nobody@subdomain.the-domain.org\n...";
-        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertTrue(res.contains("onClick=\"mailTo('nobody@"));
 
         msg = "...\n...<img   \n   src=\"cid:1.1934304663@web28309.mail.ukl.yahoo.com\" width=200\n....";
-        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
-        assertEquals("...\n...<img   \n   src=\"" + 
+        assertEquals("...\n...<img   \n   src='" + 
                 SConsts.HUPA + SConsts.SERVLET_DOWNLOAD + "?" 
                 + SConsts.PARAM_FOLDER + "=aFolder&" 
                 + SConsts.PARAM_UID + "=9999&"
-                + SConsts.PARAM_NAME + "=1.1934304663@web28309.mail.ukl.yahoo.com\" width=200\n....", res);
+                + SConsts.PARAM_NAME + "=1.1934304663@web28309.mail.ukl.yahoo.com' name='cid:1.1934304663@web28309.mail.ukl.yahoo.com' width=200\n....", res);
         
         msg = "\n\n.... <Script \ntype=\"whatever\"\n>\nalert('hello');\n</script > ---\n\n";
-        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
 
         msg = "\n\n.... <a \nid=\"whatever\"\nonclick=\"alert('hello');\"\n</a > ---\n\n";
-        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
 
         msg = "\n\n.... <style \ntype=\"whatever\"\n>\n.a{};\n</Style > ---\n\n";
-        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         
-        res = handler.filterHtmlDocument("", "aFolder", 9999l);
+        res = getDetailsMsgHndl.filterHtmlDocument("", "aFolder", 9999l);
         assertTrue(res.length()==0);
 
     }
@@ -184,28 +100,28 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
     public void testRegexEmailsInsideTagAttributes() {
         String msg, res;
         msg = ".. <a href=\"http://whatever?param1=whatever&email= dock@example.com&param3\">..</a> ..";
-        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
         assertFalse(res.contains("mailTo("));
 
         msg = ".. <a href=bla > http://whatever?param1=whatever&email=dock@example.com&param3 </a> ..";
-        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
         assertFalse(res.contains("mailTo("));
         assertFalse(res.contains("openLink("));
 
         msg = ".. <div > http://whatever?param1=whatever&email=dock@example.com&param3 <p> ..";
-        res = handler.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
         assertFalse(res.contains("mailTo("));
         assertTrue(res.contains("openLink("));
         
         msg = "http://accounts.myspace.com.deaaaf.me.uk/msp/index.php?fuseaction=update&code=78E2BL6-EKY5L893K4MHSA-74ESO-D743U41GYB18J-FA18EI698V4M&email=somehone@somewere.com";
-        res = handler.txtDocumentToHtml(msg, "aFolder", 9999l);
+        res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
         assertFalse(res.contains("mailTo("));
         assertTrue(res.contains("openLink("));
         
     }
 
     private MessageDetails loadMessageDetails(String msgFile) throws Exception {
-        return handler.mimeToDetails(loadMessage(msgFile), "theFolder", 9999l);
+        return getDetailsMsgHndl.mimeToDetails(TestUtils.loadMessageFromFile(session,msgFile), "theFolder", 9999l);
     }
     
     public void testMessageDetails_textPlain() throws Exception {
@@ -226,7 +142,7 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
     }
 
     public void testMessageDetails_charsetIso() throws Exception {
-        MimeMessage message = loadMessage("3.msg");
+        MimeMessage message = TestUtils.loadMessageFromFile(session,"3.msg");
         String from = message.getFrom()[0].toString();
         assertTrue(from.contains("\u00AE"));
         
@@ -246,30 +162,39 @@ public class GetMessageDetailsHandlerTest extends AbstractHandlerTest {
         assertTrue(details.getText().length() > 0);
     }
     
-
     public void testMessageDetails_html_with_inline_images() throws Exception {
+
+        IMAPStoreCache storeCache = injector.getInstance(IMAPStoreCache.class);
+        IMAPStore store = injector.getInstance(IMAPStore.class);
+
+        User demouser = DemoModeConstants.demoUser;
+        ((MockIMAPStoreCache)storeCache).addValidUser(demouser, store);
         
-        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
-        MockIMAPFolder serverfolder = (MockIMAPFolder)store.getFolder("WHATEVER"); 
+        IMAPFolder serverfolder = (IMAPFolder)store.getFolder("WHATEVER"); 
         serverfolder.create(Folder.HOLDS_MESSAGES);
         
-        MimeMessage msg = loadMessage("7.msg");
+        MimeMessage msg = TestUtils.loadMessageFromFile(session,"7.msg");
         serverfolder.addMessages(new Message[]{msg});
-
-        IMAPFolder clientfolder = new IMAPFolder("WHATEVER");
-        MessageDetails details = handler.exposeMessage(user, clientfolder, 0);
-        assertTrue(details.getText().contains("img src=\"" + 
+        
+        org.apache.hupa.shared.data.IMAPFolder clientfolder = new org.apache.hupa.shared.data.IMAPFolder("WHATEVER");
+        MessageDetails details = getDetailsMsgHndl.exposeMessage(demouser, clientfolder, 0);
+        
+        // inline images have to be downloaded from the server
+        assertTrue(details.getText().contains("img src=\'" + 
                 SConsts.HUPA + SConsts.SERVLET_DOWNLOAD + "?" +
                 SConsts.PARAM_FOLDER + "=WHATEVER&" + 
                 SConsts.PARAM_UID + "=0&" + 
-                SConsts.PARAM_NAME + "=1.1934304663@web28309.mail.ukl.yahoo.com\""));
+                SConsts.PARAM_NAME + "=1.1934304663@web28309.mail.ukl.yahoo.com'"));
+        
+        // inline images are not in the message list
+        assertEquals(0, details.getMessageAttachments().size());
         
     }
 
     public void testMessageDetails_links() throws Exception {
         MessageDetails details = loadMessageDetails("2.msg");
 
-        String html = handler.filterHtmlDocument(details.getText(), "foldername", 111l);
+        String html = getDetailsMsgHndl.filterHtmlDocument(details.getText(), "foldername", 111l);
         assertFalse(html.contains("<script>"));
         assertFalse(html.contains("<style>"));
         assertTrue(html.contains("<a onClick=\"openLink('http://code.google.com/intl/es/webtoolkit/');return false;\" href=\"http://code.google.com/intl/es/webtoolkit/\""));

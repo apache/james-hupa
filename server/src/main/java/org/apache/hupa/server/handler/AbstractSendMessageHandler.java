@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -32,6 +31,7 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.Address;
 import javax.mail.AuthenticationFailedException;
+import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -40,7 +40,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.Flags.Flag;
 import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
@@ -55,6 +54,8 @@ import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockSMTPTransport;
+import org.apache.hupa.server.utils.MessageUtils;
+import org.apache.hupa.server.utils.RegexPatterns;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.User;
@@ -73,25 +74,57 @@ import com.sun.mail.imap.IMAPStore;
  */
 public abstract class AbstractSendMessageHandler<A extends SendMessage> extends AbstractSessionHandler<A,GenericResult> {
 
-    private final FileItemRegistry registry;
     private final Properties props = new Properties();
     private final boolean auth;
     private final String address;
     private final int port;
     private boolean useSSL = false;
+    private Provider<HttpSession> httpSessionProvider;
 
     @Inject
-    public AbstractSendMessageHandler(Log logger, FileItemRegistry registry, IMAPStoreCache store, Provider<HttpSession> provider, @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
+    public AbstractSendMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider, @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
         super(store,logger,provider);
-        this.registry = registry;
         this.auth = auth;
         this.address = address;
         this.port = port;
         this.useSSL  = useSSL;
+        this.httpSessionProvider = provider;
         props.put("mail.smtp.auth", auth);
     }
 
+    @Override
+    protected GenericResult executeInternal(A action, ExecutionContext context)
+            throws ActionException {
+        GenericResult result = new GenericResult();
+        try {
+            Session session = Session.getDefaultInstance(props);
 
+            Message message = createMessage(session, action);
+            message = fillBody(message,action);
+
+            sendMessage(session, getUser(), message);
+            saveSentMessage(session, getUser(), message);
+        
+            resetAttachments(action);
+        
+            // TODO: notify the user more accurately where is the error
+            // if the message was sent and the storage in the sent folder failed, etc.
+        } catch (AddressException e) {
+            result.setError("Error while parsing recipient: " + e.getMessage());
+            logger.error("Error while parsing recipient", e);
+        } catch (AuthenticationFailedException e) {
+            result.setError("Error while sending message: SMTP Authentication error.");
+            logger.error("SMTP Authentication error", e);
+        } catch (MessagingException e) {
+            result.setError("Error while sending message: " + e.getMessage());
+            logger.error("Error while sending message", e);
+        } catch (Exception e) {
+            result.setError("Unexpected exception while sendig message: " + e.getMessage());
+            logger.error("Unexpected exception while sendig message: ", e);
+        }
+        return result;
+    }
+    
     /**
      * Create basic Message which contains all headers. No body is filled
      * 
@@ -103,7 +136,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      * @throws ActionException
      */
     protected abstract Message createMessage(Session session, A action) throws AddressException, MessagingException,ActionException;
-    
+
     /**
      * Fill the body of the given message with data which the given action contain
      * 
@@ -116,30 +149,21 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      */
     protected Message fillBody(Message message, A action) throws MessagingException, ActionException, IOException {
 
-        SMTPMessage m = action.getMessage();
-        ArrayList<MessageAttachment> attachments = m.getMessageAttachments();
+        String html = restoreInlineLinks(action.getMessage().getText());
         
-        // Create the body
-        Multipart body = createMultipartAlternative(m.getText());
+        // TODO: client sends the message as html right now, 
+        // the idea is that it should be sent in both formats because
+        // it is easier to do the handle html in the browser. 
+        String text = htmlToText(html);
         
-        // check if there are any attachments to include
-        if (attachments == null || attachments.isEmpty()) {
-            message.setContent(body);
-        } else {
-            // create the message part with the  body
-            MimeBodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setContent(body);
+        @SuppressWarnings("unchecked")
+        List items = getAttachments(action);
+        
+        return composeMessage(message, text, html, items);
+    }
 
-            // create the multipart which contains the message and attachments
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart);
-            multipart = handleAttachments(multipart, attachments);
-            
-            message.setContent(multipart);
-        }
-        // save message 
-        message.saveChanges();
-        return message;
+    protected String restoreInlineLinks(String s) {
+        return RegexPatterns.replaceAll(s, RegexPatterns.regex_revertInlineImg, RegexPatterns.repl_revertInlineImg);
     }
     
     protected String htmlToText(String s){
@@ -152,59 +176,52 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         return s;
     }
     
-    protected Multipart createMultipartAlternative(String html) throws MessagingException {
-        MimeMultipart mimeMultipart= new MimeMultipart();
-        mimeMultipart.setSubType("alternative");
-        
-        MimeBodyPart txtPart= new MimeBodyPart();
-        txtPart.setContent(htmlToText(html), "text/plain");
-        mimeMultipart.addBodyPart(txtPart);
-        
-        MimeBodyPart htmlPart= new MimeBodyPart();
-        htmlPart.setContent(html, "text/html");
-        htmlPart.setHeader("Content-Type", "text/html; format=flowed");
-        mimeMultipart.addBodyPart(htmlPart);
-        
-        return mimeMultipart;
-   
+    /**
+     * Get the attachments stored in the registry.
+     * 
+     * @param attachments
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    protected List getAttachments(A action) throws MessagingException, ActionException {
+        FileItemRegistry registry = MessageUtils.getSessionRegistry(httpSessionProvider.get(), logger); 
+        List<MessageAttachment> attachments = action.getMessage().getMessageAttachments();
+        ArrayList<FileItem> items = new ArrayList<FileItem>();
+        for (MessageAttachment attachment: attachments) {
+            FileItem fItem = registry.get(attachment.getName());
+            if (fItem != null)
+                items.add(fItem);
+        }
+        logger.debug("Found " + items.size() + " attachmets in the registry.");
+        return items;
     }
-
+    
+    /**
+     * Remove attachments from the registry
+     *  
+     * @param action
+     * @throws MessagingException
+     * @throws ActionException
+     */
     protected void resetAttachments(A action) throws MessagingException, ActionException {
-        SMTPMessage m = action.getMessage();
-        ArrayList<MessageAttachment> attachments = m.getMessageAttachments();
+        SMTPMessage msg = action.getMessage();
+        ArrayList<MessageAttachment> attachments = msg.getMessageAttachments();
         if (attachments != null && ! attachments.isEmpty()) {
             for(MessageAttachment attach : attachments) 
-                registry.remove(attach.getName());
+                MessageUtils.getSessionRegistry(httpSessionProvider.get(), logger).remove(attach.getName());
         }
     }
     
     /**
-     * Construct the multipart for the given attachments and return it
+     * Send the message using SMTP, if the configuration uses authenticated SMTP, it uses
+     * the user stored in session to get the given login and password.
      * 
-     * @param multipart 
-     * @param attachments
-     * @return multipart
+     * @param user
+     * @param session
+     * @param message
      * @throws MessagingException
      */
-    protected Multipart handleAttachments(Multipart multipart, ArrayList<MessageAttachment> attachments) throws MessagingException {
-        if (attachments != null) {
-            for(MessageAttachment attachment: attachments) {
-                // get the attachment from the registry
-                FileItem fItem = registry.get(attachment.getName());
-                if (fItem == null)
-                    continue;
-                // Part two is attachment
-                MimeBodyPart messageBodyPart = new MimeBodyPart();
-                DataSource source = new FileItemDataStore(fItem);
-                messageBodyPart.setDataHandler(new DataHandler(source));
-                messageBodyPart.setFileName(source.getName());
-                multipart.addBodyPart(messageBodyPart);
-            }
-        }
-        return multipart;
-    }
-
-    protected void sendMessage(User user, Session session, Message message) throws MessagingException {
+    protected void sendMessage(Session session, User user, Message message) throws MessagingException {
         Transport transport;
     
         if (DemoModeConstants.DEMO_MODE.equals(address)) {
@@ -234,7 +251,15 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         transport.sendMessage(message, recips);
     }
 
-    protected void saveSentMessage(User user, Message message) throws MessagingException {
+    /**
+     * Save the message in the sent folder
+     * 
+     * @param user
+     * @param message
+     * @throws MessagingException
+     * @throws IOException 
+     */
+    protected void saveSentMessage(Session session, User user, Message message) throws MessagingException, IOException {
         IMAPStore iStore = cache.get(user);
         IMAPFolder folder = (IMAPFolder) iStore.getFolder(user.getSettings().getSentFolderName());
         
@@ -248,6 +273,13 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
             if (folder.isOpen() == false) {
                 folder.open(Folder.READ_WRITE);
             }
+
+            // It is necessary to copy the message, before putting it
+            // in the sent folder. If not, it is not guaranteed that it is 
+            // stored in ascii and is not possible to get the attachments
+            // size.
+            message = new MimeMessage((MimeMessage)message);
+
             message.setFlag(Flag.SEEN, true);
             folder.appendMessages(new Message[] {message});
             
@@ -256,10 +288,89 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
             } catch (MessagingException e) {
                 // we don't care on close
             }
-
         }
     }
+
+    /**
+     * Fill the body of a message already created.
+     * The result message depends on the information given. 
+     * 
+     * @param message
+     * @param text
+     * @param html
+     * @param items
+     * @return
+     * @throws MessagingException
+     * @throws IOException
+     */
+    @SuppressWarnings("unchecked")
+    public static Message composeMessage (Message message, String text, String html, List parts) throws MessagingException, IOException {
+
+        MimeBodyPart txtPart = null;
+        MimeBodyPart htmlPart = null;
+        MimeMultipart mimeMultipart = null;
+
+        if (text == null && html == null) {
+           text = ""; 
+        }
+        if (text != null) {
+            txtPart = new MimeBodyPart();
+            txtPart.setContent(text, "text/plain");
+        }
+        if (html != null) {
+            htmlPart = new MimeBodyPart();
+            htmlPart.setContent(html, "text/html");
+        }
+        if (html != null && text != null) {
+            mimeMultipart = new MimeMultipart();
+            mimeMultipart.setSubType("alternative");
+            mimeMultipart.addBodyPart(txtPart);
+            mimeMultipart.addBodyPart(htmlPart);
+        }
+
+        if (parts == null || parts.isEmpty()) {
+            if (mimeMultipart != null) {
+                message.setContent(mimeMultipart);
+            } else if (html != null) {
+                message.setText(html);
+                message.setHeader("Content-type", "text/html");
+            } else if (text != null) {
+                message.setText(text);
+            }
+        } else {
+            MimeBodyPart bodyPart = new MimeBodyPart();
+            if (mimeMultipart != null) {
+                bodyPart.setContent(mimeMultipart);
+            } else if (html != null) {
+                bodyPart.setText(html);
+                bodyPart.setHeader("Content-type", "text/html");
+            } else if (text != null) {
+                bodyPart.setText(text);
+            }
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(bodyPart);
+            for (Object attachment: parts) {
+                if (attachment instanceof FileItem) {
+                    multipart.addBodyPart(fileitemToBodypart((FileItem)attachment));
+                } else {
+                    multipart.addBodyPart((BodyPart)attachment);
+                }
+            }
+            message.setContent(multipart);
+        }
+
+        message.saveChanges();
+        return message;
+
+    }
     
+    private static BodyPart fileitemToBodypart(FileItem item) throws MessagingException {
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+        DataSource source = new AbstractSendMessageHandler.FileItemDataStore(item);
+        messageBodyPart.setDataHandler(new DataHandler(source));
+        messageBodyPart.setFileName(source.getName());
+        return messageBodyPart;
+    }
     
 
     /**
@@ -313,140 +424,6 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         public OutputStream getOutputStream() throws IOException {
             return null;
         }
-
-    }
-
-
-
-    @Override
-    protected GenericResult executeInternal(A action, ExecutionContext context)
-            throws ActionException {
-        GenericResult result = new GenericResult();
-        try {
-            Session session = Session.getDefaultInstance(props);
-
-            Message message = createMessage(session, action);
-            message = fillBody(message,action);
-
-            sendMessage(getUser(),session, message);
-            saveSentMessage(getUser(), message);
-            resetAttachments(action);
-        
-            // TODO: notify the user more accurately where is the error
-            // if the message was sent and the storage in the sent folder failed, etc.
-        } catch (AddressException e) {
-            result.setError("Error while parsing recipient: " + e.getMessage());
-            logger.error("Error while parsing recipient", e);
-        } catch (AuthenticationFailedException e) {
-            result.setError("Error while sending message: SMTP Authentication error.");
-            logger.error("SMTP Authentication error", e);
-        } catch (MessagingException e) {
-            result.setError("Error while sending message: " + e.getMessage());
-            logger.error("Error while sending message", e);
-        } catch (Exception e) {
-            result.setError("Unexpected exception while sendig message: " + e.getMessage());
-            logger.error("Unexpected exception while sendig message: ", e);
-        }
-        return result;
-    }
-    
-    /**
-     * Get a Address array for a set of address passed as arguments 
-     * 
-     * @param addresses
-     * @return Address array
-     * @throws AddressException
-     */
-    static protected Address[] getRecipients(String... addresses) throws AddressException {
-        return getRecipients(Arrays.asList(addresses));
-    }
-
-    /**
-     * Get a Address array for the given ArrayList 
-     * 
-     * @param recipients
-     * @return addressArray
-     * @throws AddressException
-     */
-    static protected Address[] getRecipients(List<String> recipients) throws AddressException {
-        if (recipients == null) {
-            return new InternetAddress[]{};
-        }
-        Address[] array = new Address[recipients.size()];
-        for (int i = 0; i < recipients.size(); i++) {
-            array[i] = new InternetAddress(recipients.get(i));
-        }
-        return array;
-
-    }
-    
-    /**
-     * Generate a mime-message 
-     * 
-     * 
-     * @param session
-     * @param text
-     * @param html
-     * @param items
-     * @return
-     * @throws MessagingException
-     * @throws IOException
-     */
-    public static Message composeMessage (Session session, String text, String html, List<FileItem> items) throws MessagingException, IOException {
-        Message message = new MimeMessage(session);
-
-        MimeBodyPart txtPart = null;
-        MimeBodyPart htmlPart = null;
-        MimeMultipart mimeMultipart = null;
-
-        if (text != null) {
-            txtPart = new MimeBodyPart();
-            txtPart.setContent(text, "text/plain");
-        }
-        if (html != null) {
-            htmlPart = new MimeBodyPart();
-            htmlPart.setContent(html, "text/html");
-        }
-        if (html != null && text != null) {
-            mimeMultipart = new MimeMultipart();
-            mimeMultipart.setSubType("alternative");
-            mimeMultipart.addBodyPart(txtPart);
-            mimeMultipart.addBodyPart(htmlPart);
-        }
-
-        if (items == null || items.size() == 0) {
-            if (mimeMultipart != null) {
-                message.setContent(mimeMultipart);
-            } else if (html != null) {
-                message.setText(html);
-                message.setHeader("Content-type", "text/html");
-            } else if (text != null) {
-                message.setText(text);
-            }
-        } else {
-            Multipart multipart = new MimeMultipart();
-            MimeBodyPart bodyPart = new MimeBodyPart();
-            if (mimeMultipart != null) {
-                bodyPart.setContent(mimeMultipart);
-            } else if (html != null) {
-                bodyPart.setText(html);
-                bodyPart.setHeader("Content-type", "text/html");
-            } else if (text != null) {
-                bodyPart.setText(text);
-            }
-            multipart.addBodyPart(bodyPart);
-            for (FileItem fileItem: items) {
-                MimeBodyPart messageBodyPart = new MimeBodyPart();
-                DataSource source = new AbstractSendMessageHandler.FileItemDataStore(fileItem);
-                messageBodyPart.setDataHandler(new DataHandler(source));
-                messageBodyPart.setFileName(source.getName());
-                multipart.addBodyPart(messageBodyPart);
-            }
-            message.setContent(multipart);
-        }
-
-        message.saveChanges();
-        return message;
 
     }
 

@@ -32,13 +32,11 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.server.mock.MockLog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 
 public class DeleteMessageByUidHandlerTest extends AbstractHandlerTest{
-
     
     public void testDeleteFolderNotExists() throws MessagingException {
         DeleteMessageByUidHandler handler = new DeleteMessageByUidHandler(storeCache, logger, httpSessionProvider);

@@ -61,15 +61,17 @@ public class MessageSendView extends Composite implements
     private TextBox cc = new TextBox();
     private TextBox bcc = new TextBox();
     private TextBox subject = new TextBox();
-    private BaseUploadStatus uploadStatus = new BaseUploadStatus();
-    private MultiUploader uploader = new MultiUploader(uploadStatus);
+    private MultiUploader uploader = null;
     private Editor editor = new Editor();
     private EnableButton sendButton;
     private EnableHyperlink backButton;
     private Loading sendProgress = new Loading();
+    private HupaConstants constants;
+   
 
     @Inject
     public MessageSendView(HupaConstants constants) {
+        this.constants = constants;
         sendButton = new EnableButton(constants.sendButton());
         backButton = new EnableHyperlink(constants.backButton(),"");
         final VerticalPanel mPanel = new VerticalPanel();
@@ -98,7 +100,6 @@ public class MessageSendView extends Composite implements
         detailGrid.setWidget(2, 1, cc);
         detailGrid.setWidget(3, 1, bcc);
         detailGrid.setWidget(4, 1, subject);
-        detailGrid.setWidget(5, 1, uploader);
         detailGrid.getCellFormatter().setHorizontalAlignment(0, 0, HorizontalPanel.ALIGN_RIGHT);
         detailGrid.getCellFormatter().setHorizontalAlignment(1, 0, HorizontalPanel.ALIGN_RIGHT);
         detailGrid.getCellFormatter().setHorizontalAlignment(2, 0, HorizontalPanel.ALIGN_RIGHT);
@@ -159,11 +160,6 @@ public class MessageSendView extends Composite implements
         editor.setWidth("100%");
         editor.setHeight("400px");
 
-        uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
-        uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
-        uploader.avoidRepeatFiles(true);
-        uploader.setI18Constants(constants);
-        
         mPanel.add(detailGrid);
 
         HorizontalPanel buttonBar = new HorizontalPanel();
@@ -272,15 +268,20 @@ public class MessageSendView extends Composite implements
         return uploader;
     }
 
-    /*
-     * (non-Javadoc)
+    /* (non-Javadoc)
      * @see org.apache.hupa.client.mvp.MessageSendPresenter.Display#resetUploader()
      */
     public void resetUploader() {
-        uploader.removeFromParent();
-        uploader = new MultiUploader();
+        if (uploader != null && uploader.isAttached())
+            uploader.removeFromParent();
+        
+        BaseUploadStatus uploadStatus = new BaseUploadStatus();
+        uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
+        uploader = new MultiUploader(uploadStatus);
         uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
         uploader.avoidRepeatFiles(true);
+        uploader.setI18Constants(constants);        
+        
         detailGrid.setWidget(5, 1, uploader);        
     }
 

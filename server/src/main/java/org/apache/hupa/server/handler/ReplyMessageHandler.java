@@ -31,8 +31,8 @@ import javax.servlet.http.HttpSession;
 import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.rpc.ReplyMessage;
 
@@ -50,10 +50,9 @@ import com.sun.mail.imap.IMAPStore;
 public class ReplyMessageHandler extends AbstractSendMessageHandler<ReplyMessage>{
 
     @Inject
-    public ReplyMessageHandler(Log logger, FileItemRegistry registry,
-            IMAPStoreCache store, Provider<HttpSession> provider,
+    public ReplyMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider,
             @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
-        super(logger, registry, store, provider, address, port, auth, useSSL);
+        super(logger, store, provider, address, port, auth, useSSL);
     }
 
     /*
@@ -70,9 +69,9 @@ public class ReplyMessageHandler extends AbstractSendMessageHandler<ReplyMessage
         Message rMessage =  folder.getMessageByUID(action.getReplyMessageUid()).reply(action.getReplyAll());
         SMTPMessage m = action.getMessage();
         // Use the new recipient list, maybe it has changed
-        rMessage.setRecipients(RecipientType.TO, getRecipients(m.getTo()));
-        rMessage.setRecipients(RecipientType.CC, getRecipients(m.getCc()));
-        rMessage.setRecipients(RecipientType.BCC, getRecipients(m.getBcc()));
+        rMessage.setRecipients(RecipientType.TO, MessageUtils.getRecipients(m.getTo()));
+        rMessage.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
+        rMessage.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
         rMessage.setFrom(new InternetAddress(m.getFrom()));
         // replace subject
         rMessage.setSubject(m.getSubject());

@@ -28,7 +28,6 @@ import javax.mail.Session;
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.handler.CheckSessionHandler;
@@ -41,10 +40,10 @@ import org.apache.hupa.server.handler.FetchMessagesHandler;
 import org.apache.hupa.server.handler.FetchRecentMessagesHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
 import org.apache.hupa.server.handler.GetMessageDetailsHandler;
+import org.apache.hupa.server.handler.IdleHandler;
 import org.apache.hupa.server.handler.LoginUserHandler;
 import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.MoveMessageHandler;
-import org.apache.hupa.server.handler.IdleHandler;
 import org.apache.hupa.server.handler.RenameFolderHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
@@ -71,7 +70,7 @@ public class GuiceServerModule extends ActionHandlerModule {
     public static final String[] CONFIG_PROPERTIES = {
             System.getenv("HOME") + "/.hupa/" + CONFIG_FILE_NAME,
             "/etc/default/hupa"
-            };
+    };
     public static final String CONF_DIR = "WEB-INF/conf/";
 
     private String configDir;
@@ -101,7 +100,6 @@ public class GuiceServerModule extends ActionHandlerModule {
         bindHandler(CreateFolderHandler.class);
         bindHandler(TagMessagesHandler.class);
         bindHandler(SetFlagsHandler.class);
-        bind(FileItemRegistry.class).in(Singleton.class);
         bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(
                 Singleton.class);
         bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);

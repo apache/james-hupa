@@ -20,12 +20,9 @@
 
 package org.apache.hupa.server.handler;
 
-import java.io.FileInputStream;
-import java.net.URL;
 import java.util.Properties;
 
 import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import junit.framework.TestCase;
@@ -92,15 +89,6 @@ public abstract class AbstractHandlerTest extends TestCase{
         user.setPassword("password");
         user.setSettings(new Settings());
         return user;
-    }
-    
-    protected MimeMessage loadMessage(String msgFile) throws Exception {
-        msgFile = DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + msgFile;
-        URL url = Thread.currentThread().getContextClassLoader().getResource(msgFile);
-        assertNotNull("Check that the file " + msgFile + " is in the classpath", url);
-    
-        FileInputStream is = new FileInputStream(url.getFile());
-        return new MimeMessage(session, is);
     }
 
 
