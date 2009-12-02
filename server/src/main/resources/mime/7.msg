@@ -1,7 +1,9 @@
                                                                                                                                                                                                                                                             
 Return-Path: <nobody@foo.com>
 MIME-Version: 1.0
-From: Mickey <nobody@foo.com>
+From: Mickey <mickey@foo.com>
+To: Donald <donald@foo.com>
+Reply-to: list@foo.com
 Date: Thu, 29 Oct 2009 08:05:36 +0100
 Message-ID: <50bb78d50910290005h455ac606q26456bc4cecf5c3f@mail.gmail.com>
 Subject: html with inline images

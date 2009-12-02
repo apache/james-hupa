@@ -204,7 +204,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                     message.setFrom(display.getFromText().getText());
                     
                     ArrayList<String> to = new ArrayList<String>();
-                    String[] toRaw = display.getToText().getText().split(",");
+                    String[] toRaw = display.getToText().getText().split("[,;]+");
                     if (toRaw != null) {
                         for (int i = 0; i < toRaw.length;i++) {
                             String toRecip = toRaw[i].trim();
@@ -216,7 +216,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                     message.setTo(to);
                     
                     ArrayList<String> cc = new ArrayList<String>();
-                    String[] ccRaw = display.getCcText().getText().split(",");
+                    String[] ccRaw = display.getCcText().getText().split("[,;]+");
                     if (ccRaw != null) {
                         for (int i = 0; i < ccRaw.length;i++) {
                             String ccRecip = ccRaw[i].trim();
@@ -343,23 +343,26 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         display.getMessageHTML().setHTML("");
 
         if (type.equals(Type.FORWARD)) {
-            display.getSubjectText().setText("Fwd: " + oldmessage.getSubject());
-            display.getMessageHTML().setHTML(wrapMessage(oldmessage, oldDetails));
+            if (! oldmessage.getSubject().toLowerCase().startsWith("fwd:"))
+                display.getSubjectText().setText("Fwd: " + oldmessage.getSubject());
         } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-            display.getSubjectText().setText("Re: " + oldmessage.getSubject());
-            display.getMessageHTML().setHTML(wrapMessage(oldmessage, oldDetails));
-
-            if (type.equals(Type.REPLY)) {
+            if (! oldmessage.getSubject().toLowerCase().startsWith("re:"))
+                display.getSubjectText().setText("Re: " + oldmessage.getSubject());
+            
+            if (oldmessage.getReplyto() != null) {
+                display.getToText().setText(oldmessage.getReplyto());
+            } else if (type.equals(Type.REPLY)) {
                 display.getToText().setText(oldmessage.getFrom());
             } else {
                 oldmessage.getCc().remove(user.getName());
                 display.getCcText().setText(Util.listToString(oldmessage.getCc()));
                 oldmessage.getTo().remove(user.getName());
-
                 display.getToText().setText(Util.listToString(oldmessage.getTo()));
-
             }
         }
+        
+        display.getMessageHTML().setHTML(wrapMessage(oldmessage, oldDetails, type));
+        
         if (mailto != null)
             display.getToText().setText(mailto);
         firePresenterChangedEvent();
@@ -388,12 +391,31 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         // DO Nothing
     }
     
-    private String wrapMessage(Message message, MessageDetails details){
+    private String generateHeader(Message message, Type type) {
+        String ret = "<br><br>";
+        if (type.equals(Type.FORWARD)) {
+            ret += "--------- Forwarded message --------- <br>";
+            ret += "From: " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>"; 
+            ret += "Date: " + message.getReceivedDate() + "<br>";
+            ret += "Subject: " + message.getSubject() + "<br>";
+            ArrayList<String> to = new ArrayList<String>();
+            to.addAll(message.getTo());
+            to.addAll(message.getCc());
+            ret += "To: " + Util.listToString(to).replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>";
+        } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
+            ret += "On " + message.getReceivedDate();
+            ret += ", " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;"); 
+            ret += ". wrote:<br>";
+        }
+        return ret + "<br>";
+    }
+    private String wrapMessage(Message message, MessageDetails details, Type type) {
         String ret;
         ret = "<font size=2 style='font-family: arial'>";
-        ret += "<br><br>On " + message.getReceivedDate() + ", " + message.getFrom() +". wrote:<br>";
+        ret += generateHeader(message, type);
         ret += "<blockquote style='border-left: 1px solid rgb(204, 204, 204); margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;'>";
-        ret += details.getText();
+        if (details != null)
+            ret += details.getText();
         ret += "</blockquote></font>";
         return ret;
     }

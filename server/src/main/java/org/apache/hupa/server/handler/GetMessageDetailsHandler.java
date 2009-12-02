@@ -131,7 +131,6 @@ public class GetMessageDetailsHandler extends
 
         StringBuffer sbPlain = new StringBuffer();
         ArrayList<MessageAttachment> attachmentList = new ArrayList<MessageAttachment>();
-
         
         boolean isHTML = handleParts(message, con, sbPlain, attachmentList);
 
@@ -144,6 +143,7 @@ public class GetMessageDetailsHandler extends
         mDetails.setMessageAttachments(attachmentList);
 
         mDetails.setRawHeader(message.getAllHeaders().toString());
+        
         return mDetails;
     }
 

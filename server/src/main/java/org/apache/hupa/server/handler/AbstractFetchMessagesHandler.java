@@ -129,6 +129,17 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                 }
             }
             msg.setFrom(from);
+
+            String replyto = null;
+            if (m.getReplyTo() != null && m.getReplyTo().length >0 ) {
+                replyto = m.getReplyTo()[0].toString().trim();
+                try {
+                    replyto = MimeUtility.decodeText(replyto);
+                } catch (UnsupportedEncodingException e) {
+                    logger.debug("Unable to decode replyto " + replyto, e);
+                }
+            }
+            msg.setReplyto(replyto);
             
             ArrayList<String> to = new ArrayList<String>();
             // Add to addresses

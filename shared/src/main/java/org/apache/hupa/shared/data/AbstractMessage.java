@@ -30,6 +30,7 @@ public class AbstractMessage implements Serializable{
     private static final long serialVersionUID = 5208272852772006815L;
     private String from;
     private String subject;
+    private String replyto;
     private ArrayList<String> to;
     private ArrayList<String> cc;
     private boolean hasAttachment;
@@ -48,6 +49,7 @@ public class AbstractMessage implements Serializable{
         return "From='" + from 
              + "' To='" + toList
              + "' CC='" + ccList
+             + "' ReplyTo='" + replyto
              + "' Subject='" + subject
              + "' Attachments=" + hasAttachment;
     }
@@ -114,6 +116,13 @@ public class AbstractMessage implements Serializable{
         this.to = to;
     }
     
+    public String getReplyto() {
+        return replyto;
+    }
+
+    public void setReplyto(String replyto) {
+        this.replyto = replyto;
+    }
 
 
 }

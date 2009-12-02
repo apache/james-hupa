@@ -50,7 +50,9 @@ public class HupaDispatchServlet extends DispatchServiceServlet {
     public Result execute( Action<?> action ) throws ActionException {
         try {
             logger.info("HupaDispatchServlet: executing: " + action.getClass().getName().replaceAll("^.*\\.",""));
-            return super.execute(action);
+            Result res = super.execute(action);
+            logger.info("HupaDispatchServlet: finished: " + action.getClass().getName().replaceAll("^.*\\.",""));
+            return res;
         } catch (ActionException e) {
             logger.error("HupaDispatchServlet returns an ActionException:" + e.getMessage());
             e.printStackTrace();

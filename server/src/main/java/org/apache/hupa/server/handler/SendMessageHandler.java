@@ -47,6 +47,13 @@ public class SendMessageHandler extends AbstractSendMessageHandler<SendMessage> 
      * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
      */
     public Class<SendMessage> getActionType() {
+        try {
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+        } finally {
+            
+        }
         return SendMessage.class;
     }
 
