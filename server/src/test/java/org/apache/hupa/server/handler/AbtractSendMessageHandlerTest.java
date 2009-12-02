@@ -45,8 +45,8 @@ public class AbtractSendMessageHandlerTest extends HupaTestCase {
                             + " multipart/alternative\n"
                             + "  text/plain\n"
                             + "  text/html\n"
-                            + " mock/attachment => file_1.bin\n"
-                            + " mock/attachment => file_2.bin\n";
+                            + " mock/attachment => uploadedFile_1.bin\n"
+                            + " mock/attachment => uploadedFile_2.bin\n";
 
     public void testComposeMessage() throws Exception{
 
@@ -112,7 +112,7 @@ public class AbtractSendMessageHandlerTest extends HupaTestCase {
         
         MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER);
         
-        SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(MessageUtils.getSessionRegistry(httpSession, logger), 2);
+        SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(MessageUtils.getSessionRegistry(logger, httpSession), 2);
         SendMessage action = new SendMessage(smtpmsg);
         
         Message message = abstSendMsgHndl.createMessage(session, action);
@@ -122,7 +122,9 @@ public class AbtractSendMessageHandlerTest extends HupaTestCase {
 
         abstSendMsgHndl.sendMessage(session, demouser, message);
 
-        Part part = MessageUtils.handleMultiPart(logger, message.getContent(), "file_1.bin");
+        
+        // The reported size is wrong before the message has been saved
+        Part part = MessageUtils.handleMultiPart(logger, message.getContent(), "uploadedFile_1.bin");
         assertTrue(part.getSize() < 0);
 
         assertTrue(sentbox.getMessages().length == 0);
@@ -132,8 +134,9 @@ public class AbtractSendMessageHandlerTest extends HupaTestCase {
         message = sentbox.getMessage(0);
         assertNotNull(message);
         assertEquals(contentTwoAttach, TestUtils.summaryzeContent(message).toString());
-        
-        part = MessageUtils.handleMultiPart(logger, message.getContent(), "file_1.bin");
+
+        // After saving the message, the reported size has to be OK
+        part = MessageUtils.handleMultiPart(logger, message.getContent(), "uploadedFile_1.bin");
         assertTrue(part.getSize() > 0);
         
     }
@@ -148,7 +151,7 @@ public class AbtractSendMessageHandlerTest extends HupaTestCase {
         
         MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER);
         
-        SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(MessageUtils.getSessionRegistry(httpSession, logger), 2);
+        SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(MessageUtils.getSessionRegistry(logger, httpSession), 2);
         SendMessage action = new SendMessage(smtpmsg);
         
         assertTrue(sentbox.getMessages().length == 0);
@@ -157,7 +160,7 @@ public class AbtractSendMessageHandlerTest extends HupaTestCase {
         assertNotNull(message);
         assertEquals(contentTwoAttach, TestUtils.summaryzeContent(message).toString());
         
-        Part part = MessageUtils.handleMultiPart(logger, message.getContent(), "file_1.bin");
+        Part part = MessageUtils.handleMultiPart(logger, message.getContent(), "uploadedFile_1.bin");
         assertTrue(part.getSize() > 0);
         
     }

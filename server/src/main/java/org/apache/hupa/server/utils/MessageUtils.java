@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.mail.Address;
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
@@ -31,11 +33,14 @@ import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.FileItemRegistry;
+import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 
 
 
@@ -104,7 +109,16 @@ public class MessageUtils {
         return ret;
     }
 
-    public static FileItemRegistry getSessionRegistry(HttpSession session, Log logger) {
+    static public List<BodyPart> extractInlineImages(Log logger, Object content) throws MessagingException, IOException {
+        ArrayList<BodyPart> ret = new ArrayList<BodyPart>();
+        for (BodyPart attach : extractMessageAttachments(logger, content)) {
+            if (attach.getHeader("Content-ID") != null && attach.getContentType().startsWith("image/"))
+                ret.add(attach);
+        }
+        return ret;
+    }
+
+    public static FileItemRegistry getSessionRegistry(Log logger, HttpSession session) {
         FileItemRegistry registry = (FileItemRegistry)session.getAttribute("registry");
         if (registry == null) {
             registry = new FileItemRegistry(logger);
@@ -156,6 +170,21 @@ public class MessageUtils {
             logger.error("Unknown content: " + content.getClass().getName());
         }
         return null;
+    }
+
+    /**
+     * Convert a FileItem to a BodyPart
+     * 
+     * @param item
+     * @return
+     * @throws MessagingException
+     */
+    public static BodyPart fileitemToBodypart(FileItem item) throws MessagingException {
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+        DataSource source = new AbstractSendMessageHandler.FileItemDataStore(item);
+        messageBodyPart.setDataHandler(new DataHandler(source));
+        messageBodyPart.setFileName(source.getName());
+        return messageBodyPart;
     }
     
 }

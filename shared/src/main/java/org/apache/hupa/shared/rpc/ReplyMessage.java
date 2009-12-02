@@ -27,19 +27,12 @@ public class ReplyMessage extends ForwardMessage {
 
     private static final long serialVersionUID = -383135476236902779L;
 
-    private boolean replyAll;
     
-    public ReplyMessage(SMTPMessage msg, IMAPFolder folder, long uid, boolean replyAll) {
+    public ReplyMessage(SMTPMessage msg, IMAPFolder folder, long uid) {
         super(msg, folder, uid);
-        this.replyAll = replyAll;
     }
 
     protected ReplyMessage() {
-        
-    }
-    
-    public boolean getReplyAll() {
-        return replyAll;
     }
     
 }

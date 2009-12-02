@@ -19,13 +19,14 @@
 
 package org.apache.hupa.server.handler;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.shared.ActionException;
@@ -33,7 +34,6 @@ import net.customware.gwt.dispatch.shared.ActionException;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.utils.MessageUtils;
-import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.rpc.ReplyMessage;
 
 import com.google.inject.Inject;
@@ -47,7 +47,7 @@ import com.sun.mail.imap.IMAPStore;
  * 
  *
  */
-public class ReplyMessageHandler extends AbstractSendMessageHandler<ReplyMessage>{
+public class ReplyMessageHandler extends AbstractSendMessageHandler<ReplyMessage> {
 
     @Inject
     public ReplyMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider,
@@ -55,29 +55,33 @@ public class ReplyMessageHandler extends AbstractSendMessageHandler<ReplyMessage
         super(logger, store, provider, address, port, auth, useSSL);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.hupa.server.handler.AbstractSendMessageHandler#createMessage(javax.mail.Session, org.apache.hupa.shared.rpc.SendMessage)
-     */
-    protected Message createMessage(Session session, ReplyMessage action)
-            throws AddressException, MessagingException, ActionException {
+    @Override
+    @SuppressWarnings("unchecked")
+    protected List getAttachments(ReplyMessage action) throws MessagingException, ActionException {
+        List<BodyPart> items = new ArrayList<BodyPart>();
         IMAPStore store = cache.get(getUser());
+
         IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());
         if (folder.isOpen() == false) {
             folder.open(Folder.READ_ONLY);
         }
-        Message rMessage =  folder.getMessageByUID(action.getReplyMessageUid()).reply(action.getReplyAll());
-        SMTPMessage m = action.getMessage();
-        // Use the new recipient list, maybe it has changed
-        rMessage.setRecipients(RecipientType.TO, MessageUtils.getRecipients(m.getTo()));
-        rMessage.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
-        rMessage.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
-        rMessage.setFrom(new InternetAddress(m.getFrom()));
-        // replace subject
-        rMessage.setSubject(m.getSubject());
-        rMessage.saveChanges();
-        return rMessage;
+
+        // Only original inline images have to be added to the list 
+        Message msg = folder.getMessageByUID(action.getReplyMessageUid());
+        try {
+            items = MessageUtils.extractInlineImages(logger, msg.getContent());
+            if (items.size() > 0)
+                logger.debug("Replying a message, extracted: " + items.size() + " inline image from");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        // Put into the list the attachments uploaded by the user
+        items.addAll(super.getAttachments(action));
+        
+        return items;
     }
+
 
     /*
      * (non-Javadoc)

@@ -26,6 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -73,19 +74,18 @@ public class TestUtils extends TestCase {
         }
 
         private String ident(int spaces, String text) {
-            String ret = "";
-            for (int i = 0; i < spaces; i++)
-                ret += " ";
-            return ret + text;
+            char[] padding = new char[spaces];
+            Arrays.fill(padding, ' ');
+            return new String(padding) + text;
+        }
+        
+        public String toString() {
+            StringBuilder ret = new StringBuilder();
+            for (String s : this) 
+                ret.append(s).append("\n");
+            return ret.toString();
         }
 
-        public String toString() {
-            String ret = "";
-            for (String s : this) {
-                ret += s + "\n";
-            }
-            return ret;
-        }
     }
 
     /**
@@ -95,13 +95,17 @@ public class TestUtils extends TestCase {
      * @return a new item
      * @throws IOException
      */
-    public static FileItem createMockFileItem(String filename) throws IOException {
+    public static FileItem createMockFileItem(String filename, String contentType) throws IOException {
         FileItemFactory f = new DiskFileItemFactory();
-        FileItem item = f.createItem("fieldname_" + filename, "mock/attachment", false, filename);
+        FileItem item = f.createItem("fieldname_" + filename, contentType, false, filename);
         OutputStream os = item.getOutputStream();
         os.write("ABCDEFGHIJK\n".getBytes());
         os.close();
         return item;
+    }
+
+    public static FileItem createMockFileItem(String filename) throws IOException {
+        return createMockFileItem(filename, "mock/attachment");
     }
     
     public void testCreateMockFileItem() throws Exception {
@@ -109,6 +113,7 @@ public class TestUtils extends TestCase {
         assertEquals("ABCDEFGHIJK\n", item.getString());
     }
 
+    
     /**
      * Create a new mime-message from a file stored in the fixtures folder
      * 
@@ -120,8 +125,7 @@ public class TestUtils extends TestCase {
     public static MimeMessage loadMessageFromFile(Session session, String msgFile) throws Exception {
         msgFile = DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + msgFile;
         URL url = Thread.currentThread().getContextClassLoader().getResource(msgFile);
-        assertNotNull("Check that the file " + msgFile + " is in the classpath", url);
-    
+
         FileInputStream is = new FileInputStream(url.getFile());
         return new MimeMessage(session, is);
     }
@@ -175,7 +179,7 @@ public class TestUtils extends TestCase {
 
         for (int i = 1; i <= nfiles; i++) {
             FileItem fileItem;
-            fileItem = TestUtils.createMockFileItem("file_" + i + ".bin");
+            fileItem = TestUtils.createMockFileItem("uploadedFile_" + i + ".bin");
             registry.add(fileItem);
 
             MessageAttachment msgAttach = new MessageAttachment();
@@ -243,4 +247,26 @@ public class TestUtils extends TestCase {
         return ret;
     }
 
+    /**
+     * Add a mock attachment to a mime message, you can specify whether the attachment
+     * is an in-line image, and the file name
+     * 
+     * @param message
+     * @param fileName
+     * @param isInline
+     * @throws IOException
+     * @throws MessagingException
+     */
+    public static void addMockAttachment(Message message, String fileName, boolean isInline) throws IOException, MessagingException {
+        FileItem item = createMockFileItem(fileName, isInline ? "image/mock" : "mock/attachment");
+            
+        BodyPart part = MessageUtils.fileitemToBodypart(item);
+        if (isInline)
+            part.addHeader("Content-ID", "any-id");
+        
+        Multipart mpart = (Multipart) message.getContent();
+        mpart.addBodyPart(part);
+        message.saveChanges();
+    }
+ 
 }

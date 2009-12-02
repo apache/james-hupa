@@ -39,18 +39,17 @@ public class FetchFoldersResult implements Result{
     
     @SuppressWarnings("unused")
     private FetchFoldersResult() {
-        
     }
     
     public ArrayList<IMAPFolder> getFolders() {
         return folders;
     }
-    
+
     public String toString() {
-        String ret = "";
-        for (IMAPFolder f: folders) {
-            ret += f.getFullName() + " ";
-        }
-        return ret;
+        StringBuilder ret = new StringBuilder();
+        for (IMAPFolder f : folders)
+            ret.append(f.getFullName()).append(" ");
+        return ret.toString();
     }
+    
 }

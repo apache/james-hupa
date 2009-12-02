@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.Address;
 import javax.mail.AuthenticationFailedException;
@@ -40,9 +39,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.Flags.Flag;
 import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -135,8 +136,17 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      * @throws MessagingException
      * @throws ActionException
      */
-    protected abstract Message createMessage(Session session, A action) throws AddressException, MessagingException,ActionException;
-
+    protected Message createMessage(Session session, A action) throws AddressException, MessagingException {
+        MimeMessage message = new MimeMessage(session);
+        SMTPMessage m = action.getMessage();
+        message.setFrom(new InternetAddress(m.getFrom()));
+        message.setRecipients(RecipientType.TO, MessageUtils.getRecipients(m.getTo()));
+        message.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
+        message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
+        message.setSubject(m.getSubject());
+        message.saveChanges();
+        return message;
+    }
     /**
      * Fill the body of the given message with data which the given action contain
      * 
@@ -151,9 +161,9 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
 
         String html = restoreInlineLinks(action.getMessage().getText());
         
-        // TODO: client sends the message as html right now, 
+        // TODO: client sends the message as a html document right now, 
         // the idea is that it should be sent in both formats because
-        // it is easier to do the handle html in the browser. 
+        // it is easier to handle html in the browser. 
         String text = htmlToText(html);
         
         @SuppressWarnings("unchecked")
@@ -166,6 +176,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         return RegexPatterns.replaceAll(s, RegexPatterns.regex_revertInlineImg, RegexPatterns.repl_revertInlineImg);
     }
     
+    // TODO: just temporary stuff because it has to be done in the client side
     protected String htmlToText(String s){
         s=s.replaceAll("\n", " ");
         s=s.replaceAll("(?si)<br\\s*?/?>", "\n");
@@ -184,8 +195,9 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      */
     @SuppressWarnings("unchecked")
     protected List getAttachments(A action) throws MessagingException, ActionException {
-        FileItemRegistry registry = MessageUtils.getSessionRegistry(httpSessionProvider.get(), logger); 
+        FileItemRegistry registry = MessageUtils.getSessionRegistry(logger, httpSessionProvider.get());
         List<MessageAttachment> attachments = action.getMessage().getMessageAttachments();
+        
         ArrayList<FileItem> items = new ArrayList<FileItem>();
         for (MessageAttachment attachment: attachments) {
             FileItem fItem = registry.get(attachment.getName());
@@ -208,7 +220,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         ArrayList<MessageAttachment> attachments = msg.getMessageAttachments();
         if (attachments != null && ! attachments.isEmpty()) {
             for(MessageAttachment attach : attachments) 
-                MessageUtils.getSessionRegistry(httpSessionProvider.get(), logger).remove(attach.getName());
+                MessageUtils.getSessionRegistry(logger, httpSessionProvider.get()).remove(attach.getName());
         }
     }
     
@@ -351,7 +363,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
             multipart.addBodyPart(bodyPart);
             for (Object attachment: parts) {
                 if (attachment instanceof FileItem) {
-                    multipart.addBodyPart(fileitemToBodypart((FileItem)attachment));
+                    multipart.addBodyPart(MessageUtils.fileitemToBodypart((FileItem)attachment));
                 } else {
                     multipart.addBodyPart((BodyPart)attachment);
                 }
@@ -364,20 +376,11 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
 
     }
     
-    private static BodyPart fileitemToBodypart(FileItem item) throws MessagingException {
-        MimeBodyPart messageBodyPart = new MimeBodyPart();
-        DataSource source = new AbstractSendMessageHandler.FileItemDataStore(item);
-        messageBodyPart.setDataHandler(new DataHandler(source));
-        messageBodyPart.setFileName(source.getName());
-        return messageBodyPart;
-    }
-    
-
     /**
      * DataStore which wrap a FileItem
      * 
      */
-    protected static class FileItemDataStore implements DataSource {
+    public static class FileItemDataStore implements DataSource {
 
         private FileItem item;
 

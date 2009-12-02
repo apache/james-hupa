@@ -19,32 +19,21 @@
 
 package org.apache.hupa.server.handler;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.activation.DataSource;
 import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.utils.MessageUtils;
-import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.rpc.ForwardMessage;
 
 import com.google.inject.Inject;
@@ -64,26 +53,6 @@ public class ForwardMessageHandler extends AbstractSendMessageHandler<ForwardMes
             @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
         super(logger, store, provider, address, port, auth, useSSL);
     }
-
-    @Override
-    protected Message createMessage(Session session, ForwardMessage action) throws AddressException, MessagingException, ActionException {
-        MimeMessage message = new MimeMessage(session);
-        SMTPMessage m = action.getMessage();
-        message.setFrom(new InternetAddress(m.getFrom()));
-        List<String> to = m.getTo();
-        for (int i = 0; i < to.size(); i++) {
-            message.addRecipient(RecipientType.TO, new InternetAddress(to.get(i)));
-        }
-
-        List<String> cc = m.getCc();
-        for (int i = 0; cc != null && i < cc.size(); i++) {
-            message.addRecipient(RecipientType.CC, new InternetAddress(cc.get(i)));
-        }
-        message.setSubject(m.getSubject());
-        message.saveChanges();
-        return message;
-    }
-
 
     @Override
     @SuppressWarnings("unchecked")
@@ -115,64 +84,6 @@ public class ForwardMessageHandler extends AbstractSendMessageHandler<ForwardMes
      */
     public Class<ForwardMessage> getActionType() {
         return ForwardMessage.class;
-    }
-
-    /**
-     * DataStore which wrap a FileItem
-     * 
-     */
-    protected static class PartDataStore implements DataSource {
-
-        private FileItem item;
-
-        public PartDataStore(FileItem item) {
-            this.item = item;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.activation.DataSource#getContentType()
-         */
-        public String getContentType() {
-            return item.getContentType();
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.activation.DataSource#getInputStream()
-         */
-        public InputStream getInputStream() throws IOException {
-            return item.getInputStream();
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.activation.DataSource#getName()
-         */
-        public String getName() {
-            String fullName = item.getName();
-
-            // Strip path from file
-            int index = fullName.lastIndexOf(File.separator);
-            if (index == -1) {
-                return fullName;
-            } else {
-                return fullName.substring(index + 1, fullName.length());
-            }
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.activation.DataSource#getOutputStream()
-         */
-        public OutputStream getOutputStream() throws IOException {
-            return null;
-        }
-
     }
 
 }

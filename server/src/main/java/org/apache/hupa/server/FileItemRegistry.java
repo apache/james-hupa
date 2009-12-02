@@ -32,10 +32,18 @@ public class FileItemRegistry {
 
     public Map<String,FileItem> map = new HashMap<String, FileItem>();
     private Log logger;
+    static int idCounter = 0;
+    int registryId;
+    
+    public String toString() {
+        return "registryId=" + registryId +
+               " nItems=" + map.size();
+    }
     
     @Inject
     public FileItemRegistry(Log logger) {
         this.logger = logger;
+        registryId  = idCounter++;
     }
     
     public void add(FileItem item) {

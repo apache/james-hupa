@@ -27,6 +27,7 @@ import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
 import org.apache.hupa.server.handler.GetMessageDetailsHandler;
+import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.mock.MockHttpSession;
 import org.apache.hupa.server.mock.MockIMAPStore;
@@ -59,6 +60,7 @@ public class GuiceTestModule extends AbstractModule {
         
         bind(AbstractSendMessageHandler.class).to(SendMessageHandler.class);
         bind(SendMessageHandler.class);
+        bind(ReplyMessageHandler.class);
         bind(ForwardMessageHandler.class);
 
     }

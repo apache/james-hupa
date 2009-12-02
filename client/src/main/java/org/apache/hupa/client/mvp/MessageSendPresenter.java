@@ -267,8 +267,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                     } else if(type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
                         display.setLoading(true);
 
-                        boolean replyAll = type.equals(Type.REPLY_ALL);
-                        dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid(), replyAll), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+                        dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
                             public void callback(GenericResult result) {
                                 if (result.isSuccess()) {
                                     eventBus.fireEvent(new SentMessageEvent());
