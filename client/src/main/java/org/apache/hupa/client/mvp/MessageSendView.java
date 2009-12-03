@@ -75,8 +75,7 @@ public class MessageSendView extends Composite implements
         sendButton = new EnableButton(constants.sendButton());
         backButton = new EnableHyperlink(constants.backButton(),"");
         final VerticalPanel mPanel = new VerticalPanel();
-        //mPanel.setWidth("100%");
-        mPanel.setWidth(Window.getClientWidth() -10 +"px");
+        mPanel.setWidth(Window.getClientWidth() -200 +"px");
         
         Window.addResizeHandler(new ResizeHandler() {
 

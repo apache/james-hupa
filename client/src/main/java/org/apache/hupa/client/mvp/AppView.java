@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.mvp;
 
+import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.shared.events.ServerStatusEvent.ServerStatus;
 
@@ -73,8 +74,10 @@ public class AppView extends Composite implements AppPresenter.Display {
     @Inject
     public AppView(HupaConstants constants) {
         logoutButton = new Hyperlink(constants.logoutButton(),"");
+        logoutButton.addStyleName(HupaCSS.C_logout_btn);
 
         VerticalPanel vPanel = new VerticalPanel();
+        vPanel.setStyleName(HupaCSS.C_main_container);
 
         vPanel.setSpacing(3);
         vPanel.setWidth("100%");

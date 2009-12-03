@@ -188,12 +188,12 @@ public class IMAPMessageListView extends Composite implements Display{
 
         // This is only needed as workaround in pagingscrolltable
         // See http://code.google.com/p/google-web-toolkit-incubator/wiki/PagingScrollTable
-        mailTable.setWidth(Window.getClientWidth() -150 -40+"px");
+        mailTable.setWidth(Window.getClientWidth() -200+"px");
         mailTable.setHeight("600px");
         Window.addResizeHandler(new ResizeHandler() {
 
             public void onResize(ResizeEvent event) {
-                mailTable.setWidth(Window.getClientWidth() -150 -30+"px");
+                mailTable.setWidth(Window.getClientWidth() -200+"px");
             }
             
         });
