@@ -83,9 +83,9 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                 return new FetchMessagesResult(new ArrayList<org.apache.hupa.shared.data.Message>(),start,offset,exists,0);
             }        
             
-            Message[] messages = getMessagesToConvert(f,action);
+            MessageConvertArray convArray = getMessagesToConvert(f,action);
             
-            return new FetchMessagesResult(convert(offset, f, messages),start, offset,exists,f.getUnreadMessageCount());
+            return new FetchMessagesResult(convert(offset, f, convArray.getMesssages()),start, offset,convArray.getRealCount(),f.getUnreadMessageCount());
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,7 +104,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         }
     }
     
-    protected abstract Message[] getMessagesToConvert(com.sun.mail.imap.IMAPFolder f, A action) throws MessagingException;
+    protected abstract MessageConvertArray getMessagesToConvert(com.sun.mail.imap.IMAPFolder f, A action) throws MessagingException;
     
     protected ArrayList<org.apache.hupa.shared.data.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
         ArrayList<org.apache.hupa.shared.data.Message> mList = new ArrayList<org.apache.hupa.shared.data.Message>();
@@ -197,7 +197,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         }
         return mList;
     }
-    
+
     private boolean hasAttachment(Message message) throws MessagingException {
         if (message.getContentType().startsWith("multipart/")) {
             try {
@@ -224,5 +224,24 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             
         }
         return false;
+    }
+    
+    
+    protected final class MessageConvertArray {
+        private Message[] messages;
+        private int realCount;
+
+        public MessageConvertArray(int realCount, Message[] messages) {
+            this.messages = messages;
+            this.realCount = realCount;
+        }
+        
+        public int getRealCount() {
+            return realCount;
+        }
+        
+        public Message[] getMesssages() {
+            return messages;
+        }
     }
 }

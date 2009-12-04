@@ -19,6 +19,9 @@
 
 package org.apache.hupa.server.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.search.BodyTerm;
@@ -59,28 +62,30 @@ public class FetchMessagesHandler extends
     }
 
     @Override
-    protected Message[] getMessagesToConvert(com.sun.mail.imap.IMAPFolder f,
+    protected MessageConvertArray getMessagesToConvert(com.sun.mail.imap.IMAPFolder f,
             FetchMessages action) throws MessagingException {
         String searchString = action.getSearchString();
         int start = action.getStart();
         int offset = action.getOffset();
         int end = start + offset;
 
-        int exists = f.getMessageCount();
-
-        if (end > exists) {
-            end = exists;
-        }
-
-        int firstIndex = exists - end;
-        if (firstIndex < 1) {
-            firstIndex = 1;
-        }
-        int lastIndex = exists - start;
+       
         Message[] messages;
-
+        int exists;
         // check if a searchString was given, and if so use it
         if (searchString == null) {
+            exists = f.getMessageCount();
+
+            if (end > exists) {
+                end = exists;
+            }
+
+            int firstIndex = exists - end;
+            if (firstIndex < 1) {
+                firstIndex = 1;
+            }
+            int lastIndex = exists - start;
+            
             messages = f.getMessages(firstIndex, lastIndex);
         } else {
             SearchTerm subjectTerm = new SubjectTerm(searchString);
@@ -88,12 +93,29 @@ public class FetchMessagesHandler extends
             SearchTerm bodyTerm = new BodyTerm(searchString);
             SearchTerm orTerm = new OrTerm(new SearchTerm[] { subjectTerm,
                     fromTerm, bodyTerm });
-            messages = f.search(orTerm);
-            if (end > messages.length) {
-                end = messages.length;
+            Message[] tmpMessages = f.search(orTerm);
+            if (end > tmpMessages.length) {
+                end = tmpMessages.length;
             }
-            exists = messages.length;
+            exists = tmpMessages.length;
+
+            int firstIndex = exists - end;
+            if (firstIndex < 1) {
+                firstIndex = 1;
+            }            
+            
+            if (tmpMessages.length > firstIndex) {
+                List<Message> mList = new ArrayList<Message>();
+                for (int i = firstIndex; i < tmpMessages.length; i++) {
+                    if (i == end) break;
+                    mList.add(tmpMessages[i]);
+                }
+                messages = mList.toArray(new Message[mList.size()]);
+            } else {
+                messages = new Message[0];
+            }
+          
         }
-        return messages;
+        return new MessageConvertArray(exists, messages);
     }
 }

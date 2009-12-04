@@ -44,10 +44,10 @@ public class FetchRecentMessagesHandler extends AbstractFetchMessagesHandler<Fet
 
     
     @Override
-    protected Message[] getMessagesToConvert(com.sun.mail.imap.IMAPFolder f,
+    protected MessageConvertArray getMessagesToConvert(com.sun.mail.imap.IMAPFolder f,
             FetchRecentMessages action) throws MessagingException {
         Message[] messages = f.search(new FlagTerm(new Flags(Flag.RECENT), true));
-        return messages;
+        return new MessageConvertArray(messages.length, messages);
     }
 
     /*
