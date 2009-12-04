@@ -82,10 +82,10 @@ public class FetchMessagesHandlerTest extends AbstractHandlerTest{
         ByteArrayInputStream is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
         MimeMessage msg = new MimeMessage(session, is);
         serverfolder.addMessages(new Message[]{msg});
-        
-        result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
+        result = handler.execute(new FetchMessages(clientfolder, 0, 10, "something"), null);
         assertEquals(1, result.getRealCount());
         assertEquals(1, result.getMessages().size());
+        
         
         result = handler.execute(new FetchMessages(clientfolder, 0, 10, null), null);
         assertEquals(1, result.getRealCount());

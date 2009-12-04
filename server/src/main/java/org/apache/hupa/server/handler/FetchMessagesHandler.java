@@ -99,10 +99,7 @@ public class FetchMessagesHandler extends
             }
             exists = tmpMessages.length;
 
-            int firstIndex = exists - end;
-            if (firstIndex < 1) {
-                firstIndex = 1;
-            }            
+            int firstIndex = exists - end;        
             
             if (tmpMessages.length > firstIndex) {
                 List<Message> mList = new ArrayList<Message>();
