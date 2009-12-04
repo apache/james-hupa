@@ -134,7 +134,10 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
             public void onLogout(LogoutEvent logoutEvent) {
                 getDisplay().reset();
+                getDisplay().getSearchValue().setValue("");
                 
+                // we need to fire a event to notify the history about the reset
+                firePresenterChangedEvent();
             }
             
         });
