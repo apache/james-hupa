@@ -1,5 +1,67 @@
 @import url("hupa/Upload.css");
 
+.Hupa {
+	width: 100%;
+	text-align: left;
+}
+
+.hupa-logo {
+    background: url(images/hupa-logo-64.jpg) no-repeat;
+    color:  white;
+    height: 54px;
+    width: 70px;
+}
+
+.hupa-button-bar, .hupa-info-bar {
+    height: 24px;
+    width: 100%; 
+}
+
+.hupa-info-bar {
+	border-top:						1px solid silver;
+    border-bottom:					1px solid silver;
+    text-align:						left;
+    background-color:				#E0ECFF; 
+}
+
+div.hupa-header {
+    width: 20%;
+    padding-left:					10px;
+    height: 20px;
+    color: #E0ECFF;
+}
+
+div.hupa-flash {
+	border: 1px solid #FAD163;
+	background-color: #fae5b0;
+    height: 15px;
+    width: 50%;
+    text-align: center;
+}
+
+.hupa-menu-button {
+	margin-right: 20px;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.hupa-login-label, .hupa-login-user {
+	margin-left: 10px;
+	font-size: 12px;
+}
+
+.hupa-login-user {
+	font-style: italic;
+	font-weight: bold;
+}
+
+
+.hupa-Container-Navigation { 
+	border: 2px solid #E0ECFF;
+} 
+
+
+
 .cbg-RP { 
     background-color:				#E0ECFF;
 }
@@ -16,9 +78,6 @@
     background-color:				#E0ECFF;
 }
 
-.hupa-Container-Navigation { 
-	border: 2px solid #E0ECFF;
-} 
 
 .cbg-Button, .gwt-HTML, .gwt-Label, .gwt-Tree .gwt-TreeItem, .gwt-SuggestBoxPopup .item, hupa-LoginForm, .hupa-IMAPMessageWidget-Header-Content, .hupa-ToolTip, .hupa-IMAPFolder, .gwt-ListBox, .gwt-HyperLink, .gwt-TextBox{
     font-size:						12px;
@@ -38,14 +97,6 @@
 
 .hupa-MailTableControl {
     background-color:				#E0ECFF;	
-}
-
-.hupa-Header {
-    border-top:						1pt solid silver;
-    border-bottom:					1pt solid silver;
-    text-align:						left;
-    padding-left:					5px;
-    background-color:				#E0ECFF;
 }
 
 .hupa-validationErrorBorder {
@@ -71,10 +122,6 @@
     background-color:				#E0ECFF;
 }
 
-.hupa-MainButtonBar {
-    border-bottom:					1pt solid silver;
-    border-top:					1pt solid silver; 
-}
 
 .hupa-Mailtable-row-notseen {
     font-weight: 					bold;
@@ -124,6 +171,3 @@
 	border: 2px solid #E0ECFF;
 }
 
-.hupa-logout-btn {
-	margin-right: 20px;
-}

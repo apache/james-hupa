@@ -446,7 +446,6 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         registerHandler(display.getNewClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
-                display.getNewEnable().setEnabled(false);
                 editableTreeItem = display.createFolder(new EditHandler() {
 
                     public void onEditEvent(EditEvent event) {
@@ -458,11 +457,10 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                                 public void onFailure(Throwable caught) {
                                     GWT.log("Error while create folder", caught);
                                     item.cancelEdit();
-                                    display.getNewEnable().setEnabled(true);
                                 }
 
                                 public void onSuccess(GenericResult result) {
-                                    display.getNewEnable().setEnabled(true);
+                                    // Nothing todo
                                 }
 
                             });

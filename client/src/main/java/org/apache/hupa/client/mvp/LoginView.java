@@ -32,9 +32,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -51,7 +49,6 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
     private Button resetButton;
     private TextBox usernameTextBox = new TextBox();
     private PasswordTextBox passwordTextBox = new PasswordTextBox();
-    private Label errorLabel = new Label();
     private Loading loading;
     private int minUsernameLength = 1;
     private int minPasswordLength = 1;
@@ -101,9 +98,6 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
        
         formPanel.add(buttonBar);
         
-        errorLabel.setStyleName("hupa-ErrorLabel");
-        formPanel.add(errorLabel);
-        
         RoundedPanel rPanel = new RoundedPanel(RoundedPanel.ALL,1);
         rPanel.setBorder();
         rPanel.add(formPanel);
@@ -146,14 +140,6 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
         
     }
  
-
-    /*
-     * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getErrorText()
-     */
-    public HasText getErrorText() {
-        return errorLabel;
-    }
 
     /*
      * (non-Javadoc)

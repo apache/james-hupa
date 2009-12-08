@@ -19,21 +19,23 @@
 
 package org.apache.hupa.client.mvp.place;
 
+import net.customware.gwt.presenter.client.gin.ProvidedPresenterPlace;
+
+import org.apache.hupa.client.mvp.ContactsPresenter;
+
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
-import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.DefaultPlaceManager;
-
-/**
- * PlaceManager implementation for Hupa
- * 
- *
- */
-public class HupaPlaceManager extends DefaultPlaceManager{
+public class ContactsPresenterPlace extends ProvidedPresenterPlace<ContactsPresenter>{
 
     @Inject
-    public HupaPlaceManager(EventBus eventBus, LoginPresenterPlace loginPresenterPlace, IMAPMessageListPresenterPlace messageListPresenterPlace, IMAPMessagePresenterPlace imapMessagePresenterPlace, MessageSendPresenterPlace sendPresenterPlace, ContactsPresenterPlace contactsPresenterPlace) {
-        super(eventBus, loginPresenterPlace, messageListPresenterPlace, imapMessagePresenterPlace, sendPresenterPlace, contactsPresenterPlace);
+    public ContactsPresenterPlace(Provider<ContactsPresenter> presenter) {
+        super(presenter);
+    }
+
+    @Override
+    public String getName() {
+        return "Contacts";
     }
 
 }

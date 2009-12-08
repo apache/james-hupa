@@ -23,7 +23,6 @@ import net.customware.gwt.presenter.client.DefaultEventBus;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.gin.AbstractPresenterModule;
 import net.customware.gwt.presenter.client.place.PlaceManager;
-import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
 
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
@@ -31,19 +30,18 @@ import org.apache.hupa.client.mvp.AppPresenter;
 import org.apache.hupa.client.mvp.AppView;
 import org.apache.hupa.client.mvp.ContactsPresenter;
 import org.apache.hupa.client.mvp.ContactsView;
-import org.apache.hupa.client.mvp.ContainerPresenter;
-import org.apache.hupa.client.mvp.ContainerView;
 import org.apache.hupa.client.mvp.IMAPMessageListPresenter;
 import org.apache.hupa.client.mvp.IMAPMessageListView;
 import org.apache.hupa.client.mvp.IMAPMessagePresenter;
-import org.apache.hupa.client.mvp.MessageSendPresenter;
-import org.apache.hupa.client.mvp.MessageSendView;
 import org.apache.hupa.client.mvp.IMAPMessageView;
 import org.apache.hupa.client.mvp.LoginPresenter;
 import org.apache.hupa.client.mvp.LoginView;
 import org.apache.hupa.client.mvp.MainPresenter;
 import org.apache.hupa.client.mvp.MainView;
+import org.apache.hupa.client.mvp.MessageSendPresenter;
+import org.apache.hupa.client.mvp.MessageSendView;
 import org.apache.hupa.client.mvp.MessageTableModel;
+import org.apache.hupa.client.mvp.place.ContactsPresenterPlace;
 import org.apache.hupa.client.mvp.place.HupaPlaceManager;
 import org.apache.hupa.client.mvp.place.IMAPMessageListPresenterPlace;
 import org.apache.hupa.client.mvp.place.LoginPresenterPlace;
@@ -63,7 +61,6 @@ public class HupaClientModule extends AbstractPresenterModule {
         bindPresenter(MainPresenter.class,MainPresenter.Display.class,MainView.class);
         bindPresenter(MessageSendPresenter.class, MessageSendPresenter.Display.class, MessageSendView.class);
         bindPresenter(AppPresenter.class, AppPresenter.Display.class, AppView.class);
-        bindPresenter(ContainerPresenter.class, WidgetContainerDisplay.class, ContainerView.class);
         bindPresenter(ContactsPresenter.class, ContactsPresenter.Display.class, ContactsView.class);
         bind(CachingDispatchAsync.class);
         bind(PagingScrollTableRowDragController.class).in(Singleton.class);
@@ -71,6 +68,7 @@ public class HupaClientModule extends AbstractPresenterModule {
         bind(LoginPresenterPlace.class).in(Singleton.class);
         bind(IMAPMessageListPresenterPlace.class).in(Singleton.class);
         bind(MessageSendPresenterPlace.class).in(Singleton.class);
+        bind(ContactsPresenterPlace.class).in(Singleton.class);
     }
 
 }

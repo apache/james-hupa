@@ -26,6 +26,7 @@ import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.SessionExpireEvent;
 import org.apache.hupa.shared.events.SessionExpireEventHandler;
@@ -37,7 +38,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.inject.Inject;
 
@@ -55,7 +55,6 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
         public HasValue<String> getUserNameValue();
         public HasValue<String> getPasswordValue();
         public Focusable getUserNameFocus();
-        public HasText getErrorText();
         public void setLoading(boolean loading);
     }
     
@@ -81,8 +80,7 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
             }
             public void callbackError(Throwable caught) {
                 display.setLoading(false);
-
-                display.getErrorText().setText(constants.loginInvalid());
+                eventBus.fireEvent(new FlashEvent(constants.loginInvalid(), 4000));
                 doReset();
             }
         }); 
@@ -94,7 +92,6 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
     private void doReset() {
         display.getUserNameValue().setValue("");
         display.getPasswordValue().setValue("");
-        display.getErrorText().setText("");
         display.getUserNameFocus().setFocus(true);
     }
 
@@ -118,7 +115,7 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
         registerHandler(eventBus.addHandler(SessionExpireEvent.TYPE, new SessionExpireEventHandler() {
 
             public void onSessionExpireEvent(SessionExpireEvent event) {
-                display.getErrorText().setText(constants.sessionTimedOut());
+                eventBus.fireEvent(new FlashEvent(constants.sessionTimedOut(), 4000));
             }
             
         }));

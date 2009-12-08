@@ -26,7 +26,10 @@ import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
 
 import org.apache.hupa.client.HupaCallback;
+import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.events.FlashEvent;
+import org.apache.hupa.shared.events.FlashEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
@@ -38,19 +41,16 @@ import org.apache.hupa.shared.events.SessionExpireEventHandler;
 import org.apache.hupa.shared.events.ServerStatusEvent.ServerStatus;
 import org.apache.hupa.shared.rpc.CheckSession;
 import org.apache.hupa.shared.rpc.CheckSessionResult;
-import org.apache.hupa.shared.rpc.LogoutUser;
-import org.apache.hupa.shared.rpc.LogoutUserResult;
 import org.apache.hupa.shared.rpc.Idle;
 import org.apache.hupa.shared.rpc.IdleResult;
+import org.apache.hupa.shared.rpc.LogoutUser;
+import org.apache.hupa.shared.rpc.LogoutUserResult;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.Window.ClosingEvent;
-import com.google.gwt.user.client.Window.ClosingHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
@@ -62,13 +62,19 @@ import com.google.inject.Inject;
  */
 public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>{
 
-    private static final int NOOP_INTERVAL = 150000;
+    private static final int IDLE_INTERVAL = 150000;
+    HupaConstants constants;
 
     public interface Display extends WidgetContainerDisplay {
         public HasClickHandlers getLogoutClick();
+        public HasClickHandlers getContactsClick();
+        public HasClickHandlers getMainClick();
         public void showTopNavigation(boolean show);
+        public void showContactsButton();
+        public void showMainButton();
         public HasText getUserText();
         public void setServerStatus(ServerStatus status);
+        public void showMessage(String message, int millisecs);
     }
 
     private Timer noopTimer = new IdleTimer();
@@ -76,26 +82,35 @@ public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>
     private DispatchAsync dispatcher;
     private User user;
     private ServerStatus serverStatus = ServerStatus.Available;
-    private ContainerPresenter containerPresenter;
+    private MainPresenter mainPresenter;
     private LoginPresenter loginPresenter;
+    private ContactsPresenter contactsPresenter;
     
     @Inject
-    public AppPresenter(Display display, DispatchAsync dispatcher,final EventBus bus, LoginPresenter loginPresenter, ContainerPresenter containerPresenter) {
-        super(display,bus, loginPresenter, containerPresenter);
-        this.containerPresenter = containerPresenter;
+    public AppPresenter(Display display, DispatchAsync dispatcher, final EventBus bus, HupaConstants constants, LoginPresenter loginPresenter, MainPresenter mainPresenter, ContactsPresenter contactsPresenter) {
+        super(display, bus, loginPresenter, mainPresenter, contactsPresenter);
+        this.mainPresenter = mainPresenter;
         this.loginPresenter = loginPresenter;
+        this.contactsPresenter = contactsPresenter;
         this.dispatcher = dispatcher;  
+        this.constants = constants;
     }
 
     private void showMain(User user) {
         display.showTopNavigation(true);
-        containerPresenter.revealDisplay(user);
+        display.showContactsButton();
+        mainPresenter.revealDisplay(user);
     }
-    
     
     private void showLogin(String username) {
         display.showTopNavigation(false);
         loginPresenter.revealDisplay();
+    }
+
+    private void showContacts() {
+        display.showTopNavigation(true);
+        display.showMainButton();
+        contactsPresenter.revealDisplay();
     }
 
     @Override
@@ -106,8 +121,9 @@ public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
                 display.getUserText().setText(event.getUser().getName());
-                noopTimer.scheduleRepeating(NOOP_INTERVAL);
+                noopTimer.scheduleRepeating(IDLE_INTERVAL);
                 showMain(user);
+                display.showMessage(constants.welcome(), 3000);
             }
 
         }));
@@ -132,14 +148,17 @@ public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>
             }
             
         }));
-        registerHandler(Window.addWindowClosingHandler(new ClosingHandler() {
-
-            public void onWindowClosing(ClosingEvent event) {
-                // TODO: When the application is loaded, it checks if there is already a valid session in the server.
-                // Executing here doLogout makes the application remove the user session when 
-                // the user closes the window or reloads the application.
-                // It is better let the user decide when to logout instead of do it automatically
-                // doLogout();
+        registerHandler(display.getContactsClick().addClickHandler(new ClickHandler() {
+            
+            public void onClick(ClickEvent event) {
+                showContacts();
+            }
+            
+        }));
+        registerHandler(display.getMainClick().addClickHandler(new ClickHandler() {
+            
+            public void onClick(ClickEvent event) {
+                showMain(user);
             }
             
         }));
@@ -158,6 +177,13 @@ public class AppPresenter extends WidgetContainerPresenter<AppPresenter.Display>
                     serverStatus = event.getStatus();
                     display.setServerStatus(serverStatus);
                 }
+            }
+            
+        }));
+        registerHandler(eventBus.addHandler(FlashEvent.TYPE, new FlashEventHandler() {
+            
+            public void onFlash(FlashEvent event) {
+                display.showMessage(event.getMessage(), event.getMillisec());
             }
             
         }));
