@@ -21,6 +21,7 @@ package org.apache.hupa.client.dnd;
 
 import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.bundles.HupaImageBundle;
+import org.apache.hupa.widgets.ui.RndPanel;
 import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
@@ -127,12 +128,11 @@ public class PagingScrollTableRowDragController extends PickupDragController {
         private String styleName = "hupa-droptarget-invalid";
         private HorizontalPanel proxy = new HorizontalPanel();
         public RowDragProxy() {
-            RoundedPanel proxyPanel = new RoundedPanel(RoundedPanel.ALL,1);
+            RndPanel proxyPanel = new RndPanel();
             setIsValid(false);
             proxy.add(bundle.moveMailIcon().createImage());
             proxy.add(new Label(" " + messages.moveMessage()));
             proxyPanel.add(proxy);
-            proxyPanel.setBorder();
             proxyPanel.setWidth("150px");        
             initWidget(proxyPanel);
         }

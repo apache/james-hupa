@@ -1,102 +1,201 @@
-@import url("hupa/Upload.css");
 
-.Hupa {
-	width: 100%;
+/************ Fonts *******************/
+body, table td, select, * {
+    font-family: arial, sans-serif, helvetica, verdana;
+    font-size: 12px;
+}
+
+/************ widget: RndPanel *******************/
+.hupa-rounded {
+   border: 1px solid #7FAAFF; 
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 4px;
+}
+
+/************ widget: EnableHyperLink *******************/
+.hupa-hyperlink {
+}
+div.gwt-Hyperlink {
+	padding-left: 4px;
+}
+
+/************ view: AppView *******************/
+div.Hupa {
 	text-align: left;
+	margin-top: 0px;
+	padding: 0px;
+	width: 100%;
+	min-width: 685px;
+}
+* html div.Hupa {
+   margin-top: 15px;
+}
+div.hupa-logo {
+    width: 75px;
+	height: 64px;
+    float: left;
+	background: url(images/hupa-logo-64.jpg) no-repeat;
 }
 
-.hupa-logo {
-    background: url(images/hupa-logo-64.jpg) no-repeat;
-    color:  white;
-    height: 54px;
-    width: 70px;
+div.hupa-top { 
+    padding-left: 80px;
+    padding-right: 8px;
+}
+* html div.hupa-top { 
+    padding-left: 0px;
+} 
+div.hupa-top-wrap {
+	height: 64px;
+	background-color: #C5D9FF;
+}
+div.cgb-RPC-hupa-top-wrap {
+	height: 59px;
 }
 
-.hupa-button-bar, .hupa-info-bar {
-    height: 24px;
-    width: 100%; 
+table.hupa-top {
+    width: 100%;    
+    margin-bottom: 0px;
+}
+table.hupa-button-bar td div {
+	padding-top: 12px;
 }
 
-.hupa-info-bar {
-	border-top:						1px solid silver;
-    border-bottom:					1px solid silver;
-    text-align:						left;
-    background-color:				#E0ECFF; 
+div.hupa-loginfo-label, div.hupa-loginfo-user {
+	margin-left: 10px;
 }
-
-div.hupa-header {
-    width: 20%;
-    padding-left:					10px;
-    height: 20px;
-    color: #E0ECFF;
+.hupa-loginfo-user {
+	font-style: italic;
+	font-weight: bold;
 }
-
-div.hupa-flash {
-	border: 1px solid #FAD163;
-	background-color: #fae5b0;
-    height: 15px;
-    width: 50%;
-    text-align: center;
-}
-
 .hupa-menu-button {
 	margin-right: 20px;
 	text-decoration: underline;
 	cursor: pointer;
 }
-
-.hupa-login-label, .hupa-login-user {
-	margin-left: 10px;
-	font-size: 12px;
+div.hupa-header {
+    color: #C5D9FF;
+	padding-left: 10px;
+	height: 32px;
 }
 
-.hupa-login-user {
-	font-style: italic;
+div.hupa-main {
+	clear: both;
+	margin: 8px 8px 8px 8px;
+}
+
+div.cgb-RPC-hupa-main {
+    min-height: 500px;
+}
+
+* html div.cgb-RPC-hupa-main {
+	height: 500px;
+    text-align: center;
+}
+
+div.hupa-flash {
+	border: 1px solid #FAD163;
+    background-color: #fae5b0;
+	text-align: center;
+    margin: auto auto 2px auto;
+    width: 50%;
+    position: absolute;
+    top: 45px;
+    left: 25%;
+}
+* html div.hupa-flash {
+	border: none;
+	background: none;
+}
+* html .hupa-flash div {
+    background-color: #fae5b0;
+}
+
+.hupa-flash div.gwt-Label {
+	padding: 5px 20px 5px 20px;
+}
+
+div.hupa-bottom {
+	text-align: center;
+}
+/************ view: LoginView *******************/
+table.hupa-login {
+    /*margin: 30px auto auto auto; */
+    text-align: right;
+	margin-left: auto;
+	margin-right: auto; 
+	padding: 40px;
+}
+
+table.hupa-login td {
+	text-align: center;
+	padding-top: 6px;
+}
+table.hupa-login-form {
+	/*margin: 5px 10px 5px 10px;*/
+	padding: 10px;
+}
+
+.hupa-login-textbox {
+	width: 230px;
+	background-color:  #d8ecfd;
+	border: 1px solid #7FAAFF;
+	margin-left: 5px;
+}
+
+/************ view: IMAPMessageListView *******************/
+.gwt-ListBox, .gwt-SuggestBox {
+    background-color:  #d8ecfd;
+    border: 1px solid #7FAAFF;
+    font-size: 10px;
+}
+.gwt-SuggestBoxPopup {
+    font-size: 10px;
+}
+
+/************ widget: Loading *******************/
+div.hupa-loading {
+	background: url(images/ajax-loader.gif) no-repeat;
+	padding-left: 25px;
+	width: 100px;
+    white-space: nowrap;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+/************ view: MessageSendView IMAPMessageView *******************/
+/* re-factor unfinished */
+.hupa-IMAPMessageWidget-Header td.label {
+	width: 175px;
+	text-align: right;
 	font-weight: bold;
+	padding-right: 5px;
 }
 
+/*** Non re-factored stuff ***/
+.hupa-Mailtable-row-notseen {
+    font-weight: 					bold;
+}
 
-.hupa-Container-Navigation { 
-	border: 2px solid #E0ECFF;
-} 
-
-
-
+.cbg-ButtonContent {
+	font-size: 80%;
+}
+/*** 
 .cbg-RP { 
-    background-color:				#E0ECFF;
+    background-color:				#C3D9FF;
 }
 
 .cbg-RPContainer { 
-    border-color:					#E0ECFF;
+    border-color:					#C3D9FF;
 }
-
-.gwt-TabBar .gwt-TabBarItem-selected {
-    background-color:				#E0ECFF;
-}
-
-.gwt-TabBar .gwt-TabBarItem {
-    background-color:				#E0ECFF;
-}
-
-
-.cbg-Button, .gwt-HTML, .gwt-Label, .gwt-Tree .gwt-TreeItem, .gwt-SuggestBoxPopup .item, hupa-LoginForm, .hupa-IMAPMessageWidget-Header-Content, .hupa-ToolTip, .hupa-IMAPFolder, .gwt-ListBox, .gwt-HyperLink, .gwt-TextBox{
-    font-size:						12px;
-	font-family: 					Arial, Helvetica, sans-serif;
-}
-
-.hupa-LoginForm {
-	font-size:						12px;
-	font-family: 					Verdana;
-}
+***/
 
 .hupa-ErrorLabel, .gwt-PagingOptions .errorMessage {
     color:           			   #FF0000;
-    font-size:						12px;
-	font-family: 					Arial, Helvetica, sans-serif;
 }
 
 .hupa-MailTableControl {
-    background-color:				#E0ECFF;	
+    background-color:				#C3D9FF;	
 }
 
 .hupa-validationErrorBorder {
@@ -106,7 +205,7 @@ div.hupa-flash {
 .hupa-IMAPMessageWidget-Header {
     border:							1pt solid silver;
     text-align:						left;
-    background-color:				#E0ECFF;
+    background-color:				#C3D9FF;
 }
 
 
@@ -116,16 +215,6 @@ div.hupa-flash {
     padding-bottom:					5px;
 }
 
-.hupa-Northpanel {
-    border-top:						1pt solid grey;
-    border-bottom:					1pt solid grey;
-    background-color:				#E0ECFF;
-}
-
-
-.hupa-Mailtable-row-notseen {
-    font-weight: 					bold;
-}
 
 .gwt-ScrollTable .dataTable td {
     border-top:    				  	1pt solid #EEEEEE;
@@ -133,7 +222,6 @@ div.hupa-flash {
     padding:					   	0px 10px 0px 10px;
     overflow:    			      	hidden;
     font-size:						12px;
-	font-family: 					Arial, Helvetica, sans-serif;
 	cursor:         			    pointer;
 }
 
@@ -150,7 +238,6 @@ div.hupa-flash {
     text-align: 				  	left;
 	vertical-align:  				top;
 	padding: 					  	0px 10px 0px 10px;
-	font-size:						12px;
 	cursor:	        		   		pointer;
 }
 
@@ -159,7 +246,7 @@ div.hupa-flash {
 }
 
 .hupa-IMAPFolder-selected {
-	background:	    			  	#E0ECFF;
+	background:	    			  	#C3D9FF;
 	width:						  	100%;	
 }
 
@@ -168,6 +255,6 @@ div.hupa-flash {
 }
 
 .hupa-editor { 
-	border: 2px solid #E0ECFF;
+	border: 2px solid #C3D9FF;
 }
 

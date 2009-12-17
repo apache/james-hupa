@@ -48,8 +48,6 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.gen2.table.client.AbstractColumnDefinition;
 import com.google.gwt.gen2.table.client.CachedTableModel;
 import com.google.gwt.gen2.table.client.CellRenderer;
@@ -73,10 +71,10 @@ import com.google.gwt.gen2.table.event.client.PageLoadHandler;
 import com.google.gwt.gen2.table.event.client.RowCountChangeEvent;
 import com.google.gwt.gen2.table.event.client.RowCountChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.ListBox;
@@ -141,6 +139,7 @@ public class IMAPMessageListView extends Composite implements Display{
             }
         });
         VerticalPanel vPanel = new VerticalPanel();
+        vPanel.setWidth("100%");
         mailTable = new DragRefetchPagingScrollTable<Message>(
                 cTableModel, dataTable, new FixedWidthFlexTable(),
                 createTableDefinitation(),controller,1);
@@ -182,27 +181,18 @@ public class IMAPMessageListView extends Composite implements Display{
             
         });
         
-        
         mailTable.getDataTable().setCellSpacing(0);
         mailTable.setSortPolicy(SortPolicy.DISABLED);
 
-        // This is only needed as workaround in pagingscrolltable
-        // See http://code.google.com/p/google-web-toolkit-incubator/wiki/PagingScrollTable
-        mailTable.setWidth(Window.getClientWidth() -200+"px");
         mailTable.setHeight("600px");
-        Window.addResizeHandler(new ResizeHandler() {
-
-            public void onResize(ResizeEvent event) {
-                mailTable.setWidth(Window.getClientWidth() -200+"px");
-            }
-            
-        });
+        mailTable.setWidth("100%");
         mailTable.fillWidth();
         
         options = new PagingOptions(mailTable, constants);
         
         HorizontalPanel buttonBar = new HorizontalPanel();
         buttonBar.setSpacing(5);
+        buttonBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
         
         ButtonBar navigatorBar = new ButtonBar();
         navigatorBar.add(newMailButton);

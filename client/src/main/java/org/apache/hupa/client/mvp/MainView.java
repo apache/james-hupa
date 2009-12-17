@@ -46,7 +46,7 @@ import org.apache.hupa.widgets.ui.EnableHyperlink;
 import org.apache.hupa.widgets.ui.HasEditable;
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.apache.hupa.widgets.ui.Loading;
-import org.cobogw.gwt.user.client.ui.RoundedPanel;
+import org.apache.hupa.widgets.ui.RndPanel;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.VetoDragException;
@@ -75,12 +75,12 @@ public class MainView extends Composite implements MainPresenter.Display {
     private DockPanel dockPanel;
     private VerticalPanel north;
     private HupaConstants constants;
-    private RoundedPanel west;
+    private RndPanel west;
     private IMAPTreeImages tImages = GWT.create(IMAPTreeImages.class);
     private Tree folderTree = new Tree(tImages, true);
   
     private Widget centerWidget;
-    private RoundedPanel center;
+    private RndPanel center;
     private IMAPMessageListView mListView;
     private HupaMessages messages;
     private VerticalPanel folderPanel = new VerticalPanel();
@@ -119,6 +119,7 @@ public class MainView extends Composite implements MainPresenter.Display {
 
         dockPanel.add(north, DockPanel.NORTH);
         dockPanel.add(west, DockPanel.WEST);
+        dockPanel.setCellWidth(west, "160px");
         dockPanel.add(center, DockPanel.CENTER);
         dockPanel.setCellHorizontalAlignment(north, DockPanel.ALIGN_RIGHT);
         dockPanel.setCellHorizontalAlignment(center, DockPanel.ALIGN_LEFT);
@@ -127,9 +128,9 @@ public class MainView extends Composite implements MainPresenter.Display {
     }
 
     private void createWest() {
-        west = new RoundedPanel(RoundedPanel.ALL, 1);
+        west = new RndPanel();
         west.add(folderTree);
-        west.setWidth("150px");
+        west.setWidth("158px");
 
         folderTree.setAnimationEnabled(true);
         folderPanel.setSpacing(5);
@@ -138,10 +139,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         folderButtonBar.add(newFolderButton);
         folderButtonBar.add(renameFolderButton);
         folderButtonBar.add(deleteFolderButton);
-        RoundedPanel buttonPanel = new RoundedPanel(RoundedPanel.ALL, 1);
-        buttonPanel.setBorder();
-        buttonPanel.add(folderButtonBar);
-        folderPanel.add(buttonPanel);
+        folderPanel.add(folderButtonBar);
         folderPanel.add(folderTree);
         panel.add(loader);
         confirmFolderDeleteBox.setText(messages.confirmDeleteFolder());
@@ -171,11 +169,11 @@ public class MainView extends Composite implements MainPresenter.Display {
     }
 
     private void createCenter() {
-        center = new RoundedPanel(RoundedPanel.ALL, 1);
-        center.setBorder();
+        center = new RndPanel();
         center.setWidth("100%");
-        center.add(mListView);
-
+        // FIXME: 
+        if (mListView != null)
+            center.add(mListView);
     }
 
 

@@ -34,9 +34,6 @@ import org.apache.hupa.widgets.ui.Loading;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHTML;
@@ -75,15 +72,7 @@ public class MessageSendView extends Composite implements
         sendButton = new EnableButton(constants.sendButton());
         backButton = new EnableHyperlink(constants.backButton(),"");
         final VerticalPanel mPanel = new VerticalPanel();
-        mPanel.setWidth(Window.getClientWidth() -200 +"px");
-        
-        Window.addResizeHandler(new ResizeHandler() {
-
-            public void onResize(ResizeEvent event) {
-                mPanel.setWidth(Window.getClientWidth() -200+"px");
-            }
-            
-        });
+        mPanel.setWidth("100%");
         mPanel.setSpacing(5);
 
         detailGrid.setWidth("100%");
@@ -99,49 +88,20 @@ public class MessageSendView extends Composite implements
         detailGrid.setWidget(2, 1, cc);
         detailGrid.setWidget(3, 1, bcc);
         detailGrid.setWidget(4, 1, subject);
-        detailGrid.getCellFormatter().setHorizontalAlignment(0, 0, HorizontalPanel.ALIGN_RIGHT);
-        detailGrid.getCellFormatter().setHorizontalAlignment(1, 0, HorizontalPanel.ALIGN_RIGHT);
-        detailGrid.getCellFormatter().setHorizontalAlignment(2, 0, HorizontalPanel.ALIGN_RIGHT);
-        detailGrid.getCellFormatter().setHorizontalAlignment(3, 0, HorizontalPanel.ALIGN_RIGHT);
-        detailGrid.getCellFormatter().setHorizontalAlignment(4, 0, HorizontalPanel.ALIGN_RIGHT);
-        detailGrid.getCellFormatter().setHorizontalAlignment(5, 0, HorizontalPanel.ALIGN_RIGHT);
+        
+        detailGrid.getCellFormatter().setStyleName(0,0,"label");
+        detailGrid.getCellFormatter().setStyleName(0,1,"value");
+        detailGrid.getCellFormatter().setStyleName(1,0,"label");
+        detailGrid.getCellFormatter().setStyleName(1,1,"value");
+        detailGrid.getCellFormatter().setStyleName(2,0,"label");
+        detailGrid.getCellFormatter().setStyleName(2,1,"value");
+        detailGrid.getCellFormatter().setStyleName(3,0,"label");
+        detailGrid.getCellFormatter().setStyleName(3,1,"value");
+        detailGrid.getCellFormatter().setStyleName(4,0,"label");
+        detailGrid.getCellFormatter().setStyleName(4,1,"value");
+        detailGrid.getCellFormatter().setStyleName(5,0,"label");
+        detailGrid.getCellFormatter().setStyleName(5,1,"value");
 
-        detailGrid.getCellFormatter().setStyleName(0, 0,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(0, 1,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(1, 0,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(1, 1,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(2, 0,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(2, 1,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(3, 0,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(3, 1,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(4, 0,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(4, 1,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(5, 0,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(5, 1,
-                "hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setVerticalAlignment(0, 0,
-                VerticalPanel.ALIGN_MIDDLE);
-        detailGrid.getCellFormatter().setVerticalAlignment(1, 0,
-                VerticalPanel.ALIGN_MIDDLE);
-        detailGrid.getCellFormatter().setVerticalAlignment(2, 0,
-                VerticalPanel.ALIGN_MIDDLE);
-        detailGrid.getCellFormatter().setVerticalAlignment(3, 0,
-                VerticalPanel.ALIGN_MIDDLE);
-        detailGrid.getCellFormatter().setVerticalAlignment(4, 0,
-                VerticalPanel.ALIGN_MIDDLE);
-        detailGrid.getCellFormatter().setVerticalAlignment(5, 0,
-                VerticalPanel.ALIGN_TOP);
         detailGrid.getCellFormatter().setWidth(0, 0, "100px");
         detailGrid.getCellFormatter().setWidth(1, 0, "100px");
         detailGrid.getCellFormatter().setWidth(2, 0, "100px");
@@ -174,6 +134,8 @@ public class MessageSendView extends Composite implements
 
         mPanel.add(editor);
         initWidget(mPanel);
+        
+
 
     }
 

@@ -38,10 +38,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
@@ -89,15 +86,7 @@ public class IMAPMessageView extends Composite implements Display{
         showRawButton = new Hyperlink(constants.rawButton(),"");
         backButton = new Hyperlink(constants.backButton(),"");
         final VerticalPanel mPanel = new VerticalPanel();
-        mPanel.setWidth(Window.getClientWidth() -200 +"px");
-        
-        Window.addResizeHandler(new ResizeHandler() {
-
-            public void onResize(ResizeEvent event) {
-                mPanel.setWidth(Window.getClientWidth() -200+"px");
-            }
-            
-        });
+        mPanel.setWidth("100%");
         mPanel.setSpacing(5);
 
         detailGrid.setWidth("100%");
@@ -113,22 +102,16 @@ public class IMAPMessageView extends Composite implements Display{
         detailGrid.setWidget(3, 1, subject);
         detailGrid.setWidget(4, 1, attachments);
         
-        detailGrid.getCellFormatter().setHorizontalAlignment(0, 0, HorizontalPanel.ALIGN_RIGHT);
-        detailGrid.getCellFormatter().setHorizontalAlignment(1, 0, HorizontalPanel.ALIGN_RIGHT);
-        detailGrid.getCellFormatter().setHorizontalAlignment(2, 0, HorizontalPanel.ALIGN_RIGHT);
-        detailGrid.getCellFormatter().setHorizontalAlignment(3, 0, HorizontalPanel.ALIGN_RIGHT);
-        detailGrid.getCellFormatter().setHorizontalAlignment(4, 0, HorizontalPanel.ALIGN_RIGHT);
-        
-        detailGrid.getCellFormatter().setStyleName(0,0,"hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(0,1,"hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(1,0,"hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(1,1,"hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(2,0,"hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(2,1,"hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(3,0,"hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(3,1,"hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(4,0,"hupa-IMAPMessageWidget-Header-Content");
-        detailGrid.getCellFormatter().setStyleName(4,1,"hupa-IMAPMessageWidget-Header-Content");
+        detailGrid.getCellFormatter().setStyleName(0,0,"label");
+        detailGrid.getCellFormatter().setStyleName(0,1,"value");
+        detailGrid.getCellFormatter().setStyleName(1,0,"label");
+        detailGrid.getCellFormatter().setStyleName(1,1,"value");
+        detailGrid.getCellFormatter().setStyleName(2,0,"label");
+        detailGrid.getCellFormatter().setStyleName(2,1,"value");
+        detailGrid.getCellFormatter().setStyleName(3,0,"label");
+        detailGrid.getCellFormatter().setStyleName(3,1,"value");
+        detailGrid.getCellFormatter().setStyleName(4,0,"label");
+        detailGrid.getCellFormatter().setStyleName(4,1,"value");
 
         detailGrid.getCellFormatter().setVerticalAlignment(0, 0, VerticalPanel.ALIGN_MIDDLE);
         detailGrid.getCellFormatter().setVerticalAlignment(1, 0, VerticalPanel.ALIGN_MIDDLE);
@@ -153,7 +136,6 @@ public class IMAPMessageView extends Composite implements Display{
         buttonPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
         buttonPanel.addStyleName("hupa-IMAPMessageWidget-ButtonBar");
 
-        
         container.setWidget(showRawButton);
         
         ButtonBar buttonBar = new ButtonBar();

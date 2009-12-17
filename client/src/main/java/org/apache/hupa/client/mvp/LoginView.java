@@ -19,19 +19,20 @@
 
 package org.apache.hupa.client.mvp;
 
+import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.widgets.ui.Loading;
+import org.apache.hupa.widgets.ui.RndPanel;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
-import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -55,63 +56,42 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
 
     @Inject
     public LoginView(HupaConstants constants) {
+        
+        VerticalPanel mainContainer = new VerticalPanel();
+        RndPanel rPanel = new RndPanel();
+        FlexTable formPanel = new FlexTable();
+        ButtonBar buttonBar = new ButtonBar();
         loginButton = new Button(constants.loginButton());
         resetButton = new Button(constants.resetButton());  
         loading = new Loading(constants.loading());
-        VerticalPanel vPanel = new VerticalPanel();
-        vPanel.setSpacing(5);
-        vPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-        vPanel.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
-
-        VerticalPanel formPanel = new VerticalPanel();
-        formPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-        formPanel.setSpacing(5);
-        Grid grid = new Grid(3, 2);
-        grid.setStyleName("hupa-LoginForm");
-        grid.setText(0, 0, constants.usernameLabel());
-        grid.setWidget(0, 1, usernameTextBox);
-        grid.setText(1, 0, constants.passwordLabel());
-        grid.setWidget(1, 1, passwordTextBox);
-        grid.getCellFormatter().setStyleName(0, 0, "hupa-LoginForm");
-        grid.getCellFormatter().setStyleName(0, 1, "hupa-LoginForm");
-        grid.getCellFormatter().setStyleName(1, 0, "hupa-LoginForm");
-        grid.getCellFormatter().setStyleName(1, 1, "hupa-LoginForm");
-        grid.getCellFormatter().setStyleName(1, 0, "hupa-LoginForm");
-        grid.getCellFormatter().setHorizontalAlignment(0,0, VerticalPanel.ALIGN_RIGHT);
-        grid.getCellFormatter().setHorizontalAlignment(1,0, VerticalPanel.ALIGN_RIGHT);
-
-        usernameTextBox.addKeyUpHandler(this);
-        usernameTextBox.setFocus(true);
         
-        passwordTextBox.addKeyUpHandler(this);
-
-        formPanel.add(grid);
-        formPanel.add(loading);
-        loading.hide();
+        mainContainer.setStyleName(HupaCSS.C_login_container);
+        formPanel.addStyleName(HupaCSS.C_login_form);
+        usernameTextBox.addStyleName(HupaCSS.C_login_box);
+        passwordTextBox.addStyleName(HupaCSS.C_login_box);
         
-        ButtonBar buttonBar = new ButtonBar();
-
         buttonBar.add(loginButton);
         buttonBar.add(resetButton);
 
-        loginButton.setEnabled(false);
-       
-        formPanel.add(buttonBar);
-        
-        RoundedPanel rPanel = new RoundedPanel(RoundedPanel.ALL,1);
-        rPanel.setBorder();
-        rPanel.add(formPanel);
-        vPanel.add(rPanel);
-        vPanel.add(loading);
-        initWidget(vPanel);
-        
-        // TODO: move width to style sheet to be customizable
-        vPanel.setWidth("100%");
-        rPanel.setWidth("400px");
-        usernameTextBox.setWidth("250px");
-        passwordTextBox.setWidth("250px");
-    }
+        formPanel.setText(0, 0, constants.usernameLabel());
+        formPanel.setWidget(0, 1, usernameTextBox);
+        formPanel.setText(1, 0, constants.passwordLabel());
+        formPanel.setWidget(1, 1, passwordTextBox);
+        formPanel.getFlexCellFormatter().setColSpan(2, 0, 2);
+        formPanel.setWidget(2, 0, buttonBar);
 
+        rPanel.add(formPanel);
+        mainContainer.add(rPanel);
+        mainContainer.add(loading);
+        initWidget(mainContainer);
+        
+        usernameTextBox.addKeyUpHandler(this);
+        usernameTextBox.setFocus(true);
+        passwordTextBox.addKeyUpHandler(this);
+
+        loginButton.setEnabled(false);
+        loading.hide();
+    }
 
     /*
      * (non-Javadoc)
@@ -140,7 +120,6 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
         
     }
  
-
     /*
      * (non-Javadoc)
      * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getLoginClick()
@@ -203,6 +182,15 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
             loading.hide();
 
         }
+    }
+    
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.Composite#onAttach()
+     */
+    @Override
+    public void onAttach() {
+       super.onAttach();
+       usernameTextBox.setFocus(true);
     }
 
 }

@@ -1,5 +1,5 @@
 /****************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one   *
+  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
  * distributed with this work for additional information        *
  * regarding copyright ownership.  The ASF licenses this file   *
@@ -17,40 +17,41 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.widgets.ui;
+package org.apache.hupa.widgets.ui.impl;
 
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Panel;
 
 /**
- * Widget which shows a Loading state
+ * Simple generator of rounded panels using css.
+ * It works in FF, safari, chrome and opera.
+ * 
+ * It is needed to define this in your css.
+ * <pre>
+ *  div.hupa-rounded {
+ *       border: 1px solid #7FAAFF 
+ *       -moz-border-radius: 8px;
+ *       -webkit-border-radius: 6px;
+ *     }
+ * </pre>
  *
  */
-public class Loading extends Composite {
-    
-    public static final String C_loading = "hupa-loading";
+public class RndPanelGeneratorImpl implements RndPanelGenerator {
 
-    public Loading(String loadingMsg) {
-        initWidget(new HTML(loadingMsg));
-        addStyleName(C_loading);
-    }
-    
-    public Loading() {
-        this("");
-    }
-    
-    /**
-     * Show the Loading image
-     */
-    public void show() {
-        setVisible(true);
-    }
-    
-    /**
-     * Hide the Loading image
-     */
-    public void hide() {
-        setVisible(false);
+    public static String C_hupa_rnd_container = "hupa-rounded";
+
+    public Panel roundPanel(Panel panel) {
+        panel.addStyleName(C_hupa_rnd_container);
+        return panel;
     }
 
+    public FlowPanel createPanel() {
+        return new FlowPanel() {
+            @Override
+            public void setStyleName(String style) {
+                super.setStyleName(style);
+                super.addStyleName(C_hupa_rnd_container);
+            }
+        };
+    }
 }

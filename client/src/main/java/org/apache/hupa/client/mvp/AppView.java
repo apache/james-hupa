@@ -22,18 +22,18 @@ package org.apache.hupa.client.mvp;
 import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.shared.events.ServerStatusEvent.ServerStatus;
+import org.apache.hupa.widgets.ui.RndPanel;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -44,13 +44,16 @@ import com.google.inject.Inject;
  */
 public class AppView extends Composite implements AppPresenter.Display {
     
+    private FlowPanel appContainer = new FlowPanel();
     
-    private DockPanel appContainer = new DockPanel();
-    
-    private HTML logoContainer = new HTML(""); 
+    private HTML logoContainer = new HTML(" "); 
+
+    private RndPanel topWrapper = new RndPanel();
+    private SimplePanel topContainer = new SimplePanel();
     private HorizontalPanel buttonContainer = new HorizontalPanel();
     private HorizontalPanel infoContainer = new HorizontalPanel();
-    private SimplePanel centralContainer = new SimplePanel();
+    
+    private RndPanel centralContainer = new RndPanel();
 
     private HorizontalPanel loginInfoPanel = new HorizontalPanel();
     private Label loginLabel = new Label();
@@ -58,26 +61,36 @@ public class AppView extends Composite implements AppPresenter.Display {
     private Hyperlink mainButton = new Hyperlink();
     private Hyperlink contactsButton = new Hyperlink();
     private Hyperlink logoutButton = new Hyperlink();
-    
     private Label appnameLabel = new Label();
-    private Label messageLabel = new Label();
+    
+    private RndPanel flashContainer = new RndPanel();
+    private Label flashLabel = new Label();
     private Label extraLabel = new Label();
+    
+    private FlowPanel bottomContainer = new FlowPanel();
+    private HTML footLabel = new HTML();
     
     @Inject
     public AppView(HupaConstants constants) {
 
         // add class names
-        appContainer.setStyleName(HupaCSS.C_main_container);
+        appContainer.addStyleName(HupaCSS.C_app_container);
         logoContainer.addStyleName(HupaCSS.C_logo_container);
-        buttonContainer.setStyleName(HupaCSS.C_button_container);
-        infoContainer.setStyleName(HupaCSS.C_info_container);
-        loginLabel.addStyleName(HupaCSS.C_login_label);
-        loginUserLabel.addStyleName(HupaCSS.C_login_username);
+        topContainer.addStyleName(HupaCSS.C_top_container);
+        centralContainer.addStyleName(HupaCSS.C_main_container);
+        bottomContainer.addStyleName(HupaCSS.C_bottom_container);
+        
+        topWrapper.addStyleName(HupaCSS.C_top_container + "-wrap");
+        buttonContainer.addStyleName(HupaCSS.C_button_container);
+        infoContainer.addStyleName(HupaCSS.C_info_container);
+        loginInfoPanel.addStyleName(HupaCSS.C_login_info_container);
+        loginLabel.addStyleName(HupaCSS.C_login_info_label);
+        loginUserLabel.addStyleName(HupaCSS.C_login_info_user);
         logoutButton.addStyleName(HupaCSS.C_menu_button);
         contactsButton.addStyleName(HupaCSS.C_menu_button);
         mainButton.addStyleName(HupaCSS.C_menu_button);
-        appnameLabel.setStyleName(HupaCSS.C_header);
-        messageLabel.setStyleName(HupaCSS.C_flash);
+        appnameLabel.addStyleName(HupaCSS.C_header);
+        flashContainer.addStyleName(HupaCSS.C_flash);
         
         // internationalize elements
         logoutButton.setText(constants.logoutButton());
@@ -85,35 +98,33 @@ public class AppView extends Composite implements AppPresenter.Display {
         appnameLabel.setText(constants.productName());
         contactsButton.setText(constants.contactsTab());
         mainButton.setText(constants.mailTab());
+        footLabel.setHTML(constants.footer());
         
         // Layout containers and panels
-        buttonContainer.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-        buttonContainer.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
         buttonContainer.add(loginInfoPanel);
         loginInfoPanel.add(loginLabel);
         loginInfoPanel.add(loginUserLabel);
         buttonContainer.add(contactsButton);
         buttonContainer.add(mainButton);
         buttonContainer.add(logoutButton);
+        buttonContainer.setCellWidth(loginInfoPanel, "100%");
         
-        infoContainer.setHorizontalAlignment(VerticalPanel.ALIGN_LEFT);
-        infoContainer.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
         infoContainer.add(appnameLabel);
-        infoContainer.add(messageLabel);
         infoContainer.add(extraLabel);
         
-        appContainer.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-        appContainer.setVerticalAlignment(VerticalPanel.ALIGN_MIDDLE);
-        appContainer.add(centralContainer, DockPanel.SOUTH);
-        appContainer.add(logoContainer, DockPanel.WEST);
-        appContainer.add(buttonContainer, DockPanel.NORTH);
-        appContainer.add(infoContainer, DockPanel.CENTER);
-
-        // Move all buttons to the right
-        buttonContainer.setCellWidth(loginInfoPanel,"100%");
-        // Make logo's width configurable in css.
-        appContainer.setCellWidth(buttonContainer,"100%");
+        topWrapper.add(buttonContainer);
+        topWrapper.add(infoContainer);
+        topWrapper.add(flashContainer);
+        topContainer.add(topWrapper);
         
+        flashContainer.add(flashLabel);
+        
+        bottomContainer.add(footLabel);
+        
+        appContainer.add(logoContainer);
+        appContainer.add(topContainer);
+        appContainer.add(centralContainer);
+        appContainer.add(bottomContainer);
         initWidget(appContainer);
         
         showTopNavigation(false);
@@ -163,6 +174,7 @@ public class AppView extends Composite implements AppPresenter.Display {
      * @see net.customware.gwt.presenter.client.widget.WidgetContainerDisplay#addWidget(com.google.gwt.user.client.ui.Widget)
      */
     public void addWidget(Widget widget) {
+        widget.addStyleName(HupaCSS.C_main_container);
         centralContainer.setWidget(widget);
     }
 
@@ -203,17 +215,16 @@ public class AppView extends Composite implements AppPresenter.Display {
      * @see org.apache.hupa.client.mvp.AppPresenter.Display#showMessage(java.lang.String, int)
      */
     public void showMessage(String message, int millisecs) {
-        messageLabel.setText(message);
-        messageLabel.setVisible(true);
+        flashLabel.setText(message);
+        flashContainer.setVisible(true);
         if (millisecs > 0)
             hideMessage.schedule(millisecs);
     }
     
     private final Timer hideMessage = new Timer() {
         public void run() {
-            //TODO: toggle effect
-            messageLabel.setVisible(false);
-            messageLabel.setText("");
+            flashContainer.setVisible(false);
+            flashLabel.setText("");
         }
     };
 

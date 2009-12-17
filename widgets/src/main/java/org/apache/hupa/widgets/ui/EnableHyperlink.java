@@ -35,6 +35,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
  *
  */
 public class EnableHyperlink extends Composite implements HasClickHandlers,HasHTML,HasText, HasEnable{
+    
+    public static final String C_hyperlink = "hupa-hyperlink";
     private SimplePanel panel = new SimplePanel();
     private Hyperlink link;
     private HTML html;
@@ -44,8 +46,13 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
     }
     
     public EnableHyperlink(String text, boolean asHTML, String historyToken) {
+        
         link = new Hyperlink(text,asHTML,historyToken);
         html = new HTML();
+        
+        panel.setStyleName(C_hyperlink);
+        html.setStyleName(link.getStyleName());
+        
         if (asHTML) {
             html.setHTML(text);
         } else {

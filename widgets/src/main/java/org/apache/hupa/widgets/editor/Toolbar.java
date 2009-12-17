@@ -39,6 +39,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PushButton;
@@ -237,6 +238,16 @@ public class Toolbar extends Composite {
             richText.addKeyUpHandler(handler);
             richText.addClickHandler(handler);
         }
+        
+        outer.setWidth("100%");
+        
+        HTML topEmtyCell = new HTML("");
+        topPanel.add(topEmtyCell);
+        topPanel.setCellWidth(topEmtyCell, "100%");
+
+        HTML bottomEmtyCell = new HTML("");
+        bottomPanel.add(bottomEmtyCell);
+        bottomPanel.setCellWidth(bottomEmtyCell, "100%");
     }
 
     private ListBox createColorList(String caption) {

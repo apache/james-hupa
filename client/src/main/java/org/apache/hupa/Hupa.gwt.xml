@@ -3,21 +3,11 @@
 <module rename-to='hupa'>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
-  
-  
   <inherits name="com.google.gwt.i18n.I18N"/> 
-  
+  <!-- Hupa modules -->  
   <inherits name='org.apache.hupa.Shared'/> 
   <inherits name='org.apache.hupa.Widgets'/> 
-  
-  <!-- Inherit the default GWT style sheet.  You can change       -->
-  <!-- the theme of your GWT application by uncommenting          -->
-  <!-- any one of the following lines.                            -->
-  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
-  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
-  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
-
-  <!-- Other module inherits                                      -->
+  <!-- Other stuff -->
   <inherits name='org.cobogw.gwt.user.User' />   
   <inherits name='com.google.gwt.widgetideas.WidgetIdeas'/>
   <inherits name='com.google.gwt.gen2.commonwidget.CommonWidget' />
@@ -28,8 +18,16 @@
   <inherits name="com.google.gwt.inject.Inject"/>
   <inherits name="gwtupload.GWTUpload"/>
   <inherits name="eu.maydu.gwt.validation.ValidationLibrary"/>
-  <!-- Inherit gwt-dnd support                   -->
   <inherits name='com.allen_sauer.gwt.dnd.gwt-dnd'/>
+  
+  <!-- Inherit the default GWT style sheet.  You can change       -->
+  <!-- the theme of your GWT application by uncommenting          -->
+  <!-- any one of the following lines.                            -->
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+  <stylesheet src="../Hupa.css"/>
+  <stylesheet src="Upload.css"/>
   
   <source path="client"/>
   
@@ -47,7 +45,7 @@
         This modification has been sent to gwt, if it were accepted and included
         in the original I18N.gwt.xml, this code could be removed.
         see: http://code.google.com/p/google-web-toolkit/issues/detail?id=4228
-  -->
+    -->
     <property-provider name="locale">
     <![CDATA[
       try {

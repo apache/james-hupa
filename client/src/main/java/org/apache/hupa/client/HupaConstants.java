@@ -115,4 +115,7 @@ public interface HupaConstants extends Constants, UploaderConstants, PagingOptio
     public String mailTab();
     
     public String welcome();
+    
+    public String footer();
+    
 }

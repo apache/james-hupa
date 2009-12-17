@@ -9,35 +9,41 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
-    <!--                                                               -->
-    <!-- Consider inlining CSS to reduce the number of requested files -->
-    <!--                                                               -->
-    <link type="text/css" rel="stylesheet" href="Hupa.css">
-
-    <!--                                           -->
-    <!-- Any title is fine                         -->
-    <!--                                           -->
-    <title>Hupa</title>
+    <title>Hupa webmail</title>
     
-    <!--                                           -->
-    <!-- This script loads your compiled module.   -->
-    <!-- If you add any GWT meta tags, they must   -->
-    <!-- be added before this line.                -->
-    <!--                                           -->
+    <!-- define loading style early -->
+    <style type="text/css">
+		div.loading {
+		    width: 100%; 
+		    height: 100%; 
+		    background-color: #d8ecfd;
+		}
+		.loading img {
+		    position: absolute;
+		    top: 50%;
+		    left: 50%;
+		}
+    </style>
   </head>
 
-  <!--                                           -->
-  <!-- The body can have arbitrary html, or      -->
-  <!-- you can leave the body empty if you want  -->
-  <!-- to create a completely dynamic UI.        -->
-  <!--                                           -->
-  <body oncontextmenu="return false;">
-    <div id="loading" align="center">
-    <br><br><br></br><img src="images/hupa-spinning.gif"></div>
-    <!-- OPTIONAL: include this if you want history support -->
-    <iframe src="javascript:''"  id="__gwt_historyFrame" style="width:0;height:0;border:0"></iframe>    
+  <!-- Add this to disable right menu in some browsers: -->
+  <!--    oncontextmenu="return false;"                 -->
+  <body>
+  
+    <!-- An image is shown while the application is loaded -->
+    <!-- It will be removed as soon as the app is ready    -->
+    <div id="loading" class="loading">
+     <img src="images/hupa-spinning.gif">
+    </div>
+    
+    <!-- Necessary for history support -->
+    <iframe src="javascript:''"  id="__gwt_historyFrame" style="width:0;height:0;border:0"></iframe>
+    
+    <!-- Download attachments needs this -->
     <iframe src="" id="__download" style="width:0;height:0;border:0"></iframe> 
   </body>
-      <script type="text/javascript" language="javascript" src="hupa/hupa.nocache.js"></script>  
+
+  <!--  load the application at the end when loading is being shown -->
+  <script type="text/javascript" language="javascript" src="hupa/hupa.nocache.js"></script>
+    
 </html>

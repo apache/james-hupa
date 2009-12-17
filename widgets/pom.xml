@@ -42,5 +42,9 @@
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-incubator</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.cobogw.gwt</groupId>
+			<artifactId>cobogw</artifactId>
+		</dependency>
 	</dependencies>
 </project>

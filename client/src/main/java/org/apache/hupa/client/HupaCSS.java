@@ -25,17 +25,26 @@ package org.apache.hupa.client;
  */
 public class HupaCSS {
     
-    public static final String C_main_container ="Hupa";
+    public static final String C_app_container ="Hupa";
 
     public static final String C_logo_container ="hupa-logo";
     
     public static final String C_button_container ="hupa-button-bar";
-    public static final String C_login_label = "hupa-login-label";
-    public static final String C_login_username = "hupa-login-user";
+    public static final String C_login_info_container = "hupa-loginfo";
+    public static final String C_login_info_label = "hupa-loginfo-label";
+    public static final String C_login_info_user = "hupa-loginfo-user";
     public static final String C_menu_button = "hupa-menu-button";
     
     public static final String C_info_container ="hupa-info-bar";
     public static final String C_header ="hupa-header";
     public static final String C_flash ="hupa-flash";
+
+    public static final String C_top_container ="hupa-top";
+    public static final String C_main_container ="hupa-main";
+    public static final String C_bottom_container ="hupa-bottom";
+    
+    public static final String C_login_container = "hupa-login";
+    public static final String C_login_form = "hupa-login-form";
+    public static final String C_login_box = "hupa-login-textbox";
 
 }
