@@ -180,7 +180,6 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
         }
         
         public void validate() throws MessagingException {
-            store.idle();
             validUntil = System.currentTimeMillis() + validForMillis;
         }
         
