@@ -387,6 +387,8 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
             public void onSelection(SelectionEvent<TreeItem> event) {
                 tItem = (IMAPTreeItem) event.getSelectedItem();
+                if (tItem.isEdit()) 
+                    return;
                 folder = (IMAPFolder) tItem.getUserObject();
                 eventBus.fireEvent(new LoadMessagesEvent(user, folder));
             }
@@ -397,6 +399,8 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
             public void onSelection(SelectionEvent<TreeItem> event) {
                 tItem = (IMAPTreeItem) event.getSelectedItem();
+                if (tItem.isEdit()) 
+                    return;
                 folder = (IMAPFolder) tItem.getUserObject();
                 if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
                     display.getDeleteEnable().setEnabled(false);

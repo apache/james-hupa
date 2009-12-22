@@ -180,14 +180,4 @@ public class IMAPFolder implements Serializable {
         return getFullName().hashCode();
     }
     
-    public static IMAPFolder from(IMAPFolder folder) {
-        IMAPFolder newFolder = new IMAPFolder();
-        newFolder.setChildIMAPFolders(folder.getChildIMAPFolders());
-        newFolder.setDelimiter(folder.getDelimiter());
-        newFolder.setFullName(folder.getFullName());
-        newFolder.setMessageCount(folder.getMessageCount());
-        newFolder.setUnseenMessageCount(folder.getMessageCount());
-        return newFolder;
-    }
-
 }

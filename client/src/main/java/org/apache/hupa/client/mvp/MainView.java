@@ -454,6 +454,7 @@ public class MainView extends Composite implements MainPresenter.Display {
                 } else if (event.getEventType().equals(EditEvent.EventType.Stop)) {
                     // Select the new created folder and fire an event
                     folderTree.setSelectedItem(newItem, true);
+                    bindDropController(newItem);
                 }
 
             }
@@ -468,7 +469,7 @@ public class MainView extends Composite implements MainPresenter.Display {
 
         // reset the text of the new item (remove the whitespace)
         newItem.setText("");
-
+        
         return newItem;
     }
 

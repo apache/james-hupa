@@ -129,10 +129,10 @@ public class EditableTreeItem extends TreeItem implements HasEditable,HasEditHan
      * @param value
      */
     protected void showEditBox(String value) {
+        super.setWidget(editBox);
         editBox.setText(value);
         editBox.setCursorPos(value.length());
         editBox.setFocus(true);
-        super.setWidget(editBox);
     }
     
 
