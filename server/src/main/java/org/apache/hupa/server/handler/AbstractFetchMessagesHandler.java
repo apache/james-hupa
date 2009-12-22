@@ -125,7 +125,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                 try {
                     from = MimeUtility.decodeText(from);
                 } catch (UnsupportedEncodingException e) {
-                    logger.debug("Unable to decode from " + from, e);
+                    logger.debug("Unable to decode from " + from + " " + e.getMessage());
                 }
             }
             msg.setFrom(from);
@@ -136,7 +136,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                 try {
                     replyto = MimeUtility.decodeText(replyto);
                 } catch (UnsupportedEncodingException e) {
-                    logger.debug("Unable to decode replyto " + replyto, e);
+                    logger.debug("Unable to decode replyto " + replyto + " " + e.getMessage());
                 }
             }
             msg.setReplyto(replyto);
@@ -157,7 +157,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                 try {
                     subject = MimeUtility.decodeText(subject);
                 } catch (UnsupportedEncodingException e) {
-                    logger.debug("Unable to decode subject " + subject, e);
+                    logger.debug("Unable to decode subject " + subject + " " + e.getMessage());
                 }
             }
             msg.setSubject(subject);
