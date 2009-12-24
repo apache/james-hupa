@@ -58,7 +58,6 @@ import com.google.inject.Inject;
 public class IMAPMessageView extends Composite implements Display{
     
     private HupaImageBundle imageBundle;
-    //private HupaConstants constants = GWT.create(HupaConstants.class);
     private Grid detailGrid = new Grid(5, 2);
     private Label from = new Label();
     private Label cc = new Label();

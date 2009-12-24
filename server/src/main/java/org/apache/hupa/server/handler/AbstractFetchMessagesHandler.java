@@ -190,8 +190,12 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             msg.setUid(folder.getUID(m));
             msg.setFlags(iFlags);
             msg.setTags(tags);
-            msg.setHasAttachments(hasAttachment(m));
-            
+            try {
+                msg.setHasAttachments(hasAttachment(m));
+            } catch (MessagingException e) {
+                logger.debug("Unable to identify attachments in message UID:" + msg.getUid() + " subject:" + msg.getSubject() + " cause:" + e.getMessage());
+                logger.info("");
+            }
             mList.add(0, msg);
             
         }

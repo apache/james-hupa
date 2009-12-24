@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.mvp;
 
+import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 
 import com.google.gwt.user.client.ui.Composite;
@@ -34,8 +35,7 @@ public class ContactsView extends Composite implements ContactsPresenter.Display
     @Inject
     public ContactsView(HupaConstants constants) {
         this.constants = constants;
-        panel.setWidth("100%");
-        panel.setHeight("100");
+        panel.addStyleName(HupaCSS.C_contacts_container);
         panel.add(new HTML("<center><h1>Contacts view: comming soon<h1></center>"));
         initWidget(panel);
     }

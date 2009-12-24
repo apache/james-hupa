@@ -1,31 +1,44 @@
 
-/************ Fonts *******************/
+/************[ Fonts ]***************************/
 body, table td, select, * {
-    font-family: arial, sans-serif, helvetica, verdana;
+    font-family:  arial, 'comic sans ms', sans-serif, helvetica, verdana;
     font-size: 12px;
 }
 
-/************ widget: RndPanel *******************/
+/************[ widget: RndPanel ]****************/
 .hupa-rounded {
    border: 1px solid #7FAAFF; 
    -moz-border-radius: 5px;
    -webkit-border-radius: 4px;
 }
 
-/************ widget: EnableHyperLink *******************/
+/************[ widget: Loading ]*************************************/
+div.hupa-loading {
+	background: url(images/ajax-loader.gif) no-repeat;
+	padding-left: 25px;
+	width: 100px;
+    white-space: nowrap;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    vertical-align: top;
+}
+
+/************[ widget: EnableHyperLink ]*********/
 .hupa-hyperlink {
 }
 div.gwt-Hyperlink {
 	padding-left: 4px;
 }
 
-/************ view: AppView *******************/
+/************[ view: AppView ]*******************/
 div.Hupa {
 	text-align: left;
 	margin-top: 0px;
 	padding: 0px;
 	width: 100%;
-	min-width: 685px;
+	min-width: 920px;
 }
 * html div.Hupa {
    margin-top: 15px;
@@ -81,10 +94,7 @@ div.hupa-header {
 div.hupa-main {
 	clear: both;
 	margin: 8px 8px 8px 8px;
-}
-
-div.cgb-RPC-hupa-main {
-    min-height: 500px;
+	min-height: 500px;
 }
 
 * html div.cgb-RPC-hupa-main {
@@ -117,7 +127,7 @@ div.hupa-flash {
 div.hupa-bottom {
 	text-align: center;
 }
-/************ view: LoginView *******************/
+/************[ view: LoginView ]*******************/
 table.hupa-login {
     /*margin: 30px auto auto auto; */
     text-align: right;
@@ -142,7 +152,46 @@ table.hupa-login-form {
 	margin-left: 5px;
 }
 
-/************ view: IMAPMessageListView *******************/
+/************[ view: IMAPMessageListView ]*******************/
+.hupa-msglist, .hupa-msg-top-bar, .hupa-msg-bottom-bar, .hupa-msgtable {
+	width: 100%;
+}
+.hupa-msg-top-bar {
+	padding: 10px 4px 10px 4px;
+    background-color: #C3D9FF;	
+}
+.hupa-msg-bottom-bar {
+    padding: 5px 4px 5px 4px;
+    background-color: #deeeff;  
+}
+
+.hupa-msgtable-row {
+    text-align: 				  	left;
+	vertical-align:  				top;
+	padding: 					  	0px 10px 0px 10px;
+	cursor:	        		   		pointer;
+}
+.hupa-msgtable-unseen {
+    font-weight: bold;
+}
+
+.hupa-msgtable-empty {
+    font-weight: bold;
+	text-align: center;
+	padding: 20px;
+}
+.hupa-search-box {
+	width: 150px;
+}
+
+.hupa-buttons td {
+	padding: 2px;
+}
+.hupa-buttons div {
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
 .gwt-ListBox, .gwt-SuggestBox {
     background-color:  #d8ecfd;
     border: 1px solid #7FAAFF;
@@ -152,18 +201,9 @@ table.hupa-login-form {
     font-size: 10px;
 }
 
-/************ widget: Loading *******************/
-div.hupa-loading {
-	background: url(images/ajax-loader.gif) no-repeat;
-	padding-left: 25px;
-	width: 100px;
-    white-space: nowrap;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-}
 
-/************ view: MessageSendView IMAPMessageView *******************/
+
+/************[ view: MessageSendView IMAPMessageView ]*******************/
 /* re-factor unfinished */
 .hupa-IMAPMessageWidget-Header td.label {
 	width: 175px;
@@ -172,30 +212,14 @@ div.hupa-loading {
 	padding-right: 5px;
 }
 
+/************************************************************************/
 /*** Non re-factored stuff ***/
-.hupa-Mailtable-row-notseen {
-    font-weight: 					bold;
-}
-
 .cbg-ButtonContent {
 	font-size: 80%;
 }
-/*** 
-.cbg-RP { 
-    background-color:				#C3D9FF;
-}
-
-.cbg-RPContainer { 
-    border-color:					#C3D9FF;
-}
-***/
 
 .hupa-ErrorLabel, .gwt-PagingOptions .errorMessage {
     color:           			   #FF0000;
-}
-
-.hupa-MailTableControl {
-    background-color:				#C3D9FF;	
 }
 
 .hupa-validationErrorBorder {
@@ -234,16 +258,6 @@ div.hupa-loading {
     background:       				#FFF7D7;
 }
 
-.hupa-Mailtable-row {
-    text-align: 				  	left;
-	vertical-align:  				top;
-	padding: 					  	0px 10px 0px 10px;
-	cursor:	        		   		pointer;
-}
-
-.hupa-Mailtable-cell-date {
-	text-align: 				  	right;
-}
 
 .hupa-IMAPFolder-selected {
 	background:	    			  	#C3D9FF;

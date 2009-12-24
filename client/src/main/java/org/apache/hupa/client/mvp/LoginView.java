@@ -51,9 +51,6 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
     private TextBox usernameTextBox = new TextBox();
     private PasswordTextBox passwordTextBox = new PasswordTextBox();
     private Loading loading;
-    private int minUsernameLength = 1;
-    private int minPasswordLength = 1;
-
     @Inject
     public LoginView(HupaConstants constants) {
         
@@ -89,10 +86,9 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
         usernameTextBox.setFocus(true);
         passwordTextBox.addKeyUpHandler(this);
 
-        loginButton.setEnabled(false);
         loading.hide();
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -101,23 +97,13 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
      * .dom.client.KeyUpEvent)
      */
     public void onKeyUp(KeyUpEvent event) {
-        if (usernameTextBox.getText().length() >= minUsernameLength
-                && passwordTextBox.getText().length() >= minPasswordLength) {
-            loginButton.setEnabled(true);
-        } else {
-            loginButton.setEnabled(false);
-        }
-        
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
             if (event.getSource().equals(usernameTextBox)) {
                 passwordTextBox.setFocus(true);
             }  else if (event.getSource().equals(passwordTextBox)) {
-                if (loginButton.isEnabled()) {
-                    loginButton.click();
-                }
+                loginButton.click();
             }
         }
-        
     }
  
     /*

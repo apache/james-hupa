@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.bundles.HupaImageBundle;
@@ -74,7 +75,6 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.ListBox;
@@ -89,11 +89,13 @@ import com.google.inject.Inject;
 @SuppressWarnings("deprecation")
 public class IMAPMessageListView extends Composite implements Display{
 
+    private static final int DEFAULT_MSG_PAGE_SIZE = 25;
+    
     @SuppressWarnings("unused")
     private HupaMessages messages;
     private HupaImageBundle imageBundle;
 
-    private PagingOptions options;
+    private PagingOptions pagingBar;
     private DragRefetchPagingScrollTable<Message> mailTable;
     private CachedTableModel<Message> cTableModel;
 
@@ -138,8 +140,9 @@ public class IMAPMessageListView extends Composite implements Display{
                 cTableModel.setRowCount(event.getNewRowCount());
             }
         });
-        VerticalPanel vPanel = new VerticalPanel();
-        vPanel.setWidth("100%");
+        
+        VerticalPanel msgListContainer = new VerticalPanel();
+        msgListContainer.addStyleName(HupaCSS.C_msg_list_container);
         mailTable = new DragRefetchPagingScrollTable<Message>(
                 cTableModel, dataTable, new FixedWidthFlexTable(),
                 createTableDefinitation(),controller,1);
@@ -153,46 +156,26 @@ public class IMAPMessageListView extends Composite implements Display{
         });
         
         HTML emptyTable = new HTML(constants.emptyMailTable());
-        emptyTable.setHorizontalAlignment(HTML.ALIGN_CENTER);
-        emptyTable.setHeight("600px");
+        emptyTable.addStyleName(HupaCSS.C_msg_table_empty);
         mailTable.setEmptyTableWidget(emptyTable);
         FixedWidthGridBulkRenderer<Message> bulkRenderer = new FixedWidthGridBulkRenderer<Message>(mailTable.getDataTable(),mailTable);
         mailTable.setBulkRenderer(bulkRenderer);
-        
+        mailTable.addStyleName(HupaCSS.C_msg_table);
         mailTable.setCellPadding(0);
         mailTable.setResizePolicy(ResizePolicy.FILL_WIDTH);
         mailTable.setColumnResizePolicy(ColumnResizePolicy.MULTI_CELL);
         mailTable.setScrollPolicy(ScrollPolicy.DISABLED);
-        mailTable.addPageLoadHandler(new PageLoadHandler() {
-
-            public void onPageLoad(PageLoadEvent event) {
-                for (int i = 0; i < mailTable.getDataTable().getRowCount(); i++) {
-                    mailTable.getDataTable().getRowFormatter().setStyleName(i,"hupa-Mailtable-row");
-                    Message msg = mailTable.getRowValue(i);
-                    if (msg != null) {
-                        if (msg.getFlags().contains(IMAPFlag.SEEN) == false) {
-                            mailTable.getDataTable().getRowFormatter().addStyleName(i,"hupa-Mailtable-row-notseen");
-                        } else {
-                            mailTable.getDataTable().getRowFormatter().removeStyleName(i,"hupa-Mailtable-row-notseen");
-                        }
-                    }
-                }
-            }
-            
-        });
-        
+        mailTable.addPageLoadHandler(onMessagePageLoadHandler);
+        mailTable.setPageSize(DEFAULT_MSG_PAGE_SIZE);
         mailTable.getDataTable().setCellSpacing(0);
         mailTable.setSortPolicy(SortPolicy.DISABLED);
 
-        mailTable.setHeight("600px");
-        mailTable.setWidth("100%");
         mailTable.fillWidth();
         
-        options = new PagingOptions(mailTable, constants);
+        pagingBar = new PagingOptions(mailTable, constants, expandLoading);
         
         HorizontalPanel buttonBar = new HorizontalPanel();
-        buttonBar.setSpacing(5);
-        buttonBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+        buttonBar.addStyleName(HupaCSS.C_buttons);
         
         ButtonBar navigatorBar = new ButtonBar();
         navigatorBar.add(newMailButton);
@@ -206,25 +189,24 @@ public class IMAPMessageListView extends Composite implements Display{
         markButtonBar.add(markUnSeenButton);
         buttonBar.add(markButtonBar);
         buttonBar.add(refreshLink);
-        pageBox.addItem("20");
-        pageBox.addItem("50");
-        pageBox.addItem("100");
+        pageBox.addItem("" + DEFAULT_MSG_PAGE_SIZE);
+        pageBox.addItem("" + (DEFAULT_MSG_PAGE_SIZE * 2));
+        pageBox.addItem("" + (DEFAULT_MSG_PAGE_SIZE * 4));
         pageBox.addChangeHandler(new ChangeHandler() {
-
             public void onChange(ChangeEvent event) {
-                mailTable.setPageSize(Integer.parseInt(pageBox.getItemText(pageBox.getSelectedIndex())));
+                System.out.println(pageBox.getSelectedIndex());
+                if (pageBox.getSelectedIndex() > 0)
+                    mailTable.setPageSize(Integer.parseInt(pageBox.getItemText(pageBox.getSelectedIndex())));
             }
-            
         });
       
         
         HorizontalPanel searchPanel = new HorizontalPanel();
-        searchPanel.setSpacing(5);
-        searchPanel.setVerticalAlignment(HorizontalPanel.ALIGN_MIDDLE);
+        searchPanel.addStyleName(HupaCSS.C_buttons);
 
+        searchBox.addStyleName(HupaCSS.C_msg_search);
         searchBox.setAnimationEnabled(true);
         searchBox.setAutoSelectEnabled(false);
-        searchBox.setWidth("150px");
         searchBox.setLimit(20);
         searchBox.addKeyUpHandler(new KeyUpHandler() {
 
@@ -237,43 +219,66 @@ public class IMAPMessageListView extends Composite implements Display{
         });
         searchPanel.add(searchBox);
         searchPanel.add(searchButton);
+        searchPanel.add(pageBox);
 
         HorizontalPanel hPanel = new HorizontalPanel();
-        hPanel.setStyleName("hupa-MailTableControl");
-        hPanel.setSpacing(10);
+        hPanel.addStyleName(HupaCSS.C_msg_top_bar);
         hPanel.add(buttonBar);
         hPanel.add(searchPanel);
-        hPanel.add(pageBox);
         hPanel.setCellHorizontalAlignment(searchPanel, HorizontalPanel.ALIGN_RIGHT);        
-        hPanel.setCellHorizontalAlignment(pageBox, HorizontalPanel.ALIGN_RIGHT);        
-        hPanel.setCellVerticalAlignment(pageBox, HorizontalPanel.ALIGN_MIDDLE);        
 
-        hPanel.setWidth("100%");
-        hPanel.setHeight("100%");
-        vPanel.add(hPanel);
+        msgListContainer.add(hPanel);
         
         HorizontalPanel barPanel = new HorizontalPanel();
-        HorizontalPanel bar = new HorizontalPanel();
-        bar.setSpacing(3);
-        bar.add(new HTML(constants.select() +":"));
-        bar.add(allLink);
-        bar.add(noneLink);
-
+        barPanel.addStyleName(HupaCSS.C_msg_bottom_bar);
         
-        barPanel.add(bar);
-        barPanel.setCellHorizontalAlignment(bar, HorizontalPanel.ALIGN_LEFT);
+        HorizontalPanel selectionBar = new HorizontalPanel();
+        selectionBar.setSpacing(3);
+        selectionBar.add(new HTML(constants.select() +":"));
+        selectionBar.add(allLink);
+        selectionBar.add(noneLink);
+        barPanel.add(selectionBar);
+        barPanel.setCellHorizontalAlignment(selectionBar, HorizontalPanel.ALIGN_LEFT);
+        
         barPanel.add(expandLoading);
-
-        barPanel.add(options);
-        barPanel.setCellHorizontalAlignment(options, HorizontalPanel.ALIGN_RIGHT);
-        barPanel.setWidth("100%");
-        vPanel.add(barPanel);
-        //vPanel.add(bar);
-        vPanel.add(mailTable);
+        barPanel.setCellHorizontalAlignment(expandLoading, HorizontalPanel.ALIGN_CENTER);
+        
+        barPanel.add(pagingBar);
+        barPanel.setCellHorizontalAlignment(pagingBar, HorizontalPanel.ALIGN_RIGHT);
+        
+        msgListContainer.add(barPanel);
+        msgListContainer.add(mailTable);
+        
         confirmBox.setText(messages.confirmDeleteMessages());
         confirmDeleteAllBox.setText(messages.confirmDeleteAllMessages());
-        initWidget(vPanel);
+        initWidget(msgListContainer);
     }
+    
+    
+    PageLoadHandler onMessagePageLoadHandler = new PageLoadHandler() {
+
+        public void onPageLoad(PageLoadEvent event) {
+
+            for (int i = 0; i < mailTable.getDataTable().getRowCount(); i++) {
+                mailTable.getDataTable().getRowFormatter().setStyleName(i, HupaCSS.C_msg_table_row);
+                Message msg = mailTable.getRowValue(i);
+                if (msg != null) {
+                    if (msg.getFlags().contains(IMAPFlag.SEEN) == false) {
+                        mailTable.getDataTable().getRowFormatter().addStyleName(i,HupaCSS.C_msg_table_unseen);
+                    } else {
+                        mailTable.getDataTable().getRowFormatter().removeStyleName(i, HupaCSS.C_msg_table_seen);
+                    }
+                }
+            }
+            
+            String nrows = String.valueOf(mailTable.getPageSize());
+            for (int i = 0; i<pageBox.getItemCount(); i++) {
+                if (nrows.equals(pageBox.getItemText(i)))
+                    pageBox.setSelectedIndex(i);
+            }
+        }
+        
+    };
     
     private DefaultTableDefinition<Message> createTableDefinitation() {
         DefaultTableDefinition<Message> def = new DefaultTableDefinition<Message>(createColumnDefinitionList());
@@ -751,20 +756,6 @@ public class IMAPMessageListView extends Composite implements Display{
         return pageBox.getSelectedIndex();
     }
     
-    /*
-     * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#setRowsPerPageIndex(int)
-     */
-    public void setRowsPerPageIndex(int index) {
-        if (pageBox.getItemCount() >= index) {
-            if (index != pageBox.getSelectedIndex()) {
-                pageBox.setSelectedIndex(index);
-                mailTable.setPageSize(Integer.parseInt(pageBox.getItemText(index)));
-            }
-        }             
-        
-    }
-
     /*
      * (non-Javadoc)
      * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getRowsPerPageChange()

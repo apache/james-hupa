@@ -66,7 +66,6 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
         } catch (NumberFormatException e) {
             // ignore
         }
-        presenter.getDisplay().setRowsPerPageIndex(rowsPerPageIndex);
 
         String searchValue = request.getParameter(SEARCH, "");
         presenter.getDisplay().getSearchValue().setValue(searchValue);

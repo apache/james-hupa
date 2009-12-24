@@ -46,5 +46,20 @@ public class HupaCSS {
     public static final String C_login_container = "hupa-login";
     public static final String C_login_form = "hupa-login-form";
     public static final String C_login_box = "hupa-login-textbox";
+    
+    public static final String C_contacts_container = "hupa-contacts";
 
+    public static final String C_msg_list_container = "hupa-msglist";
+    public static final String C_msg_table = "hupa-msgtable";
+    public static final String C_msg_table_empty = "hupa-msgtable-empty";
+    public static final String C_msg_table_row = "hupa-msgtable-row";
+    public static final String C_msg_table_seen = "hupa-msgtable-seen";
+    public static final String C_msg_table_unseen = "hupa-msgtable-unseen";
+    public static final String C_msg_search = "hupa-search-box";
+
+    public static final String C_msg_top_bar = "hupa-msg-top-bar";
+    public static final String C_msg_bottom_bar = "hupa-msg-bottom-bar";
+    
+    public static final String C_buttons = "hupa-buttons";
+    
 }

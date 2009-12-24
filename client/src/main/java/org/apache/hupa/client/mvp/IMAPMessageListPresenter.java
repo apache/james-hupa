@@ -109,7 +109,6 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         public void goToPage(int page);
         public int getCurrentPage();
         public int getRowsPerPageIndex();
-        public void setRowsPerPageIndex(int index);
         public HasChangeHandlers getRowsPerPageChange();     
         public HasClickHandlers getSearchClick();
         public HasValue<String> getSearchValue();

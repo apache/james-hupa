@@ -52,10 +52,11 @@ public class PagingOptions extends Composite {
     private EnableHyperlink nextLink;
     private Label text = new Label();
     private int currentPage = 1;
-    private Loading loading = new Loading();
+    private Loading loading = null;
     private SimplePanel panel = new SimplePanel();
     
-    public PagingOptions(final PagingScrollTable<?> table, PagingOptionsConstants constants) {
+    public PagingOptions(final PagingScrollTable<?> table, PagingOptionsConstants constants, Loading loading) {
+        this.loading = loading;
         firstLink = new EnableHyperlink("<< " + constants.pageFirst(),"");
         prevLink = new EnableHyperlink("< " + constants.pagePrev(),"");
         lastLink = new EnableHyperlink(constants.pageLast() + " >>","");
@@ -67,7 +68,6 @@ public class PagingOptions extends Composite {
         pagingPanel.add(prevLink);
         pagingPanel.add(nextLink);
         pagingPanel.add(lastLink);
-        loading.hide();
         panel.setWidget(text);
         panel.setWidth("100px");
         pagingPanel.setCellHorizontalAlignment(panel, HorizontalPanel.ALIGN_CENTER);
@@ -184,14 +184,12 @@ public class PagingOptions extends Composite {
     
 
     protected void loading(boolean isLoading) {
-        if (isLoading) {
-            loading.show();
-            panel.setWidget(loading);
-        } else {
-            loading.hide();
-            panel.setWidget(text);
+        if (loading != null) {
+            if (isLoading)
+                loading.show();
+            else
+                loading.hide();
         }
-    
     }
     
     protected void updateControl(int startCount, int endCount, int rows) {
