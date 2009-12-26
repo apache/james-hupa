@@ -52,6 +52,10 @@ public class GetMessageDetailsHandlerTest extends HupaTestCase {
         res = getDetailsMsgHndl.txtDocumentToHtml("", "aFolder", 9999l);
         assertTrue(res.length()==0);
         
+        msg = "...<atag>...";
+        res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
+        assertNotSame(msg, res);
+        assertEquals("...&lt;atag&gt;...", res);
     }
 
     public void testFilterHtmlDocument() throws Exception {

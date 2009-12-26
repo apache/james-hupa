@@ -432,6 +432,10 @@ public class MainView extends Composite implements MainPresenter.Display {
      */
     public HasEditable createFolder(EditHandler handler) {
         final IMAPTreeItem selected = (IMAPTreeItem) folderTree.getSelectedItem();
+        
+        if (selected.isEdit())
+            return null;
+        
         IMAPFolder oldFolder = (IMAPFolder) selected.getUserObject();
 
         // Generate a new folder with a whitespace as name, this is needed as
@@ -450,13 +454,14 @@ public class MainView extends Composite implements MainPresenter.Display {
                 if (event.getEventType().equals(EditEvent.EventType.Cancel)) {
                     // remove the folder
                     newItem.remove();
-                    folderTree.setSelectedItem(selected, false);
                 } else if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                    // Select the new created folder and fire an event
-                    folderTree.setSelectedItem(newItem, true);
+                    // add the new item to dnd controller 
                     bindDropController(newItem);
                 }
-
+                // In both cases, select the parent folder. 
+                // This avoid an issue in creating folder in gmail where the new 
+                // folder takes a while until it is available
+                folderTree.setSelectedItem(selected, false);
             }
 
         });

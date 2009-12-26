@@ -33,7 +33,7 @@ public class RegexPatterns {
     public static final String repl_lt = "&lt;";
     
     public static final Pattern regex_gt = Pattern.compile(">");
-    public static final String repl_gt = "&lt;";
+    public static final String repl_gt = "&gt;";
 
     public static final Pattern regex_nl = Pattern.compile("\n");
     public static final String repl_nl = "<br/>";

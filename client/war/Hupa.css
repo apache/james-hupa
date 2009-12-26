@@ -5,6 +5,18 @@ body, table td, select, * {
     font-size: 12px;
 }
 
+/************[ widget: MyDialogBox ]****************/
+.hupa-dialog-box td.dialogMiddleCenter  {
+	background: #fae5b0 !important;
+}
+.hupa-dialog-box .dialogContent .gwt-Label {
+	font-weight: bold;
+	margin: 15px;
+}
+.hupa-dialog-box .Caption {
+    font-size: 14px;
+}
+
 /************[ widget: RndPanel ]****************/
 .hupa-rounded {
    border: 1px solid #7FAAFF; 
@@ -129,7 +141,6 @@ div.hupa-bottom {
 }
 /************[ view: LoginView ]*******************/
 table.hupa-login {
-    /*margin: 30px auto auto auto; */
     text-align: right;
 	margin-left: auto;
 	margin-right: auto; 
@@ -141,7 +152,6 @@ table.hupa-login td {
 	padding-top: 6px;
 }
 table.hupa-login-form {
-	/*margin: 5px 10px 5px 10px;*/
 	padding: 10px;
 }
 

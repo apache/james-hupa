@@ -28,6 +28,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.rpc.client.ast.SetCommand;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -44,6 +45,7 @@ public class ConfirmDialogBox extends MyDialogBox implements HasClickHandlers {
         setModal(true);
         setAnimationEnabled(true);
         setAutoHideEnabled(false);
+        super.setText(constants.productName());
         panel.setSpacing(10);
         panel.add(text);
         bar.add(okButton);
