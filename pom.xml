@@ -58,6 +58,11 @@
 		<url>http://svn.apache.org/viewvc/james/hupa/trunk/</url>
 	</scm>
 
+        <ciManagement>
+            <system>Hudson</system>
+            <url>http://hudson.zones.apache.org/hudson/view/James/job/hupa-trunk/</url>
+        </ciManagement>
+
 	<repositories>
 		<repository>
 			<id>maven-repos</id>
