@@ -35,7 +35,7 @@ public class Editor extends VerticalPanel implements HasHTML {
         area.ensureDebugId("hupa-editor-area");
         // Note: rich-area is created in an iframe, so Hupa's style sheets 
         // are not available, unless we inject them to the generated iframe
-        area.setSize("100%", "20em");
+        area.setSize("100%", "200em");
         
         Toolbar toolbar = new Toolbar(area);
         toolbar.ensureDebugId("hupa-editor-toolbar");

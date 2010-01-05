@@ -19,6 +19,8 @@
 
 package org.apache.hupa.widgets.ui;
 
+import org.apache.hupa.widgets.WidgetsCSS;
+
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 
@@ -28,11 +30,9 @@ import com.google.gwt.user.client.ui.HTML;
  */
 public class Loading extends Composite {
     
-    public static final String C_loading = "hupa-loading";
-
     public Loading(String loadingMsg) {
         initWidget(new HTML(loadingMsg));
-        addStyleName(C_loading);
+        addStyleName(WidgetsCSS.C_loading);
     }
     
     public Loading() {

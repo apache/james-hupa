@@ -29,6 +29,7 @@ import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
 import org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display;
+import org.apache.hupa.client.widgets.CommandsBar;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable;
 import org.apache.hupa.client.widgets.EnableButton;
@@ -115,7 +116,7 @@ public class IMAPMessageListView extends Composite implements Display{
     private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
     private SuggestBox searchBox = new SuggestBox(oracle);
     private Button searchButton;
-    private Loading expandLoading;
+    private Loading loading;
     
     @Inject
     public IMAPMessageListView(final PagingScrollTableRowDragController controller, final MessageTableModel mTableModel, final HupaConstants constants, final HupaMessages messages, final HupaImageBundle imageBundle) {
@@ -131,7 +132,7 @@ public class IMAPMessageListView extends Composite implements Display{
         noneLink = new Hyperlink(constants.none(),"");
         refreshLink = new Hyperlink(constants.refresh(),"");
         searchButton = new Button(constants.searchButton());
-        expandLoading = new Loading(constants.loading());
+        loading = new Loading(constants.loading());
         this.cTableModel = new CachedTableModel<Message>(mTableModel);
         cTableModel.setRowCount(MutableTableModel.UNKNOWN_ROW_COUNT);
         mTableModel.addRowCountChangeHandler(new RowCountChangeHandler() {
@@ -172,7 +173,7 @@ public class IMAPMessageListView extends Composite implements Display{
 
         mailTable.fillWidth();
         
-        pagingBar = new PagingOptions(mailTable, constants, expandLoading);
+        pagingBar = new PagingOptions(mailTable, constants, loading);
         
         HorizontalPanel buttonBar = new HorizontalPanel();
         buttonBar.addStyleName(HupaCSS.C_buttons);
@@ -229,24 +230,14 @@ public class IMAPMessageListView extends Composite implements Display{
 
         msgListContainer.add(hPanel);
         
-        HorizontalPanel barPanel = new HorizontalPanel();
-        barPanel.addStyleName(HupaCSS.C_msg_bottom_bar);
+        CommandsBar commandsBar = new CommandsBar();
+        commandsBar.addLeft(new HTML(constants.select() +":"));
+        commandsBar.addLeft(allLink);
+        commandsBar.addLeft(noneLink);
+        commandsBar.add(loading);
+        commandsBar.addRight(pagingBar);
         
-        HorizontalPanel selectionBar = new HorizontalPanel();
-        selectionBar.setSpacing(3);
-        selectionBar.add(new HTML(constants.select() +":"));
-        selectionBar.add(allLink);
-        selectionBar.add(noneLink);
-        barPanel.add(selectionBar);
-        barPanel.setCellHorizontalAlignment(selectionBar, HorizontalPanel.ALIGN_LEFT);
-        
-        barPanel.add(expandLoading);
-        barPanel.setCellHorizontalAlignment(expandLoading, HorizontalPanel.ALIGN_CENTER);
-        
-        barPanel.add(pagingBar);
-        barPanel.setCellHorizontalAlignment(pagingBar, HorizontalPanel.ALIGN_RIGHT);
-        
-        msgListContainer.add(barPanel);
+        msgListContainer.add(commandsBar);
         msgListContainer.add(mailTable);
         
         confirmBox.setText(messages.confirmDeleteMessages());
@@ -801,9 +792,9 @@ public class IMAPMessageListView extends Composite implements Display{
 
     public void setExpandLoading(boolean expanding) {
         if (expanding) {
-            expandLoading.show();
+            loading.show();
         } else {
-            expandLoading.hide();
+            loading.hide();
         }
     }
 }

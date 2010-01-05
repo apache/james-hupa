@@ -69,9 +69,9 @@ import gwtupload.client.IUploader.OnStatusChangedHandler;
 
 /**
  * Presenter which handles the sending, reply, replay-all, forward of mails
- *
+ * 
  */
-public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.Display>{
+public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.Display> {
 
     private DispatchAsync dispatcher;
     private ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
@@ -86,7 +86,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
     private OnFinishUploaderHandler onFinishUploadHandler = new OnFinishUploaderHandler() {
         public void onFinish(IUploader uploader) {
             if (uploader.getStatus() == Status.SUCCESS) {
-                String name =  uploader.getInputName();
+                String name = uploader.getInputName();
                 MessageAttachment attachment = new MessageAttachment();
                 attachment.setName(name);
                 attachments.add(attachment);
@@ -94,7 +94,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
             }
         }
     };
-    
+
     private OnStatusChangedHandler onStatusChangedHandler = new OnStatusChangedHandler() {
         public void onStatusChanged(IUploader uploader) {
             Status stat = display.getUploader().getStatus();
@@ -107,39 +107,28 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 
     private OnCancelUploaderHandler onCancelUploadHandler = new OnCancelUploaderHandler() {
         public void onCancel(IUploader uploader) {
-            for (MessageAttachment attachment: attachments) {
+            for (MessageAttachment attachment : attachments) {
                 if (attachment.getName().equals(uploader.getInputName()))
                     attachments.remove(attachment);
             }
         }
     };
-    
+
     @Inject
     public MessageSendPresenter(Display display, EventBus eventBus, DispatchAsync dispatcher) {
         super(display, eventBus);
-        this.dispatcher = dispatcher;        
-        
+        this.dispatcher = dispatcher;
+
         FocusAction fAction = new FocusAction();
-        validator.addValidators("cc", new EmailListValidator(display.getCcText())
-                .addActionForFailure(
-                        new StyleAction("hupa-validationErrorBorder"))
-                .addActionForFailure(fAction));
-        validator.addValidators("bcc", new EmailListValidator(display.getBccText())
-                .addActionForFailure(
-                        new StyleAction("hupa-validationErrorBorder"))
-                .addActionForFailure(fAction));
-        validator.addValidators("to", new EmailListValidator(display.getToText())
-                .addActionForFailure(
-                        new StyleAction("hupa-validationErrorBorder"))
-                .addActionForFailure(fAction), new NotEmptyValidator(display.getToText())
-                .addActionForFailure(
-                        new StyleAction("hupa-validationErrorBorder"))
-                .addActionForFailure(fAction));
+        validator.addValidators("cc", new EmailListValidator(display.getCcText()).addActionForFailure(new StyleAction("hupa-validationErrorBorder")).addActionForFailure(fAction));
+        validator.addValidators("bcc", new EmailListValidator(display.getBccText()).addActionForFailure(new StyleAction("hupa-validationErrorBorder")).addActionForFailure(fAction));
+        validator.addValidators("to", new EmailListValidator(display.getToText()).addActionForFailure(new StyleAction("hupa-validationErrorBorder")).addActionForFailure(fAction),
+                new NotEmptyValidator(display.getToText()).addActionForFailure(new StyleAction("hupa-validationErrorBorder")).addActionForFailure(fAction));
     }
 
     /**
      * The Type for which the SendPresenter will get used
-     *
+     * 
      */
     public enum Type {
         /**
@@ -159,22 +148,33 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
          */
         FORWARD
     }
-    
+
     public interface Display extends WidgetDisplay {
         public HasText getFromText();
+
         public HasText getToText();
+
         public HasText getCcText();
+
         public HasText getBccText();
+
         public HasText getSubjectText();
+
         public HasHTML getMessageHTML();
+
         public HasClickHandlers getSendClick();
+
         public HasEnable getSendEnable();
+
         public IUploader getUploader();
-        public void resetUploader();
+
         public HasClickHandlers getBackButtonClick();
+        
+        public void refresh();
+
         public void setLoading(boolean loading);
     }
-    
+
     @Override
     protected void onBind() {
         registerHandler(eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
@@ -182,114 +182,119 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
             public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
                 reset();
             }
-            
+
         }));
         registerHandler(eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
 
             public void onFolderSelectionEvent(FolderSelectionEvent event) {
                 reset();
             }
-            
+
         }));
 
         registerHandler(display.getSendClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
-                
-                    if (validator.validate() == false) {
-                        return;
-                    }
-                    SMTPMessage message = new SMTPMessage();
-                                
-                    message.setFrom(display.getFromText().getText());
-                    
-                    ArrayList<String> to = new ArrayList<String>();
-                    String[] toRaw = display.getToText().getText().split("[,;]+");
-                    if (toRaw != null) {
-                        for (int i = 0; i < toRaw.length;i++) {
-                            String toRecip = toRaw[i].trim();
-                            if (toRecip.length() > 0) {
-                                to.add(toRaw[i].trim());
-                            }
+
+                if (validator.validate() == false) {
+                    return;
+                }
+                SMTPMessage message = new SMTPMessage();
+
+                message.setFrom(display.getFromText().getText());
+
+                ArrayList<String> to = new ArrayList<String>();
+                String[] toRaw = display.getToText().getText().split("[,;]+");
+                if (toRaw != null) {
+                    for (int i = 0; i < toRaw.length; i++) {
+                        String toRecip = toRaw[i].trim();
+                        if (toRecip.length() > 0) {
+                            to.add(toRaw[i].trim());
                         }
-                    }
-                    message.setTo(to);
-                    
-                    ArrayList<String> cc = new ArrayList<String>();
-                    String[] ccRaw = display.getCcText().getText().split("[,;]+");
-                    if (ccRaw != null) {
-                        for (int i = 0; i < ccRaw.length;i++) {
-                            String ccRecip = ccRaw[i].trim();
-                            if (ccRecip.length() > 0) {
-                                cc.add(ccRaw[i].trim());
-                            }
-                        }
-                    }
-                    message.setCc(cc);
-                    
-                    message.setSubject(display.getSubjectText().getText());
-                    message.setText(display.getMessageHTML().getHTML());
-
-                    message.setMessageAttachments(attachments);
-
-                    // TODO: good handling of error messages, and use an error widget instead of Window.alert
-                    
-                    if (type.equals(Type.NEW)) {
-                        display.setLoading(true);
-
-                        dispatcher.execute(new SendMessage(message), new HupaCallback<GenericResult>(dispatcher, eventBus) {
-                            public void callback(GenericResult result) {
-                                if (result.isSuccess()) {
-                                    eventBus.fireEvent(new SentMessageEvent());
-                                    reset();
-                                } else {
-                                    Window.alert(result.getMessage());
-                                }    
-                                display.setLoading(false);
-
-                            }
-                        });
-                    } else if(type.equals(Type.FORWARD)) {
-                        display.setLoading(true);
-
-                        dispatcher.execute(new ForwardMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
-                            public void callback(GenericResult result) {
-                                if (result.isSuccess()) {
-                                    eventBus.fireEvent(new SentMessageEvent());
-                                    reset();
-                                } else {
-                                    Window.alert(result.getMessage());
-                                }    
-                                display.setLoading(false);
-
-                            }
-                        });
-                    } else if(type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-                        display.setLoading(true);
-
-                        dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
-                            public void callback(GenericResult result) {
-                                if (result.isSuccess()) {
-                                    eventBus.fireEvent(new SentMessageEvent());
-                                    reset();
-                                } else {
-                                    Window.alert(result.getMessage());
-                                }    
-                                display.setLoading(false);
-                            }
-                        });
                     }
                 }
+                message.setTo(to);
+
+                ArrayList<String> cc = new ArrayList<String>();
+                String[] ccRaw = display.getCcText().getText().split("[,;]+");
+                if (ccRaw != null) {
+                    for (int i = 0; i < ccRaw.length; i++) {
+                        String ccRecip = ccRaw[i].trim();
+                        if (ccRecip.length() > 0) {
+                            cc.add(ccRaw[i].trim());
+                        }
+                    }
+                }
+                message.setCc(cc);
+
+                message.setSubject(display.getSubjectText().getText());
+                message.setText(display.getMessageHTML().getHTML());
+
+                message.setMessageAttachments(attachments);
+
+                // TODO: good handling of error messages, and use an error
+                // widget instead of Window.alert
+
+                if (type.equals(Type.NEW)) {
+                    display.setLoading(true);
+
+                    dispatcher.execute(new SendMessage(message), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+                        public void callback(GenericResult result) {
+                            if (result.isSuccess()) {
+                                eventBus.fireEvent(new SentMessageEvent());
+                                reset();
+                            } else {
+                                Window.alert(result.getMessage());
+                            }
+                            display.setLoading(false);
+
+                        }
+                    });
+                } else if (type.equals(Type.FORWARD)) {
+                    display.setLoading(true);
+
+                    dispatcher.execute(new ForwardMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+                        public void callback(GenericResult result) {
+                            if (result.isSuccess()) {
+                                eventBus.fireEvent(new SentMessageEvent());
+                                reset();
+                            } else {
+                                Window.alert(result.getMessage());
+                            }
+                            display.setLoading(false);
+
+                        }
+                    });
+                } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
+                    display.setLoading(true);
+
+                    dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+                        public void callback(GenericResult result) {
+                            if (result.isSuccess()) {
+                                eventBus.fireEvent(new SentMessageEvent());
+                                reset();
+                            } else {
+                                Window.alert(result.getMessage());
+                            }
+                            display.setLoading(false);
+                        }
+                    });
+                }
+            }
         }));
-        
+
         registerHandler(display.getBackButtonClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
                 eventBus.fireEvent(new BackEvent());
             }
-            
+
         }));
-        
+
+        display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler);
+        display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler);
+        display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler);
+
         reset();
     }
 
@@ -297,11 +302,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
      * Reset everything
      */
     private void reset() {
-        display.resetUploader();
-        display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler);
-        display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler);
-        display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler);
-        
+        display.getUploader().reset();
         display.getBccText().setText("");
         display.getCcText().setText("");
         display.getToText().setText("");
@@ -312,43 +313,43 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         type = Type.NEW;
     }
 
-   
-
     @Override
     protected void onUnbind() {
         // cancel the current upload when unbinding
         display.getUploader().cancel();
     }
-    
+
     /**
      * Bind the given values to this presenter
      * 
-     * @param user the user
-     * @param folder the currently selected folder
-     * @param oldmessage the oldmessage ( if there is any)
-     * @param oldDetails the olddetails ( if there are any)
-     * @param type the type 
+     * @param user
+     *            the user
+     * @param folder
+     *            the currently selected folder
+     * @param oldmessage
+     *            the oldmessage ( if there is any)
+     * @param oldDetails
+     *            the olddetails ( if there are any)
+     * @param type
+     *            the type
      */
     public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, String mailto, Type type) {
+
+        this.reset();
         this.oldmessage = oldmessage;
         this.oldDetails = oldDetails;
         this.folder = folder;
         this.type = type;
-       
+        
         display.getFromText().setText(user.getName());
-        display.getToText().setText("");
-        display.getCcText().setText("");
-        display.getBccText().setText("");
-        display.getSubjectText().setText("");
-        display.getMessageHTML().setHTML("");
 
         if (type.equals(Type.FORWARD)) {
-            if (! oldmessage.getSubject().toLowerCase().startsWith("fwd:"))
+            if (!oldmessage.getSubject().toLowerCase().startsWith("fwd:"))
                 display.getSubjectText().setText("Fwd: " + oldmessage.getSubject());
         } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-            if (! oldmessage.getSubject().toLowerCase().startsWith("re:"))
+            if (!oldmessage.getSubject().toLowerCase().startsWith("re:"))
                 display.getSubjectText().setText("Re: " + oldmessage.getSubject());
-            
+
             if (oldmessage.getReplyto() != null) {
                 display.getToText().setText(oldmessage.getReplyto());
             } else if (type.equals(Type.REPLY)) {
@@ -360,12 +361,16 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                 display.getToText().setText(Util.listToString(oldmessage.getTo()));
             }
         }
-        
+
         display.getMessageHTML().setHTML(wrapMessage(oldmessage, oldDetails, type));
-        
+
         if (mailto != null)
             display.getToText().setText(mailto);
+        
+        display.refresh();
+        
         firePresenterChangedEvent();
+        
         revealDisplay();
     }
 
@@ -376,26 +381,26 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
     public void revealDisplay(User user, String mailto) {
         revealDisplay(user, null, null, null, mailto, Type.NEW);
     }
-    
+
     /**
      * Bind the given user to the presenter
      * 
      * @param user
      */
     public void revealDisplay(User user) {
-        revealDisplay(user,null,null,null, null,Type.NEW);
+        revealDisplay(user, null, null, null, null, Type.NEW);
     }
 
     @Override
     protected void onRevealDisplay() {
         // DO Nothing
     }
-    
+
     private String generateHeader(Message message, Type type) {
         String ret = "<br><br>";
         if (type.equals(Type.FORWARD)) {
             ret += "--------- Forwarded message --------- <br>";
-            ret += "From: " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>"; 
+            ret += "From: " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>";
             ret += "Date: " + message.getReceivedDate() + "<br>";
             ret += "Subject: " + message.getSubject() + "<br>";
             ArrayList<String> to = new ArrayList<String>();
@@ -404,11 +409,12 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
             ret += "To: " + Util.listToString(to).replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>";
         } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
             ret += "On " + message.getReceivedDate();
-            ret += ", " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;"); 
+            ret += ", " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;");
             ret += ". wrote:<br>";
         }
         return ret + "<br>";
     }
+
     private String wrapMessage(Message message, MessageDetails details, Type type) {
         String ret;
         ret = "<font size=2 style='font-family: arial'>";
@@ -420,5 +426,4 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         return ret;
     }
 
-    
 }

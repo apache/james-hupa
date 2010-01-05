@@ -19,6 +19,8 @@
 
 package org.apache.hupa.widgets.ui.impl;
 
+import org.apache.hupa.widgets.WidgetsCSS;
+
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -38,10 +40,8 @@ import com.google.gwt.user.client.ui.Panel;
  */
 public class RndPanelGeneratorImpl implements RndPanelGenerator {
 
-    public static String C_hupa_rnd_container = "hupa-rounded";
-
     public Panel roundPanel(Panel panel) {
-        panel.addStyleName(C_hupa_rnd_container);
+        panel.addStyleName(WidgetsCSS.C_hupa_rnd_container);
         return panel;
     }
 
@@ -50,7 +50,7 @@ public class RndPanelGeneratorImpl implements RndPanelGenerator {
             @Override
             public void setStyleName(String style) {
                 super.setStyleName(style);
-                super.addStyleName(C_hupa_rnd_container);
+                super.addStyleName(WidgetsCSS.C_hupa_rnd_container);
             }
         };
     }

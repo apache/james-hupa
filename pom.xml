@@ -133,7 +133,7 @@
 	</pluginRepositories>
 
 	<properties>
-		<gwtVersion>1.7.0</gwtVersion>
+		<gwtVersion>2.0.0</gwtVersion>
 	</properties>
 
 	<build>
@@ -324,7 +324,7 @@
 			<dependency>
 				<groupId>gwtupload</groupId>
 				<artifactId>gwtupload</artifactId>
-				<version>0.5.3</version>
+				<version>0.5.6</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-fileupload</groupId>

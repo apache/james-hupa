@@ -24,8 +24,11 @@ import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
 import gwtupload.client.MultiUploader;
 
+import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.client.widgets.CommandsBar;
 import org.apache.hupa.client.widgets.EnableButton;
+import org.apache.hupa.client.widgets.MessageHeaders;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.widgets.editor.Editor;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
@@ -35,10 +38,8 @@ import org.apache.hupa.widgets.ui.Loading;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -50,93 +51,56 @@ import com.google.inject.Inject;
  * 
  *
  */
-public class MessageSendView extends Composite implements
-        MessageSendPresenter.Display {
-    private Grid detailGrid = new Grid(6, 3);
+public class MessageSendView extends Composite implements MessageSendPresenter.Display {
+
+    final VerticalPanel sendContainer = new VerticalPanel();
+    
+    private MessageHeaders headers;
+    
+    private Editor editor = new Editor();
+    private CommandsBar buttonsBar = new CommandsBar();
+    
     private Label from = new Label();
     private TextBox to = new TextBox();
     private TextBox cc = new TextBox();
     private TextBox bcc = new TextBox();
     private TextBox subject = new TextBox();
     private MultiUploader uploader = null;
-    private Editor editor = new Editor();
+    
     private EnableButton sendButton;
     private EnableHyperlink backButton;
-    private Loading sendProgress = new Loading();
-    private HupaConstants constants;
-   
+    private Loading loading;
+    
 
     @Inject
     public MessageSendView(HupaConstants constants) {
-        this.constants = constants;
+        
         sendButton = new EnableButton(constants.sendButton());
         backButton = new EnableHyperlink(constants.backButton(),"");
-        final VerticalPanel mPanel = new VerticalPanel();
-        mPanel.setWidth("100%");
-        mPanel.setSpacing(5);
-
-        detailGrid.setWidth("100%");
-        detailGrid.setStyleName("hupa-IMAPMessageWidget-Header");
-        detailGrid.setText(0, 0, constants.headerFrom() + ":");
-        detailGrid.setText(1, 0, constants.headerTo() + ":");
-        detailGrid.setText(2, 0, constants.headerCc() + ":");
-        detailGrid.setText(3, 0, constants.headerBcc() + ":");
-        detailGrid.setText(4, 0, constants.headerSubject() + ":");
-        detailGrid.setText(5, 0, constants.attachments() + ":");
-        detailGrid.setWidget(0, 1, from);
-        detailGrid.setWidget(1, 1, to);
-        detailGrid.setWidget(2, 1, cc);
-        detailGrid.setWidget(3, 1, bcc);
-        detailGrid.setWidget(4, 1, subject);
+        headers = new MessageHeaders(constants);
+        loading = new Loading(constants.loading());
         
-        detailGrid.getCellFormatter().setStyleName(0,0,"label");
-        detailGrid.getCellFormatter().setStyleName(0,1,"value");
-        detailGrid.getCellFormatter().setStyleName(1,0,"label");
-        detailGrid.getCellFormatter().setStyleName(1,1,"value");
-        detailGrid.getCellFormatter().setStyleName(2,0,"label");
-        detailGrid.getCellFormatter().setStyleName(2,1,"value");
-        detailGrid.getCellFormatter().setStyleName(3,0,"label");
-        detailGrid.getCellFormatter().setStyleName(3,1,"value");
-        detailGrid.getCellFormatter().setStyleName(4,0,"label");
-        detailGrid.getCellFormatter().setStyleName(4,1,"value");
-        detailGrid.getCellFormatter().setStyleName(5,0,"label");
-        detailGrid.getCellFormatter().setStyleName(5,1,"value");
-
-        detailGrid.getCellFormatter().setWidth(0, 0, "100px");
-        detailGrid.getCellFormatter().setWidth(1, 0, "100px");
-        detailGrid.getCellFormatter().setWidth(2, 0, "100px");
-        detailGrid.getCellFormatter().setWidth(3, 0, "100px");
-        detailGrid.getCellFormatter().setWidth(4, 0, "100px");
-        detailGrid.getCellFormatter().setWidth(5, 0, "100px");
-
-        from.setWidth("100%");
-        cc.setWidth("100%");
-        bcc.setWidth("100%");
-        to.setWidth("100%");
-
-        subject.setWidth("100%");
-
-        editor.setWidth("100%");
-        editor.setHeight("400px");
-
-        mPanel.add(detailGrid);
-
-        HorizontalPanel buttonBar = new HorizontalPanel();
-        buttonBar.addStyleName("hupa-IMAPMessageWidget-ButtonBar");
-        buttonBar.setWidth("100%");
-        buttonBar.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-        buttonBar.add(sendButton);
-        buttonBar.add(sendProgress);
-        buttonBar.add(backButton);
-        buttonBar.setCellHorizontalAlignment(backButton, HorizontalPanel.ALIGN_RIGHT);
-
-        mPanel.add(buttonBar);
-
-        mPanel.add(editor);
-        initWidget(mPanel);
+        BaseUploadStatus uploadStatus = new BaseUploadStatus();
+        uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
+        uploader = new MultiUploader(uploadStatus);
+        uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
+        uploader.avoidRepeatFiles(true);
+        uploader.setI18Constants(constants);        
         
+        sendContainer.addStyleName(HupaCSS.C_msgsend_container);
+        
+        buttonsBar.add(sendButton);
+        buttonsBar.add(loading);
+        buttonsBar.add(backButton);
+        
+        sendContainer.add(headers);
+        sendContainer.add(buttonsBar);
 
+        sendContainer.add(editor);
 
+        loading.hide();
+
+        initWidget(sendContainer);
     }
 
     /*
@@ -154,11 +118,11 @@ public class MessageSendView extends Composite implements
      */ 
     public void setLoading(boolean load) {
         if (load) {
-            sendProgress.show();
+            loading.show();
             sendButton.setEnabled(false);
             backButton.setEnabled(false);
         } else {
-            sendProgress.hide();
+            loading.hide();
             sendButton.setEnabled(true);
             backButton.setEnabled(true);
         }
@@ -229,22 +193,6 @@ public class MessageSendView extends Composite implements
         return uploader;
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.MessageSendPresenter.Display#resetUploader()
-     */
-    public void resetUploader() {
-        if (uploader != null && uploader.isAttached())
-            uploader.removeFromParent();
-        
-        BaseUploadStatus uploadStatus = new BaseUploadStatus();
-        uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
-        uploader = new MultiUploader(uploadStatus);
-        uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
-        uploader.avoidRepeatFiles(true);
-        uploader.setI18Constants(constants);        
-        
-        detailGrid.setWidget(5, 1, uploader);        
-    }
 
     /*
      * (non-Javadoc)
@@ -262,7 +210,18 @@ public class MessageSendView extends Composite implements
         return backButton;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.MessageSendPresenter.Display#getMessageHTML()
+     */
     public HasHTML getMessageHTML() {
         return editor;
     }
+    
+    /* (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.MessageSendPresenter.Display#refresh()
+     */
+    public void refresh() {
+        headers.setValues(from, to, cc, bcc, subject, uploader);
+    }
+
 }

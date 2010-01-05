@@ -19,11 +19,13 @@
 
 package org.apache.hupa.client;
 
+import org.apache.hupa.widgets.WidgetsCSS;
+
 
 /**
  * CSS class names used in Hupa
  */
-public class HupaCSS {
+public class HupaCSS extends WidgetsCSS {
     
     public static final String C_app_container ="Hupa";
 
@@ -58,8 +60,18 @@ public class HupaCSS {
     public static final String C_msg_search = "hupa-search-box";
 
     public static final String C_msg_top_bar = "hupa-msg-top-bar";
-    public static final String C_msg_bottom_bar = "hupa-msg-bottom-bar";
+    
+    public static final String C_commands_bar = "hupa-commands-bar";
+    
+    public static final String C_msgview_container = "hupa-msgview";
+    public static final String C_msgview_content = "hupa-msgview-content";
+
+    public static final String C_msgsend_container = "hupa-msgsend";
     
     public static final String C_buttons = "hupa-buttons";
+
+    public static final String C_msg_headers = "hupa-msg-headers";
+
+    public static final String C_dialog = "hupa-dialog-box";
     
 }

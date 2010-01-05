@@ -20,6 +20,8 @@
 package org.apache.hupa.widgets.ui;
 
 
+import org.apache.hupa.widgets.WidgetsCSS;
+
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -32,15 +34,24 @@ import com.google.gwt.user.client.ui.SimplePanel;
 
 /**
  * Hyperlink which can get enabled/disabled.
- *
+ * 
+ * CSS rules:
+ * <pre>
+    .hupa-hyperlink .gwt-Hyperlink {
+        color: #0d0eb0;
+        text-decoration: underline;
+        cursor: default; 
+    }
+    .hupa-hyperlink .gwt-Hyperlink-disabled {
+        color: #8d8d8d;
+    }
+ * </pre>
  */
 public class EnableHyperlink extends Composite implements HasClickHandlers,HasHTML,HasText, HasEnable{
     
-    public static final String C_hyperlink = "hupa-hyperlink";
     private SimplePanel panel = new SimplePanel();
     private Hyperlink link;
     private HTML html;
-    
     public EnableHyperlink(String text, String historyToken) {
         this(text,false,historyToken);
     }
@@ -50,8 +61,9 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
         link = new Hyperlink(text,asHTML,historyToken);
         html = new HTML();
         
-        panel.setStyleName(C_hyperlink);
+        panel.setStyleName(WidgetsCSS.C_hyperlink);
         html.setStyleName(link.getStyleName());
+        html.addStyleDependentName("disabled");
         
         if (asHTML) {
             html.setHTML(text);
@@ -59,11 +71,6 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
             html.setText(text);
         }
         
-        // mimic hyperlink 
-        html.getElement().getStyle().setProperty("textDecoration", "underline");
-        
-        // use color code to workaround for https://issues.apache.org/jira/browse/HUPA-27
-        html.getElement().getStyle().setProperty("color", "#8d8d8d");
         panel.setWidget(link);
         initWidget(panel);
     }

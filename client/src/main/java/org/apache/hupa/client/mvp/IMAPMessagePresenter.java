@@ -28,10 +28,7 @@ import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.HupaCallback;
-import org.apache.hupa.client.widgets.HasDialog;
-import org.apache.hupa.client.widgets.HasURL;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageAttachment;
@@ -48,30 +45,23 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.HasHTML;
-import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
 public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.Display>{
 
     public interface Display extends WidgetDisplay{
-        public HasText getFrom();
-
-        public HasText getTo();
-
-        public HasText getCc();
-
-        public HasText getSubject();
-        public HasURL getRawMessageURL();
-        public HasDialog getRawMessageDialog();
-        public HasHTML getContent();
+        
+        public void setHeaders(Message msg);
+        public void setAttachments(List<MessageAttachment> attachements, String folder,  long uid);
+        public void setContent(String content);
+        
         public HasClickHandlers getShowRawMessageClick();
         public HasClickHandlers getDeleteButtonClick();
         public HasClickHandlers getReplyButtonClick();
         public HasClickHandlers getReplyAllButtonClick();
         public HasClickHandlers getForwardButtonClick();
         public HasClickHandlers getBackButtonClick();
-        public void setAttachments(List<MessageAttachment> attachements, String folder,  long uid);
     }
 
     private MessageDetails messageDetails;
@@ -98,12 +88,9 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
     }
 
     private void updateDisplay() {
-        display.getFrom().setText(message.getFrom());
-        display.getCc().setText(Util.listToString(message.getCc()));
-        display.getTo().setText(Util.listToString(message.getTo()));
-        display.getSubject().setText(message.getSubject());
-        display.getContent().setHTML(messageDetails.getText());
         display.setAttachments(messageDetails.getMessageAttachments(), folder.getFullName(),message.getUid());
+        display.setHeaders(message);
+        display.setContent(messageDetails.getText());
     }
 
     @Override
@@ -158,9 +145,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
                 String message_url = GWT.getModuleBaseURL() + SConsts.SERVLET_SOURCE + 
                 "?" + SConsts.PARAM_UID + "=" + message.getUid() + 
                 "&" + SConsts.PARAM_FOLDER + "=" + folder.getFullName();
-                
-                display.getRawMessageURL().setUrl(message_url);
-                display.getRawMessageDialog().center();
+                Window.open(message_url, "_blank", "");
             }
             
         }));

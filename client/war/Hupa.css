@@ -29,6 +29,7 @@ div.hupa-loading {
 	background: url(images/ajax-loader.gif) no-repeat;
 	padding-left: 25px;
 	width: 100px;
+	height: 14px;
     white-space: nowrap;
     margin-top: 5px;
     margin-left: auto;
@@ -38,9 +39,15 @@ div.hupa-loading {
 }
 
 /************[ widget: EnableHyperLink ]*********/
-.hupa-hyperlink {
+.gwt-Hyperlink {
+	color: #0d0eb0;
+	text-decoration: underline;
+	cursor: pointer;
 }
-div.gwt-Hyperlink {
+.hupa-hyperlink .gwt-Hyperlink-disabled {
+	color: #8d8d8d;
+}
+div.gwt-Hyperlink, div.gwt-Anchor {
 	padding-left: 4px;
 }
 
@@ -93,9 +100,7 @@ div.hupa-loginfo-label, div.hupa-loginfo-user {
 	font-weight: bold;
 }
 .hupa-menu-button {
-	margin-right: 20px;
-	text-decoration: underline;
-	cursor: pointer;
+	margin-right: 15px;
 }
 div.hupa-header {
     color: #C5D9FF;
@@ -162,24 +167,27 @@ table.hupa-login-form {
 	margin-left: 5px;
 }
 
+/************[ widget: CommandsBar ]*********/
+.hupa-commands-bar {
+	width: 100%;
+    padding: 5px 4px 5px 4px;
+    background-color: #deeeff;  
+}
+
 /************[ view: IMAPMessageListView ]*******************/
-.hupa-msglist, .hupa-msg-top-bar, .hupa-msg-bottom-bar, .hupa-msgtable {
+.hupa-msglist, .hupa-msg-top-bar, .hupa-msgtable {
 	width: 100%;
 }
 .hupa-msg-top-bar {
 	padding: 10px 4px 10px 4px;
     background-color: #C3D9FF;	
 }
-.hupa-msg-bottom-bar {
-    padding: 5px 4px 5px 4px;
-    background-color: #deeeff;  
-}
 
 .hupa-msgtable-row {
-    text-align: 				  	left;
-	vertical-align:  				top;
-	padding: 					  	0px 10px 0px 10px;
-	cursor:	        		   		pointer;
+    text-align: left;
+	vertical-align: top;
+	padding: 0px 10px 0px 10px;
+	cursor: pointer;
 }
 .hupa-msgtable-unseen {
     font-weight: bold;
@@ -194,12 +202,12 @@ table.hupa-login-form {
 	width: 150px;
 }
 
-.hupa-buttons td {
-	padding: 2px;
-}
 .hupa-buttons div {
 	white-space: nowrap;
 	vertical-align: middle;
+}
+.hupa-buttons .gwt-Hyperlink {
+	padding-left: 6px;
 }
 
 .gwt-ListBox, .gwt-SuggestBox {
@@ -211,16 +219,30 @@ table.hupa-login-form {
     font-size: 10px;
 }
 
-
-
-/************[ view: MessageSendView IMAPMessageView ]*******************/
-/* re-factor unfinished */
-.hupa-IMAPMessageWidget-Header td.label {
+/************[ widget: MessageHeaders ]*******************/
+table.hupa-msg-headers {
+    background-color: #C3D9FF;
+}
+.hupa-msg-headers td.label {
 	width: 175px;
 	text-align: right;
 	font-weight: bold;
 	padding-right: 5px;
 }
+
+/************[ view: IMAPMessageView ]*******************/
+table.hupa-msgview {
+	width: 100%;
+}
+div.hupa-msgview-content {
+	padding: 20px;
+}
+
+/************[ view: MessageSendView ]*******************/
+table.hupa-msgsend {
+	width: 100%;
+}
+
 
 /************************************************************************/
 /*** Non re-factored stuff ***/
@@ -236,18 +258,7 @@ table.hupa-login-form {
 	border:							1pt solid red;
 }
 
-.hupa-IMAPMessageWidget-Header {
-    border:							1pt solid silver;
-    text-align:						left;
-    background-color:				#C3D9FF;
-}
 
-
-.hupa-IMAPMessageWidget-ButtonBar {
-    border-bottom:					1pt solid silver;
-    padding-left:					5px;
-    padding-bottom:					5px;
-}
 
 
 .gwt-ScrollTable .dataTable td {

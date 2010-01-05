@@ -21,49 +21,56 @@ package org.apache.hupa.client.mvp;
 
 import java.util.List;
 
+import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.client.mvp.IMAPMessagePresenter.Display;
-import org.apache.hupa.client.widgets.HasDialog;
-import org.apache.hupa.client.widgets.HasURL;
-import org.apache.hupa.client.widgets.Iframe;
-import org.apache.hupa.client.widgets.MyDialogBox;
+import org.apache.hupa.client.widgets.CommandsBar;
+import org.apache.hupa.client.widgets.MessageHeaders;
 import org.apache.hupa.shared.SConsts;
+import org.apache.hupa.shared.Util;
+import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.widgets.ui.Loading;
 import org.cobogw.gwt.user.client.ui.Button;
-import org.cobogw.gwt.user.client.ui.ButtonBar;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HasHTML;
-import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class IMAPMessageView extends Composite implements Display{
+
+    public final static int DELETE_BUTTON = 0;
+    public final static int REPLY_BUTTON = 1;
+    public final static int REPLY_ALL_BUTTON = 2;
     
     private HupaImageBundle imageBundle;
-    private Grid detailGrid = new Grid(5, 2);
+
+    private VerticalPanel messageContainer = new VerticalPanel();
+    private MessageHeaders headers;
+    private CommandsBar buttonsBar = new CommandsBar();
+    private HTML msgArea = new HTML();
+    
     private Label from = new Label();
     private Label cc = new Label();
     private Label to = new Label();
     private Label subject = new Label();
-    private HTML msgArea = new HTML();
+    
     private Button deleteMsgButton = new Button();
     private Button replyMsgButton = new Button();
     private Button replyAllMsgButton = new Button();
@@ -71,120 +78,44 @@ public class IMAPMessageView extends Composite implements Display{
     private Hyperlink showRawButton;
     private Hyperlink backButton;
     private FlowPanel attachments = new FlowPanel();
-    private MyDialogBox rawDialogBox = new MyDialogBox();
-    private Iframe rawFrame = new Iframe();
-    public final static int DELETE_BUTTON = 0;
-    public final static int REPLY_BUTTON = 1;
-    public final static int REPLY_ALL_BUTTON = 2;
-    private Loading loading  = new Loading();
-    private SimplePanel container = new SimplePanel();
     
+    private Loading loading;
+
     @Inject
     public IMAPMessageView(HupaConstants constants, HupaImageBundle imageBundle) {
         this.imageBundle = imageBundle;
+        
+        loading = new Loading(constants.loading());
         showRawButton = new Hyperlink(constants.rawButton(),"");
         backButton = new Hyperlink(constants.backButton(),"");
-        final VerticalPanel mPanel = new VerticalPanel();
-        mPanel.setWidth("100%");
-        mPanel.setSpacing(5);
-
-        detailGrid.setWidth("100%");
-        detailGrid.setStyleName("hupa-IMAPMessageWidget-Header");
-        detailGrid.setText(0, 0, constants.headerFrom() + ":");
-        detailGrid.setText(1, 0, constants.headerTo() + ":");
-        detailGrid.setText(2, 0, constants.headerCc() + ":");
-        detailGrid.setText(3, 0, constants.headerSubject() + ":");
-        detailGrid.setText(4, 0, constants.attachments() + ":");
-        detailGrid.setWidget(0, 1, from);
-        detailGrid.setWidget(1, 1, to);
-        detailGrid.setWidget(2, 1, cc);
-        detailGrid.setWidget(3, 1, subject);
-        detailGrid.setWidget(4, 1, attachments);
-        
-        detailGrid.getCellFormatter().setStyleName(0,0,"label");
-        detailGrid.getCellFormatter().setStyleName(0,1,"value");
-        detailGrid.getCellFormatter().setStyleName(1,0,"label");
-        detailGrid.getCellFormatter().setStyleName(1,1,"value");
-        detailGrid.getCellFormatter().setStyleName(2,0,"label");
-        detailGrid.getCellFormatter().setStyleName(2,1,"value");
-        detailGrid.getCellFormatter().setStyleName(3,0,"label");
-        detailGrid.getCellFormatter().setStyleName(3,1,"value");
-        detailGrid.getCellFormatter().setStyleName(4,0,"label");
-        detailGrid.getCellFormatter().setStyleName(4,1,"value");
-
-        detailGrid.getCellFormatter().setVerticalAlignment(0, 0, VerticalPanel.ALIGN_MIDDLE);
-        detailGrid.getCellFormatter().setVerticalAlignment(1, 0, VerticalPanel.ALIGN_MIDDLE);
-        detailGrid.getCellFormatter().setVerticalAlignment(2, 0, VerticalPanel.ALIGN_MIDDLE);
-        detailGrid.getCellFormatter().setVerticalAlignment(3, 0, VerticalPanel.ALIGN_MIDDLE);
-        detailGrid.getCellFormatter().setVerticalAlignment(4, 0, VerticalPanel.ALIGN_TOP);
-        detailGrid.getCellFormatter().setWidth(0, 0, "100px");
-        detailGrid.getCellFormatter().setWidth(1, 0, "100px");
-        detailGrid.getCellFormatter().setWidth(2, 0, "100px");
-        detailGrid.getCellFormatter().setWidth(3, 0, "100px");
-        detailGrid.getCellFormatter().setWidth(4, 0, "100px");
-        
-        mPanel.add(detailGrid);
-
+        headers = new MessageHeaders(constants);
         deleteMsgButton.setText(constants.deleteMailButton());
         replyMsgButton.setText(constants.replyMailButton());
         replyAllMsgButton.setText(constants.replyAllMailButton());
         forwardMsgButton.setText(constants.forwardMailButton());    
         
-        HorizontalPanel buttonPanel = new HorizontalPanel();
-        buttonPanel.setWidth("100%");
-        buttonPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-        buttonPanel.addStyleName("hupa-IMAPMessageWidget-ButtonBar");
-
-        container.setWidget(showRawButton);
+        messageContainer.addStyleName(HupaCSS.C_msgview_container);
         
-        ButtonBar buttonBar = new ButtonBar();
-        buttonBar.add(replyMsgButton);
-        buttonBar.add(replyAllMsgButton);
-        buttonBar.add(deleteMsgButton);
-        buttonBar.add(forwardMsgButton);
-        buttonBar.setWidth("100%");
-        buttonPanel.add(buttonBar);
+        buttonsBar.add(replyMsgButton);
+        buttonsBar.add(replyAllMsgButton);
+        buttonsBar.add(deleteMsgButton);
+        buttonsBar.add(forwardMsgButton);
+        buttonsBar.add(loading);
+        buttonsBar.add(showRawButton);
+        buttonsBar.add(backButton);
         
-        buttonPanel.add(container);
-        buttonPanel.setCellHorizontalAlignment(container, HorizontalPanel.ALIGN_RIGHT);
-        buttonPanel.add(backButton);
-        buttonPanel.setCellHorizontalAlignment(backButton, HorizontalPanel.ALIGN_RIGHT);
-        mPanel.add(buttonPanel);
-        msgArea.setWidth("100%");
-        ScrollPanel sPanel = new ScrollPanel();
-        sPanel.setAlwaysShowScrollBars(false);
-
-        sPanel.add(msgArea);
-        mPanel.add(sPanel);
-
-        // TODO: put this in css
-        rawFrame.setHeight("600px");
-        rawFrame.setWidth("600px");
-        rawDialogBox.setText(constants.rawTitle());
-        rawDialogBox.add(rawFrame);
-        rawDialogBox.setAnimationEnabled(true);
-        rawDialogBox.setAutoHideEnabled(true);
-        initWidget(mPanel);
-    }
-
-    public HasText getCc() {
-        return cc;
-    }
-
-    public HasHTML getContent() {
-        return msgArea;
-    }
-
-    public HasText getFrom() {
-        return from;
-    }
-
-    public HasText getSubject() {
-        return subject;
-    }
-
-    public HasText getTo() {
-        return to;
+        ScrollPanel scrollPanel = new ScrollPanel();
+        scrollPanel.addStyleName(HupaCSS.C_msgview_content);
+        scrollPanel.setAlwaysShowScrollBars(false);
+        scrollPanel.add(msgArea);
+        
+        messageContainer.add(headers);
+        messageContainer.add(buttonsBar);
+        messageContainer.add(scrollPanel);
+        
+        loading.hide();
+        
+        initWidget(messageContainer);
     }
 
     public Widget asWidget() {
@@ -192,13 +123,11 @@ public class IMAPMessageView extends Composite implements Display{
     }
 
     public void startProcessing() {
-        container.setWidget(loading);
         loading.show();
     }
 
     public void stopProcessing() {
-        container.setWidget(showRawButton);
-        loading.hide();
+        loading.show();
     }
 
     public HasClickHandlers getDeleteButtonClick() {
@@ -208,23 +137,25 @@ public class IMAPMessageView extends Composite implements Display{
     public void setAttachments(List<MessageAttachment> attachements,
             final String folder,
             final long uid) {
+        
         attachments.clear();
+        final Element downloadIframe = RootPanel.get("__download").getElement();
         if (attachements != null) {
             for (int i = 0; i < attachements.size(); i++) {
                 final MessageAttachment a = attachements.get(i);
-                Hyperlink link = new Hyperlink(a.getName() + " (" + a.getSize() / 1024
-                        + "kB)", true, "");
+                Label link = new Label(a.getName() + " (" + a.getSize() / 1024 + "kB)");
+                link.setStyleName(HupaCSS.C_hyperlink);
                 link.addClickHandler(new ClickHandler() {
-
                     public void onClick(ClickEvent event) {
-                         DOM.setElementAttribute(RootPanel.get("__download")
-                                 .getElement(), "src", 
-                                 GWT.getModuleBaseURL() + SConsts.SERVLET_DOWNLOAD 
-                                 + "?" + SConsts.PARAM_NAME + "=" + a.getName() 
-                                 + "&" + SConsts.PARAM_FOLDER + "=" + folder
-                                 + "&" + SConsts.PARAM_UID + "=" + uid);
+                        String url = GWT.getModuleBaseURL() + SConsts.SERVLET_DOWNLOAD 
+                                    + "?" + SConsts.PARAM_NAME + "=" + a.getName() 
+                                    + "&" + SConsts.PARAM_FOLDER + "=" + folder
+                                    + "&" + SConsts.PARAM_UID + "=" + uid;
+                        if (downloadIframe == null)
+                            Window.open(url,"_blank", "");
+                        else
+                            DOM.setElementAttribute(downloadIframe, "src", url);
                     }
-
                 });
                 HorizontalPanel aPanel = new HorizontalPanel();
                 aPanel.add(imageBundle.attachmentIcon().createImage());
@@ -254,12 +185,16 @@ public class IMAPMessageView extends Composite implements Display{
         return showRawButton;
     }
 
-    public HasDialog getRawMessageDialog() {
-        return rawDialogBox;
+    public void setHeaders(Message message) {
+        from.setText(message.getFrom());
+        cc.setText(Util.listToString(message.getCc()));
+        to.setText(Util.listToString(message.getTo()));
+        subject.setText(message.getSubject());
+        headers.setValues(from, to, cc, null, subject, attachments);
     }
-
-    public HasURL getRawMessageURL() {
-        return rawFrame;
+    
+    public void setContent(String content) {
+        msgArea.setHTML(content);
     }
     
 }

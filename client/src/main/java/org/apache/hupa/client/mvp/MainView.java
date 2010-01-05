@@ -454,14 +454,14 @@ public class MainView extends Composite implements MainPresenter.Display {
                 if (event.getEventType().equals(EditEvent.EventType.Cancel)) {
                     // remove the folder
                     newItem.remove();
+                    folderTree.setSelectedItem(selected, false);
                 } else if (event.getEventType().equals(EditEvent.EventType.Stop)) {
                     // add the new item to dnd controller 
                     bindDropController(newItem);
+                    // Select the parent folder to avoid an issue in gmail, because
+                    // the new folder takes a while until it is available
+                    folderTree.setSelectedItem(selected, false);
                 }
-                // In both cases, select the parent folder. 
-                // This avoid an issue in creating folder in gmail where the new 
-                // folder takes a while until it is available
-                folderTree.setSelectedItem(selected, false);
             }
 
         });
