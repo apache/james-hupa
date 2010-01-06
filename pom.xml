@@ -27,6 +27,7 @@
     <url>http://james.apache.org/hupa</url>
     <inceptionYear>2009</inceptionYear>
     <packaging>pom</packaging>
+
     <parent>
         <groupId>org.apache.james</groupId>
         <artifactId>james-project</artifactId>
