@@ -125,17 +125,7 @@ public class Toolbar extends Composite {
             }
         }
 
-        boolean first = true;
-
         public void onKeyDown(KeyDownEvent event) {
-            if (first) {
-                Widget sender = (Widget) event.getSource();
-                RichTextArea area = (RichTextArea) sender;
-                area.getExtendedFormatter().selectAll();
-                area.getExtendedFormatter().setFontName("Arial");
-                area.getExtendedFormatter().setFontSize(FontSize.X_SMALL);
-                first = false;
-            }
         }
 
         public void onKeyUp(KeyUpEvent event) {

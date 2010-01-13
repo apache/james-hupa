@@ -19,7 +19,25 @@
 
 package org.apache.hupa.client.mvp;
 
-import java.util.ArrayList;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HasHTML;
+import com.google.gwt.user.client.ui.HasText;
+import com.google.inject.Inject;
+
+import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
+import eu.maydu.gwt.validation.client.ValidationProcessor;
+import eu.maydu.gwt.validation.client.actions.FocusAction;
+import eu.maydu.gwt.validation.client.actions.StyleAction;
+import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
+import gwtupload.client.IUploader;
+import gwtupload.client.IUploadStatus.Status;
+import gwtupload.client.IUploader.OnCancelUploaderHandler;
+import gwtupload.client.IUploader.OnFinishUploaderHandler;
+import gwtupload.client.IUploader.OnStatusChangedHandler;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
@@ -48,24 +66,7 @@ import org.apache.hupa.shared.rpc.ReplyMessage;
 import org.apache.hupa.shared.rpc.SendMessage;
 import org.apache.hupa.widgets.ui.HasEnable;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.HasHTML;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.inject.Inject;
-
-import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
-import eu.maydu.gwt.validation.client.ValidationProcessor;
-import eu.maydu.gwt.validation.client.actions.FocusAction;
-import eu.maydu.gwt.validation.client.actions.StyleAction;
-import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
-import gwtupload.client.IUploader;
-import gwtupload.client.IUploadStatus.Status;
-import gwtupload.client.IUploader.OnCancelUploaderHandler;
-import gwtupload.client.IUploader.OnFinishUploaderHandler;
-import gwtupload.client.IUploader.OnStatusChangedHandler;
+import java.util.ArrayList;
 
 /**
  * Presenter which handles the sending, reply, replay-all, forward of mails
@@ -161,6 +162,8 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         public HasText getSubjectText();
 
         public HasHTML getMessageHTML();
+        
+        public Focusable getEditorFocus();
 
         public HasClickHandlers getSendClick();
 
@@ -372,6 +375,8 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         firePresenterChangedEvent();
         
         revealDisplay();
+        
+        display.getEditorFocus().setFocus(true);
     }
 
     public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
@@ -393,11 +398,12 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 
     @Override
     protected void onRevealDisplay() {
-        // DO Nothing
     }
-
-    private String generateHeader(Message message, Type type) {
-        String ret = "<br><br>";
+    
+    private static String generateHeader(Message message, Type type) {
+        String ret = "<br>";
+        if (message == null)
+            return ret;
         if (type.equals(Type.FORWARD)) {
             ret += "--------- Forwarded message --------- <br>";
             ret += "From: " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>";
@@ -415,14 +421,16 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         return ret + "<br>";
     }
 
-    private String wrapMessage(Message message, MessageDetails details, Type type) {
-        String ret;
-        ret = "<font size=2 style='font-family: arial'>";
-        ret += generateHeader(message, type);
-        ret += "<blockquote style='border-left: 1px solid rgb(204, 204, 204); margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;'>";
-        if (details != null)
+    public static String wrapMessage(Message message, MessageDetails details, Type type) {
+        String ret = "";
+        if (message != null) {
+            ret += generateHeader(message, type);
+        }
+        if (details != null && details.getText() != null && !details.getText().isEmpty()) {
+            ret += "<blockquote style='border-left: 1px solid rgb(204, 204, 204); margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;'>";
             ret += details.getText();
-        ret += "</blockquote></font>";
+            ret += "</blockquote>";
+        }
         return ret;
     }
 

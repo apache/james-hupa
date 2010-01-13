@@ -167,6 +167,12 @@ table.hupa-login-form {
 	margin-left: 5px;
 }
 
+/*************[ view: MainView ]*********************/
+.hupa-tree {
+	width: 158px;
+	overflow: hidden;
+}
+
 /************[ widget: CommandsBar ]*********/
 .hupa-commands-bar {
 	width: 100%;
@@ -202,6 +208,31 @@ table.hupa-login-form {
 	width: 150px;
 }
 
+.gwt-ListBox, .gwt-SuggestBox {
+    background-color:  #d8ecfd;
+    border: 1px solid #7FAAFF;
+}
+.dragdrop-dragable{
+	background: red;
+	}
+
+.gwt-SuggestBoxPopup {
+    font-size: 10px;
+}
+
+.hupa-buttons .gwt-ListBox {
+	margin-left: 5px;
+}
+
+/*************[ buttonbars ]*********************/
+.hupa-buttons {
+    white-space: nowrap;
+}
+
+.hupa-buttons td {
+  padding-left: 3px;
+}
+
 .hupa-buttons div {
 	white-space: nowrap;
 	vertical-align: middle;
@@ -210,14 +241,6 @@ table.hupa-login-form {
 	padding-left: 6px;
 }
 
-.gwt-ListBox, .gwt-SuggestBox {
-    background-color:  #d8ecfd;
-    border: 1px solid #7FAAFF;
-    font-size: 10px;
-}
-.gwt-SuggestBoxPopup {
-    font-size: 10px;
-}
 
 /************[ widget: MessageHeaders ]*******************/
 table.hupa-msg-headers {

@@ -18,8 +18,20 @@
  ****************************************************************/
 package org.apache.hupa.widgets.editor;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.logical.shared.InitializeEvent;
+import com.google.gwt.event.logical.shared.InitializeHandler;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
-
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -27,15 +39,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * Wysiwyg editor for composing and editing emails in Hupa
  */
-public class Editor extends VerticalPanel implements HasHTML {
-
+public class Editor extends VerticalPanel implements HasHTML, Focusable {
+    
     RichTextArea area = new RichTextArea();
+    boolean isNewMessage = true;
     
     public Editor() {
         area.ensureDebugId("hupa-editor-area");
-        // Note: rich-area is created in an iframe, so Hupa's style sheets 
-        // are not available, unless we inject them to the generated iframe
-        area.setSize("100%", "200em");
+        area.setSize("100%", "234px");
         
         Toolbar toolbar = new Toolbar(area);
         toolbar.ensureDebugId("hupa-editor-toolbar");
@@ -44,7 +55,24 @@ public class Editor extends VerticalPanel implements HasHTML {
         super.add(toolbar);
         super.add(area);
         super.setWidth("100%");
-
+        
+        // Note: rich-area is created in an iframe, so Hupa's style sheets 
+        // are not available, unless we inject them to the generated iframe
+        //
+        // When body is available, we put the default style for messages:
+        area.addInitializeHandler(new InitializeHandler() {
+            public void onInitialize(InitializeEvent event) {
+                setBodyStyleAttribute("fontFamily", "arial");
+                setBodyStyleAttribute("fontSize", "80%");
+            }
+        });
+        
+        // When the users writes in-line comments in replies, the text has to be leftIdented.
+        // Right now, I've implemented this feature only in gecko browsers, for other browsers
+        // the user has to push the leftIdent button.
+        if (getUA().equals("ff"))
+            addNewlineHandlersForFireFox();
+        
     }
     
     @Override
@@ -67,7 +95,8 @@ public class Editor extends VerticalPanel implements HasHTML {
     }
 
     public void setHTML(String html) {
-        area.setHTML("<font style='font-family: arial' size=2>" + html + "</font>");
+        isNewMessage = html.isEmpty(); 
+        area.setHTML("<font size=2 style='font-family: arial'><br/>" + html + "</font>");
     }
 
     public String getText() {
@@ -77,5 +106,105 @@ public class Editor extends VerticalPanel implements HasHTML {
     public void setText(String text) {
         area.setText(text);
     }
+
+    public void setBodyStyleAttribute(final String key, final String value) {
+        DOM.setStyleAttribute(getBody(area.getElement()), key, value);
+    }
+    
+    public int getTabIndex() {
+        return area.getTabIndex();
+    }
+
+    public void setAccessKey(char key) {
+        area.setAccessKey(key);
+    }
+
+    public void setFocus(boolean focused) {
+        area.setFocus(focused);
+    }
+
+    public void setTabIndex(int index) {
+        area.setTabIndex(index);
+    }
+    
+    // isEnabled and setEnabled dont work in richtextarea due to a bug,
+    // I've sent a patch to gwt, when it is accepted this native methods can be
+    // removed
+    public void setEnabled(boolean b) {
+        setEnabled(area.getElement(), b);
+    }
+    
+    public boolean isEnabled() {
+        return isEnabled(area.getElement());
+    }
+    
+    private native void setEnabled(Element iframe, boolean b) /*-{
+       var doc = iframe.contentWindow.document;
+       if (doc.body.contentEditable) 
+          doc.body.contentEditable = b;
+       else 
+          doc.designMode = b ? 'On' : 'Off';
+    }-*/;
+
+    private native boolean isEnabled(Element iframe) /*-{
+       var doc = iframe.contentWindow.document;
+       alert((doc.designMode.toUpperCase()) == 'ON');
+       if (doc.body.contentEditable) {
+           alert("editable ???");
+          return doc.body.contentEditable;
+       } else {
+           var ret = (((doc.designMode).toUpperCase()) == 'ON') ? true : false;
+           alert(ret);
+           return ret;
+       }
+    }-*/;
+    
+    private native Element getBody(Element frame) /*-{
+        return frame.contentWindow.document.body;
+    }-*/;
+    
+    private void addNewlineHandlersForFireFox() {
+        area.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                doNline = true;
+            }
+        });
+        area.addFocusHandler(new FocusHandler() {
+            public void onFocus(FocusEvent event) {
+                doNline = true;
+            }
+        });
+        area.addKeyPressHandler(new KeyPressHandler() {
+            public void onKeyPress(KeyPressEvent event) {
+                if (!isNewMessage) {
+                    if (doNline && event.getCharCode() == KeyCodes.KEY_ENTER) {
+                        doNline = false;
+                        leftIdentTimer.schedule(10);
+                        event.preventDefault();
+                    }
+                    if (!doNline && (event.getCharCode() == KeyCodes.KEY_DOWN || event.getCharCode() == KeyCodes.KEY_UP)) {
+                        doNline = true;
+                    }
+                }
+            }
+        });
+
+    }
+    
+    boolean doNline = true;
+    private Timer leftIdentTimer = new Timer(){
+        public void run() {
+            area.getFormatter().insertHTML("<br/>\n");
+            area.getFormatter().leftIndent();
+        }
+    };
+    
+    private native String getUA() /*-{
+      var ua = navigator.userAgent.toLowerCase();
+      if (ua.indexOf("gecko") != -1) 
+         return "ff";
+      return "other";
+    }-*/;
+
     
 }

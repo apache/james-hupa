@@ -38,6 +38,7 @@ import org.apache.hupa.widgets.ui.Loading;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
@@ -217,6 +218,13 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
         return editor;
     }
     
+    /* (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.MessageSendPresenter.Display#getEditorFocus()
+     */
+    public Focusable getEditorFocus() {
+        return to;
+    }
+
     /* (non-Javadoc)
      * @see org.apache.hupa.client.mvp.MessageSendPresenter.Display#refresh()
      */

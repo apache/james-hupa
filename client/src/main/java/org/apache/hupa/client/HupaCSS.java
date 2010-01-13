@@ -51,6 +51,8 @@ public class HupaCSS extends WidgetsCSS {
     
     public static final String C_contacts_container = "hupa-contacts";
 
+    public static final String C_tree_container = "hupa-tree";
+
     public static final String C_msg_list_container = "hupa-msglist";
     public static final String C_msg_table = "hupa-msgtable";
     public static final String C_msg_table_empty = "hupa-msgtable-empty";

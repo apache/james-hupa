@@ -24,6 +24,7 @@ import java.util.List;
 
 import net.customware.gwt.presenter.client.EventBus;
 
+import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.bundles.IMAPTreeImages;
@@ -130,7 +131,7 @@ public class MainView extends Composite implements MainPresenter.Display {
     private void createWest() {
         west = new RndPanel();
         west.add(folderTree);
-        west.setWidth("158px");
+        west.addStyleName(HupaCSS.C_tree_container);
 
         folderTree.setAnimationEnabled(true);
         folderPanel.setSpacing(5);
@@ -163,9 +164,6 @@ public class MainView extends Composite implements MainPresenter.Display {
     private void createNorth() {
         north = new VerticalPanel();
         north.setWidth("100%");
-
-
-
     }
 
     private void createCenter() {
