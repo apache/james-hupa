@@ -58,7 +58,7 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
     
     private MessageHeaders headers;
     
-    private Editor editor = new Editor();
+    private Editor editor;
     private CommandsBar buttonsBar = new CommandsBar();
     
     private Label from = new Label();
@@ -80,6 +80,7 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
         backButton = new EnableHyperlink(constants.backButton(),"");
         headers = new MessageHeaders(constants);
         loading = new Loading(constants.loading());
+        editor = new Editor(constants);
         
         BaseUploadStatus uploadStatus = new BaseUploadStatus();
         uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);

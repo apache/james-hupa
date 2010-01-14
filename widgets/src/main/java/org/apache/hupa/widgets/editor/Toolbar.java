@@ -25,55 +25,37 @@
  */
 package org.apache.hupa.widgets.editor;
 
+import org.apache.hupa.widgets.editor.FontPicker.FontPickerType;
 import org.apache.hupa.widgets.editor.bundles.ToolbarImages;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.ToggleButton;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.RichTextArea.FontSize;
 
 /**
  * Toolbar for use with {@link RichTextArea}. It provides a simple UI for all
  * rich text formatting, dynamically displayed only for the available
  * functionality.
  */
+@SuppressWarnings("deprecation")
 public class Toolbar extends Composite {
 
-    private class EventHandler implements ClickHandler, ChangeHandler, KeyUpHandler, KeyDownHandler {
-        public void onChange(ChangeEvent event) {
-            Widget sender = (Widget) event.getSource();
-
-            if (sender == backColors) {
-                basic.setBackColor(backColors.getValue(backColors.getSelectedIndex()));
-                backColors.setSelectedIndex(0);
-            } else if (sender == foreColors) {
-                basic.setForeColor(foreColors.getValue(foreColors.getSelectedIndex()));
-                foreColors.setSelectedIndex(0);
-            } else if (sender == fonts) {
-                basic.setFontName(fonts.getValue(fonts.getSelectedIndex()));
-                fonts.setSelectedIndex(0);
-            } else if (sender == fontSizes) {
-                basic.setFontSize(fontSizesConstants[fontSizes.getSelectedIndex() - 1]);
-                fontSizes.setSelectedIndex(0);
-            }
-        }
+    private class EventHandler implements ClickHandler, KeyUpHandler, KeyDownHandler {
 
         public void onClick(ClickEvent event) {
             Widget sender = (Widget) event.getSource();
@@ -122,6 +104,18 @@ public class Toolbar extends Composite {
                 extended.removeFormat();
             } else if (sender == richText) {
                 updateStatus();
+            } else if (sender == backColors) {
+                backColorsPicker.setPopupPosition(sender.getAbsoluteLeft(), sender.getAbsoluteTop()+20);
+                backColorsPicker.show();
+            } else if (sender == foreColors) {
+                foreColorsPicker.setPopupPosition(sender.getAbsoluteLeft(), sender.getAbsoluteTop()+20);
+                foreColorsPicker.show();
+            } else if (sender == fontFamily) {
+                fontFamilyPicker.setPopupPosition(sender.getAbsoluteLeft(), sender.getAbsoluteTop()+20);
+                fontFamilyPicker.show();
+            } else if (sender == fontSize) {
+                fontSizePicker.setPopupPosition(sender.getAbsoluteLeft(), sender.getAbsoluteTop()+20);
+                fontSizePicker.show();
             }
         }
 
@@ -134,22 +128,41 @@ public class Toolbar extends Composite {
                 updateStatus();
             }
         }
+
     }
-
-    private static final RichTextArea.FontSize[] fontSizesConstants = new RichTextArea.FontSize[] { RichTextArea.FontSize.XX_SMALL, RichTextArea.FontSize.X_SMALL, RichTextArea.FontSize.SMALL,
-            RichTextArea.FontSize.MEDIUM, RichTextArea.FontSize.LARGE, RichTextArea.FontSize.X_LARGE, RichTextArea.FontSize.XX_LARGE };
-
-    private ToolbarImages images = (ToolbarImages) GWT.create(ToolbarImages.class);
-    private ToolbarConstants strings = (ToolbarConstants) GWT.create(ToolbarConstants.class);
+    
+    private ValueChangeHandler<ColorPicker> colorHandler = new ValueChangeHandler<ColorPicker>() {
+        public void onValueChange(ValueChangeEvent<ColorPicker> event) {
+            ColorPicker sender = event.getValue();
+            if (sender == backColorsPicker) {
+                basic.setBackColor(sender.getColor());
+            } else if (sender == foreColorsPicker) {
+                basic.setForeColor(sender.getColor());
+            }
+            sender.hide();
+        }
+    };
+    private ValueChangeHandler<FontPicker> fontHandler = new ValueChangeHandler<FontPicker>() {
+        public void onValueChange(ValueChangeEvent<FontPicker> event) {
+            FontPicker sender = event.getValue();
+            if (sender == fontFamilyPicker) {
+               basic.setFontName(sender.getFontName());
+            } else if (sender == fontSizePicker) {
+               basic.setFontSize(sender.getFontSize());
+            }
+            sender.hide();
+        }
+    };
+    
+    private static final ToolbarImages images = (ToolbarImages) GWT.create(ToolbarImages.class);
     private EventHandler handler = new EventHandler();
+    
 
     private RichTextArea richText;
     private RichTextArea.BasicFormatter basic;
     private RichTextArea.ExtendedFormatter extended;
 
-    private VerticalPanel outer = new VerticalPanel();
     private HorizontalPanel topPanel = new HorizontalPanel();
-    private HorizontalPanel bottomPanel = new HorizontalPanel();
     private ToggleButton bold;
     private ToggleButton italic;
     private ToggleButton underline;
@@ -169,10 +182,15 @@ public class Toolbar extends Composite {
     private PushButton removeLink;
     private PushButton removeFormat;
 
-    private ListBox backColors;
-    private ListBox foreColors;
-    private ListBox fonts;
-    private ListBox fontSizes;
+    private PushButton fontFamily;
+    private FontPicker fontFamilyPicker = new FontPicker(FontPickerType.FONT_FAMILY);
+    private PushButton fontSize;
+    private FontPicker fontSizePicker = new FontPicker(FontPickerType.FONT_SIZE);
+    
+    private PushButton backColors;
+    private PushButton foreColors;
+    private ColorPicker backColorsPicker = new ColorPicker();
+    private ColorPicker foreColorsPicker = new ColorPicker();
 
     /**
      * Creates a new toolbar that drives the given rich text area.
@@ -180,17 +198,14 @@ public class Toolbar extends Composite {
      * @param richText
      *            the rich text area to be controlled
      */
-    public Toolbar(RichTextArea richText) {
+    public Toolbar(RichTextArea richText, ToolbarConstants strings) {
         this.richText = richText;
         this.basic = richText.getBasicFormatter();
         this.extended = richText.getExtendedFormatter();
 
-        outer.add(topPanel);
-        outer.add(bottomPanel);
         topPanel.setWidth("100%");
-        bottomPanel.setWidth("100%");
 
-        initWidget(outer);
+        initWidget(topPanel);
         setStyleName("gwt-RichTextToolbar");
         richText.addStyleName("hasRichTextToolbar");
 
@@ -198,6 +213,10 @@ public class Toolbar extends Composite {
             topPanel.add(bold = createToggleButton(images.bold(), strings.editor_bold()));
             topPanel.add(italic = createToggleButton(images.italic(), strings.editor_italic()));
             topPanel.add(underline = createToggleButton(images.underline(), strings.editor_underline()));
+            topPanel.add(backColors = createPushButton(images.backColors(), strings.editor_background()));
+            topPanel.add(foreColors = createPushButton(images.foreColors(), strings.editor_foreground()));
+            topPanel.add(fontFamily = createPushButton(images.fonts(), strings.editor_font()));
+            topPanel.add(fontSize = createPushButton(images.fontSizes(), strings.editor_size()));
             topPanel.add(subscript = createToggleButton(images.subscript(), strings.editor_subscript()));
             topPanel.add(superscript = createToggleButton(images.superscript(), strings.editor_superscript()));
             topPanel.add(justifyLeft = createPushButton(images.justifyLeft(), strings.editor_justifyLeft()));
@@ -218,73 +237,18 @@ public class Toolbar extends Composite {
             topPanel.add(removeFormat = createPushButton(images.removeFormat(), strings.editor_removeFormat()));
         }
 
-        if (basic != null) {
-            bottomPanel.add(backColors = createColorList("Background"));
-            bottomPanel.add(foreColors = createColorList("Foreground"));
-            bottomPanel.add(fonts = createFontList());
-            bottomPanel.add(fontSizes = createFontSizes());
-
-            richText.addKeyDownHandler(handler);
-            richText.addKeyUpHandler(handler);
-            richText.addClickHandler(handler);
-        }
-        
-        outer.setWidth("100%");
         
         HTML topEmtyCell = new HTML("");
         topPanel.add(topEmtyCell);
         topPanel.setCellWidth(topEmtyCell, "100%");
 
-        HTML bottomEmtyCell = new HTML("");
-        bottomPanel.add(bottomEmtyCell);
-        bottomPanel.setCellWidth(bottomEmtyCell, "100%");
-    }
-
-    private ListBox createColorList(String caption) {
-        ListBox lb = new ListBox();
-        lb.addChangeHandler(handler);
-        lb.setVisibleItemCount(1);
-
-        lb.addItem(caption);
-        lb.addItem(strings.editor_white(), "white");
-        lb.addItem(strings.editor_black(), "black");
-        lb.addItem(strings.editor_red(), "red");
-        lb.addItem(strings.editor_green(), "green");
-        lb.addItem(strings.editor_yellow(), "yellow");
-        lb.addItem(strings.editor_blue(), "blue");
-        return lb;
-    }
-
-    private ListBox createFontList() {
-        ListBox lb = new ListBox();
-        lb.addChangeHandler(handler);
-        lb.setVisibleItemCount(1);
-
-        lb.addItem(strings.editor_font(), "");
-        lb.addItem(strings.editor_normal(), "");
-        lb.addItem("Times New Roman", "Times New Roman");
-        lb.addItem("Arial", "Arial");
-        lb.addItem("Courier New", "Courier New");
-        lb.addItem("Georgia", "Georgia");
-        lb.addItem("Trebuchet", "Trebuchet");
-        lb.addItem("Verdana", "Verdana");
-        return lb;
-    }
-
-    private ListBox createFontSizes() {
-        ListBox lb = new ListBox();
-        lb.addChangeHandler(handler);
-        lb.setVisibleItemCount(1);
-
-        lb.addItem(strings.editor_size());
-        lb.addItem(strings.editor_xxsmall());
-        lb.addItem(strings.editor_xsmall());
-        lb.addItem(strings.editor_small());
-        lb.addItem(strings.editor_medium());
-        lb.addItem(strings.editor_large());
-        lb.addItem(strings.editor_xlarge());
-        lb.addItem(strings.editor_xxlarge());
-        return lb;
+        richText.addKeyDownHandler(handler);
+        richText.addKeyUpHandler(handler);
+        richText.addClickHandler(handler);
+        backColorsPicker.addValueChangeHandler(colorHandler);
+        foreColorsPicker.addValueChangeHandler(colorHandler);
+        fontFamilyPicker.addValueChangeHandler(fontHandler);
+        fontSizePicker.addValueChangeHandler(fontHandler);
     }
 
     private PushButton createPushButton(AbstractImagePrototype img, String tip) {
@@ -311,6 +275,10 @@ public class Toolbar extends Composite {
             underline.setDown(basic.isUnderlined());
             subscript.setDown(basic.isSubscript());
             superscript.setDown(basic.isSuperscript());
+            foreColorsPicker.hide();
+            backColorsPicker.hide();
+            fontFamilyPicker.hide();
+            fontSizePicker.hide();
         }
 
         if (extended != null) {

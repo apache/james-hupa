@@ -18,6 +18,7 @@
  ****************************************************************/
 package org.apache.hupa.widgets.editor;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -45,10 +46,14 @@ public class Editor extends VerticalPanel implements HasHTML, Focusable {
     boolean isNewMessage = true;
     
     public Editor() {
+        this((ToolbarConstants)GWT.create(ToolbarConstants.class));
+    }
+    
+    public Editor(ToolbarConstants constants) {
         area.ensureDebugId("hupa-editor-area");
         area.setSize("100%", "234px");
         
-        Toolbar toolbar = new Toolbar(area);
+        Toolbar toolbar = new Toolbar(area, constants);
         toolbar.ensureDebugId("hupa-editor-toolbar");
         
         super.setStyleName("hupa-editor");

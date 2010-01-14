@@ -47,5 +47,13 @@ import com.google.gwt.user.client.ui.ImageBundle;
         AbstractImagePrototype ul();
 
         AbstractImagePrototype underline();
+        
+        AbstractImagePrototype backColors();
+        
+        AbstractImagePrototype foreColors();
+        
+        AbstractImagePrototype fonts();
+        
+        AbstractImagePrototype fontSizes();
     }
 

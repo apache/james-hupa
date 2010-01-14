@@ -7,6 +7,7 @@ import com.google.gwt.i18n.client.Constants;
  * internationalizable.
  */
 public interface ToolbarConstants extends Constants {
+    
     @DefaultStringValue("Toggle Bold")
     public String editor_bold();
 
@@ -61,55 +62,17 @@ public interface ToolbarConstants extends Constants {
     @DefaultStringValue("Toggle Underline")
     public String editor_underline();
 
-    @DefaultStringValue("Color")
-    public String editor_color();
-
-    @DefaultStringValue("Black")
-    public String editor_black();
-
-    @DefaultStringValue("White")
-    public String editor_white();
-
-    @DefaultStringValue("Red")
-    public String editor_red();
-
-    @DefaultStringValue("Green")
-    public String editor_green();
-
-    @DefaultStringValue("Yellow")
-    public String editor_yellow();
-
-    @DefaultStringValue("Blue")
-    public String editor_blue();
-
-    @DefaultStringValue("Font")
+    @DefaultStringValue("Background color")
+    public String editor_background();
+    
+    @DefaultStringValue("Foreground color")
+    public String editor_foreground();
+    
+    @DefaultStringValue("Font name")
     public String editor_font();
-
-    @DefaultStringValue("Normal")
-    public String editor_normal();
-
-    @DefaultStringValue("Size")
+    
+    @DefaultStringValue("Font size")
     public String editor_size();
-
-    @DefaultStringValue("XX-Small")
-    public String editor_xxsmall();
-
-    @DefaultStringValue("X-Small")
-    public String editor_xsmall();
-
-    @DefaultStringValue("Small")
-    public String editor_small();
-
-    @DefaultStringValue("Medium")
-    public String editor_medium();
-
-    @DefaultStringValue("Large")
-    public String editor_large();
-
-    @DefaultStringValue("X-Large")
-    public String editor_xlarge();
-
-    @DefaultStringValue("XX-Large")
-    public String editor_xxlarge();
+    
 
 }
