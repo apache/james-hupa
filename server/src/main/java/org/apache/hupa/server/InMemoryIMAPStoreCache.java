@@ -19,6 +19,18 @@
 
 package org.apache.hupa.server;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
+
+import com.sun.mail.imap.IMAPStore;
+
+import org.apache.commons.logging.Log;
+import org.apache.hupa.server.guice.DemoModeConstants;
+import org.apache.hupa.server.mock.MockIMAPStore;
+import org.apache.hupa.shared.data.User;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -27,23 +39,12 @@ import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 
-import org.apache.commons.logging.Log;
-import org.apache.hupa.server.guice.DemoModeConstants;
-import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.shared.data.User;
-
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
-import com.google.inject.name.Named;
-import com.sun.mail.imap.IMAPStore;
-
 @Singleton
 public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 
     private Session session;
     protected Log logger;
-    private final Map<String,CachedIMAPStore> pool = new HashMap<String ,CachedIMAPStore>();
+    private final Map<String, CachedIMAPStore> pool = new HashMap<String ,CachedIMAPStore>();
     private String address;
     private int port;
     private boolean useSSL = false;
@@ -72,11 +73,9 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
 
         }
         System.setProperty("mail.mime.decodetext.strict", "false");
-        
       
     }
     
-
     /*
      * (non-Javadoc)
      * @see org.apache.hupa.server.IMAPStoreCache#get(org.apache.hupa.shared.data.User)
@@ -187,4 +186,5 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
             return store;
         }
     }
+
 }

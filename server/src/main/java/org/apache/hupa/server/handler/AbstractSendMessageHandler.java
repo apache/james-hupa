@@ -57,6 +57,7 @@ import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockSMTPTransport;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.server.utils.RegexPatterns;
+import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.User;
@@ -195,7 +196,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      */
     @SuppressWarnings("unchecked")
     protected List getAttachments(A action) throws MessagingException, ActionException {
-        FileItemRegistry registry = MessageUtils.getSessionRegistry(logger, httpSessionProvider.get());
+        FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSessionProvider.get());
         List<MessageAttachment> attachments = action.getMessage().getMessageAttachments();
         
         ArrayList<FileItem> items = new ArrayList<FileItem>();
@@ -220,7 +221,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         ArrayList<MessageAttachment> attachments = msg.getMessageAttachments();
         if (attachments != null && ! attachments.isEmpty()) {
             for(MessageAttachment attach : attachments) 
-                MessageUtils.getSessionRegistry(logger, httpSessionProvider.get()).remove(attach.getName());
+                SessionUtils.getSessionRegistry(logger, httpSessionProvider.get()).remove(attach.getName());
         }
     }
     

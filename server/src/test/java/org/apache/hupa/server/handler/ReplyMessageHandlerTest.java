@@ -29,7 +29,7 @@ import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.mock.MockIMAPStoreCache;
-import org.apache.hupa.server.utils.MessageUtils;
+import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.SMTPMessage;
@@ -50,7 +50,7 @@ public class ReplyMessageHandlerTest extends HupaTestCase {
         IMAPStore store = injector.getInstance(IMAPStore.class);
         ((MockIMAPStoreCache)storeCache).addValidUser(demouser, store);
 
-        FileItemRegistry registry = MessageUtils.getSessionRegistry(logger, httpSession);
+        FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSession);
         
         
         MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER);

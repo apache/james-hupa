@@ -31,6 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.handler.CheckSessionHandler;
+import org.apache.hupa.server.handler.ContactsHandler;
 import org.apache.hupa.server.handler.CreateFolderHandler;
 import org.apache.hupa.server.handler.DeleteAllMessagesHandler;
 import org.apache.hupa.server.handler.DeleteFolderHandler;
@@ -100,6 +101,7 @@ public class GuiceServerModule extends ActionHandlerModule {
         bindHandler(CreateFolderHandler.class);
         bindHandler(TagMessagesHandler.class);
         bindHandler(SetFlagsHandler.class);
+        bindHandler(ContactsHandler.class);
         bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(
                 Singleton.class);
         bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);

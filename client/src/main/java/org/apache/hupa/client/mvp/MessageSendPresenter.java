@@ -60,10 +60,13 @@ import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
+import org.apache.hupa.shared.rpc.Contacts;
+import org.apache.hupa.shared.rpc.ContactsResult;
 import org.apache.hupa.shared.rpc.ForwardMessage;
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.ReplyMessage;
 import org.apache.hupa.shared.rpc.SendMessage;
+import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.widgets.ui.HasEnable;
 
 import java.util.ArrayList;
@@ -176,6 +179,8 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         public void refresh();
 
         public void setLoading(boolean loading);
+        
+        public void fillContactList(Contact[] contacts);
     }
 
     @Override
@@ -344,6 +349,12 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         this.folder = folder;
         this.type = type;
         
+        dispatcher.execute(new Contacts(),  new HupaCallback<ContactsResult>(dispatcher, eventBus) {
+            public void callback(ContactsResult result) {
+                display.fillContactList(result.getContacts());
+            }
+        }); 
+        
         display.getFromText().setText(user.getName());
 
         if (type.equals(Type.FORWARD)) {
@@ -352,7 +363,6 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
             if (!oldmessage.getSubject().toLowerCase().startsWith("re:"))
                 display.getSubjectText().setText("Re: " + oldmessage.getSubject());
-
             if (oldmessage.getReplyto() != null) {
                 display.getToText().setText(oldmessage.getReplyto());
             } else if (type.equals(Type.REPLY)) {
@@ -377,6 +387,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         revealDisplay();
         
         display.getEditorFocus().setFocus(true);
+        
     }
 
     public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {

@@ -20,31 +20,41 @@ package org.apache.hupa.client.mvp;
 
 import com.google.inject.Inject;
 
+import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
+import org.apache.hupa.client.HupaCallback;
+import org.apache.hupa.shared.rpc.Contacts;
+import org.apache.hupa.shared.rpc.ContactsResult;
+import org.apache.hupa.shared.rpc.ContactsResult.Contact;
+
 public class ContactsPresenter extends WidgetPresenter<ContactsPresenter.Display>{
 
+    DispatchAsync dispatcher;
+    
     @Inject
-    public ContactsPresenter(Display display, EventBus eventBus) {
+    public ContactsPresenter(Display display, EventBus eventBus, DispatchAsync dispatcher) {
         super(display, eventBus);
+        this.dispatcher = dispatcher;
     }
 
     public interface Display extends NameAwareWidgetDisplay, WidgetDisplay {
-        
+        public void setContacts(Contact[] contacts);
     }
     
     @Override
     protected void onBind() {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     protected void onRevealDisplay() {
-        // TODO Auto-generated method stub
-        
+        dispatcher.execute(new Contacts(),  new HupaCallback<ContactsResult>(dispatcher, eventBus) {
+            public void callback(ContactsResult result) {
+                display.setContacts(result.getContacts());
+            }
+        }); 
     }
 
     @Override

@@ -30,6 +30,7 @@ import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.mock.MockIMAPStoreCache;
 import org.apache.hupa.server.utils.MessageUtils;
+import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.User;
@@ -112,7 +113,7 @@ public class AbtractSendMessageHandlerTest extends HupaTestCase {
         
         MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER);
         
-        SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(MessageUtils.getSessionRegistry(logger, httpSession), 2);
+        SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(SessionUtils.getSessionRegistry(logger, httpSession), 2);
         SendMessage action = new SendMessage(smtpmsg);
         
         Message message = abstSendMsgHndl.createMessage(session, action);
@@ -151,7 +152,7 @@ public class AbtractSendMessageHandlerTest extends HupaTestCase {
         
         MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER);
         
-        SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(MessageUtils.getSessionRegistry(logger, httpSession), 2);
+        SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(SessionUtils.getSessionRegistry(logger, httpSession), 2);
         SendMessage action = new SendMessage(smtpmsg);
         
         assertTrue(sentbox.getMessages().length == 0);

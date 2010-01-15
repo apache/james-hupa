@@ -38,6 +38,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Tag;
 import org.apache.hupa.shared.data.User;
@@ -124,6 +125,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                 from = m.getFrom()[0].toString().trim();
                 try {
                     from = MimeUtility.decodeText(from);
+                    SessionUtils.addContact(sessionProvider.get(), from);
                 } catch (UnsupportedEncodingException e) {
                     logger.debug("Unable to decode from " + from + " " + e.getMessage());
                 }
@@ -135,6 +137,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                 replyto = m.getReplyTo()[0].toString().trim();
                 try {
                     replyto = MimeUtility.decodeText(replyto);
+                    SessionUtils.addContact(sessionProvider.get(), replyto);
                 } catch (UnsupportedEncodingException e) {
                     logger.debug("Unable to decode replyto " + replyto + " " + e.getMessage());
                 }
@@ -146,7 +149,15 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             Address[] toArray = m.getRecipients(RecipientType.TO);
             if (toArray != null) {
                 for (int b =0; b < toArray.length;b++) {
-                    to.add(toArray[b].toString());
+                    String mailTo = null;
+                    try {
+                        mailTo = MimeUtility.decodeText(toArray[b].toString());
+                        SessionUtils.addContact(sessionProvider.get(), mailTo);
+                    } catch (UnsupportedEncodingException e) {
+                        logger.debug("Unable to decode mailTo " + mailTo + " " + e.getMessage());
+                    }
+                    if (mailTo != null)
+                        to.add(mailTo);
                 }
             }
             msg.setTo(to);

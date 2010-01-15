@@ -7,6 +7,7 @@ import com.google.gwt.gen2.table.override.client.FlexTable;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -49,7 +50,7 @@ public class MessageHeaders extends Composite {
         if (widget == null)
             return;
         
-        if (widget instanceof TextBox){
+        if (widget instanceof TextBox || widget instanceof SuggestBox){
             widget.setWidth("100%");
         } else if (widget instanceof HasText) {
             if (((HasText)widget).getText().isEmpty())

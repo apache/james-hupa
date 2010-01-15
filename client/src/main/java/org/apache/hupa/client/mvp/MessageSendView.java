@@ -19,6 +19,20 @@
 
 package org.apache.hupa.client.mvp;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HasHTML;
+import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
+import com.google.gwt.user.client.ui.SuggestBox;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
+
 import gwtupload.client.BaseUploadStatus;
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
@@ -30,22 +44,11 @@ import org.apache.hupa.client.widgets.CommandsBar;
 import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.client.widgets.MessageHeaders;
 import org.apache.hupa.shared.SConsts;
+import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.widgets.editor.Editor;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.apache.hupa.widgets.ui.Loading;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasHTML;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
 
 /**
  * View which displays a form which handle sending of mails
@@ -60,18 +63,19 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
     
     private Editor editor;
     private CommandsBar buttonsBar = new CommandsBar();
+
+    private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@<>");
     
     private Label from = new Label();
-    private TextBox to = new TextBox();
-    private TextBox cc = new TextBox();
-    private TextBox bcc = new TextBox();
+    private SuggestBox to = new SuggestBox(oracle);
+    private SuggestBox cc = new SuggestBox(oracle);
+    private SuggestBox bcc = new SuggestBox(oracle);
     private TextBox subject = new TextBox();
     private MultiUploader uploader = null;
     
     private EnableButton sendButton;
     private EnableHyperlink backButton;
     private Loading loading;
-    
 
     @Inject
     public MessageSendView(HupaConstants constants) {
@@ -231,6 +235,13 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
      */
     public void refresh() {
         headers.setValues(from, to, cc, bcc, subject, uploader);
+    }
+    
+    public void fillContactList(Contact[] contacts){
+        oracle.clear();
+        for (Contact c: contacts) {
+            oracle.add(c.toString());
+        }
     }
 
 }

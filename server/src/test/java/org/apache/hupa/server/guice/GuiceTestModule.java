@@ -19,12 +19,20 @@
 
 package org.apache.hupa.server.guice;
 
-import javax.mail.Session;
-import javax.servlet.http.HttpSession;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Singleton;
+import com.google.inject.name.Names;
+
+import com.sun.mail.imap.IMAPStore;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
+import org.apache.hupa.server.handler.ContactsHandler;
+import org.apache.hupa.server.handler.FetchFoldersHandler;
+import org.apache.hupa.server.handler.FetchMessagesHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
 import org.apache.hupa.server.handler.GetMessageDetailsHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
@@ -34,12 +42,8 @@ import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockIMAPStoreCache;
 import org.apache.hupa.server.mock.MockLogProvider;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Singleton;
-import com.google.inject.name.Names;
-import com.sun.mail.imap.IMAPStore;
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 public class GuiceTestModule extends AbstractModule {
 
@@ -62,6 +66,9 @@ public class GuiceTestModule extends AbstractModule {
         bind(SendMessageHandler.class);
         bind(ReplyMessageHandler.class);
         bind(ForwardMessageHandler.class);
+        bind(FetchFoldersHandler.class);
+        bind(FetchMessagesHandler.class);
+        bind(ContactsHandler.class);
 
     }
 

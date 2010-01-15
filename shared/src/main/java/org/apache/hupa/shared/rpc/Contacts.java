@@ -17,17 +17,10 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.server;
+package org.apache.hupa.shared.rpc;
 
-import com.sun.mail.imap.IMAPStore;
+import net.customware.gwt.dispatch.shared.Action;
 
-import org.apache.hupa.shared.data.User;
-
-import javax.mail.MessagingException;
-
-public interface IMAPStoreCache {
-    public void delete(String username);
-    public void delete(User user);
-    public IMAPStore get(String username,String password) throws MessagingException;
-    public IMAPStore get(User user) throws MessagingException;
+public class Contacts implements Action<ContactsResult>{
+    private static final long serialVersionUID = 1l;
 }

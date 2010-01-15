@@ -19,19 +19,20 @@
 
 package org.apache.hupa.server.mock;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
+import com.sun.mail.imap.IMAPStore;
+
+import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.shared.data.User;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
-
-import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.shared.data.User;
-
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.sun.mail.imap.IMAPStore;
 
 public class MockIMAPStoreCache implements IMAPStoreCache {
     private Provider<Session> provider;
@@ -88,4 +89,5 @@ public class MockIMAPStoreCache implements IMAPStoreCache {
             throw new MessagingException("Invalid user");
         }
     }
+
 }

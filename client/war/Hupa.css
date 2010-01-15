@@ -208,10 +208,11 @@ table.hupa-login-form {
 	width: 150px;
 }
 
-.gwt-ListBox, .gwt-SuggestBox {
+input[type=text], input[type=file] {
     background-color:  #d8ecfd;
     border: 1px solid #7FAAFF;
 }
+
 .dragdrop-dragable{
 	background: red;
 	}
@@ -264,6 +265,12 @@ div.hupa-msgview-content {
 /************[ view: MessageSendView ]*******************/
 table.hupa-msgsend {
 	width: 100%;
+}
+
+/************[ view: ContactsView ]*******************/
+table.hupa-contacts {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 

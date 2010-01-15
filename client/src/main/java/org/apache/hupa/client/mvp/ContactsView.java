@@ -19,24 +19,30 @@
 
 package org.apache.hupa.client.mvp;
 
-import org.apache.hupa.client.HupaCSS;
-import org.apache.hupa.client.HupaConstants;
-
+import com.google.gwt.gen2.table.override.client.FlexTable;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
+import org.apache.hupa.client.HupaCSS;
+import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.shared.rpc.ContactsResult.Contact;
+
 public class ContactsView extends Composite implements ContactsPresenter.Display{
 
-    private HorizontalPanel panel = new HorizontalPanel();
+    private VerticalPanel panel = new VerticalPanel();
+    FlexTable ctable = new FlexTable();
+    
     private HupaConstants constants;
+    
     @Inject
     public ContactsView(HupaConstants constants) {
         this.constants = constants;
         panel.addStyleName(HupaCSS.C_contacts_container);
-        panel.add(new HTML("<center><h1>Contacts view: comming soon<h1></center>"));
+        panel.add(new HTML("<h1>Contacts view: comming soon<h1>"));
+        panel.add(ctable);
         initWidget(panel);
     }
     
@@ -54,6 +60,14 @@ public class ContactsView extends Composite implements ContactsPresenter.Display
      */
     public Widget asWidget() {
         return this;
+    }
+
+    public void setContacts(Contact[] contacts) {
+        ctable.clearAll();
+        for(int i=0; i<contacts.length; i++) {
+            ctable.setText(i, 0, contacts[i].realname);
+            ctable.setText(i, 1, contacts[i].mail);
+        }
     }
 
 }

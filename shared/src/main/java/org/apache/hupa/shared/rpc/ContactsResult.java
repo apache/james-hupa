@@ -17,17 +17,46 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.server;
+package org.apache.hupa.shared.rpc;
 
-import com.sun.mail.imap.IMAPStore;
+import net.customware.gwt.dispatch.shared.Result;
 
-import org.apache.hupa.shared.data.User;
+public class ContactsResult implements Result {
 
-import javax.mail.MessagingException;
+    public static class Contact implements Result {
+        private static final long serialVersionUID = -8632580327693416473L;
+        public String mail;
+        public String realname;
 
-public interface IMAPStoreCache {
-    public void delete(String username);
-    public void delete(User user);
-    public IMAPStore get(String username,String password) throws MessagingException;
-    public IMAPStore get(User user) throws MessagingException;
+        public Contact() {
+        }
+
+        public Contact(String realname, String mail) {
+            this.realname = realname;
+            this.mail = mail;
+        }
+
+        public String toString() {
+            return (realname != null ? realname : "") + "<" + mail + ">";
+        }
+    }
+
+    private static final long serialVersionUID = -8740775403377441876L;
+    private Contact[] contacts;
+
+    public ContactsResult() {
+    }
+
+    public ContactsResult(Contact... contacts) {
+        this.contacts = contacts;
+    }
+
+    public Contact[] getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Contact[] contacts) {
+        this.contacts = contacts;
+    }
+
 }

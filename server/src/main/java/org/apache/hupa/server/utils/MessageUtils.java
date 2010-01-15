@@ -35,11 +35,9 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeUtility;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 
 
@@ -116,15 +114,6 @@ public class MessageUtils {
                 ret.add(attach);
         }
         return ret;
-    }
-
-    public static FileItemRegistry getSessionRegistry(Log logger, HttpSession session) {
-        FileItemRegistry registry = (FileItemRegistry)session.getAttribute("registry");
-        if (registry == null) {
-            registry = new FileItemRegistry(logger);
-            session.setAttribute("registry", registry);
-        }
-        return registry;
     }
 
     /**
