@@ -20,17 +20,19 @@
 package org.apache.hupa.widgets.ui;
 
 
-import org.apache.hupa.widgets.WidgetsCSS;
-
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Widget;
+
+import org.apache.hupa.widgets.WidgetsCSS;
 
 /**
  * Hyperlink which can get enabled/disabled.
@@ -50,15 +52,20 @@ import com.google.gwt.user.client.ui.SimplePanel;
 public class EnableHyperlink extends Composite implements HasClickHandlers,HasHTML,HasText, HasEnable{
     
     private SimplePanel panel = new SimplePanel();
-    private Hyperlink link;
+    private Widget link;
     private HTML html;
+    
+    public EnableHyperlink(String text) {
+        this(text, false, null);
+    }
+    
     public EnableHyperlink(String text, String historyToken) {
-        this(text,false,historyToken);
+        this(text, false, historyToken);
     }
     
     public EnableHyperlink(String text, boolean asHTML, String historyToken) {
         
-        link = new Hyperlink(text,asHTML,historyToken);
+        link = historyToken != null ? new Hyperlink(text, asHTML, historyToken) : new Anchor(text);
         html = new HTML();
         
         panel.setStyleName(WidgetsCSS.C_hyperlink);
@@ -79,7 +86,7 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
      * @see com.google.gwt.event.dom.client.HasClickHandlers#addClickHandler(com.google.gwt.event.dom.client.ClickHandler)
      */
     public HandlerRegistration addClickHandler(ClickHandler handler) {
-        return link.addClickHandler(handler);
+        return ((HasClickHandlers)link).addClickHandler(handler);
     }
     
     /*
@@ -87,7 +94,7 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
      * @see com.google.gwt.user.client.ui.HasText#getText()
      */
     public String getText() {
-        return link.getText();
+        return ((HasHTML)link).getText();
     }
     
     /*
@@ -95,7 +102,7 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
      * @see com.google.gwt.user.client.ui.HasText#setText(java.lang.String)
      */
     public void setText(String text) {
-        link.setText(text);
+        ((HasHTML)link).setText(text);
         html.setText(text);
     }
     
@@ -104,7 +111,7 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
      * @see com.google.gwt.user.client.ui.HasHTML#getHTML()
      */
     public String getHTML() {
-        return link.getHTML();
+        return ((HasHTML)link).getHTML();
     }
     
     /*

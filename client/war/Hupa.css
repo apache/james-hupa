@@ -208,7 +208,7 @@ table.hupa-login-form {
 	width: 150px;
 }
 
-input[type=text], input[type=file] {
+input[type=text], input[type=file], textarea {
     background-color:  #d8ecfd;
     border: 1px solid #7FAAFF;
 }

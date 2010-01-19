@@ -33,8 +33,9 @@ import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
  *
  */
 public class EmailListValidator extends Validator<EmailListValidator>{
+    private static final String emailRegex = "^(.*<)?[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(>)?\\s*$";
+    
     private HasText text;
-    private String emailRegex = "^(.+<)?[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(>)?$";
     public EmailListValidator(HasText text) {
         this.text = text;
     }
@@ -60,14 +61,16 @@ public class EmailListValidator extends Validator<EmailListValidator>{
      * @param text
      * @return isValid
      */
-    private boolean isValidAddressList(String text) {
+    public static boolean isValidAddressList(String text) {
         if (text.length() > 0) {
-            String[] addresses = text.split(",");
+            if (text.replaceAll("[,:\\s]+", "").isEmpty())
+                return false;
+            String[] addresses = text.split("[,;]+");
             if (addresses == null || addresses.length == 0) {
-                return isValidAddress(text);
+                return isValidAddress(text.trim());
             } else {
                 for (int i = 0; i < addresses.length; i++) {
-                    if (isValidAddress(addresses[i]) == false) {
+                    if (!addresses[i].trim().isEmpty() && isValidAddress(addresses[i]) == false) {
                         return false;
                     }
                 }
@@ -82,7 +85,7 @@ public class EmailListValidator extends Validator<EmailListValidator>{
      * @param email
      * @return isValid
      */
-    private boolean isValidAddress(String email) {
+    public static boolean isValidAddress(String email) {
         return email.matches(emailRegex);
     }
 }

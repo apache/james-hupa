@@ -195,7 +195,6 @@ public class IMAPMessageListView extends Composite implements Display{
         pageBox.addItem("" + (DEFAULT_MSG_PAGE_SIZE * 4));
         pageBox.addChangeHandler(new ChangeHandler() {
             public void onChange(ChangeEvent event) {
-                System.out.println(pageBox.getSelectedIndex());
                 if (pageBox.getSelectedIndex() > 0)
                     mailTable.setPageSize(Integer.parseInt(pageBox.getItemText(pageBox.getSelectedIndex())));
             }

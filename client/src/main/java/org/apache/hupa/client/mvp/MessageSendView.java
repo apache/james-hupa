@@ -26,8 +26,6 @@ import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
-import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -49,6 +47,7 @@ import org.apache.hupa.widgets.editor.Editor;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.apache.hupa.widgets.ui.Loading;
+import org.apache.hupa.widgets.ui.MultiValueSuggestArea;
 
 /**
  * View which displays a form which handle sending of mails
@@ -64,12 +63,13 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
     private Editor editor;
     private CommandsBar buttonsBar = new CommandsBar();
 
-    private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@<>");
-    
     private Label from = new Label();
-    private SuggestBox to = new SuggestBox(oracle);
-    private SuggestBox cc = new SuggestBox(oracle);
-    private SuggestBox bcc = new SuggestBox(oracle);
+    
+    private MultiValueSuggestArea to = new MultiValueSuggestArea(" ,@<>");
+    // we only need one instance for all suggestion-boxes
+    private MultiValueSuggestArea cc = new MultiValueSuggestArea(to.getOracle());
+    private MultiValueSuggestArea bcc = new MultiValueSuggestArea(to.getOracle());
+    
     private TextBox subject = new TextBox();
     private MultiUploader uploader = null;
     
@@ -227,21 +227,20 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
      * @see org.apache.hupa.client.mvp.MessageSendPresenter.Display#getEditorFocus()
      */
     public Focusable getEditorFocus() {
-        return to;
+        return editor;
     }
 
     /* (non-Javadoc)
      * @see org.apache.hupa.client.mvp.MessageSendPresenter.Display#refresh()
      */
     public void refresh() {
+        if (to.getText().isEmpty())
+            to.setText(" ");
         headers.setValues(from, to, cc, bcc, subject, uploader);
     }
     
     public void fillContactList(Contact[] contacts){
-        oracle.clear();
-        for (Contact c: contacts) {
-            oracle.add(c.toString());
-        }
+        to.fillOracle(contacts);
     }
 
 }

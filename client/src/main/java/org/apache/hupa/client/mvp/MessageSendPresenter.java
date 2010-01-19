@@ -373,7 +373,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                 oldmessage.getTo().remove(user.getName());
                 display.getToText().setText(Util.listToString(oldmessage.getTo()));
             }
-        }
+        } 
 
         display.getMessageHTML().setHTML(wrapMessage(oldmessage, oldDetails, type));
 
