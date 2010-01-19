@@ -83,6 +83,11 @@
             <artifactId>gwt-dispatch</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.google.gwt.inject
+            </groupId>
+            <artifactId>gin</artifactId>
+        </dependency>
+        <dependency>
             <groupId>net.customware.gwt.presenter
             </groupId>
             <artifactId>gwt-presenter</artifactId>

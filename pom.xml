@@ -305,6 +305,18 @@
                 </groupId>
                 <artifactId>gwt-dispatch</artifactId>
                 <version>1.0.0</version>
+                <exclusions>
+                   <exclusion>
+                     <groupId>com.google.gwt.inject</groupId>
+                     <artifactId>gin</artifactId>
+                   </exclusion>
+                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.google.gwt.inject
+                </groupId>
+                <artifactId>gin</artifactId>
+                <version>1.0</version>
             </dependency>
             <dependency>
                 <groupId>net.customware.gwt.presenter
