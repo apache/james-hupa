@@ -27,9 +27,11 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.guice.GuiceTestModule;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
+import org.apache.hupa.server.handler.ContactsHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
 import org.apache.hupa.server.handler.GetMessageDetailsHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.shared.rpc.SendMessage;
 
 import com.google.inject.Injector;
@@ -50,5 +52,9 @@ public abstract class HupaTestCase extends TestCase{
     protected ReplyMessageHandler reMsgHndl = injector.getInstance(ReplyMessageHandler.class);
     
     protected GetMessageDetailsHandler getDetailsMsgHndl = injector.getInstance(GetMessageDetailsHandler.class);
+    
+    protected ContactsHandler contactsHandler = injector.getInstance(ContactsHandler.class);
+    
+    protected UserPreferencesStorage userPreferences = injector.getInstance(UserPreferencesStorage.class);
     
 }

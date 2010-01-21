@@ -33,7 +33,7 @@ public class DemoModeTest extends AbstractHandlerTest {
     
     private FetchFoldersHandler fetchFoldersHandler = new FetchFoldersHandler(memoryStore, logger, httpSessionProvider);
     
-    private FetchMessagesHandler fetchMessagesHandler = new FetchMessagesHandler(memoryStore, logger, httpSessionProvider);
+    private FetchMessagesHandler fetchMessagesHandler = new FetchMessagesHandler(memoryStore, logger, httpSessionProvider, preferences);
 
     public void testDemoLoginUser() {
         LoginUser badUser = new LoginUser("baduser", "whatever");

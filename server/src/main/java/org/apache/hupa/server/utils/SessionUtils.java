@@ -22,9 +22,6 @@ package org.apache.hupa.server.utils;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.FileItemRegistry;
-import org.apache.hupa.shared.rpc.ContactsResult.Contact;
-
-import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -40,30 +37,6 @@ public class SessionUtils {
             session.setAttribute("registry", registry);
         }
         return registry;
-    }
-   
-    public static void addContact(HttpSession session, String mail) {
-        String name = !mail.contains("<") ? "" : mail.replaceAll("<.+$", "")
-                                                 .replaceAll("^[\\s\"']+","")
-                                                 .replaceAll("[\\s\"']+$", "");
-        String email = mail.replaceAll("^.*<([^>]+)>","$1");
-        Contact contact = new Contact(name, email);
-        
-        @SuppressWarnings("unchecked")
-        HashMap<String, Contact> sessionContacts = (HashMap<String, Contact>)session.getAttribute("contacts");
-        if (sessionContacts==null)
-            sessionContacts=new HashMap<String, Contact>();
-        
-        if (!sessionContacts.containsKey(contact.toString())) {
-            sessionContacts.put(contact.toString(), contact);
-            session.setAttribute("contacts", sessionContacts);
-        }
-    }
-
-    public static Contact[] getContacts(HttpSession session) {
-        @SuppressWarnings("unchecked")
-        HashMap<String, Contact> sessionContacts = (HashMap<String, Contact>)session.getAttribute("contacts");
-        return sessionContacts == null ? new Contact[]{} : sessionContacts.values().toArray(new Contact[sessionContacts.size()]);
     }
     
 }

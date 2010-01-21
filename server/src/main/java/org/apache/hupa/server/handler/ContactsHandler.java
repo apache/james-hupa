@@ -28,8 +28,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.utils.SessionUtils;
-import org.apache.hupa.shared.data.Settings;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.shared.rpc.Contacts;
 import org.apache.hupa.shared.rpc.ContactsResult;
 
@@ -38,18 +37,17 @@ import javax.servlet.http.HttpSession;
 /**
  * Handler for getting the list of contacts
  */
-public class ContactsHandler implements
-        ActionHandler<Contacts, ContactsResult> {
+public class ContactsHandler implements ActionHandler<Contacts, ContactsResult> {
 
-    private final Provider<HttpSession> sessionProvider;
+    UserPreferencesStorage userPreferences;
 
     @Inject
-    public ContactsHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> sessionProvider, Provider<Settings> settingsProvider) {
-        this.sessionProvider = sessionProvider;
+    public ContactsHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> sessionProvider, UserPreferencesStorage preferences) {
+        this.userPreferences = preferences;
     }
 
     public ContactsResult execute(Contacts action, ExecutionContext context) throws ActionException {
-        return new ContactsResult(SessionUtils.getContacts(sessionProvider.get()));
+        return new ContactsResult(userPreferences.getContacts());
     }
 
     public Class<Contacts> getActionType() {

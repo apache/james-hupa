@@ -30,6 +30,14 @@ public class ContactsResult implements Result {
 
         public Contact() {
         }
+        
+        public Contact(String mail){
+            this.realname = !mail.contains("<") ? "" : 
+                             mail.replaceAll("<.+$", "")
+                             .replaceAll("^[\\s\"']+","")
+                             .replaceAll("[\\s\"']+$", "");
+            this.mail = mail.replaceAll("^.*<([^>]+)>","$1");
+        }
 
         public Contact(String realname, String mail) {
             this.realname = realname;
@@ -39,6 +47,11 @@ public class ContactsResult implements Result {
         public String toString() {
             return (realname != null ? realname : "") + "<" + mail + ">";
         }
+        
+        public String toKey() {
+            return toString().replaceAll("[^\\w\\d<@>]+", "").toLowerCase();
+        }
+        
     }
 
     private static final long serialVersionUID = -8740775403377441876L;

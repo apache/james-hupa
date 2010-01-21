@@ -41,6 +41,8 @@ import org.apache.hupa.server.mock.MockHttpSession;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockIMAPStoreCache;
 import org.apache.hupa.server.mock.MockLogProvider;
+import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpSession;
@@ -69,6 +71,8 @@ public class GuiceTestModule extends AbstractModule {
         bind(FetchFoldersHandler.class);
         bind(FetchMessagesHandler.class);
         bind(ContactsHandler.class);
+        
+        bind(UserPreferencesStorage.class).to(InSessionUserPreferencesStorage.class);
 
     }
 

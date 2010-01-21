@@ -20,10 +20,7 @@
 
 package org.apache.hupa.server.handler;
 
-import java.util.Properties;
-
-import javax.mail.Session;
-import javax.servlet.http.HttpSession;
+import com.google.inject.Provider;
 
 import junit.framework.TestCase;
 
@@ -33,10 +30,15 @@ import org.apache.hupa.server.mock.MockHttpSession;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockIMAPStoreCache;
 import org.apache.hupa.server.mock.MockLog;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 
-import com.google.inject.Provider;
+import java.util.Properties;
+
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 public abstract class AbstractHandlerTest extends TestCase{
     
@@ -74,6 +76,18 @@ public abstract class AbstractHandlerTest extends TestCase{
             return session;
         }
     });
+    
+    protected UserPreferencesStorage preferences = new UserPreferencesStorage(){
+        public void addContact(Contact c) {
+        }
+
+        public void addContact(String s) {
+        }
+
+        public Contact[] getContacts() {
+            return null;
+        }
+    };
     
     public void setUp() {
         storeCache.addValidUser(user.getName(), user.getPassword());

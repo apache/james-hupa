@@ -50,6 +50,8 @@ import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.handler.SetFlagsHandler;
 import org.apache.hupa.server.handler.TagMessagesHandler;
+import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
 import org.apache.hupa.server.servlet.MessageSourceServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
@@ -111,6 +113,7 @@ public class GuiceServerModule extends ActionHandlerModule {
         bind(UploadAttachmentServlet.class).in(Singleton.class);
         bind(MessageSourceServlet.class).in(Singleton.class);
         bind(Session.class).toProvider(SessionProvider.class);
+        bind(UserPreferencesStorage.class).to(InSessionUserPreferencesStorage.class);
 
         Properties properties;
         try {

@@ -19,6 +19,23 @@
 
 package org.apache.hupa.server.handler;
 
+import com.google.inject.Provider;
+
+import com.sun.mail.imap.IMAPStore;
+
+import net.customware.gwt.dispatch.server.ExecutionContext;
+import net.customware.gwt.dispatch.shared.ActionException;
+
+import org.apache.commons.logging.Log;
+import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.Tag;
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.rpc.FetchMessages;
+import org.apache.hupa.shared.rpc.FetchMessagesResult;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -33,27 +50,13 @@ import javax.mail.internet.MimeUtility;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
 
-import net.customware.gwt.dispatch.server.ExecutionContext;
-import net.customware.gwt.dispatch.shared.ActionException;
-
-import org.apache.commons.logging.Log;
-import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.utils.SessionUtils;
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.Tag;
-import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.data.Message.IMAPFlag;
-import org.apache.hupa.shared.rpc.FetchMessages;
-import org.apache.hupa.shared.rpc.FetchMessagesResult;
-
-import com.google.inject.Provider;
-import com.sun.mail.imap.IMAPStore;
-
 public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> extends AbstractSessionHandler<A, FetchMessagesResult>{
 
-    public AbstractFetchMessagesHandler(IMAPStoreCache cache, Log logger,
-            Provider<HttpSession> sessionProvider) {
+    UserPreferencesStorage userPreferences;
+    
+    public AbstractFetchMessagesHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> sessionProvider, UserPreferencesStorage preferences) {
         super(cache, logger, sessionProvider);
+        this.userPreferences = preferences;
     }
 
     @Override
@@ -125,7 +128,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                 from = m.getFrom()[0].toString().trim();
                 try {
                     from = MimeUtility.decodeText(from);
-                    SessionUtils.addContact(sessionProvider.get(), from);
+                    userPreferences.addContact(from);
                 } catch (UnsupportedEncodingException e) {
                     logger.debug("Unable to decode from " + from + " " + e.getMessage());
                 }
@@ -137,7 +140,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                 replyto = m.getReplyTo()[0].toString().trim();
                 try {
                     replyto = MimeUtility.decodeText(replyto);
-                    SessionUtils.addContact(sessionProvider.get(), replyto);
+                    userPreferences.addContact(replyto);
                 } catch (UnsupportedEncodingException e) {
                     logger.debug("Unable to decode replyto " + replyto + " " + e.getMessage());
                 }
@@ -152,7 +155,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                     String mailTo = null;
                     try {
                         mailTo = MimeUtility.decodeText(toArray[b].toString());
-                        SessionUtils.addContact(sessionProvider.get(), mailTo);
+                        userPreferences.addContact(mailTo);
                     } catch (UnsupportedEncodingException e) {
                         logger.debug("Unable to decode mailTo " + mailTo + " " + e.getMessage());
                     }

@@ -36,7 +36,7 @@ import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
 public class FetchMessagesHandlerTest extends AbstractHandlerTest{
 
-    FetchMessagesHandler handler = new FetchMessagesHandler(storeCache, logger, httpSessionProvider);
+    FetchMessagesHandler handler = new FetchMessagesHandler(storeCache, logger, httpSessionProvider, preferences);
     
     public void setUp() {
         super.setUp();

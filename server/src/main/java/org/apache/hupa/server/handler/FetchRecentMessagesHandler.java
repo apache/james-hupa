@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.shared.rpc.FetchRecentMessages;
 
 import com.google.inject.Inject;
@@ -38,8 +39,8 @@ public class FetchRecentMessagesHandler extends AbstractFetchMessagesHandler<Fet
 
     @Inject
     public FetchRecentMessagesHandler(IMAPStoreCache cache, Log logger,
-            Provider<HttpSession> provider) {
-        super(cache, logger, provider);
+            Provider<HttpSession> provider, UserPreferencesStorage preferences) {
+        super(cache, logger, provider, preferences);
     }
 
     
