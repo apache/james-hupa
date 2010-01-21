@@ -45,19 +45,25 @@ public class MultiValueSuggestArea extends Composite implements HasText {
 
         public CustomSuggestBox(SuggestOracle oracle) {
             // this is a hack, It is necessary to override the TextBoxBase passed to the constructor
-            // instead of override getText and setText from SuggestBox because a bug in the implementation
+            // instead of overriding getText and setText from SuggestBox because a bug in the implementation
             // I've sent a patch to gwt.
             super(oracle, new TextArea() {
+
+                String search = null;
+                
                 @Override
                 public String getText() {
-                    return super.getText().replaceAll("^.*[,; \r\n]+", "");
+                    return search = super.getText().replaceFirst("\\s$", "").replaceAll("[\\s;]", ",").replaceFirst("^.+,", "");
                 }
-
+                
                 @Override
                 public void setText(String text) {
-                    String actual = super.getText().replaceFirst("[\r\n]+", "").replaceFirst(".$", "").replaceFirst("[,; \r\n]+[^,; \r\n]*$", "");
-                    super.setText(actual + (actual.isEmpty() ? "" : ", ") + text + (text.isEmpty() ? "" : ", "));
+                    if (!text.trim().isEmpty()) {
+                        String actual = super.getText().replaceFirst("\\s+$", "").replaceFirst(search + "[\\s]*$", "");
+                        super.setText(actual + text + ", ");
+                    }
                 }
+                
             });
         }
 
