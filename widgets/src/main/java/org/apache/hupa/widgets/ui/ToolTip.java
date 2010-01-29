@@ -54,19 +54,17 @@ public class ToolTip extends Label {
         }
         
     };
-    public ToolTip(final Widget w) {
-        if (!(w instanceof HasMouseOverHandlers) || (!( w instanceof HasMouseOutHandlers)) || (!(w instanceof HasMouseMoveHandlers))) {
-            throw new IllegalArgumentException("Widget must implement HasMouseOverHandlers and HasMouseOutHandlers");
-        }
-        ((HasMouseOverHandlers) w).addMouseOverHandler(new MouseOverHandler() {
+
+    public <T extends Widget & HasMouseOverHandlers & HasMouseOutHandlers & HasMouseMoveHandlers> ToolTip(final T w) {
+        w.addMouseOverHandler(new MouseOverHandler() {
 
             public void onMouseOver(MouseOverEvent event) {
                 showTimer.schedule(1000);
             }
             
         });
-        
-        ((HasMouseOutHandlers)w).addMouseOutHandler(new MouseOutHandler() {
+
+        w.addMouseOutHandler(new MouseOutHandler() {
 
             public void onMouseOut(MouseOutEvent event) {
                 showTimer.cancel();
@@ -74,8 +72,8 @@ public class ToolTip extends Label {
             }
             
         });
-        
-        ((HasMouseMoveHandlers) w).addMouseMoveHandler(new MouseMoveHandler() {
+
+        w.addMouseMoveHandler(new MouseMoveHandler() {
 
             public void onMouseMove(MouseMoveEvent event) {
                 y = event.getScreenY();
