@@ -47,8 +47,7 @@ public class EmailListValidator extends Validator<EmailListValidator>{
     }
 
     @Override
-    public <V extends ValidationMessages> ValidationResult validate(
-            V messages) {
+    public <V extends ValidationMessages> ValidationResult validate(V messages) {
         if (isValidAddressList(text.getText()) == false) {
             return new ValidationResult();
         }
@@ -67,7 +66,7 @@ public class EmailListValidator extends Validator<EmailListValidator>{
                 return false;
             String[] addresses = text.split("[,;\r\n]+");
             for (int i = 0; i < addresses.length; i++) {
-                if (!addresses[i].trim().isEmpty() && isValidAddress(addresses[i]) == false) {
+                if (!addresses[i].trim().isEmpty() && isValidAddress(addresses[i].trim()) == false) {
                     return false;
                 }
             }

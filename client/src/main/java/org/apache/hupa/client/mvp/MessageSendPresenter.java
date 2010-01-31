@@ -30,8 +30,6 @@ import com.google.inject.Inject;
 
 import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
 import eu.maydu.gwt.validation.client.ValidationProcessor;
-import eu.maydu.gwt.validation.client.actions.FocusAction;
-import eu.maydu.gwt.validation.client.actions.StyleAction;
 import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
 import gwtupload.client.IUploader;
 import gwtupload.client.IUploadStatus.Status;
@@ -44,9 +42,12 @@ import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
+import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaCallback;
+import org.apache.hupa.client.validation.AddStyleAction;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.client.validation.NotEmptyValidator;
+import org.apache.hupa.client.validation.SetFocusAction;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -117,17 +118,21 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
             }
         }
     };
-
+    
     @Inject
     public MessageSendPresenter(Display display, EventBus eventBus, DispatchAsync dispatcher) {
         super(display, eventBus);
         this.dispatcher = dispatcher;
 
-        FocusAction fAction = new FocusAction();
-        validator.addValidators("cc", new EmailListValidator(display.getCcText()).addActionForFailure(new StyleAction("hupa-validationErrorBorder")).addActionForFailure(fAction));
-        validator.addValidators("bcc", new EmailListValidator(display.getBccText()).addActionForFailure(new StyleAction("hupa-validationErrorBorder")).addActionForFailure(fAction));
-        validator.addValidators("to", new EmailListValidator(display.getToText()).addActionForFailure(new StyleAction("hupa-validationErrorBorder")).addActionForFailure(fAction),
-                new NotEmptyValidator(display.getToText()).addActionForFailure(new StyleAction("hupa-validationErrorBorder")).addActionForFailure(fAction));
+        SetFocusAction fAction = new SetFocusAction();
+        AddStyleAction sAction = new AddStyleAction(HupaCSS.C_validate, 3000);
+        validator.addValidators("cc", 
+                new EmailListValidator(display.getCcText()).addActionForFailure(sAction).addActionForFailure(fAction));
+        validator.addValidators("bcc", 
+                new EmailListValidator(display.getBccText()).addActionForFailure(sAction).addActionForFailure(fAction));
+        validator.addValidators("to", 
+                new EmailListValidator(display.getToText()).addActionForFailure(sAction).addActionForFailure(fAction),
+                new NotEmptyValidator(display.getToText()).addActionForFailure(sAction).addActionForFailure(fAction));
     }
 
     /**

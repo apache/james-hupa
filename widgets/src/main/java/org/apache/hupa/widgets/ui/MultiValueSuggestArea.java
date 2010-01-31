@@ -21,6 +21,7 @@ package org.apache.hupa.widgets.ui;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -33,7 +34,7 @@ import com.google.gwt.user.client.ui.TextArea;
  * 
  * @author manolo
  */
-public class MultiValueSuggestArea extends Composite implements HasText {
+public class MultiValueSuggestArea extends Composite implements HasText, Focusable {
 
     /**
      * It is necessary to modify the behavior of the default SuggestBox, because
@@ -53,7 +54,7 @@ public class MultiValueSuggestArea extends Composite implements HasText {
                 
                 @Override
                 public String getText() {
-                    return search = super.getText().replaceFirst("\\s$", "").replaceAll("[\\s;]", ",").replaceFirst("^.+,", "");
+                    return search = super.getText().replaceFirst("\\s+$", "").replaceFirst("^\\s+","").replaceAll("[\\s;]", ",").replaceFirst("^.+,", "");
                 }
                 
                 @Override
@@ -118,5 +119,21 @@ public class MultiValueSuggestArea extends Composite implements HasText {
 
     public SuggestOracle getOracle() {
         return oracle;
+    }
+
+    public int getTabIndex() {
+        return box.getTabIndex();
+    }
+
+    public void setAccessKey(char key) {
+        box.setAccessKey(key);
+    }
+
+    public void setFocus(boolean focused) {
+        box.setFocus(focused);
+    }
+
+    public void setTabIndex(int index) {
+        box.setTabIndex(index);
     }
 }

@@ -267,6 +267,11 @@ table.hupa-msgsend {
 	width: 100%;
 }
 
+.hupa-validate-error {
+	border:	1pt solid red;
+    background-color: #fae5b0;
+}
+
 /************[ view: ContactsView ]*******************/
 table.hupa-contacts {
 	margin-left: auto;
@@ -284,9 +289,6 @@ table.hupa-contacts {
     color:           			   #FF0000;
 }
 
-.hupa-validationErrorBorder {
-	border:							1pt solid red;
-}
 
 
 

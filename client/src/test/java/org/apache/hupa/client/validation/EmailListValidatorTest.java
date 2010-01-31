@@ -9,6 +9,7 @@ public class EmailListValidatorTest extends TestCase{
     
     public void testEmailValidator() {
         assertTrue(EmailListValidator.isValidAddressList("abc@abc.def"));
+        assertTrue(EmailListValidator.isValidAddressList(" abc@abc.def"));
         assertTrue(EmailListValidator.isValidAddressList("<abc@abc.def>"));
         assertTrue(EmailListValidator.isValidAddressList(" AAA <abc@abc.def> "));
         assertFalse(EmailListValidator.isValidAddressList(", , ,"));
