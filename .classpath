@@ -5,6 +5,7 @@
 	<classpathentry kind="src" output="server/target/test-classes" path="server/src/test/java"/>
 	<classpathentry kind="src" output="widgets/target/classes" path="widgets/src/main/java"/>
 	<classpathentry kind="src" output="client/war/WEB-INF/classes" path="client/src/main/java"/>
+	<classpathentry kind="src" output="client/target/test-classes" path="client/src/test/java"/>
 	<classpathentry excluding="**" kind="src" output="client/war/WEB-INF/classes" path="client/src/main/resources"/>
 	<classpathentry kind="src" output="client/war/WEB-INF/classes" path="server/src/main/resources"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>

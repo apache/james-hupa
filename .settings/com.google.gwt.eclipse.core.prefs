@@ -1,4 +1,4 @@
 #Sun Aug 30 16:49:18 CEST 2009
 eclipse.preferences.version=1
-entryPointModules=
+entryPointModules=org.apache.hupa.Hupa
 filesCopiedToWebInfLib=gwt-servlet.jar
