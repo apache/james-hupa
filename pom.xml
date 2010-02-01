@@ -76,11 +76,6 @@
             </url>
         </repository>
         <repository>
-            <id>gwt-maven</id>
-            <url>http://gwt-maven.googlecode.com/svn/trunk/mavenrepo/
-            </url>
-        </repository>
-        <repository>
             <id>gwtupload</id>
             <name>GWT Upload repository at googlecode</name>
             <url>http://gwtupload.googlecode.com/svn/mavenrepo
@@ -129,15 +124,6 @@
             </releases>
         </repository>
     </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>gwt-maven</id>
-            <url>http://gwt-maven.googlecode.com/svn/trunk/mavenrepo
-            </url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <properties>
         <gwtVersion>2.0.0</gwtVersion>
     </properties>
@@ -223,45 +209,6 @@
             </plugins>
         </pluginManagement>
     </build>
-    <profiles>
-        <profile>
-            <id>gwt-dev-windows</id>
-            <properties>
-                <platform>windows</platform>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-                <os>
-                    <family>windows</family>
-                </os>
-            </activation>
-        </profile>
-        <profile>
-            <id>gwt-dev-mac</id>
-            <properties>
-                <platform>mac</platform>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-                <os>
-                    <family>mac</family>
-                </os>
-            </activation>
-        </profile>
-        <profile>
-            <id>gwt-dev-linux</id>
-            <properties>
-                <platform>linux</platform>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-                <os>
-                    <name>linux</name>
-                </os>
-            </activation>
-        </profile>
-    </profiles>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
