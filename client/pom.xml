@@ -82,7 +82,7 @@
             <artifactId>gwt-dispatch</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.gwt.inject
+            <groupId>com.googlecode.gwt.inject
             </groupId>
             <artifactId>gin</artifactId>
         </dependency>
