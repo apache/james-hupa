@@ -20,8 +20,8 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
                 <configuration>
-                    <runTarget>org.apache.hupa.Hupa/Hupa.html
-                    </runTarget>
+                     <runTarget>Hupa.html</runTarget>
+                     <extraJvmArgs>-Dhupa.config.file=${project.parent.basedir}/server/src/main/webapp/WEB-INF/conf/config.properties</extraJvmArgs>
                 </configuration>
                 <executions>
                     <execution>
