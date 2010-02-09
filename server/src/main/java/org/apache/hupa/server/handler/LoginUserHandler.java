@@ -19,7 +19,8 @@
 
 package org.apache.hupa.server.handler;
 
-import javax.servlet.http.HttpSession;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 import net.customware.gwt.dispatch.server.ActionHandler;
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -27,13 +28,15 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.LoginUser;
 import org.apache.hupa.shared.rpc.LoginUserResult;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Enumeration;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Handler for login a user via username and password
@@ -59,8 +62,10 @@ public class LoginUserHandler implements
      * (non-Javadoc)
      * @see net.customware.gwt.dispatch.server.ActionHandler#execute(net.customware.gwt.dispatch.shared.Action, net.customware.gwt.dispatch.server.ExecutionContext)
      */
-    public LoginUserResult execute(LoginUser action, ExecutionContext context)
-            throws ActionException {
+    public LoginUserResult execute(LoginUser action, ExecutionContext context) throws ActionException {
+        HttpSession session = sessionProvider.get();
+        cleanSessionAttributes(session);
+        
         String username = action.getUserName();
         String password = action.getPassword();
         try {
@@ -75,15 +80,15 @@ public class LoginUserHandler implements
             
             user.setAuthenticated(true);
             user.setSettings(settingsProvider.get());
-            // store the session id for later usage
-            HttpSession session = sessionProvider.get();
-            session.setAttribute("user", user);
             
-            logger.debug("Logged user: " + action);
+            // store the session id for later usage
+            session.setAttribute(SConsts.USER_SESS_ATTR, user);
+            
+            logger.debug("Logged user: " + username);
             return new LoginUserResult(user);
 
         } catch (Exception e) {
-            logger.error("Unable to authenticate user: " + action, e);
+            logger.error("Unable to authenticate user: " + username, e);
             throw new ActionException(e);
         }
     }
@@ -103,5 +108,17 @@ public class LoginUserHandler implements
      */
     public Class<LoginUser> getActionType() {
         return LoginUser.class;
+    }
+    
+    /**
+     * Remove session attributes, it has to be done in the login and logout actions
+     * @param session
+     */
+    public static void cleanSessionAttributes(HttpSession session) {
+        @SuppressWarnings("unchecked")
+        Enumeration en = session.getAttributeNames();
+        while (en.hasMoreElements()) {
+            session.removeAttribute(en.nextElement().toString());
+        }
     }
 }

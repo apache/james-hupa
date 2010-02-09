@@ -11,5 +11,9 @@ public class SConsts {
     public static final String PARAM_NAME = "name";
     public static final String PARAM_FOLDER = "folder";
     public static final String PARAM_UID = "uid";
+    
+    public static final String USER_SESS_ATTR = "user";
+    public static final String CONTACTS_SESS_ATTR = "contacts";
+    
 
 }

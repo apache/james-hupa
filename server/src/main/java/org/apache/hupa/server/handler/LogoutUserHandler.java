@@ -59,8 +59,8 @@ public class LogoutUserHandler extends AbstractSessionHandler<LogoutUser, Logout
         // delete cached store
         cache.delete(user);
         
-        // remove user attribute from session
-        sessionProvider.get().removeAttribute("user");
+        // remove user attributes from session
+        LoginUserHandler.cleanSessionAttributes(sessionProvider.get());
         
         return new LogoutUserResult(user);
     }
