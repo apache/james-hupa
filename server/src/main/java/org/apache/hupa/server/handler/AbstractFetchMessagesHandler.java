@@ -68,29 +68,30 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             folder = new IMAPFolder(user.getSettings().getInboxFolderName());
         }
         com.sun.mail.imap.IMAPFolder f = null;
+        int start = action.getStart();
+        int offset = action.getOffset();
         try {
             IMAPStore store = cache.get(user);
-            int start = action.getStart();
-            int offset = action.getOffset();
             
             f =  (com.sun.mail.imap.IMAPFolder)store.getFolder(folder.getFullName());
 
-            // check if the folder is open, if not open it read only
-             if (f.isOpen() == false) {
-                 f.open(com.sun.mail.imap.IMAPFolder.READ_ONLY);
-             }
+             // check if the folder is open, if not open it read only
+            if (f.isOpen() == false) {
+                f.open(com.sun.mail.imap.IMAPFolder.READ_ONLY);
+            }
 
-            int exists = f.getMessageCount();
-            
             // if the folder is empty we have no need to process 
+            int exists = f.getMessageCount();
             if (exists == 0) {
-                return new FetchMessagesResult(new ArrayList<org.apache.hupa.shared.data.Message>(),start,offset,exists,0);
+                 return new FetchMessagesResult(new ArrayList<org.apache.hupa.shared.data.Message>(), start, offset, 0, 0);
             }        
             
             MessageConvertArray convArray = getMessagesToConvert(f,action);
-            
             return new FetchMessagesResult(convert(offset, f, convArray.getMesssages()),start, offset,convArray.getRealCount(),f.getUnreadMessageCount());
-            
+        } catch (MessagingException e) {
+            logger.info("Error fetching messages in folder: " + folder.getFullName() + " " + e.getMessage());
+            // Folder can not contain messages
+            return new FetchMessagesResult(new ArrayList<org.apache.hupa.shared.data.Message>(), start, offset, 0, 0);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("Error while fetching headers for user " + user.getName() + " in folder " + folder,e);
@@ -108,7 +109,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         }
     }
     
-    protected abstract MessageConvertArray getMessagesToConvert(com.sun.mail.imap.IMAPFolder f, A action) throws MessagingException;
+    protected abstract MessageConvertArray getMessagesToConvert(com.sun.mail.imap.IMAPFolder f, A action) throws MessagingException, ActionException;
     
     protected ArrayList<org.apache.hupa.shared.data.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
         ArrayList<org.apache.hupa.shared.data.Message> mList = new ArrayList<org.apache.hupa.shared.data.Message>();

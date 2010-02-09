@@ -69,7 +69,6 @@ public class CreateFolderHandler extends AbstractSessionHandler<CreateFolder, Ge
         } catch (Exception e) {
             logger.error("Error while creating folder " + folder + " for user " + user, e);
             throw new ActionException("Error while creating folder " + folder + " for user " + user, e);
-
         }
     }
 

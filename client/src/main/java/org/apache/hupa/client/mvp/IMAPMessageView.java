@@ -158,6 +158,7 @@ public class IMAPMessageView extends Composite implements Display{
                     }
                 });
                 HorizontalPanel aPanel = new HorizontalPanel();
+                aPanel.addStyleName(HupaCSS.C_attachment);
                 aPanel.add(imageBundle.attachmentIcon().createImage());
                 aPanel.add(link);
                 attachments.add(aPanel);

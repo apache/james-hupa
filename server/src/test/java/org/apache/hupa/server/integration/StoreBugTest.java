@@ -19,13 +19,8 @@
 
 package org.apache.hupa.server.integration;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPStore;
 
 import junit.framework.Assert;
 
@@ -34,10 +29,16 @@ import org.apache.hupa.server.guice.SessionProvider;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLog;
 import org.apache.hupa.shared.data.User;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import com.sun.mail.imap.IMAPFolder;
-import com.sun.mail.imap.IMAPStore;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
 
 public class StoreBugTest {
     
@@ -51,7 +52,7 @@ public class StoreBugTest {
     static int threadTimeout = 15000;
     
     Session session = Session.getDefaultInstance(new Properties(), null);
-    static InMemoryIMAPStoreCache cache = new InMemoryIMAPStoreCache(new MockLog(), imapServer, imapPort, isSSl, 2, 60000, new SessionProvider());
+    static InMemoryIMAPStoreCache cache = new InMemoryIMAPStoreCache(new MockLog(), imapServer, imapPort, isSSl, 2, 60000, false, new SessionProvider());
     static User user = new User() {
        private static final long serialVersionUID = 1L;
        {setName(imapUser); setPassword(imapPass);}
@@ -64,7 +65,7 @@ public class StoreBugTest {
         Assert.assertFalse(getThreadsSpentTime(threads).contains("-1"));
     }
 
-    @Test 
+    @Test @Ignore
     public void testIMAPStoreIdleHungs() throws Exception {
         IMAPStore store = null;
         try {
@@ -102,7 +103,7 @@ public class StoreBugTest {
         return threads;
     }
 
-    @Test  
+    @Test @Ignore
     public void testInMemoryImapStoreCacheDoesntHung() throws Exception {
         try {
             cache.get(user);

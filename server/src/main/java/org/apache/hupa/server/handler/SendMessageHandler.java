@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.shared.rpc.SendMessage;
 
 import com.google.inject.Inject;
@@ -37,9 +38,9 @@ import com.google.inject.name.Named;
 public class SendMessageHandler extends AbstractSendMessageHandler<SendMessage> {
 
     @Inject
-    public SendMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider,
+    public SendMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider, UserPreferencesStorage preferences,
             @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
-        super(logger, store, provider, address, port, auth,useSSL);
+        super(logger, store, provider, preferences, address, port, auth,useSSL);
     }
 
     /*

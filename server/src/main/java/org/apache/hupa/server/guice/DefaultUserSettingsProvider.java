@@ -29,13 +29,15 @@ public class DefaultUserSettingsProvider implements Provider<Settings> {
     private String inboxFolder;
     private String sentFolder;
     private String trashFolder;
+    private String draftFolder;
     private int postCount;
 
     @Inject
-    public DefaultUserSettingsProvider(@Named("DefaultInboxFolder") String inboxFolder, @Named("DefaultSentFolder") String sentFolder, @Named("DefaultTrashFolder") String trashFolder, @Named("PostFetchMessageCount") int postCount) {
+    public DefaultUserSettingsProvider(@Named("DefaultInboxFolder") String inboxFolder, @Named("DefaultSentFolder") String sentFolder, @Named("DefaultTrashFolder") String trashFolder, @Named("DefaultDraftsFolder") String draftFolder, @Named("PostFetchMessageCount") int postCount) {
         this.inboxFolder = inboxFolder;
         this.sentFolder = sentFolder;
         this.trashFolder = trashFolder;
+        this.draftFolder = draftFolder;
         this.postCount = postCount;
     }
     
@@ -48,6 +50,7 @@ public class DefaultUserSettingsProvider implements Provider<Settings> {
         settings.setInboxFolderName(inboxFolder);
         settings.setSentFolderName(sentFolder);
         settings.setTrashFolderName(trashFolder);
+        settings.setDraftsFolderName(draftFolder);
         settings.setPostFetchMessageCount(postCount);
         return settings;
     }

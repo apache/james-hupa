@@ -19,22 +19,7 @@
 
 package org.apache.hupa.server.utils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.Session;
-import javax.mail.Message.RecipientType;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.MimeMessage;
+import com.sun.mail.imap.IMAPStore;
 
 import junit.framework.TestCase;
 
@@ -46,6 +31,24 @@ import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.SMTPMessage;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.mail.BodyPart;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.Session;
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.MimeMessage;
 
 /**
  * A bunch of useful methods used for testing
@@ -191,7 +194,7 @@ public class TestUtils extends TestCase {
         }
 
         SMTPMessage smtpMessage = new SMTPMessage();
-        smtpMessage.setFrom("from@dom.com");
+        smtpMessage.setFrom("Test user <from@dom.com>");
         smtpMessage.setTo(new ArrayList<String>(Arrays.asList("to@dom.com")));
         smtpMessage.setCc(new ArrayList<String>(Arrays.asList("cc@dom.com")));
         smtpMessage.setBcc(new ArrayList<String>(Arrays.asList("bcc@dom.com")));
@@ -267,6 +270,15 @@ public class TestUtils extends TestCase {
         Multipart mpart = (Multipart) message.getContent();
         mpart.addBodyPart(part);
         message.saveChanges();
+    }
+    
+    
+    public static String dumpStore(IMAPStore store) throws MessagingException {
+        String ret = "";
+        for (Folder f : store.getDefaultFolder().list()) {
+            ret += f.getFullName() + " " + f.getMessageCount() + "\n";
+        }
+        return ret;
     }
  
 }

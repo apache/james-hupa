@@ -27,7 +27,6 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockHttpSession;
-import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockIMAPStoreCache;
 import org.apache.hupa.server.mock.MockLog;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
@@ -69,19 +68,10 @@ public abstract class AbstractHandlerTest extends TestCase{
         }
     };
     
-    protected MockIMAPStoreCache storeCache = new MockIMAPStoreCache( new Provider<Session>() {
-        public Session get() {
-            Session session = Session.getDefaultInstance(new Properties());
-            session.addProvider(MockIMAPStore.getProvider());
-            return session;
-        }
-    });
+    protected MockIMAPStoreCache storeCache = new MockIMAPStoreCache(user);
     
     protected UserPreferencesStorage preferences = new UserPreferencesStorage(){
-        public void addContact(Contact c) {
-        }
-
-        public void addContact(String s) {
+        public void addContact(Contact... c) {
         }
 
         public Contact[] getContacts() {

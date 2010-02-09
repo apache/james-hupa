@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * A preferences storage which uses session as repository data
  */
-public class InSessionUserPreferencesStorage implements UserPreferencesStorage {
+public class InSessionUserPreferencesStorage extends UserPreferencesStorage {
 
     private final Provider<HttpSession> sessionProvider;
     
@@ -23,34 +23,29 @@ public class InSessionUserPreferencesStorage implements UserPreferencesStorage {
         this.sessionProvider = sessionProvider;
     }
 
-    public void addContact(Contact contact) {
-        
+    public void addContact(Contact... contacts) {
         HttpSession session = sessionProvider.get();
-        
+
         @SuppressWarnings("unchecked")
-        HashMap<String, Contact> sessionContacts = (HashMap<String, Contact>)session.getAttribute("contacts");
-        if (sessionContacts==null)
+        HashMap<String, Contact> sessionContacts = (HashMap<String, Contact>)session.getAttribute(CONTACTS_ATTR);
+        if (sessionContacts==null) {
             sessionContacts=new HashMap<String, Contact>();
+            session.setAttribute(CONTACTS_ATTR, sessionContacts);
+        }
         
-        if (!sessionContacts.containsKey(contact.toKey())) {
-            sessionContacts.put(contact.toKey(), contact);
-            session.setAttribute("contacts", sessionContacts);
+        for(Contact contact: contacts) {
+            if (!sessionContacts.containsKey(contact.toKey())) {
+                sessionContacts.put(contact.toKey(), contact);
+            }
         }
     }
 
-    public void addContact(String mail) {
-        Contact contact = new Contact(mail);
-        addContact(contact);
-    }
-
     public Contact[] getContacts() {
-        
         HttpSession session = sessionProvider.get();
         
         @SuppressWarnings("unchecked")
-        HashMap<String, Contact> sessionContacts = (HashMap<String, Contact>)session.getAttribute("contacts");
+        HashMap<String, Contact> sessionContacts = (HashMap<String, Contact>)session.getAttribute(CONTACTS_ATTR);
 
         return sessionContacts == null ? new Contact[]{} : sessionContacts.values().toArray(new Contact[sessionContacts.size()]);
     }
-    
 }

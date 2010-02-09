@@ -262,6 +262,14 @@ div.hupa-msgview-content {
 	padding: 20px;
 }
 
+.hupa-attachment .hupa-hyperlink {
+	padding-left: 5px;
+	font-style: italic;
+	color: #0d0eb0;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 /************[ view: MessageSendView ]*******************/
 table.hupa-msgsend {
 	width: 100%;

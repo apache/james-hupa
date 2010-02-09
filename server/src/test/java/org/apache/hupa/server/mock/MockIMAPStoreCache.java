@@ -29,19 +29,28 @@ import org.apache.hupa.shared.data.User;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 
 public class MockIMAPStoreCache implements IMAPStoreCache {
-    private Provider<Session> provider;
+  
+    private Provider<Session> provider = new Provider<Session>() {
+        public Session get() {
+            Session session = Session.getDefaultInstance(new Properties());
+            session.addProvider(MockIMAPStore.getProvider());
+            return session;
+        }
+    };
+    
     private Map<String, String> users = new HashMap<String, String>();
     private Map<String, IMAPStore> stores = new HashMap<String, IMAPStore>();
 
     @Inject
-    public MockIMAPStoreCache(Provider<Session> provider) {
-        this.provider = provider; 
+    public MockIMAPStoreCache(User user) {
+        addValidUser(user);
     }
 
     public void addValidUser(User user, IMAPStore store) {
@@ -61,7 +70,8 @@ public class MockIMAPStoreCache implements IMAPStoreCache {
         try {
             addValidUser(username, password, (IMAPStore)provider.get().getStore("mockimap"));
         } catch (NoSuchProviderException e) {
-            throw new RuntimeException("Invalid store");
+            e.printStackTrace();
+            throw new RuntimeException("Invalid store", e);
         }
     }
 

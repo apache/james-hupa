@@ -78,10 +78,12 @@ public class LoginUserHandler implements
             // store the session id for later usage
             HttpSession session = sessionProvider.get();
             session.setAttribute("user", user);
+            
+            logger.debug("Logged user: " + action);
             return new LoginUserResult(user);
 
         } catch (Exception e) {
-            logger.error("Unable to authenticate user " + username,e);
+            logger.error("Unable to authenticate user: " + action, e);
             throw new ActionException(e);
         }
     }

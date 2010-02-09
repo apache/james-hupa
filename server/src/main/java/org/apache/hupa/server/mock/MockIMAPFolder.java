@@ -47,7 +47,7 @@ public class MockIMAPFolder extends IMAPFolder {
 
     public static final char SEPARATOR = '.';
     public List<Message> messages = new ArrayList<Message>();
-    private boolean closed;
+    private boolean closed = true;
     private boolean exists;
     
     public MockIMAPFolder(String fullName, IMAPStore store) {
@@ -87,7 +87,11 @@ public class MockIMAPFolder extends IMAPFolder {
 
     }
     
-    public void loadDemoMessages(Session session) {
+    public void loadDemoMessages(Session session) throws Exception{
+        if (!exists()) {
+            create(IMAPFolder.HOLDS_MESSAGES);
+            open(Folder.READ_WRITE);
+        }
         for(int i=0;;i++) {
             URL url = Thread.currentThread().getContextClassLoader().getResource(DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + i + ".msg");
             if (url == null) break;
@@ -126,7 +130,6 @@ public class MockIMAPFolder extends IMAPFolder {
     @Override
     public synchronized void fetch(Message[] msgs, FetchProfile fp)
             throws MessagingException {
-        // nothing todo
         checkExists();
     }
 
@@ -149,7 +152,7 @@ public class MockIMAPFolder extends IMAPFolder {
     public synchronized Message getMessage(int msgnum)
             throws MessagingException {
         checkExists();
-        if (messages.size() < msgnum) {
+        if (messages.size() <= msgnum) {
             throw new MessagingException();
         }
         return messages.get(msgnum);

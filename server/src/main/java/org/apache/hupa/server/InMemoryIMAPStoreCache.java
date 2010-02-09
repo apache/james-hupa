@@ -50,16 +50,17 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
     private boolean useSSL = false;
     
     @Inject
-    public InMemoryIMAPStoreCache(Log logger,@Named("IMAPServerAddress") String address, @Named("IMAPServerPort") int port, @Named("IMAPS") boolean useSSL, @Named("IMAPConnectionPoolSize") int connectionPoolSize, @Named("IMAPConnectionPoolTimeout") int timeout, Provider<Session> sessionProvider) {
+    public InMemoryIMAPStoreCache(Log logger, @Named("IMAPServerAddress") String address, @Named("IMAPServerPort") int port, @Named("IMAPS") boolean useSSL, @Named("IMAPConnectionPoolSize") int connectionPoolSize, @Named("IMAPConnectionPoolTimeout") int timeout, @Named("SessionDebug") boolean debug, Provider<Session> sessionProvider) {
         this.logger = logger;
         this.address = address;
         this.port = port;
         this.useSSL = useSSL;
       
         session = sessionProvider.get();
-        if (logger.isDebugEnabled()) {
+        if (debug && logger.isDebugEnabled()) {
             session.setDebug(true);
         }
+        
         Properties props = session.getProperties();
         
         props.setProperty("mail.mime.decodetext.strict", "false");

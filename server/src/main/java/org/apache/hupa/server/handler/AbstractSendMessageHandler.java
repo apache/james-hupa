@@ -55,6 +55,7 @@ import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockSMTPTransport;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.server.utils.RegexPatterns;
 import org.apache.hupa.server.utils.SessionUtils;
@@ -82,9 +83,10 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
     private final int port;
     private boolean useSSL = false;
     private Provider<HttpSession> httpSessionProvider;
+    UserPreferencesStorage userPreferences;
 
     @Inject
-    public AbstractSendMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider, @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
+    public AbstractSendMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider, UserPreferencesStorage preferences, @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
         super(store,logger,provider);
         this.auth = auth;
         this.address = address;
@@ -92,6 +94,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         this.useSSL  = useSSL;
         this.httpSessionProvider = provider;
         props.put("mail.smtp.auth", auth);
+        this.userPreferences = preferences;
     }
 
     @Override
@@ -109,7 +112,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         
             resetAttachments(action);
         
-            // TODO: notify the user more accurately where is the error
+            // TODO: notify the user more accurately where the error is
             // if the message was sent and the storage in the sent folder failed, etc.
         } catch (AddressException e) {
             result.setError("Error while parsing recipient: " + e.getMessage());
@@ -141,6 +144,11 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         MimeMessage message = new MimeMessage(session);
         SMTPMessage m = action.getMessage();
         message.setFrom(new InternetAddress(m.getFrom()));
+
+        userPreferences.addContact(m.getTo());
+        userPreferences.addContact(m.getCc());
+        userPreferences.addContact(m.getBcc());
+
         message.setRecipients(RecipientType.TO, MessageUtils.getRecipients(m.getTo()));
         message.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
         message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
@@ -276,13 +284,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         IMAPStore iStore = cache.get(user);
         IMAPFolder folder = (IMAPFolder) iStore.getFolder(user.getSettings().getSentFolderName());
         
-        boolean exists = false;
-        if (folder.exists() == false) {
-            exists = folder.create(IMAPFolder.READ_WRITE);
-        } else {
-            exists = true;
-        }
-        if (exists) {
+        if (folder.exists() || folder.create(IMAPFolder.READ_WRITE)) {
             if (folder.isOpen() == false) {
                 folder.open(Folder.READ_WRITE);
             }
@@ -290,7 +292,8 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
             // It is necessary to copy the message, before putting it
             // in the sent folder. If not, it is not guaranteed that it is 
             // stored in ascii and is not possible to get the attachments
-            // size.
+            // size. message.saveChanges() doesn't fix the problem.
+            // There are tests which demonstrate this.
             message = new MimeMessage((MimeMessage)message);
 
             message.setFlag(Flag.SEEN, true);

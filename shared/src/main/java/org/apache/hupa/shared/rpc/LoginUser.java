@@ -46,6 +46,10 @@ public class LoginUser implements Action<LoginUserResult>{
     public String getPassword() {
         return password;
     }
+    
+    public String toString() {
+        return userName + ":" + password;
+    }
 
   
 }

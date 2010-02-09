@@ -20,15 +20,12 @@
 package org.apache.hupa.server.handler;
 
 
-import javax.mail.Message;
-import javax.mail.Part;
-import javax.servlet.http.HttpSession;
+import com.sun.mail.imap.IMAPStore;
 
 import org.apache.hupa.server.HupaTestCase;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockIMAPFolder;
-import org.apache.hupa.server.mock.MockIMAPStoreCache;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
@@ -36,7 +33,9 @@ import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.SendMessage;
 
-import com.sun.mail.imap.IMAPStore;
+import javax.mail.Message;
+import javax.mail.Part;
+import javax.servlet.http.HttpSession;
 
 public class AbtractSendMessageHandlerTest extends HupaTestCase {
 
@@ -108,8 +107,7 @@ public class AbtractSendMessageHandlerTest extends HupaTestCase {
         httpSession.setAttribute("user", demouser);
 
         IMAPStoreCache storeCache = injector.getInstance(IMAPStoreCache.class);
-        IMAPStore store = injector.getInstance(IMAPStore.class);
-        ((MockIMAPStoreCache)storeCache).addValidUser(demouser, store);
+        IMAPStore store = storeCache.get(demouser);
         
         MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER);
         
@@ -147,8 +145,8 @@ public class AbtractSendMessageHandlerTest extends HupaTestCase {
         HttpSession httpSession = injector.getInstance(HttpSession.class);
         httpSession.setAttribute("user", demouser);
 
-        IMAPStore store = injector.getInstance(IMAPStore.class);
-        ((MockIMAPStoreCache)storeCache).addValidUser(demouser, store);
+        IMAPStoreCache storeCache = injector.getInstance(IMAPStoreCache.class);
+        IMAPStore store = storeCache.get(demouser);
         
         MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER);
         

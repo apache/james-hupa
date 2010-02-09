@@ -92,10 +92,6 @@
             <artifactId>gwt-presenter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-incubator</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.google.code.gwt-dnd</groupId>
             <artifactId>gwt-dnd</artifactId>
         </dependency>

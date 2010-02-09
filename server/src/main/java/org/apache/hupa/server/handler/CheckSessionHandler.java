@@ -57,6 +57,7 @@ public class CheckSessionHandler implements ActionHandler<CheckSession, CheckSes
         } catch (Exception e) {
             e.printStackTrace();
         }
+        logger.debug("CheckSession returns: " + ret.isValid());
         return ret;
     }
 

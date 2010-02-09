@@ -26,6 +26,7 @@ public class Settings implements Serializable{
     public static final String DEFAULT_INBOX = "INBOX"; 
     public static final String DEFAULT_TRASH = "Trash"; 
     public static final String DEFAULT_SENT = "Sent"; 
+    public static final String DEFAULT_DRAFT = "Draft"; 
     
     /**
      * 
@@ -34,6 +35,8 @@ public class Settings implements Serializable{
     private String trashFolderName = DEFAULT_TRASH;
     private String sentFolderName = DEFAULT_SENT;
     private String inboxFolderName = DEFAULT_INBOX;
+    private String draftsFolderName = DEFAULT_DRAFT;
+    
     private int prefetchCount = 20;
     
     public String getInboxFolderName() {
@@ -68,5 +71,13 @@ public class Settings implements Serializable{
         this.prefetchCount  = prefetchCount;
     }
     
+    public String getDraftsFolderName() {
+        return draftsFolderName;
+    }
+
+    public void setDraftsFolderName(String draftFolderName) {
+        this.draftsFolderName = draftFolderName;
+    }
+
     
 }

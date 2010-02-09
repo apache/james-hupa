@@ -60,6 +60,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
         User user = getUser();
         ArrayList<IMAPFolder> fList = new ArrayList<IMAPFolder>();
         try {
+
             // get the store for the user
             IMAPStore store = cache.get(user);
             com.sun.mail.imap.IMAPFolder folder = (com.sun.mail.imap.IMAPFolder) store.getDefaultFolder();
@@ -70,6 +71,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
                 Folder f = folders[i];
                 createIMAPFolderTree(fList, createFolder(f), f.list());
             }
+            logger.debug("Fetching folders for user: " + user + " returns: " + fList.size() + " folders");
             return new FetchFoldersResult(fList);
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,15 +95,17 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
      * 
      * @param folder
      * @return imapFolder
+     * @throws ActionException 
      * @throws MessagingException
      */
-    private IMAPFolder createFolder(Folder folder) {
+    private IMAPFolder createFolder(Folder folder) throws ActionException {
 
         String fullName = folder.getFullName();
         String delimiter;
         IMAPFolder iFolder = null;
         
         try {
+            logger.debug("Creating folder: " + fullName + " for user: " + getUser());
             delimiter = String.valueOf(folder.getSeparator());
             iFolder = new IMAPFolder(fullName);
             iFolder.setDelimiter(delimiter);
@@ -110,7 +114,6 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
             iFolder.setMessageCount(folder.getMessageCount());
             iFolder.setSubscribed(folder.isSubscribed());
             iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());
-            
         } catch (MessagingException e) {
             logger.error("Unable to construct folder " + folder.getFullName(),e);
         }
@@ -128,7 +131,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
      * @throws MessagingException
      */
     private void createIMAPFolderTree(List<IMAPFolder> fList,
-            IMAPFolder iFolder, Folder[] childFolders) throws MessagingException {
+            IMAPFolder iFolder, Folder[] childFolders) throws MessagingException, ActionException {
         
         for (int a = 0; a < childFolders.length; a++) {
             IMAPFolder folder = createFolder(childFolders[a]);

@@ -45,7 +45,7 @@ public class MockIMAPStore extends IMAPStore{
     static final URLName demoUrl = new URLName(null, DemoModeConstants.DEMO_MODE, 143, null, null, null);
     
     /**
-     * Demo mode constructor
+     * Default constructor, it creates the folder structure and loads messages for demo
      */
     @Inject
     public MockIMAPStore(Session session) {
@@ -53,17 +53,18 @@ public class MockIMAPStore extends IMAPStore{
     }
 
     /**
-     * Default constructor
+     * Customized constructor
      */
     public MockIMAPStore(Session session, URLName url) {
         super(session, url);
-        if (DemoModeConstants.DEMO_MODE.equals(url.getHost())) {
+        if (url != null && DemoModeConstants.DEMO_MODE.equals(url.getHost())) {
             validServers.put(DemoModeConstants.DEMO_MODE, 143);
             validLogins.put(DemoModeConstants.DEMO_LOGIN, DemoModeConstants.DEMO_LOGIN);
             try {
                 new MockIMAPFolder(DemoModeConstants.DEMO_MODE_INBOX_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
                 new MockIMAPFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
                 new MockIMAPFolder(DemoModeConstants.DEMO_MODE_TRASH_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
+                new MockIMAPFolder(DemoModeConstants.DEMO_MODE_DRAFTS_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
                 ((MockIMAPFolder)getFolder(DemoModeConstants.DEMO_MODE_INBOX_FOLDER)).loadDemoMessages(session);
             } catch (Exception e) {
                 e.printStackTrace();

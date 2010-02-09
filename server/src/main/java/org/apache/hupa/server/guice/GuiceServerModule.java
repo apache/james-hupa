@@ -19,11 +19,8 @@
 
 package org.apache.hupa.server.guice;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Properties;
-
-import javax.mail.Session;
+import com.google.inject.Singleton;
+import com.google.inject.name.Names;
 
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
@@ -50,15 +47,18 @@ import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.handler.SetFlagsHandler;
 import org.apache.hupa.server.handler.TagMessagesHandler;
-import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
+import org.apache.hupa.server.preferences.InImapUserPreferencesStorage;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
 import org.apache.hupa.server.servlet.MessageSourceServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
 import org.apache.hupa.shared.data.Settings;
 
-import com.google.inject.Singleton;
-import com.google.inject.name.Names;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
+
+import javax.mail.Session;
 
 /**
  * Module which binds the handlers and configurations
@@ -113,7 +113,7 @@ public class GuiceServerModule extends ActionHandlerModule {
         bind(UploadAttachmentServlet.class).in(Singleton.class);
         bind(MessageSourceServlet.class).in(Singleton.class);
         bind(Session.class).toProvider(SessionProvider.class);
-        bind(UserPreferencesStorage.class).to(InSessionUserPreferencesStorage.class);
+        bind(UserPreferencesStorage.class).to(InImapUserPreferencesStorage.class);
 
         Properties properties;
         try {

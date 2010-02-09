@@ -39,6 +39,8 @@ import org.apache.hupa.shared.rpc.FetchMessages;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+import net.customware.gwt.dispatch.shared.ActionException;
+
 /**
  * Fetch Messages for a user. The Messages don't contain any body, just some
  * fields of the headers are fetched for perfomance reasons
@@ -46,6 +48,7 @@ import com.google.inject.Provider;
  */
 public class FetchMessagesHandler extends
         AbstractFetchMessagesHandler<FetchMessages> {
+    
 
     @Inject
     public FetchMessagesHandler(IMAPStoreCache cache, Log logger,
@@ -64,13 +67,11 @@ public class FetchMessagesHandler extends
 
     @Override
     protected MessageConvertArray getMessagesToConvert(com.sun.mail.imap.IMAPFolder f,
-            FetchMessages action) throws MessagingException {
+            FetchMessages action) throws MessagingException, ActionException {
         String searchString = action.getSearchString();
         int start = action.getStart();
         int offset = action.getOffset();
         int end = start + offset;
-
-       
         Message[] messages;
         int exists;
         // check if a searchString was given, and if so use it
@@ -114,6 +115,8 @@ public class FetchMessagesHandler extends
             }
           
         }
+        logger.debug("Fetching messages for user: " + getUser() + " returns: " + messages.length + " messages in " + f.getFullName());
+
         return new MessageConvertArray(exists, messages);
     }
 }

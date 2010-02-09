@@ -27,7 +27,7 @@ public class DemoModeTest extends AbstractHandlerTest {
 
     private LoginUser demoUser = new LoginUser("demo", "demo");
     
-    private InMemoryIMAPStoreCache memoryStore = new InMemoryIMAPStoreCache(logger, DemoModeConstants.DEMO_MODE, 143, false, 1, 300000, provider);
+    private InMemoryIMAPStoreCache memoryStore = new InMemoryIMAPStoreCache(logger, DemoModeConstants.DEMO_MODE, 143, false, 1, 300000, false, provider);
     
     private LoginUserHandler loginUserHandler = new LoginUserHandler(memoryStore, logger, httpSessionProvider, settingsProvider);
     
@@ -54,7 +54,7 @@ public class DemoModeTest extends AbstractHandlerTest {
         try {
             loginUserHandler.execute(demoUser, null);
             FetchFoldersResult result = fetchFoldersHandler.execute(new FetchFolders(), null);
-            assertEquals("In demo mode should be 3 folders predefined", 3, result.getFolders().size());
+            assertEquals("In demo mode should be 4 folders predefined", 4, result.getFolders().size());
         } catch (ActionException e) {
             e.printStackTrace();
             fail("Shouldn't throw an exception");
@@ -67,7 +67,7 @@ public class DemoModeTest extends AbstractHandlerTest {
     }
     
     public void testLoadMessageFiles() throws Exception {
-        MockIMAPStore store = new MockIMAPStore(session);
+        MockIMAPStore store = new MockIMAPStore(session, null);
         MockIMAPFolder folder = new MockIMAPFolder("WHATEVER", store);
         folder.create(Folder.HOLDS_MESSAGES);
         folder.loadDemoMessages(session);

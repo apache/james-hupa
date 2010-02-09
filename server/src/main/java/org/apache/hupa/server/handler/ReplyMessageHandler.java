@@ -33,6 +33,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.rpc.ReplyMessage;
 
@@ -50,9 +51,9 @@ import com.sun.mail.imap.IMAPStore;
 public class ReplyMessageHandler extends AbstractSendMessageHandler<ReplyMessage> {
 
     @Inject
-    public ReplyMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider,
+    public ReplyMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider, UserPreferencesStorage preferences,
             @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
-        super(logger, store, provider, address, port, auth, useSSL);
+        super(logger, store, provider, preferences, address, port, auth, useSSL);
     }
 
     @Override

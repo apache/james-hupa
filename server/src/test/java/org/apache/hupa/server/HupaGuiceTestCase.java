@@ -22,6 +22,9 @@ package org.apache.hupa.server;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Module;
+
+import com.sun.mail.imap.IMAPStore;
 
 import junit.framework.TestCase;
 
@@ -29,32 +32,70 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.guice.GuiceTestModule;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.handler.ContactsHandler;
+import org.apache.hupa.server.handler.CreateFolderHandler;
+import org.apache.hupa.server.handler.DeleteFolderHandler;
+import org.apache.hupa.server.handler.FetchFoldersHandler;
+import org.apache.hupa.server.handler.FetchMessagesHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
 import org.apache.hupa.server.handler.GetMessageDetailsHandler;
+import org.apache.hupa.server.handler.LoginUserHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
+import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
+import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.SendMessage;
 
 import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
-public abstract class HupaTestCase extends TestCase{
+public abstract class HupaGuiceTestCase extends TestCase {
 
-    protected Injector injector = Guice.createInjector(new GuiceTestModule());
+    protected Injector injector = Guice.createInjector(getModule());
+
+    protected HttpSession httpSession = injector.getInstance(HttpSession.class);
     
-    protected Session session = injector.getInstance(Session.class);
-    protected Log logger = injector.getInstance(Log.class);
-    protected IMAPStoreCache storeCache = injector.getInstance(IMAPStoreCache.class);
+    protected AbstractSendMessageHandler<SendMessage> abstSendMsgHndl = injector.getInstance(SendMessageHandler.class);
     
-    @SuppressWarnings("unchecked")
-    protected AbstractSendMessageHandler<SendMessage> abstSendMsgHndl = injector.getInstance(AbstractSendMessageHandler.class);
+    protected ContactsHandler contactsHandler = injector.getInstance(ContactsHandler.class);
+
+    protected CreateFolderHandler createFHandler = injector.getInstance(CreateFolderHandler.class);
+    
+    protected DeleteFolderHandler deleteFHandler = injector.getInstance(DeleteFolderHandler.class);
+    
+    protected FetchFoldersHandler fetchFHandler = injector.getInstance(FetchFoldersHandler.class);
+    
+    protected FetchMessagesHandler fetchMessagesHandler = injector.getInstance(FetchMessagesHandler.class);
     
     protected ForwardMessageHandler fwdMsgHndl = injector.getInstance(ForwardMessageHandler.class);
-    protected ReplyMessageHandler reMsgHndl = injector.getInstance(ReplyMessageHandler.class);
     
     protected GetMessageDetailsHandler getDetailsMsgHndl = injector.getInstance(GetMessageDetailsHandler.class);
     
-    protected ContactsHandler contactsHandler = injector.getInstance(ContactsHandler.class);
+    protected Log logger = injector.getInstance(Log.class);
+    
+    protected LoginUserHandler loginUser = injector.getInstance(LoginUserHandler.class);
+    
+    protected ReplyMessageHandler reMsgHndl = injector.getInstance(ReplyMessageHandler.class);
+    
+    protected Session session = injector.getInstance(Session.class);
+    
+    protected IMAPStoreCache storeCache = injector.getInstance(IMAPStoreCache.class);
+    
+    protected  User testUser;
     
     protected UserPreferencesStorage userPreferences = injector.getInstance(UserPreferencesStorage.class);
     
+    protected IMAPStore store;
+    
+    public HupaGuiceTestCase() {
+        try {
+            testUser = injector.getInstance(User.class);
+            store = storeCache.get(testUser);
+            httpSession.setAttribute("user", testUser);
+        } catch (Exception e) {
+        }
+    }
+    
+    protected Module getModule() {
+        return new GuiceTestModule();
+    }
 }
