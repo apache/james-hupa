@@ -16,32 +16,24 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-
-
 package org.apache.hupa.server.handler;
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.server.HupaGuiceTestCase;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.rpc.LogoutUser;
 import org.apache.hupa.shared.rpc.LogoutUserResult;
 
-public class LogoutUserHandlerTest extends AbstractHandlerTest{
+public class LogoutUserHandlerTest extends HupaGuiceTestCase {
     
     public void testLogout() {
-        String username = "test";
-        String password = "pass";
-        User user = new User();
-        user.setName(username);
-        user.setPassword(password);
-        user.setAuthenticated(true);
-        httpSession.setAttribute("user", user);
-        LogoutUserHandler handler = new LogoutUserHandler(storeCache, logger, httpSessionProvider);
         try {
-            LogoutUserResult result = handler.execute(new LogoutUser(), null);
+            httpSession.setAttribute("Attribute", "Value");
+            LogoutUserResult result = logoutUser.execute(new LogoutUser(), null);
             assertFalse("Not authenticated anymore", result.getUser().getAuthenticated());
-            assertNull("User removed", httpSession.getAttribute("user"));
-            
+            assertNull("User should be removed", httpSession.getAttribute(SConsts.USER_SESS_ATTR));
+            assertNull("Attributes should be removed", httpSession.getAttribute("Attribute"));
         } catch (ActionException e) {
             e.printStackTrace();
             fail();

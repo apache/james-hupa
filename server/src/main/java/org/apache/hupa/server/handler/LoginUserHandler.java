@@ -34,6 +34,7 @@ import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.LoginUser;
 import org.apache.hupa.shared.rpc.LoginUserResult;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpSession;
@@ -117,8 +118,12 @@ public class LoginUserHandler implements
     public static void cleanSessionAttributes(HttpSession session) {
         @SuppressWarnings("unchecked")
         Enumeration en = session.getAttributeNames();
+        ArrayList<String> toRemove = new ArrayList<String>();
         while (en.hasMoreElements()) {
-            session.removeAttribute(en.nextElement().toString());
+            toRemove.add(en.nextElement().toString());
+        }
+        for (String attr: toRemove) {
+            session.removeAttribute(attr);
         }
     }
 }

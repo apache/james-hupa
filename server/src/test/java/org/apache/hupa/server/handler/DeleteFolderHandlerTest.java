@@ -16,72 +16,54 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-
 package org.apache.hupa.server.handler;
+
+import net.customware.gwt.dispatch.shared.ActionException;
+
+import org.apache.hupa.server.HupaGuiceTestCase;
+import org.apache.hupa.server.mock.MockIMAPFolder;
+import org.apache.hupa.server.mock.MockIMAPStore;
+import org.apache.hupa.shared.SConsts;
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.exception.InvalidSessionException;
+import org.apache.hupa.shared.rpc.DeleteFolder;
 
 import javax.mail.Folder;
 import javax.mail.MessagingException;
 
-import net.customware.gwt.dispatch.shared.ActionException;
-
-import org.apache.hupa.server.mock.MockIMAPFolder;
-import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.exception.InvalidSessionException;
-import org.apache.hupa.shared.rpc.DeleteFolder;
-
-public class DeleteFolderHandlerTest extends AbstractHandlerTest{
+public class DeleteFolderHandlerTest extends HupaGuiceTestCase {
 
     public void testDelete() throws MessagingException {
-        User user = createUser();
-
-        httpSession.setAttribute("user", user);
-        storeCache.addValidUser(user.getName(),user.getPassword());
         IMAPFolder folder = createFolder();
-        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
         Folder f1 = store.getFolder(folder.getFullName());
         f1.create(Folder.HOLDS_FOLDERS);
-        
-        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache, logger, httpSessionProvider);
-
         try {
-            handler.execute(new DeleteFolder(folder), null);
+            deleteFHandler.execute(new DeleteFolder(folder), null);
             Folder f = store.getFolder(folder.getFullName());
             assertFalse("not exists",f.exists());
-            
         } catch (ActionException e) {
             e.printStackTrace();
             fail();
         }
-        
     }
     
     public void testDeleteNonExistFolder() throws MessagingException {
-        User user = createUser();
-
-        httpSession.setAttribute("user", user);
-        storeCache.addValidUser(user.getName(),user.getPassword());
         IMAPFolder folder = createFolder();
-        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache, logger, httpSessionProvider);
-
         try {
-            handler.execute(new DeleteFolder(folder), null);
+            deleteFHandler.execute(new DeleteFolder(folder), null);
             fail("Folder should not exist");
         } catch (ActionException e) {
-            //e.printStackTrace();
         }    
     }
     
     public void testInvalidSessionId() {
+        httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
         IMAPFolder folder = createFolder();
-        DeleteFolderHandler handler = new DeleteFolderHandler(storeCache, logger, httpSessionProvider);
         try {
-            handler.execute(new DeleteFolder(folder), null);
+            deleteFHandler.execute(new DeleteFolder(folder), null);
             fail("Invalid session");
-            
         } catch (InvalidSessionException e) {
-            //e.printStackTrace();
         } catch (ActionException e) {
             e.printStackTrace();
             fail();

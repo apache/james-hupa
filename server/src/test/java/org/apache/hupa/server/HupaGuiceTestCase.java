@@ -34,14 +34,18 @@ import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.handler.ContactsHandler;
 import org.apache.hupa.server.handler.CreateFolderHandler;
 import org.apache.hupa.server.handler.DeleteFolderHandler;
+import org.apache.hupa.server.handler.DeleteMessageByUidHandler;
 import org.apache.hupa.server.handler.FetchFoldersHandler;
 import org.apache.hupa.server.handler.FetchMessagesHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
 import org.apache.hupa.server.handler.GetMessageDetailsHandler;
+import org.apache.hupa.server.handler.IdleHandler;
 import org.apache.hupa.server.handler.LoginUserHandler;
+import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.SendMessage;
 
@@ -54,9 +58,9 @@ public abstract class HupaGuiceTestCase extends TestCase {
 
     protected HttpSession httpSession = injector.getInstance(HttpSession.class);
     
-    protected AbstractSendMessageHandler<SendMessage> abstSendMsgHndl = injector.getInstance(SendMessageHandler.class);
-    
     protected ContactsHandler contactsHandler = injector.getInstance(ContactsHandler.class);
+
+    protected IdleHandler idleHandler = injector.getInstance(IdleHandler.class);
 
     protected CreateFolderHandler createFHandler = injector.getInstance(CreateFolderHandler.class);
     
@@ -66,6 +70,10 @@ public abstract class HupaGuiceTestCase extends TestCase {
     
     protected FetchMessagesHandler fetchMessagesHandler = injector.getInstance(FetchMessagesHandler.class);
     
+    protected DeleteMessageByUidHandler deleteMByUid = injector.getInstance(DeleteMessageByUidHandler.class);
+    
+    protected AbstractSendMessageHandler<SendMessage> abstSendMsgHndl = injector.getInstance(SendMessageHandler.class);
+    
     protected ForwardMessageHandler fwdMsgHndl = injector.getInstance(ForwardMessageHandler.class);
     
     protected GetMessageDetailsHandler getDetailsMsgHndl = injector.getInstance(GetMessageDetailsHandler.class);
@@ -74,13 +82,15 @@ public abstract class HupaGuiceTestCase extends TestCase {
     
     protected LoginUserHandler loginUser = injector.getInstance(LoginUserHandler.class);
     
+    protected LogoutUserHandler logoutUser = injector.getInstance(LogoutUserHandler.class);
+    
     protected ReplyMessageHandler reMsgHndl = injector.getInstance(ReplyMessageHandler.class);
     
     protected Session session = injector.getInstance(Session.class);
     
     protected IMAPStoreCache storeCache = injector.getInstance(IMAPStoreCache.class);
     
-    protected  User testUser;
+    protected User testUser;
     
     protected UserPreferencesStorage userPreferences = injector.getInstance(UserPreferencesStorage.class);
     
@@ -90,7 +100,7 @@ public abstract class HupaGuiceTestCase extends TestCase {
         try {
             testUser = injector.getInstance(User.class);
             store = storeCache.get(testUser);
-            httpSession.setAttribute("user", testUser);
+            httpSession.setAttribute(SConsts.USER_SESS_ATTR, testUser);
         } catch (Exception e) {
         }
     }

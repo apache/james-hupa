@@ -19,6 +19,12 @@
 
 package org.apache.hupa.server.handler;
 
+import org.apache.hupa.server.HupaGuiceTestCase;
+import org.apache.hupa.server.mock.MockIMAPFolder;
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.rpc.FetchMessages;
+import org.apache.hupa.shared.rpc.FetchMessagesResult;
+
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
@@ -28,24 +34,9 @@ import javax.mail.Message;
 import javax.mail.Flags.Flag;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.hupa.server.mock.MockIMAPFolder;
-import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.rpc.FetchMessages;
-import org.apache.hupa.shared.rpc.FetchMessagesResult;
+public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
 
-public class FetchMessagesHandlerTest extends AbstractHandlerTest{
-
-    FetchMessagesHandler handler = new FetchMessagesHandler(storeCache, logger, httpSessionProvider, preferences);
-    
-    public void setUp() {
-        super.setUp();
-        httpSession.setAttribute("user", user);
-    }
-    
     public void testConvert() throws Exception {
-        
-        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
         MockIMAPFolder f = (MockIMAPFolder)store.getFolder("WHATEVER"); 
         f.create(Folder.HOLDS_MESSAGES);
         
@@ -56,38 +47,36 @@ public class FetchMessagesHandlerTest extends AbstractHandlerTest{
         is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: =?ISO-8859-1?Q?Monta=F1a?=\n\ndata".getBytes());
         MimeMessage m3 = new MimeMessage(session, is);
         
-        ArrayList<org.apache.hupa.shared.data.Message> msgs = handler.convert(2, f, new Message[]{m1, m2, m3});
+        ArrayList<org.apache.hupa.shared.data.Message> msgs = fetchMessagesHandler.convert(2, f, new Message[]{m1, m2, m3});
         assertEquals(2, msgs.size());
         
-        msgs = handler.convert(10, f, new Message[]{m1, m2, m3});
+        msgs = fetchMessagesHandler.convert(10, f, new Message[]{m1, m2, m3});
         assertEquals(3, msgs.size());
 
-        msgs = handler.convert(10, f, new Message[]{m2});
+        msgs = fetchMessagesHandler.convert(10, f, new Message[]{m2});
         assertEquals("Manolo Pe\u00F1a <penya@foo.com>",  msgs.get(0).getFrom());
         
-        msgs = handler.convert(10, f, new Message[]{m3});
+        msgs = fetchMessagesHandler.convert(10, f, new Message[]{m3});
         assertEquals("Monta\u00F1a",  msgs.get(0).getSubject());
     }
 
     public void testFetchMessages() throws Exception {
 
-        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
         MockIMAPFolder serverfolder = (MockIMAPFolder)store.getFolder("WHATEVER"); 
         serverfolder.create(Folder.HOLDS_MESSAGES);
         
         IMAPFolder clientfolder = new IMAPFolder("WHATEVER");
-        FetchMessagesResult result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
+        FetchMessagesResult result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
         assertEquals(0, result.getRealCount());
         
         ByteArrayInputStream is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
         MimeMessage msg = new MimeMessage(session, is);
         serverfolder.addMessages(new Message[]{msg});
-        result = handler.execute(new FetchMessages(clientfolder, 0, 10, "something"), null);
+        result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "something"), null);
         assertEquals(1, result.getRealCount());
         assertEquals(1, result.getMessages().size());
         
-        
-        result = handler.execute(new FetchMessages(clientfolder, 0, 10, null), null);
+        result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, null), null);
         assertEquals(1, result.getRealCount());
         assertEquals(1, result.getMessages().size());
 
@@ -95,11 +84,11 @@ public class FetchMessagesHandlerTest extends AbstractHandlerTest{
         msg = new MimeMessage(session, is);
         serverfolder.appendMessages(new Message[]{msg});
         
-        result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
+        result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
         assertEquals(2, result.getRealCount());
         assertEquals(2, result.getMessages().size());
         
-        result = handler.execute(new FetchMessages(clientfolder, 0, 10, null), null);
+        result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, null), null);
         assertEquals(2, serverfolder.getMessageCount());
         assertEquals(2, serverfolder.getUnreadMessageCount());
         assertEquals(2, result.getRealCount());
@@ -110,10 +99,8 @@ public class FetchMessagesHandlerTest extends AbstractHandlerTest{
         assertEquals(1, serverfolder.getUnreadMessageCount());
         
         serverfolder.appendMessages(new Message[]{msg});
-        result = handler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
+        result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
         assertEquals(3, result.getRealCount());
         assertEquals(1, result.getRealUnreadCount());
-        
     }
-    
 }

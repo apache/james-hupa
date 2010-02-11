@@ -143,10 +143,7 @@ public class MockIMAPStore extends IMAPStore{
     }
     
     public void clear() {
-        validLogins.clear();
-        validServers.clear();
         folders.clear();
-        connected = false;
     }
     
     @Override

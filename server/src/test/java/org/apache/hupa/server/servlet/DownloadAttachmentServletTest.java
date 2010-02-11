@@ -1,13 +1,14 @@
 package org.apache.hupa.server.servlet;
 
-import javax.mail.Part;
-import javax.mail.internet.MimeMessage;
-
-import org.apache.hupa.server.handler.AbstractHandlerTest;
+import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.server.utils.TestUtils;
 
-public class DownloadAttachmentServletTest extends AbstractHandlerTest {
+import javax.mail.Part;
+import javax.mail.internet.MimeMessage;
+
+
+public class DownloadAttachmentServletTest extends HupaGuiceTestCase {
 
     public void testDownloadAttachmentByName() throws Exception {
         MimeMessage message = TestUtils.loadMessageFromFile(session, "7.msg");

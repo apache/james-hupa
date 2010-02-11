@@ -16,24 +16,32 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package org.apache.hupa.server.handler;
-
-import net.customware.gwt.dispatch.shared.ActionException;
+package org.apache.hupa.server.mock;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
-import org.apache.hupa.shared.rpc.Idle;
-import org.apache.hupa.shared.rpc.IdleResult;
+import org.apache.hupa.server.guice.DemoModeConstants;
 
-public class IdleHandlerTest extends HupaGuiceTestCase {
+import java.net.URL;
 
-    public void testIdle() {
-        Idle action = new Idle();
-        try {
-            IdleResult result = idleHandler.execute(action, null);
-            assertNotNull(result);
-        } catch (ActionException e) {
-            e.printStackTrace();
-            fail();
+import javax.mail.Folder;
+import javax.mail.Message;
+
+public class MockImapFolderTest extends HupaGuiceTestCase {
+
+    public void testReadMessageFile() throws Exception {
+        URL url = Thread.currentThread().getContextClassLoader().getResource(DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + "0.msg");
+        assertNotNull("There aren't message files for demo mode, check that the files mime/\\d.msg are in your classpath", url);
+    }
+    
+    public void testLoadMessageFiles() throws Exception {
+        MockIMAPStore store = new MockIMAPStore(session, null);
+        MockIMAPFolder folder = new MockIMAPFolder("WHATEVER", store);
+        folder.create(Folder.HOLDS_MESSAGES);
+        folder.loadDemoMessages(session);
+        assertTrue(folder.getMessages().length > 0);
+        for (Message m: folder.getMessages()) {
+            assertEquals(m, folder.getMessageByUID(folder.getUID(m)));
         }
     }
+
 }

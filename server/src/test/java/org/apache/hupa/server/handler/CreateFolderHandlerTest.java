@@ -16,79 +16,58 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-
-
 package org.apache.hupa.server.handler;
+
+import net.customware.gwt.dispatch.shared.ActionException;
+
+import org.apache.hupa.server.HupaGuiceTestCase;
+import org.apache.hupa.server.mock.MockIMAPFolder;
+import org.apache.hupa.server.mock.MockIMAPStore;
+import org.apache.hupa.shared.SConsts;
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.exception.InvalidSessionException;
+import org.apache.hupa.shared.rpc.CreateFolder;
 
 import javax.mail.Folder;
 import javax.mail.MessagingException;
 
-import net.customware.gwt.dispatch.shared.ActionException;
-
-import org.apache.hupa.server.mock.MockIMAPFolder;
-import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.exception.InvalidSessionException;
-import org.apache.hupa.shared.rpc.CreateFolder;
-
-public class CreateFolderHandlerTest extends AbstractHandlerTest{
+public class CreateFolderHandlerTest extends HupaGuiceTestCase {
     
     public void testCreate() throws MessagingException {
-        User user = createUser();
-
-        httpSession.setAttribute("user", user);
-        storeCache.addValidUser(user.getName(),user.getPassword());
         IMAPFolder folder = createFolder();
-        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
         Folder f1 = store.getFolder(folder.getFullName());
         assertFalse("not exists",f1.exists());
         
-        CreateFolderHandler handler = new CreateFolderHandler(storeCache, logger,httpSessionProvider);
         try {
-            handler.execute(new CreateFolder(folder), null);
+            createFHandler.execute(new CreateFolder(folder), null);
             Folder f = store.getFolder(folder.getFullName());
             assertTrue("exists",f.exists());
-            
         } catch (ActionException e) {
             e.printStackTrace();
             fail();
         }
-        
     }
     
-    
     public void testDuplicateFolder() throws MessagingException {
-        User user = createUser();
-
-        httpSession.setAttribute("user", user);
-        storeCache.addValidUser(user.getName(),user.getPassword());
         IMAPFolder folder = createFolder();
-        MockIMAPStore store = (MockIMAPStore) storeCache.get(user);
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
         Folder f1 = store.getFolder(folder.getFullName());
-        
         f1.create(Folder.HOLDS_FOLDERS);
-
-        CreateFolderHandler handler = new CreateFolderHandler(storeCache, logger, httpSessionProvider);
         try {
-            handler.execute(new CreateFolder(folder), null);
+            createFHandler.execute(new CreateFolder(folder), null);
             fail("Folder already exists");
         } catch (ActionException e) {
-            // folder already exists
-            // e.printStackTrace();
         }
-        
     }
     
     public void testInvalidSessionId() {
+        httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
         IMAPFolder folder = createFolder();
-        CreateFolderHandler handler = new CreateFolderHandler(storeCache, logger, httpSessionProvider);
         try {
-            handler.execute(new CreateFolder(folder), null);
+            createFHandler.execute(new CreateFolder(folder), null);
             fail("Invalid session");
-            
         } catch (InvalidSessionException e) {
-            // e.printStackTrace();
         } catch (ActionException e) {
             e.printStackTrace();
             fail();

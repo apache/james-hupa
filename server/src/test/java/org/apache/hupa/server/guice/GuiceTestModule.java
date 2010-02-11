@@ -35,11 +35,14 @@ import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.handler.ContactsHandler;
 import org.apache.hupa.server.handler.CreateFolderHandler;
 import org.apache.hupa.server.handler.DeleteFolderHandler;
+import org.apache.hupa.server.handler.DeleteMessageByUidHandler;
 import org.apache.hupa.server.handler.FetchFoldersHandler;
 import org.apache.hupa.server.handler.FetchMessagesHandler;
 import org.apache.hupa.server.handler.ForwardMessageHandler;
 import org.apache.hupa.server.handler.GetMessageDetailsHandler;
+import org.apache.hupa.server.handler.IdleHandler;
 import org.apache.hupa.server.handler.LoginUserHandler;
+import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.mock.MockHttpSession;
@@ -88,10 +91,14 @@ public class GuiceTestModule extends AbstractModule {
         bind(IMAPStoreCache.class).to(imapStoreCacheClass).in(Singleton.class);
 
         bind(LoginUserHandler.class);
+        bind(LogoutUserHandler.class);
+        bind(IdleHandler.class);
+        
         bind(FetchFoldersHandler.class);
         bind(CreateFolderHandler.class);
         bind(DeleteFolderHandler.class);
         bind(FetchMessagesHandler.class);
+        bind(DeleteMessageByUidHandler.class);
         bind(GetMessageDetailsHandler.class);
         bind(AbstractSendMessageHandler.class).to(SendMessageHandler.class);
         bind(SendMessageHandler.class);

@@ -16,53 +16,40 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-
 package org.apache.hupa.server.handler;
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
-import org.apache.hupa.shared.data.Settings;
+import org.apache.hupa.server.HupaGuiceTestCase;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.LoginUser;
 import org.apache.hupa.shared.rpc.LoginUserResult;
 
-import com.google.inject.Provider;
-
-public class LoginUserHandlerTest extends AbstractHandlerTest {
-    
-    private LoginUserHandler handler = new LoginUserHandler(storeCache, logger, httpSessionProvider, new Provider<Settings>() {
-        public Settings get() {
-            return new Settings();
-        }
-    });
+public class LoginUserHandlerTest extends HupaGuiceTestCase {
     
     public void testInvalidLogin() {
+        httpSession.setAttribute("Attribute", "Value");
         try {
-            handler.execute(new LoginUser("invalid","invalid"), null);
+            loginUser.execute(new LoginUser("invalid","invalid"), null);
             fail("Should throw an exception");
         } catch (ActionException e) {
-            //e.printStackTrace();
         }
-        assertNull("no user stored in session", httpSession.getAttribute("user"));
+        assertNull("No user should be stored in session", httpSession.getAttribute(SConsts.USER_SESS_ATTR));
+        assertNull("Attributes should be removed", httpSession.getAttribute("Attribute"));
     }
     
     public void testValidLogin() {
-        String username = "valid";
-        String password = "valid";
-        storeCache.addValidUser(username, password);
-        
         try {
-            LoginUserResult result = handler.execute(new LoginUser(username,password), null);
+            LoginUserResult result = loginUser.execute(new LoginUser(testUser.getName(), testUser.getPassword()), null);
             User u = result.getUser();
-            
             assertEquals("Authenticated", true, u.getAuthenticated());
-            assertEquals("Authenticated", username, u.getName());
-            assertEquals("Authenticated", password, u.getPassword());
-            assertEquals("User stored in session", u, httpSession.getAttribute("user"));
+            assertEquals("Authenticated", testUser.getName(), u.getName());
+            assertEquals("Authenticated", testUser.getPassword(), u.getPassword());
+            assertEquals("User stored in session", u, httpSession.getAttribute(SConsts.USER_SESS_ATTR));
         } catch (ActionException e) {
             e.printStackTrace();
             fail("Should throw an exception");
         }
     }
-    
 }
