@@ -22,30 +22,20 @@ package org.apache.hupa.server.handler;
 import com.sun.mail.imap.IMAPStore;
 
 import org.apache.hupa.server.FileItemRegistry;
-import org.apache.hupa.server.HupaTestCase;
-import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.SMTPMessage;
-import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.ForwardMessage;
 
 import javax.mail.Message;
-import javax.servlet.http.HttpSession;
 
-public class FowardMessageHandlerTest extends HupaTestCase {
+public class FowardMessageHandlerTest extends HupaGuiceTestCase {
 
     public void testForwardMessage() throws Exception {
-
-        User demouser = DemoModeConstants.demoUser;
-
-        HttpSession httpSession = injector.getInstance(HttpSession.class);
-        httpSession.setAttribute("user", demouser);
-
-        IMAPStoreCache storeCache = injector.getInstance(IMAPStoreCache.class);
-        IMAPStore store = storeCache.get(demouser);
+        IMAPStore store = storeCache.get(testUser);
         
         FileItemRegistry registry = injector.getInstance(FileItemRegistry.class);
         
@@ -76,7 +66,6 @@ public class FowardMessageHandlerTest extends HupaTestCase {
             + " mock/attachment => file_2.bin\n";
         
         assertEquals(expected, TestUtils.summaryzeContent(message).toString());
-
     }
 
 }

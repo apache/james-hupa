@@ -22,22 +22,18 @@ package org.apache.hupa.server.handler;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
-import org.apache.hupa.server.HupaTestCase;
-import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.guice.DemoModeConstants;
+import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.MessageDetails;
-import org.apache.hupa.shared.data.User;
 
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.internet.MimeMessage;
 
-public class GetMessageDetailsHandlerTest extends HupaTestCase {
+public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
     
     public void testTextDocumentToHtml() throws Exception {
-
         String msg = "...\nhttp://www.example.com/path/action.do;s=1;a=2?p=abcd\n...";
         String res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
@@ -58,7 +54,6 @@ public class GetMessageDetailsHandlerTest extends HupaTestCase {
     }
 
     public void testFilterHtmlDocument() throws Exception {
-
         String msg = "<div>...\nhttp://whatever\n...</div>";
         String res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
@@ -97,7 +92,6 @@ public class GetMessageDetailsHandlerTest extends HupaTestCase {
         
         res = getDetailsMsgHndl.filterHtmlDocument("", "aFolder", 9999l);
         assertTrue(res.length()==0);
-
     }
 
     public void testRegexEmailsInsideTagAttributes() {
@@ -166,11 +160,7 @@ public class GetMessageDetailsHandlerTest extends HupaTestCase {
     }
     
     public void testMessageDetails_html_with_inline_images() throws Exception {
-
-        User demouser = DemoModeConstants.demoUser;
-        
-        IMAPStoreCache storeCache = injector.getInstance(IMAPStoreCache.class);
-        IMAPStore store = storeCache.get(demouser);
+        IMAPStore store = storeCache.get(testUser);
         
         IMAPFolder serverfolder = (IMAPFolder)store.getFolder("WHATEVER"); 
         serverfolder.create(Folder.HOLDS_MESSAGES);
@@ -179,7 +169,7 @@ public class GetMessageDetailsHandlerTest extends HupaTestCase {
         serverfolder.addMessages(new Message[]{msg});
         
         org.apache.hupa.shared.data.IMAPFolder clientfolder = new org.apache.hupa.shared.data.IMAPFolder("WHATEVER");
-        MessageDetails details = getDetailsMsgHndl.exposeMessage(demouser, clientfolder, 0);
+        MessageDetails details = getDetailsMsgHndl.exposeMessage(testUser, clientfolder, 0);
         
         // inline images have to be downloaded from the server
         assertTrue(details.getText().contains("img src=\'" + 
