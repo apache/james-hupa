@@ -84,14 +84,14 @@ public class AbtractSendMessageHandlerTest extends HupaGuiceTestCase {
     public void testRestoreInlineLinks() {
         String txt, res;
         txt = ".. <img\nsrc='...&name=abcd' name='cid:abcd'\nwhatever=/> ..";
-        res = abstSendMsgHndl.restoreInlineLinks(txt);
+        res = sendMessageHandler.restoreInlineLinks(txt);
         assertEquals(".. <img\nsrc='cid:abcd'\nwhatever=/> ..", res);
     }
 
     public void testHtmlmessageToText() {
         String txt, res;
         txt = "<div>Hola:</div>Como \n estas<br/>Adios\n\n";
-        res = abstSendMsgHndl.htmlToText(txt);
+        res = sendMessageHandler.htmlToText(txt);
         assertEquals("Hola:\nComo estas\nAdios ", res);
     }
     
@@ -102,19 +102,19 @@ public class AbtractSendMessageHandlerTest extends HupaGuiceTestCase {
         SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(SessionUtils.getSessionRegistry(logger, httpSession), 2);
         SendMessage action = new SendMessage(smtpmsg);
         
-        Message message = abstSendMsgHndl.createMessage(session, action);
-        message =  abstSendMsgHndl.fillBody(message, action);
+        Message message = sendMessageHandler.createMessage(session, action);
+        message =  sendMessageHandler.fillBody(message, action);
         
         assertEquals(contentTwoAttach, TestUtils.summaryzeContent(message).toString());
 
-        abstSendMsgHndl.sendMessage(session, testUser, message);
+        sendMessageHandler.sendMessage(session, testUser, message);
         
         // The reported size is wrong before the message has been saved
         Part part = MessageUtils.handleMultiPart(logger, message.getContent(), "uploadedFile_1.bin");
         assertTrue(part.getSize() < 0);
 
         assertTrue(sentbox.getMessages().length == 0);
-        abstSendMsgHndl.saveSentMessage(session, testUser, message);
+        sendMessageHandler.saveSentMessage(session, testUser, message);
         assertTrue(sentbox.getMessages().length == 1);
         
         message = sentbox.getMessage(0);
@@ -134,7 +134,7 @@ public class AbtractSendMessageHandlerTest extends HupaGuiceTestCase {
         SendMessage action = new SendMessage(smtpmsg);
         
         assertTrue(sentbox.getMessages().length == 0);
-        abstSendMsgHndl.execute(action, null);
+        sendMessageHandler.execute(action, null);
         Message message = sentbox.getMessage(0);
         assertNotNull(message);
         assertEquals(contentTwoAttach, TestUtils.summaryzeContent(message).toString());

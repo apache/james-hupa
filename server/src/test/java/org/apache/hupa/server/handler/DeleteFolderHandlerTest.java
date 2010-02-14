@@ -39,7 +39,7 @@ public class DeleteFolderHandlerTest extends HupaGuiceTestCase {
         Folder f1 = store.getFolder(folder.getFullName());
         f1.create(Folder.HOLDS_FOLDERS);
         try {
-            deleteFHandler.execute(new DeleteFolder(folder), null);
+            deleteFolderHandler.execute(new DeleteFolder(folder), null);
             Folder f = store.getFolder(folder.getFullName());
             assertFalse("not exists",f.exists());
         } catch (ActionException e) {
@@ -51,7 +51,7 @@ public class DeleteFolderHandlerTest extends HupaGuiceTestCase {
     public void testDeleteNonExistFolder() throws MessagingException {
         IMAPFolder folder = createFolder();
         try {
-            deleteFHandler.execute(new DeleteFolder(folder), null);
+            deleteFolderHandler.execute(new DeleteFolder(folder), null);
             fail("Folder should not exist");
         } catch (ActionException e) {
         }    
@@ -61,7 +61,7 @@ public class DeleteFolderHandlerTest extends HupaGuiceTestCase {
         httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
         IMAPFolder folder = createFolder();
         try {
-            deleteFHandler.execute(new DeleteFolder(folder), null);
+            deleteFolderHandler.execute(new DeleteFolder(folder), null);
             fail("Invalid session");
         } catch (InvalidSessionException e) {
         } catch (ActionException e) {

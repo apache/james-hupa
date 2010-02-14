@@ -21,7 +21,9 @@
                 <artifactId>gwt-maven-plugin</artifactId>
                 <configuration>
                      <runTarget>Hupa.html</runTarget>
-                     <extraJvmArgs>-Dhupa.config.file=${project.parent.basedir}/server/src/main/webapp/WEB-INF/conf/config.properties</extraJvmArgs>
+                     <extraJvmArgs>
+                         -Dhupa.config.file=${project.parent.basedir}/server/src/main/webapp/WEB-INF/conf/config.properties
+                     </extraJvmArgs>
                 </configuration>
                 <executions>
                     <execution>
@@ -31,6 +33,17 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>${basedir}/src/test/java</additionalClasspathElement>
+                        <additionalClasspathElement>${basedir}/src/main/java</additionalClasspathElement>
+                    </additionalClasspathElements>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -56,8 +69,6 @@
             </plugin>
         </plugins>
     </build>
-
-
 
     <dependencies>
         <dependency>
@@ -114,8 +125,18 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

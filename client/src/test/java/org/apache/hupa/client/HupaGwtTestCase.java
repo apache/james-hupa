@@ -16,21 +16,31 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package org.apache.hupa.client.validation;
+package org.apache.hupa.client;
 
-import org.apache.hupa.client.HupaGwtTestCase;
+import com.google.gwt.junit.client.GWTTestCase;
 
-public class EmailListValidatorTest extends HupaGwtTestCase {
+/**
+ * Base class for testing hupa in client side.
+ * 
+ * @author manolo
+ *
+ */
+public abstract class HupaGwtTestCase extends GWTTestCase {
 
-    public void testEmailValidator() {
-        assertTrue(EmailListValidator.isValidAddressList("abc@abc.def"));
-        assertTrue(EmailListValidator.isValidAddressList(" abc@abc.def"));
-        assertTrue(EmailListValidator.isValidAddressList("<abc@abc.def>"));
-        assertTrue(EmailListValidator.isValidAddressList(" AAA <abc@abc.def> "));
-        assertFalse(EmailListValidator.isValidAddressList(", , ,"));
-        assertFalse(EmailListValidator.isValidAddressList("abc@abc.def ; ; MMM <mcm@aa>;;;"));
-        assertTrue(EmailListValidator.isValidAddressList("abc@abc.def ; ; MMM <mcm@aa.co>;;;"));
-        assertTrue(EmailListValidator.isValidAddressList("abc@abc.def\nMMM <mcm@aa.co>;;;"));
+    /**
+     * Although tests extending this class should work in either the jvm or the browser,
+     * it is better to run them in the jvm because of performance reasons.
+     * 
+     * Change the return value if you what to run them in browser, but
+     * be sure to commit this class returning null
+     * 
+     *   TODO: put some code to return the adequate value based on an external
+     *   property. System.getProperty doesn't work because the test
+     *   is compiled to javascript when not returning null
+     */
+    public String getModuleName() {
+        //return "org.apache.hupa.Hupa";
+        return null;
     }
-
 }

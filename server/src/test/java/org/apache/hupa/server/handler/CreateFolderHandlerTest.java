@@ -40,7 +40,7 @@ public class CreateFolderHandlerTest extends HupaGuiceTestCase {
         assertFalse("not exists",f1.exists());
         
         try {
-            createFHandler.execute(new CreateFolder(folder), null);
+            createFolderHandler.execute(new CreateFolder(folder), null);
             Folder f = store.getFolder(folder.getFullName());
             assertTrue("exists",f.exists());
         } catch (ActionException e) {
@@ -55,7 +55,7 @@ public class CreateFolderHandlerTest extends HupaGuiceTestCase {
         Folder f1 = store.getFolder(folder.getFullName());
         f1.create(Folder.HOLDS_FOLDERS);
         try {
-            createFHandler.execute(new CreateFolder(folder), null);
+            createFolderHandler.execute(new CreateFolder(folder), null);
             fail("Folder already exists");
         } catch (ActionException e) {
         }
@@ -65,7 +65,7 @@ public class CreateFolderHandlerTest extends HupaGuiceTestCase {
         httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
         IMAPFolder folder = createFolder();
         try {
-            createFHandler.execute(new CreateFolder(folder), null);
+            createFolderHandler.execute(new CreateFolder(folder), null);
             fail("Invalid session");
         } catch (InvalidSessionException e) {
         } catch (ActionException e) {

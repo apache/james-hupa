@@ -30,6 +30,8 @@ import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 
+import java.util.ArrayList;
+
 public class ContactsView extends Composite implements ContactsPresenter.Display{
 
     private VerticalPanel panel = new VerticalPanel();
@@ -68,6 +70,14 @@ public class ContactsView extends Composite implements ContactsPresenter.Display
             ctable.setText(i, 0, contacts[i].realname);
             ctable.setText(i, 1, contacts[i].mail);
         }
+    }
+    
+    public Contact[] getContacts() {
+        ArrayList<Contact> contacts = new ArrayList<Contact>();
+        for (int i=0; i < ctable.getRowCount(); i++) {
+            contacts.add(new Contact(ctable.getText(i, 0), ctable.getText(i, 1)));
+        }
+        return contacts.toArray(new Contact[contacts.size()]);
     }
 
 }

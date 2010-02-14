@@ -41,7 +41,7 @@ public class DeleteMessageByUidHandlerTest extends HupaGuiceTestCase {
         folder.setFullName("NOT_EXISTS");
         DeleteMessageByUid action = new DeleteMessageByUid(folder,new ArrayList<Long>());
         try {
-            deleteMByUid.execute(action, null);
+            deleteMessageByUidHandler.execute(action, null);
             fail("Folder should not exists!");
         } catch (ActionException e) {
         }
@@ -64,7 +64,7 @@ public class DeleteMessageByUidHandlerTest extends HupaGuiceTestCase {
         MockIMAPFolder f3 = (MockIMAPFolder) store.getFolder(testUser.getSettings().getTrashFolderName());
         assertFalse("Trash folder already exists", f3.exists());
         try {
-            deleteMByUid.execute(action, null);
+            deleteMessageByUidHandler.execute(action, null);
             assertEquals("Only 1 message left", 1, f.getMessageCount());
             
             MockIMAPFolder f2 = (MockIMAPFolder) store.getFolder(testUser.getSettings().getTrashFolderName());
@@ -88,7 +88,7 @@ public class DeleteMessageByUidHandlerTest extends HupaGuiceTestCase {
         uids.add(2l);
         DeleteMessageByUid action = new DeleteMessageByUid(folder, uids);
         try {
-            deleteMByUid.execute(action, null);
+            deleteMessageByUidHandler.execute(action, null);
             assertEquals("Only 1 message left", 1, f.getMessageCount());
         } catch (ActionException e) {
             e.printStackTrace();

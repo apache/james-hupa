@@ -29,7 +29,7 @@ import com.sun.mail.imap.IMAPStore;
 import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.guice.GuiceTestModule;
+import org.apache.hupa.server.guice.GuiceServerTestModule;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.handler.ContactsHandler;
 import org.apache.hupa.server.handler.CreateFolderHandler;
@@ -62,21 +62,21 @@ public abstract class HupaGuiceTestCase extends TestCase {
 
     protected IdleHandler idleHandler = injector.getInstance(IdleHandler.class);
 
-    protected CreateFolderHandler createFHandler = injector.getInstance(CreateFolderHandler.class);
+    protected CreateFolderHandler createFolderHandler = injector.getInstance(CreateFolderHandler.class);
     
-    protected DeleteFolderHandler deleteFHandler = injector.getInstance(DeleteFolderHandler.class);
+    protected DeleteFolderHandler deleteFolderHandler = injector.getInstance(DeleteFolderHandler.class);
     
-    protected FetchFoldersHandler fetchFHandler = injector.getInstance(FetchFoldersHandler.class);
+    protected FetchFoldersHandler fetchFoldersHandler = injector.getInstance(FetchFoldersHandler.class);
     
     protected FetchMessagesHandler fetchMessagesHandler = injector.getInstance(FetchMessagesHandler.class);
     
-    protected DeleteMessageByUidHandler deleteMByUid = injector.getInstance(DeleteMessageByUidHandler.class);
+    protected DeleteMessageByUidHandler deleteMessageByUidHandler = injector.getInstance(DeleteMessageByUidHandler.class);
     
-    protected AbstractSendMessageHandler<SendMessage> abstSendMsgHndl = injector.getInstance(SendMessageHandler.class);
+    protected AbstractSendMessageHandler<SendMessage> sendMessageHandler = injector.getInstance(SendMessageHandler.class);
     
-    protected ForwardMessageHandler fwdMsgHndl = injector.getInstance(ForwardMessageHandler.class);
+    protected ForwardMessageHandler forwardMessageHandler = injector.getInstance(ForwardMessageHandler.class);
     
-    protected GetMessageDetailsHandler getDetailsMsgHndl = injector.getInstance(GetMessageDetailsHandler.class);
+    protected GetMessageDetailsHandler getDetailsHandler = injector.getInstance(GetMessageDetailsHandler.class);
     
     protected Log logger = injector.getInstance(Log.class);
     
@@ -96,7 +96,9 @@ public abstract class HupaGuiceTestCase extends TestCase {
     
     protected IMAPStore store;
     
-    public HupaGuiceTestCase() {
+    
+    @Override
+    protected void setUp() throws Exception {
         try {
             testUser = injector.getInstance(User.class);
             store = storeCache.get(testUser);
@@ -104,8 +106,8 @@ public abstract class HupaGuiceTestCase extends TestCase {
         } catch (Exception e) {
         }
     }
-    
+
     protected Module getModule() {
-        return new GuiceTestModule();
+        return new GuiceServerTestModule();
     }
 }

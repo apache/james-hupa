@@ -25,7 +25,7 @@ import com.sun.mail.imap.IMAPStore;
 import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
-import org.apache.hupa.server.guice.GuiceTestModule;
+import org.apache.hupa.server.guice.GuiceServerTestModule;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
@@ -44,7 +44,7 @@ public class HandlersTest extends HupaGuiceTestCase {
         // If you want to run these tests against your IMAP server do this:
         //    1.- Change properties and classes to do integration tests and
         //    2.- Be sure the user and password are set correctly
-        class MyModule extends GuiceTestModule {
+        class MyModule extends GuiceServerTestModule {
             public MyModule() {
                 // properties = courierProperties;
                 // properties = gmailProperties;
@@ -58,7 +58,7 @@ public class HandlersTest extends HupaGuiceTestCase {
         try {
             org.apache.hupa.shared.rpc.LoginUser l = new org.apache.hupa.shared.rpc.LoginUser(testUser.getName(),testUser.getPassword());
             loginUser.execute(l, null);
-            FetchFoldersResult result = fetchFHandler.execute(new FetchFolders(), null);
+            FetchFoldersResult result = fetchFoldersHandler.execute(new FetchFolders(), null);
             assertNotNull(result);
         } catch (ActionException e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class HandlersTest extends HupaGuiceTestCase {
         assertFalse("not exists", f1.exists());
         
         try {
-            createFHandler.execute(new CreateFolder(sFolder), null);
+            createFolderHandler.execute(new CreateFolder(sFolder), null);
             Folder f = store.getFolder(sFolder.getFullName());
             assertTrue("exists", f.exists());
             assertFalse("Not opened", f.isOpen());
@@ -87,7 +87,7 @@ public class HandlersTest extends HupaGuiceTestCase {
             Message[] msgs = f.getMessages();
             assertEquals(0, msgs.length);
             
-            deleteFHandler.execute(new DeleteFolder(sFolder), null);
+            deleteFolderHandler.execute(new DeleteFolder(sFolder), null);
             f = store.getFolder(sFolder.getFullName());
             assertFalse("not exists",f.exists());
 

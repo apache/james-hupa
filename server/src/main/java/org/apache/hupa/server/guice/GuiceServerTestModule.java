@@ -19,7 +19,6 @@
 
 package org.apache.hupa.server.guice;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -27,6 +26,8 @@ import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
 import com.sun.mail.imap.IMAPStore;
+
+import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
@@ -67,7 +68,7 @@ import javax.servlet.http.HttpSession;
  * @author manolo
  *
  */
-public class GuiceTestModule extends AbstractModule {
+public class GuiceServerTestModule extends ActionHandlerModule {
         
     protected Class<? extends Provider<Session>> sessionClass = SessionProvider.class;
     protected Class<? extends HttpSession> httpSessionClass = MockHttpSession.class;
@@ -79,7 +80,7 @@ public class GuiceTestModule extends AbstractModule {
     protected Properties properties = DemoModeConstants.demoProperties;
 
     @Override
-    protected void configure() {
+    protected void configureHandlers() {
         Names.bindProperties(binder(), properties);
         
         bind(Session.class).toProvider(sessionClass);
@@ -104,7 +105,7 @@ public class GuiceTestModule extends AbstractModule {
         bind(SendMessageHandler.class);
         bind(ReplyMessageHandler.class);
         bind(ForwardMessageHandler.class);
-        bind(ContactsHandler.class);
+        bindHandler(ContactsHandler.class);
         
         bind(UserPreferencesStorage.class).to(userPreferencesClass);
         

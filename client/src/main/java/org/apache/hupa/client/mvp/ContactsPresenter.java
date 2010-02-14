@@ -33,6 +33,7 @@ import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 public class ContactsPresenter extends WidgetPresenter<ContactsPresenter.Display>{
 
     DispatchAsync dispatcher;
+    protected Contact[] contacts;
     
     @Inject
     public ContactsPresenter(Display display, EventBus eventBus, DispatchAsync dispatcher) {
@@ -42,6 +43,7 @@ public class ContactsPresenter extends WidgetPresenter<ContactsPresenter.Display
 
     public interface Display extends NameAwareWidgetDisplay, WidgetDisplay {
         public void setContacts(Contact[] contacts);
+        public Contact[] getContacts();
     }
     
     @Override
@@ -52,15 +54,14 @@ public class ContactsPresenter extends WidgetPresenter<ContactsPresenter.Display
     protected void onRevealDisplay() {
         dispatcher.execute(new Contacts(),  new HupaCallback<ContactsResult>(dispatcher, eventBus) {
             public void callback(ContactsResult result) {
-                display.setContacts(result.getContacts());
+                contacts = result.getContacts();
+                display.setContacts(contacts);
             }
         }); 
     }
 
     @Override
     protected void onUnbind() {
-        // TODO Auto-generated method stub
-        
     }
 
 }

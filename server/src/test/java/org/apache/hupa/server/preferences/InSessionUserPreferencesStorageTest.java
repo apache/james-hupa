@@ -15,6 +15,7 @@ import org.apache.hupa.shared.rpc.SendMessage;
 public class InSessionUserPreferencesStorageTest extends HupaGuiceTestCase {
 
     public void setUp() throws Exception {
+        super.setUp();
         httpSession.removeAttribute(InImapUserPreferencesStorage.CONTACTS_ATTR);
     }
     
@@ -36,7 +37,7 @@ public class InSessionUserPreferencesStorageTest extends HupaGuiceTestCase {
         
         SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(SessionUtils.getSessionRegistry(logger, httpSession), 2);
         SendMessage action = new SendMessage(smtpmsg);
-        abstSendMsgHndl.execute(action, null);
+        sendMessageHandler.execute(action, null);
         
         assertEquals(3, userPreferences.getContacts().length);
     }    

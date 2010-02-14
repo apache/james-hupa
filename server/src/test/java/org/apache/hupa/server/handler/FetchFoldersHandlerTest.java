@@ -39,6 +39,7 @@ public class FetchFoldersHandlerTest extends HupaGuiceTestCase {
     
 
     public void setUp() throws Exception {
+        super.setUp();
         MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
         store.clear();
     }
@@ -46,7 +47,7 @@ public class FetchFoldersHandlerTest extends HupaGuiceTestCase {
     public void testInvalidSessionId() {
         httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
         try {
-            fetchFHandler.execute(new FetchFolders(), null);
+            fetchFoldersHandler.execute(new FetchFolders(), null);
             fail("Invalid session");
         } catch (InvalidSessionException e) {
         } catch (ActionException e) {
@@ -58,7 +59,7 @@ public class FetchFoldersHandlerTest extends HupaGuiceTestCase {
     public void testNoFolders() {
         httpSession.setAttribute(SConsts.USER_SESS_ATTR, testUser);
         try {
-            FetchFoldersResult result = fetchFHandler.execute(new FetchFolders(), null);
+            FetchFoldersResult result = fetchFoldersHandler.execute(new FetchFolders(), null);
             assertTrue(result.getFolders().isEmpty());
         } catch (ActionException e) {
             e.printStackTrace();
@@ -72,7 +73,7 @@ public class FetchFoldersHandlerTest extends HupaGuiceTestCase {
         store.getFolder("WHATEVER1").create(Folder.HOLDS_FOLDERS);
         store.getFolder("WHATEVER.XXX").create(Folder.HOLDS_FOLDERS);
         try {
-            FetchFoldersResult result = fetchFHandler.execute(new FetchFolders(), null);
+            FetchFoldersResult result = fetchFoldersHandler.execute(new FetchFolders(), null);
             ArrayList<IMAPFolder> folders = result.getFolders();
             assertFalse(folders.isEmpty());
             assertEquals(3, folders.size());

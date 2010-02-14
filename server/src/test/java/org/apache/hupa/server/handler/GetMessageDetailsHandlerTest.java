@@ -35,42 +35,42 @@ public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
     
     public void testTextDocumentToHtml() throws Exception {
         String msg = "...\nhttp://www.example.com/path/action.do;s=1;a=2?p=abcd\n...";
-        String res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
+        String res = getDetailsHandler.txtDocumentToHtml(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertTrue(res.contains("onClick=\"openLink('http://"));
         
         msg = "...\nnobody@subdomain.the-domain.org\n...";
-        res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
+        res = getDetailsHandler.txtDocumentToHtml(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertTrue(res.contains("onClick=\"mailTo('nobody@"));
         
-        res = getDetailsMsgHndl.txtDocumentToHtml("", "aFolder", 9999l);
+        res = getDetailsHandler.txtDocumentToHtml("", "aFolder", 9999l);
         assertTrue(res.length()==0);
         
         msg = "...<atag>...";
-        res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
+        res = getDetailsHandler.txtDocumentToHtml(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertEquals("...&lt;atag&gt;...", res);
     }
 
     public void testFilterHtmlDocument() throws Exception {
         String msg = "<div>...\nhttp://whatever\n...</div>";
-        String res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
+        String res = getDetailsHandler.txtDocumentToHtml(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertTrue(res.contains("onClick=\"openLink('http://whatever"));
         
         msg = "...\n<a\nhref=https://www.example.com/path/action.do;s=1;a=2?p=abcd\n...";
-        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsHandler.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertTrue(res.contains("onClick=\"openLink('https://"));
 
         msg = "...\n<a\nhref=mailTo:nobody@subdomain.the-domain.org\n...";
-        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsHandler.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertTrue(res.contains("onClick=\"mailTo('nobody@"));
 
         msg = "...\n...<img   \n   src=\"cid:1.1934304663@web28309.mail.ukl.yahoo.com\" width=200\n....";
-        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsHandler.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertEquals("...\n...<img   \n   src='" + 
                 SConsts.HUPA + SConsts.SERVLET_DOWNLOAD + "?" 
@@ -79,46 +79,46 @@ public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
                 + SConsts.PARAM_NAME + "=1.1934304663@web28309.mail.ukl.yahoo.com' name='cid:1.1934304663@web28309.mail.ukl.yahoo.com' width=200\n....", res);
         
         msg = "\n\n.... <Script \ntype=\"whatever\"\n>\nalert('hello');\n</script > ---\n\n";
-        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsHandler.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
 
         msg = "\n\n.... <a \nid=\"whatever\"\nonclick=\"alert('hello');\"\n</a > ---\n\n";
-        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsHandler.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
 
         msg = "\n\n.... <style \ntype=\"whatever\"\n>\n.a{};\n</Style > ---\n\n";
-        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsHandler.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         
-        res = getDetailsMsgHndl.filterHtmlDocument("", "aFolder", 9999l);
+        res = getDetailsHandler.filterHtmlDocument("", "aFolder", 9999l);
         assertTrue(res.length()==0);
     }
 
     public void testRegexEmailsInsideTagAttributes() {
         String msg, res;
         msg = ".. <a href=\"http://whatever?param1=whatever&email= dock@example.com&param3\">..</a> ..";
-        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsHandler.filterHtmlDocument(msg, "aFolder", 9999l);
         assertFalse(res.contains("mailTo("));
 
         msg = ".. <a href=bla > http://whatever?param1=whatever&email=dock@example.com&param3 </a> ..";
-        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsHandler.filterHtmlDocument(msg, "aFolder", 9999l);
         assertFalse(res.contains("mailTo("));
         assertFalse(res.contains("openLink("));
 
         msg = ".. <div > http://whatever?param1=whatever&email=dock@example.com&param3 <p> ..";
-        res = getDetailsMsgHndl.filterHtmlDocument(msg, "aFolder", 9999l);
+        res = getDetailsHandler.filterHtmlDocument(msg, "aFolder", 9999l);
         assertFalse(res.contains("mailTo("));
         assertTrue(res.contains("openLink("));
         
         msg = "http://accounts.myspace.com.deaaaf.me.uk/msp/index.php?fuseaction=update&code=78E2BL6-EKY5L893K4MHSA-74ESO-D743U41GYB18J-FA18EI698V4M&email=somehone@somewere.com";
-        res = getDetailsMsgHndl.txtDocumentToHtml(msg, "aFolder", 9999l);
+        res = getDetailsHandler.txtDocumentToHtml(msg, "aFolder", 9999l);
         assertFalse(res.contains("mailTo("));
         assertTrue(res.contains("openLink("));
         
     }
 
     private MessageDetails loadMessageDetails(String msgFile) throws Exception {
-        return getDetailsMsgHndl.mimeToDetails(TestUtils.loadMessageFromFile(session,msgFile), "theFolder", 9999l);
+        return getDetailsHandler.mimeToDetails(TestUtils.loadMessageFromFile(session,msgFile), "theFolder", 9999l);
     }
     
     public void testMessageDetails_textPlain() throws Exception {
@@ -169,7 +169,7 @@ public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
         serverfolder.addMessages(new Message[]{msg});
         
         org.apache.hupa.shared.data.IMAPFolder clientfolder = new org.apache.hupa.shared.data.IMAPFolder("WHATEVER");
-        MessageDetails details = getDetailsMsgHndl.exposeMessage(testUser, clientfolder, 0);
+        MessageDetails details = getDetailsHandler.exposeMessage(testUser, clientfolder, 0);
         
         // inline images have to be downloaded from the server
         assertTrue(details.getText().contains("img src=\'" + 
@@ -186,7 +186,7 @@ public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
     public void testMessageDetails_links() throws Exception {
         MessageDetails details = loadMessageDetails("2.msg");
 
-        String html = getDetailsMsgHndl.filterHtmlDocument(details.getText(), "foldername", 111l);
+        String html = getDetailsHandler.filterHtmlDocument(details.getText(), "foldername", 111l);
         assertFalse(html.contains("<script>"));
         assertFalse(html.contains("<style>"));
         assertTrue(html.contains("<a onClick=\"openLink('http://code.google.com/intl/es/webtoolkit/');return false;\" href=\"http://code.google.com/intl/es/webtoolkit/\""));

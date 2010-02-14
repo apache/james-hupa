@@ -55,8 +55,8 @@ public class FowardMessageHandlerTest extends HupaGuiceTestCase {
         SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(registry, 2);
         ForwardMessage action = new ForwardMessage(smtpmsg, ifolder, msgUid);
         
-        message = fwdMsgHndl.createMessage(session, action);
-        message = fwdMsgHndl.fillBody(message, action);
+        message = forwardMessageHandler.createMessage(session, action);
+        message = forwardMessageHandler.fillBody(message, action);
         
         String expected = "multipart/mixed\n"
             + " multipart/alternative\n"

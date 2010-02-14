@@ -366,8 +366,9 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
             if (!oldmessage.getSubject().toLowerCase().startsWith("fwd:"))
                 display.getSubjectText().setText("Fwd: " + oldmessage.getSubject());
         } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-            if (!oldmessage.getSubject().toLowerCase().startsWith("re:"))
+            if (!oldmessage.getSubject().toLowerCase().startsWith("re:")) {
                 display.getSubjectText().setText("Re: " + oldmessage.getSubject());
+            }
             if (oldmessage.getReplyto() != null) {
                 display.getToText().setText(oldmessage.getReplyto());
             } else if (type.equals(Type.REPLY)) {

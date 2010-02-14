@@ -5,7 +5,7 @@ import com.google.inject.Module;
 import com.sun.mail.imap.IMAPStore;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
-import org.apache.hupa.server.guice.GuiceTestModule;
+import org.apache.hupa.server.guice.GuiceServerTestModule;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -29,7 +29,7 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
      *   - Be sure the user and password are set correctly
      *   - Comment the delay
      */
-    static class MyModule extends GuiceTestModule {
+    static class MyModule extends GuiceServerTestModule {
         public MyModule() {
             // properties = courierProperties;
             // properties = gmailProperties;
@@ -49,6 +49,7 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
      * Delete contacts from session and all messages in user's dratfs folder
      */
     public void setUp() throws Exception {
+        super.setUp();
         httpSession.removeAttribute(InImapUserPreferencesStorage.CONTACTS_ATTR);
         Folder f = storeCache.get(testUser).getFolder(testUser.getSettings().getDraftsFolderName());
         if (f.exists() && f.getMessageCount() > 0) {
@@ -143,7 +144,7 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
         smtpmsg.setCc(new ArrayList<String>());
         smtpmsg.setBcc(new ArrayList<String>());
         SendMessage action = new SendMessage(smtpmsg);
-        abstSendMsgHndl.execute(action, null);
+        sendMessageHandler.execute(action, null);
 
         // The email has to be added to the contact list 
         assertEquals(1, userPreferences.getContacts().length);
