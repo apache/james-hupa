@@ -1,69 +1,60 @@
-/*
- * Copyright 2010 Manuel Carrasco Moñino. (manuel_carrasco at users.sourceforge.net) 
- * http://code.google.com/p/gwtchismes
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
+package org.apache.hupa.widgets.editor.bundles;
 
-package com.google.code.p.gwtchismes.client.editor.bundles;
+import com.google.gwt.user.client.ui.AbstractImagePrototype;
+import com.google.gwt.user.client.ui.ImageBundle;
 
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.ImageResource;
 
-    public interface ToolbarImages extends ClientBundle {
 
-        ImageResource bold();
 
-        ImageResource createLink();
+    /**
+     * This {@link ImageBundle} is used for all the button icons. Using an image
+     * bundle allows all of these images to be packed into a single image, which
+     * saves a lot of HTTP requests, drastically improving startup time.
+     */
+    public interface ToolbarImages extends ImageBundle {
 
-        ImageResource hr();
+        AbstractImagePrototype bold();
 
-        ImageResource indent();
+        AbstractImagePrototype createLink();
 
-        ImageResource insertImage();
+        AbstractImagePrototype hr();
 
-        ImageResource italic();
+        AbstractImagePrototype indent();
 
-        ImageResource justifyCenter();
+        AbstractImagePrototype insertImage();
 
-        ImageResource justifyLeft();
+        AbstractImagePrototype italic();
 
-        ImageResource justifyRight();
+        AbstractImagePrototype justifyCenter();
 
-        ImageResource ol();
+        AbstractImagePrototype justifyLeft();
 
-        ImageResource outdent();
+        AbstractImagePrototype justifyRight();
 
-        ImageResource removeFormat();
+        AbstractImagePrototype ol();
 
-        ImageResource removeLink();
+        AbstractImagePrototype outdent();
 
-        ImageResource strikeThrough();
+        AbstractImagePrototype removeFormat();
 
-        ImageResource subscript();
+        AbstractImagePrototype removeLink();
 
-        ImageResource superscript();
+        AbstractImagePrototype strikeThrough();
 
-        ImageResource ul();
+        AbstractImagePrototype subscript();
 
-        ImageResource underline();
+        AbstractImagePrototype superscript();
+
+        AbstractImagePrototype ul();
+
+        AbstractImagePrototype underline();
         
-        ImageResource backColors();
+        AbstractImagePrototype backColors();
         
-        ImageResource foreColors();
+        AbstractImagePrototype foreColors();
         
-        ImageResource fonts();
+        AbstractImagePrototype fonts();
         
-        ImageResource fontSizes();
+        AbstractImagePrototype fontSizes();
     }
 

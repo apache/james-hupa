@@ -1,23 +1,34 @@
-/*
- * Copyright 2010 Manuel Carrasco Moñino. (manuel_carrasco at users.sourceforge.net) 
- * http://code.google.com/p/gwtchismes
+/****************************************************************
+ * Licensed to the Apache Software Foundation (ASF) under one   *
+ * or more contributor license agreements.  See the NOTICE file *
+ * distributed with this work for additional information        *
+ * regarding copyright ownership.  The ASF licenses this file   *
+ * to you under the Apache License, Version 2.0 (the            *
+ * "License"); you may not use this file except in compliance   *
+ * with the License.  You may obtain a copy of the License at   *
+ *                                                              *
+ *   http://www.apache.org/licenses/LICENSE-2.0                 *
+ *                                                              *
+ * Unless required by applicable law or agreed to in writing,   *
+ * software distributed under the License is distributed on an  *
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY       *
+ * KIND, either express or implied.  See the License for the    *
+ * specific language governing permissions and limitations      *
+ * under the License.                                           *
+ ****************************************************************/
+/**
+ * Much of this code has been taken from the GWT Showcase example
+ * which is licensed under Apache License v2.0
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-package com.google.code.p.gwtchismes.client.editor;
+ * This class is necessary while GWT library doesn't provide any 
+ * toolbar to be used with its RichTextArea widget.
 
-import com.google.code.p.gwtchismes.client.editor.GWTCFontPicker.FontPickerType;
-import com.google.code.p.gwtchismes.client.editor.bundles.ToolbarImages;
+ */
+package org.apache.hupa.widgets.editor;
+
+import org.apache.hupa.widgets.editor.FontPicker.FontPickerType;
+import org.apache.hupa.widgets.editor.bundles.ToolbarImages;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -27,19 +38,20 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Toolbar for use with {@link RichTextArea}.
+ * Toolbar for use with {@link RichTextArea}. It provides a simple UI for all
+ * rich text formatting, dynamically displayed only for the available
+ * functionality.
  */
 @SuppressWarnings("deprecation")
 public class Toolbar extends Composite {
@@ -120,9 +132,9 @@ public class Toolbar extends Composite {
 
     }
     
-    private ValueChangeHandler<GWTCColorPicker> colorHandler = new ValueChangeHandler<GWTCColorPicker>() {
-        public void onValueChange(ValueChangeEvent<GWTCColorPicker> event) {
-          GWTCColorPicker sender = event.getValue();
+    private ValueChangeHandler<ColorPicker> colorHandler = new ValueChangeHandler<ColorPicker>() {
+        public void onValueChange(ValueChangeEvent<ColorPicker> event) {
+            ColorPicker sender = event.getValue();
             if (sender == backColorsPicker) {
                 basic.setBackColor(sender.getColor());
             } else if (sender == foreColorsPicker) {
@@ -131,9 +143,9 @@ public class Toolbar extends Composite {
             sender.hide();
         }
     };
-    private ValueChangeHandler<GWTCFontPicker> fontHandler = new ValueChangeHandler<GWTCFontPicker>() {
-        public void onValueChange(ValueChangeEvent<GWTCFontPicker> event) {
-            GWTCFontPicker sender = event.getValue();
+    private ValueChangeHandler<FontPicker> fontHandler = new ValueChangeHandler<FontPicker>() {
+        public void onValueChange(ValueChangeEvent<FontPicker> event) {
+            FontPicker sender = event.getValue();
             if (sender == fontFamilyPicker) {
                basic.setFontName(sender.getFontName());
             } else if (sender == fontSizePicker) {
@@ -143,6 +155,7 @@ public class Toolbar extends Composite {
         }
     };
     
+    private static final ToolbarImages images = (ToolbarImages) GWT.create(ToolbarImages.class);
     private EventHandler handler = new EventHandler();
     
 
@@ -171,20 +184,22 @@ public class Toolbar extends Composite {
     private PushButton removeFormat;
 
     private PushButton fontFamily;
-    private GWTCFontPicker fontFamilyPicker = new GWTCFontPicker(FontPickerType.FONT_FAMILY);
+    private FontPicker fontFamilyPicker = new FontPicker(FontPickerType.FONT_FAMILY);
     private PushButton fontSize;
-    private GWTCFontPicker fontSizePicker = new GWTCFontPicker(FontPickerType.FONT_SIZE);
+    private FontPicker fontSizePicker = new FontPicker(FontPickerType.FONT_SIZE);
     
     private PushButton backColors;
     private PushButton foreColors;
-    private GWTCColorPicker backColorsPicker = new GWTCColorPicker();
-    private GWTCColorPicker foreColorsPicker = new GWTCColorPicker();
+    private ColorPicker backColorsPicker = new ColorPicker();
+    private ColorPicker foreColorsPicker = new ColorPicker();
 
+    /**
+     * Creates a new toolbar that drives the given rich text area.
+     * 
+     * @param richText
+     *            the rich text area to be controlled
+     */
     public Toolbar(RichTextArea richText, ToolbarConstants strings) {
-       this(richText, strings, (ToolbarImages)GWT.create(ToolbarImages.class));
-    }
-
-    public Toolbar(RichTextArea richText, ToolbarConstants strings, ToolbarImages images) {
         this.richText = richText;
         this.basic = richText.getBasicFormatter();
         this.extended = richText.getExtendedFormatter();
@@ -237,15 +252,15 @@ public class Toolbar extends Composite {
         fontSizePicker.addValueChangeHandler(fontHandler);
     }
 
-    private PushButton createPushButton(ImageResource img, String tip) {
-        PushButton pb = new PushButton(new Image(img));
+    private PushButton createPushButton(AbstractImagePrototype img, String tip) {
+        PushButton pb = new PushButton(img.createImage());
         pb.addClickHandler(handler);
         pb.setTitle(tip);
         return pb;
     }
 
-    private ToggleButton createToggleButton(ImageResource img, String tip) {
-        ToggleButton tb = new ToggleButton(new Image(img));
+    private ToggleButton createToggleButton(AbstractImagePrototype img, String tip) {
+        ToggleButton tb = new ToggleButton(img.createImage());
         tb.addClickHandler(handler);
         tb.setTitle(tip);
         return tb;
