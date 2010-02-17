@@ -107,7 +107,6 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
         
         buttonsBar.add(sendButton);
         buttonsBar.add(loading);
-        buttonsBar.add(new Label("ASDFASF"));
         buttonsBar.add(backButton);
         
         sendContainer.add(headers);

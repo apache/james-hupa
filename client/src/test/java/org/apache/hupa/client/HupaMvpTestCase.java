@@ -27,6 +27,8 @@ import com.sun.mail.imap.IMAPStore;
 
 import junit.framework.TestCase;
 
+import net.customware.gwt.presenter.client.EventBus;
+
 import org.apache.hupa.client.guice.GuiceMvpTestModule;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.guice.GuiceServerTestModule;
@@ -55,6 +57,7 @@ public abstract class HupaMvpTestCase extends TestCase {
     protected IMAPStoreCache storeCache;
     protected User testUser;
     protected IMAPStore store;
+    protected EventBus eventBus;
     
     protected Module[] getModules() {
         return new Module[]{new GuiceServerTestModule(), new GuiceMvpTestModule()};
@@ -68,6 +71,7 @@ public abstract class HupaMvpTestCase extends TestCase {
             session = injector.getInstance(Session.class);
             userPreferences = injector.getInstance(UserPreferencesStorage.class);
             storeCache = injector.getInstance(IMAPStoreCache.class);
+            eventBus = injector.getInstance(EventBus.class);
             
             SessionUtils.cleanSessionAttributes(httpSession);
             testUser = injector.getInstance(User.class);

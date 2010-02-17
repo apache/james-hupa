@@ -55,8 +55,6 @@ import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
-import org.apache.hupa.shared.rpc.Contacts;
-import org.apache.hupa.shared.rpc.ContactsResult;
 import org.apache.hupa.shared.rpc.ForwardMessage;
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.ReplyMessage;
@@ -193,29 +191,26 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
     
     protected ClickHandler sendClickHandler = new ClickHandler() {
         public void onClick(ClickEvent event) {
-            
-            if (validate() == false) {
-                return;
-            }
+            if (validate()) {
+                message = new SMTPMessage();
+                message.setFrom(display.getFromText().getText());
+                message.setSubject(display.getSubjectText().getText());
+                message.setText(display.getMessageHTML().getHTML());
+                message.setMessageAttachments(attachments);
+                message.setTo(emailTextToArray(display.getToText().getText()));
+                message.setCc(emailTextToArray(display.getCcText().getText()));
+                message.setBcc(emailTextToArray(display.getBccText().getText()));
 
-            message = new SMTPMessage();
-            message.setFrom(display.getFromText().getText());
-            message.setSubject(display.getSubjectText().getText());
-            message.setText(display.getMessageHTML().getHTML());
-            message.setMessageAttachments(attachments);
-            message.setTo(emailTextToArray(display.getToText().getText()));
-            message.setCc(emailTextToArray(display.getCcText().getText()));
-            message.setBcc(emailTextToArray(display.getBccText().getText()));
-
-            SendMessage command;
-            if (type == Type.NEW) {
-                command = new SendMessage(message);
-            } else if (type == Type.FORWARD) {
-                command = new ForwardMessage(message, folder, oldmessage.getUid());
-            } else {
-                command = new ReplyMessage(message, folder, oldmessage.getUid());
+                SendMessage command;
+                if (type == Type.NEW) {
+                    command = new SendMessage(message);
+                } else if (type == Type.FORWARD) {
+                    command = new ForwardMessage(message, folder, oldmessage.getUid());
+                } else {
+                    command = new ReplyMessage(message, folder, oldmessage.getUid());
+                }
+                dispatchMessage(dispatcher, eventBus, command);
             }
-            dispatchMessage(dispatcher, eventBus, command);
         }
     };
 
@@ -291,13 +286,6 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         this.folder = folder;
         this.type = type;
 
-        // Get user's contacts, so the user will be able to use suggestion boxes
-        dispatcher.execute(new Contacts(),  new HupaCallback<ContactsResult>(dispatcher, eventBus) {
-            public void callback(ContactsResult result) {
-                display.fillContactList(result.getContacts());
-            }
-        }); 
-        
         // Depending on the type, we have to automatically fill the view inputs
         display.getFromText().setText(user.getName());
         display.getMessageHTML().setHTML(wrapMessage(oldmessage, oldDetails, type));

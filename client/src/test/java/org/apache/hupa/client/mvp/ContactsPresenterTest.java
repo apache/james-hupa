@@ -19,6 +19,7 @@
 package org.apache.hupa.client.mvp;
 
 import org.apache.hupa.client.HupaMvpTestCase;
+import org.apache.hupa.shared.events.ContactsUpdatedEvent;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.easymock.EasyMock;
 
@@ -28,12 +29,15 @@ public class ContactsPresenterTest extends HupaMvpTestCase {
     ContactsPresenter.Display display = presenter.getDisplay();
     
     public void testRevealDisplayWhenListIsEmpty() throws Exception {
+        // Register an event listener
+        presenter.onBind();
         Contact[] contacts = new Contact[]{};
         
+        EasyMock.reset(display);
         display.setContacts(EasyMock.aryEq(contacts));
         EasyMock.replay(display);
-        // get the contacts list from the server
-        presenter.onRevealDisplay();
+        // send an event
+        eventBus.fireEvent(new ContactsUpdatedEvent(contacts));
         assertNotNull(presenter.contacts);
         assertEquals(0, presenter.contacts.length);
         EasyMock.verify(display);
@@ -46,16 +50,35 @@ public class ContactsPresenterTest extends HupaMvpTestCase {
         assertEquals("somebody@foo.com", c.mail);
         Contact[] contacts = new Contact[]{c};
         
-        // add the contact list to the server
-        userPreferences.addContact(contacts);
+        // Register an event listener
+        presenter.onBind();
         
+        EasyMock.reset(display);
         display.setContacts(EasyMock.aryEq(contacts));
         EasyMock.replay(display);
-        // get the contacts list from the server
-        presenter.onRevealDisplay();
+        // send an event
+        eventBus.fireEvent(new ContactsUpdatedEvent(contacts));
+        assertNotNull(presenter.contacts);
         assertEquals(1, presenter.contacts.length);
         EasyMock.verify(display);
         EasyMock.reset(display);
+    }
+
+    public void testUpdateContactsFromServer() throws Exception {
+        Contact c = new Contact("Somebody <somebody@foo.com>");
+        assertEquals("Somebody", c.realname);
+        assertEquals("somebody@foo.com", c.mail);
+        Contact[] contacts = new Contact[]{c};
+        
+        assertNull(presenter.contacts);
+        // Register the event listener
+        presenter.onBind();
+        // Put contacts in server side
+        userPreferences.addContact(contacts);
+        // Call to the server
+        presenter.updateContactsFromServer();
+        assertNotNull(presenter.contacts);
+        assertEquals(1, presenter.contacts.length);
     }
 }
 

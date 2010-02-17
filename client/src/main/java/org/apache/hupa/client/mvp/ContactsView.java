@@ -64,6 +64,9 @@ public class ContactsView extends Composite implements ContactsPresenter.Display
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.ContactsPresenter.Display#setContacts(org.apache.hupa.shared.rpc.ContactsResult.Contact[])
+     */
     public void setContacts(Contact[] contacts) {
         ctable.clearAll();
         for(int i=0; i<contacts.length; i++) {
@@ -72,6 +75,9 @@ public class ContactsView extends Composite implements ContactsPresenter.Display
         }
     }
     
+    /* (non-Javadoc)
+     * @see org.apache.hupa.client.mvp.ContactsPresenter.Display#getContacts()
+     */
     public Contact[] getContacts() {
         ArrayList<Contact> contacts = new ArrayList<Contact>();
         for (int i=0; i < ctable.getRowCount(); i++) {
