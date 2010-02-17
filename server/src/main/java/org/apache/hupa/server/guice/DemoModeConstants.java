@@ -60,7 +60,7 @@ public class DemoModeConstants {
             
             put("PostFetchMessageCount", "0");
             
-            put("DefaultUserSessionId", "just_an_id");
+            put("DefaultUserSessionId", "DEMO_ID");
         }
     };
 

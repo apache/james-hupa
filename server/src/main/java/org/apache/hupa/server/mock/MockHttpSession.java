@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-
 package org.apache.hupa.server.mock;
 
 import java.util.ArrayList;
@@ -39,11 +38,12 @@ public class MockHttpSession implements HttpSession{
     private Map<String,Object> valueMap = new HashMap<String, Object>();
     private long cTime;
     private String id;
+    private static int seq = 0;
     
     @Inject
     public MockHttpSession(@Named("DefaultUserSessionId") String id) {
         cTime = System.currentTimeMillis();
-        this.id = id;
+        this.id = id + "-" + seq++;
     }
     
     public Object getAttribute(String name) {

@@ -28,14 +28,13 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.LoginUser;
 import org.apache.hupa.shared.rpc.LoginUserResult;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
 
 import javax.servlet.http.HttpSession;
 
@@ -65,7 +64,7 @@ public class LoginUserHandler implements
      */
     public LoginUserResult execute(LoginUser action, ExecutionContext context) throws ActionException {
         HttpSession session = sessionProvider.get();
-        cleanSessionAttributes(session);
+        SessionUtils.cleanSessionAttributes(session);
         
         String username = action.getUserName();
         String password = action.getPassword();
@@ -109,21 +108,5 @@ public class LoginUserHandler implements
      */
     public Class<LoginUser> getActionType() {
         return LoginUser.class;
-    }
-    
-    /**
-     * Remove session attributes, it has to be done in the login and logout actions
-     * @param session
-     */
-    public static void cleanSessionAttributes(HttpSession session) {
-        @SuppressWarnings("unchecked")
-        Enumeration en = session.getAttributeNames();
-        ArrayList<String> toRemove = new ArrayList<String>();
-        while (en.hasMoreElements()) {
-            toRemove.add(en.nextElement().toString());
-        }
-        for (String attr: toRemove) {
-            session.removeAttribute(attr);
-        }
     }
 }

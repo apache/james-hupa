@@ -48,6 +48,8 @@ public class Util {
     }
     
     public static String listToString(List<String> list) {
+        if (list == null)
+            return "";
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i));

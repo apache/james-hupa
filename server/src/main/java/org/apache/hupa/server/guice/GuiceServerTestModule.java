@@ -47,6 +47,7 @@ import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.mock.MockHttpSession;
+import org.apache.hupa.server.mock.MockHttpSessionProvider;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLogProvider;
 import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
@@ -84,7 +85,7 @@ public class GuiceServerTestModule extends ActionHandlerModule {
         Names.bindProperties(binder(), properties);
         
         bind(Session.class).toProvider(sessionClass);
-        bind(HttpSession.class).to(httpSessionClass).in(Singleton.class);
+        bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
         bind(Settings.class).toProvider(settingsProviderClass).in(Singleton.class);
         bind(Log.class).toProvider(logClass).in(Singleton.class);
 
@@ -105,7 +106,9 @@ public class GuiceServerTestModule extends ActionHandlerModule {
         bind(SendMessageHandler.class);
         bind(ReplyMessageHandler.class);
         bind(ForwardMessageHandler.class);
+        
         bindHandler(ContactsHandler.class);
+        bindHandler(SendMessageHandler.class);
         
         bind(UserPreferencesStorage.class).to(userPreferencesClass);
         
@@ -210,4 +213,5 @@ public class GuiceServerTestModule extends ActionHandlerModule {
             put("DefaultUserSessionId", "just_an_id");
         }
     };
+
 }

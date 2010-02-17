@@ -37,21 +37,24 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 
 public class HandlersTest extends HupaGuiceTestCase {
+
+    /*
+     These tests should work with Courier, Gmail and any other real IMAP implementations
+     If you want to run these tests against your IMAP server do this:
+        1.- Change properties and classes to do integration tests and
+        2.- Be sure the user and password are set correctly
+    */
+    class MyModule extends GuiceServerTestModule {
+        public MyModule() {
+            // properties = courierProperties;
+            // properties = gmailProperties;
+            // logClass = LogProvider.class;
+        }
+    }
     
     @Override
-    protected Module getModule() {
-        // These tests should work with Courier, Gmail and any other real IMAP implementations
-        // If you want to run these tests against your IMAP server do this:
-        //    1.- Change properties and classes to do integration tests and
-        //    2.- Be sure the user and password are set correctly
-        class MyModule extends GuiceServerTestModule {
-            public MyModule() {
-                // properties = courierProperties;
-                // properties = gmailProperties;
-                // logClass = LogProvider.class;
-            }
-        }
-        return new MyModule();
+    protected Module[] getModules() {
+        return new Module[]{new MyModule()};
     }
 
     public void testLoginAndFetchFolders() {

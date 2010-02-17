@@ -25,39 +25,54 @@ import com.google.inject.Singleton;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.client.service.DispatchService;
+import net.customware.gwt.dispatch.server.DefaultDispatch;
 import net.customware.gwt.dispatch.server.Dispatch;
 import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.dispatch.shared.ActionException;
 import net.customware.gwt.dispatch.shared.Result;
+import net.customware.gwt.presenter.client.DefaultEventBus;
 import net.customware.gwt.presenter.client.Display;
 import net.customware.gwt.presenter.client.EventBus;
 
-import static org.easymock.EasyMock.createStrictMock;
-
+import org.apache.hupa.client.HupaMessages;
+import org.apache.hupa.client.mock.MockMessageSendDisplay;
 import org.apache.hupa.client.mvp.ContactsPresenter;
+import org.apache.hupa.client.mvp.MessageSendPresenter;
 import org.easymock.EasyMock;
 
 /**
- * Guice module used to test the presenter
+ * Guice module used to test presenters
  * 
  * @author manolo
  *
  */
 public class GuiceMvpTestModule extends AbstractModule {
     
+    // Override either, to change module behavior
+    protected DispatchAsync dispatchAsyncInstance = null;
+    protected Class<? extends DispatchAsync> dispatchAsyncClass = DispatchTestAsync.class;
+    
     @Override
     protected void configure() {
 
-        bind(DispatchService.class).to(DispatchTestService.class).in(Singleton.class);
-        bind(DispatchAsync.class).to(DispatchTestAsync.class).in(Singleton.class);
+        if (dispatchAsyncInstance == null) {
+            bind(DispatchAsync.class).to(dispatchAsyncClass).in(Singleton.class);
+        } else {
+            bind(DispatchAsync.class).toInstance(dispatchAsyncInstance);
+        }
 
-        final EventBus eventBus = createStrictMock(EventBus.class);
-        bind(EventBus.class).toInstance(eventBus);
+        bind(EventBus.class).to(DefaultEventBus.class);
+        
+        bind(DispatchTestAsync.class);
+        
+        HupaMessages messages = EasyMock.createNiceMock(HupaMessages.class);
+        bind(HupaMessages.class).toInstance(messages);
 
         bindDisplay(ContactsPresenter.Display.class);
+        bind(MessageSendPresenter.Display.class).to(MockMessageSendDisplay.class);
     }
 
-    public <D extends Display> void bindDisplay(final Class<D> display) {
+    protected <D extends Display> void bindDisplay(final Class<D> display) {
         final D mockDisplay = EasyMock.createNiceMock(display);
         bind(display).toInstance(mockDisplay);
     }
@@ -76,12 +91,12 @@ public class GuiceMvpTestModule extends AbstractModule {
         }
     }
 
-    static class DispatchTestAsync implements DispatchAsync {
-        private Dispatch dispatch;
+    static public class DispatchTestAsync implements DispatchAsync {
+        private DefaultDispatch dispatch;
 
         @Inject
         public DispatchTestAsync(Dispatch dispatch) {
-            this.dispatch = dispatch;
+            this.dispatch = (DefaultDispatch)dispatch;
         }
 
         public <A extends Action<R>, R extends Result> void execute(A action, AsyncCallback<R> callback) {
@@ -93,4 +108,5 @@ public class GuiceMvpTestModule extends AbstractModule {
             }
         }
     }
+
 }

@@ -49,7 +49,7 @@ public class AbstractMessage implements Serializable{
         return "From='" + from 
              + "' To='" + toList
              + "' CC='" + ccList
-             + "' ReplyTo='" + replyto
+             + "' ReplyTo='" + (replyto == null ? "": replyto)
              + "' Subject='" + subject
              + "' Attachments=" + hasAttachment;
     }

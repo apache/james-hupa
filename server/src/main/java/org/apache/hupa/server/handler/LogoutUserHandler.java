@@ -27,6 +27,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.LogoutUser;
 import org.apache.hupa.shared.rpc.LogoutUserResult;
@@ -60,7 +61,7 @@ public class LogoutUserHandler extends AbstractSessionHandler<LogoutUser, Logout
         cache.delete(user);
         
         // remove user attributes from session
-        LoginUserHandler.cleanSessionAttributes(sessionProvider.get());
+        SessionUtils.cleanSessionAttributes(sessionProvider.get());
         
         return new LogoutUserResult(user);
     }

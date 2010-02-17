@@ -61,9 +61,7 @@ public class EmailListValidator extends Validator<EmailListValidator>{
      * @return isValid
      */
     public static boolean isValidAddressList(String text) {
-        if (text.length() > 0) {
-            if (text.replaceAll("[,:\\s]+", "").isEmpty())
-                return false;
+        if (text != null && text.length() > 0) {
             String[] addresses = text.split("[,;\r\n]+");
             for (int i = 0; i < addresses.length; i++) {
                 if (!addresses[i].trim().isEmpty() && isValidAddress(addresses[i].trim()) == false) {
@@ -80,7 +78,7 @@ public class EmailListValidator extends Validator<EmailListValidator>{
      * @param email
      * @return isValid
      */
-    public static boolean isValidAddress(String email) {
+    private static boolean isValidAddress(String email) {
         return email.matches(emailRegex);
     }
 }

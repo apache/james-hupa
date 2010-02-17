@@ -21,7 +21,9 @@ package org.apache.hupa.client;
 
 import com.google.gwt.i18n.client.Messages;
 
-public interface HupaMessages extends Messages{
+import eu.maydu.gwt.validation.client.i18n.StandardValidationMessagesImpl;
+
+public interface HupaMessages extends Messages, StandardValidationMessagesImpl {
 
     @DefaultMessage("Are you sure you want to delete the selected messages?")
     public String confirmDeleteMessages();

@@ -30,6 +30,7 @@ import net.customware.gwt.dispatch.shared.Result;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.exception.InvalidSessionException;
 
@@ -82,7 +83,7 @@ public abstract class AbstractSessionHandler<A extends Action<R>,R extends Resul
      * @throws ActionException
      */
     protected User getUser() throws ActionException{
-        User user = (User) sessionProvider.get().getAttribute("user");
+        User user = (User) sessionProvider.get().getAttribute(SConsts.USER_SESS_ATTR);
         if (user == null) {
             throw new InvalidSessionException("User not found in session with id " + sessionProvider.get().getId());
         } else {

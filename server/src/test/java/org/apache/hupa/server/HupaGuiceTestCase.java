@@ -45,6 +45,7 @@ import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
+import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.SendMessage;
@@ -54,60 +55,62 @@ import javax.servlet.http.HttpSession;
 
 public abstract class HupaGuiceTestCase extends TestCase {
 
-    protected Injector injector = Guice.createInjector(getModule());
-
-    protected HttpSession httpSession = injector.getInstance(HttpSession.class);
+    protected Injector injector = Guice.createInjector(getModules());
     
-    protected ContactsHandler contactsHandler = injector.getInstance(ContactsHandler.class);
-
-    protected IdleHandler idleHandler = injector.getInstance(IdleHandler.class);
-
-    protected CreateFolderHandler createFolderHandler = injector.getInstance(CreateFolderHandler.class);
-    
-    protected DeleteFolderHandler deleteFolderHandler = injector.getInstance(DeleteFolderHandler.class);
-    
-    protected FetchFoldersHandler fetchFoldersHandler = injector.getInstance(FetchFoldersHandler.class);
-    
-    protected FetchMessagesHandler fetchMessagesHandler = injector.getInstance(FetchMessagesHandler.class);
-    
-    protected DeleteMessageByUidHandler deleteMessageByUidHandler = injector.getInstance(DeleteMessageByUidHandler.class);
-    
-    protected AbstractSendMessageHandler<SendMessage> sendMessageHandler = injector.getInstance(SendMessageHandler.class);
-    
-    protected ForwardMessageHandler forwardMessageHandler = injector.getInstance(ForwardMessageHandler.class);
-    
-    protected GetMessageDetailsHandler getDetailsHandler = injector.getInstance(GetMessageDetailsHandler.class);
-    
-    protected Log logger = injector.getInstance(Log.class);
-    
-    protected LoginUserHandler loginUser = injector.getInstance(LoginUserHandler.class);
-    
-    protected LogoutUserHandler logoutUser = injector.getInstance(LogoutUserHandler.class);
-    
-    protected ReplyMessageHandler reMsgHndl = injector.getInstance(ReplyMessageHandler.class);
-    
-    protected Session session = injector.getInstance(Session.class);
-    
-    protected IMAPStoreCache storeCache = injector.getInstance(IMAPStoreCache.class);
-    
+    protected ContactsHandler contactsHandler;
+    protected IdleHandler idleHandler;
+    protected CreateFolderHandler createFolderHandler;
+    protected DeleteFolderHandler deleteFolderHandler;
+    protected FetchFoldersHandler fetchFoldersHandler;
+    protected FetchMessagesHandler fetchMessagesHandler;
+    protected DeleteMessageByUidHandler deleteMessageByUidHandler;
+    protected AbstractSendMessageHandler<SendMessage> sendMessageHandler;
+    protected ForwardMessageHandler forwardMessageHandler;
+    protected GetMessageDetailsHandler getDetailsHandler;
+    protected Log logger;
+    protected LoginUserHandler loginUser;
+    protected LogoutUserHandler logoutUser;
+    protected ReplyMessageHandler reMsgHndl;
+    protected Session session;
+    protected IMAPStoreCache storeCache;
     protected User testUser;
-    
-    protected UserPreferencesStorage userPreferences = injector.getInstance(UserPreferencesStorage.class);
-    
+    protected UserPreferencesStorage userPreferences;
     protected IMAPStore store;
+    protected HttpSession httpSession;
     
+    protected Module[] getModules() {
+        return new Module[]{new GuiceServerTestModule()};
+    }
     
     @Override
     protected void setUp() throws Exception {
         try {
+            contactsHandler = injector.getInstance(ContactsHandler.class);
+            idleHandler = injector.getInstance(IdleHandler.class);
+            createFolderHandler = injector.getInstance(CreateFolderHandler.class);
+            deleteFolderHandler = injector.getInstance(DeleteFolderHandler.class);
+            fetchFoldersHandler = injector.getInstance(FetchFoldersHandler.class);
+            fetchMessagesHandler = injector.getInstance(FetchMessagesHandler.class);
+            deleteMessageByUidHandler = injector.getInstance(DeleteMessageByUidHandler.class);
+            sendMessageHandler = injector.getInstance(SendMessageHandler.class);
+            forwardMessageHandler = injector.getInstance(ForwardMessageHandler.class);
+            getDetailsHandler = injector.getInstance(GetMessageDetailsHandler.class);
+            logger = injector.getInstance(Log.class);
+            loginUser = injector.getInstance(LoginUserHandler.class);
+            logoutUser = injector.getInstance(LogoutUserHandler.class);
+            reMsgHndl = injector.getInstance(ReplyMessageHandler.class);
+            session = injector.getInstance(Session.class);
+            storeCache = injector.getInstance(IMAPStoreCache.class);
+            userPreferences = injector.getInstance(UserPreferencesStorage.class);
+            
+            httpSession = injector.getInstance(HttpSession.class);
+            SessionUtils.cleanSessionAttributes(httpSession);
             testUser = injector.getInstance(User.class);
             store = storeCache.get(testUser);
             httpSession.setAttribute(SConsts.USER_SESS_ATTR, testUser);
+            
         } catch (Exception e) {
         }
     }
 
-    protected Module getModule() {
-        return new GuiceServerTestModule();
-    }
 }

@@ -38,7 +38,7 @@ public class SMTPMessage extends AbstractMessage{
             attachNames += m.getName() + " ";
         
         return super.toString()
-             + "Bcc='" + bccList
+             + " Bcc='" + bccList
              + "'\nAttachments=" + attachNames
              + "'\nMessage:\n" + text;
     }

@@ -208,12 +208,14 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         List<MessageAttachment> attachments = action.getMessage().getMessageAttachments();
         
         ArrayList<FileItem> items = new ArrayList<FileItem>();
-        for (MessageAttachment attachment: attachments) {
-            FileItem fItem = registry.get(attachment.getName());
-            if (fItem != null)
-                items.add(fItem);
+        if (attachments != null && attachments.size() > 0) {
+            for (MessageAttachment attachment: attachments) {
+                FileItem fItem = registry.get(attachment.getName());
+                if (fItem != null)
+                    items.add(fItem);
+            }
+            logger.debug("Found " + items.size() + " attachmets in the registry.");
         }
-        logger.debug("Found " + items.size() + " attachmets in the registry.");
         return items;
     }
     

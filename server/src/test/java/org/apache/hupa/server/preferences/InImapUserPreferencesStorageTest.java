@@ -22,12 +22,12 @@ import javax.mail.Folder;
 
 public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
 
-    /**
-     * These tests should work with Courier, Gmail and any other real IMAP implementation.
-     * So, if you wanted to run these tests against your IMAP server do this:
-     *   - Set the correct properties.
-     *   - Be sure the user and password are set correctly
-     *   - Comment the delay
+    /*
+       These tests should work with Courier, Gmail and any other real IMAP implementation.
+       So, if you wanted to run these tests against your IMAP server do this:
+         - Set the correct properties.
+         - Be sure the user and password are set correctly
+         - Comment the delay
      */
     static class MyModule extends GuiceServerTestModule {
         public MyModule() {
@@ -39,18 +39,17 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
             InImapUserPreferencesStorage.IMAP_SAVE_DELAY = 400;
         }
     }
-
+    
     @Override
-    protected Module getModule() {
-        return new MyModule();
+    protected Module[] getModules() {
+        return new Module[]{new MyModule()};
     }
     
     /**
-     * Delete contacts from session and all messages in user's dratfs folder
+     * Delete all messages in user's dratfs folder
      */
     public void setUp() throws Exception {
         super.setUp();
-        httpSession.removeAttribute(InImapUserPreferencesStorage.CONTACTS_ATTR);
         Folder f = storeCache.get(testUser).getFolder(testUser.getSettings().getDraftsFolderName());
         if (f.exists() && f.getMessageCount() > 0) {
             f.open(Folder.READ_WRITE);
@@ -59,7 +58,7 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
         }
     }
     
-    public void atestAnySerializableObjectCanBeSavedInIMAP() throws Exception {
+    public void testAnySerializableObjectCanBeSavedInIMAP() throws Exception {
         IMAPStore store = storeCache.get(testUser);
         String folderName = testUser.getSettings().getInboxFolderName() + store.getDefaultFolder().getSeparator() + "aFolder";
         String magicSubject = "magicSubject";

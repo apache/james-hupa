@@ -23,6 +23,9 @@ package org.apache.hupa.server.utils;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.FileItemRegistry;
 
+import java.util.ArrayList;
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpSession;
 
 /**
@@ -37,6 +40,22 @@ public class SessionUtils {
             session.setAttribute("registry", registry);
         }
         return registry;
+    }
+
+    /**
+     * Remove session attributes, it has to be done in the login and logout actions
+     * @param session
+     */
+    public static void cleanSessionAttributes(HttpSession session) {
+        @SuppressWarnings("unchecked")
+        Enumeration en = session.getAttributeNames();
+        ArrayList<String> toRemove = new ArrayList<String>();
+        while (en.hasMoreElements()) {
+            toRemove.add(en.nextElement().toString());
+        }
+        for (String attr: toRemove) {
+            session.removeAttribute(attr);
+        }
     }
     
 }

@@ -22,15 +22,11 @@ package org.apache.hupa.client.mvp;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
 
-import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
-import eu.maydu.gwt.validation.client.ValidationProcessor;
-import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
 import gwtupload.client.IUploader;
 import gwtupload.client.IUploadStatus.Status;
 import gwtupload.client.IUploader.OnCancelUploaderHandler;
@@ -38,16 +34,13 @@ import gwtupload.client.IUploader.OnFinishUploaderHandler;
 import gwtupload.client.IUploader.OnStatusChangedHandler;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
+import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
-import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaCallback;
-import org.apache.hupa.client.validation.AddStyleAction;
 import org.apache.hupa.client.validation.EmailListValidator;
-import org.apache.hupa.client.validation.NotEmptyValidator;
-import org.apache.hupa.client.validation.SetFocusAction;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -56,6 +49,7 @@ import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.events.BackEvent;
+import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
 import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
@@ -71,6 +65,7 @@ import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.widgets.ui.HasEnable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Presenter which handles the sending, reply, replay-all, forward of mails
@@ -83,8 +78,9 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
     private Type type = Type.NEW;
     private IMAPFolder folder;
     private Message oldmessage;
-    private ValidationMessages vMessages = new ValidationMessages();
-    private ValidationProcessor validator = new DefaultValidationProcessor(vMessages);
+    
+    protected SMTPMessage message = null;
+    
     @SuppressWarnings("unused")
     private MessageDetails oldDetails;
 
@@ -122,40 +118,19 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
     @Inject
     public MessageSendPresenter(Display display, EventBus eventBus, DispatchAsync dispatcher) {
         super(display, eventBus);
+        this.display = display;
         this.dispatcher = dispatcher;
+        
 
-        SetFocusAction fAction = new SetFocusAction();
-        AddStyleAction sAction = new AddStyleAction(HupaCSS.C_validate, 3000);
-        validator.addValidators("cc", 
-                new EmailListValidator(display.getCcText()).addActionForFailure(sAction).addActionForFailure(fAction));
-        validator.addValidators("bcc", 
-                new EmailListValidator(display.getBccText()).addActionForFailure(sAction).addActionForFailure(fAction));
-        validator.addValidators("to", 
-                new EmailListValidator(display.getToText()).addActionForFailure(sAction).addActionForFailure(fAction),
-                new NotEmptyValidator(display.getToText()).addActionForFailure(sAction).addActionForFailure(fAction));
     }
+    
+    public Display display;
 
     /**
      * The Type for which the SendPresenter will get used
-     * 
      */
     public enum Type {
-        /**
-         * Compose new Mail
-         */
-        NEW,
-        /**
-         * Reply to Mail
-         */
-        REPLY,
-        /**
-         * Reply-all to mail
-         */
-        REPLY_ALL,
-        /**
-         * Forward mail
-         */
-        FORWARD
+        NEW, REPLY, REPLY_ALL, FORWARD
     }
 
     public interface Display extends WidgetDisplay {
@@ -186,122 +161,27 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         public void setLoading(boolean loading);
         
         public void fillContactList(Contact[] contacts);
+        
+        public boolean validate();
     }
 
     @Override
     protected void onBind() {
         registerHandler(eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
-
             public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
                 reset();
             }
-
         }));
         registerHandler(eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
-
             public void onFolderSelectionEvent(FolderSelectionEvent event) {
                 reset();
             }
-
         }));
-
-        registerHandler(display.getSendClick().addClickHandler(new ClickHandler() {
-
-            public void onClick(ClickEvent event) {
-
-                if (validator.validate() == false) {
-                    return;
-                }
-                SMTPMessage message = new SMTPMessage();
-
-                message.setFrom(display.getFromText().getText());
-
-                ArrayList<String> to = new ArrayList<String>();
-                String[] toRaw = display.getToText().getText().split("[,;]+");
-                if (toRaw != null) {
-                    for (int i = 0; i < toRaw.length; i++) {
-                        String toRecip = toRaw[i].trim();
-                        if (toRecip.length() > 0) {
-                            to.add(toRaw[i].trim());
-                        }
-                    }
-                }
-                message.setTo(to);
-
-                ArrayList<String> cc = new ArrayList<String>();
-                String[] ccRaw = display.getCcText().getText().split("[,;]+");
-                if (ccRaw != null) {
-                    for (int i = 0; i < ccRaw.length; i++) {
-                        String ccRecip = ccRaw[i].trim();
-                        if (ccRecip.length() > 0) {
-                            cc.add(ccRaw[i].trim());
-                        }
-                    }
-                }
-                message.setCc(cc);
-
-                message.setSubject(display.getSubjectText().getText());
-                message.setText(display.getMessageHTML().getHTML());
-
-                message.setMessageAttachments(attachments);
-
-                // TODO: good handling of error messages, and use an error
-                // widget instead of Window.alert
-
-                if (type.equals(Type.NEW)) {
-                    display.setLoading(true);
-
-                    dispatcher.execute(new SendMessage(message), new HupaCallback<GenericResult>(dispatcher, eventBus) {
-                        public void callback(GenericResult result) {
-                            if (result.isSuccess()) {
-                                eventBus.fireEvent(new SentMessageEvent());
-                                reset();
-                            } else {
-                                Window.alert(result.getMessage());
-                            }
-                            display.setLoading(false);
-
-                        }
-                    });
-                } else if (type.equals(Type.FORWARD)) {
-                    display.setLoading(true);
-
-                    dispatcher.execute(new ForwardMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
-                        public void callback(GenericResult result) {
-                            if (result.isSuccess()) {
-                                eventBus.fireEvent(new SentMessageEvent());
-                                reset();
-                            } else {
-                                Window.alert(result.getMessage());
-                            }
-                            display.setLoading(false);
-
-                        }
-                    });
-                } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-                    display.setLoading(true);
-
-                    dispatcher.execute(new ReplyMessage(message, folder, oldmessage.getUid()), new HupaCallback<GenericResult>(dispatcher, eventBus) {
-                        public void callback(GenericResult result) {
-                            if (result.isSuccess()) {
-                                eventBus.fireEvent(new SentMessageEvent());
-                                reset();
-                            } else {
-                                Window.alert(result.getMessage());
-                            }
-                            display.setLoading(false);
-                        }
-                    });
-                }
-            }
-        }));
-
+        registerHandler(display.getSendClick().addClickHandler(sendClickHandler));
         registerHandler(display.getBackButtonClick().addClickHandler(new ClickHandler() {
-
             public void onClick(ClickEvent event) {
                 eventBus.fireEvent(new BackEvent());
             }
-
         }));
 
         display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler);
@@ -309,6 +189,64 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler);
 
         reset();
+    }
+    
+    protected ClickHandler sendClickHandler = new ClickHandler() {
+        public void onClick(ClickEvent event) {
+            
+            if (validate() == false) {
+                return;
+            }
+
+            message = new SMTPMessage();
+            message.setFrom(display.getFromText().getText());
+            message.setSubject(display.getSubjectText().getText());
+            message.setText(display.getMessageHTML().getHTML());
+            message.setMessageAttachments(attachments);
+            message.setTo(emailTextToArray(display.getToText().getText()));
+            message.setCc(emailTextToArray(display.getCcText().getText()));
+            message.setBcc(emailTextToArray(display.getBccText().getText()));
+
+            SendMessage command;
+            if (type == Type.NEW) {
+                command = new SendMessage(message);
+            } else if (type == Type.FORWARD) {
+                command = new ForwardMessage(message, folder, oldmessage.getUid());
+            } else {
+                command = new ReplyMessage(message, folder, oldmessage.getUid());
+            }
+            dispatchMessage(dispatcher, eventBus, command);
+        }
+    };
+
+    protected ArrayList<String> emailTextToArray(String emails) {
+        ArrayList<String> cc = new ArrayList<String>();
+        String[] ccRaw = emails.split("[,;]+");
+        if (ccRaw != null) {
+            for (int i = 0; i < ccRaw.length; i++) {
+                String ccRecip = ccRaw[i].trim();
+                if (ccRecip.length() > 0) {
+                    cc.add(ccRaw[i].trim());
+                }
+            }
+        }
+        return cc;
+    }
+    
+    // Although dispatcher and eventBus parameters are not necessary, they are needed for testability
+    protected void dispatchMessage(DispatchAsync dispatcher, final EventBus eventBus, Action<GenericResult> command) {
+        display.setLoading(true);
+        dispatcher.execute(command, new HupaCallback<GenericResult>(dispatcher, eventBus) {
+            public void callback(GenericResult result) {
+                if (result.isSuccess()) {
+                    eventBus.fireEvent(new SentMessageEvent());
+                    reset();
+                } else {
+                    eventBus.fireEvent(new FlashEvent(result.getMessage(), 6000));
+                }
+                display.setLoading(false);
+            }
+        });
     }
 
     /**
@@ -347,53 +285,58 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
      *            the type
      */
     public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, String mailto, Type type) {
-
         this.reset();
         this.oldmessage = oldmessage;
         this.oldDetails = oldDetails;
         this.folder = folder;
         this.type = type;
-        
+
+        // Get user's contacts, so the user will be able to use suggestion boxes
         dispatcher.execute(new Contacts(),  new HupaCallback<ContactsResult>(dispatcher, eventBus) {
             public void callback(ContactsResult result) {
                 display.fillContactList(result.getContacts());
             }
         }); 
         
+        // Depending on the type, we have to automatically fill the view inputs
         display.getFromText().setText(user.getName());
-
-        if (type.equals(Type.FORWARD)) {
-            if (!oldmessage.getSubject().toLowerCase().startsWith("fwd:"))
+        display.getMessageHTML().setHTML(wrapMessage(oldmessage, oldDetails, type));
+        if (type.equals(Type.NEW) && mailto != null) {
+                display.getToText().setText(mailto);
+        } else if (type.equals(Type.FORWARD)) {
+            if (oldmessage.getSubject() != null && !oldmessage.getSubject().toLowerCase().startsWith("fwd:")) {
                 display.getSubjectText().setText("Fwd: " + oldmessage.getSubject());
+            }
         } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-            if (!oldmessage.getSubject().toLowerCase().startsWith("re:")) {
+            if (oldmessage.getSubject() != null && !oldmessage.getSubject().toLowerCase().startsWith("re:")) {
                 display.getSubjectText().setText("Re: " + oldmessage.getSubject());
             }
-            if (oldmessage.getReplyto() != null) {
-                display.getToText().setText(oldmessage.getReplyto());
-            } else if (type.equals(Type.REPLY)) {
-                display.getToText().setText(oldmessage.getFrom());
+            if (type.equals(Type.REPLY)) { 
+                if (oldmessage.getReplyto() != null && !oldmessage.getFrom().contains(oldmessage.getReplyto())) {
+                    display.getToText().setText(oldmessage.getReplyto());
+                } else {
+                    display.getToText().setText(oldmessage.getFrom());
+                }
             } else {
-                oldmessage.getCc().remove(user.getName());
-                display.getCcText().setText(Util.listToString(oldmessage.getCc()));
-                oldmessage.getTo().remove(user.getName());
-                display.getToText().setText(Util.listToString(oldmessage.getTo()));
+                ArrayList<String> list = new ArrayList<String>();
+                if (oldmessage.getReplyto() != null && !oldmessage.getFrom().contains(oldmessage.getReplyto())) 
+                    list.add(oldmessage.getReplyto());
+                if (oldmessage.getTo() != null)
+                    list.addAll(oldmessage.getTo());
+                if (oldmessage.getCc() != null)
+                    list.addAll(oldmessage.getCc());
+                list = removeEmailFromList(list, user.getName());
+                display.getCcText().setText(Util.listToString(list));
+                if (oldmessage.getTo() != null) {
+                    oldmessage.getTo().remove(user.getName());
+                }
+                display.getToText().setText(oldmessage.getFrom());
             }
         } 
-
-        display.getMessageHTML().setHTML(wrapMessage(oldmessage, oldDetails, type));
-
-        if (mailto != null)
-            display.getToText().setText(mailto);
-        
         display.refresh();
-        
         firePresenterChangedEvent();
-        
         revealDisplay();
-        
         display.getEditorFocus().setFocus(true);
-        
     }
 
     public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
@@ -419,21 +362,21 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
     
     private static String generateHeader(Message message, Type type) {
         String ret = "<br>";
-        if (message == null)
-            return ret;
-        if (type.equals(Type.FORWARD)) {
-            ret += "--------- Forwarded message --------- <br>";
-            ret += "From: " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>";
-            ret += "Date: " + message.getReceivedDate() + "<br>";
-            ret += "Subject: " + message.getSubject() + "<br>";
-            ArrayList<String> to = new ArrayList<String>();
-            to.addAll(message.getTo());
-            to.addAll(message.getCc());
-            ret += "To: " + Util.listToString(to).replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>";
-        } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-            ret += "On " + message.getReceivedDate();
-            ret += ", " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-            ret += ". wrote:<br>";
+        if (message != null) {
+            if (type.equals(Type.FORWARD)) {
+                ret += "--------- Forwarded message --------- <br>";
+                ret += "From: " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>";
+                ret += "Date: " + message.getReceivedDate() + "<br>";
+                ret += "Subject: " + message.getSubject() + "<br>";
+                ArrayList<String> to = new ArrayList<String>();
+                to.addAll(message.getTo());
+                to.addAll(message.getCc());
+                ret += "To: " + Util.listToString(to).replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>";
+            } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
+                ret += "On " + message.getReceivedDate();
+                ret += ", " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+                ret += ". wrote:<br>";
+            }
         }
         return ret + "<br>";
     }
@@ -447,6 +390,26 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
             ret += "<blockquote style='border-left: 1px solid rgb(204, 204, 204); margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;'>";
             ret += details.getText();
             ret += "</blockquote>";
+        }
+        return ret;
+    }
+    
+    protected boolean validate() {
+        // Don't trust only in view validation
+        return  display.validate() 
+                && display.getToText().getText().trim().length() > 0  
+                && EmailListValidator.isValidAddressList(display.getToText().getText()) 
+                && EmailListValidator.isValidAddressList(display.getCcText().getText()) 
+                && EmailListValidator.isValidAddressList(display.getBccText().getText());
+    }
+    
+    protected ArrayList<String> removeEmailFromList(List<String> list, String email) {
+        ArrayList<String> ret = new ArrayList<String>();
+        String regex = ".*<?\\s*" + email.trim() + "\\s*>?\\s*"; 
+        for(String e: list) {
+            if (! e.matches(regex)) {
+                ret.add(e);
+            }
         }
         return ret;
     }

@@ -18,8 +18,10 @@
  ****************************************************************/
 package org.apache.hupa.client;
 
+import com.google.gwt.junit.GWTMockUtilities;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Module;
 
 import com.sun.mail.imap.IMAPStore;
 
@@ -29,6 +31,7 @@ import org.apache.hupa.client.guice.GuiceMvpTestModule;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.guice.GuiceServerTestModule;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
+import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
 
@@ -36,33 +39,41 @@ import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 /**
- * Base class for testing presenters in hupa
+ * Base class for testing presenters in hupa.
+ * Tests extending this class only work in jvm.
  * 
  * @author manolo
  *
  */
 public abstract class HupaMvpTestCase extends TestCase {
+    
+    protected Injector injector = Guice.createInjector(getModules());
 
-    // Create an injector containing both, the server and the client modules.
-    protected Injector injector = Guice.createInjector(new GuiceServerTestModule(), new GuiceMvpTestModule());
-
-    protected HttpSession httpSession = injector.getInstance(HttpSession.class);
-    protected Session session = injector.getInstance(Session.class);
-
-    protected UserPreferencesStorage userPreferences = injector.getInstance(UserPreferencesStorage.class);
-    protected IMAPStoreCache storeCache = injector.getInstance(IMAPStoreCache.class);
-
+    protected HttpSession httpSession;
+    protected Session session;
+    protected UserPreferencesStorage userPreferences;
+    protected IMAPStoreCache storeCache;
     protected User testUser;
     protected IMAPStore store;
+    
+    protected Module[] getModules() {
+        return new Module[]{new GuiceServerTestModule(), new GuiceMvpTestModule()};
+    }
 
     @Override
     protected void setUp() throws Exception {
         try {
+            GWTMockUtilities.disarm();
+            httpSession = injector.getInstance(HttpSession.class);
+            session = injector.getInstance(Session.class);
+            userPreferences = injector.getInstance(UserPreferencesStorage.class);
+            storeCache = injector.getInstance(IMAPStoreCache.class);
+            
+            SessionUtils.cleanSessionAttributes(httpSession);
             testUser = injector.getInstance(User.class);
             store = storeCache.get(testUser);
             httpSession.setAttribute(SConsts.USER_SESS_ATTR, testUser);
         } catch (Exception e) {
         }
     }
-
 }

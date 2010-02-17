@@ -40,7 +40,7 @@ public abstract class HupaGwtTestCase extends GWTTestCase {
      *   is compiled to javascript when not returning null
      */
     public String getModuleName() {
-        //return "org.apache.hupa.Hupa";
+        // return "org.apache.hupa.Hupa";
         return null;
     }
 }

@@ -4,7 +4,7 @@ Date: Thu, 15 Oct 2009 11:35:17 +0200
 Delivered-To: nobody@foo.com
 Subject: multipart-mixed and iso-8859 headers
 From: =?ISO-8859-1?Q?Pepe_Pe=F1a?= <nobody@foo.com>
-To: nobody@foo.com
+To: nobody@foo.com, other@foo.com
 Content-Type: multipart/mixed; boundary=000e0cd22c42480ee20475f5ff57
 
 --000e0cd22c42480ee20475f5ff57

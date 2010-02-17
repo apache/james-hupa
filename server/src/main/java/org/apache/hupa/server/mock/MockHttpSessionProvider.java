@@ -16,21 +16,24 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package org.apache.hupa.client.validation;
+package org.apache.hupa.server.mock;
 
-import org.apache.hupa.client.HupaGwtTestCase;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.name.Named;
 
-public class EmailListValidatorTest extends HupaGwtTestCase {
+import javax.servlet.http.HttpSession;
 
-    public void testEmailValidator() {
-        assertTrue(EmailListValidator.isValidAddressList("abc@abc.def"));
-        assertTrue(EmailListValidator.isValidAddressList(" abc@abc.def"));
-        assertTrue(EmailListValidator.isValidAddressList("<abc@abc.def>"));
-        assertTrue(EmailListValidator.isValidAddressList(" AAA <abc@abc.def> "));
-        assertTrue(EmailListValidator.isValidAddressList(", , ,"));
-        assertFalse(EmailListValidator.isValidAddressList("abc@abc.def ; ; MMM <mcm@aa>;;;"));
-        assertTrue(EmailListValidator.isValidAddressList("abc@abc.def ; ; MMM <mcm@aa.co>;;;"));
-        assertTrue(EmailListValidator.isValidAddressList("abc@abc.def\nMMM <mcm@aa.co>;;;"));
+
+public class MockHttpSessionProvider implements Provider<HttpSession> {
+    static HttpSession session = null;
+    @Inject
+    public MockHttpSessionProvider(@Named("DefaultUserSessionId") String id) {
+        if (session == null) {
+            session = new MockHttpSession(id);
+        }
     }
-
+    public HttpSession get() {
+        return session;
+    }
 }

@@ -31,6 +31,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
+import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
+import eu.maydu.gwt.validation.client.ValidationProcessor;
+import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
 import gwtupload.client.BaseUploadStatus;
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
@@ -38,6 +41,11 @@ import gwtupload.client.MultiUploader;
 
 import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.client.HupaMessages;
+import org.apache.hupa.client.validation.AddStyleAction;
+import org.apache.hupa.client.validation.EmailListValidator;
+import org.apache.hupa.client.validation.NotEmptyValidator;
+import org.apache.hupa.client.validation.SetFocusAction;
 import org.apache.hupa.client.widgets.CommandsBar;
 import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.client.widgets.MessageHeaders;
@@ -76,9 +84,11 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
     private EnableButton sendButton;
     private EnableHyperlink backButton;
     private Loading loading;
+    
+    private ValidationProcessor validator;
 
     @Inject
-    public MessageSendView(HupaConstants constants) {
+    public MessageSendView(HupaConstants constants, HupaMessages messages) {
         
         sendButton = new EnableButton(constants.sendButton());
         backButton = new EnableHyperlink(constants.backButton(),"");
@@ -97,6 +107,7 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
         
         buttonsBar.add(sendButton);
         buttonsBar.add(loading);
+        buttonsBar.add(new Label("ASDFASF"));
         buttonsBar.add(backButton);
         
         sendContainer.add(headers);
@@ -107,6 +118,21 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
         loading.hide();
 
         initWidget(sendContainer);
+        
+        SetFocusAction fAction = new SetFocusAction();
+        AddStyleAction sAction = new AddStyleAction(HupaCSS.C_validate, 3000);
+        validator = new DefaultValidationProcessor(new ValidationMessages(messages));
+        validator.addValidators("cc", 
+                new EmailListValidator(getCcText()).addActionForFailure(sAction).addActionForFailure(fAction));
+        validator.addValidators("bcc", 
+                new EmailListValidator(getBccText()).addActionForFailure(sAction).addActionForFailure(fAction));
+        validator.addValidators("to", 
+                new EmailListValidator(getToText()).addActionForFailure(sAction).addActionForFailure(fAction),
+                new NotEmptyValidator(getToText()).addActionForFailure(sAction).addActionForFailure(fAction));
+
+        try {
+        } catch (Exception e) {
+        }
     }
 
     /*
@@ -241,6 +267,10 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
     
     public void fillContactList(Contact[] contacts){
         to.fillOracle(contacts);
+    }
+
+    public boolean validate() {
+        return validator.validate();
     }
 
 }
