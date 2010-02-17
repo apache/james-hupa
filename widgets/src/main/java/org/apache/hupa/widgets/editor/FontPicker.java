@@ -47,11 +47,11 @@ import com.google.gwt.user.client.ui.RichTextArea.FontSize;
 public class FontPicker extends PopupPanel implements ClickHandler, HasValueChangeHandlers<FontPicker> {
 
     private class FontCell extends HTML {
-        String font;
+        String cellFont;
 
         public FontCell(String font) {
             super(font);
-            this.font = font;
+            this.cellFont = font;
             DOM.setStyleAttribute(getElement(), "backgroundColor", "#D8ECFD");
             DOM.setStyleAttribute(getElement(), "padding", "2px 4px 2px 8px");
             addMouseOverHandler(new MouseOverHandler() {
@@ -67,7 +67,7 @@ public class FontPicker extends PopupPanel implements ClickHandler, HasValueChan
         }
 
         public String getFont() {
-            return font;
+            return cellFont;
         }
 
     }
