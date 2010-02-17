@@ -1,59 +1,69 @@
-package org.apache.hupa.widgets.editor.bundles;
+/*
+ * Copyright 2010 Manuel Carrasco Moñino. (manuel_carrasco at users.sourceforge.net) 
+ * http://code.google.com/p/gwtchismes
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
-import com.google.gwt.user.client.ui.ImageBundle;
+package com.google.code.p.gwtchismes.client.editor.bundles;
 
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.ImageResource;
 
+    public interface ToolbarImages extends ClientBundle {
 
-    /**
-     * This {@link ImageBundle} is used for all the button icons. Using an image
-     * bundle allows all of these images to be packed into a single image, which
-     * saves a lot of HTTP requests, drastically improving startup time.
-     */
-    public interface ToolbarImages extends ImageBundle {
+        ImageResource bold();
 
-        AbstractImagePrototype bold();
+        ImageResource createLink();
 
-        AbstractImagePrototype createLink();
+        ImageResource hr();
 
-        AbstractImagePrototype hr();
+        ImageResource indent();
 
-        AbstractImagePrototype indent();
+        ImageResource insertImage();
 
-        AbstractImagePrototype insertImage();
+        ImageResource italic();
 
-        AbstractImagePrototype italic();
+        ImageResource justifyCenter();
 
-        AbstractImagePrototype justifyCenter();
+        ImageResource justifyLeft();
 
-        AbstractImagePrototype justifyLeft();
+        ImageResource justifyRight();
 
-        AbstractImagePrototype justifyRight();
+        ImageResource ol();
 
-        AbstractImagePrototype ol();
+        ImageResource outdent();
 
-        AbstractImagePrototype outdent();
+        ImageResource removeFormat();
 
-        AbstractImagePrototype removeFormat();
+        ImageResource removeLink();
 
-        AbstractImagePrototype removeLink();
+        ImageResource strikeThrough();
 
-        AbstractImagePrototype strikeThrough();
+        ImageResource subscript();
 
-        AbstractImagePrototype subscript();
+        ImageResource superscript();
 
-        AbstractImagePrototype superscript();
+        ImageResource ul();
 
-        AbstractImagePrototype ul();
-
-        AbstractImagePrototype underline();
+        ImageResource underline();
         
-        AbstractImagePrototype backColors();
+        ImageResource backColors();
         
-        AbstractImagePrototype foreColors();
+        ImageResource foreColors();
         
-        AbstractImagePrototype fonts();
+        ImageResource fonts();
         
-        AbstractImagePrototype fontSizes();
+        ImageResource fontSizes();
     }
 
