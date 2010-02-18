@@ -49,6 +49,8 @@ import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.events.BackEvent;
+import org.apache.hupa.shared.events.ContactsUpdatedEvent;
+import org.apache.hupa.shared.events.ContactsUpdatedEventHandler;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
 import org.apache.hupa.shared.events.FolderSelectionEventHandler;
@@ -118,8 +120,6 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         super(display, eventBus);
         this.display = display;
         this.dispatcher = dispatcher;
-        
-
     }
     
     public Display display;
@@ -175,6 +175,11 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                 reset();
             }
         }));
+        registerHandler(eventBus.addHandler(ContactsUpdatedEvent.TYPE, new ContactsUpdatedEventHandler() {
+            public void onContactsUpdated(ContactsUpdatedEvent event) {
+                display.fillContactList(event.getContacts());
+            }
+        }));        
         registerHandler(display.getSendClick().addClickHandler(sendClickHandler));
         registerHandler(display.getBackButtonClick().addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
