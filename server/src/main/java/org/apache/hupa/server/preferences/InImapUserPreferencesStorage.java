@@ -139,7 +139,6 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
             for (Message msg : msgs) {
                 if (subject.equals(msg.getSubject())) {
                     msg.setFlag(Flag.DELETED, true);
-                    folder.expunge(new Message[] { msg });
                 }
             }
             

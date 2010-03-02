@@ -31,12 +31,18 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
      */
     static class MyModule extends GuiceServerTestModule {
         public MyModule() {
+            // Select a valid imap provider, comment all to use Mock
             // properties = courierProperties;
             // properties = gmailProperties;
+            // properties = jamesProperties;
+            
+            // Uncomment to use production logger
             // logClass = LogProvider.class;
-            userPreferencesClass = InImapUserPreferencesStorage.class;
+
             // Change the default delay to run test faster
-            InImapUserPreferencesStorage.IMAP_SAVE_DELAY = 400;
+            // InImapUserPreferencesStorage.IMAP_SAVE_DELAY = 400;
+            
+            userPreferencesClass = InImapUserPreferencesStorage.class;
         }
     }
     

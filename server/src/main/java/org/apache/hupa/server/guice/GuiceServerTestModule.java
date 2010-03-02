@@ -140,6 +140,42 @@ public class GuiceServerTestModule extends ActionHandlerModule {
     }
     
     
+    /**
+     * Configuration of a Apache-James server.
+     * Customize it for your integration tests.
+     */
+    public static final Properties jamesProperties = new Properties() {
+        private static final long serialVersionUID = 1L;
+        {
+            /// SET THIS 
+            put("Username","manolo");
+            put("Password","***");
+            ///
+            
+            put("IMAPServerAddress", "localhost");
+            put("IMAPServerPort", "143");
+            put("IMAPS", "fase");
+            
+            put("IMAPConnectionPoolSize", "4");
+            put("IMAPConnectionPoolTimeout", "300000");
+            
+            put("DefaultInboxFolder", "INBOX");
+            put("DefaultTrashFolder", "Trash");
+            put("DefaultSentFolder", "Sent");
+            put("DefaultDraftsFolder", "Drafts");
+            
+            put("PostFetchMessageCount", "0");
+
+            put("SMTPServerAddress", "localhost");
+            put("SMTPServerPort", "25");
+            put("SMTPS", "false");
+            put("SMTPAuth", "true");
+            
+            put("SessionDebug", "false");
+            
+            put("DefaultUserSessionId", "just_an_id");
+        }
+    };
     
     /**
      * Configuration of an IMAP server.
