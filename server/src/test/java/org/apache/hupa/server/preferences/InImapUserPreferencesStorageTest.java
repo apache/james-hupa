@@ -40,7 +40,7 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
             // logClass = LogProvider.class;
 
             // Change the default delay to run test faster
-            // InImapUserPreferencesStorage.IMAP_SAVE_DELAY = 400;
+            InImapUserPreferencesStorage.IMAP_SAVE_DELAY = 400;
             
             userPreferencesClass = InImapUserPreferencesStorage.class;
         }

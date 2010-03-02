@@ -70,6 +70,9 @@ public class MockIMAPFolder extends IMAPFolder {
     @Override
     public synchronized void close(boolean expunge) throws MessagingException {
         checkExists();
+        if (expunge) {
+            expunge();
+        }
         closed = true;
     }
 
