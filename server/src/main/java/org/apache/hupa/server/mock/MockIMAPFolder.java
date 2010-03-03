@@ -19,9 +19,12 @@
 
 package org.apache.hupa.server.mock;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URL;
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPStore;
+
+import org.apache.hupa.server.guice.DemoModeConstants;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,12 +39,6 @@ import javax.mail.Store;
 import javax.mail.Flags.Flag;
 import javax.mail.internet.MimeMessage;
 import javax.mail.search.SearchTerm;
-
-import org.apache.hupa.server.guice.DemoModeConstants;
-
-
-import com.sun.mail.imap.IMAPFolder;
-import com.sun.mail.imap.IMAPStore;
 
 public class MockIMAPFolder extends IMAPFolder {
 
@@ -90,22 +87,16 @@ public class MockIMAPFolder extends IMAPFolder {
 
     }
     
-    public void loadDemoMessages(Session session) throws Exception{
+    public void loadDemoMessages(Session session) throws MessagingException {
         if (!exists()) {
             create(IMAPFolder.HOLDS_MESSAGES);
             open(Folder.READ_WRITE);
         }
         for(int i=0;;i++) {
-            URL url = Thread.currentThread().getContextClassLoader().getResource(DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + i + ".msg");
-            if (url == null) break;
-            try {
-                FileInputStream is = new FileInputStream(url.getFile());
-                addMessages(new Message[]{new MimeMessage(session, is)});
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            String name = DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + i + ".msg";
+            InputStream is =  Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+            if (is == null) break;
+            addMessages(new Message[]{new MimeMessage(session, is)});
         }
     }
 
