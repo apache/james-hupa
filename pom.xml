@@ -125,7 +125,7 @@
         </repository>
     </repositories>
     <properties>
-        <gwtVersion>2.0.0</gwtVersion>
+        <gwtVersion>2.0.2</gwtVersion>
     </properties>
 
     <build>
@@ -309,17 +309,7 @@
             <dependency>
                 <groupId>gwtupload</groupId>
                 <artifactId>gwtupload</artifactId>
-                <version>0.5.6</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>1.2.1</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>1.4</version>
+                <version>0.5.7</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.guice</groupId>
