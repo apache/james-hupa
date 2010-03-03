@@ -106,12 +106,6 @@
             </url>
         </repository>
         <repository>
-            <id>for-gwt-incubator</id>
-            <url>
-                http://dist.codehaus.org/mule/dependencies/maven2/
-            </url>
-        </repository>
-        <repository>
             <id>lib-repo</id>
             <name>lib-m2-repository</name>
             <url>http://svn.apache.org/repos/asf/james/hupa/lib</url>
@@ -294,7 +288,7 @@
             <dependency>
                 <groupId>com.google.gwt</groupId>
                 <artifactId>gwt-incubator</artifactId>
-                <version>july-14-2009</version>
+                <version>20100204-r1747</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.gwt-dnd</groupId>
