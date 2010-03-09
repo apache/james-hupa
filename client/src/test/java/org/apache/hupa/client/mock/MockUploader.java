@@ -136,4 +136,8 @@ public class MockUploader implements IUploader {
         // TODO Auto-generated method stub
         return false;
     }
+
+    public void setFileInputSize(int size) {
+        // TODO Auto-generated method stub
+    }
 }
