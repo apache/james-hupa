@@ -4,6 +4,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 
+import gwtupload.client.IFileInput;
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
 import gwtupload.client.IUploadStatus.Status;
@@ -140,4 +141,19 @@ public class MockUploader implements IUploader {
     public void setFileInputSize(int size) {
         // TODO Auto-generated method stub
     }
+
+    public void setFileInput(gwtupload.client.IFileInput input) {
+        // TODO Auto-generated method stub
+    }
+
+    public IFileInput getFileInput() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public IUploadStatus getStatusWidget() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
