@@ -43,17 +43,20 @@ To login into the system in thi mode use the user 'demo' with password 'demo'
   >> 'The output directory for the project should be set to /hupa/client/war/WEB-INF/classes'
   >> 'The web.xml file does not exist'
 
-  In unix-like environments make these symbolic links: 
-       $ ln -s client/war war
-       $ ln -s ../../src/main/webapp/WEB-INF/web.xml client/war/WEB-INF/web.xml
-  In windows you can either:
-  a)   use Sysinternal's Junction command
-       (http://technet.microsoft.com/it-it/sysinternals/bb896768(en-us).aspx)
-       > junction war client\war
-  b)   copy recursively 'client/war' to 'war'
-       copy 'client/src/main/webapp/WEB-INF/web.xml' to 'client/war/WEB-INF'
-  Then, set project's output directory to: /hupa/client/war/WEB-INF/classes
-       properties -> Java Build Path -> Source -> Default output folder
+  You have two options:
+  1.- Upgrade your google-eclipse plugin
+  2.- follow these steps:
+      - In unix-like environments make these symbolic links: 
+           $ ln -s client/war war
+           $ ln -s ../../src/main/webapp/WEB-INF/web.xml client/war/WEB-INF/web.xml
+      - In windows you can either:
+           a)   use Sysinternal's Junction command
+                (http://technet.microsoft.com/it-it/sysinternals/bb896768(en-us).aspx)
+                > junction war client\war
+           b)   copy recursively 'client/war' to 'war'
+                copy 'client/src/main/webapp/WEB-INF/web.xml' to 'client/war/WEB-INF'
+      - Then, set project's output directory to: /hupa/client/war/WEB-INF/classes
+           properties -> Java Build Path -> Source -> Default output folder
 
 - If you compile hupa with google's eclipse plugin and you get the message:
   >> 'GWT module hupa needs to be (re)compiled, please run a compile or use the Compile/Browse button in hosted mode'
