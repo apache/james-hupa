@@ -379,7 +379,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         if (message != null) {
             ret += generateHeader(message, type);
         }
-        if (details != null && details.getText() != null && !details.getText().isEmpty()) {
+        if (details != null && details.getText() != null && details.getText().length() > 0) {
             ret += "<blockquote style='border-left: 1px solid rgb(204, 204, 204); margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;'>";
             ret += details.getText();
             ret += "</blockquote>";

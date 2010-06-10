@@ -259,7 +259,7 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
      * @see org.apache.hupa.client.mvp.MessageSendPresenter.Display#refresh()
      */
     public void refresh() {
-        if (to.getText().isEmpty())
+        if (to.getText().length() == 0)
             to.setText(" ");
         headers.setValues(from, to, cc, bcc, subject, uploader);
     }

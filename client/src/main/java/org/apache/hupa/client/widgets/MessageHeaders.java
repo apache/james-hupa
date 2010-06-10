@@ -71,12 +71,13 @@ public class MessageHeaders extends Composite {
         Widget label = new Label(name + ":");
         if (widget instanceof MultiValueSuggestArea){
             widget.setWidth("100%");
-            if (((HasText)widget).getText().isEmpty()) 
+            if (((HasText)widget).getText().trim().length() == 0) {
                 label = createLinkToShow(name, widget);
+            }
         } else if (widget instanceof TextBox) {
             widget.setWidth("100%");
         } else if (widget instanceof HasText) {
-            if (((HasText)widget).getText().isEmpty())
+            if (((HasText)widget).getText().trim().length() == 0)
                 return;
         } else if (widget instanceof IUploader) {
             label = createLinkToShow(name, widget);

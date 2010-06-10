@@ -100,7 +100,7 @@ public class Editor extends VerticalPanel implements HasHTML, Focusable {
     }
 
     public void setHTML(String html) {
-        isNewMessage = html.isEmpty(); 
+        isNewMessage = html.trim().length() > 0; 
         area.setHTML("<font size=2 style='font-family: arial'><br/>" + html + "</font>");
     }
 

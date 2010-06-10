@@ -59,7 +59,7 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
                 
                 @Override
                 public void setText(String text) {
-                    if (!text.trim().isEmpty()) {
+                    if (text.trim().length() > 0) {
                         String actual = super.getText().replaceFirst("\\s+$", "").replaceFirst(search + "[\\s]*$", "");
                         super.setText(actual + text + ", ");
                     }
