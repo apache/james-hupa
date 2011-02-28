@@ -105,18 +105,6 @@
             <url>http://guice-maven.googlecode.com/svn/trunk
             </url>
         </repository>
-        <repository>
-            <id>lib-repo</id>
-            <name>lib-m2-repository</name>
-            <url>http://svn.apache.org/repos/asf/james/hupa/lib</url>
-            <layout>legacy</layout>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <checksumPolicy>ignore</checksumPolicy>
-            </releases>
-        </repository>
     </repositories>
     <properties>
         <gwtVersion>2.1.1</gwtVersion>
