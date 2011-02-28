@@ -48,7 +48,7 @@ public class MockIMAPFolder extends IMAPFolder {
     private boolean exists;
     
     public MockIMAPFolder(String fullName, IMAPStore store) {
-        super(fullName, (DemoModeConstants.DEMO_MODE_DEFAULT_FOLDER.equals(fullName) ? '\0' : SEPARATOR), store);
+        super(fullName, (DemoModeConstants.DEMO_MODE_DEFAULT_FOLDER.equals(fullName) ? '\0' : SEPARATOR), store, false);
     }
 
     @Override
@@ -345,7 +345,8 @@ public class MockIMAPFolder extends IMAPFolder {
         return ret;
     }
 
-    private void checkExists() throws MessagingException {
+    @Override
+    protected void checkExists() throws MessagingException {
         if (exists() == false) {
             throw new MessagingException("Folder not exists");
         }

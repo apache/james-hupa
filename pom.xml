@@ -31,8 +31,12 @@
     <parent>
         <groupId>org.apache.james</groupId>
         <artifactId>james-project</artifactId>
-        <version>1.3</version>
+        <version>1.5</version>
     </parent>
+
+    <prerequisites>
+        <maven>3.0.2</maven>
+    </prerequisites>
 
     <modules>
         <module>shared</module>
@@ -65,10 +69,6 @@
     </ciManagement>
 
     <repositories>
-        <repository>
-            <id>maven-repos</id>
-            <url>http://repo2.maven.org/maven2/</url>
-        </repository>
         <repository>
             <id>maven2-repository.dev.java.net</id>
             <name>Java.net Repository for Maven</name>
@@ -119,33 +119,33 @@
         </repository>
     </repositories>
     <properties>
-        <gwtVersion>2.0.3</gwtVersion>
+        <gwtVersion>2.1.1</gwtVersion>
     </properties>
 
     <build>
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>2.5</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>2.0-beta-7</version>
+                    <version>3.0-beta-3</version>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jxr-plugin</artifactId>
-                    <version>2.1</version>
+                    <version>2.2</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>2.5</version>
                     <configuration>
-                        <targetjdk>1.4</targetjdk>
+                        <targetJdk>1.5</targetJdk>
                         <rulesets>
                             <ruleset>/rulesets/basic.xml</ruleset>
                             <ruleset>/rulesets/controversial.xml</ruleset>
@@ -162,12 +162,14 @@
                     <version>1.0-alpha-3</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>2.3.1</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.0.2</version>
+                    <version>2.3.2</version>
                     <configuration>
                         <source>1.5</source>
                         <target>1.5</target>
@@ -175,16 +177,19 @@
                     </configuration>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-remote-resources-plugin</artifactId>
-                    <version>1.0</version>
+                    <version>1.1</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.4.3</version>
+                    <version>2.7.2</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>2.4.3</version>
+                    <version>2.7.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -200,8 +205,194 @@
                         </filters>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>gwt-maven-plugin</artifactId>
+                    <version>2.1.0-1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.1.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.0-beta-3</version>
+                <configuration>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-jxr-plugin</artifactId>
+                            <version>2.2</version>
+                            <configuration>
+                                <aggregate>true</aggregate>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.3.1</version>
+                            <reportSets>
+                                <reportSet>
+                                    <reports>
+                                        <report>cim</report>
+                                        <report>dependencies</report>
+                                        <report>dependency-convergence</report>
+                                        <report>dependency-management</report>
+                                        <report>distribution-management</report>
+                                        <report>help</report>
+                                        <report>index</report>
+                                        <report>issue-tracking</report>
+                                        <report>license</report>
+                                        <report>mailing-list</report>
+                                        <report>modules</report>
+                                        <report>plugin-management</report>
+                                        <report>plugins</report>
+                                        <report>project-team</report>
+                                        <report>scm</report>
+                                        <report>summary</report>
+                                    </reports>
+                                </reportSet>
+                            </reportSets>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-pmd-plugin</artifactId>
+                            <configuration>
+                                <linkXref>true</linkXref>
+                                <sourceEncoding>utf-8</sourceEncoding>
+                                <minimumTokens>100</minimumTokens>
+                                <targetJdk>1.5</targetJdk>
+                                <aggregate>true</aggregate>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-report-plugin</artifactId>
+                            <configuration>
+                                <argLine>-Xmx1024m -XX:MaxPermSize=512m</argLine>
+                                <aggregate>true</aggregate>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.rat</groupId>
+                            <artifactId>apache-rat-plugin</artifactId>
+                            <configuration>
+                                <excludeSubProjects>false</excludeSubProjects>
+                                <excludes>
+                                    <!-- MAVEN_DEFAULT_EXCLUDES -->
+                                    <exclude>**/target/**/*</exclude>
+                                    <exclude>**/cobertura.ser</exclude>
+                                    <!-- ECLIPSE_DEFAULT_EXCLUDES -->
+                                    <exclude>**/.classpath</exclude>
+                                    <exclude>**/.project</exclude>
+                                    <exclude>**/.settings/**/*</exclude>
+                                    <!-- IDEA_DEFAULT_EXCLUDES -->
+                                    <exclude>**/*.iml</exclude>
+                                    <exclude>**/*.ipr</exclude>
+                                    <exclude>**/*.iws</exclude>
+                                    <!-- MANIFEST_MF_EXCLUDES -->
+                                    <exclude>**/MANIFEST.MF</exclude>
+                                </excludes>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>versions-maven-plugin</artifactId>
+                            <reportSets>
+                                <reportSet>
+                                    <reports>
+                                        <report>dependency-updates-report</report>
+                                        <report>plugin-updates-report</report>
+                                        <report>property-updates-report</report>
+                                    </reports>
+                                </reportSet>
+                            </reportSets>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>findbugs-maven-plugin</artifactId>
+                            <configuration>
+                                <xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
+                                <xrefTestLocation>${project.reporting.outputDirectory}/../xref-test</xrefTestLocation>
+                                <!-- required by dashboard plugin and hudson -->
+                                <xmlOutput>true</xmlOutput>
+                                <effort>Max</effort>
+                                <findbugsXmlOutput>true</findbugsXmlOutput>
+                                <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>versions-maven-plugin</artifactId>
+                            <reportSets>
+                                <reportSet>
+                                    <reports>
+                                        <report>dependency-updates-report</report>
+                                        <report>plugin-updates-report</report>
+                                        <report>property-updates-report</report>
+                                    </reports>
+                                </reportSet>
+                            </reportSets>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>cobertura-maven-plugin</artifactId>
+                            <configuration>
+                                <instrumentation>
+                                    <excludes>
+                                    </excludes>
+                                </instrumentation>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>2.7</version>
+                            <configuration>
+                                <minmemory>512m</minmemory>
+                                <maxmemory>1g</maxmemory>
+                                <linksource>true</linksource>
+                                <tags>
+                                    <tag>
+                                        <name>note</name>
+                                        <placement>a</placement>
+                                        <head>NOTE</head>
+                                    </tag>
+                                    <tag>
+                                        <name>todo</name>
+                                        <placement>a</placement>
+                                        <head>TODO</head>
+                                    </tag>
+                                    <tag>
+                                        <name>warning</name>
+                                        <placement>a</placement>
+                                        <head>WARNING</head>
+                                    </tag>
+                                </tags>
+                                <source>1.5</source>
+                            </configuration>
+                            <reportSets>
+                                <reportSet>
+                                    <reports>
+                                        <report>aggregate</report>
+                                        <report>test-aggregate</report>
+                                    </reports>
+                                </reportSet>
+                            </reportSets>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>dashboard-maven-plugin</artifactId>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
     <dependencyManagement>
         <dependencies>
@@ -248,7 +439,7 @@
             <dependency>
                 <groupId>javax.mail</groupId>
                 <artifactId>mail</artifactId>
-                <version>1.4.1</version>
+                <version>1.4.4</version>
             </dependency>
             <dependency>
                 <groupId>org.cobogw.gwt</groupId>
@@ -256,34 +447,31 @@
                 <version>1.3</version>
             </dependency>
             <dependency>
-                <groupId>net.customware.gwt.dispatch
-                </groupId>
+                <groupId>net.customware.gwt.dispatch</groupId>
                 <artifactId>gwt-dispatch</artifactId>
                 <version>1.0.0</version>
                 <exclusions>
-                   <exclusion>
-                     <groupId>com.google.gwt.inject</groupId>
-                     <artifactId>gin</artifactId>
-                   </exclusion>
-                 </exclusions>
+                    <exclusion>
+                        <groupId>com.google.gwt.inject</groupId>
+                        <artifactId>gin</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
-                <groupId>com.googlecode.gwt.inject
-                </groupId>
+                <groupId>com.googlecode.gwt.inject</groupId>
                 <artifactId>gin</artifactId>
                 <version>1.0</version>
             </dependency>
             <dependency>
-                <groupId>net.customware.gwt.presenter
-                </groupId>
+                <groupId>net.customware.gwt.presenter</groupId>
                 <artifactId>gwt-presenter</artifactId>
                 <version>1.1.0-replace-SNAPSHOT</version>
                 <exclusions>
-                   <exclusion>
-                     <groupId>com.google.gwt.inject</groupId>
-                     <artifactId>gin</artifactId>
-                   </exclusion>
-                 </exclusions>                
+                    <exclusion>
+                        <groupId>com.google.gwt.inject</groupId>
+                        <artifactId>gin</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.google.gwt</groupId>
@@ -313,17 +501,17 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>1.4</version>
+                <version>2.0.1</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.guice</groupId>
                 <artifactId>guice</artifactId>
-                <version>2.0</version>
+                <version>2.0.1</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.guice</groupId>
                 <artifactId>guice-servlet</artifactId>
-                <version>2.0</version>
+                <version>2.0.1</version>
             </dependency>
             <dependency>
                 <groupId>com.google.gwt</groupId>
@@ -346,13 +534,13 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.1</version>
+                <version>4.8.2</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.easymock</groupId>
                 <artifactId>easymock</artifactId>
-                <version>2.5.2</version>
+                <version>3.0</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

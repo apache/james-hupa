@@ -19,8 +19,6 @@
 -->
 <project name="Hupa">
   <body>
-    <!-- This is a "dummy" site because of this bug:   -->
-    <!-- http://jira.codehaus.org/browse/MSITE-345     -->
     <menu ref="parent"/>
     <menu ref="reports"/>
   </body>
