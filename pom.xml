@@ -464,12 +464,12 @@
             <dependency>
                 <groupId>com.google.gwt</groupId>
                 <artifactId>gwt-incubator</artifactId>
-                <version>20100204-r1747</version>
+                <version>20101117-r1766</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.gwt-dnd</groupId>
                 <artifactId>gwt-dnd</artifactId>
-                <version>2.6.5</version>
+                <version>3.0.1</version>
             </dependency>
             <dependency>
                 <groupId>eu.maydu.gwt</groupId>

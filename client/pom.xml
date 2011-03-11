@@ -22,7 +22,7 @@
                 <configuration>
                      <runTarget>Hupa.html</runTarget>
                      <extraJvmArgs>
-                         -Dhupa.config.file=${project.parent.basedir}/server/src/main/webapp/WEB-INF/conf/config.properties
+                         -Xmx1024m -Dhupa.config.file=${project.parent.basedir}/server/src/main/webapp/WEB-INF/conf/config.properties
                      </extraJvmArgs>
                 </configuration>
                 <executions>
