@@ -31,12 +31,8 @@
     <parent>
         <groupId>org.apache.james</groupId>
         <artifactId>james-project</artifactId>
-        <version>1.5</version>
+        <version>1.6</version>
     </parent>
-
-    <prerequisites>
-        <maven>3.0.2</maven>
-    </prerequisites>
 
     <modules>
         <module>shared</module>
