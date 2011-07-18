@@ -18,12 +18,19 @@
   under the License.    
 -->
 <project name="Hupa">
+    
+  <skin>
+    <groupId>org.apache.james</groupId>
+    <artifactId>maven-skin</artifactId>
+    <version>1.7-SNAPSHOT</version>
+  </skin>
+    
   <!-- no banner yet -->
   <!-- 
   <bannerLeft>
     <name>James Hupa</name>
-    <src>images/james-jspf-logo.gif</src>
-    <href>http://james.apache.org/jspf/index.html</href>
+    <src>images/james-hupa-logo.gif</src>
+    <href>http://james.apache.org/hupa/index.html</href>
   </bannerLeft>
   -->
 
