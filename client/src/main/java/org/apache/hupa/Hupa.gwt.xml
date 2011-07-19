@@ -104,4 +104,5 @@
     }
   ]]>
   </property-provider>
+    <inherits name="com.google.gwt.junit.JUnit"/>
 </module>

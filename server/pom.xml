@@ -93,7 +93,12 @@
     </dependency>
     <dependency>
         <groupId>com.google.code.guice</groupId>
+        <artifactId>guice-assistedinject</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.google.code.guice</groupId>
         <artifactId>guice-servlet</artifactId>
+            <version>3.0</version>
     </dependency>
     <dependency>
         <groupId>com.google.gwt</groupId>

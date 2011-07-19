@@ -67,6 +67,29 @@
                     <warName>${project.name}</warName>
                 </configuration>
             </plugin>
+<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>false</downloadJavadocs>
+                    <wtpversion>2.0</wtpversion>
+                    <additionalBuildcommands>
+                        <buildCommand>
+                            <name>
+                                com.google.gwt.eclipse.core.gwtProjectValidator
+                            </name>
+                        </buildCommand>
+                    </additionalBuildcommands>
+                    <additionalProjectnatures>
+                        <projectnature>org.eclipse.ajdt.ui.ajnature
+                        </projectnature>
+ <projectnature>com.google.gwt.eclipse.core.gwtNature</projectnature>
+             </additionalProjectnatures>
+                </configuration>
+            </plugin>
+
+
         </plugins>
     </build>
 
@@ -88,14 +111,17 @@
             <artifactId>cobogw</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.customware.gwt.dispatch
-            </groupId>
+            <groupId>net.customware.gwt.dispatch</groupId>
             <artifactId>gwt-dispatch</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.googlecode.gwt.inject
-            </groupId>
+            <groupId>com.googlecode.gwt.inject</groupId>
             <artifactId>gin</artifactId>
+            <classifier>2.2.0</classifier>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
         </dependency>
         <dependency>
             <groupId>net.customware.gwt.presenter

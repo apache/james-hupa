@@ -34,6 +34,12 @@
         <version>1.6</version>
     </parent>
 
+<!--
+    <prerequisites>
+        <maven>3.0.2</maven>
+    </prerequisites>
+-->
+
     <modules>
         <module>shared</module>
         <module>client</module>
@@ -96,14 +102,13 @@
             </url>
         </repository>
         <repository>
-            <id>guice</id>
-            <name>Guice repository at googlecode</name>
-            <url>http://guice-maven.googlecode.com/svn/trunk
-            </url>
+            <id>gquery-plugins has guice and gin dependencies</id>
+            <url>http://gwtquery-plugins.googlecode.com/svn/mavenrepo</url>
         </repository>
     </repositories>
     <properties>
-        <gwtVersion>2.1.1</gwtVersion>
+        <gwtVersion>2.3.0</gwtVersion>
+        <gwtMavenVersion>2.3.0</gwtMavenVersion>
     </properties>
 
     <build>
@@ -192,7 +197,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>gwt-maven-plugin</artifactId>
-                    <version>2.1.0-1</version>
+                    <version>${gwtMavenVersion}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -444,7 +449,13 @@
             <dependency>
                 <groupId>com.googlecode.gwt.inject</groupId>
                 <artifactId>gin</artifactId>
-                <version>1.0</version>
+                <version>1.5</version>
+                <classifier>2.2.0</classifier>
+            </dependency>
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>1</version>
             </dependency>
             <dependency>
                 <groupId>net.customware.gwt.presenter</groupId>
@@ -465,7 +476,7 @@
             <dependency>
                 <groupId>com.google.code.gwt-dnd</groupId>
                 <artifactId>gwt-dnd</artifactId>
-                <version>3.0.1</version>
+                <version>3.1.1</version>
             </dependency>
             <dependency>
                 <groupId>eu.maydu.gwt</groupId>
@@ -488,14 +499,32 @@
                 <version>2.0.1</version>
             </dependency>
             <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
+                <classifier>sources</classifier>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
                 <groupId>com.google.code.guice</groupId>
                 <artifactId>guice</artifactId>
-                <version>2.0.1</version>
+                <version>3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.guice</groupId>
+                <artifactId>guice-assistedinject</artifactId>
+                <version>3.0</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.guice</groupId>
                 <artifactId>guice-servlet</artifactId>
-                <version>2.0.1</version>
+                <version>3.0</version>
             </dependency>
             <dependency>
                 <groupId>com.google.gwt</groupId>
