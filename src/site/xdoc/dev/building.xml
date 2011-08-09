@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-  <!--
+<!--
     Licensed to the Apache Software Foundation (ASF) under one or more
     contributor license agreements. See the NOTICE file distributed with this
     work for additional information regarding copyright ownership. The ASF
@@ -12,94 +12,94 @@
     distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied. See the License for the specific language
     governing permissions and limitations under the License.
-  -->
+-->
 <document>
-  <properties>
-    <title>Building Hupa</title>
-    <author email="server-dev@james.apache.org">James Hupa Project Team</author>
-  </properties>
-  <body>
-    <section name="Building Hupa for the first time">
-      <p>
-        Because Hupa uses maven2 as its build tool, the management of
-        dependencies is rather simple. You can either run
-        <code>mvn clean package</code>
-        from the command line, or use the built-in m2eclipse plugin.
-      </p>
-      <subsection name="Setting up m2eclipse to build Hupa">
-        <p>
-          m2eclipse provides you with the ability to create different run
-          configurations for maven. So you can run
-          <b>what</b>
-          you want,
-          <b>when</b>
-          you want, by a single mouse-click. To configure the m2 run
-          configuration, please do a right click on the project name and select
-          Run As -> Run Configurations ...
-        </p>
-        <p>
-          In the Following Dialog left-click Maven Build, then click on New on
-          the top. On the dialogs main content area provide the run
-          configuration now. In the Name field type
-          <code>hupa clean package</code>
-          . Uder the Base Directory should be written
-          <code>${workspace_loc:/hupa-trunk}</code>
-          (if your project is only named hupa, then it would be
-          ${workspace_loc:/hupa}).
-          <br/>
-          <img src="../images/dev/run-configurations-main.jpg" />
-          <br/>
-          Underneath you should check Update Snaphots
-          and on the Refresh Tab you
-          should check Refresh Resources upon
-          Completion and The Project
-          Containing the selected Resource.
-          <br/>
-          <img src="../images/dev/run-configurations-refresh.jpg" />
-          <br/>
-          After all is set, click Apply and then click Run. It will take a hile
-          to download all the dependencies. Once it is finished, it will refresh
-          eclipse, and we are on the final step to start it up the first time.
-        </p>
-      </subsection>
-    </section>
-    <section name="Setting up the Google Plugin">
-      <p>
-        Because Hupa uses the google web toolkit (GWT) it is necessary to
-        adjust
-        the output directory of the project. If you don't the Stand alone
-        google
-        browser will not be able to pick up the compiled classes. So, to
-        change
-        it do a right-click on your project choos Run As -> Web Application. But
-        beware you will get an error! We do this only because the plugin sets
-        almost everything up for us. After we get the error right-click on the
-        project again, and choose Run As -> Run Configurations... then expand
-        the Web Application Node, go to the Arguments tab and add
-        <code>-Dhupa.config.file=${project_loc}/server/src/main/webapp/WEB-INF/conf/config.properties
-        </code>
-        to the VM Arguments Textbox. Click on Apply and close the dialog.
-        After
-        that go into the Package Explorer
-        View and expand server -> src -> main
-        -> webapp -> WEB-INF -> conf and
-        double click on config.properties.
-        Adjust these settings to your liking.
-        googlemail is setup by default.
-        Last thing to setup is the projects output path. Do a right-click on the
-        project and choose Build Path -> Configure Build Path... Under the
-        Source tab put &lt;your_project_name&gt;/war/WEB-INF/classes in the
-        output directory textbox.
-      </p>
-    </section>
-    <section name="Starting Hupa">
-      <p>
-        So we are finally there. We can run Hupa for the first time. Do a
-        right-click
-        on the project choose Run As -> Run Configurations... ->
-        Hupa.html and
-        click on run.
-    </p>
-    </section>
-  </body>
+    <properties>
+        <title>Building Hupa</title>
+        <author email="server-dev@james.apache.org">James Hupa Project Team</author>
+    </properties>
+    <body>
+        <section name="Building Hupa for the first time">
+            <p>
+                Because Hupa uses maven2 as its build tool, the management of
+                dependencies is rather simple. You can either run
+                <code>mvn clean package</code>
+                from the command line, or use the built-in m2eclipse plugin.
+            </p>
+            <subsection name="Setting up m2eclipse to build Hupa">
+                <p>
+                    m2eclipse provides you with the ability to create different run
+                    configurations for maven. So you can run
+                    <b>what</b>
+                    you want,
+                    <b>when</b>
+                    you want, by a single mouse-click. To configure the m2 run
+                    configuration, please do a right click on the project name and select
+                    Run As -> Run Configurations ...
+                </p>
+                <p>
+                    In the Following Dialog left-click Maven Build, then click on New on
+                    the top. On the dialogs main content area provide the run
+                    configuration now. In the Name field type
+                    <code>hupa clean package</code>
+                    . Uder the Base Directory should be written
+                    <code>${workspace_loc:/hupa-trunk}</code>
+                    (if your project is only named hupa, then it would be
+                    ${workspace_loc:/hupa}).
+                    <br />
+                    <img src="../images/dev/run-configurations-main.jpg" />
+                    <br />
+                    Underneath you should check Update Snaphots
+                    and on the Refresh Tab you
+                    should check Refresh Resources upon
+                    Completion and The Project
+                    Containing the selected Resource.
+                    <br />
+                    <img src="../images/dev/run-configurations-refresh.jpg" />
+                    <br />
+                    After all is set, click Apply and then click Run. It will take a hile
+                    to download all the dependencies. Once it is finished, it will refresh
+                    eclipse, and we are on the final step to start it up the first time.
+                </p>
+            </subsection>
+        </section>
+        <section name="Setting up the Google Plugin">
+            <p>
+                Because Hupa uses the google web toolkit (GWT) it is necessary to
+                adjust
+                the output directory of the project. If you don't the Stand alone
+                google
+                browser will not be able to pick up the compiled classes. So, to
+                change
+                it do a right-click on your project choos Run As -> Web Application. But
+                beware you will get an error! We do this only because the plugin sets
+                almost everything up for us. After we get the error right-click on the
+                project again, and choose Run As -> Run Configurations... then expand
+                the Web Application Node, go to the Arguments tab and add
+                <code>-Dhupa.config.file=${project_loc}/server/src/main/webapp/WEB-INF/conf/config.properties
+                </code>
+                to the VM Arguments Textbox. Click on Apply and close the dialog.
+                After
+                that go into the Package Explorer
+                View and expand server -> src -> main
+                -> webapp -> WEB-INF -> conf and
+                double click on config.properties.
+                Adjust these settings to your liking.
+                googlemail is setup by default.
+                Last thing to setup is the projects output path. Do a right-click on the
+                project and choose Build Path -> Configure Build Path... Under the
+                Source tab put &lt;your_project_name&gt;/war/WEB-INF/classes in the
+                output directory textbox.
+            </p>
+        </section>
+        <section name="Starting Hupa">
+            <p>
+                So we are finally there. We can run Hupa for the first time. Do a
+                right-click
+                on the project choose Run As -> Run Configurations... ->
+                Hupa.html and
+                click on run.
+            </p>
+        </section>
+    </body>
 </document>

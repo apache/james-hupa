@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-  <!--
+<!--
     Licensed to the Apache Software Foundation (ASF) under one or more
     contributor license agreements. See the NOTICE file distributed with this
     work for additional information regarding copyright ownership. The ASF
@@ -12,156 +12,156 @@
     distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied. See the License for the specific language
     governing permissions and limitations under the License.
-  -->
+-->
 <document>
-  <properties>
-    <title>Setup your Development Environment</title>
-    <author email="server-dev@james.apache.org">James Hupa Project Team</author>
-  </properties>
-  <body>
-    <section name="So you want to get involved?">
-      <p>
-        Great! Hupa is a new project, which just made it from the labs over to
-        the james
-        project.
-        We have a solid codebase, but there are many features
-        missing. But you already
-        know that, right?
-        At least that is why you are
-        trying to help, correct?
-      </p>
-      <p>
-        So, what do you need... We develop in eclipse, hence this document
-        describes
-        how to setup eclipse,
-        to get a Hupa Development Environment up
-        and running. So if you are a
-        developer who is using netbeans
-        or any other
-        IDE like IntelliJ IDEA, don't hesitate, to tell us how you setup
-        your
-        Environment, and
-        we will be more than happy to include the documentation
-        as well.
-      </p>
-      <p>
-        This document describes which steps are needed to setup eclipse, as if
-        it was
-        freshly downloaded.
-        So if you already have some plugins installed,
-        skip over to the next section.
-        Other than that,
-        all that is left for is to
-        wish you guys fun coding Hupa!
-      </p>
-    </section>
+    <properties>
+        <title>Setup your Development Environment</title>
+        <author email="server-dev@james.apache.org">James Hupa Project Team</author>
+    </properties>
+    <body>
+        <section name="So you want to get involved?">
+            <p>
+                Great! Hupa is a new project, which just made it from the labs over to
+                the james
+                project.
+                We have a solid codebase, but there are many features
+                missing. But you already
+                know that, right?
+                At least that is why you are
+                trying to help, correct?
+            </p>
+            <p>
+                So, what do you need... We develop in eclipse, hence this document
+                describes
+                how to setup eclipse,
+                to get a Hupa Development Environment up
+                and running. So if you are a
+                developer who is using netbeans
+                or any other
+                IDE like IntelliJ IDEA, don't hesitate, to tell us how you setup
+                your
+                Environment, and
+                we will be more than happy to include the documentation
+                as well.
+            </p>
+            <p>
+                This document describes which steps are needed to setup eclipse, as if
+                it was
+                freshly downloaded.
+                So if you already have some plugins installed,
+                skip over to the next section.
+                Other than that,
+                all that is left for is to
+                wish you guys fun coding Hupa!
+            </p>
+        </section>
 
-    <section name="How to setup eclipse...">
-      <subsection name="What Version do you need">
-        <p>
-          Eclipse can be downloaded from
-          <a href="http://download.eclipse.org">the eclipse download page</a>
-          I recommend using the Eclipse IDE for Java Developers or the Eclipse
-          IDE for Java EE Developers.
-        </p>
-        <p>
-          If you need help installing eclipse, you can find the answers you are
-          looking for on the
-          <a href="http://wiki.eclipse.org/FAQ_Where_do_I_get_and_install_Eclipse%3F">eclipse homepage</a>
-        </p>
-        <p>
-          From this point on we assume you have a running distribution of
-          eclipse installed on your system.
-        </p>
-      </subsection>
-      <subsection name="Setting up the maven eclipse plugin">
-        <p>
-          Hupa uses maven2 as its build tool. Although it is possible to only
-          run maven commands
-          from the command line, a tight integration into the
-          tool you use to write and run the code is a lot nicer. 
-        </p>
-        <p>
-          Nowadays there is more than one plugin for eclipse to interact with
-          maven2. Although all might be great, I only know my way around the
-          m2eclipse plugin. I work
-          with it on all my m2 projects, and it provides
-          me with the tools I need to get
-          the job done. Again, if you provide the
-          documentation for other
-          plugins, we would be more than happy to put
-          them up here.
-        </p>
-        <p>
-          But enough of the bla bla let us get started. You can download the
-          plugin
-          <a href="http://m2eclipse.sonatype.org/">here.</a>
-          The Installation Instructions are right on the first page. From this
-          point this guide assumes that you have the m2eclipse plugin installed.
-        </p>
-      </subsection>
-      <subsection name="Setting up the GWT Plugin">
-        <p>
-          Hupa is developed using
-          <a href="http://code.google.com/intl/de/webtoolkit/">GWT</a>
-          So to make your development a lot easier we recommend installing the
-          <a href="http://code.google.com/appengine/docs/java/tools/eclipse.html">google plugin for eclipse</a>
-        </p>
-      </subsection>
-      <subsection name="Setting up subclipse">
-        <p>
-          The ASF uses subversion as its Version Control System (VCS). So to be
-          able to check out the source code I recommend using a special plugin
-          called
-          <a href="http://subclipse.tigris.org/">subclipse</a>
-          After subclipse is installed, it is fairly easy to start your
-          development on Hupa :)
-        </p>
-      </subsection>
-      <subsection name="Checking out the Hupa source code">
-        <p>
-          Now we have everything setup to be able to check out and run the Hupa
-          source code.
-        </p>
-        <p>
-          Open up Eclipse and go to Window -> Open Perspective -> Other -> SVN
-          Repository Exploring
-          <br/>
-          <img src="../images/dev/svn-repo.jpg" />
-          <br/>
-          In the SVN Repositories View Click the right mouse button and choose
-          New -> Repository Location ...
-        </p>
-        <p>
-          In the Dialog enter the following url in the URL Field:
-          http://svn.apache.org/repos/asf then click on Finish. After that the
-          ASF Software Repository should be visible inside your SVN Repositories
-          view as shown here.
-          <br/>
-          <img src="../images/dev/svn-repositories-installed.jpg" />
-          <br/>
-        </p>
-        <p>
-          Expand the Repository, then james, then hupa, and finally do a right
-          click on trunk and select Checkout. Fill in the settings as you think
-          they fit your needs.
-          <br/>
-          <img src="../images/dev/checkout-hupa.jpg" />
-          <br/>
-        </p>
-        <p>
-          So after everything is set up correctly your screen should look like
-          this one here.
-          <br/>
-          <img src="../images/dev/eclipse_setup.jpg" />
-          <br/>
-        </p>
-        <p>
-          Now, that the foundation is laid out, we can finally
-          <a href="building.html">build hupa</a>
-          .
-        </p>
-      </subsection>
-    </section>
-  </body>
+        <section name="How to setup eclipse...">
+            <subsection name="What Version do you need">
+                <p>
+                    Eclipse can be downloaded from
+                    <a href="http://download.eclipse.org">the eclipse download page</a>
+                    I recommend using the Eclipse IDE for Java Developers or the Eclipse
+                    IDE for Java EE Developers.
+                </p>
+                <p>
+                    If you need help installing eclipse, you can find the answers you are
+                    looking for on the
+                    <a href="http://wiki.eclipse.org/FAQ_Where_do_I_get_and_install_Eclipse%3F">eclipse homepage</a>
+                </p>
+                <p>
+                    From this point on we assume you have a running distribution of
+                    eclipse installed on your system.
+                </p>
+            </subsection>
+            <subsection name="Setting up the maven eclipse plugin">
+                <p>
+                    Hupa uses maven2 as its build tool. Although it is possible to only
+                    run maven commands
+                    from the command line, a tight integration into the
+                    tool you use to write and run the code is a lot nicer.
+                </p>
+                <p>
+                    Nowadays there is more than one plugin for eclipse to interact with
+                    maven2. Although all might be great, I only know my way around the
+                    m2eclipse plugin. I work
+                    with it on all my m2 projects, and it provides
+                    me with the tools I need to get
+                    the job done. Again, if you provide the
+                    documentation for other
+                    plugins, we would be more than happy to put
+                    them up here.
+                </p>
+                <p>
+                    But enough of the bla bla let us get started. You can download the
+                    plugin
+                    <a href="http://m2eclipse.sonatype.org/">here.</a>
+                    The Installation Instructions are right on the first page. From this
+                    point this guide assumes that you have the m2eclipse plugin installed.
+                </p>
+            </subsection>
+            <subsection name="Setting up the GWT Plugin">
+                <p>
+                    Hupa is developed using
+                    <a href="http://code.google.com/intl/de/webtoolkit/">GWT</a>
+                    So to make your development a lot easier we recommend installing the
+                    <a href="http://code.google.com/appengine/docs/java/tools/eclipse.html">google plugin for eclipse</a>
+                </p>
+            </subsection>
+            <subsection name="Setting up subclipse">
+                <p>
+                    The ASF uses subversion as its Version Control System (VCS). So to be
+                    able to check out the source code I recommend using a special plugin
+                    called
+                    <a href="http://subclipse.tigris.org/">subclipse</a>
+                    After subclipse is installed, it is fairly easy to start your
+                    development on Hupa :)
+                </p>
+            </subsection>
+            <subsection name="Checking out the Hupa source code">
+                <p>
+                    Now we have everything setup to be able to check out and run the Hupa
+                    source code.
+                </p>
+                <p>
+                    Open up Eclipse and go to Window -> Open Perspective -> Other -> SVN
+                    Repository Exploring
+                    <br />
+                    <img src="../images/dev/svn-repo.jpg" />
+                    <br />
+                    In the SVN Repositories View Click the right mouse button and choose
+                    New -> Repository Location ...
+                </p>
+                <p>
+                    In the Dialog enter the following url in the URL Field:
+                    http://svn.apache.org/repos/asf then click on Finish. After that the
+                    ASF Software Repository should be visible inside your SVN Repositories
+                    view as shown here.
+                    <br />
+                    <img src="../images/dev/svn-repositories-installed.jpg" />
+                    <br />
+                </p>
+                <p>
+                    Expand the Repository, then james, then hupa, and finally do a right
+                    click on trunk and select Checkout. Fill in the settings as you think
+                    they fit your needs.
+                    <br />
+                    <img src="../images/dev/checkout-hupa.jpg" />
+                    <br />
+                </p>
+                <p>
+                    So after everything is set up correctly your screen should look like
+                    this one here.
+                    <br />
+                    <img src="../images/dev/eclipse_setup.jpg" />
+                    <br />
+                </p>
+                <p>
+                    Now, that the foundation is laid out, we can finally
+                    <a href="building.html">build hupa</a>
+                    .
+                </p>
+            </subsection>
+        </section>
+    </body>
 </document>

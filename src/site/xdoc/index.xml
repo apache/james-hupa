@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-  <!--
+<!--
     Licensed to the Apache Software Foundation (ASF) under one or more
     contributor license agreements. See the NOTICE file distributed with this
     work for additional information regarding copyright ownership. The ASF
@@ -12,36 +12,32 @@
     distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied. See the License for the specific language
     governing permissions and limitations under the License.
-  -->
+-->
 <document>
-  <properties>
-    <title>Overview</title>
-    <author email="server-dev@james.apache.org">James Hupa Project Team</author>
-  </properties>
-  <body>
-    <section name="What is it?">
-      <p>
-        Hupa is IMAP-based Webmail written in GWT.
-      </p>
-    </section>
-    <section name="News">
+    <properties>
+        <title>Overview</title>
+        <author email="server-dev@james.apache.org">James Hupa Project Team</author>
+    </properties>
+    <body>
+        <section name="What is it?">
+            <p>Hupa is IMAP-based Webmail written in GWT.</p>
+        </section>
 
-      <subsection name="2009">
+        <section name="News">
 
-        <h4>Sept/2009 - Hupa moved to James</h4>
-        <p>
-          Hupa moved from Apache Labs to James this month.
-      </p>
-      </subsection>
+            <subsection name="2009">
+                <h4>Sept/2009 - Hupa moved to James</h4>
+                <p>Hupa moved from Apache Labs to James this month.</p>
+            </subsection>
+        </section>
 
-    </section>
-
-    <section name="releases">
-      <p>
-        <b>Latest: None</b>
-        <br />
-        No releases done yet. Would like helping getting one together? <a href="dev/environment.html">Check this out</a>
-      </p>
-    </section>
-  </body>
+        <section name="releases">
+            <p>
+                <b>Latest: None</b>
+                <br />
+                No releases done yet. Would like helping getting one together?
+                <a href="dev/environment.html">Check this out</a>
+            </p>
+        </section>
+    </body>
 </document>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-  <!--
+<!--
     Licensed to the Apache Software Foundation (ASF) under one or more
     contributor license agreements. See the NOTICE file distributed with this
     work for additional information regarding copyright ownership. The ASF
@@ -12,26 +12,24 @@
     distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied. See the License for the specific language
     governing permissions and limitations under the License.
-  -->
+-->
 <document>
-  <properties>
-    <title>Hupa GWT Webmail Screenshots</title>
-    <author email="server-dev@james.apache.org">James Hupa Project Team</author>
-  </properties>
-  <body>
-    <section name="So you want to see how it looks like?">
-      <p>
-        Ok, here we are. The login form on the dev build 2009.11.23
-      </p>
-      <img src="images/ss/hupa-login.png" />
-      <p>
-        And here the main message browsing interface, also from 2009.11.23 build.
-      </p>
-      <a href="images/ss/hupa-main.png" target="_new"><img src="images/ss/hupa-main-small.gif" /></a>
-      <p>
-        And the last one, the message composing interface, from 2009.11.23 build.
-      </p>
-      <a href="images/ss/hupa-new.png" target="_new"><img src="images/ss/hupa-new-small.gif" /></a>
-    </section>
-  </body>
+    <properties>
+        <title>Hupa GWT Webmail Screenshots</title>
+        <author email="server-dev@james.apache.org">James Hupa Project Team</author>
+    </properties>
+    <body>
+        <section name="So you want to see how it looks like?">
+            <p>Ok, here we are. The login form on the dev build 2009.11.23</p>
+            <img src="images/ss/hupa-login.png" />
+            <p>And here the main message browsing interface, also from 2009.11.23 build.</p>
+            <a href="images/ss/hupa-main.png" target="_new">
+                <img src="images/ss/hupa-main-small.gif" />
+            </a>
+            <p>And the last one, the message composing interface, from 2009.11.23 build.</p>
+            <a href="images/ss/hupa-new.png" target="_new">
+                <img src="images/ss/hupa-new-small.gif" />
+            </a>
+        </section>
+    </body>
 </document>
