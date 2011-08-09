@@ -29,8 +29,9 @@
   <!-- 
   <bannerLeft>
     <name>James Hupa</name>
-    <src>images/james-hupa-logo.gif</src>
+    <src>images/logos/james-hupa-logo.gif</src>
     <href>http://james.apache.org/hupa/index.html</href>
+    <alt>james-hupa-logo.gif</alt>
   </bannerLeft>
   -->
 
