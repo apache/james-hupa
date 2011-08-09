@@ -105,6 +105,7 @@
     <properties>
         <gwtVersion>2.3.0</gwtVersion>
         <gwtMavenVersion>2.3.0</gwtMavenVersion>
+        <target.jdk>1.6</target.jdk>
     </properties>
 
     <build>
@@ -130,7 +131,7 @@
                     <artifactId>maven-pmd-plugin</artifactId>
                     <version>2.5</version>
                     <configuration>
-                        <targetJdk>1.6</targetJdk>
+                        <targetJdk>${target.jdk}</targetJdk>
                         <rulesets>
                             <ruleset>/rulesets/basic.xml</ruleset>
                             <ruleset>/rulesets/controversial.xml</ruleset>
@@ -166,8 +167,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>2.3.2</version>
                     <configuration>
-                        <source>1.6</source>
-                        <target>1.6</target>
+                        <source>${target.jdk}</source>
+                        <target>${target.jdk}</target>
                         <encoding>iso8859-1</encoding>
                     </configuration>
                 </plugin>
@@ -214,6 +215,11 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
                     <version>2.3.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>dashboard-maven-plugin</artifactId>
+                    <version>1.0.0-beta-1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
