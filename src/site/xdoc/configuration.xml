@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements. See the NOTICE file distributed with this
+    work for additional information regarding copyright ownership. The ASF
+    licenses this file to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
+    or agreed to in writing, software distributed under the License is
+    distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied. See the License for the specific language
+    governing permissions and limitations under the License.
+-->
+<document>
+    <properties>
+        <title>Configuration</title>
+        <author email="server-dev@james.apache.org">James Hupa Project Team</author>
+    </properties>
+    <body>
+        <section name="Configuration">
+            <p>
+                The application tries to load from following configuration files (in order)
+                <ul>
+                    <li>
+                        <code>-Dhupa.config.file=your_hupa_properties_file</code>
+                        when the web container has been started with the appropriate parameter
+                    </li>
+                    <li>$HOME/.hupa/config.properties</li>
+                    <li>/etc/default/hupa</li>
+                </ul>
+                If no custom configuration file is found, a default configuration (
+                <code>WEB-INF/conf/config.properties</code>
+                ) is used.
+            </p>
+            <p>
+                These property/value pairs are configurable in such a file:
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>sample</th>
+                        <th>Comment</th>
+                    </tr>
+                    <tr>
+                        <td>IMAPServerAddress</td>
+                        <td>imap.gmail.com</td>
+                        <td>The IP or domainname of the IMAP server</td>
+                    </tr>
+                    <tr>
+                        <td>IMAPServerPort</td>
+                        <td>993</td>
+                        <td>The port of the IMAP server</td>
+                    </tr>
+                    <tr>
+                        <td>IMAPConnectionPoolSize</td>
+                        <td>4</td>
+                        <td>
+                            Set the connections amount which will get maximal opened per user for processing requests
+                            <br />
+                            Setting it higher can improve performance, but be sure that the IMAPServer will maybe have some limit
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>IMAPConnectionPoolTimeout</td>
+                        <td>300000</td>
+                        <td>Set the timeout for connections in milliseconds</td>
+                    </tr>
+                    <tr>
+                        <td>IMAPS</td>
+                        <td>true</td>
+                        <td>Use SSL/TLS to connect to the IMAP server</td>
+                    </tr>
+                    <tr>
+                        <td>DefaultSentFolder</td>
+                        <td>[Gmail]\Sent</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>DefaultTrashFolder</td>
+                        <td>[Gmail]\Trash</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>DefaultDraftsFolder</td>
+                        <td>[Gmail]\Drafts</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>DefaultInboxFolder</td>
+                        <td>INBOX</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>PostFetchMessageCount</td>
+                        <td>0</td>
+                        <td>Number of Messages to post fetch</td>
+                    </tr>
+                    <tr>
+                        <td>SessionDebug</td>
+                        <td>true</td>
+                        <td>Log IMAP and SMTP dialog, Logger has to be in debug mode</td>
+                    </tr>
+                    <tr>
+                        <td>SMTPServerAddress</td>
+                        <td>smtp.gmail.com</td>
+                        <td>The IP or domainname of the SMTP server</td>
+                    </tr>
+                    <tr>
+                        <td>SMTPServerPort</td>
+                        <td>465</td>
+                        <td>The port of the SMTP server</td>
+                    </tr>
+                    <tr>
+                        <td>SMTPAuth</td>
+                        <td>true</td>
+                        <td>Use AUTH for SMTP</td>
+                    </tr>
+                    <tr>
+                        <td>SMTPS</td>
+                        <td>true</td>
+                        <td>Use SSL/TLS to connect to the SMTP server</td>
+                    </tr>
+                </table>
+            </p>
+        </section>
+    </body>
+</document>

@@ -42,9 +42,10 @@
     </bannerRight>
     <body>
 
-        <menu name="Hupa" inherit="top">
+        <menu name="Hupa">
             <item name="Overview" href="/index.html" />
             <item name="Screenshots" href="/screenshots.html" />
+            <item name="Configuration" href="/configuration.html" />
         </menu>
         <menu name="Get Involved" inherit="top">
             <item name="Setup" href="/dev/environment.html" />
@@ -60,9 +61,6 @@
             -->
             <item name="License" href="/license.html" />
         </menu>
-        <menu ref="modules" />
-
-        <menu ref="reports" />
 
     </body>
 </project>
