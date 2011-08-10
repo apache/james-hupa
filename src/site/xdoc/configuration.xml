@@ -39,21 +39,25 @@
                 <table>
                     <tr>
                         <th>Property</th>
-                        <th>sample</th>
+                        <th>Mandatory</th>
+                        <th>default</th>
                         <th>Comment</th>
                     </tr>
                     <tr>
                         <td>IMAPServerAddress</td>
-                        <td>imap.gmail.com</td>
+                        <td>yes</td>
+                        <td></td>
                         <td>The IP or domainname of the IMAP server</td>
                     </tr>
                     <tr>
                         <td>IMAPServerPort</td>
-                        <td>993</td>
+                        <td>yes</td>
+                        <td></td>
                         <td>The port of the IMAP server</td>
                     </tr>
                     <tr>
                         <td>IMAPConnectionPoolSize</td>
+                        <td>no</td>
                         <td>4</td>
                         <td>
                             Set the connections amount which will get maximal opened per user for processing requests
@@ -63,72 +67,86 @@
                     </tr>
                     <tr>
                         <td>IMAPConnectionPoolTimeout</td>
+                        <td>no</td>
                         <td>300000</td>
                         <td>Set the timeout for connections in milliseconds</td>
                     </tr>
                     <tr>
                         <td>IMAPS</td>
-                        <td>true</td>
+                        <td>no</td>
+                        <td>false</td>
                         <td>Use SSL/TLS to connect to the IMAP server</td>
                     </tr>
                     <tr>
                         <td>TrustStore</td>
-                        <td>my-truststore</td>
-                        <td>The Truststore when using self-signed certificates on the server</td>
+                        <td>no</td>
+                        <td></td>
+                        <td>The Truststore (including path) when using self-signed certificates on the server</td>
                     </tr>
                     <tr>
                         <td>TrustStorePassword</td>
-                        <td>changeit</td>
+                        <td>no</td>
+                        <td></td>
                         <td>The Truststore's password</td>
                     </tr>
                     <tr>
                         <td>DefaultSentFolder</td>
-                        <td>[Gmail]\Sent</td>
+                        <td>no</td>
+                        <td>\Sent</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>DefaultTrashFolder</td>
-                        <td>[Gmail]\Trash</td>
+                        <td>no</td>
+                        <td>\Trash</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>DefaultDraftsFolder</td>
-                        <td>[Gmail]\Drafts</td>
+                        <td>no</td>
+                        <td>\Drafts</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>DefaultInboxFolder</td>
+                        <td>no</td>
                         <td>INBOX</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>PostFetchMessageCount</td>
+                        <td>no</td>
                         <td>0</td>
                         <td>Number of Messages to post fetch</td>
                     </tr>
                     <tr>
                         <td>SessionDebug</td>
-                        <td>true</td>
+                        <td>no</td>
+                        <td>false</td>
                         <td>Log IMAP and SMTP dialog, Logger has to be in debug mode</td>
                     </tr>
                     <tr>
                         <td>SMTPServerAddress</td>
-                        <td>smtp.gmail.com</td>
+                        <td>yes</td>
+                        <td></td>
                         <td>The IP or domainname of the SMTP server</td>
                     </tr>
                     <tr>
                         <td>SMTPServerPort</td>
-                        <td>465</td>
+                        <td>yes</td>
+                        <td></td>
                         <td>The port of the SMTP server</td>
                     </tr>
                     <tr>
                         <td>SMTPAuth</td>
+                        <td>no</td>
                         <td>true</td>
                         <td>Use AUTH for SMTP</td>
                     </tr>
                     <tr>
                         <td>SMTPS</td>
-                        <td>true</td>
+                        <td>no</td>
+                        <td>false</td>
                         <td>Use SSL/TLS to connect to the SMTP server</td>
                     </tr>
                 </table>

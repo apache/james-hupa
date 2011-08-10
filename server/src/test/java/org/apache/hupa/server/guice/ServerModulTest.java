@@ -66,14 +66,22 @@ public class ServerModulTest {
         File tmp = File.createTempFile("foo", ".properties");
         tmp.deleteOnExit();
 
-        Properties p = module.loadProperties(tmp.toString());
-        Assert.assertNotNull(p);
-        Assert.assertNull(p.get("IMAPServerAddress"));
+        try {
+            module.loadProperties(tmp.toString());
+        } catch (IllegalArgumentException e) {
+            // This must be thrown because of missing mandatory configuration properties
+        } catch (Exception e) {
+            Assert.fail("IllegalArgumentException must be thrown because of missing mandatory configuration properties");
+        }
 
         System.setProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE, tmp.toString());
-        p = module.loadProperties();
-        Assert.assertNotNull(p);
-        Assert.assertNull(p.get("IMAPServerAddress"));
+        try {
+            module.loadProperties();
+        } catch (IllegalArgumentException e) {
+            // This must be thrown because of missing mandatory configuration properties
+        } catch (Exception e) {
+            Assert.fail("IllegalArgumentException must be thrown because of missing mandatory configuration properties");
+        }
         System.clearProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE);
 
     }

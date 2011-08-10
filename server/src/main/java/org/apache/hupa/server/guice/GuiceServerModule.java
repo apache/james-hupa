@@ -52,10 +52,13 @@ import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
 import org.apache.hupa.server.servlet.MessageSourceServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
+import org.apache.hupa.server.utils.ConfigurationProperties;
 import org.apache.hupa.shared.data.Settings;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Session;
@@ -77,6 +80,8 @@ public class GuiceServerModule extends ActionHandlerModule {
     public static final String CONF_DIR = "WEB-INF/conf/";
 
     private String configDir;
+    
+    private boolean demoMode = false;
     
     public GuiceServerModule(String rootPath) {
         configDir = rootPath + "/" + CONF_DIR;
@@ -149,13 +154,44 @@ public class GuiceServerModule extends ActionHandlerModule {
         }
 
         // Put Hupa in demo mode
-        if (properties == null || DemoModeConstants.DEMO_MODE.equals(properties.get("IMAPServerAddress"))) {
+        demoMode = DemoModeConstants.DEMO_MODE.equals(properties.get("IMAPServerAddress"));
+        if (demoMode) {
             properties = DemoModeConstants.demoProperties;
         }
         
-        return properties;
+        // Validate for mandatory and complete properties with default values
+        return validateProperties(properties);
     }
 
+    protected Properties validateProperties(Properties properties) {
+	List<String> errors = new ArrayList<String>();
+	
+        // Test for mandatory and complete properties with default values when missing
+	for (ConfigurationProperties confProps : ConfigurationProperties.values()) {
+	    if (confProps.isMandatory()) {
+		if (properties.get(confProps.getProperty()) == null) {
+		    errors.add("The mandatory Property '" + confProps.getProperty() + "' is not set.");
+		}
+	    } else {
+		if (properties.get(confProps.getProperty()) == null) {
+		    properties.setProperty(confProps.getProperty(), confProps.getPropValue());
+		}
+	    }
+	}
+
+	// Test for unknown properties set in configuration
+	for (Object key : properties.keySet()) {
+	    if (ConfigurationProperties.lookup((String)key) == null) {
+		errors.add("The Property '" + key + "' has no configuration impacts, it's unknown");
+	    }
+	}
+	if (!demoMode && !errors.isEmpty()) {
+	    throw new IllegalArgumentException(errors.toString());
+	}
+	
+	return properties;
+    }
+    
     protected Properties loadProperties(String name) {
 
         if (name == null)
