@@ -104,7 +104,7 @@
     </repositories>
     <properties>
         <gwtVersion>2.3.0</gwtVersion>
-        <gwtMavenVersion>2.3.0</gwtMavenVersion>
+        <gwtMavenVersion>2.3.0-1</gwtMavenVersion>
         <target.jdk>1.6</target.jdk>
     </properties>
 
