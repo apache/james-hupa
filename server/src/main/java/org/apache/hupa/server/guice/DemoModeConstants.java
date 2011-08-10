@@ -43,6 +43,9 @@ public class DemoModeConstants {
             put("IMAPServerPort", "143");
             put("IMAPS", "false");
             
+            put("TrustStore", "my-truststore");
+            put("TrustStorePassword", "my-truststore-password");
+            
             put("SMTPServerAddress", DEMO_MODE);
             put("SMTPServerPort", "25");
             put("SMTPS", "false");

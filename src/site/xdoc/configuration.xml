@@ -72,6 +72,16 @@
                         <td>Use SSL/TLS to connect to the IMAP server</td>
                     </tr>
                     <tr>
+                        <td>TrustStore</td>
+                        <td>my-truststore</td>
+                        <td>The Truststore when using self-signed certificates on the server</td>
+                    </tr>
+                    <tr>
+                        <td>TrustStorePassword</td>
+                        <td>changeit</td>
+                        <td>The Truststore's password</td>
+                    </tr>
+                    <tr>
                         <td>DefaultSentFolder</td>
                         <td>[Gmail]\Sent</td>
                         <td></td>

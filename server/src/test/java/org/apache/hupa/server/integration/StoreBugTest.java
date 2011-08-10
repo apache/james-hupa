@@ -47,12 +47,15 @@ public class StoreBugTest {
     static final String imapUser = "nobody@gmail.com";
     static final String imapPass = "******";
     static final boolean isSSl = true;
+    static final String truststore = "";
+    static final String truststorePassword = "";
     
     static int nthreads = 5;
     static int threadTimeout = 15000;
     
     Session session = Session.getDefaultInstance(new Properties(), null);
-    static InMemoryIMAPStoreCache cache = new InMemoryIMAPStoreCache(new MockLog(), imapServer, imapPort, isSSl, 2, 60000, false, new SessionProvider());
+    static InMemoryIMAPStoreCache cache = new InMemoryIMAPStoreCache(new MockLog(), imapServer, imapPort, isSSl, 2, 60000, false,
+	    truststore, truststorePassword, new SessionProvider());
     static User user = new User() {
        private static final long serialVersionUID = 1L;
        {setName(imapUser); setPassword(imapPass);}

@@ -154,7 +154,10 @@ public class GuiceServerTestModule extends ActionHandlerModule {
             
             put("IMAPServerAddress", "localhost");
             put("IMAPServerPort", "143");
-            put("IMAPS", "fase");
+            put("IMAPS", "false");
+            
+            put("TrustStore", "my-truststore");
+            put("TrustStorePassword", "my-truststore-password");
             
             put("IMAPConnectionPoolSize", "4");
             put("IMAPConnectionPoolTimeout", "300000");
@@ -191,7 +194,10 @@ public class GuiceServerTestModule extends ActionHandlerModule {
             
             put("IMAPServerAddress", "localhost");
             put("IMAPServerPort", "143");
-            put("IMAPS", "fase");
+            put("IMAPS", "false");
+            
+            put("TrustStore", "my-truststore");
+            put("TrustStorePassword", "my-truststore-password");
             
             put("IMAPConnectionPoolSize", "4");
             put("IMAPConnectionPoolTimeout", "300000");
@@ -228,6 +234,9 @@ public class GuiceServerTestModule extends ActionHandlerModule {
             put("IMAPServerAddress", "imap.gmail.com");
             put("IMAPServerPort", "993");
             put("IMAPS", "true");
+            
+            put("TrustStore", "my-truststore");
+            put("TrustStorePassword", "my-truststore-password");
             
             put("IMAPConnectionPoolSize", "4");
             put("IMAPConnectionPoolTimeout", "300000");

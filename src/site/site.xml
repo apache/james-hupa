@@ -46,6 +46,7 @@
             <item name="Overview" href="/index.html" />
             <item name="Screenshots" href="/screenshots.html" />
             <item name="Configuration" href="/configuration.html" />
+            <item name="FAQs" href="/faq.html" />
         </menu>
         <menu name="Get Involved" inherit="top">
             <item name="Setup" href="/dev/environment.html" />

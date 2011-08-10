@@ -50,7 +50,8 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
     private boolean useSSL = false;
     
     @Inject
-    public InMemoryIMAPStoreCache(Log logger, @Named("IMAPServerAddress") String address, @Named("IMAPServerPort") int port, @Named("IMAPS") boolean useSSL, @Named("IMAPConnectionPoolSize") int connectionPoolSize, @Named("IMAPConnectionPoolTimeout") int timeout, @Named("SessionDebug") boolean debug, Provider<Session> sessionProvider) {
+    public InMemoryIMAPStoreCache(Log logger, @Named("IMAPServerAddress") String address, @Named("IMAPServerPort") int port, @Named("IMAPS") boolean useSSL, @Named("IMAPConnectionPoolSize") int connectionPoolSize, @Named("IMAPConnectionPoolTimeout") int timeout, @Named("SessionDebug") boolean debug,
+            @Named("TrustStore") String truststore, @Named("TrustStorePassword") String truststorePassword, Provider<Session> sessionProvider) {
         this.logger = logger;
         this.address = address;
         this.port = port;
@@ -68,6 +69,12 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
             props.setProperty("mail.store.protocol", "imaps");
             props.setProperty("mail.imaps.connectionpoolsize", connectionPoolSize +"");
             props.setProperty("mail.imaps.connectionpooltimeout", timeout + "");
+            if (!truststore.isEmpty()) {
+        	System.setProperty("javax.net.ssl.trustStore", truststore);
+            }
+            if (!truststorePassword.isEmpty()) {
+                System.setProperty("javax.net.ssl.trustStorePassword", truststorePassword);
+            }
         } else {
             props.setProperty("mail.imap.connectionpoolsize", connectionPoolSize + "");
             props.setProperty("mail.imap.connectionpooltimeout", timeout + "");
