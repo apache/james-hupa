@@ -59,7 +59,6 @@ public class DragRefetchPagingScrollTable<RowType> extends RefetchPagingScrollTa
         public Widget createHandler();
     }
 
-    @SuppressWarnings("unchecked")
     public void setDragHandler(int newCellIndex,int cellWidth,DragHandlerFactory factory) {
         this.factory = factory;
         
@@ -67,7 +66,7 @@ public class DragRefetchPagingScrollTable<RowType> extends RefetchPagingScrollTa
             throw new IllegalArgumentException("cellIndex needs to be higher then 0");
         }
         
-        DefaultTableDefinition tableDef = (DefaultTableDefinition) getTableDefinition();
+        DefaultTableDefinition<RowType> tableDef = (DefaultTableDefinition<RowType>) getTableDefinition();
         
         // remove old definition 
         if (cellIndex != -1) {

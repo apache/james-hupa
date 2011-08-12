@@ -74,7 +74,7 @@ public class CachingDispatchAsync implements DispatchAsync {
                 }
 
                 public void onSuccess(R result) {
-                    cache.put((Action) action, (Result) result);
+                    cache.put((Action<Result>) action, (Result) result);
                     callback.onSuccess(result);
                 }
 
