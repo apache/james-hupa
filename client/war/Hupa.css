@@ -319,10 +319,13 @@ table.hupa-contacts {
     background:       				#FFF7D7;
 }
 
+.hupa-IMAPFolder-unseen {
+	font-weight: bold;	
+}
 
 .hupa-IMAPFolder-selected {
-	background:	    			  	#C3D9FF;
-	width:						  	100%;	
+    background:                     #C3D9FF;
+    width:                          100%;   
 }
 
 .hupa-droptarget-invalid {

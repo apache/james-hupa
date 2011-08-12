@@ -98,6 +98,22 @@ public class IMAPTreeItem extends EditableTreeItem {
     
     private void setFolderText(IMAPFolder folder) {
         setText(getFolderName(folder));
+        setUnseenMessageCountStyle(folder);
+    }
+    
+    private void setUnseenMessageCountStyle(IMAPFolder folder) {
+        boolean containsUnseen = (folder.getUnseeMessageCount() > 0);
+        for (IMAPFolder fold : folder.getChildIMAPFolders()) {
+            if (fold.getUnseeMessageCount() > 0) {
+                containsUnseen = true;
+                break;
+            }
+        }
+        if (containsUnseen) {
+            getWidget().addStyleName("hupa-IMAPFolder-unseen");
+        } else {
+            getWidget().removeStyleName("hupa-IMAPFolder-unseen");
+        }
     }
     
     /**
@@ -107,7 +123,10 @@ public class IMAPTreeItem extends EditableTreeItem {
      * @return name
      */
     private String getFolderName(IMAPFolder folder) {
-        return folder.getName() + " ("+folder.getUnseeMessageCount()+")";
+        if (folder.getUnseeMessageCount() > 0) {
+            return folder.getName() + " ("+folder.getUnseeMessageCount()+")";
+        }
+        return folder.getName();
     }
     
     @Override
