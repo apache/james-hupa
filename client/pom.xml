@@ -142,7 +142,8 @@
             <artifactId>gwt-dnd</artifactId>
         </dependency>
         <dependency>
-            <groupId>eu.maydu.gwt</groupId>
+            <!-- groupId>eu.maydu.gwt</groupId -->
+            <groupId>gwt-vl</groupId>
             <artifactId>gwt-vl</artifactId>
         </dependency>
         <dependency>

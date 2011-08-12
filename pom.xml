@@ -92,6 +92,12 @@
             </url>
         </repository>
         <repository>
+            <!-- The indicated repository @ http://gwt-vl.sourceforge.net/?to=resources doesn't works -->
+            <id>gwt-vl</id>
+            <name>GWT-VL (Validation library and framework for GWT)</name>
+            <url>http://ftp.heanet.ie/mirrors/sourceforge/g/project/gw/</url>
+        </repository>
+        <repository>
             <id>cobogw</id>
             <name>Cobogw repository at googlecode</name>
             <url>http://cobogw.googlecode.com/svn/maven2
@@ -520,7 +526,8 @@
                 <version>3.1.1</version>
             </dependency>
             <dependency>
-                <groupId>eu.maydu.gwt</groupId>
+                <!-- groupId>eu.maydu.gwt</groupId -->
+                <groupId>gwt-vl</groupId>
                 <artifactId>gwt-vl</artifactId>
                 <version>0.8b</version>
             </dependency>
