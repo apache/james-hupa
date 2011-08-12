@@ -28,7 +28,7 @@ public interface IMAPTreeImages extends TreeImages {
      * (non-Javadoc)
      * @see com.google.gwt.user.client.ui.TreeImages#treeOpen()
      */
-    @Resource("folder_add.png")
+    @Resource("folder_sub.png")
     AbstractImagePrototype treeOpen();
 
     /*
