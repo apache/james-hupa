@@ -24,7 +24,7 @@ import org.apache.hupa.shared.data.User;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class LogoutEvent extends GwtEvent<LogoutEventHandler>{
-    public static Type<LogoutEventHandler> TYPE = new Type<LogoutEventHandler>();
+    public final static Type<LogoutEventHandler> TYPE = new Type<LogoutEventHandler>();
     private User user;
     public LogoutEvent(User user) {
         this.user = user;

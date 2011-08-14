@@ -27,7 +27,7 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
 
-    public static Type<ExpandMessageEventHandler> TYPE = new Type<ExpandMessageEventHandler>();
+    public final static Type<ExpandMessageEventHandler> TYPE = new Type<ExpandMessageEventHandler>();
     private Message message;
     private User user;
     private IMAPFolder folder;

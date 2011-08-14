@@ -21,7 +21,7 @@ package org.apache.hupa.shared.data;
 
 public class Tag {
 
-    public static String PREFIX = "TAG.";
+    public final static String PREFIX = "TAG.";
     private String tagName;
     
     @SuppressWarnings("unused")

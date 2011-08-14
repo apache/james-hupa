@@ -26,7 +26,7 @@ import org.apache.hupa.shared.data.User;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class LoadMessagesEvent extends GwtEvent<LoadMessagesEventHandler>{
-    public static Type<LoadMessagesEventHandler> TYPE = new Type<LoadMessagesEventHandler>();
+    public final static Type<LoadMessagesEventHandler> TYPE = new Type<LoadMessagesEventHandler>();
     private User user;
     private IMAPFolder folder;
     private String searchValue;

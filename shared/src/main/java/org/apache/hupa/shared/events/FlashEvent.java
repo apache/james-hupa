@@ -23,7 +23,7 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class FlashEvent extends GwtEvent<FlashEventHandler> {
     
-    public static Type<FlashEventHandler> TYPE = new Type<FlashEventHandler>();
+    public final static Type<FlashEventHandler> TYPE = new Type<FlashEventHandler>();
     
     public String getMessage() {
         return message;

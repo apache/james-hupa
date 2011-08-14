@@ -22,7 +22,7 @@ package org.apache.hupa.shared.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class ServerStatusEvent extends GwtEvent<ServerStatusEventHandler> {
-    public static Type<ServerStatusEventHandler> TYPE = new Type<ServerStatusEventHandler>();
+    public final static Type<ServerStatusEventHandler> TYPE = new Type<ServerStatusEventHandler>();
 
     public enum ServerStatus {
         Unknown, Available, Unavailable, Error

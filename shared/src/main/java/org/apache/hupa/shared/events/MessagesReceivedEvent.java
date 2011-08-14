@@ -26,7 +26,7 @@ import org.apache.hupa.shared.data.Message;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class MessagesReceivedEvent extends GwtEvent<MessagesReceivedEventHandler>{
-    public static Type<MessagesReceivedEventHandler> TYPE = new Type<MessagesReceivedEventHandler>();
+    public final static Type<MessagesReceivedEventHandler> TYPE = new Type<MessagesReceivedEventHandler>();
     private ArrayList<Message> messages;
     private IMAPFolder folder;
     
