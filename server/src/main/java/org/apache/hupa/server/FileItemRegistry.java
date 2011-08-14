@@ -58,7 +58,7 @@ public class FileItemRegistry {
     public void remove(FileItem item) {
         if (item != null) {
             logger.debug("Remove item " + item.getName() + " with name " + item.getFieldName());
-            map.remove(item);
+            map.remove(item.getFieldName());
             // Remove temporary stuff
             item.delete();
         }
