@@ -334,6 +334,8 @@
                                     <exclude>**/*.iws</exclude>
                                     <!-- MANIFEST_MF_EXCLUDES -->
                                     <exclude>**/MANIFEST.MF</exclude>
+                                    <!-- GWT log files -->
+                                    <exclude>**/.gwt-log</exclude>
                                 </excludes>
                             </configuration>
                         </plugin>
