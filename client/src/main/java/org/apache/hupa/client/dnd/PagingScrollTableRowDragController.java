@@ -33,6 +33,7 @@ import com.google.gwt.gen2.table.client.PagingScrollTable;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -130,7 +131,7 @@ public class PagingScrollTableRowDragController extends PickupDragController {
         public RowDragProxy() {
             RndPanel proxyPanel = new RndPanel();
             setIsValid(false);
-            proxy.add(bundle.moveMailIcon().createImage());
+            proxy.add(new Image(bundle.moveMailIcon()));
             proxy.add(new Label(" " + messages.moveMessage()));
             proxyPanel.add(proxy);
             proxyPanel.setWidth("150px");        

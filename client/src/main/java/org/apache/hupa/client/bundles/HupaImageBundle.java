@@ -19,17 +19,17 @@
 
 package org.apache.hupa.client.bundles;
 
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
-import com.google.gwt.user.client.ui.ImageBundle;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.ImageResource;
 
-public interface HupaImageBundle extends ImageBundle{
+public interface HupaImageBundle extends ClientBundle{
 
-    @Resource("attach.png")
-    public AbstractImagePrototype attachmentIcon();
+    @Source("attach.png")
+    ImageResource attachmentIcon();
     
-    @Resource("email_link.png")
-    public AbstractImagePrototype readyToMoveMailIcon();
+    @Source("email_link.png")
+    ImageResource readyToMoveMailIcon();
     
-    @Resource("email.png")
-    public AbstractImagePrototype moveMailIcon();
+    @Source("email.png")
+    ImageResource moveMailIcon();
 }

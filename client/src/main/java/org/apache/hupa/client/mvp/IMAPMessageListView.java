@@ -78,6 +78,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -151,7 +152,7 @@ public class IMAPMessageListView extends Composite implements Display{
         mailTable.setDragHandler(0,30, new DragHandlerFactory() {
 
             public Widget createHandler() {
-                return new HTML(imageBundle.readyToMoveMailIcon().getHTML());
+                return new Image(imageBundle.readyToMoveMailIcon());
             }
             
         });
@@ -318,7 +319,7 @@ public class IMAPMessageListView extends Composite implements Display{
                     ColumnDefinition<Message, Boolean> columnDef,
                     AbstractCellView<Message> view) {
                 if (columnDef.getCellValue(rowValue)) {
-                    view.setHTML(imageBundle.attachmentIcon().getHTML());
+                    view.setWidget(new Image(imageBundle.attachmentIcon()));
                 } else {
                     view.setHTML("&nbsp");
                 }

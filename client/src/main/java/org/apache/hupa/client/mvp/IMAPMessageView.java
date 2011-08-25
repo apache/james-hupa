@@ -46,6 +46,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Hyperlink;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -159,7 +160,7 @@ public class IMAPMessageView extends Composite implements Display{
                 });
                 HorizontalPanel aPanel = new HorizontalPanel();
                 aPanel.addStyleName(HupaCSS.C_attachment);
-                aPanel.add(imageBundle.attachmentIcon().createImage());
+                aPanel.add(new Image(imageBundle.attachmentIcon()));
                 aPanel.add(link);
                 attachments.add(aPanel);
             }

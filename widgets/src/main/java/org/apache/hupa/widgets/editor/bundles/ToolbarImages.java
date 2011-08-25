@@ -19,61 +19,61 @@
 
 package org.apache.hupa.widgets.editor.bundles;
 
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
-import com.google.gwt.user.client.ui.ImageBundle;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.ImageResource;
 
 
 
 
     /**
-     * This {@link ImageBundle} is used for all the button icons. Using an image
+     * This {@link ClientBundle} is used for all the button icons. Using an image
      * bundle allows all of these images to be packed into a single image, which
      * saves a lot of HTTP requests, drastically improving startup time.
      */
-    public interface ToolbarImages extends ImageBundle {
+    public interface ToolbarImages extends ClientBundle {
 
-        AbstractImagePrototype bold();
+        ImageResource bold();
 
-        AbstractImagePrototype createLink();
+        ImageResource createLink();
 
-        AbstractImagePrototype hr();
+        ImageResource hr();
 
-        AbstractImagePrototype indent();
+        ImageResource indent();
 
-        AbstractImagePrototype insertImage();
+        ImageResource insertImage();
 
-        AbstractImagePrototype italic();
+        ImageResource italic();
 
-        AbstractImagePrototype justifyCenter();
+        ImageResource justifyCenter();
 
-        AbstractImagePrototype justifyLeft();
+        ImageResource justifyLeft();
 
-        AbstractImagePrototype justifyRight();
+        ImageResource justifyRight();
 
-        AbstractImagePrototype ol();
+        ImageResource ol();
 
-        AbstractImagePrototype outdent();
+        ImageResource outdent();
 
-        AbstractImagePrototype removeFormat();
+        ImageResource removeFormat();
 
-        AbstractImagePrototype removeLink();
+        ImageResource removeLink();
 
-        AbstractImagePrototype strikeThrough();
+        ImageResource strikeThrough();
 
-        AbstractImagePrototype subscript();
+        ImageResource subscript();
 
-        AbstractImagePrototype superscript();
+        ImageResource superscript();
 
-        AbstractImagePrototype ul();
+        ImageResource ul();
 
-        AbstractImagePrototype underline();
+        ImageResource underline();
         
-        AbstractImagePrototype backColors();
+        ImageResource backColors();
         
-        AbstractImagePrototype foreColors();
+        ImageResource foreColors();
         
-        AbstractImagePrototype fonts();
+        ImageResource fonts();
         
-        AbstractImagePrototype fontSizes();
+        ImageResource fontSizes();
     }
 

@@ -38,11 +38,12 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.ToggleButton;
@@ -53,7 +54,6 @@ import com.google.gwt.user.client.ui.Widget;
  * rich text formatting, dynamically displayed only for the available
  * functionality.
  */
-@SuppressWarnings("deprecation")
 public class Toolbar extends Composite {
 
     private class EventHandler implements ClickHandler, KeyUpHandler, KeyDownHandler {
@@ -62,47 +62,47 @@ public class Toolbar extends Composite {
             Widget sender = (Widget) event.getSource();
 
             if (sender == bold) {
-                basic.toggleBold();
+                formatter.toggleBold();
             } else if (sender == italic) {
-                basic.toggleItalic();
+                formatter.toggleItalic();
             } else if (sender == underline) {
-                basic.toggleUnderline();
+                formatter.toggleUnderline();
             } else if (sender == subscript) {
-                basic.toggleSubscript();
+                formatter.toggleSubscript();
             } else if (sender == superscript) {
-                basic.toggleSuperscript();
+                formatter.toggleSuperscript();
             } else if (sender == strikethrough) {
-                extended.toggleStrikethrough();
+                formatter.toggleStrikethrough();
             } else if (sender == indent) {
-                extended.rightIndent();
+                formatter.rightIndent();
             } else if (sender == outdent) {
-                extended.leftIndent();
+                formatter.leftIndent();
             } else if (sender == justifyLeft) {
-                basic.setJustification(RichTextArea.Justification.LEFT);
+                formatter.setJustification(RichTextArea.Justification.LEFT);
             } else if (sender == justifyCenter) {
-                basic.setJustification(RichTextArea.Justification.CENTER);
+                formatter.setJustification(RichTextArea.Justification.CENTER);
             } else if (sender == justifyRight) {
-                basic.setJustification(RichTextArea.Justification.RIGHT);
+                formatter.setJustification(RichTextArea.Justification.RIGHT);
             } else if (sender == insertImage) {
                 String url = Window.prompt("Enter an image URL:", "http://");
                 if (url != null) {
-                    extended.insertImage(url);
+                    formatter.insertImage(url);
                 }
             } else if (sender == createLink) {
                 String url = Window.prompt("Enter a link URL:", "http://");
                 if (url != null) {
-                    extended.createLink(url);
+                    formatter.createLink(url);
                 }
             } else if (sender == removeLink) {
-                extended.removeLink();
+                formatter.removeLink();
             } else if (sender == hr) {
-                extended.insertHorizontalRule();
+                formatter.insertHorizontalRule();
             } else if (sender == ol) {
-                extended.insertOrderedList();
+                formatter.insertOrderedList();
             } else if (sender == ul) {
-                extended.insertUnorderedList();
+                formatter.insertUnorderedList();
             } else if (sender == removeFormat) {
-                extended.removeFormat();
+                formatter.removeFormat();
             } else if (sender == richText) {
                 updateStatus();
             } else if (sender == backColors) {
@@ -136,9 +136,9 @@ public class Toolbar extends Composite {
         public void onValueChange(ValueChangeEvent<ColorPicker> event) {
             ColorPicker sender = event.getValue();
             if (sender == backColorsPicker) {
-                basic.setBackColor(sender.getColor());
+                formatter.setBackColor(sender.getColor());
             } else if (sender == foreColorsPicker) {
-                basic.setForeColor(sender.getColor());
+                formatter.setForeColor(sender.getColor());
             }
             sender.hide();
         }
@@ -147,9 +147,9 @@ public class Toolbar extends Composite {
         public void onValueChange(ValueChangeEvent<FontPicker> event) {
             FontPicker sender = event.getValue();
             if (sender == fontFamilyPicker) {
-               basic.setFontName(sender.getFontName());
+               formatter.setFontName(sender.getFontName());
             } else if (sender == fontSizePicker) {
-               basic.setFontSize(sender.getFontSize());
+               formatter.setFontSize(sender.getFontSize());
             }
             sender.hide();
         }
@@ -160,8 +160,7 @@ public class Toolbar extends Composite {
     
 
     private RichTextArea richText;
-    private RichTextArea.BasicFormatter basic;
-    private RichTextArea.ExtendedFormatter extended;
+    private RichTextArea.Formatter formatter;
 
     private HorizontalPanel topPanel = new HorizontalPanel();
     private ToggleButton bold;
@@ -201,8 +200,8 @@ public class Toolbar extends Composite {
      */
     public Toolbar(RichTextArea richText, ToolbarConstants strings) {
         this.richText = richText;
-        this.basic = richText.getBasicFormatter();
-        this.extended = richText.getExtendedFormatter();
+        this.formatter = richText.getFormatter();
+//        this.extended = richText.getFormatter();
 
         topPanel.setWidth("100%");
 
@@ -210,7 +209,7 @@ public class Toolbar extends Composite {
         setStyleName("gwt-RichTextToolbar");
         richText.addStyleName("hasRichTextToolbar");
 
-        if (basic != null) {
+        if (formatter != null) {
             topPanel.add(bold = createToggleButton(images.bold(), strings.editor_bold()));
             topPanel.add(italic = createToggleButton(images.italic(), strings.editor_italic()));
             topPanel.add(underline = createToggleButton(images.underline(), strings.editor_underline()));
@@ -225,7 +224,7 @@ public class Toolbar extends Composite {
             topPanel.add(justifyRight = createPushButton(images.justifyRight(), strings.editor_justifyRight()));
         }
 
-        if (extended != null) {
+        if (formatter != null) {
             topPanel.add(strikethrough = createToggleButton(images.strikeThrough(), strings.editor_strikeThrough()));
             topPanel.add(indent = createPushButton(images.indent(), strings.editor_indent()));
             topPanel.add(outdent = createPushButton(images.outdent(), strings.editor_outdent()));
@@ -252,15 +251,15 @@ public class Toolbar extends Composite {
         fontSizePicker.addValueChangeHandler(fontHandler);
     }
 
-    private PushButton createPushButton(AbstractImagePrototype img, String tip) {
-        PushButton pb = new PushButton(img.createImage());
+    private PushButton createPushButton(ImageResource img, String tip) {
+        PushButton pb = new PushButton(new Image(img));
         pb.addClickHandler(handler);
         pb.setTitle(tip);
         return pb;
     }
 
-    private ToggleButton createToggleButton(AbstractImagePrototype img, String tip) {
-        ToggleButton tb = new ToggleButton(img.createImage());
+    private ToggleButton createToggleButton(ImageResource img, String tip) {
+        ToggleButton tb = new ToggleButton(new Image(img));
         tb.addClickHandler(handler);
         tb.setTitle(tip);
         return tb;
@@ -270,20 +269,20 @@ public class Toolbar extends Composite {
      * Updates the status of all the stateful buttons.
      */
     private void updateStatus() {
-        if (basic != null) {
-            bold.setDown(basic.isBold());
-            italic.setDown(basic.isItalic());
-            underline.setDown(basic.isUnderlined());
-            subscript.setDown(basic.isSubscript());
-            superscript.setDown(basic.isSuperscript());
+        if (formatter != null) {
+            bold.setDown(formatter.isBold());
+            italic.setDown(formatter.isItalic());
+            underline.setDown(formatter.isUnderlined());
+            subscript.setDown(formatter.isSubscript());
+            superscript.setDown(formatter.isSuperscript());
             foreColorsPicker.hide();
             backColorsPicker.hide();
             fontFamilyPicker.hide();
             fontSizePicker.hide();
         }
 
-        if (extended != null) {
-            strikethrough.setDown(extended.isStrikethrough());
+        if (formatter != null) {
+            strikethrough.setDown(formatter.isStrikethrough());
         }
     }
 }
