@@ -54,6 +54,8 @@ import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.rpc.Contacts;
+import org.apache.hupa.shared.rpc.SendMessage;
 
 import java.util.Properties;
 
@@ -107,8 +109,8 @@ public class GuiceServerTestModule extends ActionHandlerModule {
         bind(ReplyMessageHandler.class);
         bind(ForwardMessageHandler.class);
         
-        bindHandler(ContactsHandler.class);
-        bindHandler(SendMessageHandler.class);
+        bindHandler(Contacts.class, ContactsHandler.class);
+        bindHandler(SendMessage.class, SendMessageHandler.class);
         
         bind(UserPreferencesStorage.class).to(userPreferencesClass);
         

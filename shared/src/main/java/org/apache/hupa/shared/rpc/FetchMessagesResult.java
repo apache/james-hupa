@@ -19,6 +19,7 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.apache.hupa.shared.data.Message;
@@ -43,7 +44,7 @@ import org.apache.hupa.shared.data.Message;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-public class FetchMessagesResult implements Result{
+public class FetchMessagesResult implements Result, Serializable {
 
     /**
      * 

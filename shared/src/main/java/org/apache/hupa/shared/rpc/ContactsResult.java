@@ -19,11 +19,13 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Result;
 
-public class ContactsResult implements Result {
+public class ContactsResult implements Result, Serializable {
 
-    public static class Contact implements Result {
+    public static class Contact implements Result, Serializable {
         private static final long serialVersionUID = -8632580327693416473L;
         public String mail;
         public String realname;

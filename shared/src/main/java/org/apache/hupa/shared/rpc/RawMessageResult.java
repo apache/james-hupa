@@ -19,9 +19,11 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Result;
 
-public class RawMessageResult implements Result{
+public class RawMessageResult implements Result, Serializable {
 
     /**
      * 

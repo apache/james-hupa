@@ -25,7 +25,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import net.customware.gwt.dispatch.server.Dispatch;
-import net.customware.gwt.dispatch.server.service.DispatchServiceServlet;
+import net.customware.gwt.dispatch.server.guice.GuiceStandardDispatchServlet;
 import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.dispatch.shared.ActionException;
 import net.customware.gwt.dispatch.shared.Result;
@@ -35,7 +35,7 @@ import net.customware.gwt.dispatch.shared.Result;
  *
  */
 @Singleton
-public class HupaDispatchServlet extends DispatchServiceServlet {
+public class HupaDispatchServlet extends GuiceStandardDispatchServlet {
     
     private Log logger;
     

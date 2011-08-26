@@ -19,9 +19,11 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Result;
 
-public class IdleResult implements Result {
+public class IdleResult implements Result, Serializable {
 
     private static final long serialVersionUID = 5530385273335407315L;
     private boolean supported;

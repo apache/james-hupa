@@ -19,11 +19,13 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Result;
 
 import org.apache.hupa.shared.data.User;
 
-public class LoginUserResult implements Result{
+public class LoginUserResult implements Result, Serializable {
     
     /**
      * 

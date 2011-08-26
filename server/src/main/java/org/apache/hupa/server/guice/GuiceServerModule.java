@@ -19,8 +19,13 @@
 
 package org.apache.hupa.server.guice;
 
-import com.google.inject.Singleton;
-import com.google.inject.name.Names;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Session;
 
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
@@ -54,14 +59,29 @@ import org.apache.hupa.server.servlet.MessageSourceServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
 import org.apache.hupa.server.utils.ConfigurationProperties;
 import org.apache.hupa.shared.data.Settings;
+import org.apache.hupa.shared.rpc.CheckSession;
+import org.apache.hupa.shared.rpc.Contacts;
+import org.apache.hupa.shared.rpc.CreateFolder;
+import org.apache.hupa.shared.rpc.DeleteAllMessages;
+import org.apache.hupa.shared.rpc.DeleteFolder;
+import org.apache.hupa.shared.rpc.DeleteMessageByUid;
+import org.apache.hupa.shared.rpc.FetchFolders;
+import org.apache.hupa.shared.rpc.FetchMessages;
+import org.apache.hupa.shared.rpc.FetchRecentMessages;
+import org.apache.hupa.shared.rpc.ForwardMessage;
+import org.apache.hupa.shared.rpc.GetMessageDetails;
+import org.apache.hupa.shared.rpc.Idle;
+import org.apache.hupa.shared.rpc.LoginUser;
+import org.apache.hupa.shared.rpc.LogoutUser;
+import org.apache.hupa.shared.rpc.MoveMessage;
+import org.apache.hupa.shared.rpc.RenameFolder;
+import org.apache.hupa.shared.rpc.ReplyMessage;
+import org.apache.hupa.shared.rpc.SendMessage;
+import org.apache.hupa.shared.rpc.SetFlag;
+import org.apache.hupa.shared.rpc.TagMessage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import javax.mail.Session;
+import com.google.inject.Singleton;
+import com.google.inject.name.Names;
 
 /**
  * Module which binds the handlers and configurations
@@ -89,26 +109,26 @@ public class GuiceServerModule extends ActionHandlerModule {
 
     @Override
     protected void configureHandlers() {
-        bindHandler(CheckSessionHandler.class);
-        bindHandler(LoginUserHandler.class);
-        bindHandler(FetchFoldersHandler.class);
-        bindHandler(FetchMessagesHandler.class);
-        bindHandler(FetchRecentMessagesHandler.class);
-        bindHandler(LogoutUserHandler.class);
-        bindHandler(GetMessageDetailsHandler.class);
-        bindHandler(DeleteMessageByUidHandler.class);
-        bindHandler(DeleteAllMessagesHandler.class);
-        bindHandler(SendMessageHandler.class);
-        bindHandler(ReplyMessageHandler.class);
-        bindHandler(ForwardMessageHandler.class);
-        bindHandler(IdleHandler.class);
-        bindHandler(MoveMessageHandler.class);
-        bindHandler(RenameFolderHandler.class);
-        bindHandler(DeleteFolderHandler.class);
-        bindHandler(CreateFolderHandler.class);
-        bindHandler(TagMessagesHandler.class);
-        bindHandler(SetFlagsHandler.class);
-        bindHandler(ContactsHandler.class);
+        bindHandler(CheckSession.class, CheckSessionHandler.class);
+        bindHandler(LoginUser.class, LoginUserHandler.class);
+        bindHandler(FetchFolders.class, FetchFoldersHandler.class);
+        bindHandler(FetchMessages.class, FetchMessagesHandler.class);
+        bindHandler(FetchRecentMessages.class, FetchRecentMessagesHandler.class);
+        bindHandler(LogoutUser.class, LogoutUserHandler.class);
+        bindHandler(GetMessageDetails.class, GetMessageDetailsHandler.class);
+        bindHandler(DeleteMessageByUid.class, DeleteMessageByUidHandler.class);
+        bindHandler(DeleteAllMessages.class, DeleteAllMessagesHandler.class);
+        bindHandler(SendMessage.class, SendMessageHandler.class);
+        bindHandler(ReplyMessage.class, ReplyMessageHandler.class);
+        bindHandler(ForwardMessage.class, ForwardMessageHandler.class);
+        bindHandler(Idle.class, IdleHandler.class);
+        bindHandler(MoveMessage.class, MoveMessageHandler.class);
+        bindHandler(RenameFolder.class, RenameFolderHandler.class);
+        bindHandler(DeleteFolder.class, DeleteFolderHandler.class);
+        bindHandler(CreateFolder.class, CreateFolderHandler.class);
+        bindHandler(TagMessage.class, TagMessagesHandler.class);
+        bindHandler(SetFlag.class, SetFlagsHandler.class);
+        bindHandler(Contacts.class, ContactsHandler.class);
         bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(
                 Singleton.class);
         bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);

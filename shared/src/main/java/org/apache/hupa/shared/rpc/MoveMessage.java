@@ -19,11 +19,13 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class MoveMessage implements Action<MoveMessageResult>{
+public class MoveMessage implements Action<MoveMessageResult>, Serializable {
 
     private static final long serialVersionUID = 7771146077050895244L;
     private IMAPFolder oldFolder;

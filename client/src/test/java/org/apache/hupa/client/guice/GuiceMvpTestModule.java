@@ -18,17 +18,12 @@
  ****************************************************************/
 package org.apache.hupa.client.guice;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
 import net.customware.gwt.dispatch.client.DispatchAsync;
-import net.customware.gwt.dispatch.client.service.DispatchService;
-import net.customware.gwt.dispatch.server.DefaultDispatch;
+import net.customware.gwt.dispatch.client.standard.StandardDispatchService;
 import net.customware.gwt.dispatch.server.Dispatch;
+import net.customware.gwt.dispatch.server.guice.GuiceDispatch;
 import net.customware.gwt.dispatch.shared.Action;
-import net.customware.gwt.dispatch.shared.ActionException;
+import net.customware.gwt.dispatch.shared.DispatchException;
 import net.customware.gwt.dispatch.shared.Result;
 import net.customware.gwt.presenter.client.DefaultEventBus;
 import net.customware.gwt.presenter.client.Display;
@@ -39,6 +34,11 @@ import org.apache.hupa.client.mock.MockMessageSendDisplay;
 import org.apache.hupa.client.mvp.ContactsPresenter;
 import org.apache.hupa.client.mvp.MessageSendPresenter;
 import org.easymock.EasyMock;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * Guice module used to test presenters
@@ -77,7 +77,7 @@ public class GuiceMvpTestModule extends AbstractModule {
         bind(display).toInstance(mockDisplay);
     }
 
-    static class DispatchTestService implements DispatchService {
+    static class DispatchTestService implements StandardDispatchService {
         private Dispatch dispatch;
 
         @Inject
@@ -85,25 +85,25 @@ public class GuiceMvpTestModule extends AbstractModule {
             this.dispatch = dispatch;
         }
 
-        public Result execute(Action<?> action) throws Exception {
+        public Result execute(Action<?> action) throws DispatchException {
             Result result = dispatch.execute(action);
             return result;
         }
     }
 
     static public class DispatchTestAsync implements DispatchAsync {
-        private DefaultDispatch dispatch;
+        private GuiceDispatch dispatch;
 
         @Inject
         public DispatchTestAsync(Dispatch dispatch) {
-            this.dispatch = (DefaultDispatch)dispatch;
+            this.dispatch = (GuiceDispatch)dispatch;
         }
 
         public <A extends Action<R>, R extends Result> void execute(A action, AsyncCallback<R> callback) {
             try {
                 R result = dispatch.execute(action);
                 callback.onSuccess(result);
-            } catch (ActionException e) {
+            } catch (DispatchException e) {
                 callback.onFailure(e);
             }
         }

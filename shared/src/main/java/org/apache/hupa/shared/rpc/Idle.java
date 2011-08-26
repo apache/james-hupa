@@ -19,10 +19,12 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 
-public class Idle implements Action<IdleResult>{
+public class Idle implements Action<IdleResult>, Serializable {
 
     private static final long serialVersionUID = 4076791577558340559L;
 

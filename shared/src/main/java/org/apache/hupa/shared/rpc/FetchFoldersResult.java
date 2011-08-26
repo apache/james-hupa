@@ -19,13 +19,14 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-public class FetchFoldersResult implements Result{
+public class FetchFoldersResult implements Result, Serializable {
 
     /**
      * 

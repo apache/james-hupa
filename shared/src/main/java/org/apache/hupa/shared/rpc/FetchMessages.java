@@ -19,11 +19,13 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class FetchMessages implements Action<FetchMessagesResult>{
+public class FetchMessages implements Action<FetchMessagesResult>, Serializable {
     
     private static final long serialVersionUID = -3181183289937321202L;
     private IMAPFolder folder;

@@ -19,9 +19,11 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Result;
 
-public class GenericResult implements Result{
+public class GenericResult implements Result, Serializable {
     
     private static final long serialVersionUID = 405509532584299203L;
     private String message = null;

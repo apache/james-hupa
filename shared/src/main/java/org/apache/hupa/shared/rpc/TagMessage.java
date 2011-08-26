@@ -20,6 +20,7 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import net.customware.gwt.dispatch.shared.Action;
@@ -27,7 +28,7 @@ import net.customware.gwt.dispatch.shared.Action;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Tag;
 
-public class TagMessage implements Action<GenericResult>{
+public class TagMessage implements Action<GenericResult>, Serializable {
 
     private static final long serialVersionUID = 4323236257115412763L;
     private IMAPFolder folder;

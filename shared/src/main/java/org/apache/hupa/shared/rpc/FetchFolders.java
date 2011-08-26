@@ -19,10 +19,12 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 
-public class FetchFolders implements Action<FetchFoldersResult>{
+public class FetchFolders implements Action<FetchFoldersResult>, Serializable {
 
     private static final long serialVersionUID = 8515539585915762904L;
 

@@ -21,9 +21,11 @@ package org.apache.hupa.shared.rpc;
 
 
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Action;
 
-public class LoginUser implements Action<LoginUserResult>{
+public class LoginUser implements Action<LoginUserResult>, Serializable {
 
     private static final long serialVersionUID = -7541443368424711160L;
     

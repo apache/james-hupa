@@ -19,10 +19,12 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 
-public class LogoutUser implements Action<LogoutUserResult>{
+public class LogoutUser implements Action<LogoutUserResult>, Serializable {
 
     private static final long serialVersionUID = 2255166545722718094L;
     

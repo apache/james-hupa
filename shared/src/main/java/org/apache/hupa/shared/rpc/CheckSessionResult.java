@@ -19,11 +19,13 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import org.apache.hupa.shared.data.User;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-public class CheckSessionResult implements Result {
+public class CheckSessionResult implements Result, Serializable {
 
     private static final long serialVersionUID = -4785233314922498952L;
     boolean valid = false;

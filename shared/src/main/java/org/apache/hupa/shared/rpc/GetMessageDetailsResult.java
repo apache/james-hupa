@@ -19,11 +19,13 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import org.apache.hupa.shared.data.MessageDetails;
 
 import net.customware.gwt.dispatch.shared.Result;
 
-public class GetMessageDetailsResult implements Result{
+public class GetMessageDetailsResult implements Result, Serializable {
 
     /**
      * 

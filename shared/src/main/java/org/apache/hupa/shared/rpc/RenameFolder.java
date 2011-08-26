@@ -19,11 +19,13 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class RenameFolder implements Action<GenericResult>{
+public class RenameFolder implements Action<GenericResult>, Serializable {
 
     private static final long serialVersionUID = 1924419911921600320L;
     private IMAPFolder folder;

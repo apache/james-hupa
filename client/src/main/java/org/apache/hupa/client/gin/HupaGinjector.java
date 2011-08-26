@@ -18,7 +18,7 @@
  ****************************************************************/
 package org.apache.hupa.client.gin;
 
-import net.customware.gwt.dispatch.client.gin.ClientDispatchModule;
+import net.customware.gwt.dispatch.client.gin.StandardDispatchModule;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.place.PlaceManager;
 
@@ -27,7 +27,7 @@ import org.apache.hupa.client.mvp.AppPresenter;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 
-@GinModules({ClientDispatchModule.class,HupaClientModule.class})
+@GinModules({StandardDispatchModule.class,HupaClientModule.class})
 public interface HupaGinjector extends Ginjector {
     public AppPresenter getAppPresenter();
     public PlaceManager getPlaceManager();

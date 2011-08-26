@@ -20,11 +20,13 @@
 package org.apache.hupa.shared.rpc;
 
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 import org.apache.hupa.shared.data.SMTPMessage;
 
-public class SendMessage implements Action<GenericResult>{
+public class SendMessage implements Action<GenericResult>, Serializable {
     
     private static final long serialVersionUID = 973668124208945015L;
 

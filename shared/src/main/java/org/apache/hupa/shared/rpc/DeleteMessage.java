@@ -19,11 +19,13 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
 import net.customware.gwt.dispatch.shared.Action;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
-public class DeleteMessage implements Action<DeleteMessageResult>{
+public class DeleteMessage implements Action<DeleteMessageResult>, Serializable {
 
     private static final long serialVersionUID = 801294103124082592L;
     private IMAPFolder folder;
