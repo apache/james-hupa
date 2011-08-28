@@ -19,30 +19,30 @@
 
 package org.apache.hupa.client.bundles;
 
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
-import com.google.gwt.user.client.ui.TreeImages;
+import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.ui.Tree;
 
-public interface IMAPTreeImages extends TreeImages {
-
-    /*
-     * (non-Javadoc)
-     * @see com.google.gwt.user.client.ui.TreeImages#treeOpen()
-     */
-    @Resource("folder_sub.png")
-    AbstractImagePrototype treeOpen();
+public interface IMAPTreeImages extends Tree.Resources {
 
     /*
      * (non-Javadoc)
-     * @see com.google.gwt.user.client.ui.TreeImages#treeClosed()
+     * @see com.google.gwt.user.client.ui.Tree.Resources#treeOpen()
      */
-    @Resource("folder_add.png")
-    AbstractImagePrototype treeClosed();
+    @Source("folder_sub.png")
+     ImageResource treeOpen();
 
     /*
      * (non-Javadoc)
-     * @see com.google.gwt.user.client.ui.TreeImages#treeLeaf()
+     * @see com.google.gwt.user.client.ui.Tree.Resources#treeClosed()
      */
-    @Resource("folder.png")
-    AbstractImagePrototype treeLeaf();
+    @Source("folder_add.png")
+    ImageResource treeClosed();
+
+    /*
+     * (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.Tree.Resources#treeLeaf()
+     */
+    @Source("folder.png")
+    ImageResource treeLeaf();
 
 }

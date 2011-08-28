@@ -22,7 +22,6 @@ package org.apache.hupa.widgets.ui;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Tree;
-import com.google.gwt.user.client.ui.TreeImages;
 import com.google.gwt.user.client.ui.TreeItem;
 
 /**
@@ -31,7 +30,7 @@ import com.google.gwt.user.client.ui.TreeItem;
  *
  */
 public class EditableTree extends Tree {
-    public EditableTree(TreeImages images, boolean leaf) {
+    public EditableTree(Tree.Resources images, boolean leaf) {
         super(images, leaf);
     }
 
@@ -39,7 +38,7 @@ public class EditableTree extends Tree {
         super();
     }
     
-    public EditableTree(TreeImages images) {
+    public EditableTree(Tree.Resources images) {
         super(images);
     }
     
