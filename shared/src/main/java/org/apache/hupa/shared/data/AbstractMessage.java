@@ -36,19 +36,19 @@ public class AbstractMessage implements Serializable{
     private boolean hasAttachment;
     
     public String toString() {
-        String toList = "";
+        StringBuffer toList = new StringBuffer("");
         if (to != null)
             for (String s: to)
-                toList += s + " ";
+                toList.append(s).append(" ");
 
-        String ccList = "";
+        StringBuffer ccList = new StringBuffer("");
         if (cc != null)
             for (String s: cc)
-                ccList += s + " ";
+                ccList.append(s).append(" ");
 
         return "From='" + from 
-             + "' To='" + toList
-             + "' CC='" + ccList
+             + "' To='" + toList.toString()
+             + "' CC='" + ccList.toString()
              + "' ReplyTo='" + (replyto == null ? "": replyto)
              + "' Subject='" + subject
              + "' Attachments=" + hasAttachment;
