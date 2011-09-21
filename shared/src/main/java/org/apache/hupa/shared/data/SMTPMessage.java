@@ -28,18 +28,18 @@ public class SMTPMessage extends AbstractMessage{
     private ArrayList<MessageAttachment> aList;
     
     public String toString() {
-        String bccList = "";
+        StringBuffer bccList = new StringBuffer("");
         if (bcc !=null) 
             for (String s: bcc)
-                bccList += s + " ";
+                bccList.append(s).append(" ");
         
-        String attachNames = "";
+        StringBuffer attachNames = new StringBuffer("");
         for (MessageAttachment m: aList) 
-            attachNames += m.getName() + " ";
+            attachNames.append(m.getName()).append(" ");
         
         return super.toString()
-             + " Bcc='" + bccList
-             + "'\nAttachments=" + attachNames
+             + " Bcc='" + bccList.toString()
+             + "'\nAttachments=" + attachNames.toString()
              + "'\nMessage:\n" + text;
     }
     
