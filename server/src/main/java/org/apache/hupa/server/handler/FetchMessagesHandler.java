@@ -82,7 +82,7 @@ public class FetchMessagesHandler extends
                 end = exists;
             }
 
-            int firstIndex = exists - end;
+            int firstIndex = exists - end + 1;
             if (firstIndex < 1) {
                 firstIndex = 1;
             }
