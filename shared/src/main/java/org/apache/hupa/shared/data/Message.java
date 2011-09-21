@@ -91,7 +91,6 @@ public class Message extends AbstractMessage {
     }
     
     public int hashCode() {
-        Long l = new Long(getUid());
-        return l.intValue() * 16;
+        return Long.valueOf(getUid()).hashCode();
     }
 }
