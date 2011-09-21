@@ -172,8 +172,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     private ArrayList<IMAPTreeItem> createTreeNodes(ArrayList<IMAPFolder> list) {
         ArrayList<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
 
-        for (int i = 0; i < list.size(); i++) {
-            IMAPFolder iFolder = list.get(i);
+        for (IMAPFolder iFolder : list) {
 
             final IMAPTreeItem record = new IMAPTreeItem(iFolder);
             record.addEditHandler(new EditHandler() {
@@ -201,8 +200,8 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             ArrayList<IMAPFolder> childFolders = iFolder.getChildIMAPFolders();
             if (childFolders != null && childFolders.isEmpty() == false) {
                 ArrayList<IMAPTreeItem> items = createTreeNodes(childFolders);
-                for (int a = 0; a < items.size(); a++) {
-                    record.addItem(items.get(a));
+                for (IMAPTreeItem item : items) {
+                    record.addItem(item);
                 }
             }
 

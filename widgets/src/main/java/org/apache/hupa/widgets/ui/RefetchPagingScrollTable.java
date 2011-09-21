@@ -86,11 +86,10 @@ public class RefetchPagingScrollTable<RowType> extends PagingScrollTable<RowType
      * 
      * @param rows
      */
-    @SuppressWarnings("unchecked")
     public void removeRows(ArrayList<RowType> rows) {
         ArrayList<Integer> rowsIndex = new ArrayList<Integer>();
-        for (int i = 0; i < rows.size(); i++) {
-            int rowIndex = getRowValues().indexOf(rows.get(i));
+        for (RowType rowType : rows) {
+            int rowIndex = getRowValues().indexOf(rowType);
             if (rowsIndex.contains(rowIndex) == false) {
                 rowsIndex.add(rowIndex);
             }
@@ -103,7 +102,7 @@ public class RefetchPagingScrollTable<RowType> extends PagingScrollTable<RowType
                 selectedRows.remove(getRowValue(index));
                 getRowValues().remove(index);
 
-                ((MutableTableModel) getTableModel()).removeRow(index);
+                ((MutableTableModel<RowType>) getTableModel()).removeRow(index);
             }
             
             // Check if we need to refetch rows

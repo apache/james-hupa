@@ -40,9 +40,7 @@ public class JavamailUtil {
      */
     public static ArrayList<IMAPFlag> convert(Flags flags) {
         ArrayList<IMAPFlag> fList = new ArrayList<IMAPFlag>();
-        Flag[] flagArray = flags.getSystemFlags();
-        for (int i = 0; i < flagArray.length; i++) {
-            Flag flag = flagArray[i];
+        for (Flag flag : flags.getSystemFlags()) {
             fList.add(convert(flag));
         }
         return fList;
@@ -76,11 +74,8 @@ public class JavamailUtil {
      */
     public static Flags convert(ArrayList<IMAPFlag> imapFlags) {
         Flags iFlags = new Flags();
-        for ( int i = 0; i< imapFlags.size(); i++) {
-            IMAPFlag flag = imapFlags.get(i);
-            
+        for (IMAPFlag flag : imapFlags) {
             iFlags.add(convert(flag));
-            
         }
         return iFlags;
     }

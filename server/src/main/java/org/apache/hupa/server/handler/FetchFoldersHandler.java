@@ -65,10 +65,8 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
             IMAPStore store = cache.get(user);
             com.sun.mail.imap.IMAPFolder folder = (com.sun.mail.imap.IMAPFolder) store.getDefaultFolder();
             
-            Folder[] folders = folder.list();
             // loop over all folders
-            for (int i = 0; i < folders.length; i++) {
-                Folder f = folders[i];
+            for (Folder f : folder.list()) {
                 createIMAPFolderTree(fList, createFolder(f), f.list());
             }
             logger.debug("Fetching folders for user: " + user + " returns: " + fList.size() + " folders");
@@ -132,11 +130,11 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
      */
     private void createIMAPFolderTree(List<IMAPFolder> fList,
             IMAPFolder iFolder, Folder[] childFolders) throws MessagingException, ActionException {
-        
-        for (int a = 0; a < childFolders.length; a++) {
-            IMAPFolder folder = createFolder(childFolders[a]);
+
+        for (Folder f : childFolders) {
+            IMAPFolder folder = createFolder(f);
             if (folder != null) {
-                iFolder.getChildIMAPFolders().add(createFolder(childFolders[a]));
+                iFolder.getChildIMAPFolders().add(createFolder(f));
             }
         }
         fList.add(iFolder);

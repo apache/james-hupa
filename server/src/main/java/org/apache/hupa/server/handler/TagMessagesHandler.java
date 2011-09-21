@@ -69,9 +69,7 @@ public class TagMessagesHandler extends AbstractSessionHandler<TagMessage, Gener
             if (folder.isOpen() == false) {
                 folder.open(Folder.READ_WRITE);
             }
-            Message[] messages = folder.getMessagesByUID(copyUids(uids));
-            for (int i = 0; i < messages.length; i++) {
-                Message m = messages[i];
+            for (Message m :folder.getMessagesByUID(copyUids(uids))) {
                 m.getFlags().add(tag.toString());
             }
             return new GenericResult();

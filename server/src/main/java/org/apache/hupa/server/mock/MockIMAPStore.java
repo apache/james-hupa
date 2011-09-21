@@ -77,8 +77,8 @@ public class MockIMAPStore extends IMAPStore{
     }
     
     public boolean save(MockIMAPFolder folder) {
-        for (int i= 0; i < folders.size(); i++) {
-            if (folders.get(i).getFullName().equals(folder.getFullName())) {
+        for (MockIMAPFolder iFolder : folders) {
+            if (iFolder.getFullName().equals(folder.getFullName())) {
                 return false;
             }
         }
@@ -104,8 +104,7 @@ public class MockIMAPStore extends IMAPStore{
     } 
     
     public MockIMAPFolder getParent(MockIMAPFolder folder) {
-        for (int i = 0; i < folders.size(); i++) {
-            MockIMAPFolder f = folders.get(i);
+        for (MockIMAPFolder f : folders) {
             if ((f.getFullName() + MockIMAPFolder.SEPARATOR + folder.getName()).equals(folder.getFullName())) {
                 return f;
             }
@@ -122,8 +121,7 @@ public class MockIMAPStore extends IMAPStore{
             }
             return folders;
         } else {
-            for (int i = 0; i < folders.size(); i++) {
-                MockIMAPFolder f = folders.get(i);
+            for (MockIMAPFolder f : folders) {
                 if (f.getFullName().startsWith(
                         folder.getFullName() + MockIMAPFolder.SEPARATOR)) {
                     childs.add(f);
@@ -158,8 +156,7 @@ public class MockIMAPStore extends IMAPStore{
 
     @Override
     public synchronized Folder getFolder(String name) {
-        for (int i = 0; i < folders.size(); i++) {
-            MockIMAPFolder mfolder = folders.get(i);
+        for (MockIMAPFolder mfolder : folders) {
             if (mfolder.getFullName().equals(name)) {
                 return mfolder;
             }

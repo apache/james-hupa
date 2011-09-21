@@ -142,14 +142,13 @@ public class IMAPMessageView extends Composite implements Display{
         attachments.clear();
         final Element downloadIframe = RootPanel.get("__download").getElement();
         if (attachements != null) {
-            for (int i = 0; i < attachements.size(); i++) {
-                final MessageAttachment a = attachements.get(i);
-                Label link = new Label(a.getName() + " (" + a.getSize() / 1024 + "kB)");
+            for (final MessageAttachment messageAttachment : attachements) {
+                Label link = new Label(messageAttachment.getName() + " (" + messageAttachment.getSize() / 1024 + "kB)");
                 link.setStyleName(HupaCSS.C_hyperlink);
                 link.addClickHandler(new ClickHandler() {
                     public void onClick(ClickEvent event) {
                         String url = GWT.getModuleBaseURL() + SConsts.SERVLET_DOWNLOAD 
-                                    + "?" + SConsts.PARAM_NAME + "=" + a.getName() 
+                                    + "?" + SConsts.PARAM_NAME + "=" + messageAttachment.getName() 
                                     + "&" + SConsts.PARAM_FOLDER + "=" + folder
                                     + "&" + SConsts.PARAM_UID + "=" + uid;
                         if (downloadIframe == null)

@@ -79,8 +79,8 @@ public class DeleteMessageByUidHandler extends
             }
             // build up the list of messages to delete
             List<Message> messages = new ArrayList<Message>();
-            for (int i = 0; i < uids.size(); i++) {
-                messages.add(f.getMessageByUID(uids.get(i)));
+            for (Long uid : uids) {
+                messages.add(f.getMessageByUID(uid));
             }
             Message[] mArray = messages.toArray(new Message[messages.size()]);
             return mArray;

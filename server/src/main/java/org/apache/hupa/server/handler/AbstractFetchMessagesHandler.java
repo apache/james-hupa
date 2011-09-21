@@ -152,10 +152,10 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             // Add to addresses
             Address[] toArray = m.getRecipients(RecipientType.TO);
             if (toArray != null) {
-                for (int b =0; b < toArray.length;b++) {
+                for (Address addr : toArray) {
                     String mailTo = null;
                     try {
-                        mailTo = MimeUtility.decodeText(toArray[b].toString());
+                        mailTo = MimeUtility.decodeText(addr.toString());
                         userPreferences.addContact(mailTo);
                     } catch (UnsupportedEncodingException e) {
                         logger.debug("Unable to decode mailTo " + mailTo + " " + e.getMessage());
@@ -182,8 +182,8 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             ArrayList<String> cc = new ArrayList<String>();
 
             if (ccArray != null) {
-                for (int b =0; b < ccArray.length;b++) {
-                    cc.add(ccArray[b].toString());
+                for (Address addr : ccArray) {
+                    cc.add(addr.toString());
                 }
             }
             msg.setCc(cc);
@@ -194,9 +194,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             ArrayList<IMAPFlag> iFlags = JavamailUtil.convert(m.getFlags());
           
             ArrayList<Tag> tags = new ArrayList<Tag>();
-            String[] userFlags = m.getFlags().getUserFlags();
-            for (int a = 0; a < userFlags.length;a++) {
-                String flag = userFlags[a];
+            for (String flag : m.getFlags().getUserFlags()) {
                 if (flag.startsWith(Tag.PREFIX)) {
                     tags.add(new Tag(flag.substring(Tag.PREFIX.length())));
                 }

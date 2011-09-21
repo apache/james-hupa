@@ -245,11 +245,10 @@ public class MockIMAPFolder extends IMAPFolder {
             throws MessagingException {
         checkExists();
         List<Message> mList = new ArrayList<Message>();
-        for (int i = 0; i < msgs.length; i++) {
-            Message m = msgs[i];
-            if (m.getFlags().contains(Flag.DELETED)) {
-                if (messages.remove(m)) {
-                    mList.add(m);
+        for (Message message : msgs) {
+            if (message.getFlags().contains(Flag.DELETED)) {
+                if (messages.remove(message)) {
+                    mList.add(message);
                 }
             }
         }
@@ -267,12 +266,10 @@ public class MockIMAPFolder extends IMAPFolder {
     public synchronized void setFlags(Message[] mArray, Flags flags,
             boolean value) throws MessagingException {
         checkExists();
-        for (int i = 0; i < mArray.length; i++) {
-            Message m = mArray[i];
-            for (int a = 0; a < messages.size(); a++) {
-                Message m2 = messages.get(a);
-                if (m2.equals(m)) {
-                    m2.setFlags(flags, value);
+        for (Message message : mArray) {
+            for (Message message2 : messages) {
+                if (message2.equals(message)) {
+                    message2.setFlags(flags, value);
                     break;
                 }
             }

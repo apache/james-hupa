@@ -181,17 +181,16 @@ public class MainView extends Composite implements MainPresenter.Display {
      */
     public void bindTreeItems(ArrayList<IMAPTreeItem> treeList) {
         folderTree.clear();
-        for (int i = 0; i < dropControllerList.size(); i++) {
-            controller.unregisterDropController(dropControllerList.get(i));
+        for (DropController dropController : dropControllerList) {
+            controller.unregisterDropController(dropController);
         }
 
-        for (int i = 0; i < treeList.size(); i++) {
-            IMAPTreeItem item = treeList.get(i);
-            bindDropController(item);
-            folderTree.addItem(item);
+        for (IMAPTreeItem iTreeItem : treeList) {
+            bindDropController(iTreeItem);
+            folderTree.addItem(iTreeItem);
 
-            if (((IMAPFolder) item.getUserObject()).getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
-                folderTree.setSelectedItem(item, false);
+            if (((IMAPFolder) iTreeItem.getUserObject()).getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
+                folderTree.setSelectedItem(iTreeItem, false);
             }
 
         }

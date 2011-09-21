@@ -248,8 +248,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             public void onClick(ClickEvent event) {
                 final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
                 ArrayList<Long> uids = new ArrayList<Long>();
-                for (int i = 0; i < selectedMessages.size(); i++) {
-                    Message m = selectedMessages.get(i);
+                for (Message m : selectedMessages) {
                     if (m.getFlags().contains(IMAPFlag.SEEN) == false) {
                         uids.add(m.getUid());
                     } else {
@@ -258,8 +257,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
                 }
                 dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, true, uids), new HupaCallback<GenericResult>(dispatcher, eventBus) {
                     public void callback(GenericResult result) {
-                        for (int i = 0; i < selectedMessages.size(); i++) {
-                            Message m = selectedMessages.get(i);
+                        for (Message m : selectedMessages) {
                             if (m.getFlags().contains(IMAPFlag.SEEN) == false) {
                                 m.getFlags().add(IMAPFlag.SEEN);
                             }
@@ -277,8 +275,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             public void onClick(ClickEvent event) {
                 final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
                 ArrayList<Long> uids = new ArrayList<Long>();
-                for (int i = 0; i < selectedMessages.size(); i++) {
-                    Message m = selectedMessages.get(i);
+                for (Message m : selectedMessages) {
                     if (m.getFlags().contains(IMAPFlag.SEEN)) {
                         uids.add(m.getUid());
                     } else {
@@ -288,8 +285,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
                 
                 dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, false, uids), new HupaCallback<GenericResult>(dispatcher, eventBus) {
                     public void callback(GenericResult result) {
-                        for (int i = 0; i < selectedMessages.size(); i++) {
-                            Message m = selectedMessages.get(i);
+                        for (Message m : selectedMessages) {
                             if (m.getFlags().contains(IMAPFlag.SEEN)) {
                                 m.getFlags().remove(IMAPFlag.SEEN);
                             }
@@ -359,8 +355,8 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
     private void deleteMessages() {
         final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
         ArrayList<Long> uids = new ArrayList<Long>();
-        for (int i = 0; i < selectedMessages.size(); i++) {
-            uids.add(selectedMessages.get(i).getUid());
+        for (Message m : selectedMessages) {
+            uids.add(m.getUid());
         }
         // maybe its better to just remove the messages from the table and expect the removal will work
         display.removeMessages(selectedMessages);

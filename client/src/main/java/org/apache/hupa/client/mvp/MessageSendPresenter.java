@@ -221,13 +221,10 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
 
     protected ArrayList<String> emailTextToArray(String emails) {
         ArrayList<String> cc = new ArrayList<String>();
-        String[] ccRaw = emails.split("[,;]+");
-        if (ccRaw != null) {
-            for (int i = 0; i < ccRaw.length; i++) {
-                String ccRecip = ccRaw[i].trim();
-                if (ccRecip.length() > 0) {
-                    cc.add(ccRaw[i].trim());
-                }
+        for (String ccRaw : emails.split("[,;]+")) {
+            String ccRecip = ccRaw.trim();
+            if (ccRecip.length() > 0) {
+                cc.add(ccRaw.trim());
             }
         }
         return cc;

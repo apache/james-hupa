@@ -777,9 +777,9 @@ public class IMAPMessageListView extends Composite implements Display{
      * @see org.apache.hupa.client.mvp.MainPresenter.Display#fillSearchOracle(java.util.ArrayList)
      */
     public void fillSearchOracle(ArrayList<Message> messages) {
-        for (int i = 0; i < messages.size(); i++) {
-            String subject = messages.get(i).getSubject();
-            String from = messages.get(i).getFrom();
+        for (Message m : messages) {
+            String subject = m.getSubject();
+            String from = m.getFrom();
             if (subject != null && subject.trim().length() > 0) {
                 oracle.add(subject.trim());
             }
