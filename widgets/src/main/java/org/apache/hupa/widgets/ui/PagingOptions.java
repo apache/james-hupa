@@ -79,13 +79,9 @@ public class PagingOptions extends Composite {
         table.addPageCountChangeHandler(new PageCountChangeHandler() {
 
             public void onPageCountChange(PageCountChangeEvent event) {
-                int startCount =  currentPage * table.getPageSize();
+                int startCount =  currentPage * table.getPageSize() + 1;
                 
-                if (currentPage == 0) {
-                    startCount = 0;
-                }
-                
-                int endCount  = startCount + table.getPageSize();
+                int endCount  = currentPage * table.getPageSize() + table.getPageSize();
                 
                 int rows = table.getTableModel().getRowCount();
                 updateControl(startCount, endCount, rows);
@@ -100,13 +96,9 @@ public class PagingOptions extends Composite {
                 loading(true);
             
                 currentPage = event.getNewPage();
-                int startCount =  currentPage * table.getPageSize();
+                int startCount =  currentPage * table.getPageSize() + 1;
                 
-                if (currentPage == 0) {
-                    startCount = 0;
-                }
-                
-                int endCount  = startCount + table.getPageSize();
+                int endCount  = currentPage * table.getPageSize() + table.getPageSize();
                 int rows = table.getTableModel().getRowCount();
             
                 
@@ -165,13 +157,9 @@ public class PagingOptions extends Composite {
         table.getTableModel().addRowCountChangeHandler(new RowCountChangeHandler() {
 
             public void onRowCountChange(RowCountChangeEvent event) {
-                int startCount =  currentPage * table.getPageSize();
+                int startCount = currentPage * table.getPageSize() + 1;
                 
-                if (currentPage == 0) {
-                    startCount = 0;
-                }
-                
-                int endCount  = startCount + table.getPageSize();
+                int endCount  = currentPage * table.getPageSize() + table.getPageSize();
                 
                 int rows =event.getNewRowCount();
                 updateControl(startCount, endCount, rows);
@@ -207,7 +195,7 @@ public class PagingOptions extends Composite {
             startCount = 0;
         }
         
-        if (startCount <= 0) {
+        if (startCount <= 1) {
             firstLink.setEnabled(false);
             prevLink.setEnabled(false);
         } else {
