@@ -77,7 +77,7 @@ public class MessageDetails implements Serializable{
 
     /**
      * Return the body text of the content
-     * @return
+     * @return The text
      */
     public String getText() {
         return text;

@@ -60,8 +60,6 @@ public class IMAPTreeItem extends EditableTreeItem {
     
     /**
      * Decrease the unseen messagecount of this folder
-     * 
-     * @param decreaseCount
      */
     public void descreaseUnseenMessageCount(int decreaseCount) {
         IMAPFolder folder = (IMAPFolder) getUserObject();
@@ -77,8 +75,6 @@ public class IMAPTreeItem extends EditableTreeItem {
     }
     /**
      * Increase the unseen messagecount of this folder
-     * 
-     * @param increaseCount
      */
     public void increaseUnseenMessageCount() {
         increaseUnseenMessageCount(1);
@@ -86,7 +82,6 @@ public class IMAPTreeItem extends EditableTreeItem {
     
     /**
      * Increase the unseen messagecount of this folder
-     * 
      */
     public void increaseUnseenMessageCount( int increaseCount) {
         IMAPFolder folder = (IMAPFolder) getUserObject();

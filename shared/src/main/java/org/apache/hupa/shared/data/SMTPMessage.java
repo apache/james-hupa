@@ -61,7 +61,7 @@ public class SMTPMessage extends AbstractMessage{
 
     /**
      * Return the body text of the content
-     * @return
+     * @return The text
      */
     public String getText() {
         return text;

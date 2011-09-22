@@ -108,15 +108,12 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
     
     /**
      * The callback code which the user has to implement
-     * @param result
      */
     public abstract void callback(T result); 
 
     /**
      * The callback code in the case of error
      * Override this method, if you need this feature.
-     *  
-     * @param result
      */
     public void callbackError(Throwable caught) {
         System.out.println("HupaCallBack Error: " + caught);

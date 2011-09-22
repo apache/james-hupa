@@ -81,7 +81,7 @@ public class MessageUtils {
      * 
      * @param logger
      * @param content
-     * @return
+     * @return A list of body parts of the attachments
      * @throws MessagingException
      * @throws IOException
      */
@@ -120,8 +120,8 @@ public class MessageUtils {
      * Loop over MuliPart and write the content to the Outputstream if a
      * attachment with the given name was found.
      *
-     * @param out
-     *            Outputstream to write the content to
+     * @param logger
+     *            The logger to use
      * @param content
      *            Content which should checked for attachments
      * @param attachmentName
@@ -165,7 +165,7 @@ public class MessageUtils {
      * Convert a FileItem to a BodyPart
      * 
      * @param item
-     * @return
+     * @return message body part
      * @throws MessagingException
      */
     public static BodyPart fileitemToBodypart(FileItem item) throws MessagingException {

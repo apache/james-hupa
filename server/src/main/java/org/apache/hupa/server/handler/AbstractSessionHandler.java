@@ -78,7 +78,6 @@ public abstract class AbstractSessionHandler<A extends Action<R>,R extends Resul
     /**
      * Return the User stored in session with the given id
      * 
-     * @param sessionId 
      * @return user
      * @throws ActionException
      */

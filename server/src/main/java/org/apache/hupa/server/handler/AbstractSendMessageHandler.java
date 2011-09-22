@@ -199,8 +199,8 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
     /**
      * Get the attachments stored in the registry.
      * 
-     * @param attachments
-     * @return
+     * @param action
+     * @return A list of stored attachments
      */
     @SuppressWarnings("unchecked")
     protected List getAttachments(A action) throws MessagingException, ActionException {
@@ -316,8 +316,8 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      * @param message
      * @param text
      * @param html
-     * @param items
-     * @return
+     * @param parts
+     * @return The composed message
      * @throws MessagingException
      * @throws IOException
      */

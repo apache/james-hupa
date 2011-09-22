@@ -91,7 +91,7 @@ public class IMAPFolder implements Serializable {
 
     /**
      * Return the full name of the folder. This include the full path
-     * @return
+     * @return Full name of the folder
      */
     public String getFullName() {
         return fullName;
