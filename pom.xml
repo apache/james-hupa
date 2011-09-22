@@ -109,7 +109,7 @@
         </repository>
     </repositories>
     <properties>
-        <gwtVersion>2.3.0</gwtVersion>
+        <gwtVersion>2.4.0</gwtVersion>
         <gwtMavenVersion>2.3.0-1</gwtMavenVersion>
         <target.jdk>1.6</target.jdk>
     </properties>
@@ -211,6 +211,23 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>gwt-maven-plugin</artifactId>
                     <version>${gwtMavenVersion}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.google.gwt</groupId>
+                            <artifactId>gwt-servlet</artifactId>
+                            <version>${gwtVersion}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.google.gwt</groupId>
+                            <artifactId>gwt-user</artifactId>
+                            <version>${gwtVersion}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.google.gwt</groupId>
+                            <artifactId>gwt-dev</artifactId>
+                            <version>${gwtVersion}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
