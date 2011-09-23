@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class RndPanelGeneratorImplIE implements RndPanelGenerator  {
 
-    class MyRoundedLinePanel extends RoundedLinePanel {
+    static class MyRoundedLinePanel extends RoundedLinePanel {
         public MyRoundedLinePanel(int a, int b) {
             super(a,b);
         }

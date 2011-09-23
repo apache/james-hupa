@@ -156,7 +156,7 @@ public class MockIMAPFolder extends IMAPFolder {
     public synchronized Message getMessageByUID(long uid)
             throws MessagingException {
         checkExists();
-        return getMessage(new Long(uid).intValue());
+        return getMessage((int)uid);
     }
 
     @Override
@@ -169,8 +169,7 @@ public class MockIMAPFolder extends IMAPFolder {
     public synchronized Message[] getMessagesByUID(long uidstart, long uidend)
             throws MessagingException {
         checkExists();
-        return getMessages(new Long(uidstart).intValue(), new Long(uidend)
-                .intValue());
+        return getMessages((int)uidstart, (int)uidend);
     }
 
     @Override
@@ -179,7 +178,7 @@ public class MockIMAPFolder extends IMAPFolder {
         checkExists();
         int ints[] = new int[uids.length];
         for (int i = 0; i < uids.length; i++) {
-            ints[i] = new Long(uids[i]).intValue();
+            ints[i] = (int)uids[i];
         }
         return getMessages(ints);
     }

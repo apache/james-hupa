@@ -112,7 +112,7 @@ public class MessageDetails implements Serializable{
     }
     
     public int hashCode() {
-        Long l = new Long(getUid());
+        Long l = Long.valueOf(getUid());
         return l.intValue() * 16;
     }
 }

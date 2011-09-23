@@ -168,7 +168,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
         pool.remove(username);
     }
     
-    private final class CachedIMAPStore {
+    private static final class CachedIMAPStore {
         private long validUntil;
         private int validForMillis;
         private IMAPStore store;

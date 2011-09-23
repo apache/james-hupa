@@ -385,7 +385,7 @@ public class IMAPMessageListView extends Composite implements Display{
      * @author Norman
      *
      */
-    private final class AttachmentColumnDefination extends AbstractColumnDefinition<Message, Boolean> {
+    private static final class AttachmentColumnDefination extends AbstractColumnDefinition<Message, Boolean> {
 
         @Override
         public Boolean getCellValue(Message rowValue) {
@@ -402,7 +402,7 @@ public class IMAPMessageListView extends Composite implements Display{
      * ColumnDefination which display the From 
      *
      */
-    private final class FromColumnDefination extends AbstractColumnDefinition<Message, String> {
+    private static final class FromColumnDefination extends AbstractColumnDefinition<Message, String> {
 
         @Override
         public String getCellValue(Message rowValue) {
@@ -420,7 +420,7 @@ public class IMAPMessageListView extends Composite implements Display{
      * ColumnDefination which display the Subject
      *
      */
-    private final class SubjectColumnDefination extends AbstractColumnDefinition<Message, String> {
+    private static final class SubjectColumnDefination extends AbstractColumnDefinition<Message, String> {
 
         @Override
         public String getCellValue(Message rowValue) {
@@ -439,7 +439,7 @@ public class IMAPMessageListView extends Composite implements Display{
      * ColumnDefination which display the Date
      * 
      */
-    private final class DateColumnDefination extends AbstractColumnDefinition<Message, Date> {
+    private static final class DateColumnDefination extends AbstractColumnDefinition<Message, Date> {
 
         @Override
         public Date getCellValue(Message rowValue) {
@@ -516,7 +516,7 @@ public class IMAPMessageListView extends Composite implements Display{
      *
      * @param <E> RowType
      */
-    private final class WhiteSpaceCellRenderer<E> implements CellRenderer<E, String> {
+    private static final class WhiteSpaceCellRenderer<E> implements CellRenderer<E, String> {
 
         /*
          * (non-Javadoc)
