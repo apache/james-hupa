@@ -21,6 +21,7 @@ package org.apache.hupa.shared.rpc;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
@@ -32,9 +33,9 @@ public class FetchFoldersResult implements Result, Serializable {
      * 
      */
     private static final long serialVersionUID = -6215610133650989605L;
-    private ArrayList<IMAPFolder> folders;
+    private List<IMAPFolder> folders;
 
-    public FetchFoldersResult(ArrayList<IMAPFolder> folders) {
+    public FetchFoldersResult(List<IMAPFolder> folders) {
         this.folders=folders;
     }
     
@@ -42,15 +43,26 @@ public class FetchFoldersResult implements Result, Serializable {
     private FetchFoldersResult() {
     }
     
-    public ArrayList<IMAPFolder> getFolders() {
+    public List<IMAPFolder> getFolders() {
         return folders;
     }
 
     public String toString() {
-        StringBuilder ret = new StringBuilder();
-        for (IMAPFolder f : folders)
-            ret.append(f.getFullName()).append(" ");
+        StringBuffer ret = new StringBuffer("");
+        for (IMAPFolder folder : folders) {
+            ret.append(folder.getFullName()).append("\n");
+            for (IMAPFolder f : folder.getChildIMAPFolders()) {
+                childFolder(f, ret);
+            }
+        }
         return ret.toString();
+    }
+    
+    private void childFolder(IMAPFolder child, StringBuffer ret) {
+        ret.append(child.getFullName()).append("\n");
+        for (IMAPFolder folder : child.getChildIMAPFolders()) {
+            childFolder(folder, ret);
+        }
     }
     
 }
