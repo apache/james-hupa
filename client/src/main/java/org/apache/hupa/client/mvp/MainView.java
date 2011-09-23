@@ -179,7 +179,7 @@ public class MainView extends Composite implements MainPresenter.Display {
      * (non-Javadoc)
      * @see org.apache.hupa.client.mvp.MainPresenter.Display#bindTreeItems(java.util.ArrayList)
      */
-    public void bindTreeItems(ArrayList<IMAPTreeItem> treeList) {
+    public void bindTreeItems(List<IMAPTreeItem> treeList) {
         folderTree.clear();
         for (DropController dropController : dropControllerList) {
             controller.unregisterDropController(dropController);

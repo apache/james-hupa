@@ -22,6 +22,7 @@ package org.apache.hupa.client.mvp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
@@ -95,7 +96,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
       
         public HasSelectionHandlers<TreeItem> getTree();
 
-        public void bindTreeItems(ArrayList<IMAPTreeItem> treeList);
+        public void bindTreeItems(List<IMAPTreeItem> treeList);
 
         public HasClickHandlers getRenameClick();
 
@@ -169,8 +170,8 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
      * @param list
      * @return
      */
-    private ArrayList<IMAPTreeItem> createTreeNodes(ArrayList<IMAPFolder> list) {
-        ArrayList<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
+    private List<IMAPTreeItem> createTreeNodes(List<IMAPFolder> list) {
+        List<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
 
         for (IMAPFolder iFolder : list) {
 
@@ -197,12 +198,10 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             });
             record.setUserObject(iFolder);
 
-            ArrayList<IMAPFolder> childFolders = iFolder.getChildIMAPFolders();
-            if (childFolders != null && childFolders.isEmpty() == false) {
-                ArrayList<IMAPTreeItem> items = createTreeNodes(childFolders);
-                for (IMAPTreeItem item : items) {
-                    record.addItem(item);
-                }
+            List<IMAPFolder> childFolders = iFolder.getChildIMAPFolders();
+            List<IMAPTreeItem> items = createTreeNodes(childFolders);
+            for (IMAPTreeItem item : items) {
+                record.addItem(item);
             }
 
             // Store the INBOX as starting point after first loading
