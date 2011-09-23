@@ -58,19 +58,27 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
     public FetchFoldersResult executeInternal(FetchFolders action, ExecutionContext arg1)
     throws ActionException {
         User user = getUser();
-        ArrayList<IMAPFolder> fList = new ArrayList<IMAPFolder>();
         try {
 
             // get the store for the user
             IMAPStore store = cache.get(user);
             com.sun.mail.imap.IMAPFolder folder = (com.sun.mail.imap.IMAPFolder) store.getDefaultFolder();
             
-            // loop over all folders
+            // List of mail 'root' imap folders
+            List<IMAPFolder> imapFolders = new ArrayList<IMAPFolder>();
+
+            // Create IMAPFolder tree list
             for (Folder f : folder.list()) {
-                createIMAPFolderTree(fList, createFolder(f), f.list());
+                IMAPFolder imapFolder = createIMAPFolder(f);
+                imapFolders.add(imapFolder);
+                walkFolders(f, imapFolder);
             }
-            logger.debug("Fetching folders for user: " + user + " returns: " + fList.size() + " folders");
-            return new FetchFoldersResult(fList);
+            
+            // Create the tree and return the result
+            FetchFoldersResult fetchFolderResult = new FetchFoldersResult(imapFolders);
+            logger.debug("Fetching folders for user: " + user + " returns:\n" + fetchFolderResult.toString());
+
+            return fetchFolderResult;
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("Unable to get folders for User " + user,e);
@@ -79,7 +87,21 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
         }
     }
 
-
+    /**
+     * Walk through the folder's sub-folders and add sub-folders to current imapFolder
+     *   
+     * @param folder Folder to walk
+     * @param imapFolder Current IMAPFolder
+     * @throws ActionException If an error occurs
+     * @throws MessagingException If an error occurs
+     */
+    private void walkFolders(Folder folder, IMAPFolder imapFolder) throws ActionException, MessagingException{
+        for (Folder f : folder.list()) {
+            IMAPFolder iFolder = createIMAPFolder(f);
+            imapFolder.getChildIMAPFolders().add(iFolder);
+            walkFolders(f, iFolder);
+        }
+    }
     /*
      * (non-Javadoc)
      * @see net.customware.gwt.dispatch.server.ActionHandler#getActionType()
@@ -91,12 +113,12 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
     /**
      * Create a new IMAPFolder from the given Folder
      * 
-     * @param folder
-     * @return imapFolder
-     * @throws ActionException 
-     * @throws MessagingException
+     * @param folder Current folder
+     * @return imapFolder Created IMAPFolder
+     * @throws ActionException If an error occurs
+     * @throws MessagingException If an error occurs
      */
-    private IMAPFolder createFolder(Folder folder) throws ActionException {
+    private IMAPFolder createIMAPFolder(Folder folder) throws ActionException {
 
         String fullName = folder.getFullName();
         String delimiter;
@@ -116,28 +138,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
             logger.error("Unable to construct folder " + folder.getFullName(),e);
         }
         
-        
         return iFolder;
-    }
-    
-    /**
-     * Create a folder tree 
-     * 
-     * @param fList
-     * @param iFolder
-     * @param childFolders
-     * @throws MessagingException
-     */
-    private void createIMAPFolderTree(List<IMAPFolder> fList,
-            IMAPFolder iFolder, Folder[] childFolders) throws MessagingException, ActionException {
-
-        for (Folder f : childFolders) {
-            IMAPFolder folder = createFolder(f);
-            if (folder != null) {
-                iFolder.getChildIMAPFolders().add(createFolder(f));
-            }
-        }
-        fList.add(iFolder);
     }
 
 }
