@@ -21,6 +21,7 @@ package org.apache.hupa.server.guice;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -225,12 +226,22 @@ public class GuiceServerModule extends ActionHandlerModule {
             file = new File(configDir + File.separator + file.getName());
         }
         if (file.exists()) {
+            FileInputStream fis = null;
             try {
                 properties = new Properties();
-                properties.load(new FileInputStream(file));
+                fis = new FileInputStream(file);
+                properties.load(fis);
             } catch (Exception e) {
                 properties = null;    
                 e.printStackTrace();
+            } finally {
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        // Empty on purpose
+                    }
+                }
             }
         }
         
