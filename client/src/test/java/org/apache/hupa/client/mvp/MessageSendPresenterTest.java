@@ -29,7 +29,7 @@ import org.apache.hupa.client.HupaMvpTestCase;
 import org.apache.hupa.client.guice.GuiceMvpTestModule;
 import org.apache.hupa.client.guice.GuiceMvpTestModule.DispatchTestAsync;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
-import org.apache.hupa.server.guice.GuiceServerTestModule;
+import org.apache.hupa.client.guice.GuiceClientTestModule;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
@@ -50,7 +50,7 @@ public class MessageSendPresenterTest extends HupaMvpTestCase {
 
     
     protected Module[] getModules() {
-        return new Module[]{new GuiceServerTestModule(), new GuiceMvpTestModule() {
+        return new Module[]{new GuiceClientTestModule(), new GuiceMvpTestModule() {
             @Override
             protected void configure() {
                 dispatchAsyncInstance = EasyMock.createStrictMock(DispatchAsync.class);

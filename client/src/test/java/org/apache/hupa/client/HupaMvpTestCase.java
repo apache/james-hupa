@@ -31,7 +31,7 @@ import net.customware.gwt.presenter.client.EventBus;
 
 import org.apache.hupa.client.guice.GuiceMvpTestModule;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.guice.GuiceServerTestModule;
+import org.apache.hupa.client.guice.GuiceClientTestModule;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
@@ -60,7 +60,7 @@ public abstract class HupaMvpTestCase extends TestCase {
     protected EventBus eventBus;
     
     protected Module[] getModules() {
-        return new Module[]{new GuiceServerTestModule(), new GuiceMvpTestModule()};
+        return new Module[]{new GuiceClientTestModule(), new GuiceMvpTestModule()};
     }
 
     @Override
