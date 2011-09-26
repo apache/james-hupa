@@ -79,7 +79,7 @@ public class MockIMAPStore extends IMAPStore{
         return new Provider(Provider.Type.STORE,"mockimap",MockIMAPStore.class.getName(),"","");
     }
     
-    public boolean save(MockIMAPFolder folder) {
+    public synchronized boolean save(MockIMAPFolder folder) {
         for (MockIMAPFolder iFolder : folders) {
             if (iFolder.getFullName().equals(folder.getFullName())) {
                 return false;
@@ -89,7 +89,7 @@ public class MockIMAPStore extends IMAPStore{
         return true;
     } 
     
-    public boolean delete(MockIMAPFolder folder, boolean recursive) {
+    public synchronized boolean delete(MockIMAPFolder folder, boolean recursive) {
         boolean found = false;
         for (int i= 0; i < folders.size(); i++) {
             if (folders.get(i).getFullName().equals(folder.getFullName())) {
@@ -115,7 +115,7 @@ public class MockIMAPStore extends IMAPStore{
         return null;
     }
     
-    public List<MockIMAPFolder> getChilds(MockIMAPFolder folder) {
+    public synchronized List<MockIMAPFolder> getChilds(MockIMAPFolder folder) {
         List<MockIMAPFolder> childs = new ArrayList<MockIMAPFolder>();
         if (MockIMAPFolder.MOCK_DEFAULT_FOLDER.equals(folder.getFullName())) {
             for(MockIMAPFolder f: folders) {
@@ -135,15 +135,15 @@ public class MockIMAPStore extends IMAPStore{
         return childs;
     }
     
-    public void setValidLogins(Map<String,String> validLogins) {
+    public synchronized void setValidLogins(Map<String,String> validLogins) {
         this.validLogins = validLogins;
     }
 
-    public void setValidServers(Map<String,Integer> validServers) {
+    public synchronized void setValidServers(Map<String,Integer> validServers) {
         this.validServers = validServers;
     }
     
-    public void clear() {
+    public synchronized void clear() {
         folders.clear();
     }
     
@@ -178,7 +178,7 @@ public class MockIMAPStore extends IMAPStore{
     }
 
     @Override
-    public void connect() throws MessagingException {
+    public synchronized void connect() throws MessagingException {
         connected = true;
     }
 
@@ -194,7 +194,7 @@ public class MockIMAPStore extends IMAPStore{
     }
 
     @Override
-    public void connect(String host, String user, String password)
+    public synchronized void connect(String host, String user, String password)
             throws MessagingException {
         if (validServers.containsKey(host) == false) {
             throw new MessagingException("Can't connect to host");
@@ -203,7 +203,7 @@ public class MockIMAPStore extends IMAPStore{
     }
 
     @Override
-    public void connect(String user, String password) throws MessagingException {
+    public synchronized void connect(String user, String password) throws MessagingException {
         String pass = validLogins.get(user);
         if (pass != null && validLogins.get(user).equals(password)) {
             connect();
@@ -218,7 +218,7 @@ public class MockIMAPStore extends IMAPStore{
         return capList.contains(capability);
     }
     
-    public void setCapabilities(List<String> capList) {
+    public synchronized void setCapabilities(List<String> capList) {
         this.capList = capList;
     }
 
