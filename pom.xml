@@ -354,6 +354,8 @@
                                     <exclude>**/MANIFEST.MF</exclude>
                                     <!-- GWT log files -->
                                     <exclude>**/.gwt-log</exclude>
+                                    <!-- Mock messages -->
+                                    <exclude>**/resources/mime/*.msg</exclude>
                                 </excludes>
                             </configuration>
                         </plugin>
