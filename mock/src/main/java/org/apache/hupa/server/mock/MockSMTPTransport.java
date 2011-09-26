@@ -46,7 +46,9 @@ public class MockSMTPTransport extends Transport {
             msg.writeTo(new OutputStream() {
                 public void write(int b) throws IOException {}
             });
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            // Do nothing
+        }
     }
 
     @Override
