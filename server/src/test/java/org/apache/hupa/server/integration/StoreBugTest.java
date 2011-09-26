@@ -63,7 +63,7 @@ public class StoreBugTest {
     
     @Test 
     public void testMockIMAPStore() throws Exception {
-        TestThread[] threads = testIMAPStoreIdle(getStore(true), "Demo-Inbox", 100);
+        TestThread[] threads = testIMAPStoreIdle(getStore(true), "Mock-Inbox", 100);
         Assert.assertNotNull(threads);
         Assert.assertFalse(getThreadsSpentTime(threads).contains("-1"));
     }

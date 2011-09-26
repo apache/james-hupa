@@ -19,18 +19,18 @@
 
 package org.apache.hupa.server.handler;
 
-import com.sun.mail.imap.IMAPStore;
+import javax.mail.Message;
 
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.HupaGuiceTestCase;
-import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockIMAPFolder;
+import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.rpc.ForwardMessage;
 
-import javax.mail.Message;
+import com.sun.mail.imap.IMAPStore;
 
 public class FowardMessageHandlerTest extends HupaGuiceTestCase {
 
@@ -39,10 +39,10 @@ public class FowardMessageHandlerTest extends HupaGuiceTestCase {
         
         FileItemRegistry registry = injector.getInstance(FileItemRegistry.class);
         
-        MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER);
+        MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(MockIMAPStore.MOCK_SENT_FOLDER);
         assertTrue(sentbox.getMessages().length == 0);
 
-        MockIMAPFolder inbox = (MockIMAPFolder) store.getFolder(DemoModeConstants.DEMO_MODE_INBOX_FOLDER);
+        MockIMAPFolder inbox = (MockIMAPFolder) store.getFolder(MockIMAPStore.MOCK_INBOX_FOLDER);
         assertTrue(inbox.getMessages().length >= 0);
         
         Message message = TestUtils.createMockMimeMessage(session, 2);

@@ -29,14 +29,15 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.URLName;
 
-import org.apache.hupa.server.guice.DemoModeConstants;
-
 public class MockSMTPTransport extends Transport {
 
-    static final URLName demoUrl = new URLName(null, DemoModeConstants.DEMO_MODE, 143, null, null, null);
+    public static final String MOCK_HOST = "mock-host";
+    public static final Integer MOCK_PORT = 143;
+    
+    static final URLName mockUrl = new URLName(null, MOCK_HOST, MOCK_PORT, null, null, null);
 
     public MockSMTPTransport(Session session) {
-        super(session, demoUrl);
+        super(session, mockUrl);
     }
 
     @Override

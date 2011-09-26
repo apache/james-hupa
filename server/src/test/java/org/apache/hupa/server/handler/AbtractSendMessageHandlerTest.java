@@ -20,19 +20,19 @@
 package org.apache.hupa.server.handler;
 
 
-import com.sun.mail.imap.IMAPStore;
+import javax.mail.Message;
+import javax.mail.Part;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
-import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockIMAPFolder;
+import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.rpc.SendMessage;
 
-import javax.mail.Message;
-import javax.mail.Part;
+import com.sun.mail.imap.IMAPStore;
 
 public class AbtractSendMessageHandlerTest extends HupaGuiceTestCase {
 
@@ -97,7 +97,7 @@ public class AbtractSendMessageHandlerTest extends HupaGuiceTestCase {
     
     public void testSendEmailWithAttachments() throws Exception {
         IMAPStore store = storeCache.get(testUser);
-        MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER);
+        MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(MockIMAPStore.MOCK_SENT_FOLDER);
         
         SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(SessionUtils.getSessionRegistry(logger, httpSession), 2);
         SendMessage action = new SendMessage(smtpmsg);
@@ -128,7 +128,7 @@ public class AbtractSendMessageHandlerTest extends HupaGuiceTestCase {
 
     public void testExecute() throws Exception {
         IMAPStore store = storeCache.get(testUser);
-        MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(DemoModeConstants.DEMO_MODE_SENT_FOLDER);
+        MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(MockIMAPStore.MOCK_SENT_FOLDER);
         
         SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(SessionUtils.getSessionRegistry(logger, httpSession), 2);
         SendMessage action = new SendMessage(smtpmsg);

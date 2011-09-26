@@ -19,11 +19,15 @@
 package org.apache.hupa.server.guice;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Properties;
 
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.hupa.server.mock.MockIMAPStore;
+import org.apache.hupa.server.mock.MockSMTPTransport;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -90,9 +94,18 @@ public class ServerModulTest {
     public void testLoadDemoProperties() throws Exception {
         File tmp = File.createTempFile("foo", ".properties");
         tmp.deleteOnExit();
-        FileUtils.writeStringToFile(tmp, "IMAPServerAddress=" + DemoModeConstants.DEMO_MODE);
+        Collection<String> lines = new ArrayList<String>();
+        lines.add("IMAPServerAddress = " + MockSMTPTransport.MOCK_HOST);
+        lines.add("IMAPServerPort = " + MockSMTPTransport.MOCK_PORT);
+        lines.add("SMTPServerAddress = " + MockSMTPTransport.MOCK_HOST);
+        lines.add("SMTPServerPort = " + MockSMTPTransport.MOCK_PORT);
+        lines.add("DefaultInboxFolder = " + MockIMAPStore.MOCK_INBOX_FOLDER);
+        lines.add("DefaultTrashFolder = " + MockIMAPStore.MOCK_TRASH_FOLDER);
+        lines.add("DefaultSentFolder = " + MockIMAPStore.MOCK_SENT_FOLDER);
+        lines.add("DefaultDraftsFolder = " + MockIMAPStore.MOCK_DRAFTS_FOLDER);
+        FileUtils.writeLines(tmp, lines);
 
-        System.setProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE, tmp.toString());
+        System.setProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
         Properties p = module.loadProperties();
         Assert.assertNotNull(p);
         Assert.assertEquals(DemoModeConstants.mockSettings.getInboxFolderName(), p.get("DefaultInboxFolder"));

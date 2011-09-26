@@ -31,19 +31,19 @@ import javax.activation.DataSource;
 import javax.mail.Address;
 import javax.mail.AuthenticationFailedException;
 import javax.mail.BodyPart;
+import javax.mail.Flags.Flag;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.Flags.Flag;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeMessage.RecipientType;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -53,7 +53,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.mock.MockSMTPTransport;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
@@ -247,7 +246,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
     protected void sendMessage(Session session, User user, Message message) throws MessagingException {
         Transport transport;
     
-        if (DemoModeConstants.DEMO_MODE.equals(address)) {
+        if (MockSMTPTransport.MOCK_HOST.equals(address)) {
             transport = new MockSMTPTransport(session);
         } else if (useSSL) {
             transport = session.getTransport("smtps");

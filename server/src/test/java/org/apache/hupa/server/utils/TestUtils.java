@@ -19,7 +19,22 @@
 
 package org.apache.hupa.server.utils;
 
-import com.sun.mail.imap.IMAPStore;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.mail.BodyPart;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.Message.RecipientType;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.Session;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.MimeMessage;
 
 import junit.framework.TestCase;
 
@@ -27,28 +42,12 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.hupa.server.FileItemRegistry;
-import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
+import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.SMTPMessage;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.mail.BodyPart;
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.Session;
-import javax.mail.Message.RecipientType;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.MimeMessage;
+import com.sun.mail.imap.IMAPStore;
 
 /**
  * A bunch of useful methods used for testing
@@ -126,10 +125,9 @@ public class TestUtils extends TestCase {
      * @throws Exception
      */
     public static MimeMessage loadMessageFromFile(Session session, String msgFile) throws Exception {
-        msgFile = DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + msgFile;
-        URL url = Thread.currentThread().getContextClassLoader().getResource(msgFile);
+        msgFile = MockIMAPFolder.MOCK_MESSAGES_LOCATION + msgFile;
 
-        FileInputStream is = new FileInputStream(url.getFile());
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(msgFile);
         return new MimeMessage(session, is);
     }
 

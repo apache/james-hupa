@@ -18,18 +18,17 @@
  ****************************************************************/
 package org.apache.hupa.server.mock;
 
-import org.apache.hupa.server.HupaGuiceTestCase;
-import org.apache.hupa.server.guice.DemoModeConstants;
-
 import java.net.URL;
 
 import javax.mail.Folder;
 import javax.mail.Message;
 
+import org.apache.hupa.server.HupaGuiceTestCase;
+
 public class MockImapFolderTest extends HupaGuiceTestCase {
 
     public void testReadMessageFile() throws Exception {
-        URL url = Thread.currentThread().getContextClassLoader().getResource(DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + "0.msg");
+        URL url = Thread.currentThread().getContextClassLoader().getResource(MockIMAPFolder.MOCK_MESSAGES_LOCATION + "0.msg");
         assertNotNull("There aren't message files for demo mode, check that the files mime/\\d.msg are in your classpath", url);
     }
     

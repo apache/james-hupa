@@ -102,8 +102,6 @@ public class GuiceServerModule extends ActionHandlerModule {
 
     private String configDir;
     
-    private boolean demoMode = false;
-    
     public GuiceServerModule(String rootPath) {
         configDir = rootPath + "/" + CONF_DIR;
     }
@@ -174,12 +172,6 @@ public class GuiceServerModule extends ActionHandlerModule {
             properties = loadProperties(configDir + CONFIG_FILE_NAME);
         }
 
-        // Put Hupa in demo mode
-        demoMode = DemoModeConstants.DEMO_MODE.equals(properties.get("IMAPServerAddress"));
-        if (demoMode) {
-            properties = DemoModeConstants.demoProperties;
-        }
-        
         // Validate for mandatory and complete properties with default values
         return validateProperties(properties);
     }
@@ -206,7 +198,7 @@ public class GuiceServerModule extends ActionHandlerModule {
 		errors.add("The Property '" + key + "' has no configuration impacts, it's unknown");
 	    }
 	}
-	if (!demoMode && !errors.isEmpty()) {
+	if (!errors.isEmpty()) {
 	    throw new IllegalArgumentException(errors.toString());
 	}
 	

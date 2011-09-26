@@ -19,18 +19,6 @@
 
 package org.apache.hupa.server;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
-import com.google.inject.name.Named;
-
-import com.sun.mail.imap.IMAPStore;
-
-import org.apache.commons.logging.Log;
-import org.apache.hupa.server.guice.DemoModeConstants;
-import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.shared.data.User;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -38,6 +26,17 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
+
+import org.apache.commons.logging.Log;
+import org.apache.hupa.server.mock.MockIMAPStore;
+import org.apache.hupa.server.mock.MockSMTPTransport;
+import org.apache.hupa.shared.data.User;
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
+import com.sun.mail.imap.IMAPStore;
 
 @Singleton
 public class InMemoryIMAPStoreCache implements IMAPStoreCache{
@@ -134,7 +133,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
     
     private CachedIMAPStore createCachedIMAPStore() throws NoSuchProviderException {
         CachedIMAPStore cstore;
-        if (DemoModeConstants.DEMO_MODE.equals(this.address)) {
+        if (MockSMTPTransport.MOCK_HOST.equals(this.address)) {
             cstore = new CachedIMAPStore(new MockIMAPStore(session), 300);
         } else if (useSSL) {
             cstore = new CachedIMAPStore((IMAPStore)session.getStore("imaps"),300);

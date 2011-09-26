@@ -22,8 +22,6 @@ package org.apache.hupa.server.mock;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
-import org.apache.hupa.server.guice.DemoModeConstants;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,12 +41,15 @@ import javax.mail.search.SearchTerm;
 public class MockIMAPFolder extends IMAPFolder {
 
     public static final char SEPARATOR = '.';
+    public static final String MOCK_DEFAULT_FOLDER = "";
+    public static final String MOCK_MESSAGES_LOCATION = "mime/";
+    
     public List<Message> messages = new ArrayList<Message>();
     private boolean closed = true;
     private boolean exists;
     
     public MockIMAPFolder(String fullName, IMAPStore store) {
-        super(fullName, (DemoModeConstants.DEMO_MODE_DEFAULT_FOLDER.equals(fullName) ? '\0' : SEPARATOR), store, false);
+        super(fullName, (MOCK_DEFAULT_FOLDER.equals(fullName) ? '\0' : SEPARATOR), store, false);
     }
 
     @Override
@@ -87,13 +88,13 @@ public class MockIMAPFolder extends IMAPFolder {
 
     }
     
-    public void loadDemoMessages(Session session) throws MessagingException {
+    public synchronized void loadDemoMessages(Session session) throws MessagingException {
         if (!exists()) {
             create(IMAPFolder.HOLDS_MESSAGES);
             open(Folder.READ_WRITE);
         }
         for(int i=0;;i++) {
-            String name = DemoModeConstants.DEMO_MODE_MESSAGES_LOCATION + i + ".msg";
+            String name = MOCK_MESSAGES_LOCATION + i + ".msg";
             InputStream is =  Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
             if (is == null) break;
             addMessages(new Message[]{new MimeMessage(session, is)});

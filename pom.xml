@@ -37,6 +37,7 @@
     </prerequisites>
 
     <modules>
+        <module>mock</module>
         <module>shared</module>
         <module>client</module>
         <module>server</module>
@@ -451,6 +452,11 @@
     </build>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.apache.hupa</groupId>
+                <artifactId>hupa-mock</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.hupa</groupId>
                 <artifactId>hupa-server</artifactId>
