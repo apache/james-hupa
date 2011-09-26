@@ -113,7 +113,11 @@ public class MockLog implements Log{
     }
     
     private void log(Object msg) {
-        System.out.println(msg);
+        if (msg != null) {
+            System.out.println(msg);
+        } else {
+            System.out.println("null-value");
+        }
     }
 
 }
