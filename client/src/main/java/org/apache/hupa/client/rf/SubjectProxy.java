@@ -16,42 +16,24 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
+package org.apache.hupa.client.rf;
 
-package org.apache.hupa.server.mock;
+import org.apache.hupa.server.rf.Subject;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import com.google.web.bindery.requestfactory.shared.EntityProxy;
+import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.URLName;
+@ProxyFor(Subject.class)
+public interface SubjectProxy extends EntityProxy {
+  String getTitle();
 
-public class MockSMTPTransport extends Transport {
+  Long getId();
 
-    public static final String MOCK_HOST = "mock-host";
-    
-    static final URLName mockUrl = new URLName(null, MOCK_HOST, 0, null, null, null);
+  Integer getVersion();
 
-    public MockSMTPTransport(Session session) {
-        super(session, mockUrl);
-    }
+  void setTitle(String title);
 
-    @Override
-    public void sendMessage(Message msg, Address[] addresses) throws MessagingException {
-        try {
-            msg.writeTo(new OutputStream() {
-                public void write(int b) throws IOException {}
-            });
-        } catch (IOException e) {
-            // Do nothing
-        }
-    }
+  void setId(Long id);
 
-    @Override
-    public void connect(String host, int port, String user, String password) throws MessagingException {
-    }
-
+  void setVersion(Integer version);
 }

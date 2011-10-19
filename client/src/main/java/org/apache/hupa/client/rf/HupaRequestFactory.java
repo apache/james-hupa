@@ -16,42 +16,10 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
+package org.apache.hupa.client.rf;
 
-package org.apache.hupa.server.mock;
+import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
-import java.io.IOException;
-import java.io.OutputStream;
-
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.URLName;
-
-public class MockSMTPTransport extends Transport {
-
-    public static final String MOCK_HOST = "mock-host";
-    
-    static final URLName mockUrl = new URLName(null, MOCK_HOST, 0, null, null, null);
-
-    public MockSMTPTransport(Session session) {
-        super(session, mockUrl);
-    }
-
-    @Override
-    public void sendMessage(Message msg, Address[] addresses) throws MessagingException {
-        try {
-            msg.writeTo(new OutputStream() {
-                public void write(int b) throws IOException {}
-            });
-        } catch (IOException e) {
-            // Do nothing
-        }
-    }
-
-    @Override
-    public void connect(String host, int port, String user, String password) throws MessagingException {
-    }
-
+public interface HupaRequestFactory extends RequestFactory {
+  SubjectRequest subjectRequest();
 }

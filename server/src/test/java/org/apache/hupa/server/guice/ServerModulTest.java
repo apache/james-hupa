@@ -96,9 +96,9 @@ public class ServerModulTest {
         tmp.deleteOnExit();
         Collection<String> lines = new ArrayList<String>();
         lines.add("IMAPServerAddress = " + MockSMTPTransport.MOCK_HOST);
-        lines.add("IMAPServerPort = " + MockSMTPTransport.MOCK_PORT);
+        lines.add("IMAPServerPort = 143");
         lines.add("SMTPServerAddress = " + MockSMTPTransport.MOCK_HOST);
-        lines.add("SMTPServerPort = " + MockSMTPTransport.MOCK_PORT);
+        lines.add("SMTPServerPort = 25");
         lines.add("DefaultInboxFolder = " + MockIMAPStore.MOCK_INBOX_FOLDER);
         lines.add("DefaultTrashFolder = " + MockIMAPStore.MOCK_TRASH_FOLDER);
         lines.add("DefaultSentFolder = " + MockIMAPStore.MOCK_SENT_FOLDER);

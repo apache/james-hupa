@@ -19,14 +19,14 @@
     <groupId>org.apache.hupa</groupId>
     <artifactId>hupa-server</artifactId>
     <name>hupa-server</name>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <description>Servercode implementation to access IMAP Mailbox</description>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>org.apache.hupa</groupId>
         <artifactId>hupa-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

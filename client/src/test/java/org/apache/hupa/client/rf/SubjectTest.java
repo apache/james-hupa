@@ -16,42 +16,36 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
+package org.apache.hupa.client.rf;
 
-package org.apache.hupa.server.mock;
+import org.apache.hupa.client.HupaMvpTestCase;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.URLName;
+public class SubjectTest extends HupaMvpTestCase {
 
-public class MockSMTPTransport extends Transport {
-
-    public static final String MOCK_HOST = "mock-host";
-    
-    static final URLName mockUrl = new URLName(null, MOCK_HOST, 0, null, null, null);
-
-    public MockSMTPTransport(Session session) {
-        super(session, mockUrl);
+    public void testEcho() throws Exception {
+        HupaRequestFactory rf = injector.getInstance(HupaRequestFactory.class);
+        
+        SubjectRequest req = rf.subjectRequest(); 
+        SubjectProxy t = req.create(SubjectProxy.class);
+        t.setTitle("New-Subject");
+        req.echo(t, "from_manolo", "to_james").fire(new Receiver<String>() {
+            public void onSuccess(String response) {
+                assertTrue(response.contains("from_manolo"));
+                assertTrue(response.contains("to_james"));
+            }
+        });
+        
+        req = rf.subjectRequest(); 
+        t = req.create(SubjectProxy.class);
+        t.setTitle("New-Subject");
+        req.persist().using(t);
+        req.countSubjects().to(new Receiver<Long>() {
+            public void onSuccess(Long response) {
+                assertEquals(1l, response.longValue());
+            }
+        }).fire();
     }
-
-    @Override
-    public void sendMessage(Message msg, Address[] addresses) throws MessagingException {
-        try {
-            msg.writeTo(new OutputStream() {
-                public void write(int b) throws IOException {}
-            });
-        } catch (IOException e) {
-            // Do nothing
-        }
-    }
-
-    @Override
-    public void connect(String host, int port, String user, String password) throws MessagingException {
-    }
-
 }
+

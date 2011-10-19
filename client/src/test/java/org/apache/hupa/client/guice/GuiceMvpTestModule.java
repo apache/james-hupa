@@ -33,12 +33,19 @@ import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.mock.MockMessageSendDisplay;
 import org.apache.hupa.client.mvp.ContactsPresenter;
 import org.apache.hupa.client.mvp.MessageSendPresenter;
+import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.easymock.EasyMock;
 
+import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import com.google.web.bindery.requestfactory.server.ServiceLayer;
+import com.google.web.bindery.requestfactory.server.SimpleRequestProcessor;
+import com.google.web.bindery.requestfactory.server.testing.InProcessRequestTransport;
+import com.google.web.bindery.requestfactory.vm.RequestFactorySource;
 
 /**
  * Guice module used to test presenters
@@ -54,7 +61,6 @@ public class GuiceMvpTestModule extends AbstractModule {
     
     @Override
     protected void configure() {
-
         if (dispatchAsyncInstance == null) {
             bind(DispatchAsync.class).to(dispatchAsyncClass).in(Singleton.class);
         } else {
@@ -70,6 +76,24 @@ public class GuiceMvpTestModule extends AbstractModule {
 
         bindDisplay(ContactsPresenter.Display.class);
         bind(MessageSendPresenter.Display.class).to(MockMessageSendDisplay.class);
+        
+        bind(com.google.gwt.event.shared.EventBus.class)
+            .to(SimpleEventBus.class)
+            .in(Singleton.class);
+        bind(HupaRequestFactory.class)
+            .toProvider(RequestFactoryProvider.class)
+            .in(Singleton.class);
+    }
+    
+    public static class RequestFactoryProvider implements Provider<HupaRequestFactory> {
+        private static final com.google.gwt.event.shared.EventBus eventBus = new SimpleEventBus();
+        public HupaRequestFactory get() {
+            HupaRequestFactory rf = RequestFactorySource.create(HupaRequestFactory.class);
+            ServiceLayer serviceLayer = ServiceLayer.create();
+            SimpleRequestProcessor processor = new SimpleRequestProcessor(serviceLayer);
+            rf.initialize(eventBus, new InProcessRequestTransport(processor));
+            return rf;
+        }
     }
 
     protected <D extends Display> void bindDisplay(final Class<D> display) {
@@ -108,5 +132,4 @@ public class GuiceMvpTestModule extends AbstractModule {
             }
         }
     }
-
 }

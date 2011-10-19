@@ -108,6 +108,18 @@ public class GuiceServerModule extends ActionHandlerModule {
 
     @Override
     protected void configureHandlers() {
+        Properties properties;
+        try {
+            // Bind addresses and ports for imap and smtp
+            properties = loadProperties();
+            Names.bindProperties(binder(), properties);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to to configure hupa server," +
+                    "\nmake sure that you have a valid /etc/default/hupa file" +
+                    "\nor the web container has been started with the appropriate parameter:" +
+                    " -Dhupa.config.file=your_hupa_properties_file", e);
+        }
+        
         bindHandler(CheckSession.class, CheckSessionHandler.class);
         bindHandler(LoginUser.class, LoginUserHandler.class);
         bindHandler(FetchFolders.class, FetchFoldersHandler.class);
@@ -136,20 +148,9 @@ public class GuiceServerModule extends ActionHandlerModule {
         bind(DownloadAttachmentServlet.class).in(Singleton.class);
         bind(UploadAttachmentServlet.class).in(Singleton.class);
         bind(MessageSourceServlet.class).in(Singleton.class);
-        bind(Session.class).toProvider(SessionProvider.class);
+        bind(Session.class).toProvider(JavaMailSessionProvider.class);
         bind(UserPreferencesStorage.class).to(InImapUserPreferencesStorage.class);
-
-        Properties properties;
-        try {
-            // Bind addresses and ports for imap and smtp
-            properties = loadProperties();
-            Names.bindProperties(binder(), properties);
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to to configure hupa server," +
-                    "\nmake sure that you have a valid /etc/default/hupa file" +
-                    "\nor the web container has been started with the appropriate parameter:" +
-                    " -Dhupa.config.file=your_hupa_properties_file", e);
-        }
+        bind(Properties.class).toInstance(properties);
     }
 
     protected Properties loadProperties() throws Exception {
@@ -177,32 +178,35 @@ public class GuiceServerModule extends ActionHandlerModule {
     }
 
     protected Properties validateProperties(Properties properties) {
-	List<String> errors = new ArrayList<String>();
-	
-        // Test for mandatory and complete properties with default values when missing
-	for (ConfigurationProperties confProps : ConfigurationProperties.values()) {
-	    if (confProps.isMandatory()) {
-		if (properties.get(confProps.getProperty()) == null) {
-		    errors.add("The mandatory Property '" + confProps.getProperty() + "' is not set.");
-		}
-	    } else {
-		if (properties.get(confProps.getProperty()) == null) {
-		    properties.setProperty(confProps.getProperty(), confProps.getPropValue());
-		}
-	    }
-	}
+        List<String> errors = new ArrayList<String>();
 
-	// Test for unknown properties set in configuration
-	for (Object key : properties.keySet()) {
-	    if (ConfigurationProperties.lookup((String)key) == null) {
-		errors.add("The Property '" + key + "' has no configuration impacts, it's unknown");
-	    }
-	}
-	if (!errors.isEmpty()) {
-	    throw new IllegalArgumentException(errors.toString());
-	}
-	
-	return properties;
+        // Test for mandatory and complete properties with default values when
+        // missing
+        for (ConfigurationProperties confProps : ConfigurationProperties
+                .values()) {
+            if (confProps.isMandatory()) {
+                if (properties.get(confProps.getProperty()) == null) {
+                    errors.add("The mandatory Property '"
+                            + confProps.getProperty() + "' is not set.");
+                }
+            } else if (properties.get(confProps.getProperty()) == null) {
+                properties.setProperty(confProps.getProperty(),
+                    confProps.getPropValue());
+            }
+        }
+
+        // Test for unknown properties set in configuration
+        for (Object key : properties.keySet()) {
+            if (ConfigurationProperties.lookup((String) key) == null) {
+                errors.add("The Property '" + key
+                        + "' has no configuration impacts, it's unknown");
+            }
+        }
+        if (!errors.isEmpty()) {
+            throw new IllegalArgumentException(errors.toString());
+        }
+
+        return properties;
     }
     
     protected Properties loadProperties(String name) {

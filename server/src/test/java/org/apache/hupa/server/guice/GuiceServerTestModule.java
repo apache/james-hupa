@@ -62,7 +62,7 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
   protected void configureHandlers() {
       Names.bindProperties(binder(), DemoModeConstants.demoProperties);
       
-      bind(Session.class).toProvider(SessionProvider.class);
+      bind(Session.class).toProvider(JavaMailSessionProvider.class);
       bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
       bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(Singleton.class);
       bind(Log.class).toProvider(MockLogProvider.class).in(Singleton.class);

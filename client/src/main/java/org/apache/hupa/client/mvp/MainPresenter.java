@@ -488,6 +488,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
                 folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+                messageListPresenter.revealDisplay(user, folder, null);
             }
             
         }));

@@ -19,13 +19,13 @@
     <groupId>org.apache.hupa</groupId>
     <artifactId>hupa-shared</artifactId>
     <name>hupa-shared</name>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>Shared code for the client and server</description>
     <parent>
         <groupId>org.apache.hupa</groupId>
         <artifactId>hupa-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

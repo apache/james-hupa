@@ -39,13 +39,12 @@ public class MockIMAPStore extends IMAPStore{
     public final static String MOCK_SENT_FOLDER = "Mock-Sent";
     public final static String MOCK_TRASH_FOLDER = "Mock-Trash";
     public final static String MOCK_DRAFTS_FOLDER = "Mock-Drafts";
-    public final static String MOCK_LOGIN = "mock-login";
+    public final static String MOCK_LOGIN = "demo";
     private Map<String, String> validLogins = new HashMap<String, String>();
-    private Map<String, Integer> validServers = new HashMap<String, Integer>();
     private boolean connected = false;
     private List<MockIMAPFolder> folders = new ArrayList<MockIMAPFolder>();
     private List<String> capList;
-    static final URLName demoUrl = new URLName(null, MockSMTPTransport.MOCK_HOST, MockSMTPTransport.MOCK_PORT, null, null, null);
+    static final URLName demoUrl = new URLName(null, MockSMTPTransport.MOCK_HOST, 0, null, null, null);
     
     /**
      * Default constructor, it creates the folder structure and loads messages for demo
@@ -61,7 +60,6 @@ public class MockIMAPStore extends IMAPStore{
     public MockIMAPStore(Session session, URLName url) {
         super(session, url);
         if (url != null && MockSMTPTransport.MOCK_HOST.equals(url.getHost())) {
-            validServers.put(MockSMTPTransport.MOCK_HOST, MockSMTPTransport.MOCK_PORT);
             validLogins.put(MOCK_LOGIN, MOCK_LOGIN);
             try {
                 new MockIMAPFolder(MOCK_INBOX_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
@@ -139,10 +137,6 @@ public class MockIMAPStore extends IMAPStore{
         this.validLogins = validLogins;
     }
 
-    public synchronized void setValidServers(Map<String,Integer> validServers) {
-        this.validServers = validServers;
-    }
-    
     public synchronized void clear() {
         folders.clear();
     }
@@ -185,20 +179,12 @@ public class MockIMAPStore extends IMAPStore{
     @Override
     public synchronized void connect(String host, int port, String username,
             String password) throws MessagingException {
-        Integer myPort = validServers.get(host);
-        if (myPort != null && myPort.intValue() == port) {
-            connect(username,password);
-        } else {
-            throw new MessagingException("Can't connect to host");
-        }
+        connect(username,password);
     }
 
     @Override
     public synchronized void connect(String host, String user, String password)
             throws MessagingException {
-        if (validServers.containsKey(host) == false) {
-            throw new MessagingException("Can't connect to host");
-        }
         connect(user,password);
     }
 

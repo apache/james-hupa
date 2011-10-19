@@ -46,7 +46,11 @@ import org.apache.hupa.client.mvp.place.HupaPlaceManager;
 import org.apache.hupa.client.mvp.place.IMAPMessageListPresenterPlace;
 import org.apache.hupa.client.mvp.place.LoginPresenterPlace;
 import org.apache.hupa.client.mvp.place.MessageSendPresenterPlace;
+import org.apache.hupa.client.rf.HupaRequestFactory;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 public class HupaClientModule extends AbstractPresenterModule {
@@ -69,6 +73,22 @@ public class HupaClientModule extends AbstractPresenterModule {
         bind(IMAPMessageListPresenterPlace.class).in(Singleton.class);
         bind(MessageSendPresenterPlace.class).in(Singleton.class);
         bind(ContactsPresenterPlace.class).in(Singleton.class);
+        
+        bind(com.google.gwt.event.shared.EventBus.class)
+            .to(SimpleEventBus.class)
+            .in(Singleton.class);
+        bind(HupaRequestFactory.class)
+            .toProvider(HupaClientModule.RequestFactoryProvider.class)
+            .in(Singleton.class);
+    }
+    
+    public static class RequestFactoryProvider implements Provider<HupaRequestFactory> {
+        private static final com.google.gwt.event.shared.EventBus eventBus = new SimpleEventBus();
+        public HupaRequestFactory get() {
+            HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
+            rf.initialize(eventBus);
+            return rf;
+        }
     }
 
 }

@@ -15,48 +15,31 @@ There is an example configuration file in 'server/src/main/webapp/WEB-INF/conf/c
 - Or anywhere if you start your application server with the parameter:
   -Dhupa.config.file=full_path_to_your_properties_file
 
-###### Using hupa in demo mode #################
+###### Hupa and GMail #################
 
-In demo mode there is not necessary any imap or smtp server.
+By default hupa is configurated as a gmail imap/smtp client, use any gmail valid account to login.
+Note that previously to use a gmail account via imap you should enable it.
+
+###### Using hupa in demo mode #################
+In demo mode it is not necessary any imap or smtp server.
 A bunch of example messages and folders are shown to the user to be manipulated.
 Almost every hupa feature work in demo mode.
 
 To enable demo mode for incoming messages set 'IMAPServerAddress=demo-mode' and
 'SMTPServerAddress=demo-mode' for outgoing messages.
 
-To login into the system in thi mode use the user 'demo' with password 'demo'  
+To login into the system in this mode use the user 'demo' with password 'demo'  
 
 ###### Eclipse GWT Plugin notes ################
+- Hupa uses maven to be built, before inporting the project, you shoul install m2eclipse 
+and google plugins, then go to Import -> New maven project and select the modules:
+shared, mock, server, widget and client.
 
-- If you want to run hupa in hosted mode:
-  * be sure to add the following line as "vm argument" in the Run configuration:
-    -Dhupa.config.file=${project_loc}/server/src/main/webapp/WEB-INF/conf/config.properties 
-  * be sure to add the following line as "program argument" in the Run configuration:   
-    -war ${project_loc}/client/war
-
-- If you receive this kind of errors in eclipse:
-  >> 'Access restriction: The constructor Data[...] is not accessible due to restriction on required library [...]/jre/lib/rt.jar'
-
-  Change the order of the libraries putting 'JRE System Library' at the bottom.
-
-- To avoid these gwt-pugin's messages
-  >> 'The output directory for the project should be set to /hupa/client/war/WEB-INF/classes'
-  >> 'The web.xml file does not exist'
-
-  You have two options:
-  1.- Upgrade your google-eclipse plugin
-  2.- follow these steps:
-      - In unix-like environments make these symbolic links: 
-           $ ln -s client/war war
-           $ ln -s ../../src/main/webapp/WEB-INF/web.xml client/war/WEB-INF/web.xml
-      - In windows you can either:
-           a)   use Sysinternal's Junction command
-                (http://technet.microsoft.com/it-it/sysinternals/bb896768(en-us).aspx)
-                > junction war client\war
-           b)   copy recursively 'client/war' to 'war'
-                copy 'client/src/main/webapp/WEB-INF/web.xml' to 'client/war/WEB-INF'
-      - Then, set project's output directory to: /hupa/client/war/WEB-INF/classes
-           properties -> Java Build Path -> Source -> Default output folder
+- To run hupa in hosted mode, select: Run as -> (Google) Web application.
+  * May be you need to specify the appropriate hupa configuration file if you do not
+    have a suitable file in $HOME/.hupa or /etc/default/hupa you should add the following line
+    to the "vm argument" in the Run configuration:
+    -Dhupa.config.file=folder_to_hupa_dources/server/src/main/webapp/WEB-INF/conf/config.properties 
 
 - If you compile hupa with google's eclipse plugin and you get the message:
   >> 'GWT module hupa needs to be (re)compiled, please run a compile or use the Compile/Browse button in hosted mode'

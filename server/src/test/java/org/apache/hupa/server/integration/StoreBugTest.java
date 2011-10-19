@@ -25,7 +25,7 @@ import com.sun.mail.imap.IMAPStore;
 import junit.framework.Assert;
 
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
-import org.apache.hupa.server.guice.SessionProvider;
+import org.apache.hupa.server.guice.JavaMailSessionProvider;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLog;
 import org.apache.hupa.shared.data.User;
@@ -55,7 +55,7 @@ public class StoreBugTest {
     
     Session session = Session.getDefaultInstance(new Properties(), null);
     static InMemoryIMAPStoreCache cache = new InMemoryIMAPStoreCache(new MockLog(), imapServer, imapPort, isSSl, 2, 60000, false,
-	    truststore, truststorePassword, new SessionProvider());
+	    truststore, truststorePassword, new JavaMailSessionProvider().get());
     static User user = new User() {
        private static final long serialVersionUID = 1L;
        {setName(imapUser); setPassword(imapPass);}

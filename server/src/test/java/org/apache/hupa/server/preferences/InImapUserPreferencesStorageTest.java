@@ -32,7 +32,7 @@ import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.guice.DefaultUserSettingsProvider;
 import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.guice.GuiceServerTestModule;
-import org.apache.hupa.server.guice.SessionProvider;
+import org.apache.hupa.server.guice.JavaMailSessionProvider;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.handler.ContactsHandler;
 import org.apache.hupa.server.handler.CreateFolderHandler;
@@ -96,7 +96,7 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
         protected void configureHandlers() {
             Names.bindProperties(binder(), DemoModeConstants.demoProperties);
             
-            bind(Session.class).toProvider(SessionProvider.class);
+            bind(Session.class).toProvider(JavaMailSessionProvider.class);
             bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
             bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(Singleton.class);
             bind(Log.class).toProvider(MockLogProvider.class).in(Singleton.class);

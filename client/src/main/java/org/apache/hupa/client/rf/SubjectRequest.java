@@ -16,42 +16,25 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
+package org.apache.hupa.client.rf;
 
-package org.apache.hupa.server.mock;
+import org.apache.hupa.server.rf.Subject;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import com.google.web.bindery.requestfactory.shared.InstanceRequest;
+import com.google.web.bindery.requestfactory.shared.Request;
+import com.google.web.bindery.requestfactory.shared.RequestContext;
+import com.google.web.bindery.requestfactory.shared.Service;
 
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.URLName;
+@Service(Subject.class)
+public interface SubjectRequest extends RequestContext {
 
-public class MockSMTPTransport extends Transport {
+  Request<java.lang.Long> countSubjects();
 
-    public static final String MOCK_HOST = "mock-host";
-    
-    static final URLName mockUrl = new URLName(null, MOCK_HOST, 0, null, null, null);
+  Request<SubjectProxy> findSubject(Long id);
 
-    public MockSMTPTransport(Session session) {
-        super(session, mockUrl);
-    }
+  InstanceRequest<SubjectProxy, java.lang.Void> remove();
 
-    @Override
-    public void sendMessage(Message msg, Address[] addresses) throws MessagingException {
-        try {
-            msg.writeTo(new OutputStream() {
-                public void write(int b) throws IOException {}
-            });
-        } catch (IOException e) {
-            // Do nothing
-        }
-    }
+  InstanceRequest<SubjectProxy, java.lang.Void> persist();
 
-    @Override
-    public void connect(String host, int port, String user, String password) throws MessagingException {
-    }
-
+  Request<String> echo(SubjectProxy subject, String from, String to);
 }

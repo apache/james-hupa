@@ -33,7 +33,6 @@ import org.apache.hupa.server.mock.MockSMTPTransport;
 import org.apache.hupa.shared.data.User;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.sun.mail.imap.IMAPStore;
@@ -50,15 +49,14 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
     
     @Inject
     public InMemoryIMAPStoreCache(Log logger, @Named("IMAPServerAddress") String address, @Named("IMAPServerPort") int port, @Named("IMAPS") boolean useSSL, @Named("IMAPConnectionPoolSize") int connectionPoolSize, @Named("IMAPConnectionPoolTimeout") int timeout, @Named("SessionDebug") boolean debug,
-            @Named("TrustStore") String truststore, @Named("TrustStorePassword") String truststorePassword, Provider<Session> sessionProvider) {
+            @Named("TrustStore") String truststore, @Named("TrustStorePassword") String truststorePassword, Session session) {
         this.logger = logger;
         this.address = address;
         this.port = port;
         this.useSSL = useSSL;
-      
-        session = sessionProvider.get();
+        this.session = session;
         if (debug && logger.isDebugEnabled()) {
-            session.setDebug(true);
+            this.session.setDebug(true);
         }
         
         Properties props = session.getProperties();
@@ -167,31 +165,5 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
         pool.remove(username);
     }
     
-    private static final class CachedIMAPStore {
-        private long validUntil;
-        private int validForMillis;
-        private IMAPStore store;
-        
-        public CachedIMAPStore(IMAPStore store, int validForSeconds) {
-            this.store = store;
-            this.validForMillis = validForSeconds * 1000;
-            this.validUntil = System.currentTimeMillis() + validForMillis;
-        }
-        
-        public boolean isExpired() {
-            if (validUntil > System.currentTimeMillis() && store.isConnected()) {
-                return false;
-            }
-            return true;
-        }
-        
-        public void validate() throws MessagingException {
-            validUntil = System.currentTimeMillis() + validForMillis;
-        }
-        
-        public IMAPStore getStore() {
-            return store;
-        }
-    }
 
 }

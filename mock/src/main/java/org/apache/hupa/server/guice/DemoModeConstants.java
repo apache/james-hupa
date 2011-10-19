@@ -48,7 +48,7 @@ public class DemoModeConstants {
             put("Password",MockIMAPStore.MOCK_LOGIN);
 
             put("IMAPServerAddress", MockSMTPTransport.MOCK_HOST);
-            put("IMAPServerPort", MockSMTPTransport.MOCK_PORT.toString());
+            put("IMAPServerPort", "143");
             put("IMAPS", "false");
             
             put("TrustStore", "my-truststore");
