@@ -19,12 +19,6 @@
 -->
 <project name="${project.name}">
 
-    <skin>
-        <groupId>org.apache.james</groupId>
-        <artifactId>james-skin</artifactId>
-        <version>1.7-SNAPSHOT</version>
-    </skin>
-
     <!-- no banner yet -->
     <!-- 
     <bannerLeft>
@@ -34,12 +28,6 @@
       <alt>james-hupa-logo.gif</alt>
      </bannerLeft>
     -->
-
-    <bannerRight>
-        <name>The Apache Software Foundation</name>
-        <src>images/logos/asf-logo-reduced.gif</src>
-        <href>http://www.apache.org/index.html</href>
-    </bannerRight>
 
     <body>
 
