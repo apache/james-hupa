@@ -379,19 +379,20 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>      
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>emma-maven-plugin</artifactId>
-                <inherited>true</inherited>          
-                <executions>
-                    <execution>
-                        <phase>process-classes</phase>               
-                        <goals>
-                            <goal>instrument</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--         See https://issues.apache.org/jira/browse/HUPA-81 -->
+<!--             <plugin>       -->
+<!--                 <groupId>org.codehaus.mojo</groupId> -->
+<!--                 <artifactId>emma-maven-plugin</artifactId> -->
+<!--                 <inherited>true</inherited>           -->
+<!--                 <executions> -->
+<!--                     <execution> -->
+<!--                         <phase>process-classes</phase>                -->
+<!--                         <goals> -->
+<!--                             <goal>instrument</goal> -->
+<!--                         </goals> -->
+<!--                     </execution> -->
+<!--                 </executions> -->
+<!--             </plugin> -->
         </plugins>
     </build>
 </project>
