@@ -22,24 +22,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>org.apache.james</groupId>
         <artifactId>james-project</artifactId>
         <version>1.9-SNAPSHOT</version>
         <relativePath></relativePath>
     </parent>
-
     <groupId>org.apache.hupa</groupId>
     <artifactId>hupa-parent</artifactId>
     <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-
-    <name>hupa-parent</name>
+    <name>Apache James Hupa Parent</name>
     <description>Hupa is a GWT based Webmail</description>
     <url>http://james.apache.org/hupa</url>
     <inceptionYear>2009</inceptionYear>
-
     <modules>
         <module>mock</module>
         <module>shared</module>
@@ -47,7 +43,6 @@
         <module>widgets</module>
         <module>client</module>
     </modules>
-
     <scm>
         <connection>scm:svn:http://svn.apache.org/repos/asf/james/hupa/trunk</connection>
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/hupa/trunk</developerConnection>
@@ -57,19 +52,16 @@
         <system>JIRA</system>
         <url>http://issues.apache.org/jira/browse/Hupa</url>
     </issueManagement>
-
     <distributionManagement>
         <site>
             <id>hupa-website</id>
             <url>scpexe://people.apache.org/www/james.apache.org/hupa/</url>
         </site>
     </distributionManagement>
-
     <properties>
         <gwtVersion>2.4.0</gwtVersion>
         <gwtMavenVersion>2.4.0</gwtMavenVersion>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -92,25 +84,10 @@
                 <artifactId>hupa-widgets</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>1.1.1</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>logkit</groupId>
-                        <artifactId>logkit</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>avalon-framework</groupId>
-                        <artifactId>avalon-framework</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>javax.servlet</groupId>
-                        <artifactId>servlet-api</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
@@ -139,10 +116,9 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>com.googlecode.gwt.inject</groupId>
+                <groupId>com.google.gwt.inject</groupId>
                 <artifactId>gin</artifactId>
-                <version>1.5</version>
-                <classifier>2.2.0</classifier>
+                <version>1.5.0</version>
             </dependency>
             <dependency>
                 <groupId>javax.inject</groupId>

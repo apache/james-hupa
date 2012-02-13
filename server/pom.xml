@@ -22,22 +22,16 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>org.apache.hupa</groupId>
         <artifactId>hupa-parent</artifactId>
         <version>0.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
-    <groupId>org.apache.hupa</groupId>
     <artifactId>hupa-server</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
-
-    <name>hupa-server</name>
+    <name>Apache James Hupa Server</name>
     <description>Servercode implementation to access IMAP Mailbox</description>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.hupa</groupId>
@@ -64,10 +58,6 @@
                     <artifactId>logkit</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>avalon-framework</groupId>
-                    <artifactId>avalon-framework</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
                 </exclusion>
@@ -81,13 +71,11 @@
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
         </dependency>
-
         <dependency>
             <groupId>net.customware.gwt.dispatch
         </groupId>
             <artifactId>gwt-dispatch</artifactId>
         </dependency>
-
         <dependency>
             <groupId>gwtupload</groupId>
             <artifactId>gwtupload</artifactId>
@@ -111,7 +99,6 @@
         <dependency>
             <groupId>com.google.code.guice</groupId>
             <artifactId>guice-servlet</artifactId>
-            <version>3.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.gwt</groupId>
@@ -128,7 +115,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <outputDirectory>war/WEB-INF/classes</outputDirectory>
         <plugins>
