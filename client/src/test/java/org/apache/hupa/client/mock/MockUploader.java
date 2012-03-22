@@ -27,6 +27,7 @@ import gwtupload.client.IFileInput;
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
 import gwtupload.client.IUploadStatus.Status;
+import gwtupload.client.IUploader.UploadedInfo;
 
 import java.util.Iterator;
 
@@ -178,5 +179,9 @@ public class MockUploader implements IUploader {
     public Widget getWidget() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public void setUploaded(UploadedInfo uinfo) {
+        // TODO Auto-generated method stub
     }
 }
