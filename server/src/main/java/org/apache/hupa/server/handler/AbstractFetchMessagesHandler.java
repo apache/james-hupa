@@ -188,7 +188,8 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             }
             msg.setCc(cc);
 
-            msg.setReceivedDate(m.getReceivedDate());
+            // Using sentDate since received date is not useful in the view when using fetchmail
+            msg.setReceivedDate(m.getSentDate());
 
             // Add flags
             ArrayList<IMAPFlag> iFlags = JavamailUtil.convert(m.getFlags());
