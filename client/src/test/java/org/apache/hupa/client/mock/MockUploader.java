@@ -175,4 +175,8 @@ public class MockUploader implements IUploader {
         return null;
     }
 
+    public Widget getWidget() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

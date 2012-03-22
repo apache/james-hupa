@@ -28,7 +28,7 @@
         <version>0.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>hupa-client</artifactId>
+    <artifactId>hupa</artifactId>
     <packaging>war</packaging>
     <name>Apache James Hupa</name>
     <description>A GWT based IMAP webmail</description>
@@ -66,7 +66,7 @@
             <artifactId>gwt-vl</artifactId>
         </dependency>
         <dependency>
-            <groupId>gwtupload</groupId>
+            <groupId>com.googlecode.gwtupload</groupId>
             <artifactId>gwtupload</artifactId>
         </dependency>
         <dependency>
@@ -92,14 +92,6 @@
             <artifactId>validation-api</artifactId>
             <scope>provided</scope>
         </dependency>
-<!--         Adding java.validation:validation-api with classifier source breaks the maven build
-             and makes the project unsable in eclipse -->
-<!--         <dependency> -->
-<!--             <groupId>javax.validation</groupId> -->
-<!--             <artifactId>validation-api</artifactId> -->
-<!--             <classifier>sources</classifier> -->
-<!--             <scope>provided</scope> -->
-<!--         </dependency> -->
         <dependency>
           <groupId>org.hibernate</groupId>
           <artifactId>hibernate-validator</artifactId>
@@ -137,6 +129,9 @@
                     <compileReport>true</compileReport>
                     <disableClassMetadata>true</disableClassMetadata>
                     <disableCastChecking>true</disableCastChecking>
+                    <modules>
+                        <module>org.apache.hupa.Hupa</module>
+                    </modules>
                 </configuration>
                 <executions>
                     <execution>
@@ -148,6 +143,13 @@
                 </executions>
             </plugin>
 <!--             maven-sure-fire-plugin configurations commented - Why was this needed ? -->
+<!--              - response by manolo: -->
+<!--               This is needed when running gwt tests, the gwt compiler needs to access to -->
+<!--                java source files so as it can parse them an compile into javascript -->
+<!--               Because we like fast tests, so far, all our tests are run in jvm instead of -->
+<!--                in browser emulator, we can do that because we use MVP pattern in hupa -->
+<!--               Maybe we needed this in a future when testing our widgets or stuff which only -->
+<!--                run in browser. -->
 <!--             <plugin> -->
 <!--                 <groupId>org.apache.maven.plugins</groupId> -->
 <!--                 <artifactId>maven-surefire-plugin</artifactId> -->
@@ -171,7 +173,7 @@
                             <directory>../server/src/main/webapp/</directory>
                         </resource>
                     </webResources>
-                    <warName>${project.name}</warName>
+                    <warName>${artifactId}</warName>
                 </configuration>
             </plugin>
             <plugin>

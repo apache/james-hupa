@@ -34,6 +34,7 @@ import com.google.inject.Inject;
 import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
 import eu.maydu.gwt.validation.client.ValidationProcessor;
 import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
+import gwtupload.client.IFileInput.FileInputType;
 import gwtupload.client.BaseUploadStatus;
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
@@ -98,7 +99,7 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
         
         BaseUploadStatus uploadStatus = new BaseUploadStatus();
         uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
-        uploader = new MultiUploader(uploadStatus);
+        uploader = new MultiUploader(FileInputType.ANCHOR, uploadStatus);
         uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
         uploader.avoidRepeatFiles(true);
         uploader.setI18Constants(constants);        
