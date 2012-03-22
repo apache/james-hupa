@@ -47,31 +47,29 @@
         <listener-class>org.apache.hupa.server.guice.GuiceServletConfig</listener-class>
     </listener>
 
-	<!-- servlet for incubator gwt stuff -->
-	<servlet>
-  		<servlet-name>remoteLoggingService</servlet-name>
-  		<servlet-class>com.google.gwt.gen2.logging.server.RemoteLoggingService</servlet-class>
-	</servlet>
-	
+    <!-- Gwt remote logging -->
+    <servlet>
+      <servlet-name>remoteLoggingService</servlet-name>
+      <servlet-class>com.google.gwt.logging.server.RemoteLoggingServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+ 	<servlet-name>remoteLoggingService</servlet-name>
+  	<url-pattern>/remote_logging</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Default page to serve -->
+    <welcome-file-list>
+        <welcome-file>Hupa.html</welcome-file>
+    </welcome-file-list>
+    
     <!-- RequestFactory dispatcher -->
     <servlet>
         <servlet-name>requestFactory</servlet-name>
         <servlet-class>com.google.web.bindery.requestfactory.server.RequestFactoryServlet</servlet-class>
     </servlet>
-    
-	<servlet-mapping>
- 		<servlet-name>remoteLoggingService</servlet-name>
-  		<url-pattern>/hupa/logging</url-pattern>
-	</servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>requestFactory</servlet-name>
         <url-pattern>/gwtRequest</url-pattern>
     </servlet-mapping>
-
-    <!-- Default page to serve -->
-    <welcome-file-list>
-        <welcome-file>Hupa.html</welcome-file>
-    </welcome-file-list>
 
 </web-app>
