@@ -105,32 +105,26 @@ public class MockUploader implements IUploader {
 
     public void setFileInputPrefix(String prefix) {
         // TODO Auto-generated method stub
-        
     }
 
     public void setI18Constants(UploaderConstants strs) {
         // TODO Auto-generated method stub
-        
     }
 
     public void setServletPath(String path) {
         // TODO Auto-generated method stub
-        
     }
 
     public void setStatusWidget(IUploadStatus status) {
         // TODO Auto-generated method stub
-        
     }
 
     public void setValidExtensions(String[] ext) {
         // TODO Auto-generated method stub
-        
     }
 
     public void submit() {
         // TODO Auto-generated method stub
-        
     }
 
     public JavaScriptObject getData() {
@@ -140,12 +134,10 @@ public class MockUploader implements IUploader {
 
     public void add(Widget w) {
         // TODO Auto-generated method stub
-        
     }
 
     public void clear() {
         // TODO Auto-generated method stub
-        
     }
 
     public Iterator<Widget> iterator() {
@@ -184,4 +176,37 @@ public class MockUploader implements IUploader {
     public void setUploaded(UploadedInfo uinfo) {
         // TODO Auto-generated method stub
     }
+
+	@Override
+	public String getServletPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void add(Widget widget, int index) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public UploadedInfo getServerInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setAutoSubmit(boolean b) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void setEnabled(boolean b) {
+		// TODO Auto-generated method stub
+	}
 }
