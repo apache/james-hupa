@@ -23,16 +23,46 @@ import net.customware.gwt.presenter.client.place.PlaceManager;
 
 import org.apache.hupa.client.gin.HupaGinjector;
 import org.apache.hupa.client.mvp.AppPresenter;
+import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.rf.SubjectProxy;
+import org.apache.hupa.client.rf.SubjectRequest;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class Hupa implements EntryPoint{
     private final HupaGinjector injector = GWT.create(HupaGinjector.class);
     
     public void onModuleLoad() {
+
+//        HupaRequestFactory rf = injector.getRequestFactory();
+//
+//        SubjectRequest req = rf.subjectRequest(); 
+//        SubjectProxy t = req.create(SubjectProxy.class);
+//        t.setTitle("New-Subject");
+//        req.echo(t, "from_manolo", "to_james").fire(new Receiver<String>() {
+//            public void onSuccess(String response) {
+//                System.out.println(response);
+//            }
+//        });
+//        
+//        req = rf.subjectRequest(); 
+//        t = req.create(SubjectProxy.class);
+//        t.setTitle("New-Subject");
+//        req.persist().using(t);
+//        req.countSubjects().to(new Receiver<Long>() {
+//            public void onSuccess(Long response) {
+//                System.out.println(response);
+//            }
+//        }).fire();
+//        
+//        
+//        if(true) return;
+        
+        
         // remove the loading message from the browser
         com.google.gwt.user.client.Element loading = DOM.getElementById("loading");
 

@@ -22,7 +22,9 @@ package org.apache.hupa.client.gin;
 import net.customware.gwt.presenter.client.DefaultEventBus;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.gin.AbstractPresenterModule;
+import net.customware.gwt.presenter.client.place.ParameterTokenFormatter;
 import net.customware.gwt.presenter.client.place.PlaceManager;
+import net.customware.gwt.presenter.client.place.TokenFormatter;
 
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
@@ -59,6 +61,7 @@ public class HupaClientModule extends AbstractPresenterModule {
     protected void configure() {        
         bind(EventBus.class).to(DefaultEventBus.class).in(Singleton.class);
         bind(PlaceManager.class).to(HupaPlaceManager.class);
+        bind(TokenFormatter.class).to(ParameterTokenFormatter.class).in(Singleton.class);
         bindPresenter(LoginPresenter.class,LoginPresenter.Display.class, LoginView.class);
         bindPresenter(IMAPMessageListPresenter.class,IMAPMessageListPresenter.Display.class,IMAPMessageListView.class);
         bindPresenter(IMAPMessagePresenter.class,IMAPMessagePresenter.Display.class,IMAPMessageView.class);

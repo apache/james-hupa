@@ -19,10 +19,11 @@
 
 package org.apache.hupa.client.mvp.place;
 
-import com.google.inject.Inject;
-
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.place.DefaultPlaceManager;
+import net.customware.gwt.presenter.client.place.TokenFormatter;
+
+import com.google.inject.Inject;
 
 /**
  * PlaceManager implementation for Hupa
@@ -30,10 +31,9 @@ import net.customware.gwt.presenter.client.place.DefaultPlaceManager;
  *
  */
 public class HupaPlaceManager extends DefaultPlaceManager{
-
     @Inject
-    public HupaPlaceManager(EventBus eventBus, LoginPresenterPlace loginPresenterPlace, IMAPMessageListPresenterPlace messageListPresenterPlace, IMAPMessagePresenterPlace imapMessagePresenterPlace, MessageSendPresenterPlace sendPresenterPlace, ContactsPresenterPlace contactsPresenterPlace) {
-        super(eventBus, loginPresenterPlace, messageListPresenterPlace, imapMessagePresenterPlace, sendPresenterPlace, contactsPresenterPlace);
+    public HupaPlaceManager(EventBus eventBus, TokenFormatter tokenFormatter, LoginPresenterPlace loginPresenterPlace, IMAPMessageListPresenterPlace messageListPresenterPlace, IMAPMessagePresenterPlace imapMessagePresenterPlace, MessageSendPresenterPlace sendPresenterPlace, ContactsPresenterPlace contactsPresenterPlace) {
+        super(eventBus, tokenFormatter, loginPresenterPlace, messageListPresenterPlace, imapMessagePresenterPlace, sendPresenterPlace, contactsPresenterPlace);
     }
 
 }
