@@ -55,7 +55,7 @@ public class StoreBugTest {
     
     Session session = Session.getDefaultInstance(new Properties(), null);
     static InMemoryIMAPStoreCache cache = new InMemoryIMAPStoreCache(new MockLog(), imapServer, imapPort, isSSl, 2, 60000, false,
-	    truststore, truststorePassword, new JavaMailSessionProvider().get());
+        truststore, truststorePassword, new JavaMailSessionProvider().get());
     static User user = new User() {
        private static final long serialVersionUID = 1L;
        {setName(imapUser); setPassword(imapPass);}

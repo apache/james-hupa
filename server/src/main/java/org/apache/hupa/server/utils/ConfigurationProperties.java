@@ -49,9 +49,9 @@ public enum ConfigurationProperties {
     private String propValue;
     
     private ConfigurationProperties (String property, boolean mandatory, String propValue) {
-	this.property = property;
-	this.mandatory = mandatory;
-	this.propValue = propValue;
+        this.property = property;
+        this.mandatory = mandatory;
+        this.propValue = propValue;
     }
     
     /**

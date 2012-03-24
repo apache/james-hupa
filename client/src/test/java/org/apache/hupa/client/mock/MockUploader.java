@@ -177,36 +177,36 @@ public class MockUploader implements IUploader {
         // TODO Auto-generated method stub
     }
 
-	@Override
-	public String getServletPath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getServletPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void add(Widget widget, int index) {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void add(Widget widget, int index) {
+        // TODO Auto-generated method stub
+    }
 
-	@Override
-	public UploadedInfo getServerInfo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public UploadedInfo getServerInfo() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean isEnabled() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public void setAutoSubmit(boolean b) {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void setAutoSubmit(boolean b) {
+        // TODO Auto-generated method stub
+    }
 
-	@Override
-	public void setEnabled(boolean b) {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void setEnabled(boolean b) {
+        // TODO Auto-generated method stub
+    }
 }

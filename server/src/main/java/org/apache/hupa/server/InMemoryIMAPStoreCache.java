@@ -67,7 +67,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
             props.setProperty("mail.imaps.connectionpoolsize", connectionPoolSize +"");
             props.setProperty("mail.imaps.connectionpooltimeout", timeout + "");
             if (!truststore.isEmpty()) {
-        	System.setProperty("javax.net.ssl.trustStore", truststore);
+                System.setProperty("javax.net.ssl.trustStore", truststore);
             }
             if (!truststorePassword.isEmpty()) {
                 System.setProperty("javax.net.ssl.trustStorePassword", truststorePassword);
