@@ -113,6 +113,14 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
+		<dependency>
+		    <groupId>org.eclipse.jetty</groupId>
+		    <artifactId>jetty-server</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.eclipse.jetty</groupId>
+		    <artifactId>jetty-webapp</artifactId>
+		</dependency>        
     </dependencies>
     <build>
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
@@ -173,7 +181,12 @@
                             <directory>../server/src/main/webapp/</directory>
                         </resource>
                     </webResources>
-                    <warName>${artifactId}</warName>
+                    <warName>${artifactId}-${version}</warName>
+  			        <archive>
+			           <manifest>
+			              <mainClass>org.apache.hupa.Launcher</mainClass>
+			           </manifest>
+			        </archive>
                 </configuration>
             </plugin>
             <plugin>
@@ -226,8 +239,8 @@
                 </executions>
             </plugin>
             <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
@@ -240,13 +253,48 @@
                             <resources>
                                 <resource>
                                     <directory>src/main/webapp</directory>
-                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-launcher</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</directory>
+                                     <include>org/apache/hupa/Launcher.class</include>
                                 </resource>
                             </resources>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+			<plugin>
+			   <groupId>org.apache.maven.plugins</groupId>
+			   <artifactId>maven-dependency-plugin</artifactId>
+			   <executions>
+			      <execution>
+			         <id>jetty-classpath</id>
+			         <phase>prepare-package</phase>
+			         <goals>
+			            <goal>unpack-dependencies</goal>
+			         </goals>
+			         <configuration>
+			            <includeGroupIds>org.eclipse.jetty,javax.servlet</includeGroupIds>
+			            <excludeArtifactIds>jsp-api,jstl</excludeArtifactIds>
+			            <outputDirectory>
+			               ${project.build.directory}/${project.artifactId}-${project.version}
+			            </outputDirectory>
+			         </configuration>
+			      </execution>
+			   </executions>
+			</plugin>            
         </plugins>
     </build>
 </project>

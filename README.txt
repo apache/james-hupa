@@ -1,11 +1,9 @@
 ###### Bulding ######
 Hupa use maven2 as build tool. To build hupa download maven2 (http://maven.apache.org), unpack maven2 and install it.
 After that change to hupa directory and execute the following cmd:
-
-* mvn clean package
+$ mvn clean package
 
 ###### Configuring server side  ################
-
 Hupa uses a properties file to know the IMAP and SMTP servers configuration.
 There is an example configuration file in 'server/src/main/webapp/WEB-INF/conf/config.properties'
 
@@ -15,10 +13,18 @@ There is an example configuration file in 'server/src/main/webapp/WEB-INF/conf/c
 - Or anywhere if you start your application server with the parameter:
   -Dhupa.config.file=full_path_to_your_properties_file
 
-###### Hupa and GMail #################
+##### Running Hupa ##################
+Hupa comes packaged with a servlet-container, so once you have compiled the app just run:
+$ java -jar target/hupa-${version}.war
 
+Then point your browser to the url:
+http://localhost:8282
+
+If you prefer to use any other servlet container you can deploy the provided .war file in it.
+
+###### Hupa and GMail #################
 By default hupa is configurated as a gmail imap/smtp client, use any gmail valid account to login.
-Note that previously to use a gmail account via imap you should enable it.
+NOTE: that previously to use a gmail account via imap you should enable imap in your gmail account.
 
 ###### Using hupa in demo mode #################
 In demo mode it is not necessary any imap or smtp server.

@@ -61,6 +61,7 @@
     <properties>
         <gwtVersion>2.4.0</gwtVersion>
         <gwtMavenVersion>2.4.0</gwtMavenVersion>
+        <jettyVersion>7.3.0.v20110203</jettyVersion>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -257,6 +258,18 @@
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.6.1</version>
             </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-server</artifactId>
+                <version>${jettyVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-webapp</artifactId>
+                <version>${jettyVersion}</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -301,23 +314,6 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>gwt-maven-plugin</artifactId>
                     <version>${gwtMavenVersion}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.google.gwt</groupId>
-                            <artifactId>gwt-servlet</artifactId>
-                            <version>${gwtVersion}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.google.gwt</groupId>
-                            <artifactId>gwt-user</artifactId>
-                            <version>${gwtVersion}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.google.gwt</groupId>
-                            <artifactId>gwt-dev</artifactId>
-                            <version>${gwtVersion}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.bsc.maven</groupId>

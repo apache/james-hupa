@@ -16,35 +16,29 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
+package org.apache.hupa;
 
-package org.apache.hupa.client;
+import java.net.URL;
+import java.security.ProtectionDomain;
 
-import net.customware.gwt.presenter.client.place.PlaceManager;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.webapp.WebAppContext;
 
-import org.apache.hupa.client.gin.HupaGinjector;
-import org.apache.hupa.client.mvp.AppPresenter;
-
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.RootPanel;
-
-public class Hupa implements EntryPoint{
-    private final HupaGinjector injector = GWT.create(HupaGinjector.class);
-    
-    public void onModuleLoad() {
-        // remove the loading message from the browser
-        com.google.gwt.user.client.Element loading = DOM.getElementById("loading");
-
-        DOM.removeChild(RootPanel.getBodyElement(), loading);
-
-        AppPresenter aPres = injector.getAppPresenter();
-        aPres.bind();
-       
-        RootPanel.get().add(aPres.getDisplay().asWidget());
-
-        PlaceManager placeManager = injector.getPlaceManager();
-        placeManager.fireCurrentPlace();
-    }
-
+/**
+ * When hupa is packaged with jetty this class is called to
+ * start jetty server.
+ */
+public final class Launcher {
+   public static void main(String[] args) throws Exception {
+      int port = Integer.parseInt(System.getProperty("port", "8282"));
+      Server server = new Server(port);
+      ProtectionDomain domain = Launcher.class.getProtectionDomain();
+      URL location = domain.getCodeSource().getLocation();
+      WebAppContext webapp = new WebAppContext();
+      webapp.setContextPath("/");
+      webapp.setWar(location.toExternalForm());
+      server.setHandler(webapp);
+      server.start();
+      server.join();
+   }
 }
