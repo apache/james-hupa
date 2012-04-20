@@ -19,15 +19,12 @@
 -->
 <project name="Hupa">
 
-    <!-- no banner yet -->
-    <!--
-        <bannerLeft>
+    <bannerLeft>
         <name>James Hupa</name>
         <src>images/logos/james-hupa-logo.gif</src>
         <href>http://james.apache.org/hupa/index.html</href>
         <alt>james-hupa-logo.gif</alt>
-        </bannerLeft>
-    -->
+    </bannerLeft>
 
     <body>
 
@@ -38,13 +35,14 @@
             <item name="FAQs" href="/faq.html" />
         </menu>
         <menu name="Get Involved" inherit="top">
-            <item name="Setup" href="/dev/environment.html" />
-            <item name="Building" href="/dev/building.html" />
+            <item name="Setup" href="/environment.html" />
+            <item name="Building" href="/building.html" />
         </menu>
 
         <menu name="Project">
-            <item name="Bug Database" href="/issue-tracking.html" />
+            <item name="Issue Tracker" href="https://issues.apache.org/jira/browse/HUPA" />
             <item name="Source Code" href="/source-repository.html" />
+            <item name="Javadoc" href="/javadoc.html" />
             <item name="Who We Are" href="/team-list.html" />
             <!-- Not yet there
                 <item name="Contributing" href="contribute.html"/>

@@ -15,17 +15,12 @@
 -->
 <document>
     <properties>
-        <title>Hupa GWT Webmail Screenshots</title>
+        <title>JavaDoc</title>
         <author email="server-dev@james.apache.org">James Hupa Project Team</author>
     </properties>
     <body>
-        <section name="So you want to see how it looks like?">
-            <p>Ok, here we are. The login form on the dev build 2012.04.20</p>
-            <img src="images/ss/hupa-login.png" width="650px"/>
-            <p>The main message browsing interface, also from 2012.04.20 build.</p>
-            <img src="images/ss/hupa-main.png" width="650px"/>
-            <p>The message composing editor, from 2012.04.20 build.</p>
-            <img src="images/ss/hupa-new.png" width="650px"/>
+        <section name="Source Documentation">
+           <iframe src="apidocs/index.html" style="width: 100%; height: 750px; border: 1px dotted #3366AA" />
         </section>
     </body>
 </document>

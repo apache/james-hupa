@@ -21,7 +21,7 @@
     <body>
         <section name="Building Hupa for the first time">
             <p>
-                Because Hupa uses maven2 as its build tool, the management of
+                Because Hupa uses maven as its build tool, the management of
                 dependencies is rather simple. You can either run
                 <code>mvn clean package</code>
                 from the command line, or use the built-in m2eclipse plugin.
@@ -33,8 +33,8 @@
                     <b>what</b>
                     you want,
                     <b>when</b>
-                    you want, by a single mouse-click. To configure the m2 run
-                    configuration, please do a right click on the project name and select
+                    you want, by a single mouse-click. <br/>To configure the 'm2 run
+                    configuration', please do a right click on the project name and select
                     Run As -> Run Configurations ...
                 </p>
                 <p>
@@ -46,17 +46,17 @@
                     <code>${workspace_loc:/hupa-trunk}</code>
                     (if your project is only named hupa, then it would be
                     ${workspace_loc:/hupa}).
-                    <br />
-                    <img src="../images/dev/run-configurations-main.jpg" />
-                    <br />
+                    <br /><br />
+                    <img src="images/dev/run-configurations-main.jpg" />
+                    <br /><br />
                     Underneath you should check Update Snaphots
                     and on the Refresh Tab you
                     should check Refresh Resources upon
                     Completion and The Project
                     Containing the selected Resource.
-                    <br />
-                    <img src="../images/dev/run-configurations-refresh.jpg" />
-                    <br />
+                    <br /><br />
+                    <img src="images/dev/run-configurations-refresh.jpg" />
+                    <br /><br />
                     After all is set, click Apply and then click Run. It will take a hile
                     to download all the dependencies. Once it is finished, it will refresh
                     eclipse, and we are on the final step to start it up the first time.
@@ -67,11 +67,11 @@
             <p>
                 Because Hupa uses the google web toolkit (GWT) it is necessary to
                 adjust
-                the output directory of the project. If you don't the Stand alone
+                the output directory of the project. If you don't do that, the Stand alone
                 google
                 browser will not be able to pick up the compiled classes. So, to
                 change
-                it do a right-click on your project choos Run As -> Web Application. But
+                it do a right-click on your project choos Run As -> Web Application. <br />But
                 beware you will get an error! We do this only because the plugin sets
                 almost everything up for us. After we get the error right-click on the
                 project again, and choose Run As -> Run Configurations... then expand
@@ -79,13 +79,13 @@
                 <code>-Dhupa.config.file=${project_loc}/server/src/main/webapp/WEB-INF/conf/config.properties
                 </code>
                 to the VM Arguments Textbox. Click on Apply and close the dialog.
-                After
+                <br /> After
                 that go into the Package Explorer
                 View and expand server -> src -> main
                 -> webapp -> WEB-INF -> conf and
                 double click on config.properties.
                 Adjust these settings to your liking.
-                googlemail is setup by default.
+                googlemail is setup by default.<br />
                 Last thing to setup is the projects output path. Do a right-click on the
                 project and choose Build Path -> Configure Build Path... Under the
                 Source tab put &lt;your_project_name&gt;/war/WEB-INF/classes in the
@@ -94,7 +94,7 @@
         </section>
         <section name="Starting Hupa">
             <p>
-                So we are finally there. We can run Hupa for the first time. Do a
+                So we are finally there. We can run Hupa for the first time. <br/> Do a
                 right-click
                 on the project choose Run As -> Run Configurations... ->
                 Hupa.html and

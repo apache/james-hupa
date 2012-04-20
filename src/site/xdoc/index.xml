@@ -19,24 +19,42 @@
         <author email="server-dev@james.apache.org">James Hupa Project Team</author>
     </properties>
     <body>
-        <section name="What is it?">
-            <p>Hupa is IMAP-based Webmail written in GWT.</p>
+        <section name="What is Hupa?">
+          <p> Hupa is an Rich IMAP-based Webmail application written in GWT (Google Web Toolkit).          </p>
+          <p> Hupa has been entirely written in java to be coherent with the language used in the James project. And It has been a reference of a devloping using GWT good practices (MVP pattern and Unit testing) </p>
+          <p> Hupa is a functional and well designed email client, ready for reading, sending and managing messages, but it lacks of many features email clients nowadays have like address book </p>
+        </section>
+
+        <section name="Demo">
+          <p> There is an instance of Hupa running in ASF infra. It is configured to use GMail IMAP and SMTP servers, so any gmail account should work. </p>
+          <p> Note that your gmail account must have imap enabled. Because the instance and gmail servers are far away and caching is not functional yet, you will notice a latency when moving through the application </p>
+          <p> Click on this <a href='http://james.zones.apache.org' target='_blank'> link </a> to open Hupa in a new window.</p>
         </section>
 
         <section name="News">
-
+            <subsection name="2012">
+                <h4>Mar/2012 - removed snapshots</h4>
+                <p>Removed snapshot dependencies, updated to last GWT release, delivered with a integrated servlet-container (Jetty)</p>
+                <h4>Feb/2012 - Call for GSOC students</h4>
+                <p>We are looking for students wanted to collaborate with <a href='https://issues.apache.org/jira/browse/HUPA-85'> the Hupa evolution</a></p>
+            </subsection>
+            <subsection name="2011">
+                <h4>Sep/2011 - Sevilla BarCamp</h4>
+                <p>Manolo gave a <a href='http://www.slideshare.net/dodotis/apache-jameshupa-gwt' target='_blank'>talk</a> in the Sevilla Apache BarCamp about Hupa architecture and roadmap.</p>
+            </subsection>
+            <subsection name="2010">
+                <h4>Jun/2010 - Hupa 0.1</h4>
+                <p>First beta release, with an improved interface and fully functional (read, compose, send, secure, attachments, etc)</p>
+            </subsection>
             <subsection name="2009">
                 <h4>Sept/2009 - Hupa moved to James</h4>
-                <p>Hupa moved from Apache Labs to James this month.</p>
+                <p>Hupa moved from Apache Labs to James.</p>
             </subsection>
         </section>
 
         <section name="releases">
             <p>
-                <b>Latest: None</b>
-                <br />
-                No releases done yet. Would like helping getting one together?
-                <a href="dev/environment.html">Check this out</a>
+                No stable release yet. Download the latest <a href='https://builds.apache.org/job/hupa-trunk/lastBuild/org.apache.hupa$hupa/artifact/org.apache.hupa/hupa/0.0.2-SNAPSHOT/hupa-0.0.2-SNAPSHOT.war'>SNAPSHOT</a>
             </p>
         </section>
     </body>

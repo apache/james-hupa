@@ -127,7 +127,7 @@
                     Open up Eclipse and go to Window -> Open Perspective -> Other -> SVN
                     Repository Exploring
                     <br />
-                    <img src="../images/dev/svn-repo.jpg" />
+                    <img src="images/dev/svn-repo.jpg" />
                     <br />
                     In the SVN Repositories View Click the right mouse button and choose
                     New -> Repository Location ...
@@ -138,7 +138,7 @@
                     ASF Software Repository should be visible inside your SVN Repositories
                     view as shown here.
                     <br />
-                    <img src="../images/dev/svn-repositories-installed.jpg" />
+                    <img src="images/dev/svn-repositories-installed.jpg" />
                     <br />
                 </p>
                 <p>
@@ -146,14 +146,14 @@
                     click on trunk and select Checkout. Fill in the settings as you think
                     they fit your needs.
                     <br />
-                    <img src="../images/dev/checkout-hupa.jpg" />
+                    <img src="images/dev/checkout-hupa.jpg" />
                     <br />
                 </p>
                 <p>
                     So after everything is set up correctly your screen should look like
                     this one here.
                     <br />
-                    <img src="../images/dev/eclipse_setup.jpg" />
+                    <img src="images/dev/eclipse_setup.jpg" />
                     <br />
                 </p>
                 <p>
