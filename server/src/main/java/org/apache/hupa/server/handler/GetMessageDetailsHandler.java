@@ -276,12 +276,14 @@ public class GetMessageDetailsHandler extends
         html = replaceAll(html, regex_unneededTags, repl_unneededTags);
         // Remove all onClick attributes 
         html = replaceAllRecursive(html, regex_badAttrs, repl_badAttrs);
-        // Add <a> tags to links which are not already into <a>
-        html = replaceAll(html, regex_orphandHttpLinks, repl_orphandHttpLinks);
-        // Add javascript method to <a> in order to open links in a different window
         html = replaceAll(html, regex_existingHttpLinks, repl_existingHttpLinks);
+
+        //FIXME: These have serious performance problems (see testMessageDetails_Base64Image_Performance)
+        // Add <a> tags to links which are not already into <a>
+        // html = replaceAll(html, regex_orphandHttpLinks, repl_orphandHttpLinks);
+        // Add javascript method to <a> in order to open links in a different window
         // Add <a> tags to emails which are not already into <a>
-        html = replaceAll(html, regex_orphandEmailLinks, repl_orphandEmailLinks);
+        // html = replaceAll(html, regex_orphandEmailLinks, repl_orphandEmailLinks);
         // Add a js method to mailto links in order to compose new mails inside hupa
         html = replaceAll(html, regex_existingEmailLinks, repl_existngEmailLinks);
         
