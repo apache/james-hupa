@@ -25,15 +25,67 @@
 
   <part id="general">
     <title>General</title>
+    <faq id="meaning">
+      <question>Why the name of Hupa?</question>
+      <answer>
+        <p>
+		Hupa was choosen in respect of the tribe :
+		<a href="http://en.wikipedia.org/wiki/Hoopa">Hoopa</a>. In the native language Hupa means:
+		The tribe on both ways, which remember on the both way of email conversations: sending/receiving.
+        </p>
+      </answer>
+    </faq>
+    <faq id="run">
+      <question>How do I run Hupa?</question>
+      <answer>
+        <p>
+          Hupa war file comes with a jetty embedded server, so, having java installed, run this:
+        </p>
+        <source>
+   $ java -jar hupa-version_number.war</source>
+      </answer>
+    </faq>
+  </part>  
+
+  <part id="ssl">
+    <title>SSL related questions</title>
+    <faq id="ssl-hand-shake">
+      <question>I'm getting a javax.net.ssl.SSLHandshakeException error when running Hupa?</question>
+      <answer>
+        <p>
+          If you configure Hupa to use imap or smtp over ssl, you have to assure that your servers have
+          valid certificates signed by trusted authorities, otherwise you must add them to your java trustore file.
+        </p>
+      </answer>
+    </faq>
+
+    <faq id="get-public-key">
+      <question>How do I get the public key of my remote imap or smtp servers?</question>
+      <answer>
+        <p>
+          Use the <code>openssl</code> command available in most unix distributions.
+          <source>
+    $ openssl s_client -connect imap.yourcompany.com:993
+    $ openssl s_client -connect smtp.yourcompany.com:465</source>
+          Then generate a new file  (ie: public-sever-cert.pem) with the fragment between the <code>BEGIN CERTIFICATE</code> and <code>END CERTIFICATE</code> tags.
+        </p>
+      </answer>
+    </faq>
 
     <faq id="add-cert-to-cacert">
       <question>How do I import a public key to Java's cacert?</question>
       <answer>
         <p>
-          This can be done using the keytool application distributed with your Java installation:
+          This can be done using the <code>keytool</code> application distributed with your Java installation:
         </p>
-        <source>keytool -import -alias mail.yourcompany.com -keystore $JAVA_HOME/jre/lib/security/cacerts -file public-server-cert.pem</source>
+        <source>
+  $ keytool -import -alias mail.yourcompany.com \
+            -keystore $JAVA_HOME/jre/lib/security/cacerts \
+            -file public-server-cert.pem</source>
         <p>The default password for a java keystore is <code>changeit</code></p>
+        <p><bold>NOTE:</bold> you only can have a certificate per hostname, 
+          so if you use the same name for your smtp and imap server they have to share their private key, 
+          otherwise you must use different names</p>
       </answer>
     </faq>
 
@@ -43,7 +95,10 @@
         <p>
           This can be done using the keytool application distributed with your Java installation:
         </p>
-        <source>keytool -import -alias mail.yourcompany.com -keystore {some-path}/your-truststore -file public-server-cert.pem</source>
+        <source>
+  $ keytool -import -alias mail.yourcompany.com \
+            -keystore {some-path}/your-truststore \
+            -file public-server-cert.pem</source>
         <p>The default password for a java keystore is <code>changeit</code></p>
       </answer>
     </faq>
