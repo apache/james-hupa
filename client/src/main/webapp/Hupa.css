@@ -38,8 +38,8 @@ body, table td, select, * {
 /************[ widget: RndPanel ]****************/
 .hupa-rounded {
    border: 1px solid #7FAAFF; 
-   -moz-border-radius: 5px;
-   -webkit-border-radius: 4px;
+   border-radius: 5px;
+   overflow: hidden;
 }
 
 /************[ widget: Loading ]*************************************/
@@ -81,10 +81,10 @@ div.Hupa {
    margin-top: 15px;
 }
 div.hupa-logo {
-    width: 75px;
+    width: 90px;
 	height: 64px;
     float: left;
-	background: url(images/hupa-logo-64.jpg) no-repeat;
+	background: url(images/hupa-logo-64-transparent.png) no-repeat;
 }
 
 div.hupa-top { 
@@ -121,7 +121,7 @@ div.hupa-loginfo-label, div.hupa-loginfo-user {
 	margin-right: 15px;
 }
 div.hupa-header {
-    color: #C5D9FF;
+    color: transparent;
 	padding-left: 10px;
 	height: 32px;
 }
@@ -315,10 +315,6 @@ table.hupa-contacts {
     color:           			   #FF0000;
 }
 
-
-
-
-
 .gwt-ScrollTable .dataTable td {
     border-top:    				  	1pt solid #EEEEEE;
     white-space:   			    	nowrap;
@@ -354,3 +350,39 @@ table.hupa-contacts {
 	border: 2px solid #C3D9FF;
 }
 
+/**** HTML5 shadows and gradients ****/
+
+body {
+	background: #eaeaea;
+}
+.hupa-rounded {
+    box-shadow: 0 1px 4px grey;
+}
+.hupa-top-wrap, .hupa-login-form, .hupa-msg-top-bar {
+    background: -moz-linear-gradient(#FFFFFF, #C5D9FF);
+    background: -o-linear-gradient(#FFFFFF, #C5D9FF);
+    background: -webkit-linear-gradient(#FFFFFF, #C5D9FF);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#C5D9FF',GradientType=0 ); 
+}
+.hupa-commands-bar {
+    background: -moz-linear-gradient(#C5D9FF, #deeeff);
+    background: -o-linear-gradient(#C5D9FF, #deeeff);
+    background: -webkit-linear-gradient(#C5D9FF, #deeeff);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5D9FF', endColorstr='#deeeff',GradientType=0 ); 
+}
+.hupa-tree {
+    background: -moz-linear-gradient(#C5D9FF, #eaeaea);
+    background: -o-linear-gradient(#C5D9FF, #eaeaea);
+    background: -webkit-linear-gradient(#C5D9FF, #eaeaea);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5D9FF', endColorstr='#eaeaea',GradientType=0 ); 
+}
+div.hupa-main {
+    background: -moz-linear-gradient(#eaeaea, #ffffff);
+    background: -o-linear-gradient(#eaeaea, #ffffff);
+    background: -webkit-linear-gradient(#eaeaea, #ffffff);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#ffffff',GradientType=0 );     
+}
+.hupa-login-form, .hupa-bottom {
+    text-shadow: 3px 3px 3px #666666;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=4);
+}
