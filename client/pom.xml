@@ -135,10 +135,10 @@
                     </extraJvmArgs>
                     <localWorkers>1</localWorkers>
                     <compileReport>true</compileReport>
-                    <disableClassMetadata>true</disableClassMetadata>
-                    <disableCastChecking>true</disableCastChecking>
+                    <disableClassMetadata>${gwt.disableClassMetadata}</disableClassMetadata>
+                    <disableCastChecking>${gwt.disableCastChecking}</disableCastChecking>
                     <modules>
-                        <module>org.apache.hupa.Hupa</module>
+                        <module>org.apache.hupa.Hupa${gwt.moduleSuffix}</module>
                     </modules>
                 </configuration>
                 <executions>
@@ -299,4 +299,14 @@
 			</plugin>            
         </plugins>
     </build>
+    <profiles>
+      <profile>
+        <id>prod</id>
+        <properties>
+          <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
+          <gwt.disableClassMetadata>true</gwt.disableClassMetadata>
+          <gwt.disableCastChecking>true</gwt.disableCastChecking>
+        </properties>
+      </profile>
+    </profiles>
 </project>

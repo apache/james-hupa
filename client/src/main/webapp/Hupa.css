@@ -25,7 +25,7 @@ body, table td, select, * {
 
 /************[ widget: MyDialogBox ]****************/
 .hupa-dialog-box td.dialogMiddleCenter  {
-	background: #fae5b0 !important;
+	background: #fae5b0;
 }
 .hupa-dialog-box .dialogContent .gwt-Label {
 	font-weight: bold;
@@ -365,10 +365,10 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#C5D9FF',GradientType=0 ); 
 }
 .hupa-commands-bar {
-    background: -moz-linear-gradient(#C5D9FF, #deeeff);
-    background: -o-linear-gradient(#C5D9FF, #deeeff);
-    background: -webkit-linear-gradient(#C5D9FF, #deeeff);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5D9FF', endColorstr='#deeeff',GradientType=0 ); 
+    background: -moz-linear-gradient(#C5D9FF, #eaeaea);
+    background: -o-linear-gradient(#C5D9FF, #eaeaea);
+    background: -webkit-linear-gradient(#C5D9FF, #eaeaea);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5D9FF', endColorstr='#eaeaea',GradientType=0 ); 
 }
 .hupa-tree {
     background: -moz-linear-gradient(#C5D9FF, #eaeaea);
@@ -377,12 +377,18 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5D9FF', endColorstr='#eaeaea',GradientType=0 ); 
 }
 div.hupa-main {
-    background: -moz-linear-gradient(#eaeaea, #ffffff);
-    background: -o-linear-gradient(#eaeaea, #ffffff);
-    background: -webkit-linear-gradient(#eaeaea, #ffffff);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#ffffff',GradientType=0 );     
+    background: -moz-linear-gradient(#eaeaea, #cacaca);
+    background: -o-linear-gradient(#eaeaea, #cacaca);
+    background: -webkit-linear-gradient(#eaeaea, #cacaca);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#cacaca',GradientType=0 );     
 }
 .hupa-login-form, .hupa-bottom {
     text-shadow: 3px 3px 3px #666666;
-    filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=4);
+    /* filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=4); */
+}
+.hupa-flash, .hupa-dialog-box td.dialogMiddleCenter  {
+    background: -moz-linear-gradient(#fae5b0, #eaeaea);
+    background: -o-linear-gradient(#fae5b0, #eaeaea);
+    background: -webkit-linear-gradient(#fae5b0, #eaeaea);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fae5b0', endColorstr='#eaeaea',GradientType=0 );     
 }
