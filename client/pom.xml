@@ -309,4 +309,7 @@
         </properties>
       </profile>
     </profiles>
+    <properties>
+      <gwt.moduleSuffix></gwt.moduleSuffix>
+    </properties>
 </project>
