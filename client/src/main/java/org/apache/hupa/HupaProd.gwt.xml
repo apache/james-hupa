@@ -18,6 +18,10 @@
 <module rename-to='hupa'>
   <inherits name='org.apache.hupa.Hupa'/> 
 
+  <!-- Provide gzipped version of generated js, so as it will sent compressed by jetty -->
+  <inherits name="com.google.gwt.precompress.Precompress"/>
+
+  <!-- This reduces a lot the size of compiled javascript-->
   <set-property name="compiler.stackMode" value="strip" />
 
   <!-- Set the languages to compile -->

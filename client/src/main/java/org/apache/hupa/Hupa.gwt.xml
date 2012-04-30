@@ -37,14 +37,17 @@
   <inherits name='com.google.web.bindery.requestfactory.RequestFactory'/>
   <!-- <inherits name="com.google.gwt.junit.JUnit"/> -->
   
-  <!-- Inherit the default GWT style sheet.  You can change       -->
-  <!-- the theme of your GWT application by uncommenting          -->
-  <!-- any one of the following lines.                            -->
+  <!-- Inherit the default GWT style sheet.                       -->
   <inherits name='com.google.gwt.user.theme.standard.Standard'/>
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+  
+  <!-- CSS loaded asynchronously -->
   <stylesheet src="../Hupa.css"/>
   <stylesheet src="Upload.css"/>
+  
+  <!--  xsiframe would be the default in gwt soon -->
+  <add-linker name="xsiframe"/>
   
   <set-property name="locale" value="en" />
   <set-property-fallback name="locale" value="en"/>
