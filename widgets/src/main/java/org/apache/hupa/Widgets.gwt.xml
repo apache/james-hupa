@@ -25,14 +25,15 @@
   
   <source path="widgets"/>
   
-  
-  <!-- Deferred binding is disabled in IE right now, because the rendered rounded box is ugly -->
+  <replace-with class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorImpl">
+    <when-type-is class="org.apache.hupa.widgets.ui.impl.RndPanelGenerator"/>
+  </replace-with>
+    
   <replace-with class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorImplIE">
-    <when-type-is class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorImpl"/>
+    <when-type-is class="org.apache.hupa.widgets.ui.impl.RndPanelGenerator"/>
     <any>
       <when-property-is name="user.agent" value="ie6"/>
       <when-property-is name="user.agent" value="ie8"/>
-      <when-property-is name="user.agent" value="opera"/>
     </any>
   </replace-with>
   

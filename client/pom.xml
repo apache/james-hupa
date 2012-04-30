@@ -137,6 +137,7 @@
                     <compileReport>true</compileReport>
                     <disableClassMetadata>${gwt.disableClassMetadata}</disableClassMetadata>
                     <disableCastChecking>${gwt.disableCastChecking}</disableCastChecking>
+                    <logLevel>${gwt.logLevel}</logLevel>
                     <modules>
                         <module>org.apache.hupa.Hupa${gwt.moduleSuffix}</module>
                     </modules>
@@ -306,10 +307,12 @@
           <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
           <gwt.disableClassMetadata>true</gwt.disableClassMetadata>
           <gwt.disableCastChecking>true</gwt.disableCastChecking>
+          <gwt.logLevel>TRACE</gwt.logLevel>
         </properties>
       </profile>
     </profiles>
     <properties>
       <gwt.moduleSuffix></gwt.moduleSuffix>
+      <gwt.logLevel>ERROR</gwt.logLevel>
     </properties>
 </project>

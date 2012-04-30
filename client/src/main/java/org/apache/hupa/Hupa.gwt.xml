@@ -46,6 +46,9 @@
   <stylesheet src="../Hupa.css"/>
   <stylesheet src="Upload.css"/>
   
+  <set-property name="locale" value="en" />
+  <set-property-fallback name="locale" value="en"/>
+  
   <source path="client"/>
 
   <!-- In dev mode compile just for FF and webkit                 -->

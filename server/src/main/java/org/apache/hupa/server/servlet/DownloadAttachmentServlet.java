@@ -106,14 +106,8 @@ public class DownloadAttachmentServlet extends HttpServlet {
 
             in = part.getInputStream();
             if (in != null) {
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                int bytesComplete = 0;
-                while ((bytesRead = in.read(buffer)) != -1) {
-                    bytesComplete = bytesComplete + bytesRead;
-                    out.write(buffer, 0, bytesRead); // write
-                }
-                response.setContentLength(bytesComplete);
+                response.setContentLength(part.getSize());
+                IOUtils.copy(in, out);
             } else {
                 response.setContentLength(0);
             }

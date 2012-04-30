@@ -22,9 +22,7 @@
 
   <!-- Set the languages to compile -->
   <!-- It multiplies the number of permutations -->
-  <set-property name="locale" value="en" />
   <extend-property name="locale" values="es,de"/> 
-  <set-property-fallback name="locale" value="en"/>
   <set-configuration-property name="locale.useragent" value="Y"/>
 
   <!-- Compile for all browsers -->

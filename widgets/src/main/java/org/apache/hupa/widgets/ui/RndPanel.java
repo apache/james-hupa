@@ -38,7 +38,7 @@ import org.apache.hupa.widgets.ui.impl.RndPanelGeneratorImpl;
  */
 public class RndPanel extends Composite {
 
-    private static final RndPanelGenerator impl = (RndPanelGenerator) GWT.create(RndPanelGeneratorImpl.class);
+    private static final RndPanelGenerator impl = GWT.create(RndPanelGenerator.class);
 
     private FlowPanel panel = new FlowPanel();
 
