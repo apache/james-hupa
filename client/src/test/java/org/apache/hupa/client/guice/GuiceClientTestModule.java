@@ -19,13 +19,15 @@
 
 package org.apache.hupa.client.guice;
 
+import java.util.Properties;
+
 import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.guice.AbstractGuiceTestModule;
+import org.apache.hupa.server.guice.demo.DemoGuiceServerModule.DemoIMAPStoreCache;
 import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
@@ -48,6 +50,7 @@ import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLogProvider;
 import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
+import org.apache.hupa.server.utils.ConfigurationProperties;
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.Contacts;
@@ -64,7 +67,11 @@ public class GuiceClientTestModule extends AbstractGuiceTestModule {
 
   @Override
   protected void configureHandlers() {
-      Names.bindProperties(binder(), MockConstants.mockProperties);
+      
+      Properties p = MockConstants.mockProperties;
+      ConfigurationProperties.validateProperties(p);
+      
+      Names.bindProperties(binder(), p);
       
       bind(Session.class).toProvider(JavaMailSessionProvider.class);
       bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
@@ -72,7 +79,7 @@ public class GuiceClientTestModule extends AbstractGuiceTestModule {
       bind(Log.class).toProvider(MockLogProvider.class).in(Singleton.class);
 
       bind(IMAPStore.class).to(MockIMAPStore.class);
-      bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(Singleton.class);
+      bind(IMAPStoreCache.class).to(DemoIMAPStoreCache.class).in(Singleton.class);
 
       bind(LoginUserHandler.class);
       bind(LogoutUserHandler.class);

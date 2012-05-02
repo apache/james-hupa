@@ -78,6 +78,7 @@ public abstract class HupaMvpTestCase extends TestCase {
             store = storeCache.get(testUser);
             httpSession.setAttribute(SConsts.USER_SESS_ATTR, testUser);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
