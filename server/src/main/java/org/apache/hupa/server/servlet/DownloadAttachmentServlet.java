@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
@@ -44,21 +44,17 @@ import com.google.inject.Inject;
 import com.sun.mail.imap.IMAPFolder;
 
 /**
- * Handle download of attachments
- *
- *
+ * Handle to download attachments in messages
  */
 public class DownloadAttachmentServlet extends HttpServlet {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1245563204035792963L;
-    private InMemoryIMAPStoreCache cache;
+    
+    private IMAPStoreCache cache;
     private Log logger;
 
     @Inject
-    public DownloadAttachmentServlet(InMemoryIMAPStoreCache cache, Log logger) {
+    public DownloadAttachmentServlet(IMAPStoreCache cache, Log logger) {
         this.cache = cache;
         this.logger = logger;
     }

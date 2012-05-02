@@ -102,7 +102,7 @@ public class GetMessageDetailsHandler extends
             mDetails.setUid(uid);
             
             f.setFlags(new Message[] { message }, new Flags(Flag.SEEN), true);
-
+            
             return mDetails;
         } catch (Exception e) {
             logger.error("Unable to expose msg for user " + user
@@ -133,7 +133,7 @@ public class GetMessageDetailsHandler extends
         ArrayList<MessageAttachment> attachmentList = new ArrayList<MessageAttachment>();
         
         boolean isHTML = handleParts(message, con, sbPlain, attachmentList);
-
+        
         if (isHTML) {
             mDetails.setText(filterHtmlDocument(sbPlain.toString(), folderName, uid));
         } else {
@@ -185,14 +185,16 @@ public class GetMessageDetailsHandler extends
                     Part part = mp.getBodyPart(i);
 
                     String contentType = part.getContentType().toLowerCase();
+                    
+                    Boolean bodyRead = sbPlain.length() > 0;
 
-                    if (text == null && contentType.startsWith("text/plain") ) {
+                    if (!bodyRead && contentType.startsWith("text/plain") ) {
                         isHTML = false;
                         text = (String)part.getContent();
-                    } else if (contentType.startsWith("text/html")) {
+                    } else if (!bodyRead && contentType.startsWith("text/html")) {
                         isHTML = true;
                         text = (String)part.getContent();
-                    } else if (contentType.startsWith("message/rfc822")) {
+                    } else if (!bodyRead && contentType.startsWith("message/rfc822")) {
                         // Extract the message and pass it
                         MimeMessage msg = (MimeMessage) part.getDataHandler().getContent();
                         isHTML =  handleParts(msg, msg.getContent(), sbPlain, attachmentList);

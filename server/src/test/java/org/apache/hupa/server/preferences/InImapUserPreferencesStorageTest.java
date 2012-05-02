@@ -19,20 +19,22 @@
 
 package org.apache.hupa.server.preferences;
 
-import com.google.inject.Module;
-import com.google.inject.Singleton;
-import com.google.inject.name.Names;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Properties;
 
-import com.sun.mail.imap.IMAPStore;
+import javax.mail.Flags;
+import javax.mail.Folder;
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.InMemoryIMAPStoreCache;
-import org.apache.hupa.server.guice.DefaultUserSettingsProvider;
-import org.apache.hupa.server.guice.DemoModeConstants;
 import org.apache.hupa.server.guice.GuiceServerTestModule;
-import org.apache.hupa.server.guice.JavaMailSessionProvider;
+import org.apache.hupa.server.guice.demo.DemoGuiceServerModule.DemoIMAPStoreCache;
+import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
+import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.handler.ContactsHandler;
 import org.apache.hupa.server.handler.CreateFolderHandler;
@@ -47,9 +49,11 @@ import org.apache.hupa.server.handler.LoginUserHandler;
 import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
+import org.apache.hupa.server.mock.MockConstants;
 import org.apache.hupa.server.mock.MockHttpSessionProvider;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLogProvider;
+import org.apache.hupa.server.utils.ConfigurationProperties;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -61,13 +65,10 @@ import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
 import org.apache.hupa.shared.rpc.SendMessage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.mail.Flags;
-import javax.mail.Folder;
-import javax.mail.Session;
-import javax.servlet.http.HttpSession;
+import com.google.inject.Module;
+import com.google.inject.Singleton;
+import com.google.inject.name.Names;
+import com.sun.mail.imap.IMAPStore;
 
 public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
 
@@ -94,7 +95,9 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
 
         @Override
         protected void configureHandlers() {
-            Names.bindProperties(binder(), DemoModeConstants.demoProperties);
+            Properties p = MockConstants.mockProperties;
+            ConfigurationProperties.validateProperties(p);
+            Names.bindProperties(binder(), p);
             
             bind(Session.class).toProvider(JavaMailSessionProvider.class);
             bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
@@ -102,7 +105,7 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
             bind(Log.class).toProvider(MockLogProvider.class).in(Singleton.class);
 
             bind(IMAPStore.class).to(MockIMAPStore.class);
-            bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(Singleton.class);
+            bind(IMAPStoreCache.class).to(DemoIMAPStoreCache.class).in(Singleton.class);
 
             bind(LoginUserHandler.class);
             bind(LogoutUserHandler.class);

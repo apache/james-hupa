@@ -33,6 +33,4 @@ public class SConsts {
     
     public static final String USER_SESS_ATTR = "user";
     public static final String CONTACTS_SESS_ATTR = "contacts";
-    
-
 }

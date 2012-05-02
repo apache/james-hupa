@@ -124,7 +124,7 @@ public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
         long end = System.currentTimeMillis();
         assertTrue("Large message bodies should be filtered fast", (end - start) < 1000);
     }
-
+    
     private MessageDetails loadMessageDetails(String msgFile) throws Exception {
         return getDetailsHandler.mimeToDetails(TestUtils.loadMessageFromFile(session,msgFile), "theFolder", 9999l);
     }
@@ -144,6 +144,13 @@ public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
         MessageDetails details = loadMessageDetails("2.msg");
         assertEquals(0, details.getMessageAttachments().size());
         assertTrue(details.getText().length() > 0);
+    }
+    
+    public void testMessageDetails_AlternativeInsideMultiparMixed() throws Exception {
+        MessageDetails details = loadMessageDetails("10.msg");
+        assertEquals(1, details.getMessageAttachments().size());
+        System.out.println(details.getText());
+        assertTrue(details.getText().contains("<span>"));
     }
 
     public void testMessageDetails_charsetIso() throws Exception {

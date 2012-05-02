@@ -19,6 +19,13 @@
 
 package org.apache.hupa.server.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
 /**
  * Enumeration of valid configuration properties
  */
@@ -26,8 +33,8 @@ public enum ConfigurationProperties {
     // Mandatory configuration properties
     IMAP_SERVER_ADDRESS("IMAPServerAddress", true, null),
     SMTP_SERVER_ADDRESS("SMTPServerAddress", true, null),
-    IMAP_SERVER_PORT("IMAPServerPort", true, null),
-    SMTP_SERVER_PORT("SMTPServerPort", true, null),
+    IMAP_SERVER_PORT("IMAPServerPort", false, "143"),
+    SMTP_SERVER_PORT("SMTPServerPort", false, "25"),
 
     // Optional configuration properties
     IMAP_CONNECTION_POOL_SIZE("IMAPConnectionPoolSize", false, "4"),
@@ -42,7 +49,12 @@ public enum ConfigurationProperties {
     POST_FETCH_MESSAGE_COUNT("PostFetchMessageCount", false, "0"),
     SESSION_DEBUG("SessionDebug", false, "false"),
     SMTP_AUTH("SMTPAuth", false, "true"),
-    SMTPS("SMTPS", false, "false");
+    SMTPS("SMTPS", false, "false"),
+
+    // Used only in demo mode
+    USERNAME("Username", false, null),
+    PASSWORD("Password", false, null),
+    SESSIONID("DefaultUserSessionId", false, null);
     
     private String property;
     private boolean mandatory;
@@ -96,5 +108,79 @@ public enum ConfigurationProperties {
      */
     public String getPropValue() {
         return this.propValue;
+    }
+
+    /**
+     * Test for mandatory properties, complete with default values when
+     * missing, and avoid unknown properties.
+     */
+    public static void validateProperties(Properties properties) {
+    	
+    	List<String> errors = new ArrayList<String>();
+
+        // Test for mandatory and complete properties with default values when
+        // missing
+        for (ConfigurationProperties confProps : ConfigurationProperties
+                .values()) {
+            String propName = confProps.getProperty();
+            String propValue = confProps.getPropValue();
+            Object value = properties.get(propName);
+            if (confProps.isMandatory()) {
+                if (value == null) {
+                    errors.add("The mandatory Property '"
+                            + confProps.getProperty() + "' is not set.");
+                }
+            } else if (value == null && propValue != null) {
+                properties.setProperty(propName, propValue);
+            }
+        }
+
+        // Test for unknown properties set in configuration
+        for (Object key : properties.keySet()) {
+            if (ConfigurationProperties.lookup((String) key) == null) {
+                errors.add("The Property '" + key
+                        + "' is unknown");
+            }
+        }
+        if (!errors.isEmpty()) {
+            throw new IllegalArgumentException("Error validating configuration: \n" + properties + "\n" +  errors.toString());
+        }
+    }
+    
+    /**
+     * Loads and validate a properties file.
+     * 
+     * @param configDir
+     * @param name
+     * @return
+     */
+    public static Properties loadProperties(String name) {
+        if (name == null)
+            return null;
+
+        Properties properties = null;
+        File file = new File(name);
+        
+        if (file.exists()) {
+            FileInputStream fis = null;
+            try {
+                properties = new Properties();
+                fis = new FileInputStream(file);
+                properties.load(fis);
+            } catch (Exception e) {
+                properties = null;    
+                e.printStackTrace();
+            } finally {
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        // Empty on purpose
+                    }
+                }
+            }
+        }
+        
+        return properties;
     }
 }

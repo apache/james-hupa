@@ -238,7 +238,8 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
                 dispatcher.execute(new DeleteAllMessages(folder), new HupaCallback<DeleteMessageResult>(dispatcher, eventBus) {
                     public void callback(DeleteMessageResult result) {
                         display.reset();
-                        eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,result.getCount()));
+                        display.reloadData();
+//                        eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,result.getCount()));
                     }
                 });
             }

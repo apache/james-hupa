@@ -75,7 +75,6 @@ import com.google.inject.name.Named;
  *
  */
 public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
-        
 
     protected static class TestUser extends User {
         private static final long serialVersionUID = 1L;

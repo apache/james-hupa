@@ -26,7 +26,6 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.mock.MockSMTPTransport;
 import org.apache.hupa.shared.rpc.Idle;
 import org.apache.hupa.shared.rpc.IdleResult;
 
@@ -56,9 +55,7 @@ public class IdleHandler extends AbstractSessionHandler<Idle, IdleResult>{
         try {
             IMAPStore store = cache.get(getUser());
             
-            if (store.getURLName() != null &&
-                !MockSMTPTransport.MOCK_HOST.equals(store.getURLName().getHost()) ) {
-               
+            if (store.getURLName() != null ) {
                 // check if the store supports the IDLE command
                 if (store.hasCapability("IDLE")) {
                     // just send a noop to keep the connection alive
@@ -66,7 +63,6 @@ public class IdleHandler extends AbstractSessionHandler<Idle, IdleResult>{
                 } else {
                     return new IdleResult(false);
                 }
-               
             }
             return new IdleResult(true);
         } catch (Exception e) {

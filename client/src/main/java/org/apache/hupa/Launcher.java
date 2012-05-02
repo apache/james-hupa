@@ -18,6 +18,7 @@
  ****************************************************************/
 package org.apache.hupa;
 
+import java.net.InetSocketAddress;
 import java.net.URL;
 import java.security.ProtectionDomain;
 
@@ -30,13 +31,19 @@ import org.eclipse.jetty.webapp.WebAppContext;
  */
 public final class Launcher {
    public static void main(String[] args) throws Exception {
-      int port = Integer.parseInt(System.getProperty("port", "8282"));
-      Server server = new Server(port);
+      
+       int port = Integer.parseInt(System.getProperty("port", "8282"));
+      String bindAddress = System.getProperty("host", "0.0.0.0");
+
+      InetSocketAddress a = new InetSocketAddress(bindAddress, port);
+      Server server = new Server(a);
+      
       ProtectionDomain domain = Launcher.class.getProtectionDomain();
       URL location = domain.getCodeSource().getLocation();
       WebAppContext webapp = new WebAppContext();
       webapp.setContextPath("/");
       webapp.setWar(location.toExternalForm());
+      
       server.setHandler(webapp);
       server.start();
       server.join();

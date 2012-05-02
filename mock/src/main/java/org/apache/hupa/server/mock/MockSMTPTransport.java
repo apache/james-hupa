@@ -31,9 +31,7 @@ import javax.mail.URLName;
 
 public class MockSMTPTransport extends Transport {
 
-    public static final String MOCK_HOST = "mock-host";
-    
-    static final URLName mockUrl = new URLName(null, MOCK_HOST, 0, null, null, null);
+    static final URLName mockUrl = new URLName(null, "mock-smtp", 0, null, null, null);
 
     public MockSMTPTransport(Session session) {
         super(session, mockUrl);

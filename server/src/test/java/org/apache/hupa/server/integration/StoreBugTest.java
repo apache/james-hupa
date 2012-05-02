@@ -19,19 +19,6 @@
 
 package org.apache.hupa.server.integration;
 
-import com.sun.mail.imap.IMAPFolder;
-import com.sun.mail.imap.IMAPStore;
-
-import junit.framework.Assert;
-
-import org.apache.hupa.server.InMemoryIMAPStoreCache;
-import org.apache.hupa.server.guice.JavaMailSessionProvider;
-import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.server.mock.MockLog;
-import org.apache.hupa.shared.data.User;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Properties;
@@ -39,6 +26,19 @@ import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
+
+import junit.framework.Assert;
+
+import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
+import org.apache.hupa.server.mock.MockIMAPStore;
+import org.apache.hupa.server.mock.MockLog;
+import org.apache.hupa.shared.data.User;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPStore;
 
 public class StoreBugTest {
     

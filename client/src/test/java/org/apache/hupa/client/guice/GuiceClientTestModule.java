@@ -26,9 +26,8 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.guice.AbstractGuiceTestModule;
-import org.apache.hupa.server.guice.DefaultUserSettingsProvider;
-import org.apache.hupa.server.guice.DemoModeConstants;
-import org.apache.hupa.server.guice.JavaMailSessionProvider;
+import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
+import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.handler.ContactsHandler;
 import org.apache.hupa.server.handler.CreateFolderHandler;
@@ -43,6 +42,7 @@ import org.apache.hupa.server.handler.LoginUserHandler;
 import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
+import org.apache.hupa.server.mock.MockConstants;
 import org.apache.hupa.server.mock.MockHttpSessionProvider;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLogProvider;
@@ -64,7 +64,7 @@ public class GuiceClientTestModule extends AbstractGuiceTestModule {
 
   @Override
   protected void configureHandlers() {
-      Names.bindProperties(binder(), DemoModeConstants.demoProperties);
+      Names.bindProperties(binder(), MockConstants.mockProperties);
       
       bind(Session.class).toProvider(JavaMailSessionProvider.class);
       bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);

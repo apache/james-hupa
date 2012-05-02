@@ -17,22 +17,20 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.server;
 
-import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
-import javax.mail.Session;
-import javax.mail.Transport;
+package org.apache.hupa.server.guice.providers;
 
-import org.apache.hupa.shared.data.User;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.impl.Log4JLogger;
 
-import com.sun.mail.imap.IMAPStore;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
-public interface IMAPStoreCache {
-    public void delete(String username);
-    public void delete(User user);
-    public IMAPStore get(String username,String password) throws MessagingException;
-    public IMAPStore get(User user) throws MessagingException;
-    public Transport getMailTransport(boolean useSSL) throws NoSuchProviderException;
-    public Session getMailSession();
+@Singleton
+public class LogProvider implements Provider<Log>{
+
+    public Log get() {
+        return new Log4JLogger("HupaLogger");
+    }
+
 }

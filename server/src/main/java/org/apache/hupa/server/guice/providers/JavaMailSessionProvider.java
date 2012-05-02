@@ -17,22 +17,18 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.server;
+package org.apache.hupa.server.guice.providers;
 
-import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
+import java.util.Properties;
+
 import javax.mail.Session;
-import javax.mail.Transport;
 
-import org.apache.hupa.shared.data.User;
+import com.google.inject.Provider;
 
-import com.sun.mail.imap.IMAPStore;
+public class JavaMailSessionProvider implements Provider<Session>{
 
-public interface IMAPStoreCache {
-    public void delete(String username);
-    public void delete(User user);
-    public IMAPStore get(String username,String password) throws MessagingException;
-    public IMAPStore get(User user) throws MessagingException;
-    public Transport getMailTransport(boolean useSSL) throws NoSuchProviderException;
-    public Session getMailSession();
+    public Session get() {
+        Session session = Session.getDefaultInstance(new Properties(), null);
+        return session;
+    }
 }

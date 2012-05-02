@@ -39,12 +39,13 @@ public class MockIMAPStore extends IMAPStore{
     public final static String MOCK_SENT_FOLDER = "Mock-Sent";
     public final static String MOCK_TRASH_FOLDER = "Mock-Trash";
     public final static String MOCK_DRAFTS_FOLDER = "Mock-Drafts";
+    public static final String MOCK_HOST = "hupa.demo";
     public final static String MOCK_LOGIN = "demo";
     private Map<String, String> validLogins = new HashMap<String, String>();
     private boolean connected = false;
     private List<MockIMAPFolder> folders = new ArrayList<MockIMAPFolder>();
     private List<String> capList;
-    static final URLName demoUrl = new URLName(null, MockSMTPTransport.MOCK_HOST, 0, null, null, null);
+    static final URLName demoUrl = new URLName(null, MOCK_HOST, 0, null, null, null);
     
     /**
      * Default constructor, it creates the folder structure and loads messages for demo
@@ -59,7 +60,7 @@ public class MockIMAPStore extends IMAPStore{
      */
     public MockIMAPStore(Session session, URLName url) {
         super(session, url);
-        if (url != null && MockSMTPTransport.MOCK_HOST.equals(url.getHost())) {
+        if (url != null && MOCK_HOST.equals(url.getHost())) {
             validLogins.put(MOCK_LOGIN, MOCK_LOGIN);
             try {
                 new MockIMAPFolder(MOCK_INBOX_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);

@@ -107,14 +107,14 @@ public class AbtractSendMessageHandlerTest extends HupaGuiceTestCase {
         
         assertEquals(contentTwoAttach, TestUtils.summaryzeContent(message).toString());
 
-        sendMessageHandler.sendMessage(session, testUser, message);
+        sendMessageHandler.sendMessage(testUser, message);
         
         // The reported size is wrong before the message has been saved
         Part part = MessageUtils.handleMultiPart(logger, message.getContent(), "uploadedFile_1.bin");
         assertTrue(part.getSize() < 0);
 
         assertTrue(sentbox.getMessages().length == 0);
-        sendMessageHandler.saveSentMessage(session, testUser, message);
+        sendMessageHandler.saveSentMessage(testUser, message);
         assertTrue(sentbox.getMessages().length == 1);
         
         message = sentbox.getMessage(0);

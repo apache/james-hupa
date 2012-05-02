@@ -47,7 +47,7 @@ public class SessionUtils {
      * @param session
      */
     public static void cleanSessionAttributes(HttpSession session) {
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("rawtypes")
         Enumeration en = session.getAttributeNames();
         ArrayList<String> toRemove = new ArrayList<String>();
         while (en.hasMoreElements()) {

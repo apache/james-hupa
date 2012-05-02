@@ -43,13 +43,13 @@ import com.google.inject.Provider;
  */
 public abstract class AbstractSessionHandler<A extends Action<R>,R extends Result> implements ActionHandler<A, R> {
 
-    protected final Provider<HttpSession> sessionProvider;
+    protected final Provider<HttpSession> httpSessionProvider;
     protected final IMAPStoreCache cache;
     protected final Log logger;
 
     @Inject
-    public AbstractSessionHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> sessionProvider) {
-        this.sessionProvider = sessionProvider;
+    public AbstractSessionHandler(IMAPStoreCache cache, Log logger, Provider<HttpSession> httpSessionProvider) {
+        this.httpSessionProvider = httpSessionProvider;
         this.cache = cache;
         this.logger = logger;
     }
@@ -82,9 +82,9 @@ public abstract class AbstractSessionHandler<A extends Action<R>,R extends Resul
      * @throws ActionException
      */
     protected User getUser() throws ActionException{
-        User user = (User) sessionProvider.get().getAttribute(SConsts.USER_SESS_ATTR);
+        User user = (User) httpSessionProvider.get().getAttribute(SConsts.USER_SESS_ATTR);
         if (user == null) {
-            throw new InvalidSessionException("User not found in session with id " + sessionProvider.get().getId());
+            throw new InvalidSessionException("User not found in session with id " + httpSessionProvider.get().getId());
         } else {
             return user;
         }

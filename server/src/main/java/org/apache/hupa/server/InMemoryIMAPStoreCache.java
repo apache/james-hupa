@@ -26,10 +26,9 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
+import javax.mail.Transport;
 
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.server.mock.MockSMTPTransport;
 import org.apache.hupa.shared.data.User;
 
 import com.google.inject.Inject;
@@ -38,9 +37,9 @@ import com.google.inject.name.Named;
 import com.sun.mail.imap.IMAPStore;
 
 @Singleton
-public class InMemoryIMAPStoreCache implements IMAPStoreCache{
+public class InMemoryIMAPStoreCache implements IMAPStoreCache {
 
-    private Session session;
+    protected Session session;
     protected Log logger;
     private final Map<String, CachedIMAPStore> pool = new HashMap<String ,CachedIMAPStore>();
     private String address;
@@ -48,8 +47,16 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
     private boolean useSSL = false;
     
     @Inject
-    public InMemoryIMAPStoreCache(Log logger, @Named("IMAPServerAddress") String address, @Named("IMAPServerPort") int port, @Named("IMAPS") boolean useSSL, @Named("IMAPConnectionPoolSize") int connectionPoolSize, @Named("IMAPConnectionPoolTimeout") int timeout, @Named("SessionDebug") boolean debug,
-            @Named("TrustStore") String truststore, @Named("TrustStorePassword") String truststorePassword, Session session) {
+    public InMemoryIMAPStoreCache(Log logger,
+            @Named("IMAPServerAddress") String address,
+            @Named("IMAPServerPort") int port, 
+            @Named("IMAPS") boolean useSSL,
+            @Named("IMAPConnectionPoolSize") int connectionPoolSize,
+            @Named("IMAPConnectionPoolTimeout") int timeout,
+            @Named("SessionDebug") boolean debug,
+            @Named("TrustStore") String truststore,
+            @Named("TrustStorePassword") String truststorePassword,
+            Session session) {
         this.logger = logger;
         this.address = address;
         this.port = port;
@@ -75,7 +82,6 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
         } else {
             props.setProperty("mail.imap.connectionpoolsize", connectionPoolSize + "");
             props.setProperty("mail.imap.connectionpooltimeout", timeout + "");
-
         }
         System.setProperty("mail.mime.decodetext.strict", "false");
       
@@ -129,16 +135,8 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
         return cstore.getStore();
     }
     
-    private CachedIMAPStore createCachedIMAPStore() throws NoSuchProviderException {
-        CachedIMAPStore cstore;
-        if (MockSMTPTransport.MOCK_HOST.equals(this.address)) {
-            cstore = new CachedIMAPStore(new MockIMAPStore(session), 300);
-        } else if (useSSL) {
-            cstore = new CachedIMAPStore((IMAPStore)session.getStore("imaps"),300);
-        } else {
-            cstore = new CachedIMAPStore((IMAPStore)session.getStore("imap"),300);
-        }
-        return cstore;
+    public CachedIMAPStore createCachedIMAPStore() throws NoSuchProviderException {
+        return new CachedIMAPStore((IMAPStore)session.getStore(useSSL ? "imaps" : "imap"),300);
     }
     
     /*
@@ -164,6 +162,13 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache{
         }
         pool.remove(username);
     }
-    
+
+    public Transport getMailTransport(boolean useSSL) throws NoSuchProviderException {
+        return session.getTransport(useSSL ? "smtps" : "smtp");
+    }
+
+    public Session getMailSession() {
+        return session;
+    }
 
 }

@@ -25,7 +25,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import javax.activation.DataSource;
 import javax.mail.Address;
@@ -53,7 +52,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.mock.MockSMTPTransport;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.server.utils.RegexPatterns;
@@ -76,13 +74,12 @@ import com.sun.mail.imap.IMAPStore;
  */
 public abstract class AbstractSendMessageHandler<A extends SendMessage> extends AbstractSessionHandler<A,GenericResult> {
 
-    private final Properties props = new Properties();
     private final boolean auth;
     private final String address;
     private final int port;
     private boolean useSSL = false;
-    private Provider<HttpSession> httpSessionProvider;
     UserPreferencesStorage userPreferences;
+    Session session;
 
     @Inject
     public AbstractSendMessageHandler(Log logger, IMAPStoreCache store, Provider<HttpSession> provider, UserPreferencesStorage preferences, @Named("SMTPServerAddress") String address, @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL) {
@@ -91,9 +88,9 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         this.address = address;
         this.port = port;
         this.useSSL  = useSSL;
-        this.httpSessionProvider = provider;
-        props.put("mail.smtp.auth", auth);
         this.userPreferences = preferences;
+        this.session = store.getMailSession();
+        session.getProperties().put("mail.smtp.auth", auth);
     }
 
     @Override
@@ -101,13 +98,12 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
             throws ActionException {
         GenericResult result = new GenericResult();
         try {
-            Session session = Session.getDefaultInstance(props);
 
             Message message = createMessage(session, action);
             message = fillBody(message,action);
 
-            sendMessage(session, getUser(), message);
-            saveSentMessage(session, getUser(), message);
+            sendMessage(getUser(), message);
+            saveSentMessage(getUser(), message);
         
             resetAttachments(action);
         
@@ -174,7 +170,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         // it is easier to handle html in the browser. 
         String text = htmlToText(html);
         
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("rawtypes")
         List items = getAttachments(action);
         
         return composeMessage(message, text, html, items);
@@ -201,7 +197,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      * @param action
      * @return A list of stored attachments
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     protected List getAttachments(A action) throws MessagingException, ActionException {
         FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSessionProvider.get());
         List<MessageAttachment> attachments = action.getMessage().getMessageAttachments();
@@ -243,17 +239,10 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      * @param message
      * @throws MessagingException
      */
-    protected void sendMessage(Session session, User user, Message message) throws MessagingException {
-        Transport transport;
+    protected void sendMessage(User user, Message message) throws MessagingException {
+        
+        Transport transport = cache.getMailTransport(useSSL);
     
-        if (MockSMTPTransport.MOCK_HOST.equals(address)) {
-            transport = new MockSMTPTransport(session);
-        } else if (useSSL) {
-            transport = session.getTransport("smtps");
-        } else {
-            transport = session.getTransport("smtp");
-        }
-
         if (auth) {
             logger.debug("Use auth for smtp connection");
             transport.connect(address,port,user.getName(), user.getPassword());
@@ -281,7 +270,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      * @throws MessagingException
      * @throws IOException 
      */
-    protected void saveSentMessage(Session session, User user, Message message) throws MessagingException, IOException {
+    protected void saveSentMessage(User user, Message message) throws MessagingException, IOException {
         IMAPStore iStore = cache.get(user);
         IMAPFolder folder = (IMAPFolder) iStore.getFolder(user.getSettings().getSentFolderName());
         
@@ -320,7 +309,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      * @throws MessagingException
      * @throws IOException
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     public static Message composeMessage (Message message, String text, String html, List parts) throws MessagingException, IOException {
 
         MimeBodyPart txtPart = null;

@@ -19,13 +19,27 @@
 
 package org.apache.hupa.server.preferences;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-
-import com.sun.mail.imap.IMAPFolder;
-import com.sun.mail.imap.IMAPStore;
-
 import gwtupload.server.UploadServlet;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.HashMap;
+import java.util.Hashtable;
+
+import javax.mail.BodyPart;
+import javax.mail.Flags.Flag;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -37,26 +51,10 @@ import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Properties;
-
-import javax.mail.BodyPart;
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Flags.Flag;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.servlet.http.HttpSession;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPStore;
 
 /**
  * A user preferences storage which uses IMAP as repository data
@@ -184,7 +182,7 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
     
     private Log logger;
     
-    private Session session = Session.getDefaultInstance(new Properties());
+    private Session session;
 
     private final IMAPStoreCache cache;
 
@@ -198,6 +196,7 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
         this.sessionProvider = sessionProvider;
         this.cache = cache;
         this.logger = logger;
+        this.session = cache.getMailSession();
     }
 
     /* (non-Javadoc)

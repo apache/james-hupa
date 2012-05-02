@@ -21,24 +21,28 @@ package org.apache.hupa.server.guice;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.server.mock.MockSMTPTransport;
+import org.apache.hupa.server.mock.MockConstants;
+import org.apache.hupa.server.utils.ConfigurationProperties;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ServerModulTest {
     private String tmpDir = System.getProperty("java.io.tmpdir");
-    private GuiceServerModule module = new GuiceServerModule(tmpDir);
+//    private GuiceServerModule module = new GuiceServerModule(tmpDir);
+    
+    private String configDir = GuiceServletConfig.CONFIG_DIR_IN_WAR;
+    
 
     @Before
     public void setUp() {
         // create config directory
-        File f = new File(tmpDir + File.separator + GuiceServerModule.CONF_DIR);
+        File f = new File(tmpDir + File.separator + configDir);
         f.delete();
         f.deleteOnExit();
         f.mkdirs();
@@ -46,20 +50,10 @@ public class ServerModulTest {
     
     @Test
     public void testLoadProperties() throws Exception {
-
         String fileName = tmpDir + File.separator +"foo.properties";
         File file = new File(fileName);
         file.createNewFile();
-        Properties p = module.loadProperties(fileName);
-        Assert.assertNotNull(p);
-        Assert.assertNull(p.get("IMAPServerAddress"));
-        file.delete();
-        
-        // load file from not absolute file
-        fileName = tmpDir + File.separator + GuiceServerModule.CONF_DIR + File.separator + "foo2.properties";
-        file = new File(fileName);
-        file.createNewFile();
-        p = module.loadProperties(file.getName());
+        Properties p = ConfigurationProperties.loadProperties(fileName);
         Assert.assertNotNull(p);
         Assert.assertNull(p.get("IMAPServerAddress"));
         file.delete();
@@ -67,53 +61,48 @@ public class ServerModulTest {
 
     @Test
     public void testLoadPropertiesWithEmptyFile() throws Exception {
+        GuiceServletConfig sconfig = new GuiceServletConfig();
+        
         File tmp = File.createTempFile("foo", ".properties");
         tmp.deleteOnExit();
 
         try {
-            module.loadProperties(tmp.toString());
+            ConfigurationProperties.loadProperties(tmp.toString());
         } catch (IllegalArgumentException e) {
             // This must be thrown because of missing mandatory configuration properties
         } catch (Exception e) {
             Assert.fail("IllegalArgumentException must be thrown because of missing mandatory configuration properties");
         }
 
-        System.setProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE, tmp.toString());
+        System.setProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE, tmp.toString());
         try {
-            module.loadProperties();
+            sconfig.loadProperties();
         } catch (IllegalArgumentException e) {
             // This must be thrown because of missing mandatory configuration properties
         } catch (Exception e) {
             Assert.fail("IllegalArgumentException must be thrown because of missing mandatory configuration properties");
         }
-        System.clearProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE);
-
+        System.clearProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE);
     }
 
     @Test
     public void testLoadDemoProperties() throws Exception {
         File tmp = File.createTempFile("foo", ".properties");
         tmp.deleteOnExit();
+        Properties p = MockConstants.mockProperties;
         Collection<String> lines = new ArrayList<String>();
-        lines.add("IMAPServerAddress = " + MockSMTPTransport.MOCK_HOST);
-        lines.add("IMAPServerPort = 143");
-        lines.add("SMTPServerAddress = " + MockSMTPTransport.MOCK_HOST);
-        lines.add("SMTPServerPort = 25");
-        lines.add("DefaultInboxFolder = " + MockIMAPStore.MOCK_INBOX_FOLDER);
-        lines.add("DefaultTrashFolder = " + MockIMAPStore.MOCK_TRASH_FOLDER);
-        lines.add("DefaultSentFolder = " + MockIMAPStore.MOCK_SENT_FOLDER);
-        lines.add("DefaultDraftsFolder = " + MockIMAPStore.MOCK_DRAFTS_FOLDER);
+        for (Entry<Object, Object> e : p.entrySet()) {
+            lines.add(e.getKey() + " = " + e.getValue());
+        }
         FileUtils.writeLines(tmp, lines);
-
-        System.setProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
-        Properties p = module.loadProperties();
-        Assert.assertNotNull(p);
-        Assert.assertEquals(DemoModeConstants.mockSettings.getInboxFolderName(), p.get("DefaultInboxFolder"));
-        Assert.assertEquals(DemoModeConstants.mockSettings.getTrashFolderName(), p.get("DefaultTrashFolder"));
-        Assert.assertEquals(DemoModeConstants.mockSettings.getSentFolderName(), p.get("DefaultSentFolder"));
         
-        System.clearProperty(GuiceServerModule.SYS_PROP_CONFIG_FILE);
-
+        System.setProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
+        p = new GuiceServletConfig().loadProperties();
+        Assert.assertNotNull(p);
+        Assert.assertEquals(MockConstants.mockSettings.getInboxFolderName(), p.get("DefaultInboxFolder"));
+        Assert.assertEquals(MockConstants.mockSettings.getTrashFolderName(), p.get("DefaultTrashFolder"));
+        Assert.assertEquals(MockConstants.mockSettings.getSentFolderName(), p.get("DefaultSentFolder"));
+        System.clearProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE);
     }
 
 }

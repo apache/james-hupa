@@ -17,10 +17,8 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.server.guice;
+package org.apache.hupa.server.mock;
 
-import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.server.mock.MockSMTPTransport;
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
 
@@ -29,7 +27,7 @@ import java.util.Properties;
 /**
  * Constants and properties used for mock mode
  */
-public class DemoModeConstants {
+public class MockConstants {
      
     public final static Settings mockSettings = new Settings() {
         private static final long serialVersionUID = 1L;
@@ -41,41 +39,28 @@ public class DemoModeConstants {
         }
     };
     
-    public final static Properties demoProperties = new Properties() {
+    public final static Properties mockProperties = new Properties() {
         private static final long serialVersionUID = 1L;
         {
-            put("Username",MockIMAPStore.MOCK_LOGIN);
-            put("Password",MockIMAPStore.MOCK_LOGIN);
+            put("Username", MockIMAPStore.MOCK_LOGIN);
+            put("Password", MockIMAPStore.MOCK_LOGIN);
+            put("DefaultUserSessionId", "DEMO_ID");
 
-            put("IMAPServerAddress", MockSMTPTransport.MOCK_HOST);
-            put("IMAPServerPort", "143");
-            put("IMAPS", "false");
-            
-            put("TrustStore", "my-truststore");
-            put("TrustStorePassword", "my-truststore-password");
-            
-            put("SMTPServerAddress", MockSMTPTransport.MOCK_HOST);
-            put("SMTPServerPort", "25");
-            put("SMTPS", "false");
-            put("SMTPAuth", "false");
+            put("IMAPServerAddress", MockIMAPStore.MOCK_HOST);
+            put("SMTPServerAddress", MockIMAPStore.MOCK_HOST);
             
             put("SessionDebug", "false");
             
-            put("IMAPConnectionPoolSize", "4");
-            put("IMAPConnectionPoolTimeout", "300000");
-
             put("DefaultInboxFolder", MockIMAPStore.MOCK_INBOX_FOLDER);
             put("DefaultTrashFolder", MockIMAPStore.MOCK_TRASH_FOLDER);
             put("DefaultSentFolder", MockIMAPStore.MOCK_SENT_FOLDER);
             put("DefaultDraftsFolder", MockIMAPStore.MOCK_DRAFTS_FOLDER);
             
             put("PostFetchMessageCount", "0");
-            
-            put("DefaultUserSessionId", "DEMO_ID");
         }
     };
 
-    public final static Settings demoUserSettings = new Settings() {
+    public final static Settings mockUserSettings = new Settings() {
         private static final long serialVersionUID = 1L;
         {
             setInboxFolderName(MockIMAPStore.MOCK_INBOX_FOLDER);
@@ -85,13 +70,12 @@ public class DemoModeConstants {
         }
     };
     
-    public final static User demoUser = new User() {
+    public final static User mockUser = new User() {
         private static final long serialVersionUID = 1L;
         {
             setName(MockIMAPStore.MOCK_LOGIN);
             setPassword(MockIMAPStore.MOCK_LOGIN);
-            setSettings(demoUserSettings);
+            setSettings(mockUserSettings);
         }
     };
-    
 }

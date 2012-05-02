@@ -19,11 +19,6 @@
 
 package org.apache.hupa.server.guice;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Session;
@@ -33,6 +28,9 @@ import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
+import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
+import org.apache.hupa.server.guice.providers.LogProvider;
 import org.apache.hupa.server.handler.CheckSessionHandler;
 import org.apache.hupa.server.handler.ContactsHandler;
 import org.apache.hupa.server.handler.CreateFolderHandler;
@@ -58,7 +56,6 @@ import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
 import org.apache.hupa.server.servlet.MessageSourceServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
-import org.apache.hupa.server.utils.ConfigurationProperties;
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.rpc.CheckSession;
 import org.apache.hupa.shared.rpc.Contacts;
@@ -91,27 +88,19 @@ import com.google.inject.name.Names;
  */
 public class GuiceServerModule extends ActionHandlerModule {
 
-    public static final String SYS_PROP_CONFIG_FILE = "hupa.config.file";
-
-    public static final String CONFIG_FILE_NAME = "config.properties";
-    public static final String[] CONFIG_PROPERTIES = {
-            System.getenv("HOME") + "/.hupa/" + CONFIG_FILE_NAME,
-            "/etc/default/hupa"
-    };
-    public static final String CONF_DIR = "WEB-INF/conf/";
-
-    private String configDir;
+    Properties properties;
+    public GuiceServerModule(Properties properties) {
+        this.properties = properties;
+    }
     
-    public GuiceServerModule(String rootPath) {
-        configDir = rootPath + "/" + CONF_DIR;
+    protected Class<? extends IMAPStoreCache> getIMAPStoreCacheClass() {
+        return InMemoryIMAPStoreCache.class;
     }
 
     @Override
     protected void configureHandlers() {
-        Properties properties;
         try {
             // Bind addresses and ports for imap and smtp
-            properties = loadProperties();
             Names.bindProperties(binder(), properties);
         } catch (Exception e) {
             throw new RuntimeException("Unable to to configure hupa server," +
@@ -140,8 +129,9 @@ public class GuiceServerModule extends ActionHandlerModule {
         bindHandler(TagMessage.class, TagMessagesHandler.class);
         bindHandler(SetFlag.class, SetFlagsHandler.class);
         bindHandler(Contacts.class, ContactsHandler.class);
-        bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(
-                Singleton.class);
+        
+        bind(IMAPStoreCache.class).to(getIMAPStoreCacheClass()).in(Singleton.class);
+        
         bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);
         bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(
                 Singleton.class);
@@ -152,96 +142,4 @@ public class GuiceServerModule extends ActionHandlerModule {
         bind(UserPreferencesStorage.class).to(InImapUserPreferencesStorage.class);
         bind(Properties.class).toInstance(properties);
     }
-
-    protected Properties loadProperties() throws Exception {
-        Properties properties = null;
-
-        String fileName = System.getProperty(SYS_PROP_CONFIG_FILE);
-        if (fileName != null) {
-            properties = loadProperties(fileName);
-        }
-
-        if (properties == null) {
-            for (String name : CONFIG_PROPERTIES) {
-                properties = loadProperties(name);
-                if (properties != null)
-                    break;
-            }
-        }
-
-        if (properties == null) {
-            properties = loadProperties(configDir + CONFIG_FILE_NAME);
-        }
-
-        // Validate for mandatory and complete properties with default values
-        return validateProperties(properties);
-    }
-
-    protected Properties validateProperties(Properties properties) {
-        List<String> errors = new ArrayList<String>();
-
-        // Test for mandatory and complete properties with default values when
-        // missing
-        for (ConfigurationProperties confProps : ConfigurationProperties
-                .values()) {
-            if (confProps.isMandatory()) {
-                if (properties.get(confProps.getProperty()) == null) {
-                    errors.add("The mandatory Property '"
-                            + confProps.getProperty() + "' is not set.");
-                }
-            } else if (properties.get(confProps.getProperty()) == null) {
-                properties.setProperty(confProps.getProperty(),
-                    confProps.getPropValue());
-            }
-        }
-
-        // Test for unknown properties set in configuration
-        for (Object key : properties.keySet()) {
-            if (ConfigurationProperties.lookup((String) key) == null) {
-                errors.add("The Property '" + key
-                        + "' has no configuration impacts, it's unknown");
-            }
-        }
-        if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
-        }
-
-        return properties;
-    }
-    
-    protected Properties loadProperties(String name) {
-
-        if (name == null)
-            return null;
-
-        Properties properties = null;
-        File file = new File(name);
-        
-        // check if the file is absolute. If not prefix it with the default config dir
-        if (file.isAbsolute() == false) {
-            file = new File(configDir + File.separator + file.getName());
-        }
-        if (file.exists()) {
-            FileInputStream fis = null;
-            try {
-                properties = new Properties();
-                fis = new FileInputStream(file);
-                properties.load(fis);
-            } catch (Exception e) {
-                properties = null;    
-                e.printStackTrace();
-            } finally {
-                if (fis != null) {
-                    try {
-                        fis.close();
-                    } catch (IOException e) {
-                        // Empty on purpose
-                    }
-                }
-            }
-        }
-        
-        return properties;
-    }
-
 }

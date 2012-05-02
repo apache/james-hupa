@@ -19,12 +19,16 @@
 
 package org.apache.hupa.server.guice;
 
+import java.util.Properties;
+
 import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.server.guice.demo.DemoGuiceServerModule.DemoIMAPStoreCache;
+import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
+import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.handler.ContactsHandler;
 import org.apache.hupa.server.handler.CreateFolderHandler;
@@ -39,11 +43,13 @@ import org.apache.hupa.server.handler.LoginUserHandler;
 import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
+import org.apache.hupa.server.mock.MockConstants;
 import org.apache.hupa.server.mock.MockHttpSessionProvider;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLogProvider;
 import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
+import org.apache.hupa.server.utils.ConfigurationProperties;
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.Contacts;
@@ -60,7 +66,10 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
 
   @Override
   protected void configureHandlers() {
-      Names.bindProperties(binder(), DemoModeConstants.demoProperties);
+      Properties properties = MockConstants.mockProperties;
+      ConfigurationProperties.validateProperties(properties);
+
+      Names.bindProperties(binder(), properties);
       
       bind(Session.class).toProvider(JavaMailSessionProvider.class);
       bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
@@ -68,7 +77,7 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
       bind(Log.class).toProvider(MockLogProvider.class).in(Singleton.class);
 
       bind(IMAPStore.class).to(MockIMAPStore.class);
-      bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(Singleton.class);
+      bind(IMAPStoreCache.class).to(DemoIMAPStoreCache.class).in(Singleton.class);
 
       bind(LoginUserHandler.class);
       bind(LogoutUserHandler.class);
@@ -91,6 +100,8 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
       bind(UserPreferencesStorage.class).to(InSessionUserPreferencesStorage.class);
       
       bind(User.class).to(TestUser.class).in(Singleton.class);
+      bind(Properties.class).toInstance(properties);
+
   }
 
 }

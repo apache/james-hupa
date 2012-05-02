@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -57,9 +56,9 @@ public class ReplyMessageHandler extends AbstractSendMessageHandler<ReplyMessage
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     protected List getAttachments(ReplyMessage action) throws MessagingException, ActionException {
-        List<BodyPart> items = new ArrayList<BodyPart>();
+        List<?> items = new ArrayList();
         IMAPStore store = cache.get(getUser());
 
         IMAPFolder folder = (IMAPFolder) store.getFolder(action.getFolder().getFullName());

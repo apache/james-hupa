@@ -1,13 +1,11 @@
-Return-Path: <mcm@altercore.com>
-Delivered-To: mcm@altercore.com
 Received: from localhost (EHLO Arizona) ([127.0.0.1])
           by Arizona (JAMES SMTP Server ) with ESMTP ID 1913414975
-          for <mcm@altercore.com>;
+          for <mcm>;
           Fri, 27 Apr 2012 01:05:23 +0200 (CEST)
-From: mcm@altercore.com
-To: mcm@altercore.com
+From: mcm@example.com
+To: mcm@example.com
 Message-ID: <321887181.2.1335524723727.JavaMail.root@Arizona>
-Subject: local
+Subject: Inline image
 MIME-Version: 1.0
 Content-Type: multipart/alternative; 
 	boundary="----=_Part_1_1578022692.1335524723695"
