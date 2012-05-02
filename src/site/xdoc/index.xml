@@ -30,7 +30,7 @@
 				email clients nowadays have like address book </p>
 		</section>
 
-        <section name="releases">
+        <section name="Releases">
             <p>
                 Although there isn't a stable release yet you can download the latest
                 <a href='https://builds.apache.org/job/hupa-trunk/lastBuild/org.apache.hupa$hupa/artifact/org.apache.hupa/hupa/0.0.2-SNAPSHOT/hupa-0.0.2-SNAPSHOT.war'>
@@ -41,20 +41,10 @@
         </section>
 
         <section name="Demo">
-            <p> There is an instance of Hupa running in the ASF infra. It is
+            <p> There are <a href='demo/index.html'>two</a> instances of Hupa running in the ASF infra. One is
                 configured to use GMail IMAP and SMTP servers, so any gmail account
-                should work. </p>
-            <p>
-                Note that your gmail account must have imap enabled.
-                <br />
-                Because the instance and gmail servers are far away and caching in
-                Hupa is not functional yet, you will notice a latency when using the
-                application
-            </p>
-            <p>
-                Click on this
-                <a href='http://james.zones.apache.org' target='_blank'> link </a>
-                to open Hupa in a new window.
+                should work. The other one uses a set of messages used to test Hupa
+                with fake imap and smtp servers implementations.
             </p>
         </section>
 

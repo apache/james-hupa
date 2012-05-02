@@ -1,0 +1,102 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon">
+<title>Hupa webmail Demo</title>
+<style>
+body {
+	background: #eee;
+}
+
+* {
+	font-family: arial;
+}
+
+h2 {
+	float: left;
+}
+
+.title {
+	font-size: 2.5em;
+	text-align: center;
+	background: -moz-linear-gradient(#C5D9FF, #FFFFFF);
+	background: -webkit-linear-gradient(#C5D9FF, #FFFFFF);
+	background: -o-linear-gradient(#C5D9FF, #FFFFFF);
+	filter: progid : DXImageTransform.Microsoft.gradient(startColorstr='#C5D9FF', endColorstr='#FFFFFF', GradientType=0 );
+	text-shadow: 1px 3px 3px #666666;
+	filter: progid : DXImageTransform.Microsoft.Shadow (color='#666666', Direction=135, Strength=1 );
+}
+
+.box {
+	box-shadow: 0 1px 4px grey;
+	border: 1px solid #7FAAFF;
+	border-radius: 5px 5px 5px 5px;
+	overflow: hidden;
+	width: 800px;
+	padding: 30px;
+	left: 50%;
+	margin-left: -430px;
+	position: relative;
+}
+
+.text {
+	margin-top: 15px;
+	background: -moz-linear-gradient(#fafafa, #C5D9FF);
+	background: -webkit-linear-gradient(#fafafa, #C5D9FF);
+    filter: progid : DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#C5D9FF', GradientType=0 );
+	margin-bottom: 0px;
+	min-height: 50%;
+}
+
+img {
+	margin-top: -62px;
+	margin-bottom: -62px;
+	vertical-align: middle;
+	width: 200px;
+}
+
+li {
+	margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+	<div class='title box'>
+		<img src="hupa-logo-original-transparent.png" /> Apache Hupa Demo
+		site.
+	</div>
+
+	<div class='text box'>
+		<p>You can select one of our demo instances:
+		<ul>
+			<li><a href=http://james.zones.apache.org/hupa.demo>Hupa in Demo mode</a>:
+				<ul>
+                    <li>Username is set to <b>'demo'</b> and the password is <b>'demo'</b></li>
+					<li>Uses a collection of example messages and stub
+						implementations of IMAP and SMTP servers.</li>
+                                        <li>In this instance you can test almost the Hupa features,
+                                                but emails you send will never reach the addressee, 
+                                                they only will be saved in the Sent folder.</li>
+				</ul></li>
+			</li>
+
+			<li><a href=http://james.zones.apache.org/hupa.gmail>Hupa for Gmail</a>:
+				<ul>
+					<li>It will work with any imap enabled account in gmail.</li>
+					<li>You have to provide a valid gmail username (don't forget
+						the domain part) and your password.</li>
+					<li>Because this instance and gmail servers are far away, and
+						Hupa caching is not enabled, you will notice a latency when using
+						the application.</li>
+					<li>You can read your real messages and use Hupa to send
+						messages to your contacts.</li>
+				</ul></li>
+		</ul>
+
+		</p>
+	</div>
+</body>
+
+</html>
