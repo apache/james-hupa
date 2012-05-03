@@ -41,7 +41,7 @@
         </section>
 
         <section name="Demo">
-            <p> There are <a href='demo/index.html'>two</a> instances of Hupa running in the ASF infra. One is
+            <p> There are <a href='http://james.zones.apache.org/index.html'>two</a> instances of Hupa running in the ASF infra. One is
                 configured to use GMail IMAP and SMTP servers, so any gmail account
                 should work. The other one uses a set of messages used to test Hupa
                 with fake imap and smtp servers implementations.

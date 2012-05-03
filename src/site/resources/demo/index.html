@@ -6,6 +6,7 @@
 <style>
 body {
 	background: #eee;
+        font-size: 14px;
 }
 
 * {
@@ -27,11 +28,13 @@ h2 {
 	filter: progid : DXImageTransform.Microsoft.Shadow (color='#666666', Direction=135, Strength=1 );
 }
 
-.box {
+.box .warn {
 	box-shadow: 0 1px 4px grey;
 	border: 1px solid #7FAAFF;
 	border-radius: 5px 5px 5px 5px;
 	overflow: hidden;
+}
+.box {
 	width: 800px;
 	padding: 30px;
 	left: 50%;
@@ -47,6 +50,14 @@ h2 {
 	margin-bottom: 0px;
 	min-height: 50%;
 }
+.warn {
+    background: -moz-linear-gradient(#fae5b0, #eaeaea);
+    background: -webkit-linear-gradient(#fae5b0, #eaeaea);
+    background: -o-linear-gradient(#fae5b0, #eaeaea);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fae5b0', endColorstr='#eaeaea',GradientType=0 );  
+        padding: 10px;
+        margin-left: -30px;
+}
 
 img {
 	margin-top: -62px;
@@ -55,8 +66,12 @@ img {
 	width: 200px;
 }
 
-li {
-	margin-top: 10px;
+li, .warn {
+   margin-top: 10px;
+}
+p {
+   margin-top: 5px;
+   margin-bottom: 0px;
 }
 </style>
 </head>
@@ -71,18 +86,18 @@ li {
 	<div class='text box'>
 		<p>You can select one of our demo instances:
 		<ul>
-			<li><a href=http://james.zones.apache.org/hupa.demo>Hupa in Demo mode</a>:
+			<li>Hupa in <b>Demo</b> mode: <a href=http://james.zones.apache.org/hupa.demo>http</a>:
 				<ul>
                     <li>Username is set to <b>'demo'</b> and the password is <b>'demo'</b></li>
 					<li>Uses a collection of example messages and stub
 						implementations of IMAP and SMTP servers.</li>
-                                        <li>In this instance you can test almost the Hupa features,
-                                                but emails you send will never reach the addressee, 
-                                                they only will be saved in the Sent folder.</li>
+					<li>In this instance you can test almost the Hupa features,
+						but emails you send will never reach the addressee, 
+                                                and message search is not implemented.</li>
 				</ul></li>
 			</li>
 
-			<li><a href=http://james.zones.apache.org/hupa.gmail>Hupa for Gmail</a>:
+			<li>Hupa for <b>Gmail</b>: <a href=https://james.zones.apache.org/hupa.gmail>https</a> | <a href=http://james.zones.apache.org/hupa.gmail>http</a>
 				<ul>
 					<li>It will work with any imap enabled account in gmail.</li>
 					<li>You have to provide a valid gmail username (don't forget
@@ -90,8 +105,19 @@ li {
 					<li>Because this instance and gmail servers are far away, and
 						Hupa caching is not enabled, you will notice a latency when using
 						the application.</li>
-					<li>You can read your real messages and use Hupa to send
+					<li>You can read your real messages, search them, and use Hupa to reply and send
 						messages to your contacts.</li>
+                                        <div class='warn'>
+                                           <p>Like any other email client, Hupa needs your password in order to 
+                                           get a secure session with your credentials from gmail servers. </p>
+                                           <p>Hupa uses SSL
+                                           channel to comunicate with gmail. </p>
+                                           <p>In the same way it is recomended that
+                                           you use hupa via https so as the communication between your browser and Hupa
+                                           were not compromissed. </p>
+                                           <p>Because this is a demo instance we are using a
+                                           self-signed certificate.</p>
+                                        </div>
 				</ul></li>
 		</ul>
 
@@ -100,3 +126,4 @@ li {
 </body>
 
 </html>
+
