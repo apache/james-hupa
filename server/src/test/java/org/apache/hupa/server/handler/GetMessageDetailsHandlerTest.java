@@ -161,12 +161,6 @@ public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
         assertTrue(details.getText().length() > 0);
     }
     
-    public void testMessageDetails_textHtm2l() throws Exception {
-        MessageDetails details = loadMessageDetails("11.msg");
-        System.out.println(details.getText());
-        assertTrue(details.getText().length() > 0);
-    }
-    
     public void testMessageDetails_multiparMixed_multipartAlternative() throws Exception {
         MessageDetails details = loadMessageDetails("6.msg");
         assertEquals(1, details.getMessageAttachments().size());
