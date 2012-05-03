@@ -68,7 +68,7 @@ public class Editor extends VerticalPanel implements HasHTML, Focusable {
         area.addInitializeHandler(new InitializeHandler() {
             public void onInitialize(InitializeEvent event) {
                 setBodyStyleAttribute("fontFamily", "arial");
-                setBodyStyleAttribute("fontSize", "80%");
+                setBodyStyleAttribute("fontSize", "12px");
             }
         });
         
@@ -101,7 +101,7 @@ public class Editor extends VerticalPanel implements HasHTML, Focusable {
 
     public void setHTML(String html) {
         isNewMessage = html.trim().length() > 0; 
-//        area.setHTML("<font size=2 style='font-family: arial'><br/>" + html + "</font>");
+        area.setHTML(html);
     }
 
     public String getText() {
