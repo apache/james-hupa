@@ -7,7 +7,7 @@ From: Nobody <nobody@foo.com>
 Date: Tue, 8 Sep 2009 15:48:17 -0300
 Subject: [gwt-contrib] Looking for Incubator sponsor for ProgressBar
 To: google-web-toolkit-contributors <gwt@foo.com>
-Reply-To: gwt@foo.com
+Reply-To: en-usn_specialoffer-noreply-@newsletter.foo.com
 Sender: nobody@foo.com
 Precedence: bulk
 X-Google-Loop: groups

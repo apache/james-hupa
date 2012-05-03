@@ -5,7 +5,7 @@ Date: Fri, 15 Jan 2010 12:52:56 +0100
 Message-ID: <a194f7b71001150352s7c4beb02wa7c49d44d0e94b2d@mail.gmail.com>
 Subject: Listado de temas a tratar
 From: Juan Palomo <juan@palomo.com>
-To: =?ISO-8859-1?Q?No hay ma=F1ana?= <hello@hupa.org>
+To: =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org>
 Content-Type: multipart/mixed; boundary=001485f7c300fc945d047d32a46a
 X-Virus-Checked: Checked by ClamAV on apache.org
 

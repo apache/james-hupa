@@ -146,13 +146,6 @@ public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
         assertTrue(details.getText().length() > 0);
     }
     
-    public void testMessageDetails_AlternativeInsideMultiparMixed() throws Exception {
-        MessageDetails details = loadMessageDetails("10.msg");
-        assertEquals(1, details.getMessageAttachments().size());
-        System.out.println(details.getText());
-        assertTrue(details.getText().contains("<span>"));
-    }
-
     public void testMessageDetails_charsetIso() throws Exception {
         MimeMessage message = TestUtils.loadMessageFromFile(session,"3.msg");
         String from = message.getFrom()[0].toString();
@@ -168,10 +161,22 @@ public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
         assertTrue(details.getText().length() > 0);
     }
     
+    public void testMessageDetails_textHtm2l() throws Exception {
+        MessageDetails details = loadMessageDetails("11.msg");
+        System.out.println(details.getText());
+        assertTrue(details.getText().length() > 0);
+    }
+    
     public void testMessageDetails_multiparMixed_multipartAlternative() throws Exception {
         MessageDetails details = loadMessageDetails("6.msg");
         assertEquals(1, details.getMessageAttachments().size());
         assertTrue(details.getText().length() > 0);
+    }
+    
+    public void testMessageDetails_multiparMixed_multipartAlternative_textAttachment() throws Exception {
+        MessageDetails details = loadMessageDetails("10.msg");
+        assertEquals(1, details.getMessageAttachments().size());
+        assertTrue(details.getText().contains("<span>"));
     }
     
     public void testMessageDetails_html_with_inline_images() throws Exception {

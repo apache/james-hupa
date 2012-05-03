@@ -180,11 +180,18 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             // Add cc addresses
             Address[] ccArray = m.getRecipients(RecipientType.CC);
             ArrayList<String> cc = new ArrayList<String>();
-
             if (ccArray != null) {
                 for (Address addr : ccArray) {
-                    cc.add(addr.toString());
-                }
+                    String mailCc = null;
+                    try {
+                    	mailCc = MimeUtility.decodeText(addr.toString());
+                        userPreferences.addContact(mailCc);
+                    } catch (UnsupportedEncodingException e) {
+                        logger.debug("Unable to decode mailTo " + mailCc + " " + e.getMessage());
+                    }
+                    if (mailCc != null)
+                        cc.add(mailCc);
+                }            	
             }
             msg.setCc(cc);
 
