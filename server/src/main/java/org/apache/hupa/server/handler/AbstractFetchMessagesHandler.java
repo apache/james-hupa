@@ -127,14 +127,12 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             String from = null;
             if (m.getFrom() != null && m.getFrom().length >0 ) {
                 from = decodeText(m.getFrom()[0].toString());
-                userPreferences.addContact(from);
             }
             msg.setFrom(from);
 
             String replyto = null;
             if (m.getReplyTo() != null && m.getReplyTo().length >0 ) {
                 replyto = decodeText(m.getReplyTo()[0].toString());
-                userPreferences.addContact(replyto);
             }
             msg.setReplyto(replyto);
             
@@ -144,11 +142,11 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             if (toArray != null) {
                 for (Address addr : toArray) {
                     String mailTo = decodeText(addr.toString());
-                    userPreferences.addContact(mailTo);
                     to.add(mailTo);
                 }
             }
             msg.setTo(to);
+
             
             // Check if a subject exist and if so decode it
             String subject = m.getSubject();
@@ -163,11 +161,15 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             if (ccArray != null) {
                 for (Address addr : ccArray) {
                     String mailCc = decodeText(addr.toString());
-                    userPreferences.addContact(mailCc);
                     cc.add(mailCc);
                 }            	
             }
             msg.setCc(cc);
+
+            userPreferences.addContact(from);
+            userPreferences.addContact(to);
+            userPreferences.addContact(replyto);
+            userPreferences.addContact(cc);
 
             // Using sentDate since received date is not useful in the view when using fetchmail
             msg.setReceivedDate(m.getSentDate());

@@ -25,53 +25,57 @@ import net.customware.gwt.dispatch.shared.Result;
 
 public class ContactsResult implements Result, Serializable {
 
-    public static class Contact implements Result, Serializable {
-        private static final long serialVersionUID = -8632580327693416473L;
-        public String mail;
-        public String realname;
+	public static class Contact implements Result, Serializable {
+		private static final long serialVersionUID = -8632580327693416473L;
+		public String mail;
+		public String realname;
 
-        public Contact() {
-        }
-        
-        public Contact(String mail){
-            this.realname = !mail.contains("<") ? "" : 
-                             mail.replaceAll("<.+$", "")
-                             .replaceAll("^[\\s\"']+","")
-                             .replaceAll("[\\s\"']+$", "");
-            this.mail = mail.replaceAll("^.*<([^>]+)>","$1");
-        }
+		public Contact() {
+		}
 
-        public Contact(String realname, String mail) {
-            this.realname = realname;
-            this.mail = mail;
-        }
+		public Contact(String address) {
+			mail = address.replaceAll("^.*<([^>]+)>", "$1");
 
-        public String toString() {
-            return (realname != null ? realname : "") + "<" + mail + ">";
-        }
-        
-        public String toKey() {
-            return toString().replaceAll("[^\\w\\d<@>]+", "").toLowerCase();
-        }
-        
-    }
+			realname = mail.equals(address) ? mail : address
+			        .replaceAll("<.+$", "")
+			        .replaceAll("^[\\s\"']+", "")
+			        .replaceAll("[\\s\"']+$", "");
 
-    private static final long serialVersionUID = -8740775403377441876L;
-    private Contact[] contacts;
+			if (realname.isEmpty())
+				realname = mail;
+		}
 
-    public ContactsResult() {
-    }
+		public Contact(String realname, String mail) {
+			this.realname = realname;
+			this.mail = mail;
+		}
 
-    public ContactsResult(Contact... contacts) {
-        this.contacts = contacts;
-    }
+		public String toString() {
+			return (realname != null ? realname : "") + "<" + mail + ">";
+		}
 
-    public Contact[] getContacts() {
-        return contacts;
-    }
+		public String toKey() {
+			return toString().replaceAll("[^\\w\\d<@>]+", "").toLowerCase();
+		}
 
-    public void setContacts(Contact[] contacts) {
-        this.contacts = contacts;
-    }
+	}
+
+	private static final long serialVersionUID = -8740775403377441876L;
+	private Contact[] contacts;
+
+	public ContactsResult() {
+	}
+
+	public ContactsResult(Contact... contacts) {
+		this.contacts = contacts;
+	}
+
+	public Contact[] getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(Contact[] contacts) {
+		this.contacts = contacts;
+	}
 
 }

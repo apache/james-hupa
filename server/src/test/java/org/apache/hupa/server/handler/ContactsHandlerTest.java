@@ -23,14 +23,24 @@ import junit.framework.Assert;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.shared.rpc.Contacts;
+import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 
 public class ContactsHandlerTest extends HupaGuiceTestCase {
+	
+	private Contact[] getContacts() throws Exception {
+		return contactsHandler.execute(new Contacts(), null).getContacts();
+	}
     
     public void testContactsHandler() throws Exception {
-        Assert.assertEquals(0, contactsHandler.execute(new Contacts(), null).getContacts().length);
+        Assert.assertEquals(0, getContacts().length);
         userPreferences.addContact("Somebody <somebody@foo.com>");
         userPreferences.addContact(" Some.body   <somebody@foo.com>  ");
-        Assert.assertEquals(1, contactsHandler.execute(new Contacts(), null).getContacts().length);
+        userPreferences.addContact("\"somebody\" <somebody@foo.com>");
+        Assert.assertEquals(1, getContacts().length);
+        userPreferences.addContact("<somebody@foo.com>");
+        userPreferences.addContact("somebody@foo.com");
+        userPreferences.addContact("\"somebody@foo.com\" <somebody@foo.com>");
+        Assert.assertEquals(2, getContacts().length);
     }
     
 }

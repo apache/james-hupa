@@ -23,7 +23,6 @@ import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -60,7 +59,7 @@ public abstract class UserPreferencesStorage {
     final public void addContact(List<String> mails) {
         if (mails != null) {
             for (String mail: mails) {
-            	if (!mail.matches(REGEX_OMITTED_EMAILS)) {
+            	if (mail != null && !mail.matches(REGEX_OMITTED_EMAILS)) {
                     Contact contact = new Contact(mail);
                     addContact(contact);
             	}
