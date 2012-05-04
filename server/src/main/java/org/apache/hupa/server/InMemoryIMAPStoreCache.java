@@ -92,7 +92,13 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
      * @see org.apache.hupa.server.IMAPStoreCache#get(org.apache.hupa.shared.data.User)
      */
     public IMAPStore get(User user) throws MessagingException {
-        return get(user.getName(),user.getPassword());
+    	IMAPStore ret =  get(user.getName(),user.getPassword());
+    	
+    	// TODO: this is a hack, we should have a default domain suffix in configuration files
+    	if (address.contains("gmail.com") && !user.getName().contains("@")) {
+    		user.setName(user.getName() + "@gmail.com");
+    	}
+    	return ret;
     }
     
     /*
