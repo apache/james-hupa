@@ -68,6 +68,7 @@ public class FetchMessagesHandler extends
     @Override
     protected MessageConvertArray getMessagesToConvert(com.sun.mail.imap.IMAPFolder f,
             FetchMessages action) throws MessagingException, ActionException {
+        
         String searchString = action.getSearchString();
         int start = action.getStart();
         int offset = action.getOffset();

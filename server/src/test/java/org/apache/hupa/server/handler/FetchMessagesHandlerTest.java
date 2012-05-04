@@ -72,7 +72,7 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         FetchMessagesResult result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
         assertEquals(0, result.getRealCount());
         
-        ByteArrayInputStream is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
+        ByteArrayInputStream is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata 1".getBytes());
         MimeMessage msg = new MimeMessage(session, is);
         serverfolder.addMessages(new Message[]{msg});
         result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "something"), null);
@@ -83,13 +83,16 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         assertEquals(1, result.getRealCount());
         assertEquals(1, result.getMessages().size());
 
-        is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
+        is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata 2".getBytes());
         msg = new MimeMessage(session, is);
         serverfolder.appendMessages(new Message[]{msg});
         
-        result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
+        result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "data"), null);
         assertEquals(2, result.getRealCount());
         assertEquals(2, result.getMessages().size());
+        
+        result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "data 2"), null);
+        assertEquals(1, result.getRealCount());
         
         result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, null), null);
         assertEquals(2, serverfolder.getMessageCount());
@@ -102,7 +105,7 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         assertEquals(1, serverfolder.getUnreadMessageCount());
         
         serverfolder.appendMessages(new Message[]{msg});
-        result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
+        result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "data"), null);
         assertEquals(3, result.getRealCount());
         assertEquals(1, result.getRealUnreadCount());
     }
