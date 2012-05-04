@@ -19,9 +19,6 @@
 
 package org.apache.hupa.server.mock;
 
-import com.sun.mail.imap.IMAPFolder;
-import com.sun.mail.imap.IMAPStore;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,14 +26,17 @@ import java.util.List;
 
 import javax.mail.FetchProfile;
 import javax.mail.Flags;
+import javax.mail.Flags.Flag;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
-import javax.mail.Flags.Flag;
 import javax.mail.internet.MimeMessage;
 import javax.mail.search.SearchTerm;
+
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPStore;
 
 public class MockIMAPFolder extends IMAPFolder {
 
@@ -256,10 +256,16 @@ public class MockIMAPFolder extends IMAPFolder {
     }
 
     @Override
-    public synchronized Message[] search(SearchTerm arg0)
+    public synchronized Message[] search(SearchTerm search)
             throws MessagingException {
         checkExists();
-        return getMessages();
+        ArrayList<Message> ret = new ArrayList<Message>();
+        for (Message m : messages) {
+        	if (search.match(m)) {
+        		ret.add(m);
+        	}
+        }
+        return ret.toArray(new Message[0]);
     }
 
     @Override
