@@ -61,14 +61,39 @@
     <properties>
         <gwtVersion>2.4.0</gwtVersion>
         <gwtMavenVersion>2.4.0</gwtMavenVersion>
+        <gwt.moduleSuffix></gwt.moduleSuffix>
+        <gwt.logLevel>ERROR</gwt.logLevel>
         <jettyVersion>7.3.0.v20110203</jettyVersion>
+        <mock.scope>test</mock.scope>
     </properties>
+
+    <profiles>
+      <profile>
+        <!-- Agressive js compression. Compile for all browsers and languages -->
+        <id>prod</id>
+        <properties>
+          <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
+          <gwt.disableClassMetadata>true</gwt.disableClassMetadata>
+          <gwt.disableCastChecking>true</gwt.disableCastChecking>
+          <gwt.logLevel>TRACE</gwt.logLevel>
+        </properties>
+      </profile>
+      <profile>
+        <!-- Deliver Hupa with Demo stuff -->
+        <id>demo</id>
+        <properties>
+          <mock.scope></mock.scope>
+        </properties>
+      </profile>
+    </profiles>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.apache.hupa</groupId>
                 <artifactId>hupa-mock</artifactId>
                 <version>${project.version}</version>
+                <scope>${mock.scope}</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.hupa</groupId>
