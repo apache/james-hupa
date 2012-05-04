@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -6,15 +7,13 @@
 <style>
 body {
 	background: #eee;
-        font-size: 14px;
-}
-
-* {
 	font-family: arial;
+        font-size: 14px;
 }
 
 h2 {
 	float: left;
+        filter: progid:DXImageTransform.Microsoft.Shadow(color='grey', Direction=135, Strength=1);
 }
 
 .title {
@@ -23,14 +22,13 @@ h2 {
 	background: -moz-linear-gradient(#C5D9FF, #FFFFFF);
 	background: -webkit-linear-gradient(#C5D9FF, #FFFFFF);
 	background: -o-linear-gradient(#C5D9FF, #FFFFFF);
-	filter: progid : DXImageTransform.Microsoft.gradient(startColorstr='#C5D9FF', endColorstr='#FFFFFF', GradientType=0 );
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5D9FF', endColorstr='#ffffff',GradientType=0 );
 	text-shadow: 1px 3px 3px #666666;
-	filter: progid : DXImageTransform.Microsoft.Shadow (color='#666666', Direction=135, Strength=1 );
 }
 
-.box .warn {
-	box-shadow: 0 1px 4px grey;
+.box, .warn {
 	border: 1px solid #7FAAFF;
+	box-shadow: 0 1px 4px grey;
 	border-radius: 5px 5px 5px 5px;
 	overflow: hidden;
 }
@@ -46,7 +44,8 @@ h2 {
 	margin-top: 15px;
 	background: -moz-linear-gradient(#fafafa, #C5D9FF);
 	background: -webkit-linear-gradient(#fafafa, #C5D9FF);
-    filter: progid : DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#C5D9FF', GradientType=0 );
+	background: -o-linear-gradient(#fafafa, #C5D9FF);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#C5D9FF',GradientType=0 );
 	margin-bottom: 0px;
 	min-height: 50%;
 }
@@ -86,7 +85,7 @@ p {
 	<div class='text box'>
 		<p>You can select one of our demo instances:
 		<ul>
-			<li>Hupa in <b>Demo</b> mode: <a href=http://james.zones.apache.org/hupa.demo>http</a>:
+			<li>Hupa in <b>Demo</b> mode: <a href=/hupa.demo>http</a>:
 				<ul>
                     <li>Username is set to <b>'demo'</b> and the password is <b>'demo'</b></li>
 					<li>Uses a collection of example messages and stub
@@ -97,7 +96,7 @@ p {
 				</ul></li>
 			</li>
 
-			<li>Hupa for <b>Gmail</b>: <a href=https://james.zones.apache.org/hupa.gmail>https</a> | <a href=http://james.zones.apache.org/hupa.gmail>http</a>
+			<li>Hupa for <b>Gmail</b>: <a href=https://james.zones.apache.org/hupa.gmail>https</a> | <a href=/hupa.gmail>http</a>
 				<ul>
 					<li>It will work with any imap enabled account in gmail.</li>
 					<li>You have to provide a valid gmail username (don't forget
@@ -105,15 +104,15 @@ p {
 					<li>Because this instance and gmail servers are far away, and
 						Hupa caching is not enabled, you will notice a latency when using
 						the application.</li>
-					<li>You can read your real messages, search them, and use Hupa to reply and send
+					<li>You can manage your folders, read your messages, search them, reply and send
 						messages to your contacts.</li>
                                         <div class='warn'>
-                                           <p>Like any other email client, Hupa needs your password in order to 
-                                           get a secure session with your credentials from gmail servers. </p>
-                                           <p>Hupa uses SSL
-                                           channel to comunicate with gmail. </p>
-                                           <p>In the same way it is recomended that
-                                           you use hupa via https so as the communication between your browser and Hupa
+                                           <p>Like any other email client, Hupa needs your credentials in order to 
+                                           open a secure session with gmail servers. </p>
+                                           <p>Hupa uses a SSL
+                                           channel to comunicate with gmail; 
+                                           in the same way we recomend that
+                                           you use hupa via HTTPS so as the communication between your browser and Hupa
                                            were not compromissed. </p>
                                            <p>Because this is a demo instance we are using a
                                            self-signed certificate.</p>
