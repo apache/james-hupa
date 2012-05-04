@@ -259,7 +259,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             logger.debug("Unable to decode text " + s + " " + e.getMessage());
         }
         // Remove quotes around names in email addresses
-        ret =  ret.replaceFirst("^[\"' ]+(.*?)[\"' ]+<", "$1 <");
+        ret =  ret.replaceFirst("^[\"' ]+([^\"]*)[\"' ]+<", "$1 <");
         return ret;
     }
 }

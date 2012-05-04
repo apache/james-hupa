@@ -117,6 +117,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         // Not used so far
         // createNorth();
         // dockPanel.add(north, DockPanel.NORTH);
+        // dockPanel.setCellHorizontalAlignment(north, DockPanel.ALIGN_RIGHT);
         
         createWest();
         dockPanel.add(west, DockPanel.WEST);
@@ -124,7 +125,6 @@ public class MainView extends Composite implements MainPresenter.Display {
 
         createCenter();
         dockPanel.add(center, DockPanel.CENTER);
-        dockPanel.setCellHorizontalAlignment(north, DockPanel.ALIGN_RIGHT);
         dockPanel.setCellHorizontalAlignment(center, DockPanel.ALIGN_LEFT);
 
         initWidget(dockPanel);
