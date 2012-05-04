@@ -40,9 +40,9 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         MockIMAPFolder f = (MockIMAPFolder)store.getFolder("WHATEVER"); 
         f.create(Folder.HOLDS_MESSAGES);
         
-        ByteArrayInputStream is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
+        ByteArrayInputStream is = new ByteArrayInputStream("From: \"aa@foo.com\" <aa@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
         MimeMessage m1 = new MimeMessage(session, is);
-        is = new ByteArrayInputStream("From: =?ISO-8859-1?Q?Manolo_Pe=F1a?= <penya@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
+        is = new ByteArrayInputStream("From: \"=?ISO-8859-1?Q?Manolo_Pe=F1a?=\" <penya@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
         MimeMessage m2 = new MimeMessage(session, is);
         is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: =?ISO-8859-1?Q?Monta=F1a?=\n\ndata".getBytes());
         MimeMessage m3 = new MimeMessage(session, is);
@@ -52,6 +52,9 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         
         msgs = fetchMessagesHandler.convert(10, f, new Message[]{m1, m2, m3});
         assertEquals(3, msgs.size());
+        
+        msgs = fetchMessagesHandler.convert(10, f, new Message[]{m1});
+        assertEquals("aa@foo.com <aa@foo.com>",  msgs.get(0).getFrom());
 
         msgs = fetchMessagesHandler.convert(10, f, new Message[]{m2});
         assertEquals("Manolo Pe\u00F1a <penya@foo.com>",  msgs.get(0).getFrom());
