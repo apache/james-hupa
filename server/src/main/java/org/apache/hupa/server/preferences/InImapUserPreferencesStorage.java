@@ -62,6 +62,7 @@ import com.sun.mail.imap.IMAPStore;
  * @author manolo
  */
 public class InImapUserPreferencesStorage extends UserPreferencesStorage {
+	
 
     // User preferences are saved in IMAP but there is a delay between a new
     // contact is added an the save action. It saves number of operations in

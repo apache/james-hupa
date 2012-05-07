@@ -18,19 +18,18 @@
  ****************************************************************/
 package org.apache.hupa.server.mock;
 
+import javax.servlet.http.HttpSession;
+
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.google.inject.name.Named;
-
-import javax.servlet.http.HttpSession;
 
 
 public class MockHttpSessionProvider implements Provider<HttpSession> {
     static HttpSession session = null;
     @Inject
-    public MockHttpSessionProvider(@Named("DefaultUserSessionId") String id) {
+    public MockHttpSessionProvider() {
         if (session == null) {
-            session = new MockHttpSession(id);
+            session = new MockHttpSession();
         }
     }
     public HttpSession get() {

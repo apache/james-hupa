@@ -28,6 +28,8 @@ import java.util.Properties;
  * Constants and properties used for mock mode
  */
 public class MockConstants {
+    
+    public static String SESSION_ID = "MockID";
      
     public final static Settings mockSettings = new Settings() {
         private static final long serialVersionUID = 1L;
@@ -44,7 +46,6 @@ public class MockConstants {
         {
             put("Username", MockIMAPStore.MOCK_LOGIN);
             put("Password", MockIMAPStore.MOCK_LOGIN);
-            put("DefaultUserSessionId", "DEMO_ID");
 
             put("IMAPServerAddress", MockIMAPStore.MOCK_HOST);
             put("SMTPServerAddress", MockIMAPStore.MOCK_HOST);

@@ -116,27 +116,17 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             put("IMAPServerPort", "143");
             put("IMAPS", "false");
             
-            put("TrustStore", "my-truststore");
-            put("TrustStorePassword", "my-truststore-password");
-            
-            put("IMAPConnectionPoolSize", "4");
-            put("IMAPConnectionPoolTimeout", "300000");
-            
             put("DefaultInboxFolder", "INBOX");
             put("DefaultTrashFolder", "Trash");
             put("DefaultSentFolder", "Sent");
             put("DefaultDraftsFolder", "Drafts");
             
-            put("PostFetchMessageCount", "0");
-
             put("SMTPServerAddress", "localhost");
             put("SMTPServerPort", "25");
             put("SMTPS", "false");
             put("SMTPAuth", "true");
             
-            put("SessionDebug", "false");
-            
-            put("DefaultUserSessionId", "just_an_id");
+            put("SessionDebug", "true");
         }
     };
     
@@ -156,27 +146,17 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             put("IMAPServerPort", "143");
             put("IMAPS", "false");
             
-            put("TrustStore", "my-truststore");
-            put("TrustStorePassword", "my-truststore-password");
-            
-            put("IMAPConnectionPoolSize", "4");
-            put("IMAPConnectionPoolTimeout", "300000");
-            
             put("DefaultInboxFolder", "INBOX");
             put("DefaultTrashFolder", "INBOX.Trash");
             put("DefaultSentFolder", "INBOX.Sent");
             put("DefaultDraftsFolder", "INBOX.Drafts");
             
-            put("PostFetchMessageCount", "0");
-
             put("SMTPServerAddress", "mail.hotelsearch.com");
             put("SMTPServerPort", "25");
             put("SMTPS", "false");
             put("SMTPAuth", "true");
             
-            put("SessionDebug", "false");
-            
-            put("DefaultUserSessionId", "just_an_id");
+            put("SessionDebug", "true");
         }
     };
     
@@ -195,9 +175,6 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             put("IMAPServerPort", "993");
             put("IMAPS", "true");
             
-            put("TrustStore", "my-truststore");
-            put("TrustStorePassword", "my-truststore-password");
-            
             put("IMAPConnectionPoolSize", "4");
             put("IMAPConnectionPoolTimeout", "300000");
             
@@ -206,16 +183,12 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             put("DefaultSentFolder", "[Gmail]/Sent Mail");
             put("DefaultDraftsFolder", "[Gmail]/Drafts");
             
-            put("PostFetchMessageCount", "0");
-
             put("SMTPServerAddress", "smtp.gmail.com");
             put("SMTPServerPort", "465");
             put("SMTPS", "true");
             put("SMTPAuth", "true");
             
-            put("SessionDebug", "false");
-            
-            put("DefaultUserSessionId", "just_an_id");
+            put("SessionDebug", "true");
         }
     };
 

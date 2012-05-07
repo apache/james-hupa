@@ -30,7 +30,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 @SuppressWarnings("deprecation")
 public class MockHttpSession implements HttpSession{
@@ -41,9 +40,9 @@ public class MockHttpSession implements HttpSession{
     private static int seq = 0;
     
     @Inject
-    public MockHttpSession(@Named("DefaultUserSessionId") String id) {
+    public MockHttpSession() {
         cTime = System.currentTimeMillis();
-        this.id = id + "-" + seq++;
+        this.id = MockConstants.SESSION_ID + "-" + seq++;
     }
     
     public Object getAttribute(String name) {

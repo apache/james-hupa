@@ -26,6 +26,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.guice.demo.DemoGuiceServerModule.DemoIMAPStoreCache;
 import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
@@ -55,6 +56,7 @@ import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.Contacts;
 import org.apache.hupa.shared.rpc.SendMessage;
 
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import com.sun.mail.imap.IMAPStore;
@@ -64,44 +66,53 @@ import com.sun.mail.imap.IMAPStore;
  */
 public class GuiceServerTestModule extends AbstractGuiceTestModule {
 
-  @Override
-  protected void configureHandlers() {
-      Properties properties = MockConstants.mockProperties;
-      ConfigurationProperties.validateProperties(properties);
+    protected Class<? extends UserPreferencesStorage> userPreferencesStorageClass = InSessionUserPreferencesStorage.class;
+    protected Class<? extends Provider<Log>> logProviderClass = MockLogProvider.class;
+    protected Properties properties = MockConstants.mockProperties;
 
-      Names.bindProperties(binder(), properties);
-      
-      bind(Session.class).toProvider(JavaMailSessionProvider.class);
-      bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
-      bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(Singleton.class);
-      bind(Log.class).toProvider(MockLogProvider.class).in(Singleton.class);
+    @Override
+    protected void configureHandlers() {
+        ConfigurationProperties.validateProperties(properties);
+        Names.bindProperties(binder(), properties);
 
-      bind(IMAPStore.class).to(MockIMAPStore.class);
-      bind(IMAPStoreCache.class).to(DemoIMAPStoreCache.class).in(Singleton.class);
+        bind(Session.class).toProvider(JavaMailSessionProvider.class);
+        bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
+        bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(
+                Singleton.class);
+        bind(Log.class).toProvider(logProviderClass).in(Singleton.class);
 
-      bind(LoginUserHandler.class);
-      bind(LogoutUserHandler.class);
-      bind(IdleHandler.class);
-      
-      bind(FetchFoldersHandler.class);
-      bind(CreateFolderHandler.class);
-      bind(DeleteFolderHandler.class);
-      bind(FetchMessagesHandler.class);
-      bind(DeleteMessageByUidHandler.class);
-      bind(GetMessageDetailsHandler.class);
-      bind(AbstractSendMessageHandler.class).to(SendMessageHandler.class);
-      bind(SendMessageHandler.class);
-      bind(ReplyMessageHandler.class);
-      bind(ForwardMessageHandler.class);
-      
-      bindHandler(Contacts.class, ContactsHandler.class);
-      bindHandler(SendMessage.class, SendMessageHandler.class);
-      
-      bind(UserPreferencesStorage.class).to(InSessionUserPreferencesStorage.class);
-      
-      bind(User.class).to(TestUser.class).in(Singleton.class);
-      bind(Properties.class).toInstance(properties);
+        bind(IMAPStore.class).to(MockIMAPStore.class);
 
-  }
+        if (properties == MockConstants.mockProperties) {
+            bind(IMAPStoreCache.class).to(DemoIMAPStoreCache.class).in(
+                    Singleton.class);
+        } else {
+            bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(
+                    Singleton.class);
+        }
+
+        bind(LoginUserHandler.class);
+        bind(LogoutUserHandler.class);
+        bind(IdleHandler.class);
+
+        bind(FetchFoldersHandler.class);
+        bind(CreateFolderHandler.class);
+        bind(DeleteFolderHandler.class);
+        bind(FetchMessagesHandler.class);
+        bind(DeleteMessageByUidHandler.class);
+        bind(GetMessageDetailsHandler.class);
+        bind(AbstractSendMessageHandler.class).to(SendMessageHandler.class);
+        bind(SendMessageHandler.class);
+        bind(ReplyMessageHandler.class);
+        bind(ForwardMessageHandler.class);
+
+        bindHandler(Contacts.class, ContactsHandler.class);
+        bindHandler(SendMessage.class, SendMessageHandler.class);
+
+        bind(UserPreferencesStorage.class).to(userPreferencesStorageClass);
+
+        bind(User.class).to(TestUser.class).in(Singleton.class);
+        bind(Properties.class).toInstance(properties);
+    }
 
 }
