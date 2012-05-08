@@ -166,7 +166,7 @@ public class GetMessageDetailsHandler extends
             IOException {
         boolean isHTML = false;
         if (con instanceof String) {
-            if (message.getContentType().startsWith("text/html")) {
+            if (message.getContentType().toLowerCase().startsWith("text/html")) {
                 isHTML = true;
             } else {
                 isHTML = false;
