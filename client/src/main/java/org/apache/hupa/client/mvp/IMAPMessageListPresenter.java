@@ -404,20 +404,28 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
     @Override
     protected void onRevealDisplay() {
-        display.reloadData();  
+        if (user != null && folder != null) {
+            display.reloadData();  
+        }
     }
     
     public void revealDisplay(User user, IMAPFolder folder, String searchValue) {
         this.user = user;
        
-        if (this.folder == null || this.folder.getFullName().equals(folder.getFullName()) == false 
-                || (searchValue == null && this.searchValue != null) || (searchValue != null && searchValue.equals(this.searchValue) == false)) {
+        if (this.user == null 
+            || !this.user.getName().equals(user.getName()) 
+            || this.folder == null 
+            || !this.folder.getFullName().equals(folder.getFullName()) 
+            || (searchValue == null && this.searchValue != null) 
+            || (searchValue != null && searchValue.equals(this.searchValue) == false)) {
             display.reset();
             display.deselectAllMessages();
         }
         display.setExpandLoading(false);
         this.searchValue = searchValue;
         this.folder = folder;
+        
+
         revealDisplay();
     }
 

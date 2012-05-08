@@ -28,7 +28,7 @@ import org.apache.hupa.client.rf.HupaRequestFactory;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 
-@GinModules({StandardDispatchModule.class,HupaClientModule.class})
+@GinModules({/*StandardDispatchModule.class,*/ HupaClientModule.class})
 public interface HupaGinjector extends Ginjector {
     AppPresenter getAppPresenter();
     PlaceManager getPlaceManager();

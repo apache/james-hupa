@@ -55,7 +55,6 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
         } catch (NumberFormatException e) {
             // ignore
         }
-        presenter.getDisplay().goToPage(page);
         
         int rowsPerPageIndex = 0;
         try {
@@ -70,8 +69,9 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
         String searchValue = request.getParameter(SEARCH, "");
         presenter.getDisplay().getSearchValue().setValue(searchValue);
         
+        presenter.getDisplay().goToPage(page);
+        
         GWT.log("PRES="+request.toString(),null);
-
     }
 
     @Override
