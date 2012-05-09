@@ -77,4 +77,6 @@ public class HupaCSS extends WidgetsCSS {
     public static final String C_dialog = "hupa-dialog-box";
     
     public static final String C_validate = "hupa-validate-error";
+    
+    public static final String C_button = "hupa-button";
 }
