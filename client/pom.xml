@@ -17,9 +17,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -77,10 +75,10 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <exclusions>
-              <exclusion>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-              </exclusion>
+                <exclusion>
+                    <groupId>javax.validation</groupId>
+                    <artifactId>validation-api</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -97,9 +95,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>4.2.0.Final</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.2.0.Final</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -117,14 +115,14 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
-		<dependency>
-		    <groupId>org.eclipse.jetty</groupId>
-		    <artifactId>jetty-server</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>org.eclipse.jetty</groupId>
-		    <artifactId>jetty-webapp</artifactId>
-		</dependency>        
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
@@ -135,7 +133,7 @@
                 <configuration>
                     <runTarget>Hupa.html</runTarget>
                     <extraJvmArgs>
-                        -Xmx512M -Xss128M -Dhupa.config.file=${project.parent.basedir}/server/src/main/webapp/WEB-INF/conf/config.properties
+                        -Xmx512M -Xss128M
                     </extraJvmArgs>
                     <localWorkers>1</localWorkers>
                     <compileReport>true</compileReport>
@@ -187,11 +185,11 @@
                         </resource>
                     </webResources>
                     <warName>${project.artifactId}-${project.version}</warName>
-  			        <archive>
-			           <manifest>
-			              <mainClass>org.apache.hupa.Launcher</mainClass>
-			           </manifest>
-			        </archive>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.apache.hupa.Launcher</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
@@ -246,7 +244,7 @@
                 </executions>
             </plugin>
             <plugin>
-               <groupId>org.apache.maven.plugins</groupId>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
@@ -275,33 +273,33 @@
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</directory>
-                                     <include>org/apache/hupa/Launcher.class</include>
+                                    <include>org/apache/hupa/Launcher.class</include>
                                 </resource>
                             </resources>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-			<plugin>
-			   <groupId>org.apache.maven.plugins</groupId>
-			   <artifactId>maven-dependency-plugin</artifactId>
-			   <executions>
-			      <execution>
-			         <id>jetty-classpath</id>
-			         <phase>prepare-package</phase>
-			         <goals>
-			            <goal>unpack-dependencies</goal>
-			         </goals>
-			         <configuration>
-			            <includeGroupIds>org.eclipse.jetty,javax.servlet</includeGroupIds>
-			            <excludeArtifactIds>jsp-api,jstl</excludeArtifactIds>
-			            <outputDirectory>
-			               ${project.build.directory}/${project.artifactId}-${project.version}
-			            </outputDirectory>
-			         </configuration>
-			      </execution>
-			   </executions>
-			</plugin>            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>jetty-classpath</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.eclipse.jetty,javax.servlet</includeGroupIds>
+                            <excludeArtifactIds>jsp-api,jstl</excludeArtifactIds>
+                            <outputDirectory>
+                                ${project.build.directory}/${project.artifactId}-${project.version}
+                        </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
