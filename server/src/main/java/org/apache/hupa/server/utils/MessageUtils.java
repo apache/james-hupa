@@ -191,7 +191,6 @@ public class MessageUtils {
         } catch (UnsupportedEncodingException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(s + " " + ret);
         ret =  ret
           // Remove quotes around names in email addresses
           .replaceFirst("^[<\"' ]+([^\"<>]*)[>\"' ]+<", "$1 <");

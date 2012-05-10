@@ -34,12 +34,16 @@ public class ContactsResult implements Result, Serializable {
 		}
 
 		public Contact(String address) {
-			mail = address.replaceAll("^.*<([^>]+)>", "$1");
+			mail = address.replaceAll("^.*<([^>]+)>\\s*$", "$1");
 
 			realname = mail.equals(address) ? mail : address
-			        .replaceAll("<.+$", "")
-			        .replaceAll("^[\\s\"']+", "")
-			        .replaceAll("[\\s\"']+$", "");
+			        // remove the email part
+			        .replaceAll("<[^<>]+>\\s*$", "")
+			        // remove start symbols in the name
+			        .replaceAll("^[\\s\"'<]+", "")
+			        // remove end symbols in the name
+			        .replaceAll("[\\s\"'>]+$", "")
+			        ;
 
 			if (realname.isEmpty())
 				realname = mail;

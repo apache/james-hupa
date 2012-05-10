@@ -58,7 +58,7 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
     }
     
     public void testGetRecipients () throws Exception  {
-        String encodedEmail = "=?ISO-8859-1?Q?Manolo=20Pe=F1a?= <hello@hupa.org>";
+        String encodedEmail = "=?ISO-8859-1?Q?Manolo_Pe=F1a?= <hello@hupa.org>";
         String decodedEmail = MessageUtils.decodeText(encodedEmail);
         assertFalse(encodedEmail.equals(decodedEmail));
         
