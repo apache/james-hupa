@@ -203,6 +203,9 @@ public class MessageUtils {
      * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
      */
     public static String encodeEmail(String s) {
+        if (s == null) {
+            return s;
+        }
         Pattern p = Pattern.compile("^\\s*(.*?)\\s*(<[^>]+>)\\s*");
         Matcher m = p.matcher(s);
         return m.matches() ? encodeTexts(m.group(1)) + " " + m.group(2) : s;
@@ -213,9 +216,11 @@ public class MessageUtils {
      */
     public static String encodeTexts(String s) {
         String ret = s;
-        try {
-            ret = MimeUtility.encodeText(s, "ISO-8859-1", null);
-        } catch (UnsupportedEncodingException e) {
+        if (s != null) {
+            try {
+                ret = MimeUtility.encodeText(s, "ISO-8859-1", null);
+            } catch (UnsupportedEncodingException e) {
+            }
         }
         return ret;
     }
