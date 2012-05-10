@@ -22,6 +22,7 @@ import org.apache.hupa.server.HupaGuiceTestCase;
 
 import java.util.List;
 
+import javax.mail.Address;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 
@@ -54,5 +55,14 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
         inlineImgs = MessageUtils.extractInlineImages(logger, message.getContent());
         assertEquals(3, attachments.size());
         assertEquals(1, inlineImgs.size());
+    }
+    
+    public void testGetRecipients () throws Exception  {
+        String encodedEmail = "=?ISO-8859-1?Q?Manolo=20Pe=F1a?= <hello@hupa.org>";
+        String decodedEmail = MessageUtils.decodeText(encodedEmail);
+        assertFalse(encodedEmail.equals(decodedEmail));
+        
+        Address[] addr = MessageUtils.getRecipients(encodedEmail, decodedEmail);
+        assertEquals(addr[0].toString(), addr[1].toString());
     }
 }

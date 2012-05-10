@@ -133,7 +133,8 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
             if (event.getSource().equals(usernameTextBox)) {
                 passwordTextBox.setFocus(true);
             }  else if (event.getSource().equals(passwordTextBox)) {
-                formPanel.submit();
+                submitButton.click();
+//                formPanel.submit();
             }
         }
     }

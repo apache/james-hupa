@@ -44,7 +44,7 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         MimeMessage m1 = new MimeMessage(session, is);
         is = new ByteArrayInputStream("From: \"=?ISO-8859-1?Q?Manolo_Pe=F1a?=\" <penya@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
         MimeMessage m2 = new MimeMessage(session, is);
-        is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: =?ISO-8859-1?Q?Monta=F1a?=\n\ndata".getBytes());
+        is = new ByteArrayInputStream("From: a@foo.com\nTo: \"<b@foo.com>\" <b@foo.com>\nSubject: =?ISO-8859-1?Q?Monta=F1a?=\n\ndata".getBytes());
         MimeMessage m3 = new MimeMessage(session, is);
         
         ArrayList<org.apache.hupa.shared.data.Message> msgs = fetchMessagesHandler.convert(2, f, new Message[]{m1, m2, m3});
@@ -61,6 +61,8 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         
         msgs = fetchMessagesHandler.convert(10, f, new Message[]{m3});
         assertEquals("Monta\u00F1a",  msgs.get(0).getSubject());
+        assertEquals("b@foo.com <b@foo.com>",  msgs.get(0).getTo().get(0));
+
     }
 
     public void testFetchMessages() throws Exception {
