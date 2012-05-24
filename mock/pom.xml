@@ -23,7 +23,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.apache.hupa</groupId>
+        <groupId>org.apache.james.hupa</groupId>
         <artifactId>hupa-parent</artifactId>
         <version>0.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -34,7 +34,7 @@
     <description>Mock objects for hupa</description>
     <dependencies>
         <dependency>
-            <groupId>org.apache.hupa</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>hupa-shared</artifactId>
         </dependency>
         <dependency>

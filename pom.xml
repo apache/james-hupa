@@ -28,7 +28,7 @@
         <version>1.8.1</version>
         <relativePath></relativePath>
     </parent>
-    <groupId>org.apache.hupa</groupId>
+    <groupId>org.apache.james.hupa</groupId>
     <artifactId>hupa-parent</artifactId>
     <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -37,8 +37,8 @@
     <url>http://james.apache.org/hupa</url>
     <inceptionYear>2009</inceptionYear>
     <modules>
-        <module>mock</module>
         <module>shared</module>
+        <module>mock</module>
         <module>server</module>
         <module>widgets</module>
         <module>client</module>
@@ -90,23 +90,23 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.apache.hupa</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>hupa-mock</artifactId>
                 <version>${project.version}</version>
                 <scope>${mock.scope}</scope>
             </dependency>
             <dependency>
-                <groupId>org.apache.hupa</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>hupa-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.hupa</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>hupa-shared</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.hupa</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>hupa-widgets</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>

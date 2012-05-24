@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.GetMessageDetails;
 
 import net.customware.gwt.dispatch.client.ExceptionHandler;
@@ -82,6 +83,9 @@ public class CachingDispatchAsync extends StandardDispatchAsync {
             return;
         } else {
             running.add(clz);
+            if (action instanceof FetchMessages) {
+                new RuntimeException().printStackTrace();
+            }
             super.execute(action, new AsyncCallback<R>() {
                 public void onFailure(Throwable caught) {
                     running.remove(clz);
