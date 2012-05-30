@@ -17,20 +17,17 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.james</groupId>
         <artifactId>james-project</artifactId>
         <version>1.8.1</version>
-        <relativePath></relativePath>
+        <relativePath />
     </parent>
     <groupId>org.apache.james.hupa</groupId>
     <artifactId>hupa-parent</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>pom</packaging>
     <name>Apache James Hupa Parent</name>
     <description>Hupa is a GWT based Webmail</description>
@@ -44,9 +41,9 @@
         <module>client</module>
     </modules>
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/james/hupa/trunk</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/hupa/trunk</developerConnection>
-        <url>http://svn.apache.org/viewvc/james/hupa/trunk/</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/james/hupa/tags/hupa-parent-0.0.2</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/hupa/tags/hupa-parent-0.0.2</developerConnection>
+        <url>http://svn.apache.org/viewvc/james/hupa/tags/hupa-parent-0.0.2</url>
     </scm>
     <issueManagement>
         <system>JIRA</system>
@@ -61,7 +58,7 @@
     <properties>
         <gwtVersion>2.4.0</gwtVersion>
         <gwtMavenVersion>2.4.0</gwtMavenVersion>
-        <gwt.moduleSuffix></gwt.moduleSuffix>
+        <gwt.moduleSuffix />
         <gwt.logLevel>ERROR</gwt.logLevel>
         <jettyVersion>7.3.0.v20110203</jettyVersion>
         <mock.scope>test</mock.scope>
@@ -82,7 +79,7 @@
         <!-- Deliver Hupa with Demo stuff -->
         <id>demo</id>
         <properties>
-          <mock.scope></mock.scope>
+          <mock.scope />
         </properties>
       </profile>
     </profiles>
