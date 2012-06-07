@@ -32,7 +32,7 @@
 
         <section name="Releases">
             <p>
-                Last release is Hupa 0.2:<br/>
+                Last release is Hupa 0.0.2:<br/>
                 <a href='http://repo1.maven.org/maven2/org/apache/james/hupa/hupa/0.0.2/hupa-0.0.2.war'> binary </a> : ready to run or to deploy in any servlet container.<br/>
                 <a href='http://repo1.maven.org/maven2/org/apache/james/hupa/hupa-parent/0.0.2/hupa-parent-0.0.2-source-release.zip'> sources </a>.
             </p>
@@ -84,7 +84,7 @@
                 </p>
             </subsection>
             <subsection name="2010">
-                <h4>Jun/2010 - Hupa 0.1</h4>
+                <h4>Jun/2010 - Hupa 0.0.1</h4>
                 <p>First beta release, with an improved interface and fully
                     functional (read, edit, send, secure, attachments, etc)</p>
             </subsection>
