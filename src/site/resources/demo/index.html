@@ -72,7 +72,27 @@ p {
    margin-top: 5px;
    margin-bottom: 0px;
 }
+.red {
+  font-weight: bold;
+  color: red;
+}
+pre {
+  color: blue;
+  font-family: courier;
+  font-size: 14px;
+}
 </style>
+          <!-- Google Analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-1384591-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script').item(0); s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
 </head>
 
 <body>
@@ -83,39 +103,47 @@ p {
 	</div>
 
 	<div class='text box'>
-		<p>You can select one of our demo instances:
+		<p>
 		<ul>
-			<li>Hupa in <b>Demo</b> mode: <a href=/hupa.demo>http</a>:
+			<li>Hupa in <a href=/hupa.demo>Demo</a> mode:
 				<ul>
                     <li>Username is set to <b>'demo'</b> and the password is <b>'demo'</b></li>
 					<li>Uses a collection of example messages and stub
 						implementations of IMAP and SMTP servers.</li>
 					<li>In this instance you can test almost the Hupa features,
-						but emails you send will never reach the addressee, 
-                                                and message search is not implemented.</li>
+						but emails you send will never reach the addressee.</li>
 				</ul></li>
 			</li>
 
-			<li>Hupa for <b>Gmail</b>: <a href=https://james.zones.apache.org/hupa.gmail>https</a> | <a href=/hupa.gmail>http</a>
+			<li>Hupa for <b>Gmail</b>: <br/><br/>We have
+                            <span class='red'>disabled</span> this instance to avoid risks  and legal issues.<br/>Nevertheless you can
+                            <a href="https://builds.apache.org/job/hupa-trunk/lastBuild/org.apache.hupa$hupa/artifact/org.apache.hupa/hupa/0.0.2-SNAPSHOT/hupa-0.0.2-SNAPSHOT.war"> download </a>
+                            the last built of Hupa and run it in your system:
+<pre>
+$ java -jar hupa-0.0.2-SNAPSHOT.war
+</pre>
+          Your instance on Hupa:
 				<ul>
-					<li>It will work with any imap enabled account in gmail.</li>
+					<li>Will work with any imap enabled account in gmail.</li>
 					<li>You have to provide a valid gmail username (don't forget
 						the domain part) and your password.</li>
 					<li>Because this instance and gmail servers are far away, and
 						Hupa caching is not enabled, you will notice a latency when using
 						the application.</li>
-					<li>You can manage your folders, read your messages, search them, reply and send
+					<li>You can read your real messages, search them, and use Hupa to reply and send
 						messages to your contacts.</li>
                                         <div class='warn'>
-                                           <p>Like any other email client, Hupa needs your credentials in order to 
-                                           open a secure session with gmail servers. </p>
-                                           <p>Hupa uses a SSL
-                                           channel to comunicate with gmail; 
-                                           in the same way we recomend that
-                                           you use hupa via HTTPS so as the communication between your browser and Hupa
+                                           <p>Like any other email client, Hupa needs your password in order to 
+                                           get a secure session with your credentials from gmail servers. </p>
+                                           <p>Hupa uses SSL
+                                           channel to comunicate with gmail. </p>
+                                           <p>In the same way it is recomended that
+                                           you use hupa via https so as the communication between your browser and Hupa
                                            were not compromissed. </p>
+<!--
                                            <p>Because this is a demo instance we are using a
                                            self-signed certificate.</p>
+-->
                                         </div>
 				</ul></li>
 		</ul>
