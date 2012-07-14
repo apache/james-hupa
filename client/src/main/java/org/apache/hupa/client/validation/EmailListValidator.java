@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.validation;
 
+import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.ui.HasText;
 
 import eu.maydu.gwt.validation.client.ValidationAction;
@@ -33,7 +34,7 @@ import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
  *
  */
 public class EmailListValidator extends Validator<EmailListValidator>{
-    private static final String emailRegex = "^(.*<)?[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(>)?\\s*$";
+    private static final String emailRegex = "^(.*<)?[A-Za-z0-9._%'*/=+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(>)?\\s*$";
     
     private HasText text;
     public EmailListValidator(HasText text) {
