@@ -144,6 +144,7 @@
                     <disableClassMetadata>${gwt.disableClassMetadata}</disableClassMetadata>
                     <disableCastChecking>${gwt.disableCastChecking}</disableCastChecking>
                     <logLevel>${gwt.logLevel}</logLevel>
+                    <style>${gwt.style}</style>
                     <modules>
                         <module>org.apache.hupa.Hupa${gwt.moduleSuffix}</module>
                     </modules>
