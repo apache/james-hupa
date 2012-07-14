@@ -74,6 +74,15 @@ public class MessageAttachment implements Serializable {
     }
 
     /**
+     * Return whether the attachment is an image
+     * 
+     * @return cType
+     */
+    public boolean isImage() {
+    	  return cType != null && cType.toLowerCase().startsWith("image/");
+    }
+
+    /**
      * Set the content size in bytes
      * 
      * @param size

@@ -287,6 +287,10 @@ div.hupa-msgview-content {
 	cursor: pointer;
 }
 
+.hupa-attachment-view {
+	margin-left: 10px;	
+}
+
 /************[ view: MessageSendView ]*******************/
 table.hupa-msgsend {
 	width: 100%;

@@ -79,8 +79,11 @@ public class DownloadAttachmentServlet extends HttpServlet {
         String message_uuid = request.getParameter(SConsts.PARAM_UID);
         String attachmentName = request.getParameter(SConsts.PARAM_NAME);
         String folderName = request.getParameter(SConsts.PARAM_FOLDER);
-        response.setHeader("Content-disposition", "attachment; filename="
-                + attachmentName + "");
+        String mode = request.getParameter(SConsts.PARAM_MODE);
+        if (!"inline".equals(mode)) {
+	        response.setHeader("Content-disposition", "attachment; filename="
+	                + attachmentName + "");
+        }
         InputStream in = null;
         OutputStream out = response.getOutputStream();
 
