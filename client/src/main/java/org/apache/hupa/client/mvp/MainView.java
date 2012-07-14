@@ -112,7 +112,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         
         dockPanel = new DockPanel();
 
-        dockPanel.setSpacing(10);
+        dockPanel.setSpacing(5);
         dockPanel.setWidth("100%");
 
         // Not used so far

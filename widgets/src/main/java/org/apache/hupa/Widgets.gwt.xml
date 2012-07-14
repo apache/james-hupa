@@ -25,11 +25,11 @@
   
   <source path="widgets"/>
   
-  <replace-with class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorImpl">
+  <replace-with class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorCss3">
     <when-type-is class="org.apache.hupa.widgets.ui.impl.RndPanelGenerator"/>
   </replace-with>
     
-  <replace-with class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorImplIE">
+  <replace-with class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorDecorator">
     <when-type-is class="org.apache.hupa.widgets.ui.impl.RndPanelGenerator"/>
     <any>
       <when-property-is name="user.agent" value="ie6"/>

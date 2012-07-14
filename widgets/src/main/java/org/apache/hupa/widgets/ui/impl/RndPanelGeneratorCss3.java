@@ -31,14 +31,13 @@ import com.google.gwt.user.client.ui.Panel;
  * It is needed to define this in your css.
  * <pre>
  *  div.hupa-rounded {
- *       border: 1px solid #7FAAFF 
- *       -moz-border-radius: 8px;
- *       -webkit-border-radius: 6px;
+ *       border: 1px solid #7FAAFF; 
+ *       border-radius: 8px;
  *     }
  * </pre>
  *
  */
-public class RndPanelGeneratorImpl implements RndPanelGenerator {
+public class RndPanelGeneratorCss3 implements RndPanelGenerator {
 
     public Panel roundPanel(Panel panel) {
         panel.addStyleName(WidgetsCSS.C_hupa_rnd_container);
