@@ -321,11 +321,11 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         }
         if (text != null) {
             txtPart = new MimeBodyPart();
-            txtPart.setContent(text, "text/plain");
+            txtPart.setContent(text, "text/plain; charset=UTF-8");
         }
         if (html != null) {
             htmlPart = new MimeBodyPart();
-            htmlPart.setContent(html, "text/html");
+            htmlPart.setContent(html, "text/html; charset=UTF-8");
         }
         if (html != null && text != null) {
             mimeMultipart = new MimeMultipart();

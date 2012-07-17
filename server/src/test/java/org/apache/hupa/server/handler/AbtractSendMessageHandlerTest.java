@@ -20,8 +20,16 @@
 package org.apache.hupa.server.handler;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import javax.mail.BodyPart;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Part;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.mock.MockIMAPFolder;
@@ -79,6 +87,24 @@ public class AbtractSendMessageHandlerTest extends HupaGuiceTestCase {
               " mock/attachment => file_2.bin\n" +
               " mock/attachment => file_3.bin\n";
         assertEquals(exp, TestUtils.summaryzeContent(msg).toString());
+    }
+    
+    public void testEncoding() throws MessagingException, IOException {
+        String txt = "XXXX \u00e1rv\u00edzt\u0171r\u0151 t\u00fck\u00f6rf\u00far\u00f3 \u00c1RV\u00cdZT\u0170R\u0150 T\u00dcK\u00d6RF\u00daR\u00d3";
+        String html = "<body>\u00e1rv\u00edzt\u0171r\u0151 t\u00fck\u00f6rf\u00far\u00f3 \u00c1RV\u00cdZT\u0170R\u0150 T\u00dcK\u00d6RF\u00daR\u00d3</body>";
+        Message msg = TestUtils.createMockMimeMessage(session, txt, html, 0);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        msg.writeTo(baos);
+        
+        MimeMessage input = new MimeMessage(null, new ByteArrayInputStream(baos.toByteArray()));
+        MimeMultipart content = (MimeMultipart) input.getContent();
+        BodyPart bodyPart0 = content.getBodyPart(0);
+        Object content0 = bodyPart0.getContent();
+        BodyPart bodyPart1 = content.getBodyPart(1);
+        Object content1 = bodyPart1.getContent();
+        
+        assertEquals(txt, content0);
+        assertEquals(html, content1);
     }
     
     public void testRestoreInlineLinks() {
