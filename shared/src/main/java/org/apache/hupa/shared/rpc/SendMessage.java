@@ -48,4 +48,12 @@ public class SendMessage implements Action<GenericResult>, Serializable {
         this.msg = msg;
     }
     
+    public String getInReplyTo() {
+		return null;
+	}
+
+    public String getReferences() {
+		return null;
+	}
+
 }

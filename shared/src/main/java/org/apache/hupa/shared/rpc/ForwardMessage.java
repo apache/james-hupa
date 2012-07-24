@@ -25,15 +25,28 @@ import org.apache.hupa.shared.data.SMTPMessage;
 
 public class ForwardMessage extends SendMessage {
 
-    private static final long serialVersionUID = 1656671247843122192L;
+    private static final long serialVersionUID = 1L;
+    
     private long uid;
     private IMAPFolder folder;
+    private String inReplyTo;
+    private String references;
 
     public ForwardMessage(SMTPMessage msg, IMAPFolder folder, long uid) {
         super(msg);
-        this.uid = uid;
         this.folder = folder;
+        this.uid = uid;
     }
+
+    public ForwardMessage setInReplyTo(String inReplyTo) {
+		this.inReplyTo = inReplyTo;
+		return this;
+	}
+    
+    public ForwardMessage setReferences(String references) {
+		this.references = references;
+		return this;
+	}
     
     protected ForwardMessage() {
     }
@@ -45,4 +58,14 @@ public class ForwardMessage extends SendMessage {
     public IMAPFolder getFolder() {
         return folder;
     }
+    
+    @Override
+    public String getInReplyTo() {
+		return inReplyTo;
+	}
+
+    @Override
+    public String getReferences() {
+		return references;
+	}
 }

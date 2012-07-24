@@ -29,7 +29,7 @@ public class ReplyMessage extends ForwardMessage {
 
     
     public ReplyMessage(SMTPMessage msg, IMAPFolder folder, long uid) {
-        super(msg, folder, uid);
+    	super(msg, folder, uid);
     }
 
     protected ReplyMessage() {

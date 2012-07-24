@@ -56,6 +56,7 @@ import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.server.utils.RegexPatterns;
 import org.apache.hupa.server.utils.SessionUtils;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.User;
@@ -148,10 +149,29 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         message.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
         message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
         message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
+        updateHeaders(message, action);
         message.saveChanges();
         return message;
     }
-    /**
+    
+    protected void updateHeaders(MimeMessage message, A action) {
+        if (action.getInReplyTo() != null) {
+            try {
+                message.addHeader(SConsts.HEADER_IN_REPLY_TO, action.getInReplyTo());
+            } catch (MessagingException e) {
+                logger.error("Error while setting header:" + e.getMessage(), e);
+            }
+        }
+        if (action.getReferences() != null) {
+            try {
+                message.addHeader(SConsts.HEADER_REFERENCES, action.getReferences());
+            } catch (MessagingException e) {
+                logger.error("Error while setting header:" + e.getMessage(), e);
+            }
+        }
+    }
+
+	/**
      * Fill the body of the given message with data which the given action contain
      * 
      * @param message the message

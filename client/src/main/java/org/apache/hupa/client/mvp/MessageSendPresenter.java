@@ -41,6 +41,7 @@ import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.validation.EmailListValidator;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -81,7 +82,6 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
     
     protected SMTPMessage message = null;
     
-    @SuppressWarnings("unused")
     private MessageDetails oldDetails;
 
     private OnFinishUploaderHandler onFinishUploadHandler = new OnFinishUploaderHandler() {
@@ -210,13 +210,29 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                 if (type == Type.NEW) {
                     command = new SendMessage(message);
                 } else if (type == Type.FORWARD) {
-                    command = new ForwardMessage(message, folder, oldmessage.getUid());
+                    command = addMessageIds(new ForwardMessage(message, folder, oldDetails.getUid()));
                 } else {
-                    command = new ReplyMessage(message, folder, oldmessage.getUid());
+                    command = addMessageIds(new ReplyMessage(message, folder, oldDetails.getUid()));
                 }
                 dispatchMessage(dispatcher, eventBus, command);
             }
         }
+
+        private ForwardMessage addMessageIds(ForwardMessage msg) {
+            String msgId = oldDetails.getMessageId();
+            msg.setInReplyTo(msgId);
+            
+            if (msgId != null) {
+                String oldRefs = oldDetails.getReferences();
+                if (oldRefs != null) {
+                    msg.setReferences(msgId.trim() + SConsts.HEADER_REFERENCES_SEPARATOR + oldRefs);
+                } else {
+                    msg.setReferences(msgId.trim());
+                }
+            }
+            return msg;
+        }
+        
     };
 
     protected ArrayList<String> emailTextToArray(String emails) {

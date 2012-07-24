@@ -19,16 +19,20 @@
 
 package org.apache.hupa.server.handler;
 
+import static org.apache.hupa.server.utils.RegexPatterns.*;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.mail.Flags;
+import javax.mail.Flags.Flag;
+import javax.mail.Header;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
-import javax.mail.Flags.Flag;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpSession;
@@ -38,7 +42,6 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import static org.apache.hupa.server.utils.RegexPatterns.*;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
@@ -144,7 +147,11 @@ public class GetMessageDetailsHandler extends
 
         mDetails.setMessageAttachments(attachmentList);
 
-        mDetails.setRawHeader(message.getAllHeaders().toString());
+        for (@SuppressWarnings("unchecked")
+        Enumeration<Header> en = message.getAllHeaders(); en.hasMoreElements();) {
+            Header header = en.nextElement();
+            mDetails.addHeader(header.getName(), header.getValue());
+        }
         
         return mDetails;
     }
