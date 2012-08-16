@@ -363,7 +363,7 @@ public class IMAPMessageListView extends Composite implements Display{
                     dtformat = DateTimeFormat.getFormat("dd.MMM.yyyy HH:mm");
                 }
             
-                view.setHTML(dtformat.format(rDate));
+                view.setText(dtformat.format(rDate));
                 view.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
             }
             
@@ -528,7 +528,7 @@ public class IMAPMessageListView extends Composite implements Display{
             if (cellValue == null || cellValue.length() < 1) {
                 view.setHTML("&nbsp");
             } else {
-                view.setHTML(cellValue);
+                view.setText(cellValue);
             }
         }
 
@@ -791,6 +791,7 @@ public class IMAPMessageListView extends Composite implements Display{
     }
 
     public void setExpandLoading(boolean expanding) {
+        System.out.println("SSS " + expanding);
         if (expanding) {
             loading.show();
         } else {

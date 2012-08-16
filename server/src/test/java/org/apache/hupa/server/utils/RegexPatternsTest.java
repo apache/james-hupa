@@ -85,6 +85,15 @@ public class RegexPatternsTest extends TestCase {
         txt = "... <div attr=a onClick=\"something('');\" attr=b onMouseOver=whatever attr=c onKeyup=\"\" /> ...";
         res = RegexPatterns.replaceAllRecursive(txt, RegexPatterns.regex_badAttrs, RegexPatterns.repl_badAttrs);
         assertEquals("... <div attr=a attr=b attr=c /> ...", res);
+        
+        
+        txt = "... <img src='1.jpg' onerror=javascript:alert(\"img-onerror-javascript:XSS\")> ...";
+        res = RegexPatterns.replaceAllRecursive(txt, RegexPatterns.regex_badAttrs, RegexPatterns.repl_badAttrs);
+        assertEquals("... <img src='1.jpg'> ...", res);
+
+        txt = "... <img src=\"1.jpg\" onerror=javascript:alert(\"img-onerror-javascript:XSS\")> ...";
+        res = RegexPatterns.replaceAllRecursive(txt, RegexPatterns.regex_badAttrs, RegexPatterns.repl_badAttrs);
+        assertEquals("... <img src=\"1.jpg\"> ...", res);
     }
     
     public void testRegexHtmlLinks() {

@@ -137,8 +137,6 @@ public class GetMessageDetailsHandler extends
         
         boolean isHTML = handleParts(message, con, sbPlain, attachmentList);
         
-        System.out.println(isHTML);
-        
         if (isHTML) {
             mDetails.setText(filterHtmlDocument(sbPlain.toString(), folderName, uid));
         } else {
