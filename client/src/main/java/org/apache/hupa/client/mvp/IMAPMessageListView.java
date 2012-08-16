@@ -791,7 +791,6 @@ public class IMAPMessageListView extends Composite implements Display{
     }
 
     public void setExpandLoading(boolean expanding) {
-        System.out.println("SSS " + expanding);
         if (expanding) {
             loading.show();
         } else {

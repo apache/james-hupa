@@ -117,6 +117,5 @@ public abstract class HupaCallback<T> implements AsyncCallback<T> {
      */
     public void callbackError(Throwable caught) {
         System.out.println("HupaCallBack Error: " + caught);
-        caught.printStackTrace();
     }
 }
