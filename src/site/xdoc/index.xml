@@ -32,14 +32,14 @@
 
         <section name="Releases">
             <p>
-                Last release is Hupa 0.0.2:<br/>
-                <a href='http://repo1.maven.org/maven2/org/apache/james/hupa/hupa/0.0.2/hupa-0.0.2.war'> binary </a> : ready to run or to deploy in any servlet container.<br/>
-                <a href='http://repo1.maven.org/maven2/org/apache/james/hupa/hupa-parent/0.0.2/hupa-parent-0.0.2-source-release.zip'> sources </a>.
+                Last release is Hupa 0.0.3:<br/>
+                <a href='http://repo1.maven.org/maven2/org/apache/james/hupa/hupa/0.0.3/hupa-0.0.3.war'> binary </a> : ready to run or to deploy in any servlet container.<br/>
+                <a href='http://repo1.maven.org/maven2/org/apache/james/hupa/hupa-parent/0.0.3/hupa-parent-0.0.3-source-release.zip'> sources </a>.
             </p>
             <p>
                 Current trunk:<br/>
-                <a href='https://builds.apache.org/job/hupa-trunk/lastBuild/org.apache.james.hupa$hupa/artifact/org.apache.james.hupa/hupa/0.0.3-SNAPSHOT/hupa-0.0.3-SNAPSHOT.war'>
-                 0.3-SNAPSHOT
+                <a href='https://builds.apache.org/job/hupa-trunk/lastBuild/org.apache.james.hupa$hupa/artifact/org.apache.james.hupa/hupa/0.0.4-SNAPSHOT/hupa-0.0.4-SNAPSHOT.war'>
+                 0.4-SNAPSHOT
                 </a>
                 from our continuous integration server.
             </p>
