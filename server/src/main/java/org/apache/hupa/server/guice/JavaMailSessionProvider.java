@@ -17,13 +17,18 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.exception;
+package org.apache.hupa.server.guice;
 
-public class InvalidSessionException extends HupaException{
+import java.util.Properties;
 
-	private static final long serialVersionUID = 995112620968798947L;
+import javax.mail.Session;
 
-	public InvalidSessionException(String message) {
-        super(message);
+import com.google.inject.Provider;
+
+public class JavaMailSessionProvider implements Provider<Session>{
+
+    public Session get() {
+        Session session = Session.getDefaultInstance(new Properties(), null);
+        return session;
     }
 }

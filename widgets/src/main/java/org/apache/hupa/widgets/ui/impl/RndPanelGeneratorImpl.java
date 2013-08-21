@@ -1,5 +1,5 @@
 /****************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one   *
+  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
  * distributed with this work for additional information        *
  * regarding copyright ownership.  The ASF licenses this file   *
@@ -17,13 +17,41 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.exception;
+package org.apache.hupa.widgets.ui.impl;
 
-public class InvalidSessionException extends HupaException{
+import org.apache.hupa.widgets.WidgetsCSS;
 
-	private static final long serialVersionUID = 995112620968798947L;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Panel;
 
-	public InvalidSessionException(String message) {
-        super(message);
+/**
+ * Simple generator of rounded panels using css.
+ * It works in FF, safari, chrome and opera.
+ * 
+ * It is needed to define this in your css.
+ * <pre>
+ *  div.hupa-rounded {
+ *       border: 1px solid #7FAAFF 
+ *       -moz-border-radius: 8px;
+ *       -webkit-border-radius: 6px;
+ *     }
+ * </pre>
+ *
+ */
+public class RndPanelGeneratorImpl implements RndPanelGenerator {
+
+    public Panel roundPanel(Panel panel) {
+        panel.addStyleName(WidgetsCSS.C_hupa_rnd_container);
+        return panel;
+    }
+
+    public FlowPanel createPanel() {
+        return new FlowPanel() {
+            @Override
+            public void setStyleName(String style) {
+                super.setStyleName(style);
+                super.addStyleName(WidgetsCSS.C_hupa_rnd_container);
+            }
+        };
     }
 }

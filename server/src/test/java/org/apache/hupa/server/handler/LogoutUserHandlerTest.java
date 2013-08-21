@@ -16,14 +16,28 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
+package org.apache.hupa.server.handler;
 
-package org.apache.hupa.shared.exception;
+import net.customware.gwt.dispatch.shared.ActionException;
 
-public class InvalidSessionException extends HupaException{
+import org.apache.hupa.server.HupaGuiceTestCase;
+import org.apache.hupa.shared.SConsts;
+import org.apache.hupa.shared.rpc.LogoutUser;
+import org.apache.hupa.shared.rpc.LogoutUserResult;
 
-	private static final long serialVersionUID = 995112620968798947L;
-
-	public InvalidSessionException(String message) {
-        super(message);
+public class LogoutUserHandlerTest extends HupaGuiceTestCase {
+    
+    public void testLogout() {
+        try {
+            httpSession.setAttribute("Attribute", "Value");
+            LogoutUserResult result = logoutUser.execute(new LogoutUser(), null);
+            assertFalse("Not authenticated anymore", result.getUser().getAuthenticated());
+            assertNull("User should be removed", httpSession.getAttribute(SConsts.USER_SESS_ATTR));
+            assertNull("Attributes should be removed", httpSession.getAttribute("Attribute"));
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail();
+        }
+        
     }
 }

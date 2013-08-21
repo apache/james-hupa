@@ -16,14 +16,22 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
+package org.apache.hupa.client.gin;
 
-package org.apache.hupa.shared.exception;
+import net.customware.gwt.dispatch.client.gin.StandardDispatchModule;
+import net.customware.gwt.presenter.client.EventBus;
+import net.customware.gwt.presenter.client.place.PlaceManager;
 
-public class InvalidSessionException extends HupaException{
+import org.apache.hupa.client.mvp.AppPresenter;
+import org.apache.hupa.client.rf.HupaRequestFactory;
 
-	private static final long serialVersionUID = 995112620968798947L;
+import com.google.gwt.inject.client.GinModules;
+import com.google.gwt.inject.client.Ginjector;
 
-	public InvalidSessionException(String message) {
-        super(message);
-    }
+@GinModules({StandardDispatchModule.class,HupaClientModule.class})
+public interface HupaGinjector extends Ginjector {
+    AppPresenter getAppPresenter();
+    PlaceManager getPlaceManager();
+    EventBus getEventBus();
+    HupaRequestFactory getRequestFactory();
 }

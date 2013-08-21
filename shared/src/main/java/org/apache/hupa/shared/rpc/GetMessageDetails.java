@@ -17,13 +17,50 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.exception;
 
-public class InvalidSessionException extends HupaException{
+package org.apache.hupa.shared.rpc;
 
-	private static final long serialVersionUID = 995112620968798947L;
+import java.io.Serializable;
 
-	public InvalidSessionException(String message) {
-        super(message);
+import net.customware.gwt.dispatch.shared.Action;
+
+import org.apache.hupa.shared.data.IMAPFolder;
+
+public class GetMessageDetails implements Action<GetMessageDetailsResult>, Serializable {
+
+    private static final long serialVersionUID = 5826298202494313834L;
+    private IMAPFolder folder;
+    private long uid;
+
+    public GetMessageDetails(IMAPFolder folder, long uid) {
+        this.folder = folder;
+        this.uid = uid;
+    }
+
+    @SuppressWarnings("unused")
+    private GetMessageDetails() {
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
+    }
+    
+    public long getUid() {
+        return uid;
+    }
+    
+    public boolean equals(Object obj) {
+        if (obj instanceof GetMessageDetails) {
+            GetMessageDetails action = (GetMessageDetails) obj;
+            if (action.getFolder().equals(getFolder()) && action.getUid() == getUid()) {
+                return true;
+            }
+        }
+        return false;
+        
+    }
+    
+    public int hashCode() {
+        return (int) (getFolder().hashCode() * getUid());
     }
 }

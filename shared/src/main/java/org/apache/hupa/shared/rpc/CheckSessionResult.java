@@ -17,13 +17,30 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.exception;
+package org.apache.hupa.shared.rpc;
 
-public class InvalidSessionException extends HupaException{
+import java.io.Serializable;
 
-	private static final long serialVersionUID = 995112620968798947L;
+import org.apache.hupa.shared.data.User;
 
-	public InvalidSessionException(String message) {
-        super(message);
+import net.customware.gwt.dispatch.shared.Result;
+
+public class CheckSessionResult implements Result, Serializable {
+
+    private static final long serialVersionUID = -4785233314922498952L;
+    boolean valid = false;
+
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public boolean isValid() {
+        return user != null && user.getAuthenticated();
     }
 }

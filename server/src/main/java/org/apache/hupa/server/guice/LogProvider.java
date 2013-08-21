@@ -17,13 +17,20 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.exception;
 
-public class InvalidSessionException extends HupaException{
+package org.apache.hupa.server.guice;
 
-	private static final long serialVersionUID = 995112620968798947L;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.impl.Log4JLogger;
 
-	public InvalidSessionException(String message) {
-        super(message);
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+
+@Singleton
+public class LogProvider implements Provider<Log>{
+
+    public Log get() {
+        return new Log4JLogger("HupaLogger");
     }
+
 }

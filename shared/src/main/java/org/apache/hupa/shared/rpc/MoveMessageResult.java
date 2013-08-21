@@ -17,13 +17,13 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.exception;
+package org.apache.hupa.shared.rpc;
 
-public class InvalidSessionException extends HupaException{
+public class MoveMessageResult extends GenericResult{
 
-	private static final long serialVersionUID = 995112620968798947L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 341407423455525004L;
 
-	public InvalidSessionException(String message) {
-        super(message);
-    }
 }

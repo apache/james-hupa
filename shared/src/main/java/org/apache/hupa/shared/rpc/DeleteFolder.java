@@ -17,13 +17,28 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.exception;
+package org.apache.hupa.shared.rpc;
 
-public class InvalidSessionException extends HupaException{
+import java.io.Serializable;
 
-	private static final long serialVersionUID = 995112620968798947L;
+import net.customware.gwt.dispatch.shared.Action;
 
-	public InvalidSessionException(String message) {
-        super(message);
+import org.apache.hupa.shared.data.IMAPFolder;
+
+public class DeleteFolder implements Action<GenericResult> , Serializable{
+
+    private static final long serialVersionUID = 7921329310932404439L;
+    
+    private IMAPFolder folder;
+
+    public DeleteFolder(IMAPFolder folder) {
+        this.folder = folder;
+    }
+
+    protected DeleteFolder() {
+    }
+    
+    public IMAPFolder getFolder() {
+        return folder;
     }
 }

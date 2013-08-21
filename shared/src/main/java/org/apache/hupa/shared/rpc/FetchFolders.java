@@ -17,13 +17,17 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.exception;
+package org.apache.hupa.shared.rpc;
 
-public class InvalidSessionException extends HupaException{
+import java.io.Serializable;
 
-	private static final long serialVersionUID = 995112620968798947L;
+import net.customware.gwt.dispatch.shared.Action;
 
-	public InvalidSessionException(String message) {
-        super(message);
+
+public class FetchFolders implements Action<FetchFoldersResult>, Serializable {
+
+    private static final long serialVersionUID = 8515539585915762904L;
+
+    public FetchFolders() {
     }
 }

@@ -17,13 +17,32 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.shared.exception;
+package org.apache.hupa.shared.rpc;
 
-public class InvalidSessionException extends HupaException{
+import java.io.Serializable;
 
-	private static final long serialVersionUID = 995112620968798947L;
+import net.customware.gwt.dispatch.shared.Result;
 
-	public InvalidSessionException(String message) {
-        super(message);
+public class IdleResult implements Result, Serializable {
+
+    private static final long serialVersionUID = 5530385273335407315L;
+    private boolean supported;
+    
+    protected IdleResult() {
+        
     }
+    
+    public IdleResult(boolean supported) {
+        this.supported = supported;
+    }
+    
+    /**
+     * Return if the IDLE command is supported by the server
+     * 
+     * @return supported
+     */
+    public boolean isSupported() {
+        return supported;
+    }
+
 }
