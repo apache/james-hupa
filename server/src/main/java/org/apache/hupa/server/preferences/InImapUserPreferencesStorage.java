@@ -48,7 +48,7 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.utils.MessageUtils;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 
 import com.google.inject.Inject;

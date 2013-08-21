@@ -19,6 +19,9 @@
 
 package org.apache.hupa.widgets.ui;
 
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Focusable;
@@ -49,6 +52,18 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
             // instead of overriding getText and setText from SuggestBox because a bug in the implementation
             // I've sent a patch to gwt.
             super(oracle, new TextArea() {
+                
+                {
+                    // Avoid entering a new-line when selecting a suggestion element
+                    // TODO: I think this is a bug in GWT SuggestBox which should be reported.
+                    addKeyDownHandler(new KeyDownHandler() {
+                        public void onKeyDown(KeyDownEvent event) {
+                            if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                                event.preventDefault();
+                            }
+                        }
+                    });
+                }
 
                 String search = null;
                 
@@ -73,12 +88,12 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
         // this methods in the the box implementation
         @Override
         public String getValue() {
-            return DOM.getElementProperty(getTextBox().getElement(), "value");
+            return DOM.getElementProperty(getValueBox().getElement(), "value");
         }
 
         @Override
         public void setValue(String text) {
-            DOM.setElementProperty(getTextBox().getElement(), "value", text);
+            DOM.setElementProperty(getValueBox().getElement(), "value", text);
         }
     }
 

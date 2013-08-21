@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.james.hupa</groupId>
         <artifactId>hupa-parent</artifactId>
-        <version>0.0.4-SNAPSHOT</version>
+        <version>0.0.5-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>hupa-server</artifactId>
@@ -69,11 +69,6 @@
             <artifactId>mail</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.customware.gwt.dispatch
-        </groupId>
-            <artifactId>gwt-dispatch</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.googlecode.gwtupload</groupId>
             <artifactId>gwtupload</artifactId>
         </dependency>
@@ -105,6 +100,10 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

@@ -53,7 +53,7 @@ public class RegexPatternsTest extends TestCase {
         String txt, res;
         txt = ".. <img\nsrc=\"cid:abcd\"\nwhatever=/>click</a\n> ..";
         res = RegexPatterns.replaceAll(txt, RegexPatterns.regex_inlineImg, RegexPatterns.repl_inlineImg);
-        assertEquals(".. <img\nsrc='hupa/downloadAttachmentServlet?folder=%%FOLDER%%&uid=%%UID%%&name=abcd' name='cid:abcd'\nwhatever=/>click</a\n> ..", res);
+        assertEquals(".. <img\nsrc='hupa/downloadAttachmentServlet?mode=inline&folder=%%FOLDER%%&uid=%%UID%%&name=abcd' name='cid:abcd'\nwhatever=/>click</a\n> ..", res);
     }
 
     public void testRegexRestoreInlineLinks() {
@@ -85,15 +85,6 @@ public class RegexPatternsTest extends TestCase {
         txt = "... <div attr=a onClick=\"something('');\" attr=b onMouseOver=whatever attr=c onKeyup=\"\" /> ...";
         res = RegexPatterns.replaceAllRecursive(txt, RegexPatterns.regex_badAttrs, RegexPatterns.repl_badAttrs);
         assertEquals("... <div attr=a attr=b attr=c /> ...", res);
-        
-        
-        txt = "... <img src='1.jpg' onerror=javascript:alert(\"img-onerror-javascript:XSS\")> ...";
-        res = RegexPatterns.replaceAllRecursive(txt, RegexPatterns.regex_badAttrs, RegexPatterns.repl_badAttrs);
-        assertEquals("... <img src='1.jpg'> ...", res);
-
-        txt = "... <img src=\"1.jpg\" onerror=javascript:alert(\"img-onerror-javascript:XSS\")> ...";
-        res = RegexPatterns.replaceAllRecursive(txt, RegexPatterns.regex_badAttrs, RegexPatterns.repl_badAttrs);
-        assertEquals("... <img src=\"1.jpg\"> ...", res);
     }
     
     public void testRegexHtmlLinks() {

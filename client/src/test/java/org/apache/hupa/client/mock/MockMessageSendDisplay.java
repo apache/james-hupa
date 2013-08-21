@@ -19,19 +19,27 @@
 
 package org.apache.hupa.client.mock;
 
+import gwtupload.client.IUploader;
+
+<<<<<<< HEAD
+import org.apache.hupa.client.activity.MessageSendActivity.Displayable;
+=======
+import org.apache.hupa.client.activity.ComposeActivity.Displayable;
+>>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
+import org.apache.hupa.shared.rpc.ContactsResult.Contact;
+import org.apache.hupa.widgets.ui.HasEnable;
+
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
+<<<<<<< HEAD
+=======
+import com.google.gwt.user.client.ui.ListBox;
+>>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.user.client.ui.Widget;
 
-import gwtupload.client.IUploader;
-
-import org.apache.hupa.client.mvp.MessageSendPresenter.Display;
-import org.apache.hupa.shared.rpc.ContactsResult.Contact;
-import org.apache.hupa.widgets.ui.HasEnable;
-
-public class MockMessageSendDisplay implements Display {
+public class MockMessageSendDisplay implements Displayable {
 
     HasClickHandlers backClick = new MockWidget();
     HasText bccText = new MockWidget();
@@ -69,10 +77,13 @@ public class MockMessageSendDisplay implements Display {
         return editorFocus;
     }
 
+<<<<<<< HEAD
     public HasText getFromText() {
         return fromText;
     }
 
+=======
+>>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
     public HasHTML getMessageHTML() {
         return messageHtml;
     }
@@ -131,4 +142,157 @@ public class MockMessageSendDisplay implements Display {
         return true;
     }
 
+<<<<<<< HEAD
+=======
+	@Override
+	public void showCc() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hideCc() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showBcc() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hideBcc() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showReply() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hideReply() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showFollowup() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hideFollowup() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HasText getTo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasText getCc() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasText getBcc() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasText getSubject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasClickHandlers getCancelClick() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasClickHandlers getCcClick() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasClickHandlers get_CcClick() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasClickHandlers getBccClick() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasClickHandlers get_BccClick() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasClickHandlers getReplyClick() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasClickHandlers get_ReplyClick() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasClickHandlers getFollowupClick() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasClickHandlers get_FollowupClick() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasText getMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ListBox getFromList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void fillContactList(String[] contacts) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getFromText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+>>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 }

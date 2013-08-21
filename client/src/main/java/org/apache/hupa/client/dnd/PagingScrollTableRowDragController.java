@@ -22,7 +22,6 @@ package org.apache.hupa.client.dnd;
 import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.widgets.ui.RndPanel;
-import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
@@ -44,7 +43,7 @@ public class PagingScrollTableRowDragController extends PickupDragController {
     private HupaMessages messages = GWT.create(HupaMessages.class);
     private HupaImageBundle bundle =GWT.create(HupaImageBundle.class);
     private FixedWidthGrid draggableTable;
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private PagingScrollTable parentTable;
     private int dragRow;
     private RowDragProxy proxyWidget;
@@ -90,7 +89,7 @@ public class PagingScrollTableRowDragController extends PickupDragController {
     }
 
     
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     protected Widget newDragProxy(DragContext context) {
         
         draggableTable = (FixedWidthGrid) context.draggable.getParent();

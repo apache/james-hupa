@@ -42,10 +42,12 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.hupa.server.FileItemRegistry;
-import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.mock.MockIMAPFolder;
-import org.apache.hupa.shared.data.MessageAttachment;
-import org.apache.hupa.shared.data.SMTPMessage;
+import org.apache.hupa.server.service.SendMessageBaseServiceImpl;
+import org.apache.hupa.shared.data.MessageAttachmentImpl;
+import org.apache.hupa.shared.data.SmtpMessageImpl;
+import org.apache.hupa.shared.domain.MessageAttachment;
+import org.apache.hupa.shared.domain.SmtpMessage;
 
 import com.sun.mail.imap.IMAPStore;
 
@@ -157,7 +159,7 @@ public class TestUtils extends TestCase {
         message.setRecipients(RecipientType.CC, MessageUtils.getRecipients("cc@dom.com"));
         message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients("bcc@dom.com"));
         message.setSubject("Subject");
-        return AbstractSendMessageHandler.composeMessage(message, text, html, items);
+        return SendMessageBaseServiceImpl.composeMessage(message, text, html, items);
     }
     
     public static Message createMockMimeMessage(Session session, int nfiles) throws MessagingException, IOException {
@@ -175,7 +177,7 @@ public class TestUtils extends TestCase {
      * @throws MessagingException
      * @throws IOException
      */
-    public static SMTPMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
+    public static SmtpMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
         ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
 
         for (int i = 1; i <= nfiles; i++) {
@@ -183,7 +185,7 @@ public class TestUtils extends TestCase {
             fileItem = TestUtils.createMockFileItem("uploadedFile_" + i + ".bin");
             registry.add(fileItem);
 
-            MessageAttachment msgAttach = new MessageAttachment();
+            MessageAttachment msgAttach = new MessageAttachmentImpl();
             msgAttach.setName(fileItem.getFieldName());
             msgAttach.setContentType(fileItem.getContentType());
             msgAttach.setSize((int) fileItem.getSize());
@@ -191,7 +193,7 @@ public class TestUtils extends TestCase {
             attachments.add(msgAttach);
         }
 
-        SMTPMessage smtpMessage = new SMTPMessage();
+        SmtpMessage smtpMessage = new SmtpMessageImpl();
         smtpMessage.setFrom("Test user <from@dom.com>");
         smtpMessage.setTo(new ArrayList<String>(Arrays.asList("to@dom.com")));
         smtpMessage.setCc(new ArrayList<String>(Arrays.asList("cc@dom.com")));

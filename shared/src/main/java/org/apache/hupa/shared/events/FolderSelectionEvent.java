@@ -19,22 +19,22 @@
 
 package org.apache.hupa.shared.events;
 
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.User;
 
 import com.google.gwt.event.shared.GwtEvent;
 
 public class FolderSelectionEvent extends GwtEvent<FolderSelectionEventHandler>{
     
     private User user;
-    private IMAPFolder folder;
+    private ImapFolder folder;
     public final static Type<FolderSelectionEventHandler> TYPE = new Type<FolderSelectionEventHandler>();
-    public FolderSelectionEvent(User user, IMAPFolder folder) {
+    public FolderSelectionEvent(User user, ImapFolder folder) {
         this.user =user;
         this.folder = folder;
     }
     
-    public IMAPFolder getFolder() {
+    public ImapFolder getFolder() {
         return folder;
     }
     

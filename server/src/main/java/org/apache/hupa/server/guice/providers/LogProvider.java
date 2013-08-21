@@ -17,7 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-
 package org.apache.hupa.server.guice.providers;
 
 import org.apache.commons.logging.Log;

@@ -19,9 +19,9 @@
 
 package org.apache.hupa.shared.events;
 
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.Message;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.User;
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -29,27 +29,35 @@ public class MoveMessageEvent extends GwtEvent<MoveMessageEventHandler> {
 
     public final static Type<MoveMessageEventHandler> TYPE = new Type<MoveMessageEventHandler>();
     private User user;
-    private IMAPFolder oldFolder;
-    private IMAPFolder newFolder;
+    private ImapFolder oldFolder;
+    private ImapFolder newFolder;
     private Message message;
 
-    public MoveMessageEvent(User user, IMAPFolder oldFolder,
-            IMAPFolder newFolder, Message message) {
+    public MoveMessageEvent(User user, ImapFolder oldFolder,
+            ImapFolder newFolder, Message message) {
         this.user = user;
         this.oldFolder = oldFolder;
         this.newFolder = newFolder;
         this.message = message;
     }
 
+<<<<<<< HEAD
     public User getUser() {
+=======
+    public MoveMessageEvent(ImapFolder newFolder) {
+    	this.newFolder = newFolder;
+	}
+
+	public User getUser() {
+>>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
         return user;
     }
 
-    public IMAPFolder getOldFolder() {
+    public ImapFolder getOldFolder() {
         return oldFolder;
     }
 
-    public IMAPFolder getNewFolder() {
+    public ImapFolder getNewFolder() {
         return newFolder;
     }
 

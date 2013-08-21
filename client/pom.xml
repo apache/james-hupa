@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.james.hupa</groupId>
         <artifactId>hupa-parent</artifactId>
-        <version>0.0.4-SNAPSHOT</version>
+        <version>0.0.5-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>hupa</artifactId>
@@ -30,6 +30,20 @@
     <name>Apache James Hupa</name>
     <description>A GWT based IMAP webmail</description>
     <dependencies>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.validation</groupId>
+                    <artifactId>validation-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>hupa-server</artifactId>
@@ -51,14 +65,6 @@
             <artifactId>cobogw</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.customware.gwt.dispatch</groupId>
-            <artifactId>gwt-dispatch</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.customware.gwt.presenter</groupId>
-            <artifactId>gwt-presenter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.google.code.gwt-dnd</groupId>
             <artifactId>gwt-dnd</artifactId>
         </dependency>
@@ -71,27 +77,12 @@
             <artifactId>gwtupload</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-user</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.validation</groupId>
-                    <artifactId>validation-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-dev</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.google.gwt.inject</groupId>
             <artifactId>gin</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <scope>provided</scope>
         </dependency>
 	    <dependency>
 	      <groupId>javax.validation</groupId>
@@ -136,18 +127,19 @@
                 <artifactId>gwt-maven-plugin</artifactId>
                 <configuration>
                     <runTarget>Hupa.html</runTarget>
-                    <extraJvmArgs>
-                        -Xmx512M -Xss128M
-                    </extraJvmArgs>
                     <localWorkers>1</localWorkers>
-                    <compileReport>true</compileReport>
+                    <compileReport>${gwt.compileReport}</compileReport>
                     <disableClassMetadata>${gwt.disableClassMetadata}</disableClassMetadata>
                     <disableCastChecking>${gwt.disableCastChecking}</disableCastChecking>
                     <logLevel>${gwt.logLevel}</logLevel>
                     <style>${gwt.style}</style>
+                    <fragmentCount>10</fragmentCount>
+                    <enableClosureCompiler>${gwt.enableClosureCompiler}</enableClosureCompiler>
+                    <disableRunAsync>${gwt.disableRunAsync}</disableRunAsync>
                     <modules>
                         <module>org.apache.hupa.Hupa${gwt.moduleSuffix}</module>
                     </modules>
+                    <extraJvmArgs>-XX:MaxPermSize=512M -Xmx1024M</extraJvmArgs>
                 </configuration>
                 <executions>
                     <execution>
@@ -218,7 +210,7 @@
             <plugin>
                 <groupId>org.bsc.maven</groupId>
                 <artifactId>maven-processor-plugin</artifactId>
-                <version>2.0.5</version>
+                <version>2.2.4</version>
                 <executions>
                     <execution>
                         <id>process</id>

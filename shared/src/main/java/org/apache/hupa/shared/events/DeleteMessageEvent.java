@@ -21,9 +21,9 @@ package org.apache.hupa.shared.events;
 
 import java.util.ArrayList;
 
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.Message;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.data.ImapFolderImpl;
+import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.User;
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -31,7 +31,7 @@ public class DeleteMessageEvent extends GwtEvent<DeleteMessageEventHandler>{
 
     public final static Type<DeleteMessageEventHandler> TYPE = new Type<DeleteMessageEventHandler>();
     private User user;
-    private IMAPFolder folder;
+    private ImapFolderImpl folder;
     private ArrayList<Message> messageList;
     @Override
     protected void dispatch(DeleteMessageEventHandler handler) {
@@ -43,12 +43,12 @@ public class DeleteMessageEvent extends GwtEvent<DeleteMessageEventHandler>{
         return TYPE;
     }
     
-    public DeleteMessageEvent(User user, IMAPFolder folder, ArrayList<Message> messageList) {
+    public DeleteMessageEvent(User user, ImapFolderImpl folder, ArrayList<Message> messageList) {
         this.user = user;
         this.folder = folder;
         this.messageList = messageList;
     }
-    public DeleteMessageEvent(User user, IMAPFolder folder, Message message) {
+    public DeleteMessageEvent(User user, ImapFolderImpl folder, Message message) {
         ArrayList<Message> mList = new ArrayList<Message>();
         mList.add(message);
         
@@ -60,7 +60,7 @@ public class DeleteMessageEvent extends GwtEvent<DeleteMessageEventHandler>{
         return user;
     }
     
-    public IMAPFolder getFolder() {
+    public ImapFolderImpl getFolder() {
         return folder;
     }
     

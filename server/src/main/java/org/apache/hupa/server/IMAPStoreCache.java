@@ -24,7 +24,7 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.User;
 
 import com.sun.mail.imap.IMAPStore;
 

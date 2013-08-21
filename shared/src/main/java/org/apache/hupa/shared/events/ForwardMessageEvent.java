@@ -20,10 +20,10 @@
 
 package org.apache.hupa.shared.events;
 
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.Message;
-import org.apache.hupa.shared.data.MessageDetails;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.MessageDetails;
+import org.apache.hupa.shared.domain.User;
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -31,11 +31,11 @@ public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
 
     public final static Type<ForwardMessageEventHandler> TYPE = new Type<ForwardMessageEventHandler>();
     private User user;
-    private IMAPFolder folder;
+    private ImapFolder folder;
     private Message message;
     private MessageDetails details;
 
-    public ForwardMessageEvent(User user, IMAPFolder folder, Message message, MessageDetails details) {
+    public ForwardMessageEvent(User user, ImapFolder folder, Message message, MessageDetails details) {
         this.user = user;
         this.folder = folder;
         this.message = message;
@@ -46,7 +46,7 @@ public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
         return user;
     }
 
-    public IMAPFolder getFolder() {
+    public ImapFolder getFolder() {
         return folder;
     }
 

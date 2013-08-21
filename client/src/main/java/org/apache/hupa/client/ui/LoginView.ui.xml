@@ -1,0 +1,84 @@
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	you under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:image field='logo' src='res/hupa-logo-64-transparent.png' />
+	<ui:image field="shadow" src="res/loginShadow.png" />
+	<ui:image field="messages" src="res/messages.png" />
+	<ui:image field="loading" src="res/ajaxloader.gif" />
+	<ui:style type="org.apache.hupa.client.ui.LoginView.Style">
+		@sprite .boxBottom {
+			gwt-image: 'shadow';
+			background-position: top center;
+			width: auto;
+			height: auto;
+			margin-top: -3px;
+			padding-top: 10px;
+		}
+		
+		.message {
+			min-height: 40px;
+			padding: 5px 25px;
+			text-align: center;
+		}
+		
+		@sprite .notice {
+			gwt-image: 'messages';
+			background-position: 0 5px;
+			width: auto;
+			height: auto;
+			color: #555;
+			font-weight: bold;
+			padding: 6px 30px 6px 25px;
+			display: inline-block;
+			white-space: nowrap;
+			text-align: center;
+			cursor: default;
+		}
+		
+		.hidden {
+			display: none;
+		}
+		
+		.display {
+			display: inline-block;
+		}
+		
+		@sprite .loading {
+			gwt-image: 'loading';
+		}
+	</ui:style>
+	<g:FlowPanel ui:field="mainContainer">
+		<g:FlowPanel ui:field="innerBox">
+			<g:Image resource='{logo}'></g:Image>
+			<g:FormPanel ui:field="formPanel">
+				<g:FlexTable ui:field="flexTable" />
+			</g:FormPanel>
+			<g:Button ui:field="loginButton"></g:Button>
+		</g:FlowPanel>
+		<g:FlowPanel ui:field="boxBottom" styleName="{style.boxBottom}">
+			<g:FlowPanel ui:field="messageBox" addStyleNames="{style.message}">
+				<g:HTMLPanel ui:field="message" addStyleNames="{style.notice}{style.hidden}">
+				</g:HTMLPanel>
+			</g:FlowPanel>
+		</g:FlowPanel>
+		<g:FlowPanel ui:field="bottomLine">
+			<g:HTML>
+				You're using
+				<b>Hupa</b>
+				WebMail which is part of the
+				<a target='_blank' href='http://james.apache.org'>Apache-James</a>
+				project.
+			</g:HTML>
+		</g:FlowPanel>
+	</g:FlowPanel>
+</ui:UiBinder>

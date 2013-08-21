@@ -33,7 +33,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.User;
 
 import com.google.inject.Inject;
 import com.sun.mail.imap.IMAPFolder;

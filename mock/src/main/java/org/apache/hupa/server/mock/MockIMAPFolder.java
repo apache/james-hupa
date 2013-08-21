@@ -306,11 +306,11 @@ public class MockIMAPFolder extends IMAPFolder {
         Message[] array = new Message[ints.length];
 
         for (int i = 0; i < ints.length; i++) {
-            int mInt = ints[i] - 1;
-            if (mInt > messages.size() || mInt < messages.size()) {
+            int mInt = ints[i];
+            if (mInt > messages.size() || mInt < 0) {
                 throw new MessagingException();
             }
-            array[i] = messages.get(i);
+            array[i] = messages.get(ints[i]);
         }
         return array;
     }

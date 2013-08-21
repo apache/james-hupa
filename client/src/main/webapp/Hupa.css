@@ -16,30 +16,43 @@
   specific language governing permissions and limitations
   under the License.
 */
-
 /************[ Fonts ]***************************/
-body, table td, select, * {
-    font-family:  arial, 'comic sans ms', sans-serif, helvetica, verdana;
-    font-size: 12px;
+body,table td,select,* {
+	font-family: arial, 'comic sans ms', sans-serif, helvetica, verdana;
+	font-size: 12px;
+}
+
+body {
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #333;
+	background: url(images/linen.jpg) repeat #d1d5d8;
+	margin: 0;
+}
+
+body.noscroll { /* also avoids bounce effect in Chrome and Safari */
+	overflow: hidden;
 }
 
 /************[ widget: MyDialogBox ]****************/
-.hupa-dialog-box td.dialogMiddleCenter  {
+.hupa-dialog-box td.dialogMiddleCenter {
 	background: #fae5b0;
 }
+
 .hupa-dialog-box .dialogContent .gwt-Label {
 	font-weight: bold;
 	margin: 15px;
 }
+
 .hupa-dialog-box .Caption {
-    font-size: 14px;
+	font-size: 14px;
 }
 
 /************[ widget: RndPanel ]****************/
 .hupa-rounded {
-   border: 1px solid #7FAAFF; 
-   border-radius: 5px;
-   overflow: hidden;
+	border: 1px solid #7FAAFF;
+	border-radius: 5px;
+	overflow: hidden;
 }
 
 /************[ widget: Loading ]*************************************/
@@ -48,12 +61,12 @@ div.hupa-loading {
 	padding-left: 25px;
 	width: 100px;
 	height: 14px;
-    white-space: nowrap;
-    margin-top: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    vertical-align: top;
+	white-space: nowrap;
+	margin-top: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	vertical-align: top;
 }
 
 /************[ widget: EnableHyperLink ]*********/
@@ -62,10 +75,12 @@ div.hupa-loading {
 	text-decoration: underline;
 	cursor: pointer;
 }
+
 .hupa-hyperlink .gwt-Hyperlink-disabled {
 	color: #8d8d8d;
 }
-div.gwt-Hyperlink, div.gwt-Anchor {
+
+div.gwt-Hyperlink,div.gwt-Anchor {
 	padding-left: 4px;
 }
 
@@ -75,51 +90,59 @@ div.Hupa {
 	margin-top: 0px;
 	padding: 0px;
 	width: 100%;
-	min-width: 920px;
+	min-width: 400px;
 }
+
 * html div.Hupa {
-   margin-top: 15px;
+	margin-top: 0px;
 }
+
 div.hupa-logo {
-    width: 90px;
 	height: 64px;
-    float: left;
 	background: url(images/hupa-logo-64-transparent.png) no-repeat;
 }
 
-div.hupa-top { 
-    padding-left: 90px;
-    margin-right: 8px;
+div.hupa-top {
+	padding-left: 90px;
+	margin-right: 8px;
 }
-* html div.hupa-top { 
-    padding-left: 0px;
-} 
+
+* html div.hupa-top {
+	padding-left: 0px;
+}
+
 div.hupa-top-wrap {
 	height: 64px;
 	background-color: #C5D9FF;
 }
+
 div.cgb-RPC-hupa-top-wrap {
 	height: 59px;
 }
 
 table.hupa-top {
-    width: 100%;    
-    margin-bottom: 0px;
+	width: 100%;
+	margin-bottom: 0px;
 }
+
 table.hupa-button-bar td div {
 	padding-top: 12px;
 }
 
-div.hupa-loginfo-label, div.hupa-loginfo-user {
+div.hupa-loginfo-label,div.hupa-loginfo-user {
 	margin-left: 10px;
+	margin-right: 10px;
 }
+
 .hupa-loginfo-user {
 	font-style: italic;
 	font-weight: bold;
 }
+
 .hupa-menu-button {
 	margin-right: 15px;
 }
+
 div.hupa-header {
 	display: none;
 	padding-left: 10px;
@@ -129,29 +152,31 @@ div.hupa-header {
 .hupa-central {
 	clear: both;
 	margin: 8px 8px 8px 8px;
-	min-height: 500px;
+	min-height: 200px;
 }
 
 * html div.cgb-RPC-hupa-main {
 	height: 500px;
-    text-align: center;
+	text-align: center;
 }
 
 .hupa-flash {
-    background-color: #fae5b0;
+	background-color: #fae5b0;
 	text-align: center;
-    margin: auto auto 2px auto;
-    width: 50%;
-    position: absolute;
-    top: 45px;
-    left: 25%;
+	margin: auto auto 2px auto;
+	width: 50%;
+	position: absolute;
+	top: 45px;
+	left: 25%;
 }
+
 * html div.hupa-flash {
 	border: none;
 	background: none;
 }
+
 * html .hupa-flash div {
-    background-color: #fae5b0;
+	background-color: #fae5b0;
 }
 
 .hupa-flash div.gwt-Label {
@@ -162,24 +187,29 @@ div.hupa-bottom {
 	text-align: center;
 }
 /************[ view: LoginView ]*******************/
-table.hupa-login {
-    text-align: right;
-    margin-left: -220px;
-    position: relative;
-    left: 50%;
-    padding: 40px;
+.hupa-login {
+	margin: 10pt auto;
+	width: 20%;
+	text-align: right;
+	position: relative;
+	left: 50%;
+	padding: 20px;
+	border: 1px solid #7FAAFF;
+	box-shadow: 0 1px 4px grey;
+	border-radius: 5px;
 }
 
-table.hupa-login td {
+.hupa-login td {
 	text-align: center;
 }
-table.hupa-login-form {
+
+.hupa-login-form {
 	padding: 10px;
 }
 
 .hupa-login-textbox {
 	width: 230px;
-	background-color:  #d8ecfd;
+	background-color: #d8ecfd;
 	border: 1px solid #7FAAFF;
 	margin-left: 5px;
 }
@@ -193,77 +223,81 @@ table.hupa-login-form {
 /************[ widget: CommandsBar ]*********/
 .hupa-commands-bar {
 	width: 100%;
-    padding: 5px 4px 5px 4px;
-    background-color: #deeeff;  
+	background-color: #deeeff;
 }
 
 /************[ view: IMAPMessageListView ]*******************/
-.hupa-msglist, .hupa-msg-top-bar, .hupa-msgtable {
+.hupa-msglist,.hupa-msg-top-bar,.hupa-msgtable {
 	width: 100%;
 }
+
 .hupa-msg-top-bar {
 	padding: 10px 4px 10px 4px;
-    background-color: #C3D9FF;	
+	background-color: #C3D9FF;
 }
 
 .hupa-msgtable-row {
-    text-align: left;
+	text-align: left;
 	vertical-align: top;
 	padding: 0px 10px 0px 10px;
 	cursor: pointer;
 }
+
 .hupa-msgtable-unseen {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .hupa-msgtable-empty {
-    font-weight: bold;
+	font-weight: bold;
 	text-align: center;
 	padding: 20px;
 }
+
 .hupa-search-box {
 	width: 150px;
 }
 
-input[type=text], input[type=file], textarea {
-    background-color:  #d8ecfd;
-    border: 1px solid #7FAAFF;
+input[type=text],input[type=file],textarea {
+	background-color: #d8ecfd;
+	border: 1px solid #7FAAFF;
 }
 
-.dragdrop-dragable{
+.dragdrop-dragable {
 	background: red;
-	}
+}
 
 .gwt-SuggestBoxPopup {
-    font-size: 10px;
+	font-size: 10px;
 }
 
 .hupa-buttons .gwt-ListBox {
 	margin-left: 5px;
+	padding-left: 3px;
 }
 
 /*************[ buttonbars ]*********************/
 .hupa-buttons {
-    white-space: nowrap;
+	white-space: nowrap;
 }
 
 .hupa-buttons td {
-  padding-left: 3px;
+	padding-left: 3px;
 }
 
 .hupa-buttons div {
 	white-space: nowrap;
 	vertical-align: middle;
 }
+
 .hupa-buttons .gwt-Hyperlink {
 	padding-left: 6px;
 }
 
-
 /************[ widget: MessageHeaders ]*******************/
 table.hupa-msg-headers {
-    background-color: #C3D9FF;
+	background-color: #C3D9FF;
 }
+
 .hupa-msg-headers td.label {
 	width: 175px;
 	text-align: right;
@@ -275,6 +309,7 @@ table.hupa-msg-headers {
 table.hupa-msgview {
 	width: 100%;
 }
+
 div.hupa-msgview-content {
 	padding: 20px;
 }
@@ -288,7 +323,7 @@ div.hupa-msgview-content {
 }
 
 .hupa-attachment-view {
-	margin-left: 10px;	
+	margin-left: 10px;
 }
 
 /************[ view: MessageSendView ]*******************/
@@ -297,8 +332,8 @@ table.hupa-msgsend {
 }
 
 .hupa-validate-error {
-	border:	1pt solid red;
-    background-color: #fae5b0;
+	border: 1pt solid red;
+	background-color: #fae5b0;
 }
 
 /************[ view: ContactsView ]*******************/
@@ -307,135 +342,142 @@ table.hupa-contacts {
 	margin-right: auto;
 }
 
-
 /************************************************************************/
 /*** Non re-factored stuff ***/
 .cbg-ButtonContent {
 	font-size: 80%;
 }
 
-.hupa-ErrorLabel, .gwt-PagingOptions .errorMessage {
-    color:           			   #FF0000;
+.hupa-ErrorLabel,.gwt-PagingOptions .errorMessage {
+	color: #FF0000;
 }
 
 .gwt-ScrollTable .dataTable td {
-    border-top:    				  	1pt solid #EEEEEE;
-    white-space:   			    	nowrap;
-    padding:					   	0px 10px 0px 10px;
-    overflow:    			      	hidden;
-    font-size:						12px;
-	cursor:         			    pointer;
+	border-top: 1pt solid #EEEEEE;
+	white-space: nowrap;
+	padding: 0px 10px 0px 10px;
+	overflow: hidden;
+	font-size: 12px;
+	cursor: pointer;
 }
 
-
 .gwt-ScrollTable .dataTable tr.highlighted {
-    background:    				  	#FAD163;
+	background: #FAD163;
 }
 
 .gwt-ScrollTable .dataTable tr.selected td {
-    background:       				#FFF7D7;
+	background: #FFF7D7;
 }
 
 .hupa-IMAPFolder-unseen {
-	font-weight: bold;	
+	font-weight: bold;
 }
 
 .hupa-IMAPFolder-selected {
-    background:                     #f1e77b;
-    width:                          100%;   
+	background: #f1e77b;
+	width: 100%;
 }
 
 .hupa-droptarget-invalid {
-	color:							red;
+	color: red;
 }
 
-.hupa-editor { 
-	border: 2px solid #C3D9FF;
+.hupa-editor {
+	border-left: 1px solid #CCC;
+	border-right: 1px solid #CCC;
 }
 
 /**** HTML5 shadows and gradients ****/
-body {
-    background: #eaeaea;
-}
 .hupa-rounded {
-    box-shadow: 0 1px 4px grey;
+	box-shadow: 0 1px 4px grey;
 }
-.hupa-top-wrap, .hupa-login-box, .hupa-msg-top-bar {
-    background: -moz-linear-gradient(#FFFFFF, #C5D9FF);
-    background: -webkit-linear-gradient(#FFFFFF, #C5D9FF);
-    background: -o-linear-gradient(#FFFFFF, #C5D9FF);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#C5D9FF',GradientType=0 ); 
+
+.hupa-top-wrap,.hupa-login-box,.hupa-msg-top-bar {
+	background: -moz-linear-gradient(#FFFFFF, #C5D9FF);
+	background: -webkit-linear-gradient(#FFFFFF, #C5D9FF);
+	background: -o-linear-gradient(#FFFFFF, #C5D9FF);
+	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#FFFFFF',
+		endColorstr='#C5D9FF', GradientType=0 );
 }
+
 .hupa-commands-bar {
-    background: -moz-linear-gradient(#C5D9FF, #eaeaea);
-    background: -webkit-linear-gradient(#C5D9FF, #eaeaea);
-    background: -o-linear-gradient(#C5D9FF, #eaeaea);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5D9FF', endColorstr='#eaeaea',GradientType=0 ); 
+	background: -moz-linear-gradient(#C5D9FF, #eaeaea);
+	background: -webkit-linear-gradient(#C5D9FF, #eaeaea);
+	background: -o-linear-gradient(#C5D9FF, #eaeaea);
+	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#C5D9FF',
+		endColorstr='#eaeaea', GradientType=0 );
 }
+
 .hupa-tree {
-    background: -moz-linear-gradient(#C5D9FF, #eaeaea);
-    background: -webkit-linear-gradient(#C5D9FF, #eaeaea);
-    background: -o-linear-gradient(#C5D9FF, #eaeaea);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5D9FF', endColorstr='#eaeaea',GradientType=0 ); 
+	background: -moz-linear-gradient(#C5D9FF, #eaeaea);
+	background: -webkit-linear-gradient(#C5D9FF, #eaeaea);
+	background: -o-linear-gradient(#C5D9FF, #eaeaea);
+	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#C5D9FF',
+		endColorstr='#eaeaea', GradientType=0 );
 }
+
 div.hupa-main {
-    background: -moz-linear-gradient(#eaeaea, #fafafa);
-    background: -webkit-linear-gradient(#eaeaea, #fafafa);
-    background: -o-linear-gradient(#eaeaea, #fafafa);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#fafafa',GradientType=0 );     
+	background: -moz-linear-gradient(#eaeaea, #fafafa);
+	background: -webkit-linear-gradient(#eaeaea, #fafafa);
+	background: -o-linear-gradient(#eaeaea, #fafafa);
+	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#eaeaea',
+		endColorstr='#fafafa', GradientType=0 );
 }
-.hupa-flash, .hupa-dialog-box td.dialogMiddleCenter  {
-    background: -moz-linear-gradient(#fae5b0, #eaeaea);
-    background: -webkit-linear-gradient(#fae5b0, #eaeaea);
-    background: -o-linear-gradient(#fae5b0, #eaeaea);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fae5b0', endColorstr='#eaeaea',GradientType=0 );     
+
+.hupa-flash,.hupa-dialog-box td.dialogMiddleCenter {
+	background: -moz-linear-gradient(#fae5b0, #eaeaea);
+	background: -webkit-linear-gradient(#fae5b0, #eaeaea);
+	background: -o-linear-gradient(#fae5b0, #eaeaea);
+	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#fae5b0',
+		endColorstr='#eaeaea', GradientType=0 );
 }
-.hupa-login-form, .hupa-bottom {
-    text-shadow: 1px 1px 3px #666666;
+
+.hupa-login-form,.hupa-bottom {
+	text-shadow: 1px 1px 3px #666666;
 }
+
 * html  .hupa-bottom {
-    filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=1);
+	filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666',
+		Direction=135, Strength=1 );
 }
 
 .hupa-button {
 	background: #FFFFFF;
-    background: -moz-linear-gradient(#FFFFFF, #EDEDED);
-    background: -webkit-linear-gradient(#FFFFFF, #EDEDED);
-    background: -o-linear-gradient(#FFFFFF, #EDEDED);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#EDEDED',GradientType=0 );
-    border: 1px solid #B7B7B7;
-    color: #606060;
-    border-radius: 2em 2em 2em 2em;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    display: inline-block;
-    font: 10px;
-    margin: 0 2px;
-    outline: medium none;
-    padding: 2px 10px;
-    text-align: center;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-    vertical-align: baseline;
+	background: -moz-linear-gradient(#FFFFFF, #EDEDED);
+	background: -webkit-linear-gradient(#FFFFFF, #EDEDED);
+	background: -o-linear-gradient(#FFFFFF, #EDEDED);
+	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#FFFFFF',
+		endColorstr='#EDEDED', GradientType=0 );
+	border: 1px solid #B7B7B7;
+	color: #606060;
+	border-radius: 2em 2em 2em 2em;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+	display: inline-block;
+	font: 10px;
+	margin: 0 2px;
+	outline: medium none;
+	padding: 2px 10px;
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+	vertical-align: baseline;
 }
+
 .hupa-button:hover {
 	background: #ededed;
-    background: -moz-linear-gradient(#FFFFFF, #dcdcdc);
-    background: -webkit-linear-gradient(#FFFFFF, #dcdcdc);
-    background: -o-linear-gradient(#FFFFFF, #dcdcdc);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#dcdcdc',GradientType=0 );
+	background: -moz-linear-gradient(#FFFFFF, #dcdcdc);
+	background: -webkit-linear-gradient(#FFFFFF, #dcdcdc);
+	background: -o-linear-gradient(#FFFFFF, #dcdcdc);
+	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#FFFFFF',
+		endColorstr='#dcdcdc', GradientType=0 );
 }
 
 .gwt-DecoratorPanel .middleCenter {
-   height: 100%;
-   width: 100%;
+	height: 100%;
+	width: 100%;
 }
+
 .gwt-SuggestBox {
-    border-radius: 50px;
-    max-height: 8px;
+	border-radius: 50px;
+	max-height: 8px;
 }
-
-
-
-
-
-

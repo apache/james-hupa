@@ -21,7 +21,6 @@ package org.apache.hupa.shared;
 
 public class SConsts {
     public static final String HUPA = "hupa/";
-    public static final String SERVLET_DISPATCH = "dispatch";
     public static final String SERVLET_DOWNLOAD = "downloadAttachmentServlet";
     public static final String SERVLET_UPLOAD = "uploadAttachmentServlet";
     public static final String SERVLET_SOURCE = "messageSourceServlet";

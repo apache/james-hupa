@@ -25,7 +25,6 @@
     <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon"/>
     
     <title>Hupa webmail</title>
-    
     <!-- define loading style early -->
     <style type="text/css">
 		div.loading {
@@ -35,7 +34,7 @@
 		}
 		.loading img {
 		    position: absolute;
-		    top: 50%;
+		    top: 37%;
 		    left: 50%;
 		}
 		#login {
@@ -47,18 +46,17 @@
   <!-- Add this to disable right menu in some browsers: -->
   <!--    oncontextmenu="return false;"                 -->
   <body>
-  
     <!-- An image is shown while the application is loaded -->
     <!-- It will be removed as soon as the app is ready    -->
     <div id="loading" class="loading">
      <img src="images/hupa-spinning.gif">
-    </div>
+    </div>  
     
     <!-- We need this because passwords in forms rendered by js are not saved in browsers -->
     <div id="login">
 	  <form id="loginForm" action="hupa/clear.cache.gif" method="post">
-	    <input id="email" name="email" type="text">
-	    <input id="password" name="password" type="password">
+	    <input autocomplete="on" autocapitalize="off" id="email" name="email" type="text">
+	    <input autocomplete="on" autocapitalize="off" id="password" name="password" type="password">
 	  </form>
     </div>
     
@@ -67,8 +65,8 @@
     
     <!-- Download attachments needs this -->
     <iframe src="" id="__download" style="width:0;height:0;border:0"></iframe> 
-  </body>
-
+    
+    
   <!--  load the application at the end when loading is being shown -->
   <script type="text/javascript" language="javascript" src="hupa/hupa.nocache.js"></script>
     

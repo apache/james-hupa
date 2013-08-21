@@ -27,7 +27,7 @@
     </parent>
     <groupId>org.apache.james.hupa</groupId>
     <artifactId>hupa-parent</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.5-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Apache James Hupa Parent</name>
     <description>Hupa is a GWT based Webmail</description>
@@ -56,8 +56,8 @@
         </site>
     </distributionManagement>
     <properties>
-        <gwtVersion>2.4.0</gwtVersion>
-        <gwtMavenVersion>2.4.0</gwtMavenVersion>
+        <gwtVersion>2.5.1</gwtVersion>
+        <gwtMavenVersion>2.5.1</gwtMavenVersion>
         <gwt.moduleSuffix />
         <gwt.logLevel>ERROR</gwt.logLevel>
         <jettyVersion>7.3.0.v20110203</jettyVersion>
@@ -73,17 +73,26 @@
           <gwt.disableClassMetadata>true</gwt.disableClassMetadata>
           <gwt.disableCastChecking>true</gwt.disableCastChecking>
           <gwt.logLevel>TRACE</gwt.logLevel>
+          <gwt.compileReport>true</gwt.compileReport>
         </properties>
       </profile>
       <profile>
-        <!-- Deliver Hupa with Demo stuff -->
         <id>demo</id>
         <properties>
           <mock.scope />
         </properties>
       </profile>
       <profile>
-        <!-- Print readable js -->
+        <id>clos</id>
+        <properties>
+          <gwt.enableClosureCompiler>true</gwt.enableClosureCompiler>
+          <gwt.disableRunAsync>true</gwt.disableRunAsync>
+          <gwt.compileReport>false</gwt.compileReport>
+          <gwt.logLevel>ERROR</gwt.logLevel>
+        </properties>
+      </profile>
+      <profile>
+        <!-- Deliver Hupa with Demo stuff -->
         <id>pretty</id>
         <properties>
           <gwt.moduleSuffix>Prod</gwt.moduleSuffix>

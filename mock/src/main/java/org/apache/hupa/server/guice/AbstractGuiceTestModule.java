@@ -21,11 +21,10 @@ package org.apache.hupa.server.guice;
 
 import java.util.Properties;
 
-import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
+import org.apache.hupa.shared.data.SettingsImpl;
+import org.apache.hupa.shared.data.UserImpl;
 
-import org.apache.hupa.shared.data.Settings;
-import org.apache.hupa.shared.data.User;
-
+import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -74,10 +73,10 @@ import com.google.inject.name.Named;
  * @author manolo
  *
  */
-public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
+public abstract class AbstractGuiceTestModule extends AbstractModule{
 
-    protected static class TestUser extends User {
-        private static final long serialVersionUID = 1L;
+    protected static class TestUser extends UserImpl {
+    	
         @Inject
         public TestUser(@Named("Username") String username, 
                         @Named("Password") String password, 
@@ -87,8 +86,7 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
                         @Named("DefaultDraftsFolder") final String draft) {
             setName(username);
             setPassword(password);
-            setSettings(new Settings() {
-                private static final long serialVersionUID = 1L;
+            setSettings(new SettingsImpl() {
                 {
                     setInboxFolderName(inbox);
                     setSentFolderName(sent);

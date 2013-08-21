@@ -1,0 +1,37 @@
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	you under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:style>
+		.selected {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel ui:field="thisPanel">
+		<div id="settings-sections" class="uibox listbox">
+			<h2 class="boxtitle">Settings</h2>
+			<div id="settings-tabs" class="scroller">
+				<span class="listitem folders selected" ui:field="navLabelsItem">
+					<g:Anchor ui:field="labelsAnchor">Labels
+					</g:Anchor>
+				</span>
+				<!-- <span id="settingstabfolders" class="listitem preferences selected"> 
+					<a title="Manage folders" id="rcmbtn106" >Folders</a> </span> -->
+				<!-- <span id="settingstabidentities" class="listitem identities"> <a 
+					title="Manage identities for this account" id="rcmbtn107" >Identities</a> 
+					</span> -->
+
+			</div>
+		</div>
+
+	</g:HTMLPanel>
+</ui:UiBinder>

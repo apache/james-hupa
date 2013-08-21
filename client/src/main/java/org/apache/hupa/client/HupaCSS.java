@@ -26,6 +26,8 @@ import org.apache.hupa.widgets.WidgetsCSS;
  * CSS class names used in Hupa
  */
 public class HupaCSS extends WidgetsCSS {
+	
+	public static final String C_app_body="body";
     
     public static final String C_app_container ="Hupa";
 

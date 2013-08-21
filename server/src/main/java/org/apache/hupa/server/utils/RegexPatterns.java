@@ -48,7 +48,8 @@ public class RegexPatterns {
     
     public static final Pattern regex_inlineImg = Pattern.compile("(?si)(<\\s*img\\s+.*?src=)[\"']?cid:([^\"']+)[\"']?");
     public static final String repl_inlineImg = "$1'" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD 
-                                        + "?" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
+                                        + "?" + SConsts.PARAM_MODE + "=inline" 
+                                        + "&" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
                                         + "&" + SConsts.PARAM_UID + "=%%UID%%" 
                                         + "&" + SConsts.PARAM_NAME + "=$2' name='cid:$2'";
     
@@ -60,9 +61,9 @@ public class RegexPatterns {
     
     public static final Pattern regex_unneededTags = Pattern.compile("(?si)(</?(html|body)[^>]*?>)");
     public static final String repl_unneededTags = "";
-
-    public static final String EVENT_ATTR_REGEX = "(?:on[a-z]+)";
-    public static final Pattern regex_badAttrs = Pattern.compile("(?si)(<\\w+[^<>]*)(?:[\"']|\\s+)("+ EVENT_ATTR_REGEX + ")=[\"']?([^\\s<>]+?)[\"']?([\\s>])");
+    
+    public static final String EVENT_ATTR_REGEX = "(?:on[dbl]*click)|(?:onmouse[a-z]+)|(?:onkey[a-z]+)";
+    public static final Pattern regex_badAttrs = Pattern.compile("(?si)(<\\w+[^<>]*)\\s+("+ EVENT_ATTR_REGEX + ")=[\"']?([^\\s<>]+?)[\"']?([\\s>])");
     public static final String repl_badAttrs = "$1$4";
     
     public static final Pattern regex_orphandHttpLinks = Pattern.compile("(?si)(?!.*<a\\s?[^>]*?>.+</a\\s*>.*)(<[^<]*?>[^<>]*)" + HTML_LINK_REGEXP + "([^<>]*<[^>]*?>)");

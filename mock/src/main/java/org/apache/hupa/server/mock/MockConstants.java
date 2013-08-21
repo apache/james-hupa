@@ -19,10 +19,12 @@
 
 package org.apache.hupa.server.mock;
 
-import org.apache.hupa.shared.data.Settings;
-import org.apache.hupa.shared.data.User;
-
 import java.util.Properties;
+
+import org.apache.hupa.shared.data.SettingsImpl;
+import org.apache.hupa.shared.data.UserImpl;
+import org.apache.hupa.shared.domain.Settings;
+import org.apache.hupa.shared.domain.User;
 
 /**
  * Constants and properties used for mock mode
@@ -31,8 +33,7 @@ public class MockConstants {
     
     public static String SESSION_ID = "MockID";
      
-    public final static Settings mockSettings = new Settings() {
-        private static final long serialVersionUID = 1L;
+    public final static Settings mockSettings = new SettingsImpl() {
         {
             setInboxFolderName(MockIMAPStore.MOCK_INBOX_FOLDER);
             setSentFolderName(MockIMAPStore.MOCK_SENT_FOLDER);
@@ -61,8 +62,7 @@ public class MockConstants {
         }
     };
 
-    public final static Settings mockUserSettings = new Settings() {
-        private static final long serialVersionUID = 1L;
+    public final static Settings mockUserSettings = new SettingsImpl() {
         {
             setInboxFolderName(MockIMAPStore.MOCK_INBOX_FOLDER);
             setSentFolderName(MockIMAPStore.MOCK_SENT_FOLDER);
@@ -71,8 +71,7 @@ public class MockConstants {
         }
     };
     
-    public final static User mockUser = new User() {
-        private static final long serialVersionUID = 1L;
+    public final static User mockUser = new UserImpl() {
         {
             setName(MockIMAPStore.MOCK_LOGIN);
             setPassword(MockIMAPStore.MOCK_LOGIN);

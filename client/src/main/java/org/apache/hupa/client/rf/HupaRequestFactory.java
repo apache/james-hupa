@@ -21,5 +21,39 @@ package org.apache.hupa.client.rf;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
 public interface HupaRequestFactory extends RequestFactory {
-  SubjectRequest subjectRequest();
+	ImapFolderRequest folderRequest();
+
+	CheckSessionRequest sessionRequest();
+
+	LoginUserRequest loginRequest();
+
+	LogoutUserRequest logoutRequest();
+
+	FetchFoldersRequest fetchFoldersRequest();
+
+	FetchMessagesRequest messagesRequest();
+
+	MoveMessageRequest moveMessageRequest();
+
+	CreateFolderRequest createFolderRequest();
+
+	DeleteFolderRequest deleteFolderRequest();
+
+	RenameFolderRequest renameFolderRequest();
+
+	DeleteMessageByUidRequest deleteMessageByUidRequest();
+
+	DeleteMessageAllRequest deleteMessageAllRequest();
+
+	GetMessageDetailsRequest messageDetailsRequest();
+
+	SendMessageRequest sendMessageRequest();
+
+	SendForwardMessageRequest sendForwardMessageRequest();
+
+	SendReplyMessageRequest sendReplyMessageRequest();
+
+	IdleRequest idleRequest();
+
+	SetFlagRequest setFlagRequest();
 }

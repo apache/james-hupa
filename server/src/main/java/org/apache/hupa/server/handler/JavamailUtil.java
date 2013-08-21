@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import javax.mail.Flags;
 import javax.mail.Flags.Flag;
 
-import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 
 /**
  * Util class which helps to convert from hupa internal data representation to javamaill classes

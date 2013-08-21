@@ -1,0 +1,113 @@
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	you under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+<<<<<<< HEAD
+=======
+	<ui:image field="buttons" src="res/buttons.png" />
+>>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
+	<ui:style>
+		.messageContent {
+			display: block;
+			background-color: white;
+			width: 100%;
+			height: 100%;
+		}
+		
+		.previewheader {
+			position: relative;
+			height: auto;
+			min-height: 52px;
+			padding: 0 0 3px 26px;
+		}
+		
+		.messageheader {
+			position: relative;
+			padding: 3px 0;
+			background: #f9f9f9;
+			background: -moz-linear-gradient(top, #fff 0%, #f0f0f0 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff),
+				color-stop(100%, #f0f0f0) );
+			background: -o-linear-gradient(top, #fff 0%, #f0f0f0 100%);
+			background: -ms-linear-gradient(top, #fff 0%, #f0f0f0 100%);
+			background: linear-gradient(top, #fff 0%, #f0f0f0 100%);
+			border-bottom: 1px solid #dfdfdf;
+		}
+		
+		.attachBox {
+			float: right;
+			width: 230px;
+			margin: 8px;
+			min-height: 200px;
+			background: #f0f0f0;
+			padding: 8px;
+		}
+<<<<<<< HEAD
+	</ui:style>
+	<g:DockLayoutPanel unit="PX">
+		<g:north size="0">
+			<g:HTMLPanel addStyleNames="{style.previewheader} {style.messageheader}">
+			</g:HTMLPanel>
+		</g:north>
+		<g:center>
+			<g:DockLayoutPanel unit="PX">
+				<g:center>
+					<g:ScrollPanel ui:field="messageContent" addStyleNames="{style.messageContent}" />
+				</g:center>
+				<g:east size="216">
+=======
+		
+		.moreHeaders {
+			position: absolute;
+			top: 8px;
+            cursor: pointer;
+			right: 18px;
+			width: 18em;
+			text-align: right;
+			white-space: nowrap;
+		}
+		
+		@sprite  .inner {
+			gwt-image: 'buttons';
+			background-position: -29px -271px;
+			display: inline-block;
+			width: 16px;
+			height: 13px;
+			text-indent: 1000px;
+			overflow: hidden;
+		}
+	</ui:style>
+	<g:DockLayoutPanel unit="PX">
+		<g:center>
+			<g:DockLayoutPanel unit="PX" ui:field="thisPanel">
+				<g:north size="30">
+					<g:FlowPanel addStyleNames="{style.previewheader} {style.messageheader}">
+						<g:SimplePanel ui:field="rawPanel" addStyleNames="{style.moreHeaders}">
+
+							<g:Anchor ui:field="rawButton" addStyleNames="{style.inner}">Raw
+							</g:Anchor>
+						</g:SimplePanel>
+					</g:FlowPanel>
+				</g:north>
+				<g:center>
+					<g:ScrollPanel ui:field="messageContent"
+						addStyleNames="{style.messageContent}" />
+				</g:center>
+				<g:east size="0">
+>>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
+					<g:FlowPanel ui:field="attachments" addStyleNames="{style.attachBox}">
+					</g:FlowPanel>
+				</g:east>
+			</g:DockLayoutPanel>
+		</g:center>
+	</g:DockLayoutPanel>
+</ui:UiBinder>

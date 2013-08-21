@@ -1,0 +1,13 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
+	<ui:style>
+		.minWidth {
+			min-width: 1150px;
+		}
+	</ui:style>
+	<g:LayoutPanel addStyleNames="{style.minWidth}">
+		<g:layer>
+			<g:SimplePanel ui:field="loginContainer"/>
+		</g:layer>
+	</g:LayoutPanel>
+</ui:UiBinder>

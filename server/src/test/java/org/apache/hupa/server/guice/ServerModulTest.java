@@ -27,6 +27,7 @@ import java.util.Properties;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.hupa.server.ioc.GuiceListener;
 import org.apache.hupa.server.mock.MockConstants;
 import org.apache.hupa.server.utils.ConfigurationProperties;
 import org.junit.Before;
@@ -36,7 +37,7 @@ public class ServerModulTest {
     private String tmpDir = System.getProperty("java.io.tmpdir");
 //    private GuiceServerModule module = new GuiceServerModule(tmpDir);
     
-    private String configDir = GuiceServletConfig.CONFIG_DIR_IN_WAR;
+    private String configDir = GuiceListener.CONFIG_DIR_IN_WAR;
     
 
     @Before
@@ -61,7 +62,7 @@ public class ServerModulTest {
 
     @Test
     public void testLoadPropertiesWithEmptyFile() throws Exception {
-        GuiceServletConfig sconfig = new GuiceServletConfig();
+        GuiceListener sconfig = new GuiceListener();
         
         File tmp = File.createTempFile("foo", ".properties");
         tmp.deleteOnExit();
@@ -74,7 +75,7 @@ public class ServerModulTest {
             Assert.fail("IllegalArgumentException must be thrown because of missing mandatory configuration properties");
         }
 
-        System.setProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE, tmp.toString());
+        System.setProperty(GuiceListener.SYS_PROP_CONFIG_FILE, tmp.toString());
         try {
             sconfig.loadProperties();
         } catch (IllegalArgumentException e) {
@@ -82,7 +83,7 @@ public class ServerModulTest {
         } catch (Exception e) {
             Assert.fail("IllegalArgumentException must be thrown because of missing mandatory configuration properties");
         }
-        System.clearProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE);
+        System.clearProperty(GuiceListener.SYS_PROP_CONFIG_FILE);
     }
 
     @Test
@@ -96,13 +97,13 @@ public class ServerModulTest {
         }
         FileUtils.writeLines(tmp, lines);
         
-        System.setProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
-        p = new GuiceServletConfig().loadProperties();
+        System.setProperty(GuiceListener.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
+        p = new GuiceListener().loadProperties();
         Assert.assertNotNull(p);
         Assert.assertEquals(MockConstants.mockSettings.getInboxFolderName(), p.get("DefaultInboxFolder"));
         Assert.assertEquals(MockConstants.mockSettings.getTrashFolderName(), p.get("DefaultTrashFolder"));
         Assert.assertEquals(MockConstants.mockSettings.getSentFolderName(), p.get("DefaultSentFolder"));
-        System.clearProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE);
+        System.clearProperty(GuiceListener.SYS_PROP_CONFIG_FILE);
     }
 
 }

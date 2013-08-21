@@ -19,19 +19,11 @@
 
 package org.apache.hupa.shared.exception;
 
-import net.customware.gwt.dispatch.shared.ActionException;
+public class InvalidSessionException extends HupaException{
 
-/**
- *
- */
-public class InvalidSessionException extends ActionException{
+	private static final long serialVersionUID = 995112620968798947L;
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 995112620968798947L;
-
-    public InvalidSessionException(String msg) {
-        super(msg);
+	public InvalidSessionException(String message) {
+        super(message);
     }
 }
