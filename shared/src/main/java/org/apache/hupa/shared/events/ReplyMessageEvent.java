@@ -30,7 +30,7 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
 
     public final static Type<ReplyMessageEventHandler> TYPE = new Type<ReplyMessageEventHandler>();
     private User user;
-    private ImapFolder folder;
+    private IMAPFolder folder;
     private Message message;
     private MessageDetails details;
     private boolean replyAll;
@@ -45,7 +45,7 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
         return TYPE;
     }
     
-    public ReplyMessageEvent(User user, ImapFolder folder, Message message, MessageDetails details, boolean replyAll) {
+    public ReplyMessageEvent(User user, IMAPFolder folder, Message message, MessageDetails details, boolean replyAll) {
         this.user = user;
         this.folder = folder;
         this.message = message;
@@ -57,7 +57,7 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
         return user;
     }
     
-    public ImapFolder getFolder() {
+    public IMAPFolder getFolder() {
         return folder;
     }
     

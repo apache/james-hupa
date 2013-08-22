@@ -59,7 +59,7 @@ public abstract class UserPreferencesStorage {
     final public void addContact(List<String> mails) {
         if (mails != null) {
             for (String mail: mails) {
-            	if (mail != null && !mail.matches(REGEX_OMITTED_EMAILS)) {
+            	if (!mail.matches(REGEX_OMITTED_EMAILS)) {
                     Contact contact = new Contact(mail);
                     addContact(contact);
             	}

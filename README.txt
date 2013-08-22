@@ -1,9 +1,9 @@
-###### Bulding #######
+###### Bulding ######
 Hupa use maven2 as build tool. To build hupa download maven2 (http://maven.apache.org), unpack maven2 and install it.
 After that change to hupa directory and execute the following cmd:
 $ mvn clean package
 
-###### Configuring server side  ########
+###### Configuring server side  ################
 Hupa uses a properties file to know the IMAP and SMTP servers configuration.
 There is an example configuration file in 'server/src/main/webapp/WEB-INF/conf/config.properties'
 
@@ -13,7 +13,7 @@ There is an example configuration file in 'server/src/main/webapp/WEB-INF/conf/c
 - Or in any other file if you start your application server with the parameter:
   -Dhupa.config.file=full_path_to_your_properties_file
 
-##### Running Hupa #####
+##### Running Hupa ##################
 Hupa comes packaged with a servlet-container, so once you have compiled the app just run:
 $ java -jar target/hupa-${version}.war
 
@@ -54,4 +54,5 @@ shared, mock, server, widget and client.
   >> 'GWT module hupa needs to be (re)compiled, please run a compile or use the Compile/Browse button in hosted mode'
  
   Configure the plugin to compile only the 'Hupa' module.
-  Properties -> Google -> Web Toolkit -> Entry Point Modules -> Hupa - org.apache.hupa 
+  Properties -> Google -> Web Toolkit -> Entry Point Modules -> Hupa - org.apache.hupa
+ 
