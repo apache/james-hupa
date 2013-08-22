@@ -23,10 +23,6 @@ import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.LogoutUserRequest;
 import org.apache.hupa.client.ui.LoginLayoutable;
-<<<<<<< HEAD
-import org.apache.hupa.client.ui.WidgetDisplayable;
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import org.apache.hupa.shared.domain.LogoutUserResult;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.LoginEvent;
@@ -38,17 +34,11 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiField;
-<<<<<<< HEAD
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HTMLPanel;
-=======
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -110,24 +100,16 @@ public class TopBarActivity extends AppBaseActivity {
 					eventBus.fireEvent(new LogoutEvent(response.getUser()));
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
-<<<<<<< HEAD
-					TopBarActivity.this.pc.goTo(new DefaultPlace("@"));
-=======
 					pc.goTo(new DefaultPlace(""));
 					Window.Location.reload();
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 				}
 
 				@Override
 				public void onFailure(ServerFailure error) {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
-<<<<<<< HEAD
-					TopBarActivity.this.pc.goTo(new DefaultPlace("@"));
-=======
 					pc.goTo(new DefaultPlace(""));
 					Window.Location.reload();
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 				}
 			});
 		}
@@ -137,11 +119,7 @@ public class TopBarActivity extends AppBaseActivity {
 		return display.getUserLabel().getWidgetCount() < 1;
 	}
 
-<<<<<<< HEAD
-	public interface Displayable extends WidgetDisplayable {
-=======
 	public interface Displayable extends IsWidget {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		HasClickHandlers getLogoutClick();
 		void showUserName(String userName);
 		HTMLPanel getUserLabel();

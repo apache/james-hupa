@@ -19,10 +19,6 @@
 
 package org.apache.hupa.client.ui;
 
-<<<<<<< HEAD
-import java.util.Date;
-import java.util.List;
-=======
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,7 +26,6 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaController;
@@ -45,10 +40,7 @@ import org.apache.hupa.shared.domain.FetchMessagesAction;
 import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
-<<<<<<< HEAD
-=======
 import org.apache.hupa.shared.events.MessagesReceivedEvent;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.CheckboxCell;
@@ -58,11 +50,8 @@ import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
-<<<<<<< HEAD
-=======
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.NativeEvent;
@@ -72,14 +61,10 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.ImageResource;
-<<<<<<< HEAD
-import com.google.gwt.user.cellview.client.Column;
-=======
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.AsyncHandler;
 import com.google.gwt.user.cellview.client.ColumnSortList.ColumnSortInfo;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.RowStyles;
@@ -88,10 +73,7 @@ import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
-<<<<<<< HEAD
-=======
 import com.google.gwt.view.client.Range;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -104,11 +86,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 	private String folderName;
 	private String searchValue;
 
-<<<<<<< HEAD
-	public static final int PAGE_SIZE = 25;
-=======
 	public static final int PAGE_SIZE = 100;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
 	private HupaImageBundle imageBundle;
 	CheckboxColumn checkboxCol = new CheckboxColumn();
@@ -146,10 +124,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 	HupaRequestFactory rf;
 
 	private MessageListDataProvider dataProvider;
-<<<<<<< HEAD
-=======
 	public static final String CONTACTS_STORE = "hupa-contacts";
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
 	public class MessageListDataProvider extends AsyncDataProvider<Message> implements HasRefresh {
 
@@ -166,8 +141,6 @@ public class MessagesCellTable extends DataGrid<Message> {
 			this.onRangeChanged(display);
 		}
 
-<<<<<<< HEAD
-=======
 		Set<String> contacts = new LinkedHashSet<String>();
 		private Storage contactsStore = null;
 
@@ -203,17 +176,12 @@ public class MessagesCellTable extends DataGrid<Message> {
 			}
 		}
 
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		@Override
 		protected void onRangeChanged(HasData<Message> display) {
 			FetchMessagesRequest req = rf.messagesRequest();
 			FetchMessagesAction action = req.create(FetchMessagesAction.class);
 			final ImapFolder f = req.create(ImapFolder.class);
-<<<<<<< HEAD
-            final int start = display.getVisibleRange().getStart();
-=======
 			final int start = display.getVisibleRange().getStart();
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 			f.setFullName(parseFolderName(pc));
 			action.setFolder(f);
 			action.setOffset(display.getVisibleRange().getLength());
@@ -227,10 +195,6 @@ public class MessagesCellTable extends DataGrid<Message> {
 					} else {
 						updateRowCount(response.getRealCount(), true);
 						updateRowData(start, response.getMessages());
-<<<<<<< HEAD
-					}
-					hc.hideTopLoading();
-=======
 					    getColumnSortList().push(dateCol);
 					}
 					hc.hideTopLoading();
@@ -240,7 +204,6 @@ public class MessagesCellTable extends DataGrid<Message> {
 							eventBus.fireEvent(new MessagesReceivedEvent(f, response.getMessages()));
 						}
 					});
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 				}
 
 				@Override
@@ -256,24 +219,16 @@ public class MessagesCellTable extends DataGrid<Message> {
 
 	}
 	
-<<<<<<< HEAD
-=======
 	public void setSearchValue(String searchValue){
 		this.searchValue = searchValue;
 	}
 
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	public final class CheckboxHeader extends Header<Boolean> {
 
 		private final MultiSelectionModel<? super Message> selectionModel;
 		private final AsyncDataProvider<Message> provider;
 
-<<<<<<< HEAD
-		public CheckboxHeader(MultiSelectionModel<? super Message> selectionModel,
-				AsyncDataProvider<Message> provider) {
-=======
 		public CheckboxHeader(MultiSelectionModel<? super Message> selectionModel, AsyncDataProvider<Message> provider) {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 			super(new CheckboxCell());
 			this.selectionModel = selectionModel;
 			this.provider = provider;
@@ -281,17 +236,10 @@ public class MessagesCellTable extends DataGrid<Message> {
 
 		@Override
 		public Boolean getValue() {
-<<<<<<< HEAD
-			if(selectionModel == null || provider==null){
-				return false;
-			}
-			if(selectionModel.getSelectedSet().size() == 0 || provider.getDataDisplays().size() == 0){
-=======
 			if (selectionModel == null || provider == null) {
 				return false;
 			}
 			if (selectionModel.getSelectedSet().size() == 0 || provider.getDataDisplays().size() == 0) {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 				return false;
 			}
 			boolean allItemsSelected = selectionModel.getSelectedSet().size() == provider.getDataDisplays().size();
@@ -365,12 +313,6 @@ public class MessagesCellTable extends DataGrid<Message> {
 			dataProvider = new MessageListDataProvider();
 			dataProvider.addDataDisplay(this);
 		}
-<<<<<<< HEAD
-		refresh();
-	}
-
-	private String parseFolderName(final PlaceController pc) {
-=======
 		
 		// make table sortable
 	    AsyncHandler columnSortHandler = new AsyncHandler(this);
@@ -417,7 +359,6 @@ public class MessagesCellTable extends DataGrid<Message> {
 	}
 	
 	public String parseFolderName(final PlaceController pc) {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		Place place = pc.getWhere();
 		if (place instanceof FolderPlace) {
 			folderName = ((FolderPlace) place).getToken();

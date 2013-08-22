@@ -29,11 +29,8 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-<<<<<<< HEAD
-=======
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
@@ -42,26 +39,11 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
-<<<<<<< HEAD
-=======
 import com.google.gwt.user.client.ui.TextBox;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
 public class SearchBoxView extends Composite implements SearchBoxActivity.Displayable {
 
 	private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
-<<<<<<< HEAD
-	private SuggestBox searchBox = new SuggestBox(oracle);
-	private Button searchButton = new Button("Search");
-	@UiField protected HorizontalPanel thisPanel;
-
-	public SearchBoxView() {
-		initWidget(binder.createAndBindUi(this));
-
-		searchBox.addKeyUpHandler(new KeyUpHandler() {
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-=======
 	private TextBox searchBox = new TextBox();
 	private Button searchButton = new Button("Search");
 	@UiField protected HorizontalPanel thisPanel;
@@ -83,7 +65,6 @@ public class SearchBoxView extends Composite implements SearchBoxActivity.Displa
 		searchBox.addKeyUpHandler(new KeyUpHandler() {
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER || (event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE && searchBox.getText().trim().equals(""))) {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 					searchButton.click();
 				}
 			}

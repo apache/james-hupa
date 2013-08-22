@@ -27,19 +27,6 @@ import org.apache.hupa.client.place.AbstractPlace;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.MessagePlace;
 import org.apache.hupa.client.rf.DeleteMessageByUidRequest;
-<<<<<<< HEAD
-import org.apache.hupa.client.rf.FetchMessagesRequest;
-import org.apache.hupa.client.rf.GetMessageDetailsRequest;
-import org.apache.hupa.client.ui.HasRefresh;
-import org.apache.hupa.client.ui.MessagesCellTable;
-import org.apache.hupa.client.ui.ToolBarView;
-import org.apache.hupa.client.ui.WidgetDisplayable;
-import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
-import org.apache.hupa.shared.domain.DeleteMessageResult;
-import org.apache.hupa.shared.domain.FetchMessagesAction;
-import org.apache.hupa.shared.domain.FetchMessagesResult;
-=======
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 import org.apache.hupa.client.rf.MoveMessageRequest;
 import org.apache.hupa.client.ui.MessagesCellTable;
@@ -47,17 +34,10 @@ import org.apache.hupa.client.ui.ToolBarView;
 import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
 import org.apache.hupa.shared.domain.DeleteMessageResult;
 import org.apache.hupa.shared.domain.GenericResult;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
-<<<<<<< HEAD
-import org.apache.hupa.shared.domain.User;
-import org.apache.hupa.shared.events.DeleteClickEvent;
-import org.apache.hupa.shared.events.DeleteClickEventHandler;
-import org.apache.hupa.shared.events.ExpandMessageEvent;
-=======
 import org.apache.hupa.shared.domain.MoveMessageAction;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.DeleteClickEvent;
@@ -66,21 +46,13 @@ import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
 import org.apache.hupa.shared.events.RefreshMessagesEvent;
 import org.apache.hupa.shared.events.RefreshMessagesEventHandler;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import org.apache.hupa.shared.events.RefreshUnreadEvent;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-<<<<<<< HEAD
-import com.google.gwt.view.client.AsyncDataProvider;
-import com.google.gwt.view.client.CellPreviewEvent;
-import com.google.gwt.view.client.CellPreviewEvent.Handler;
-import com.google.gwt.view.client.HasData;
-=======
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.CellPreviewEvent.Handler;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -91,11 +63,7 @@ public class MessageListActivity extends AppBaseActivity {
 	@Inject private ToolBarActivity.Displayable toolBar;
 	@Inject private TopBarActivity.Displayable topBar;
 	private String folderName;
-<<<<<<< HEAD
-//	private String searchValue;
-=======
 	// private String searchValue;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	private User user;
 
 	@Override
@@ -118,25 +86,14 @@ public class MessageListActivity extends AppBaseActivity {
 					req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
 						@Override
 						public void onSuccess(GetMessageDetailsResult response) {
-<<<<<<< HEAD
-							eventBus.fireEvent(new ExpandMessageEvent(user, new ImapFolderImpl(folderName), event
-									.getValue(), response.getMessageDetails()));
-=======
 							MessagePlace place = new MessagePlace(folderName + AbstractPlace.SPLITTER
 									+ event.getValue().getUid());
 							pc.goTo(place);
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 							display.getGrid().getSelectionModel().setSelected(event.getValue(), true);
 							toolBar.enableAllTools(true);
 							ToolBarView.Parameters p = new ToolBarView.Parameters(user, folderName, event.getValue(),
 									response.getMessageDetails());
 							toolBar.setParameters(p);
-<<<<<<< HEAD
-							MessagePlace place = new MessagePlace(folderName + AbstractPlace.SPLITTER
-									+ event.getValue().getUid());
-							pc.goTo(place);
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 							display.refresh();
 							hc.hideTopLoading();
 							eventBus.fireEvent(new RefreshUnreadEvent());
@@ -163,11 +120,7 @@ public class MessageListActivity extends AppBaseActivity {
 		return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
 	}
 
-<<<<<<< HEAD
-	private void bindTo(EventBus eventBus) {
-=======
 	private void bindTo(final EventBus eventBus) {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		eventBus.addHandler(DeleteClickEvent.TYPE, new DeleteClickEventHandler() {
 			@Override
 			public void onDeleteClickEvent(DeleteClickEvent event) {
@@ -175,8 +128,6 @@ public class MessageListActivity extends AppBaseActivity {
 			}
 		});
 
-<<<<<<< HEAD
-=======
 		eventBus.addHandler(RefreshMessagesEvent.TYPE, new RefreshMessagesEventHandler() {
 			@Override
 			public void onRefresh(RefreshMessagesEvent event) {
@@ -235,7 +186,6 @@ public class MessageListActivity extends AppBaseActivity {
 
 		});
 
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	public MessageListActivity with(String folderName) {
@@ -243,11 +193,7 @@ public class MessageListActivity extends AppBaseActivity {
 		return this;
 	}
 
-<<<<<<< HEAD
-	public interface Displayable extends WidgetDisplayable {
-=======
 	public interface Displayable extends IsWidget {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		MessagesCellTable getGrid();
 
 		void refresh();
@@ -255,11 +201,8 @@ public class MessageListActivity extends AppBaseActivity {
 		List<Long> getSelectedMessagesIds();
 
 		Set<Message> getSelectedMessages();
-<<<<<<< HEAD
-=======
 
 		void setSearchValue(String searchValue);
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	private void antiSelectMessages(Collection<Message> c) {

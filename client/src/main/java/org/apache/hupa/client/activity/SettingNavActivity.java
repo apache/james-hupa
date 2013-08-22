@@ -45,11 +45,21 @@ public class SettingNavActivity extends AppBaseActivity {
 				pc.goTo(new SettingPlace("labels"));
 			}
 		}));
+		registerHandler(display.getEcsAchor().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.singleSelect(2);
+				pc.goTo(new SettingPlace("ecs"));
+			}
+		}));
+		
 	}
 
 	@Inject private Displayable display;
 
 	public interface Displayable extends IsWidget {
+		HasClickHandlers getEcsAchor();
+
 		HasClickHandlers getLabelsAchor();
 
 		void singleSelect(int i);

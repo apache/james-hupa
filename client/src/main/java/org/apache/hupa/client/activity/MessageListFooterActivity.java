@@ -19,13 +19,6 @@
 
 package org.apache.hupa.client.activity;
 
-<<<<<<< HEAD
-import org.apache.hupa.client.ui.WidgetDisplayable;
-
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.cellview.client.SimplePager;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
-=======
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 
@@ -37,7 +30,6 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasVisibility;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.ListBox;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.inject.Inject;
 
 public class MessageListFooterActivity extends AppBaseActivity {
@@ -45,8 +37,6 @@ public class MessageListFooterActivity extends AppBaseActivity {
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
-<<<<<<< HEAD
-=======
 		bindTo(eventBus);
 	}
 
@@ -61,19 +51,13 @@ public class MessageListFooterActivity extends AppBaseActivity {
 				}
 			}
 		});
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	@Inject private Displayable display;
 	
-<<<<<<< HEAD
-	public interface Displayable extends WidgetDisplayable {
-		SimplePager getPager();
-=======
 	public interface Displayable extends IsWidget {
 		SimplePager getPager();
 		HasVisibility getLabelsPanel();
 		ListBox getLabels();
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 }

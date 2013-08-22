@@ -19,19 +19,12 @@
 
 package org.apache.hupa.client.activity;
 
-<<<<<<< HEAD
-import org.apache.hupa.client.ui.WidgetDisplayable;
-
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
-=======
 import org.apache.hupa.shared.events.RefreshUnreadEvent;
 import org.apache.hupa.shared.events.RefreshUnreadEventHandler;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.inject.Inject;
 
 public class FolderListActivity extends AppBaseActivity {
@@ -41,11 +34,6 @@ public class FolderListActivity extends AppBaseActivity {
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
-<<<<<<< HEAD
-	}
-
-	public interface Displayable extends WidgetDisplayable {
-=======
 		bindTo(eventBus);
 	}
 
@@ -60,7 +48,6 @@ public class FolderListActivity extends AppBaseActivity {
 	}
 
 	public interface Displayable extends IsWidget {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		void refresh();
 	}
 }

@@ -33,7 +33,10 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class SettingNavView extends Composite implements SettingNavActivity.Displayable {
 	
 	@UiField Element navLabelsItem;
+	@UiField Element navEcsItem;
+	
 	@UiField Anchor labelsAnchor;
+	@UiField Anchor ecsAnchor;
 
 	public SettingNavView() {
 		initWidget(binder.createAndBindUi(this));
@@ -50,15 +53,31 @@ public class SettingNavView extends Composite implements SettingNavActivity.Disp
 	}
 
 	@Override
+	public HasClickHandlers getEcsAchor() {
+		return ecsAnchor;
+	}
+
+
+	@Override
 	public void singleSelect(int i) {
 		switch(i){
+		case 2:selectEcsItem();break;
 		default:selectNavLabelItem();
 		}
 	}
 
-	private void selectNavLabelItem() {
-		String clazz = navLabelsItem.getAttribute("class");
-		navLabelsItem.setAttribute("class", clazz + " selected");
+	private void selectEcsItem() {
+		String labelClass = navLabelsItem.getAttribute("class");
+		navLabelsItem.setAttribute("class", labelClass.replace("selected", ""));
+		String ecsClass = navEcsItem.getAttribute("class");
+		navEcsItem.setAttribute("class", ecsClass + " selected");
+		
 	}
 
+	private void selectNavLabelItem() {
+		String ecsClass = navEcsItem.getAttribute("class");
+		navEcsItem.setAttribute("class", ecsClass.replace("selected", ""));
+		String labelClass = navLabelsItem.getAttribute("class");
+		navLabelsItem.setAttribute("class", labelClass + " selected");
+	}
 }

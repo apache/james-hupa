@@ -34,11 +34,7 @@ import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
 import org.apache.hupa.client.rf.SendMessageRequest;
 import org.apache.hupa.client.rf.SendReplyMessageRequest;
-<<<<<<< HEAD
-import org.apache.hupa.client.ui.WidgetDisplayable;
-=======
 import org.apache.hupa.client.ui.MessagesCellTable;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.MessageAttachmentImpl;
@@ -54,29 +50,20 @@ import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
-<<<<<<< HEAD
-=======
 import org.apache.hupa.shared.events.MailToEvent;
 import org.apache.hupa.shared.events.MailToEventHandler;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-<<<<<<< HEAD
-=======
 import com.google.gwt.storage.client.Storage;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
-<<<<<<< HEAD
-=======
 import com.google.gwt.user.client.ui.IsWidget;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -281,8 +268,6 @@ public class ComposeActivity extends AppBaseActivity {
 		registerHandler(display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler));
 		registerHandler(display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler));
 		registerHandler(display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler));
-<<<<<<< HEAD
-=======
 
 		eventBus.addHandler(MailToEvent.TYPE, new MailToEventHandler(){
 
@@ -303,7 +288,6 @@ public class ComposeActivity extends AppBaseActivity {
 				display.fillContactList(contactsString.replace("[", "").replace("]", "").trim().split(","));	
 			}	
 		}
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	private OnFinishUploaderHandler onFinishUploadHandler = new OnFinishUploaderHandler() {
@@ -442,11 +426,7 @@ public class ComposeActivity extends AppBaseActivity {
 		History.back();
 	}
 
-<<<<<<< HEAD
-	public interface Displayable extends WidgetDisplayable {
-=======
 	public interface Displayable extends IsWidget {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		String getFromText();
 		void showCc();
 		void hideCc();
@@ -475,9 +455,6 @@ public class ComposeActivity extends AppBaseActivity {
 		HasHTML getMessageHTML();
 		ListBox getFromList();
 		IUploader getUploader();
-<<<<<<< HEAD
-=======
 		void fillContactList(String[] contacts);
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 }

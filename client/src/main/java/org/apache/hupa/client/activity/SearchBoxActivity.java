@@ -22,16 +22,12 @@ package org.apache.hupa.client.activity;
 import java.util.List;
 
 import org.apache.hupa.shared.domain.Message;
-<<<<<<< HEAD
-
-=======
 import org.apache.hupa.shared.events.MessagesReceivedEvent;
 import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
 import org.apache.hupa.shared.events.RefreshMessagesEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -43,9 +39,6 @@ public class SearchBoxActivity extends AppBaseActivity {
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
-<<<<<<< HEAD
-		container.setWidget(display.asWidget());
-=======
 		bindTo(eventBus);
 		container.setWidget(display.asWidget());
 		
@@ -75,7 +68,6 @@ public class SearchBoxActivity extends AppBaseActivity {
 //            }
 //
 //        }));
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	@Inject private Displayable display;

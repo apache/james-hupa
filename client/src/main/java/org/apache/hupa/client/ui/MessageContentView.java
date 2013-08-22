@@ -30,10 +30,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-<<<<<<< HEAD
-=======
 import com.google.gwt.event.dom.client.HasClickHandlers;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
@@ -43,18 +40,12 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-<<<<<<< HEAD
-=======
 import com.google.gwt.user.client.ui.HasVisibility;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
-<<<<<<< HEAD
-=======
 import com.google.gwt.user.client.ui.SimplePanel;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.inject.Inject;
 
 public class MessageContentView extends Composite implements MessageContentActivity.Displayable {
@@ -63,37 +54,20 @@ public class MessageContentView extends Composite implements MessageContentActiv
 
 	//TODO should use a scrolled panel which can contain multiple children
 	@UiField FlowPanel attachments;
-<<<<<<< HEAD
-=======
 	@UiField DockLayoutPanel thisPanel;
 	@UiField Anchor rawButton;
 	@UiField SimplePanel rawPanel;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
 	@Inject
 	public MessageContentView() {
 		initWidget(binder.createAndBindUi(this));
 	}
 
-<<<<<<< HEAD
-	interface MessageContentUiBinder extends UiBinder<DockLayoutPanel, MessageContentView> {
-	}
-
-	private static MessageContentUiBinder binder = GWT.create(MessageContentUiBinder.class);
-
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	@Override
 	public void fillMessageContent(String messageDetail) {
 		messageContentHTML.setHTML(messageDetail);
 		messageContent.add(messageContentHTML);
 	}
-<<<<<<< HEAD
-
-	@Override
-	public void setAttachments(List<MessageAttachment> attachements, final String folder, final long uid) {
-
-=======
 	
 	@Override
 	public void showAttachmentPanel(boolean is){
@@ -106,7 +80,6 @@ public class MessageContentView extends Composite implements MessageContentActiv
 
 	@Override
 	public void setAttachments(List<MessageAttachment> attachements, final String folder, final long uid) {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		attachments.clear();
 		final Element downloadIframe = RootPanel.get("__download").getElement();
 		if (attachements != null) {
@@ -147,8 +120,6 @@ public class MessageContentView extends Composite implements MessageContentActiv
 		messageContentHTML.setHTML("");
 	}
 
-<<<<<<< HEAD
-=======
 
 	interface Binder extends UiBinder<DockLayoutPanel, MessageContentView> {
 	}
@@ -164,5 +135,4 @@ public class MessageContentView extends Composite implements MessageContentActiv
 	public HasVisibility getRawPanel() {
 		return rawPanel;
 	}
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 }

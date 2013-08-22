@@ -19,79 +19,64 @@
 
 package org.apache.hupa.client.ui;
 
-<<<<<<< HEAD
-import java.util.Arrays;
-import java.util.List;
+import org.apache.hupa.client.place.SettingPlace;
 
-import org.apache.hupa.client.ui.FolderListView.Resources;
-
-import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle.Source;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.cellview.client.CellList;
-import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
-=======
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
-<<<<<<< HEAD
-import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.gwt.view.client.SingleSelectionModel;
 
 public class _CenterSettingPanel extends Composite {
 
-	@UiField SplitLayoutPanel thisPanel;
-
-	@UiField SimpleLayoutPanel settingsTab;
-
-	@UiField SimpleLayoutPanel labelListContainer;
-	@UiField SimplePanel labelPropertiesContainer;
-
-	public _CenterSettingPanel() {
-
-		initWidget(binder.createAndBindUi(this));
-		settingsTab.setWidget(createTabList());
-	}
-
-	private static final List<String> TABS = Arrays.asList("Folders");
-
-=======
-
-public class _CenterSettingPanel extends Composite {
-	
+	public static final int LAYOUT_LABEL = 0x01;
+	public static final int LAYOUT_ECS = 0x02;
 
 	@UiField SplitLayoutPanel thisPanel;
 
 	@UiField SimpleLayoutPanel settingNavContainer;
 
-	@UiField SimpleLayoutPanel labelListContainer;
-	@UiField SimplePanel labelPropertiesContainer;
-	
+	@UiField SettingLabelPanel settingLabelPanel;
+	@UiField SettingEcsPanel settingEcsPanel;
+
+	@UiField LayoutPanel settingBox;
+
 	@UiField protected Style style;
 
 	interface Style extends CssResource {
-		
+
 	}
-	
+
+	public void arrangeLayout(int lyt) {
+		showOrHideLabel(lyt);
+		showOrHideEcs(lyt);
+	}
+
+	private void showOrHideLabel(int lyt) {
+		settingBox.setWidgetLeftWidth(settingLabelPanel, 0, Unit.PCT, (lyt & LAYOUT_LABEL) / LAYOUT_LABEL * 100,
+				Unit.PCT);
+		settingBox.setWidgetTopHeight(settingLabelPanel, 0, Unit.PCT, (lyt & LAYOUT_LABEL) / LAYOUT_LABEL * 100,
+				Unit.PCT);
+	}
+
+	private void showOrHideEcs(int lyt) {
+		settingBox.setWidgetLeftWidth(settingEcsPanel, 0, Unit.PCT, (lyt & LAYOUT_ECS) / LAYOUT_ECS * 100, Unit.PCT);
+		settingBox.setWidgetTopHeight(settingEcsPanel, 0, Unit.PCT, (lyt & LAYOUT_ECS) / LAYOUT_ECS * 100, Unit.PCT);
+	}
+
 	public _CenterSettingPanel() {
 
 		initWidget(binder.createAndBindUi(this));
 	}
 
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	public interface Resources extends CellList.Resources {
 
 		Resources INSTANCE = GWT.create(Resources.class);
@@ -99,44 +84,6 @@ public class _CenterSettingPanel extends Composite {
 		@Source("res/CssLabelListView.css")
 		public CellList.Style cellListStyle();
 	}
-<<<<<<< HEAD
-	private CellList<String> createTabList() {
-		CellList<String> cellList = new CellList<String>(new SpanCell(), Resources.INSTANCE);
-		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
-		final SingleSelectionModel<String> selectionModel = new SingleSelectionModel<String>();
-		cellList.setSelectionModel(selectionModel);
-		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-			public void onSelectionChange(SelectionChangeEvent event) {
-				String selected = selectionModel.getSelectedObject();
-				if (selected != null) {
-					// Window.alert("You selected: " + selected);
-				}
-			}
-		});
-		cellList.setRowCount(TABS.size(), true);
-
-		// Push the data into the widget.
-		cellList.setRowData(0, TABS);
-		return cellList;
-	}
-
-	static class SpanCell extends AbstractCell<String> {
-
-		public SpanCell() {
-		}
-
-		@Override
-		public void render(Context context, String value, SafeHtmlBuilder sb) {
-			if (value == null) {
-				return;
-			}
-			sb.appendHtmlConstant("<span >");
-			sb.appendHtmlConstant(value);
-			sb.appendHtmlConstant("</span>");
-		}
-	}
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
 	interface _CeterSettingPanelUiBinder extends UiBinder<SplitLayoutPanel, _CenterSettingPanel> {
 	}
@@ -144,24 +91,12 @@ public class _CenterSettingPanel extends Composite {
 	private static _CeterSettingPanelUiBinder binder = GWT.create(_CeterSettingPanelUiBinder.class);
 
 	public AcceptsOneWidget getLabelListView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				labelListContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
+		return settingLabelPanel.getLabelListView();
 	}
 
 	public AcceptsOneWidget getLabelPropertiesView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				labelPropertiesContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
+		return settingLabelPanel.getLabelPropertiesView();
 	}
-<<<<<<< HEAD
-=======
 
 	public AcceptsOneWidget getSettingNavView() {
 		return new AcceptsOneWidget() {
@@ -171,5 +106,16 @@ public class _CenterSettingPanel extends Composite {
 			}
 		};
 	}
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
+
+	public void swithTo(SettingPlace sp) {
+		int lyt;
+		if ("ecs".equals(sp.getToken())) {
+			lyt = LAYOUT_ECS;
+		} else {
+			lyt = LAYOUT_LABEL;
+		}
+		showOrHideEcs(lyt);
+		showOrHideLabel(lyt);
+
+	}
 }

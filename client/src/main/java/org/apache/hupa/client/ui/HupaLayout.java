@@ -19,6 +19,8 @@
 
 package org.apache.hupa.client.ui;
 
+import org.apache.hupa.client.place.SettingPlace;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -123,11 +125,7 @@ public class HupaLayout implements HupaLayoutable {
 	public AcceptsOneWidget getComposeToolBarView() {
 		return toolPanel.getComposeToolBarView();
 	}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	@Override
 	public AcceptsOneWidget getSearchBoxView() {
 		return toolPanel.getSearchBoxView();
@@ -167,14 +165,11 @@ public class HupaLayout implements HupaLayoutable {
 	}
 
 	@Override
-<<<<<<< HEAD
-=======
 	public AcceptsOneWidget getSettingNavView() {
 		return settingPanel.getSettingNavView();
 	}
 	
 	@Override
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	public AcceptsOneWidget getLabelPropertiesView() {
 		return settingPanel.getLabelPropertiesView();
 	}
@@ -216,10 +211,15 @@ public class HupaLayout implements HupaLayoutable {
 		mainBox.setWidgetLeftWidth(centerPanel, 0, Unit.PCT, (lyt & LAYOUT_MESSAGE) / LAYOUT_MESSAGE * 100, Unit.PCT);
 		mainBox.setWidgetTopHeight(centerPanel, 0, Unit.PCT, (lyt & LAYOUT_MESSAGE) / LAYOUT_MESSAGE * 100, Unit.PCT);
 	}
+	@Override
+	public void arrangeSettingLayout(SettingPlace sp) {
+		settingPanel.swithTo(sp);
+	}
 
 	interface HupaLayoutUiBinder extends UiBinder<LayoutPanel, HupaLayout> {
 	}
 
 	private static HupaLayoutUiBinder binder = GWT.create(HupaLayoutUiBinder.class);
+
 
 }

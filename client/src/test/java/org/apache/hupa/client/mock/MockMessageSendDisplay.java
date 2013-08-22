@@ -21,11 +21,7 @@ package org.apache.hupa.client.mock;
 
 import gwtupload.client.IUploader;
 
-<<<<<<< HEAD
-import org.apache.hupa.client.activity.MessageSendActivity.Displayable;
-=======
 import org.apache.hupa.client.activity.ComposeActivity.Displayable;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.widgets.ui.HasEnable;
 
@@ -33,10 +29,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
-<<<<<<< HEAD
-=======
 import com.google.gwt.user.client.ui.ListBox;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.user.client.ui.Widget;
 
 public class MockMessageSendDisplay implements Displayable {
@@ -77,13 +70,6 @@ public class MockMessageSendDisplay implements Displayable {
         return editorFocus;
     }
 
-<<<<<<< HEAD
-    public HasText getFromText() {
-        return fromText;
-    }
-
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
     public HasHTML getMessageHTML() {
         return messageHtml;
     }
@@ -142,8 +128,6 @@ public class MockMessageSendDisplay implements Displayable {
         return true;
     }
 
-<<<<<<< HEAD
-=======
 	@Override
 	public void showCc() {
 		// TODO Auto-generated method stub
@@ -294,5 +278,4 @@ public class MockMessageSendDisplay implements Displayable {
 		return null;
 	}
 
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 }

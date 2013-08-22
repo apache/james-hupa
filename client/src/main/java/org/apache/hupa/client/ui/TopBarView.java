@@ -83,10 +83,7 @@ public class TopBarView extends Composite implements TopBarActivity.Displayable 
 	
 	@Override
 	public void showUserName(String userName){
-<<<<<<< HEAD
-=======
 		userLabel.clear();
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		userLabel.add(new HTML(userName));
 	}
 

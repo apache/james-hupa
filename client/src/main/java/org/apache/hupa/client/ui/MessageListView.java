@@ -87,14 +87,11 @@ public class MessageListView extends Composite implements MessageListActivity.Di
     public void onResize() {
         grid.onResize();
     }
-<<<<<<< HEAD
-=======
     
     @Override
     public void setSearchValue(String searchValue){
     	grid.setSearchValue(searchValue);
     	
     }
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
 }

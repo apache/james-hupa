@@ -27,17 +27,9 @@ import org.apache.hupa.client.activity.LabelPropertiesActivity;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.ImapFolder;
 
-<<<<<<< HEAD
-import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-=======
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.HasClickHandlers;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -82,10 +74,7 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 		initWidget(binder.createAndBindUi(this));
 		data = new ImapLabelListDataProvider(rf);
 		CellList<LabelNode> cellList = new CellList<LabelNode>(new LabelCell(), Resources.INSTANCE);
-<<<<<<< HEAD
-=======
 		cellList.setPageSize(100);// assume one's labels are under one hundred, otherwise we need a pager
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		cellList.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			public void onSelectionChange(SelectionChangeEvent event) {
@@ -109,30 +98,6 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 				}
 			});
 
-<<<<<<< HEAD
-	static class LabelCell extends AbstractCell<LabelNode> {
-
-		public LabelCell() {
-		}
-
-		@Override
-		public void render(com.google.gwt.cell.client.Cell.Context context, LabelNode value, SafeHtmlBuilder sb) {
-			if (value == null) {
-				return;
-			}
-
-			if (value.getFolder().getSubscribed()) {
-				sb.appendHtmlConstant(value.getNameForDisplay());
-			} else {
-				sb.appendHtmlConstant("<span style='color:gray;'>");
-				sb.appendHtmlConstant(value.getNameForDisplay());
-				sb.appendHtmlConstant("</span>");
-			}
-		}
-	}
-
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	public class ImapLabelListDataProvider extends AsyncDataProvider<LabelNode> implements HasRefresh {
 
 		private HupaRequestFactory rf;

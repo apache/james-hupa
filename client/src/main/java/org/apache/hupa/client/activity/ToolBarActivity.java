@@ -22,10 +22,6 @@ package org.apache.hupa.client.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-import org.apache.hupa.client.HupaController;
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.rf.SetFlagRequest;
 import org.apache.hupa.client.ui.MessagesCellTable;
@@ -35,20 +31,13 @@ import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.SetFlagAction;
-<<<<<<< HEAD
-=======
 import org.apache.hupa.shared.events.RefreshMessagesEvent;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import org.apache.hupa.shared.events.RefreshUnreadEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-<<<<<<< HEAD
-import com.google.gwt.event.shared.HandlerRegistration;
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.inject.Inject;
@@ -59,10 +48,6 @@ public class ToolBarActivity extends AppBaseActivity {
 	@Inject private Displayable display;
 	@Inject private MessagesCellTable table;
 	@Inject private MessageListActivity.Displayable messagesDisplay;
-<<<<<<< HEAD
-	@Inject private HupaController hupaController;
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	private String folderName;
 
 	@Override
@@ -83,19 +68,11 @@ public class ToolBarActivity extends AppBaseActivity {
 		return display;
 	}
 
-<<<<<<< HEAD
-	private void bindTo(EventBus eventBus) {
-		registerHandler(display.getMarkRead().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				hupaController.showTopLoading("Loading");
-=======
 	private void bindTo(final EventBus eventBus) {
 		registerHandler(display.getMarkRead().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				hc.showTopLoading("Loading");
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 				toMarkRead(true);
 				display.getPopup().hide();
 			}
@@ -103,17 +80,11 @@ public class ToolBarActivity extends AppBaseActivity {
 		registerHandler(display.getMarkUnread().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-<<<<<<< HEAD
-				hupaController.showTopLoading("Loading");
-=======
 				hc.showTopLoading("Loading");
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 				toMarkRead(false);
 				display.getPopup().hide();
 			}
 		}));
-<<<<<<< HEAD
-=======
 
 		registerHandler(display.getRefresh().addClickHandler(new ClickHandler() {
 			@Override
@@ -123,7 +94,6 @@ public class ToolBarActivity extends AppBaseActivity {
 				eventBus.fireEvent(new RefreshUnreadEvent());
 			}
 		}));
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	protected void toMarkRead(boolean read) {
@@ -147,11 +117,7 @@ public class ToolBarActivity extends AppBaseActivity {
 			public void onSuccess(GenericResult response) {
 				eventBus.fireEvent(new RefreshUnreadEvent());
 				messagesDisplay.refresh();
-<<<<<<< HEAD
-				hupaController.hideTopLoading();
-=======
 				hc.hideTopLoading();
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 			}
 		});
 	}
@@ -164,20 +130,10 @@ public class ToolBarActivity extends AppBaseActivity {
 	    com.google.gwt.user.client.ui.Widget asWidget();
 
 		void enableSendingTools(boolean is);
-<<<<<<< HEAD
-		HandlerRegistration getForwardReg();
-		HandlerRegistration getReplyAllReg();
-		HandlerRegistration getReplyReg();
-		HandlerRegistration getMarkReg();
-		HandlerRegistration getDeleteReg();
-		void enableDealingTools(boolean is);
-		void enableAllTools(boolean is);
-=======
 		void enableDealingTools(boolean is);
 		void enableAllTools(boolean is);
 
 		HasClickHandlers getRefresh();
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		HasClickHandlers getReply();
 		HasClickHandlers getReplyAll();
 		HasClickHandlers getForward();

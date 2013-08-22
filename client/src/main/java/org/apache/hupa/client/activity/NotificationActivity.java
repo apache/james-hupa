@@ -19,16 +19,9 @@
 
 package org.apache.hupa.client.activity;
 
-<<<<<<< HEAD
-import org.apache.hupa.client.ui.WidgetDisplayable;
-
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
-=======
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.inject.Inject;
 
 public class NotificationActivity extends AppBaseActivity {
@@ -40,11 +33,7 @@ public class NotificationActivity extends AppBaseActivity {
 
 	@Inject private Displayable display;
 
-<<<<<<< HEAD
-	public interface Displayable extends WidgetDisplayable {
-=======
 	public interface Displayable extends IsWidget {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		void hideNotification();
 		void notice(String html);
 	}

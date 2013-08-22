@@ -11,9 +11,5 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-<<<<<<< HEAD
-	<g:ScrollPanel ui:field="thisView" />
-=======
 	<g:SimplePanel ui:field="thisView" />
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 </ui:UiBinder>

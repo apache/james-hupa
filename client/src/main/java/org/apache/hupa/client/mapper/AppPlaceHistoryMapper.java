@@ -22,14 +22,8 @@ package org.apache.hupa.client.mapper;
 import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.DefaultPlace;
-<<<<<<< HEAD
-import org.apache.hupa.client.place.MessagePlace;
-import org.apache.hupa.client.place.FolderPlace;
-import org.apache.hupa.client.place.MessageSendPlace;
-=======
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.MessagePlace;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.place.shared.PlaceHistoryMapper;
@@ -38,10 +32,6 @@ import com.google.gwt.place.shared.WithTokenizers;
 @WithTokenizers({
     DefaultPlace.Tokenizer.class,
     FolderPlace.Tokenizer.class,
-<<<<<<< HEAD
-    MessageSendPlace.Tokenizer.class,
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
     MessagePlace.Tokenizer.class,
     ComposePlace.Tokenizer.class,
     SettingPlace.Tokenizer.class,

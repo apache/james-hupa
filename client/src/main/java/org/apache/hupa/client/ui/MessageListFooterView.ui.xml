@@ -20,13 +20,8 @@
 	</ui:style>
 	<g:HorizontalPanel>
 		<c:SimplePager ui:field="simplePager" />
-<<<<<<< HEAD
-		<g:SimplePanel addStyleNames="{style.moveMessage}">
-			<g:HTML>Hello</g:HTML>
-=======
 		<g:SimplePanel ui:field="labelsPanel" addStyleNames="{style.moveMessage}">
 			<g:ListBox ui:field="labels"></g:ListBox>
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		</g:SimplePanel>
 	</g:HorizontalPanel>
 </ui:UiBinder>

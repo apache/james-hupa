@@ -22,10 +22,6 @@ package org.apache.hupa.client.activity;
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.rf.DeleteFolderRequest;
 import org.apache.hupa.client.ui.LabelNode;
-<<<<<<< HEAD
-import org.apache.hupa.client.ui.WidgetDisplayable;
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import org.apache.hupa.shared.domain.DeleteFolderAction;
 import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -40,10 +36,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-<<<<<<< HEAD
-=======
 import com.google.gwt.user.client.ui.IsWidget;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -85,11 +78,7 @@ public class LabelListActivity extends AppBaseActivity {
 		});
 	}
 
-<<<<<<< HEAD
-	public interface Displayable extends WidgetDisplayable {
-=======
 	public interface Displayable extends IsWidget {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		final int CASCADE_TYPE_ADD = 0x01;
 		final int CASCADE_TYPE_RENAME = 0x02;
 		SingleSelectionModel<LabelNode> getSelectionModel();

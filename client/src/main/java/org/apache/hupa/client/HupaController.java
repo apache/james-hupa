@@ -115,6 +115,8 @@ public class HupaController {
 			hupaLayout.switchTo(HupaLayout.LAYOUT_CONTACT);
 		}  else if (place instanceof SettingPlace) {
 			hupaLayout.switchTo(HupaLayout.LAYOUT_SETTING);
+			SettingPlace sp = (SettingPlace)place;
+			hupaLayout.arrangeSettingLayout(sp);
 		} else if(place instanceof HupaPlace){
 			hupaLayout.switchTo(HupaLayout.LAYOUT_MESSAGE);
 		}

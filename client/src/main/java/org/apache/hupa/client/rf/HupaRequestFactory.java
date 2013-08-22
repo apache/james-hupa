@@ -21,6 +21,8 @@ package org.apache.hupa.client.rf;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
 public interface HupaRequestFactory extends RequestFactory {
+	SubjectRequest subjectRequest();
+
 	ImapFolderRequest folderRequest();
 
 	CheckSessionRequest sessionRequest();

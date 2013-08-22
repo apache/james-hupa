@@ -19,16 +19,10 @@
 
 package org.apache.hupa.client.ui;
 
-<<<<<<< HEAD
-import com.google.gwt.user.client.ui.Widget;
-
-public interface WidgetContainerDisplayable extends WidgetDisplayable {
-=======
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 
 public interface WidgetContainerDisplayable extends IsWidget {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
     void addWidget( Widget widget );
 

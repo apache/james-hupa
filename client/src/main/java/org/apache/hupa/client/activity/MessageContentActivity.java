@@ -23,29 +23,17 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-<<<<<<< HEAD
-import org.apache.hupa.client.place.MessagePlace.TokenWrapper;
-import org.apache.hupa.client.rf.GetMessageDetailsRequest;
-import org.apache.hupa.client.ui.WidgetDisplayable;
-=======
 import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.place.MessagePlace.TokenWrapper;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 import org.apache.hupa.client.ui.ToolBarView.Parameters;
 import org.apache.hupa.shared.SConsts;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.MessageAttachment;
 import org.apache.hupa.shared.events.DeleteClickEvent;
 import org.apache.hupa.shared.events.DeleteClickEventHandler;
-<<<<<<< HEAD
-
-import com.google.gwt.activity.shared.Activity;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
-=======
 import org.apache.hupa.shared.events.MailToEvent;
 
 import com.google.gwt.activity.shared.Activity;
@@ -58,7 +46,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasVisibility;
 import com.google.gwt.user.client.ui.IsWidget;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -74,13 +61,9 @@ public class MessageContentActivity extends AppBaseActivity {
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		bindTo(eventBus);
-<<<<<<< HEAD
-		if (isUidSet()) {
-=======
 		display.getRawPanel().setVisible(false);
 		if (isUidSet()) {
 			display.getRawPanel().setVisible(true);
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 			GetMessageDetailsRequest req = rf.messageDetailsRequest();
 			GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
 			final ImapFolder f = req.create(ImapFolder.class);
@@ -91,9 +74,6 @@ public class MessageContentActivity extends AppBaseActivity {
 				@Override
 				public void onSuccess(GetMessageDetailsResult response) {
 					display.fillMessageContent(response.getMessageDetails().getText());
-<<<<<<< HEAD
-					display.setAttachments(response.getMessageDetails().getMessageAttachments(), fullName, Long.parseLong(uid));
-=======
 					List<MessageAttachment> attaches = response.getMessageDetails().getMessageAttachments();
 					if (attaches == null || attaches.isEmpty()) {
 						display.showAttachmentPanel(false);
@@ -102,7 +82,6 @@ public class MessageContentActivity extends AppBaseActivity {
 						display.setAttachments(response.getMessageDetails().getMessageAttachments(), fullName,
 								Long.parseLong(uid));
 					}
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 				}
 
 				@Override
@@ -116,10 +95,7 @@ public class MessageContentActivity extends AppBaseActivity {
 			});
 		}
 		container.setWidget(display.asWidget());
-<<<<<<< HEAD
-=======
 		exportJSMethods(this);
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	private void bindTo(EventBus eventBus) {
@@ -129,8 +105,6 @@ public class MessageContentActivity extends AppBaseActivity {
 				display.clearContent();
 			}
 		});
-<<<<<<< HEAD
-=======
 		this.registerHandler(display.getRaw().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -140,19 +114,12 @@ public class MessageContentActivity extends AppBaseActivity {
 			}
 
 		}));
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	private boolean isUidSet() {
 		return uid != null && uid.matches("\\d+");
 	}
 
-<<<<<<< HEAD
-	public interface Displayable extends WidgetDisplayable {
-		void fillMessageContent(String messageContent);
-		void clearContent();
-		void setAttachments(List<MessageAttachment> attachements, String folder, long uid);
-=======
 	public interface Displayable extends IsWidget {
 		void fillMessageContent(String messageContent);
 		void clearContent();
@@ -160,7 +127,6 @@ public class MessageContentActivity extends AppBaseActivity {
 		void showAttachmentPanel(boolean is);
 		HasClickHandlers getRaw();
 		HasVisibility getRawPanel();
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	public Activity with(TokenWrapper tokenWrapper) {
@@ -168,8 +134,6 @@ public class MessageContentActivity extends AppBaseActivity {
 		uid = tokenWrapper.getUid();
 		return this;
 	}
-<<<<<<< HEAD
-=======
 
 	public void openLink(String url) {
 		Window.open(url, "_blank", "");
@@ -195,5 +159,4 @@ public class MessageContentActivity extends AppBaseActivity {
        return false;
        };
        }-*/;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 }

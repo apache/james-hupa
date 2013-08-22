@@ -23,10 +23,6 @@ import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.rf.LoginUserRequest;
 import org.apache.hupa.client.ui.HupaLayoutable;
-<<<<<<< HEAD
-import org.apache.hupa.client.ui.WidgetDisplayable;
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.LoginEvent;
@@ -41,10 +37,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasValue;
-<<<<<<< HEAD
-=======
 import com.google.gwt.user.client.ui.IsWidget;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -114,11 +107,7 @@ public class LoginActivity extends AppBaseActivity {
 	@Inject private Displayable display;
 	@Inject private HupaConstants constants;
 
-<<<<<<< HEAD
-	public interface Displayable extends WidgetDisplayable {
-=======
 	public interface Displayable extends IsWidget {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 		public HasClickHandlers getLoginClick();
 		public HasValue<String> getUserNameValue();
 		public HasValue<String> getPasswordValue();

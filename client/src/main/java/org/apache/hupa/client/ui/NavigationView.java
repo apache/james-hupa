@@ -31,10 +31,7 @@ import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-<<<<<<< HEAD
-=======
 import com.google.gwt.user.client.Window;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -94,26 +91,12 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 		
 		settingOuter.addStyleName(style.selected());
 		setting.addStyleName(style.settingsInnerSelected());
-<<<<<<< HEAD
-		placeController.goTo(new SettingPlace("folders"));
-=======
 		placeController.goTo(new SettingPlace("labels"));
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 	
 
 	@UiHandler("contact")
 	public void onContactClick(ClickEvent e){
-<<<<<<< HEAD
-		mailOuter.removeStyleName(style.selected());
-		mail.removeStyleName(style.mailInnerSelected());
-		contactOuter.addStyleName(style.selected());
-		contact.addStyleName(style.contactInnerSelected());
-		
-		settingOuter.removeStyleName(style.selected());
-		setting.removeStyleName(style.settingsInnerSelected());
-		placeController.goTo(new ContactPlace("contacts"));
-=======
 		Window.alert("//TODO");
 //		mailOuter.removeStyleName(style.selected());
 //		mail.removeStyleName(style.mailInnerSelected());
@@ -123,7 +106,6 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 //		settingOuter.removeStyleName(style.selected());
 //		setting.removeStyleName(style.settingsInnerSelected());
 //		placeController.goTo(new ContactPlace("contacts"));
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 	
 	

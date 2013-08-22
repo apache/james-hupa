@@ -41,15 +41,11 @@ public class MoveMessageEvent extends GwtEvent<MoveMessageEventHandler> {
         this.message = message;
     }
 
-<<<<<<< HEAD
-    public User getUser() {
-=======
     public MoveMessageEvent(ImapFolder newFolder) {
     	this.newFolder = newFolder;
 	}
 
 	public User getUser() {
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
         return user;
     }
 

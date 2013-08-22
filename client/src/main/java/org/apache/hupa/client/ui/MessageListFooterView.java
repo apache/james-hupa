@@ -19,16 +19,12 @@
 
 package org.apache.hupa.client.ui;
 
-<<<<<<< HEAD
-import org.apache.hupa.client.activity.MessageListFooterActivity;
-=======
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hupa.client.activity.MessageListFooterActivity;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.ImapFolder;
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -36,23 +32,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.Composite;
-<<<<<<< HEAD
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.inject.Inject;
-
-public class MessageListFooterView extends Composite implements MessageListFooterActivity.Displayable {
-
-	@UiField(provided = true)
-	SimplePager simplePager;
-
-	@Inject
-	public MessageListFooterView(final MessagesCellTable table) {
-		SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
-		simplePager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
-		simplePager.setDisplay(table);
-//		simplePager.setRangeLimited(false);
-		initWidget(binder.createAndBindUi(this));
-=======
 import com.google.gwt.user.client.ui.HasVisibility;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
@@ -134,7 +113,6 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 			labels.addItem(folderNode.getNameForDisplay().replace("&nbsp;&nbsp;", ". "), folderNode.getPath());
 		}
 
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	interface MessageListFooterUiBinder extends UiBinder<HorizontalPanel, MessageListFooterView> {
@@ -147,8 +125,6 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 		return simplePager;
 	}
 
-<<<<<<< HEAD
-=======
 	@Override
 	public HasVisibility getLabelsPanel() {
 		return labelsPanel;
@@ -159,5 +135,4 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 		return labels;
 	}
 
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 }

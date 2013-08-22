@@ -32,10 +32,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-<<<<<<< HEAD
-import com.google.gwt.event.shared.HandlerRegistration;
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -71,18 +67,8 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	@UiField HTMLPanel replyAllTip;
 	@UiField HTMLPanel forwardTip;
 
-<<<<<<< HEAD
-	HandlerRegistration replyReg;
-	HandlerRegistration replyAllReg;
-	HandlerRegistration forwardReg;
-	HandlerRegistration deleteReg;
-	HandlerRegistration markReg;
-
-	@UiField Style style;
-=======
 	@UiField Style style;
 	
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 
 	interface Style extends CssResource {
 		String disabledButton();
@@ -185,19 +171,11 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		popup.add(markUnread);
 		simplePopup.setWidget(popup);
 
-<<<<<<< HEAD
-		markReg = mark.addClickHandler(markHandler);
-		deleteReg = delete.addClickHandler(deleteHandler);
-		replyReg = reply.addClickHandler(replyHandler);
-		replyAllReg = replyAll.addClickHandler(replyAllHandler);
-		forwardReg = forward.addClickHandler(forwardHandler);
-=======
 		mark.addClickHandler(markHandler);
 		delete.addClickHandler(deleteHandler);
 		reply.addClickHandler(replyHandler);
 		replyAll.addClickHandler(replyAllHandler);
 		forward.addClickHandler(forwardHandler);
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	@UiHandler("compose")
@@ -316,17 +294,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		forwardGroup.addStyleName(style.disabledButton());
 		replyAllTip.addStyleName(style.disabledButton());
 		forwardTip.addStyleName(style.disabledButton());
-<<<<<<< HEAD
-//		if(replyReg != null){
-//			replyReg.removeHandler();
-//			replyAllReg.removeHandler();
-//			forwardReg.removeHandler();	
-//			replyReg = null;
-//			replyAllReg = null;
-//			forwardReg = null;
-//		}
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	private void removeSendingDisableds() {
@@ -335,19 +302,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		forwardGroup.removeStyleName(style.disabledButton());
 		replyAllTip.removeStyleName(style.disabledButton());
 		forwardTip.removeStyleName(style.disabledButton());
-<<<<<<< HEAD
-
-//		if(replyReg != null){
-//			replyReg.removeHandler();
-//			replyAllReg.removeHandler();
-//			forwardReg.removeHandler();	
-//		}
-//		replyReg = reply.addClickHandler(replyHandler);
-//		replyAllReg = replyAll.addClickHandler(replyAllHandler);
-//		forwardReg = forward.addClickHandler(forwardHandler);
-		
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 	
 	
@@ -355,31 +309,11 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	private void addDealingDisableds() {
 		delete.addStyleName(style.disabledButton());
 		mark.addStyleName(style.disabledButton());
-<<<<<<< HEAD
-		
-//		if(deleteReg != null){
-//			deleteReg.removeHandler();
-//			markReg.removeHandler();
-//			deleteReg = null;
-//			markReg = null;
-//		}
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	private void removeDealingDisableds() {
 		delete.removeStyleName(style.disabledButton());
 		mark.removeStyleName(style.disabledButton());
-<<<<<<< HEAD
-
-//		if(markReg != null){
-//			deleteReg.removeHandler();
-//			markReg.removeHandler();
-//		}
-//		markReg = mark.addClickHandler(markHandler);
-//		deleteReg = delete.addClickHandler(deleteHandler);
-=======
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 	}
 
 	interface ToolBarUiBinder extends UiBinder<FlowPanel, ToolBarView> {
@@ -388,35 +322,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	private static ToolBarUiBinder binder = GWT.create(ToolBarUiBinder.class);
 
 	@Override
-<<<<<<< HEAD
-	public HandlerRegistration getForwardReg() {
-		return forwardReg;
-	}
-
-	@Override
-	public HandlerRegistration getReplyAllReg() {
-		return replyAllReg;
-	}
-
-	@Override
-	public HandlerRegistration getReplyReg() {
-		return replyReg;
-	}
-
-	@Override
-	public HandlerRegistration getMarkReg() {
-		return markReg;
-	}
-
-	@Override
-	public HandlerRegistration getDeleteReg() {
-		return deleteReg;
-	}
-
-
-=======
 	public HasClickHandlers getRefresh() {
 		return refresh;
 	}
->>>>>>> 7635f4a0e76a4bbbeb6a4029aff92087f00eb09f
 }
