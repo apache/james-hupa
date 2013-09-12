@@ -162,6 +162,7 @@ div.Hupa {
 	width: 100%;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	min-width: 400px;
 }
 
@@ -187,14 +188,15 @@ div.hupa-top {
 =======
 >>>>>>> first commit
 	min-width: 920px;
+=======
+	min-width: 800px;
+>>>>>>> make it look more beautiful
 }
 * html div.Hupa {
-   margin-top: 15px;
+   margin-top: 0px;
 }
 div.hupa-logo {
-    width: 90px;
 	height: 64px;
-    float: left;
 	background: url(images/hupa-logo-64-transparent.png) no-repeat;
 }
 
@@ -255,6 +257,7 @@ div.hupa-loginfo-label,div.hupa-loginfo-user {
 =======
 div.hupa-loginfo-label, div.hupa-loginfo-user {
 	margin-left: 10px;
+	margin-right: 10px;
 }
 >>>>>>> first commit
 =======
@@ -301,6 +304,7 @@ div.hupa-header {
 .hupa-central {
 	clear: both;
 	margin: 8px 8px 8px 8px;
+<<<<<<< HEAD
 	min-height: 200px;
 =======
 =======
@@ -316,6 +320,9 @@ div.hupa-main {
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+	min-height: 400px;
+>>>>>>> make it look more beautiful
 }
 
 * html div.cgb-RPC-hupa-main {
@@ -383,6 +390,7 @@ div.hupa-bottom {
 /************[ view: LoginView ]*******************/
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 .hupa-login {
 	margin: 10pt auto;
 	width: 20%;
@@ -404,21 +412,33 @@ div.hupa-bottom {
 =======
 >>>>>>> first commit
 table.hupa-login {
+=======
+.hupa-login {
+	margin-top:10%;
+	margin-left:auto;
+	margin-right:auto;
+>>>>>>> make it look more beautiful
     text-align: right;
-    margin-left: -220px;
     position: relative;
     left: 50%;
-    padding: 40px;
+    padding: 20px;
+	border: 1px solid #7FAAFF;
+	box-shadow: 0 1px 4px grey;
+	border-radius: 5px;
 }
 
-table.hupa-login td {
+.hupa-login td {
 	text-align: center;
 }
+<<<<<<< HEAD
 table.hupa-login-form {
 <<<<<<< HEAD
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+.hupa-login-form {
+>>>>>>> make it look more beautiful
 	padding: 10px;
 }
 
