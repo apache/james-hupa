@@ -194,15 +194,15 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 	}
 
 	public void fetch(final int start) {
-		FetchMessagesRequest messagesRequest = requestFactory.messagesRequest();
-		FetchMessagesAction action = messagesRequest.create(FetchMessagesAction.class);
-		final ImapFolder f = messagesRequest.create(ImapFolder.class);
+		FetchMessagesRequest req = requestFactory.messagesRequest();
+		FetchMessagesAction action = req.create(FetchMessagesAction.class);
+		final ImapFolder f = req.create(ImapFolder.class);
 		f.setFullName(folder.getFullName());
 		action.setFolder(f);
 		action.setOffset(grid.getPageSize());
 		action.setSearchString(searchValue);
 		action.setStart(start);
-		messagesRequest.fetch(action).fire(new Receiver<FetchMessagesResult>() {
+		req.fetch(action).fire(new Receiver<FetchMessagesResult>() {
 
 			@Override
 			public void onSuccess(final FetchMessagesResult result) {
