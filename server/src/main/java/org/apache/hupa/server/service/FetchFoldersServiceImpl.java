@@ -29,6 +29,9 @@ import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.ImapFolder;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> pull all folders for label settings
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.exception.HupaException;
 =======
@@ -44,16 +47,22 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 	@Override
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> pull all folders for label settings
 	public List<ImapFolder> fetch(ImapFolder imapFolder, Boolean recursive) throws MessagingException, HupaException {
 		if(recursive){
 			return this.pullAll();
 		}
+<<<<<<< HEAD
 =======
 	public List<ImapFolder> fetch(ImapFolder imapFolder) throws MessagingException {
 >>>>>>> Fix issue #15.
 =======
 	public List<ImapFolder> fetch(ImapFolder imapFolder) throws MessagingException, HupaException{
 >>>>>>> re-add server unit tests
+=======
+>>>>>>> pull all folders for label settings
 		try {
 			Folder folder = null;
 			IMAPStore store = cache.get(getUser());
@@ -74,6 +83,9 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> pull all folders for label settings
 	
 	public List<ImapFolder> pullAll() throws MessagingException, HupaException {
 		User user = getUser();
@@ -147,12 +159,16 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 
 		return iFolder;
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> Fix issue #15.
+=======
+>>>>>>> pull all folders for label settings
 
 	/**
 	 * Create a new IMAPFolder from the given Folder
 	 * 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	 * @param folder
 	 *            Current folder
@@ -166,10 +182,16 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 	private ImapFolder createImapFolder(Folder folder) throws HupaException {
 =======
 	 * @param folder Current folder
+=======
+	 * @param folder
+	 *            Current folder
+>>>>>>> pull all folders for label settings
 	 * @return imapFolder Created IMAPFolder
-	 * @throws HupaException 
-	 * @throws Exception If an error occurs
-	 * @throws MessagingException If an error occurs
+	 * @throws HupaException
+	 * @throws Exception
+	 *             If an error occurs
+	 * @throws MessagingException
+	 *             If an error occurs
 	 */
 <<<<<<< HEAD
 	private ImapFolder createImapFolder(Folder folder) {
@@ -199,10 +221,14 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 			iFolder.setSubscribed(folder.isSubscribed());
 			iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if (folder.list().length != 0) {
 =======
 			if(folder.list().length != 0){
 >>>>>>> Fix issue #15.
+=======
+			if (folder.list().length != 0) {
+>>>>>>> pull all folders for label settings
 				iFolder.setHasChildren(true);
 			}
 		} catch (MessagingException e) {

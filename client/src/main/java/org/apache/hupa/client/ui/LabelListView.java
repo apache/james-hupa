@@ -20,6 +20,7 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -181,52 +182,90 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 	interface LabelListUiBinder extends UiBinder<DockLayoutPanel, LabelListView> {
 =======
 import java.util.Arrays;
+=======
+import java.util.ArrayList;
+>>>>>>> pull all folders for label settings
 import java.util.List;
 
 import org.apache.hupa.client.activity.LabelListActivity;
+import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.shared.domain.ImapFolder;
 
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
-import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.gwt.view.client.AsyncDataProvider;
+import com.google.gwt.view.client.HasData;
+import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class LabelListView extends Composite implements LabelListActivity.Displayable {
 
 	@UiField SimplePanel thisView;
 
-	public LabelListView() {
+	@Inject
+	public LabelListView(HupaRequestFactory rf) {
 		initWidget(binder.createAndBindUi(this));
-		thisView.setWidget(createTabList());
+		ImapLabelListDataProvider data = new ImapLabelListDataProvider(rf);
+		CellList<String> cellList = new CellList<String>(new TextCell());
+		data.addDataDisplay(cellList);
+		thisView.setWidget(cellList);
 	}
 
-	private static final List<String> TABS = Arrays.asList("Mock-Inbox", "Mock-Junk", "Mock-Draft", "Mock-Delete");
+	public class ImapLabelListDataProvider extends AsyncDataProvider<String> {
 
-	private CellList<String> createTabList() {
-		TextCell textCell = new TextCell();
-		CellList<String> cellList = new CellList<String>(textCell);
-		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
-		final SingleSelectionModel<String> selectionModel = new SingleSelectionModel<String>();
-		cellList.setSelectionModel(selectionModel);
-		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-			public void onSelectionChange(SelectionChangeEvent event) {
-				String selected = selectionModel.getSelectedObject();
-				if (selected != null) {
-					// Window.alert("You selected: " + selected);
+		private HupaRequestFactory rf;
+
+		public ImapLabelListDataProvider(HupaRequestFactory rf) {
+			this.rf = rf;
+		}
+
+		@Override
+		public void addDataDisplay(HasData<String> display) {
+			super.addDataDisplay(display);
+		}
+
+		@Override
+		protected void onRangeChanged(HasData<String> display) {
+			rf.fetchFoldersRequest().fetch(null, Boolean.TRUE).fire(new Receiver<List<ImapFolder>>() {
+				@Override
+				public void onSuccess(List<ImapFolder> response) {
+					if (response == null || response.size() == 0) {
+						updateRowCount(-1, true);
+					} else {
+						List<String> fn = new ArrayList<String>();
+						for (ImapFolder a : response) {
+							fillCellList(fn, a);
+						}
+						updateRowData(0, fn);
+					}
 				}
-			}
-		});
-		cellList.setRowCount(TABS.size(), true);
 
-		// Push the data into the widget.
-		cellList.setRowData(0, TABS);
-		return cellList;
+				private void fillCellList(List<String> fn, ImapFolder a) {
+					fn.add(a.getFullName());
+					if(a.getHasChildren()){
+						for(ImapFolder subFolder : a.getChildren()){
+							fillCellList(fn, subFolder);
+						}
+					}
+				}
+
+				@Override
+				public void onFailure(ServerFailure error) {
+					if (error.isFatal()) {
+						throw new RuntimeException(error.getMessage());
+					}
+				}
+
+			});
+
+		}
+
 	}
 
 	interface LabelListUiBinder extends UiBinder<SimplePanel, LabelListView> {

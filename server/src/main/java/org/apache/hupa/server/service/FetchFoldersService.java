@@ -39,6 +39,10 @@ public interface FetchFoldersService {
 import org.apache.hupa.shared.exception.HupaException;
 
 public interface FetchFoldersService {
+<<<<<<< HEAD
 	List<ImapFolder> fetch(ImapFolder folder) throws MessagingException, HupaException;
 >>>>>>> re-add server unit tests
+=======
+	List<ImapFolder> fetch(ImapFolder folder, Boolean recursive) throws MessagingException, HupaException;
+>>>>>>> pull all folders for label settings
 }

@@ -97,7 +97,7 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	 */
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
-		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider((ImapFolder) value), new FolderCell(
+		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(rf, (ImapFolder) value), new FolderCell(
 				ClickEvent.getType().getName()), selectionModel, null);
 	}
 
@@ -158,11 +158,13 @@ public class FoldersTreeViewModel implements TreeViewModel {
 		}
 	}
 
-	class ImapFolderListDataProvider extends AsyncDataProvider<ImapFolder> {
+	public class ImapFolderListDataProvider extends AsyncDataProvider<ImapFolder> {
 
+		private HupaRequestFactory rf;
 		private ImapFolder folder;
 
-		public ImapFolderListDataProvider(ImapFolder folder) {
+		public ImapFolderListDataProvider(HupaRequestFactory rf, ImapFolder folder) {
+			this.rf = rf;
 			this.folder = folder;
 		}
 
@@ -173,7 +175,7 @@ public class FoldersTreeViewModel implements TreeViewModel {
 
 		@Override
 		protected void onRangeChanged(HasData<ImapFolder> display) {
-			rf.fetchFoldersRequest().fetch(folder).fire(new Receiver<List<ImapFolder>>() {
+			rf.fetchFoldersRequest().fetch(folder, Boolean.FALSE).fire(new Receiver<List<ImapFolder>>() {
 				@Override
 				public void onSuccess(List<ImapFolder> response) {
 					if (response == null || response.size() == 0) {

@@ -41,10 +41,14 @@ public class FetchFolderServiceTest extends HupaGuiceTestCase {
 		httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
 		try {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			fetchFoldersService.fetch(new ImapFolderImpl(), false);
 =======
 			fetchFoldersService.fetch(new ImapFolderImpl());
 >>>>>>> re-add server unit tests
+=======
+			fetchFoldersService.fetch(new ImapFolderImpl(), false);
+>>>>>>> pull all folders for label settings
 			fail("Invalid session");
 		} catch (InvalidSessionException e) {
 		} catch (Exception e) {
@@ -57,10 +61,14 @@ public class FetchFolderServiceTest extends HupaGuiceTestCase {
 		httpSession.setAttribute(SConsts.USER_SESS_ATTR, testUser);
 		try {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			List<ImapFolder> folders = fetchFoldersService.fetch(null, false);
 =======
 			List<ImapFolder> folders = fetchFoldersService.fetch(null);
 >>>>>>> re-add server unit tests
+=======
+			List<ImapFolder> folders = fetchFoldersService.fetch(null, false);
+>>>>>>> pull all folders for label settings
 			assertTrue(folders.isEmpty());
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -353,6 +353,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(ComposeToolBarActivity.Displayable.class).to(ComposeToolBarView.class);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		bind(ComposeActivity.Displayable.class).to(ComposeView.class);
 		bind(SearchBoxActivity.Displayable.class).to(SearchBoxView.class);
 		
@@ -369,6 +370,9 @@ public class AppGinModule extends AbstractGinModule {
 =======
 //		bind(ComposeActivity.Displayable.class).to(ComposeView.class).in(Singleton.class);
 >>>>>>> fixed issue#62
+=======
+		bind(ComposeActivity.Displayable.class).to(ComposeView.class);
+>>>>>>> pull all folders for label settings
 		
 		bind(LabelListActivity.Displayable.class).to(LabelListView.class).in(Singleton.class);
 >>>>>>> make label settings prototype

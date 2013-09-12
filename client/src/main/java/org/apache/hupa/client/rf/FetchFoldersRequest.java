@@ -32,8 +32,12 @@ import com.google.web.bindery.requestfactory.shared.Service;
 @Service(value = FetchFoldersService.class, locator = IocRfServiceLocator.class)
 public interface FetchFoldersRequest extends RequestContext {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Request<List<ImapFolder>> fetch(ImapFolder imapFolder, Boolean recursive);
 =======
 	Request<List<ImapFolder>> fetch(ImapFolder imapFolder);
 >>>>>>> Fix issue #15.
+=======
+	Request<List<ImapFolder>> fetch(ImapFolder imapFolder, Boolean recursive);
+>>>>>>> pull all folders for label settings
 }
