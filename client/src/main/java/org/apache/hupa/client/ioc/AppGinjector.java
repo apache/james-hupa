@@ -62,6 +62,7 @@ import com.google.gwt.inject.client.Ginjector;
 public interface AppGinjector extends Ginjector {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //  AppController getAppController();
   HupaController getHupaController();
 =======
@@ -72,6 +73,9 @@ public interface AppGinjector extends Ginjector {
 <<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
+=======
+//  AppController getAppController();
+>>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
   HupaController getHupaController();
 >>>>>>> move new theme ui from experiment to hupa evo
 }

@@ -658,8 +658,12 @@ public class AppGinModule extends AbstractGinModule {
 			StatusActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
+<<<<<<< HEAD
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+/*
+>>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
 	@Provides
 	@Singleton
 	@Named("TopRegion")
@@ -785,6 +789,7 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 		return new ActivityManager(activityMapper, eventBus);
 	}
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 	// @Provides
@@ -797,6 +802,9 @@ public class AppGinModule extends AbstractGinModule {
 
 =======
 >>>>>>> add SuppressWarnings("depraction")
+=======
+*/
+>>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
 	@Provides
 	@Singleton
 	public PlaceController getPlaceController(EventBus eventBus) {

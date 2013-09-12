@@ -32,7 +32,7 @@ public class HupaEvo implements EntryPoint {
 	public void onModuleLoad() {
 		handleExceptionsAsync();
 		replaceLoading();
-	    AppController appController = injector.getAppController();
+	    AppController appController = null;//injector.getAppController();
 	    appController.start();
 	}
 	

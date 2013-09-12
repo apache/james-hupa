@@ -97,8 +97,7 @@ public class FoldersTreeViewModel implements TreeViewModel {
 		}
 
 		@Override
-		protected void onRangeChanged(HasData<ImapFolder> display) {
-			System.out.print(rf == null);
+		protected void onRangeChanged(HasData<ImapFolder> display) {//TODO how to deal with init, here folder should be inject from some place rather null
 			rf.fetchFoldersRequest().fetch(folder).fire(new Receiver<List<ImapFolder>>() {
 				@Override
 				public void onSuccess(List<ImapFolder> response) {

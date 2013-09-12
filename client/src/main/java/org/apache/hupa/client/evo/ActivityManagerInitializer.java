@@ -32,13 +32,7 @@ import com.google.inject.name.Named;
 public class ActivityManagerInitializer {
 
 	@Inject
-	public ActivityManagerInitializer(AppLayout appPanelView, 
-			@Named("TopRegion") ActivityManager topActivityManager,
-			@Named("WestRegion") ActivityManager westActivityManager,
-			@Named("MainContentRegion") ActivityManager mainContentActivityManager) {
-		topActivityManager.setDisplay(appPanelView.getNorthContainer());
-		westActivityManager.setDisplay(appPanelView.getWestContainer());
-		mainContentActivityManager.setDisplay(appPanelView.getCenterContainer());
+	public ActivityManagerInitializer(AppLayout appPanelView) {
 	}
 
 }

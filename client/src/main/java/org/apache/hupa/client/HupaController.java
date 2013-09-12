@@ -331,18 +331,16 @@ public class HupaController {
 		checkSession.isValid().fire(new Receiver<Boolean>() {
 			@Override
 			public void onSuccess(Boolean sessionValid) {
-				// RootLayoutPanel.get().clear();
-				// RootLayoutPanel.get().add(hupaLayout.get());
 				if (!sessionValid) {
-
 					RootLayoutPanel.get().clear();
-					RootLayoutPanel.get().add(loginLayout.get());//
-					HupaController.this.placeController
-							.goTo(new DefaultPlace());
+					RootLayoutPanel.get().add(loginLayout.get());
+					log.fine("session invalid");
+//					HupaController.this.placeController
+//							.goTo(new DefaultPlace());
 
 				} else {
 					RootLayoutPanel.get().clear();
-					RootLayoutPanel.get().add(hupaLayout.get());//
+					RootLayoutPanel.get().add(hupaLayout.get());
 
 				}
 			}

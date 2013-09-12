@@ -92,7 +92,7 @@ public abstract class AbstractService {
 >>>>>>> fix issue 5,6,8:
 =======
         if (user == null) {
-            throw new InvalidSessionException("User not found in session with id " + httpSessionProvider.get().getId());
+            throw new InvalidSessionException(getClass()+"User not found in session with id " + httpSessionProvider.get().getId());
         } else {
             return user;
         }

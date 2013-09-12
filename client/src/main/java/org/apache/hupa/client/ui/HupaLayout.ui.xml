@@ -116,6 +116,7 @@
 						<g:layer width="177px" left="10px">
 							<g:SimplePanel ui:field="logoContainer"/>
 						</g:layer>
+<<<<<<< HEAD
 						<g:layer width="301px" right="0">
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -149,6 +150,9 @@
 							</g:SimplePanel>
 >>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
 =======
+=======
+						<g:layer width="287px" right="0">
+>>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
 							<g:LayoutPanel ui:field="navigationContainer"/><!-- why can not be SimplePanel here -->
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 						</g:layer>

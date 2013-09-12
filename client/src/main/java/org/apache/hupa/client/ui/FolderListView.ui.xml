@@ -17,10 +17,15 @@
 =======
 =======
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+<<<<<<< HEAD
 	xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
 >>>>>>> make folder list in west panel partly work
+=======
+	xmlns:hupa='urn:import:org.apache.hupa.client.ui'
+    xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
+>>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
 	<g:SimplePanel ui:field="FolderListView">
-		<hupa:FoldersCellTree ui:field="cellTree"/>
+		<c:CellTree ui:field="cellTree"/>
 	</g:SimplePanel>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 </ui:UiBinder>
