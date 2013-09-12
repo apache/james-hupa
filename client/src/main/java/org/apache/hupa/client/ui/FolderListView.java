@@ -233,7 +233,6 @@ public class FolderListView extends Composite implements
 	@AssistedInject
 	public FolderListView(final FoldersTreeViewModel viewModel,
 			final EventBus eventBus, @Assisted Place place) {
-		System.out.println(place);
 		if (place instanceof MailFolderPlace) {
 			cellTree = new CellTree(viewModel, null, Resources.INSTANCE);
 			cellTree.setAnimationEnabled(true);
