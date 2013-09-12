@@ -54,7 +54,25 @@
     <description>A GWT based IMAP webmail</description>
     <dependencies>
         <dependency>
+<<<<<<< HEAD
             <groupId>org.apache.hupa</groupId>
+=======
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.validation</groupId>
+                    <artifactId>validation-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+>>>>>>> fixing weird error in compilation:  Deferred binding failed for 'com.google.gwt.user.client.ui.NativeHorizontalScrollbar'
             <artifactId>hupa-server</artifactId>
         </dependency>
         <dependency>
@@ -95,6 +113,7 @@
             <artifactId>gwtupload</artifactId>
         </dependency>
         <dependency>
+<<<<<<< HEAD
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <exclusions>
@@ -122,6 +141,8 @@
             <artifactId>gwt-dev</artifactId>
         </dependency>
         <dependency>
+=======
+>>>>>>> fixing weird error in compilation:  Deferred binding failed for 'com.google.gwt.user.client.ui.NativeHorizontalScrollbar'
             <groupId>com.google.gwt.inject</groupId>
             <artifactId>gin</artifactId>
         </dependency>
