@@ -19,6 +19,10 @@
 
 package org.apache.hupa.shared.rpc;
 
+import java.io.Serializable;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -97,6 +101,7 @@ public class ContactsResult{
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> first commit
     public static class Contact implements Result, Serializable {
@@ -157,6 +162,10 @@ public class ContactsResult{
 =======
 	public static class Contact {
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
+=======
+	public static class Contact implements IsSerializable, Serializable{
+        private static final long serialVersionUID = -8632580327693416473L;
+>>>>>>> fix the serialization issue.
 		public String mail;
 		public String realname;
 
@@ -216,7 +225,6 @@ public class ContactsResult{
 
 	}
 
-	private static final long serialVersionUID = -8740775403377441876L;
 	private Contact[] contacts;
 
 	public ContactsResult() {
