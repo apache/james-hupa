@@ -247,27 +247,32 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class HupaLayout implements HupaLayoutable {
 
-	@UiField SplitLayoutPanel messageBox;
 	@UiField SimplePanel topBarContainer;
-	@UiField SimplePanel logoContainer;
 	
-	// can not be SimplePanel here, sub panel need its parent to implements the ProvidesResize interface, the same with messageListContainer
+	@UiField SimplePanel logoContainer;
 	@UiField LayoutPanel navigationContainer;
+
 	@UiField SimplePanel toolBarContainer;
+	
+
+	@UiField SplitLayoutPanel messageSpace;
+	@UiField LayoutPanel leftArea;
+	
+	@UiField SplitLayoutPanel messageBox;
 	@UiField SimplePanel folderListContainer;
 	@UiField LayoutPanel messageListBox;
 	@UiField LayoutPanel messageListContainer;
 	@UiField SimplePanel messageListFooterContainer;
-	
-	@UiField HTMLPanel contactBox;
-	
 	@UiField SimplePanel messageContentContainer;
 	@UiField SimplePanel statusContainer;
+	
+	@UiField HTMLPanel contactBox;
 
 	private LayoutPanel hupaMainPanel;
 
 	public HupaLayout() {
 		hupaMainPanel = binder.createAndBindUi(this);
+		messageSpace.setWidgetMinSize(leftArea, 144);
 		messageBox.setWidgetHidden(contactBox, true);
 	}
 

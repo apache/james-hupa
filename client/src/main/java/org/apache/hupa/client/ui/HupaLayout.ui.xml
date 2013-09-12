@@ -200,9 +200,9 @@
 					</g:DockLayoutPanel>
 				</g:north>
 				<g:center>
-					<g:SplitLayoutPanel ui:field="MessageSpace">
+					<g:SplitLayoutPanel ui:field="messageSpace">
 						<g:west size="373">
-							<g:LayoutPanel ui:field="LeftBox"
+							<g:LayoutPanel ui:field="leftArea"
 								addStyleNames="{style.folderList}  {style.box}  {style.listBox}">
 								<g:layer top="0" height="100%">
 									<g:SimplePanel ui:field="folderListContainer" />
@@ -215,7 +215,7 @@
 							</g:LayoutPanel>
 						</g:west>
 						<g:center>
-							<g:DockLayoutPanel unit="PCT" ui:field="rightBox">
+							<g:DockLayoutPanel unit="PCT" ui:field="rightArea">
 								<g:west size="100">
 									<g:SplitLayoutPanel ui:field="messageBox">
 										<g:north size="200">
