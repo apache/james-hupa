@@ -257,6 +257,9 @@
 				<g:center>
 					<hupa:_CenterPanel ui:field="centerPanel" />
 				</g:center>
+				<g:south size="0">
+				    <hupa:_CenterSettingPanel ui:field="settingPanel" />
+				</g:south>
 			</g:DockLayoutPanel>
 <<<<<<< HEAD
 		</g:layer> -->

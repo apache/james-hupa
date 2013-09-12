@@ -108,7 +108,7 @@
                                 {style.mailInnerSelected} {style.inner}">
 =======
 			<g:SimplePanel addStyleNames="{style.navigation} {style.selected}">
-				<g:Anchor
+				<g:Anchor ui:field="mail"
 					addStyleNames=" 
                                 {style.mailInner} {style.inner}">
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
@@ -136,8 +136,12 @@
 				<g:Anchor ui:field="setting"
 =======
 			<g:SimplePanel addStyleNames="{style.navigation}">
+<<<<<<< HEAD
 				<g:Anchor
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+				<g:Anchor ui:field="setting"
+>>>>>>> try to make switch to setting work
 					addStyleNames="
                                 {style.settingsInner} {style.inner}">
 					Settings

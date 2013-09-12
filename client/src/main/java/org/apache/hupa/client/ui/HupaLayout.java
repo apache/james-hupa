@@ -268,13 +268,11 @@ public class HupaLayout implements HupaLayoutable {
 	@UiField _CenterPanel centerPanel;
 	@UiField DockLayoutPanel mainBox;
 	
-	private _CenterSettingPanel settingPanel;
+	@UiField _CenterSettingPanel settingPanel;
 
 	private LayoutPanel hupaMainPanel;
 
-	@Inject
-	public HupaLayout(_CenterSettingPanel settingPanel) {
-		this.settingPanel = settingPanel;
+	public HupaLayout() {
 		hupaMainPanel = binder.createAndBindUi(this);
 	}
 
@@ -311,6 +309,9 @@ public class HupaLayout implements HupaLayoutable {
 	}
 
 	private void changeToMessage() {
+//		mainBox.remove(settingPanel);
+		mainBox.setWidgetHidden(settingPanel, true);
+		mainBox.setWidgetHidden(centerPanel,false);
 		centerPanel.thisPanel.remove(centerPanel.composeContainer);
 		centerPanel.thisPanel.add(centerPanel.contentPanel);
 		toolPanel.toggleToCompose(false);
@@ -471,8 +472,9 @@ public interface HupaLayout {
 
 	@Override
 	public void switchToSetting() {
-		centerPanel.removeFromParent();
-		mainBox.add(settingPanel);
+//		centerPanel.removeFromParent();
+		mainBox.setWidgetHidden(centerPanel, true);
+		mainBox.setWidgetHidden(settingPanel, false);
 	}
 >>>>>>> attempt to add label setting feature
 }

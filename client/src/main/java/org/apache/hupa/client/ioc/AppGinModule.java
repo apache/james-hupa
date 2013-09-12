@@ -568,8 +568,12 @@ public class AppGinModule extends AbstractGinModule {
 		bind(LabelListActivity.class).in(Singleton.class);
 		bind(LabelPropertiesActivity.class).in(Singleton.class);
 		
+<<<<<<< HEAD
 		bind(_CenterSettingPanel.class).in(Singleton.class);
 >>>>>>> attempt to add label setting feature
+=======
+//		bind(_CenterSettingPanel.class).in(Singleton.class);
+>>>>>>> try to make switch to setting work
 
 <<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers

@@ -22,13 +22,18 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.client.activity.NavigationActivity;
+<<<<<<< HEAD
 import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.FolderPlace;
+=======
+import org.apache.hupa.client.place.MailFolderPlace;
+>>>>>>> try to make switch to setting work
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.place.shared.PlaceController;
+<<<<<<< HEAD
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -38,6 +43,14 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+=======
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+>>>>>>> try to make switch to setting work
 import com.google.inject.Inject;
 
 public class NavigationView extends Composite implements NavigationActivity.Displayable{
@@ -45,6 +58,7 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 	@Inject PlaceController placeController; 
 	@UiField Anchor mail;
 	@UiField Anchor setting;
+<<<<<<< HEAD
 	@UiField Anchor contact;
 	@UiField SimplePanel contactOuter;
 	@UiField SimplePanel mailOuter;
@@ -75,10 +89,13 @@ public class NavigationView extends Composite {
 =======
 public class NavigationView extends Composite implements NavigationActivity.Displayable{
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+>>>>>>> try to make switch to setting work
 
 	public NavigationView() {
 		initWidget(binder.createAndBindUi(this));
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 	
 	@UiHandler("mail")
@@ -130,6 +147,18 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 	
 =======
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+	
+	@UiHandler("mail")
+	public void onMailClick(ClickEvent e){
+		placeController.goTo(new MailFolderPlace("Mock-Inbox"));
+	}
+	
+	@UiHandler("setting")
+	public void onSettingClick(ClickEvent e){
+		placeController.goTo(new SettingPlace("folders"));
+	}
+>>>>>>> try to make switch to setting work
 
 	interface NavigationUiBinder extends UiBinder<DockLayoutPanel, NavigationView> {
 	}
