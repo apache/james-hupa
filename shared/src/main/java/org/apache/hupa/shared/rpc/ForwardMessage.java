@@ -22,6 +22,7 @@ package org.apache.hupa.shared.rpc;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.SMTPMessage;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -40,6 +41,10 @@ import org.apache.hupa.shared.proxy.ImapFolder;
 =======
 import org.apache.hupa.shared.domain.ImapFolder;
 >>>>>>> Allow client can use the domain entity interface.
+=======
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.SmtpMessage;
+>>>>>>> forward and reply message to use RF
 
 public class ForwardMessage extends SendMessage {
 
@@ -66,8 +71,12 @@ public class ForwardMessage extends SendMessage {
     private String inReplyTo;
     private String references;
 
+<<<<<<< HEAD
     public ForwardMessage(SMTPMessage msg, ImapFolder folder, long uid) {
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
+=======
+    public ForwardMessage(SmtpMessage msg, ImapFolder folder, long uid) {
+>>>>>>> forward and reply message to use RF
         super(msg);
         this.uid = uid;
         this.folder = folder;

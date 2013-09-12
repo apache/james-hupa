@@ -127,6 +127,12 @@ import org.apache.hupa.shared.data.DeleteMessageByUidActionImpl;
 =======
 import org.apache.hupa.server.service.RenameFolderService;
 import org.apache.hupa.server.service.RenameFolderServiceImpl;
+import org.apache.hupa.server.service.SendForwardMessageService;
+import org.apache.hupa.server.service.SendForwardMessageServiceImpl;
+import org.apache.hupa.server.service.SendMessageBaseServiceImpl;
+import org.apache.hupa.server.service.SendMessageService;
+import org.apache.hupa.server.service.SendReplyMessageService;
+import org.apache.hupa.server.service.SendReplyMessageServiceImpl;
 import org.apache.hupa.shared.data.CreateFolderActionImpl;
 import org.apache.hupa.shared.data.DeleteFolderActionImpl;
 <<<<<<< HEAD
@@ -156,6 +162,7 @@ import org.apache.hupa.shared.data.RenameFolderActionImpl;
 import org.apache.hupa.shared.data.SendForwardMessageActionImpl;
 import org.apache.hupa.shared.data.SendMessageActionImpl;
 import org.apache.hupa.shared.data.SendReplyMessageActionImpl;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.SetFlagActionImpl;
 import org.apache.hupa.shared.data.SmtpMessageImpl;
 =======
@@ -167,6 +174,9 @@ import org.apache.hupa.shared.data.MessageDetailsImpl;
 >>>>>>> try to get message details, problem is:
 import org.apache.hupa.shared.data.RenameFolderActionImpl;
 >>>>>>> delete and rename folder
+=======
+import org.apache.hupa.shared.data.SmtpMessageImpl;
+>>>>>>> forward and reply message to use RF
 import org.apache.hupa.shared.data.TagImpl;
 import org.apache.hupa.shared.data.UserImpl;
 import org.apache.hupa.shared.domain.CreateFolderAction;
@@ -211,6 +221,7 @@ import org.apache.hupa.shared.domain.SendReplyMessageAction;
 import org.apache.hupa.shared.domain.SetFlagAction;
 =======
 import org.apache.hupa.shared.domain.RenameFolderAction;
+<<<<<<< HEAD
 >>>>>>> delete and rename folder
 import org.apache.hupa.shared.domain.Settings;
 import org.apache.hupa.shared.domain.SmtpMessage;
@@ -234,6 +245,12 @@ import org.apache.hupa.shared.domain.FetchMessagesAction;
 import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
+=======
+import org.apache.hupa.shared.domain.SendForwardMessageAction;
+import org.apache.hupa.shared.domain.SendMessageAction;
+import org.apache.hupa.shared.domain.SendReplyMessageAction;
+import org.apache.hupa.shared.domain.SmtpMessage;
+>>>>>>> forward and reply message to use RF
 import org.apache.hupa.shared.domain.Settings;
 <<<<<<< HEAD
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
@@ -303,6 +320,7 @@ public class GuiceServerModule extends AbstractModule {
 		bind(SendMessageAction.class).to(SendMessageActionImpl.class);
 		bind(SendForwardMessageAction.class).to(SendForwardMessageActionImpl.class);
 		bind(SendReplyMessageAction.class).to(SendReplyMessageActionImpl.class);
+<<<<<<< HEAD
 		bind(GetMessageRawAction.class).to(GetMessageRawActionImpl.class);
 		bind(GetMessageRawResult.class).to(GetMessageRawResultImpl.class);
 		bind(IdleAction.class).to(IdleActionImpl.class);
@@ -310,6 +328,8 @@ public class GuiceServerModule extends AbstractModule {
 		bind(LogoutUserAction.class).to(LogoutUserActionImpl.class);
 		bind(MoveMessageAction.class).to(MoveMessageActionImpl.class);
 		bind(SetFlagAction.class).to(SetFlagActionImpl.class);
+=======
+>>>>>>> forward and reply message to use RF
 		
 		
 =======
@@ -403,16 +423,26 @@ public class GuiceServerModule extends AbstractModule {
 >>>>>>> delete messages, make WestActivity Singleton
 =======
 		bind(GetMessageDetailsService.class).to(GetMessageDetailsServiceImpl.class);
+<<<<<<< HEAD
 >>>>>>> try to get message details, problem is:
+=======
+		bind(SendMessageService.class).to(SendMessageBaseServiceImpl.class);
+		bind(SendForwardMessageService.class).to(SendForwardMessageServiceImpl.class);
+		bind(SendReplyMessageService.class).to(SendReplyMessageServiceImpl.class);
+>>>>>>> forward and reply message to use RF
 		
 		bind(IMAPStoreCache.class).to(getIMAPStoreCacheClass()).in(Singleton.class);
 
 		bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);
 		bind(Session.class).toProvider(JavaMailSessionProvider.class);
+<<<<<<< HEAD
 //		bind(HttpSession.class).toProvider(HttpSessionProvider.class);
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		bind(Properties.class).toInstance(properties);
+=======
+>>>>>>> forward and reply message to use RF
         bind(UserPreferencesStorage.class).to(InImapUserPreferencesStorage.class);
+		bind(Properties.class).toInstance(properties);
 	}
 
 	protected Class<? extends IMAPStoreCache> getIMAPStoreCacheClass() {

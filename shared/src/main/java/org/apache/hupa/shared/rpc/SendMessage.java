@@ -24,15 +24,15 @@ import java.io.Serializable;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import org.apache.hupa.shared.data.SMTPMessage;
+import org.apache.hupa.shared.domain.SmtpMessage;
 
 public class SendMessage implements Action<GenericResult>, Serializable {
     
     private static final long serialVersionUID = 973668124208945015L;
 
-    private SMTPMessage msg;
+    private SmtpMessage msg;
     
-    public SendMessage(SMTPMessage msg) {
+    public SendMessage(SmtpMessage msg) {
         this.msg = msg;
     }
     
@@ -40,11 +40,11 @@ public class SendMessage implements Action<GenericResult>, Serializable {
         
     }
     
-    public SMTPMessage getMessage() {
+    public SmtpMessage getMessage() {
         return msg;
     }
     
-    public void setMessage(SMTPMessage msg) {
+    public void setMessage(SmtpMessage msg) {
         this.msg = msg;
     }
     

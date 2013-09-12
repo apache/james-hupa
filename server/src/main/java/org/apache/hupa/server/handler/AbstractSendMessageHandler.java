@@ -57,8 +57,8 @@ import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.server.utils.RegexPatterns;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.domain.MessageAttachment;
+import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.SendMessage;
@@ -138,7 +138,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      */
     protected Message createMessage(Session session, A action) throws AddressException, MessagingException {
         MimeMessage message = new MimeMessage(session);
-        SMTPMessage m = action.getMessage();
+        SmtpMessage m = action.getMessage();
         message.setFrom(new InternetAddress(m.getFrom()));
 
         userPreferences.addContact(m.getTo());
@@ -253,8 +253,8 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
      * @throws ActionException
      */
     protected void resetAttachments(A action) throws MessagingException, ActionException {
-        SMTPMessage msg = action.getMessage();
-        ArrayList<MessageAttachment> attachments = msg.getMessageAttachments();
+        SmtpMessage msg = action.getMessage();
+        List<MessageAttachment> attachments = msg.getMessageAttachments();
         if (attachments != null && ! attachments.isEmpty()) {
             for(MessageAttachment attach : attachments) 
                 SessionUtils.getSessionRegistry(logger, httpSessionProvider.get()).remove(attach.getName());

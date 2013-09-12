@@ -570,11 +570,16 @@ public class WestActivity extends AbstractActivity {
 =======
 	@Inject private HupaRequestFactory requestFactory;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> Succeed creating new folder
 =======
 	
 	private FetchMessagesRequest messageRequest;
 >>>>>>> Solved the "java.lang.IllegalArgumentException: Attempting to edit an EntityProxy  previously edited by another RequestContext" and make GetMessageDetails work. Thanks to http://fascynacja.wordpress.com/tag/java-lang-illegalargumentexception-attempting-to-edit-an-entityproxy-previously-edited-by-another-requestcontext/
+=======
+
+	private FetchMessagesRequest messagesRequest;
+>>>>>>> forward and reply message to use RF
 
 	private User user;
 	private ImapFolder folder;
@@ -907,9 +912,12 @@ System.out.println("1111111"+response);
 				}
 
 				display.setLoadingMessage(true);
-				GetMessageDetailsRequest req = messageRequest.append(requestFactory.messageDetailsRequest());
+				if(messagesRequest == null){
+					messagesRequest = requestFactory.messagesRequest();
+				}
+				GetMessageDetailsRequest req = messagesRequest.append(requestFactory.messageDetailsRequest());
 				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
-//				ImapFolder imapFolder = req.edit(event.getFolder());
+				// ImapFolder imapFolder = req.edit(event.getFolder());
 				action.setFolder(event.getFolder());
 				action.setUid(message.getUid());
 				req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
@@ -921,7 +929,8 @@ System.out.println("1111111"+response);
 							eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
 						}
 						display.setLoadingMessage(false);
-//						showMessage(user, folder, message, response.getMessageDetails());
+						// showMessage(user, folder, message,
+						// response.getMessageDetails());
 
 						placeController.goTo(messagePlaceProvider.get().with(user, folder, message,
 						        response.getMessageDetails()));
@@ -1098,12 +1107,26 @@ System.out.println("1111111"+response);
 				folder = (ImapFolder) tItem.getUserObject();
 =======
 				ImapFolder editableFolder = (ImapFolder) tItem.getUserObject();
-				messageRequest = requestFactory.messagesRequest();
-				folder = messageRequest.edit(editableFolder);
+				messagesRequest = requestFactory.messagesRequest();
+				folder = messagesRequest.edit(editableFolder);
 
 				// folder = (ImapFolder) tItem.getUserObject();
 				eventBus.fireEvent(new LoadMessagesEvent(user, folder));
+<<<<<<< HEAD
 >>>>>>> fix the frozen autobean issue, yet another occur
+=======
+			}
+
+		});
+		// FIXME why same?
+		display.getTree().addSelectionHandler(new SelectionHandler<TreeItem>() {
+
+			public void onSelection(SelectionEvent<TreeItem> event) {
+				tItem = (IMAPTreeItem) event.getSelectedItem();
+				if (tItem.isEdit())
+					return;
+				// folder = (ImapFolder) tItem.getUserObject();
+>>>>>>> forward and reply message to use RF
 				if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
 					display.getDeleteEnable().setEnabled(false);
 					display.getRenameEnable().setEnabled(false);
@@ -1114,6 +1137,7 @@ System.out.println("1111111"+response);
 			}
 
 		});
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> try to change fetch messages to use RF
@@ -1160,6 +1184,8 @@ System.out.println("1111111"+response);
 		//
 		// });
 >>>>>>> try to get message details, problem is:
+=======
+>>>>>>> forward and reply message to use RF
 		display.getRenameClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {

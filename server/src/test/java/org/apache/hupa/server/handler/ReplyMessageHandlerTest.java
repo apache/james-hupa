@@ -27,7 +27,7 @@ import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.SMTPMessage;
+import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.rpc.ReplyMessage;
 
 import com.sun.mail.imap.IMAPStore;
@@ -64,7 +64,7 @@ public class ReplyMessageHandlerTest extends HupaGuiceTestCase {
         assertEquals(expected, TestUtils.summaryzeContent(message).toString());
         
         // Create a reply user action with an uploaded message
-        SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(registry, 1);
+        SmtpMessage smtpmsg = TestUtils.createMockSMTPMessage(registry, 1);
         ReplyMessage action = new ReplyMessage(smtpmsg, new ImapFolderImpl(inbox.getFullName()), msgUid);
         
         message = reMsgHndl.createMessage(session, action);

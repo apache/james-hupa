@@ -22,6 +22,7 @@ package org.apache.hupa.client.widgets;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.ui.EditableTreeItem;
@@ -189,6 +190,8 @@ import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.proxy.ImapFolder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 =======
+=======
+>>>>>>> forward and reply message to use RF
 import org.apache.hupa.shared.domain.ImapFolder;
 >>>>>>> Allow client can use the domain entity interface.
 import org.apache.hupa.widgets.event.EditEvent;

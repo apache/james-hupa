@@ -388,6 +388,7 @@ public class AppGinModule extends AbstractGinModule {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 		bind(TopActivity.Displayable.class).to(TopView.class);
@@ -406,10 +407,14 @@ public class AppGinModule extends AbstractGinModule {
 
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
+=======
+>>>>>>> forward and reply message to use RF
 
 		bind(WestActivity.class).in(Singleton.class);
 		bind(TopActivity.class).in(Singleton.class);
-		
+
+		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
+		bind(MessageTableModel.class).in(Singleton.class);
 		// Places
 		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
 

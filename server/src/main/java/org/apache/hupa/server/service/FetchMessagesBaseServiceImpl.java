@@ -70,8 +70,12 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
         User user = getUser();
         ImapFolder folder = action.getFolder();
         if (folder == null) {
+<<<<<<< HEAD
             folder = (ImapFolder)new ImapFolderImpl(user.getSettings().getInboxFolderName());
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
+=======
+            folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
+>>>>>>> forward and reply message to use RF
         }
         com.sun.mail.imap.IMAPFolder f = null;
         int start = action.getStart();

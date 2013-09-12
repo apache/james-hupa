@@ -25,7 +25,7 @@ import org.apache.hupa.server.handler.FetchMessagesHandler;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.SMTPMessage;
+import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.rpc.FetchFolders;
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
@@ -54,7 +54,7 @@ public class InSessionUserPreferencesStorageTest extends HupaGuiceTestCase {
     public void testSendMessagesAddContactsToList() throws Exception {
         assertEquals(0, userPreferences.getContacts().length);
         
-        SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(SessionUtils.getSessionRegistry(logger, httpSession), 2);
+        SmtpMessage smtpmsg = TestUtils.createMockSMTPMessage(SessionUtils.getSessionRegistry(logger, httpSession), 2);
         SendMessage action = new SendMessage(smtpmsg);
         sendMessageHandler.execute(action, null);
         

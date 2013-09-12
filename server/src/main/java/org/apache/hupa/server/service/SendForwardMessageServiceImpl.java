@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,6 +18,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> forward and reply message to use RF
 package org.apache.hupa.server.service;
 
 import java.io.IOException;
@@ -32,7 +35,10 @@ import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.domain.SendForwardMessageAction;
 import org.apache.hupa.shared.domain.SendMessageAction;
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
+=======
+>>>>>>> forward and reply message to use RF
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -49,7 +55,11 @@ public class SendForwardMessageServiceImpl extends SendMessageBaseServiceImpl im
 
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
+<<<<<<< HEAD
     protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
+=======
+    protected List getAttachments(SendMessageAction action) throws MessagingException {
+>>>>>>> forward and reply message to use RF
     	SendForwardMessageAction forwardAction = (SendForwardMessageAction)action;
         List<?> items = new ArrayList();
         IMAPStore store = cache.get(getUser());
@@ -59,7 +69,11 @@ public class SendForwardMessageServiceImpl extends SendMessageBaseServiceImpl im
             folder.open(Folder.READ_ONLY);
         }
         // Put the original attachments in the list 
+<<<<<<< HEAD
         Message msg = folder.getMessageByUID(forwardAction.getUid());
+=======
+        Message msg = folder.getMessageByUID(forwardAction.getReplyMessageUid());
+>>>>>>> forward and reply message to use RF
         try {
             items = MessageUtils.extractMessageAttachments(logger, msg.getContent());
             logger.debug("Forwarding a message, extracted: " + items.size() + " from original.");

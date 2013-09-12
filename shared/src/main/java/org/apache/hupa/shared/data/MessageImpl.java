@@ -29,7 +29,7 @@ import org.apache.hupa.shared.domain.Tag;
  * 
  *
  */
-public class MessageImpl extends AbstractMessage implements Message{
+public class MessageImpl extends AbstractMessageImpl implements Message{
 
     private long uid;
     private List<IMAPFlag> flags;

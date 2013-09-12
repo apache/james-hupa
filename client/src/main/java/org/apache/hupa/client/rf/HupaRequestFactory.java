@@ -108,5 +108,11 @@ public interface HupaRequestFactory extends RequestFactory {
 >>>>>>> delete messages, make WestActivity Singleton
 =======
 	GetMessageDetailsRequest messageDetailsRequest();
+<<<<<<< HEAD
 >>>>>>> try to get message details, problem is:
+=======
+	SendMessageRequest sendMessageRequest();
+	SendForwardMessageRequest sendForwardMessageRequest();
+	SendReplyMessageRequest sendReplyMessageRequest();
+>>>>>>> forward and reply message to use RF
 }

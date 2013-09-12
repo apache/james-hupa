@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,6 +18,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> forward and reply message to use RF
 package org.apache.hupa.server.service;
 
 import java.io.File;
@@ -44,6 +47,11 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.mail.internet.MimeMultipart;
 
+<<<<<<< HEAD
+=======
+import net.customware.gwt.dispatch.shared.ActionException;
+
+>>>>>>> forward and reply message to use RF
 import org.apache.commons.fileupload.FileItem;
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
@@ -58,7 +66,10 @@ import org.apache.hupa.shared.domain.MessageAttachment;
 import org.apache.hupa.shared.domain.SendMessageAction;
 import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.domain.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
+=======
+>>>>>>> forward and reply message to use RF
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -128,6 +139,10 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * @return message
      * @throws AddressException
      * @throws MessagingException
+<<<<<<< HEAD
+=======
+     * @throws ActionException
+>>>>>>> forward and reply message to use RF
      */
     protected Message createMessage(Session session, SendMessageAction action) throws AddressException, MessagingException {
         MimeMessage message = new MimeMessage(session);
@@ -141,8 +156,12 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         message.setRecipients(RecipientType.TO, MessageUtils.getRecipients(m.getTo()));
         message.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
         message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
+<<<<<<< HEAD
 //        message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
         message.setSubject(m.getSubject(), "utf-8");
+=======
+        message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
+>>>>>>> forward and reply message to use RF
         updateHeaders(message, action);
         message.saveChanges();
         return message;
@@ -172,10 +191,17 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * @param action the action
      * @return filledMessage
      * @throws MessagingException
+<<<<<<< HEAD
      * @throws IOException 
 	 * @throws HupaException 
      */
     protected Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException, HupaException {
+=======
+     * @throws ActionException
+     * @throws IOException 
+     */
+    protected Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException {
+>>>>>>> forward and reply message to use RF
 
         String html = restoreInlineLinks(action.getMessage().getText());
         
@@ -210,11 +236,18 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * 
      * @param action
      * @return A list of stored attachments
+<<<<<<< HEAD
      * @throws HupaException 
      */
     @SuppressWarnings("rawtypes")
     protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
         FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSessionProvider.get());
+=======
+     */
+    @SuppressWarnings("rawtypes")
+    protected List getAttachments(SendMessageAction action) throws MessagingException {
+        FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSession);
+>>>>>>> forward and reply message to use RF
         List<MessageAttachment> attachments = action.getMessage().getMessageAttachments();
         
         ArrayList<FileItem> items = new ArrayList<FileItem>();
@@ -241,7 +274,11 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         List<MessageAttachment> attachments = msg.getMessageAttachments();
         if (attachments != null && ! attachments.isEmpty()) {
             for(MessageAttachment attach : attachments) 
+<<<<<<< HEAD
                 SessionUtils.getSessionRegistry(logger, httpSessionProvider.get()).remove(attach.getName());
+=======
+                SessionUtils.getSessionRegistry(logger, httpSession).remove(attach.getName());
+>>>>>>> forward and reply message to use RF
         }
     }
     

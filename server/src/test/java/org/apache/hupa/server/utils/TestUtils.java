@@ -56,6 +56,7 @@ import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.shared.data.MessageAttachmentImpl;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.SMTPMessage;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -65,6 +66,11 @@ import org.apache.hupa.shared.data.SMTPMessage;
 =======
 import org.apache.hupa.shared.domain.MessageAttachment;
 >>>>>>> try to get message details, problem is:
+=======
+import org.apache.hupa.shared.data.SmtpMessageImpl;
+import org.apache.hupa.shared.domain.MessageAttachment;
+import org.apache.hupa.shared.domain.SmtpMessage;
+>>>>>>> forward and reply message to use RF
 
 import com.sun.mail.imap.IMAPStore;
 
@@ -204,6 +210,7 @@ public class TestUtils extends TestCase {
      */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static SmtpMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
 =======
     public static SMTPMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
@@ -211,6 +218,9 @@ public class TestUtils extends TestCase {
 =======
     public static SMTPMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
 >>>>>>> first commit
+=======
+    public static SmtpMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
+>>>>>>> forward and reply message to use RF
         ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
 
         for (int i = 1; i <= nfiles; i++) {
@@ -240,6 +250,7 @@ public class TestUtils extends TestCase {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         SmtpMessage smtpMessage = new SmtpMessageImpl();
 =======
         SMTPMessage smtpMessage = new SMTPMessage();
@@ -247,6 +258,9 @@ public class TestUtils extends TestCase {
 =======
         SMTPMessage smtpMessage = new SMTPMessage();
 >>>>>>> first commit
+=======
+        SmtpMessage smtpMessage = new SmtpMessageImpl();
+>>>>>>> forward and reply message to use RF
         smtpMessage.setFrom("Test user <from@dom.com>");
         smtpMessage.setTo(new ArrayList<String>(Arrays.asList("to@dom.com")));
         smtpMessage.setCc(new ArrayList<String>(Arrays.asList("cc@dom.com")));

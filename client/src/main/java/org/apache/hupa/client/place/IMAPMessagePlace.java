@@ -4,6 +4,7 @@ package org.apache.hupa.client.place;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.apache.hupa.client.activity.IMAPMessageActivity;
 >>>>>>> 1. improve the inbox folder place.
@@ -33,6 +34,8 @@ import org.apache.hupa.shared.domain.ImapFolder;
 =======
 =======
 >>>>>>> try to get message details, problem is:
+=======
+>>>>>>> forward and reply message to use RF
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
@@ -51,12 +54,16 @@ import com.google.gwt.place.shared.Prefix;
 public class IMAPMessagePlace extends Place {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	private Message message;
 	private MessageDetails messageDetails;
 	private IMAPFolderProxy folder;
 =======
 	
+=======
+
+>>>>>>> forward and reply message to use RF
 	private Message message;
 	private MessageDetails messageDetails;
 <<<<<<< HEAD
@@ -71,7 +78,7 @@ public class IMAPMessagePlace extends Place {
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 	private User user;
 
-  public Message getMessage() {
+	public Message getMessage() {
 		return message;
 	}
 
@@ -103,6 +110,7 @@ public class IMAPMessagePlace extends Place {
 		return user;
 	}
 
+<<<<<<< HEAD
 @Prefix("message")
 >>>>>>> 1. improve the inbox folder place.
   public static class Tokenizer implements PlaceTokenizer<IMAPMessagePlace> {
@@ -149,6 +157,32 @@ public class IMAPMessagePlace extends Place {
       this.folder = folder;
       this.user = user;
       return this;
+=======
+	@Prefix("message")
+	public static class Tokenizer implements PlaceTokenizer<IMAPMessagePlace> {
+
+		@Override
+		public IMAPMessagePlace getPlace(String token) {
+			return new IMAPMessagePlace();
+		}
+
+		@Override
+		public String getToken(IMAPMessagePlace place) {
+			return String.valueOf(place.getMessage().getUid());
+		}
+	}
+
+	public String toString() {
+		return this.getClass().getName() + "->[IMAPMessage]";
+	}
+
+	public IMAPMessagePlace with(User user, ImapFolder folder, Message message, MessageDetails messageDetails) {
+		this.message = message;
+		this.messageDetails = messageDetails;
+		this.folder = folder;
+		this.user = user;
+		return this;
+>>>>>>> forward and reply message to use RF
 	}
 
 <<<<<<< HEAD

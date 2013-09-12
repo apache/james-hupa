@@ -284,14 +284,14 @@ public class MessageTableModel extends MutableTableModel<Message> {
 			});
 			return;
 		}
-		FetchMessagesRequest req = requestFactory.messagesRequest();
-		final FetchMessagesAction action = req.create(FetchMessagesAction.class);
+		FetchMessagesRequest messagesRequest = requestFactory.messagesRequest();
+		final FetchMessagesAction action = messagesRequest.create(FetchMessagesAction.class);
 		// FIXME cannot put setFolder to the first place
 		action.setOffset(request.getNumRows());
 		action.setFolder(folder);
 		action.setSearchString(searchValue);
 		action.setStart(request.getStartRow());
-		req.fetch(action).fire(new Receiver<FetchMessagesResult>() {
+		messagesRequest.fetch(action).fire(new Receiver<FetchMessagesResult>() {
 
 			@Override
 			public void onFailure(ServerFailure error) {

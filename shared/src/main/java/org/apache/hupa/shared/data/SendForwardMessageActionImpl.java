@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,6 +18,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> forward and reply message to use RF
 package org.apache.hupa.shared.data;
 
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -50,7 +53,11 @@ public class SendForwardMessageActionImpl extends SendMessageActionImpl implemen
 	}
 
 	@Override
+<<<<<<< HEAD
 	public long getUid() {
+=======
+	public long getReplyMessageUid() {
+>>>>>>> forward and reply message to use RF
 		return uid;
 	}
 
@@ -68,6 +75,7 @@ public class SendForwardMessageActionImpl extends SendMessageActionImpl implemen
 	public String getReferences() {
 		return references;
 	}
+<<<<<<< HEAD
 
 	@Override
 	public void setInReplyTo(String inReplyTo) {
@@ -78,4 +86,15 @@ public class SendForwardMessageActionImpl extends SendMessageActionImpl implemen
 	public void setReferences(String references) {
 		this.references = references;
 	}
+=======
+	@Override
+    public void setInReplyTo(String inReplyTo) {
+		this.inReplyTo = inReplyTo;
+    }
+
+	@Override
+    public void setReferences(String references) {
+		this.references = references;
+    }
+>>>>>>> forward and reply message to use RF
 }

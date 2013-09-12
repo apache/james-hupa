@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,19 +18,33 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> forward and reply message to use RF
 package org.apache.hupa.shared.domain;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
 @ProxyFor(SendForwardMessageAction.class)
+<<<<<<< HEAD
 public interface SendForwardMessageAction extends SendMessageAction {
 
 	ImapFolder getFolder();
 
 	long getUid();
+=======
+public interface SendForwardMessageAction extends SendMessageAction{
+
+	ImapFolder getFolder();
+
+	long getReplyMessageUid();
+>>>>>>> forward and reply message to use RF
 
 	void setFolder(ImapFolder folder);
 
 	void setUid(long uid);
+<<<<<<< HEAD
+=======
+	
+>>>>>>> forward and reply message to use RF
 
 }

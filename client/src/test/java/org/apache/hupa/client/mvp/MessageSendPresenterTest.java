@@ -34,9 +34,10 @@ import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.MessageDetailsImpl;
 import org.apache.hupa.shared.data.MessageImpl;
-import org.apache.hupa.shared.data.SMTPMessage;
+import org.apache.hupa.shared.data.SmtpMessageImpl;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
+import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.ServerStatusEvent;
@@ -81,7 +82,7 @@ public class MessageSendPresenterTest extends HupaMvpTestCase {
     }
 
     public void testDispatchMessage() {
-        SMTPMessage message = new SMTPMessage();
+        SmtpMessage message = new SmtpMessageImpl();
         message.setFrom("from@dom.com");
         message.setTo(presenter.emailTextToArray("to@dom.com"));
         message.setText("message");
