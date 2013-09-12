@@ -23,6 +23,7 @@ import java.util.Properties;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.SettingsImpl;
 import org.apache.hupa.shared.data.UserImpl;
 
@@ -32,6 +33,8 @@ import com.google.inject.AbstractModule;
 >>>>>>> first commit
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 import org.apache.hupa.shared.data.SettingsImpl;
 import org.apache.hupa.shared.data.UserImpl;
 
@@ -89,6 +92,7 @@ import com.google.inject.name.Named;
  */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 public abstract class AbstractGuiceTestModule extends AbstractModule{
 
     protected static class TestUser extends UserImpl {
@@ -97,6 +101,9 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
 =======
 >>>>>>> first commit
 public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
+=======
+public abstract class AbstractGuiceTestModule {
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 
     protected static class TestUser extends UserImpl {
         private static final long serialVersionUID = 1L;
