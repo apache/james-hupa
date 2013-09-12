@@ -125,6 +125,7 @@ public class IMAPMessageActivity extends AppBaseActivity {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void updateDisplay() {
         display.setAttachments(messageDetails.getMessageAttachments(), folder.getFullName(),message.getUid());
         display.setHeaders(message);
@@ -222,6 +223,17 @@ public class IMAPMessageActivity extends AppBaseActivity {
         public HasClickHandlers getForwardButtonClick();
         public HasClickHandlers getBackButtonClick();
 =======
+=======
+	private void cloneFolder(ImapFolder desc, ImapFolder src) {
+	    desc.setChildren(src.getChildren());
+		desc.setDelimiter(src.getDelimiter());
+		desc.setFullName(src.getFullName());
+		desc.setMessageCount(src.getMessageCount());
+		desc.setName(src.getName());
+		desc.setSubscribed(src.getSubscribed());
+		desc.setUnseenMessageCount(src.getUnseenMessageCount());
+    }
+>>>>>>> fix issue 14
 	protected void bind() {
 		registrations.add(display.getDeleteButtonClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -229,8 +241,10 @@ public class IMAPMessageActivity extends AppBaseActivity {
 				uidList.add(message.getUid());
 				DeleteMessageByUidRequest req = requestFactory.deleteMessageByUidRequest();
 				DeleteMessageByUidAction action = req.create(DeleteMessageByUidAction.class);
+				ImapFolder f = req.create(ImapFolder.class);
+				cloneFolder(f, folder);
 				action.setMessageUids(uidList);
-				action.setFolder(folder);
+				action.setFolder(f);
 				req.delete(action).fire(new Receiver<DeleteMessageResult>() {
 					@Override
 					public void onSuccess(DeleteMessageResult response) {
