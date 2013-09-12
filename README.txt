@@ -13,7 +13,7 @@ There is an example configuration file in 'server/src/main/webapp/WEB-INF/conf/c
 - Or in any other file if you start your application server with the parameter:
   -Dhupa.config.file=full_path_to_your_properties_file
 
-##### Running Hupa ##################
+##### Running Hupa #####
 Hupa comes packaged with a servlet-container, so once you have compiled the app just run:
 $ java -jar target/hupa-${version}.war
 
