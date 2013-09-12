@@ -68,7 +68,7 @@ import com.google.gwt.place.shared.Prefix;
 
 public class DefaultPlace extends AbstractPlace {
 
-  @Prefix("")
+  @Prefix("!")
   public static class Tokenizer implements PlaceTokenizer<DefaultPlace> {
 
     @Override
@@ -78,7 +78,7 @@ public class DefaultPlace extends AbstractPlace {
 
     @Override
     public String getToken(DefaultPlace place) {
-      return "";
+      return "login";
     }
   }
 <<<<<<< HEAD

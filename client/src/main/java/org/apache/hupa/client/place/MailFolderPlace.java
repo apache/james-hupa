@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.place;
 
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
 
@@ -34,10 +35,6 @@ public class MailFolderPlace extends AbstractPlace {
 
 	public String getFolderName() {
 		return folderName;
-	}
-
-	public void setFolderName(String folderName) {
-		this.folderName = folderName;
 	}
 
 	/**
@@ -59,13 +56,10 @@ public class MailFolderPlace extends AbstractPlace {
 		return PREFIX.hashCode();
 	}
 
-	public MailFolderPlace with(User user) {
-		this.user = user;
-		return this;
-	}
-
 	public MailFolderPlace with(String folderName) {
 		this.folderName = folderName;
+		this.folder = new ImapFolderImpl();
+		folder.setFullName(folderName);
 		return this;
 	}
 
@@ -103,13 +97,5 @@ public class MailFolderPlace extends AbstractPlace {
 
 	public String getSearchValue() {
 		return searchValue;
-	}
-
-	public MailFolderPlace with(User user, ImapFolder folder, String searchValue) {
-		this.folder = folder;
-		this.searchValue = searchValue;
-		this.user = user;
-		this.folderName = folder.getName();
-		return this;
 	}
 }

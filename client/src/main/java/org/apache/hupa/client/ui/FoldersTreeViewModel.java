@@ -48,9 +48,9 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class FoldersTreeViewModel implements TreeViewModel {
 
-	@Inject protected HupaRequestFactory rf;
-	@Inject protected EventBus eventBus;
-	@Inject protected PlaceController placeController;
+	@Inject private HupaRequestFactory rf;
+	@Inject private EventBus eventBus;
+	@Inject private PlaceController placeController;
 	@Inject private Provider<MailFolderPlace> folderPlaceProvider;
 	protected User user;
 
@@ -102,19 +102,19 @@ public class FoldersTreeViewModel implements TreeViewModel {
 					ImapFolder value, NativeEvent event,
 					ValueUpdater<ImapFolder> valueUpdater) {
 				eventBus.fireEvent(new LoadMessagesEvent(user, value));
-				placeController.goTo(folderPlaceProvider.get().with(value.getName()));
+				placeController.goTo(folderPlaceProvider.get().with(
+						value.getName()));
 			}
 		}, selectionModel, null);
 	}
 
-	private class ImapFolderListDataProvider extends
-			AsyncDataProvider<ImapFolder> {
+	class ImapFolderListDataProvider extends AsyncDataProvider<ImapFolder> {
+
+		private ImapFolder folder;
 
 		public ImapFolderListDataProvider(ImapFolder folder) {
 			this.folder = folder;
 		}
-
-		ImapFolder folder;
 
 		@Override
 		public void addDataDisplay(HasData<ImapFolder> display) {

@@ -1342,7 +1342,7 @@ System.out.println("1111111"+response);
 		this.searchValue = searchValue;
 
 		// FIXME goto?
-		placeController.goTo(new MailFolderPlace().with(user, folder, searchValue));
+//		placeController.goTo(new MailFolderPlace().with(user, folder, searchValue));
 	}
 
 <<<<<<< HEAD

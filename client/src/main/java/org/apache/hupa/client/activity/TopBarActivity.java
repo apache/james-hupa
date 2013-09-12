@@ -154,6 +154,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class TopBarActivity extends AppBaseActivity {
 
@@ -197,7 +198,16 @@ public class TopBarActivity extends AppBaseActivity {
 					eventBus.fireEvent(new LogoutEvent(response.getUser()));
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
-					TopBarActivity.this.placeController.goTo(new DefaultPlace());
+					TopBarActivity.this.placeController
+							.goTo(new DefaultPlace());
+				}
+
+				@Override
+				public void onFailure(ServerFailure error) {
+					RootLayoutPanel.get().clear();
+					RootLayoutPanel.get().add(loginLayout.get());
+					TopBarActivity.this.placeController
+							.goTo(new DefaultPlace());
 				}
 			});
 		}

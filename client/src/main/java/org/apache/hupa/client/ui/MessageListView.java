@@ -173,13 +173,13 @@ public class MessageListView extends Composite implements
 		FetchMessagesAction action = messagesRequest
 				.create(FetchMessagesAction.class);
 		final ImapFolder folder1 = messagesRequest.create(ImapFolder.class);
-		folder1.setChildren(folder.getChildren());
-		folder1.setDelimiter(folder.getDelimiter());
+		// folder1.setChildren(folder.getChildren());
+		// folder1.setDelimiter(folder.getDelimiter());
 		folder1.setFullName(folder.getFullName());
-		folder1.setMessageCount(folder.getMessageCount());
-		folder1.setName(folder.getName());
-		folder1.setSubscribed(folder.getSubscribed());
-		folder1.setUnseenMessageCount(folder.getUnseenMessageCount());
+		// folder1.setMessageCount(folder.getMessageCount());
+		// folder1.setName(folder.getName());
+		// folder1.setSubscribed(folder.getSubscribed());
+		// folder1.setUnseenMessageCount(folder.getUnseenMessageCount());
 		action.setFolder(folder1);
 		action.setOffset(grid.getPageSize());
 		action.setSearchString(searchValue);
@@ -286,6 +286,8 @@ public class MessageListView extends Composite implements
 	@Override
 	public void setFolder(ImapFolder folder) {
 		this.folder = folder;
+		if (folder != null)
+			fetch(0);
 	}
 
 >>>>>>> prepare for place management and history controller

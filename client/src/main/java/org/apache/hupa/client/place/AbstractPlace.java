@@ -35,7 +35,11 @@ public class AbstractPlace extends Place {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
+=======
+
+>>>>>>> make reload mail folder place work, fixed issue #7
 }

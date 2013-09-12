@@ -37,6 +37,7 @@ import com.google.inject.Inject;
 public class FolderListActivity extends AppBaseActivity {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject private Displayable display;
 
 	@Override
@@ -59,13 +60,22 @@ public class FolderListActivity extends AppBaseActivity {
 		void refresh();
 	}
 =======
+=======
+	@Inject private Displayable display;
+
+>>>>>>> make reload mail folder place work, fixed issue #7
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
 	}
 
+<<<<<<< HEAD
 	@Inject private Displayable display;
 	
 	public interface Displayable extends WidgetDisplayable {}
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+	public interface Displayable extends WidgetDisplayable {
+	}
+>>>>>>> make reload mail folder place work, fixed issue #7
 }
