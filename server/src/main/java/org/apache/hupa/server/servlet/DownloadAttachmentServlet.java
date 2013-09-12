@@ -89,6 +89,7 @@ public class DownloadAttachmentServlet extends HttpServlet {
         String folderName = request.getParameter(SConsts.PARAM_FOLDER);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         String mode = request.getParameter(SConsts.PARAM_MODE);
         boolean inline = "inline".equals(mode);
         if (!inline) {
@@ -103,6 +104,13 @@ public class DownloadAttachmentServlet extends HttpServlet {
         response.setHeader("Content-disposition", "attachment; filename="
                 + attachmentName + "");
 >>>>>>> first commit
+=======
+        String mode = request.getParameter(SConsts.PARAM_MODE);
+        if (!"inline".equals(mode)) {
+	        response.setHeader("Content-disposition", "attachment; filename="
+	                + attachmentName + "");
+        }
+>>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
         InputStream in = null;
         OutputStream out = response.getOutputStream();
 

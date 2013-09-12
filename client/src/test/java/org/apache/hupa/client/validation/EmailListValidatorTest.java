@@ -33,11 +33,15 @@ public class EmailListValidatorTest extends HupaGwtTestCase {
         assertTrue(EmailListValidator.isValidAddressList("abc@abc.def\nMMM <mcm@aa.co>;;;"));
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         assertTrue(EmailListValidator.isValidAddressList("server-dev-sc.1342023625.aldemmhlhmcipjmoflol-abc=gmail.com@james.apache.org"));
 =======
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+        assertTrue(EmailListValidator.isValidAddressList("server-dev-sc.1342023625.aldemmhlhmcipjmoflol-abc=gmail.com@james.apache.org"));
+>>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
     }
 
 }

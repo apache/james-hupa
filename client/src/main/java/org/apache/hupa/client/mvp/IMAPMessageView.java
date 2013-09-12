@@ -41,6 +41,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -147,10 +148,7 @@ public class IMAPMessageView extends Composite implements Display{
                 link.setStyleName(HupaCSS.C_hyperlink);
                 link.addClickHandler(new ClickHandler() {
                     public void onClick(ClickEvent event) {
-                        String url = GWT.getModuleBaseURL() + SConsts.SERVLET_DOWNLOAD 
-                                    + "?" + SConsts.PARAM_NAME + "=" + messageAttachment.getName() 
-                                    + "&" + SConsts.PARAM_FOLDER + "=" + folder
-                                    + "&" + SConsts.PARAM_UID + "=" + uid;
+                        String url = getUrl(messageAttachment, folder, uid, false);
                         if (downloadIframe == null)
                             Window.open(url,"_blank", "");
                         else
@@ -161,9 +159,22 @@ public class IMAPMessageView extends Composite implements Display{
                 aPanel.addStyleName(HupaCSS.C_attachment);
                 aPanel.add(new Image(imageBundle.attachmentIcon()));
                 aPanel.add(link);
+                if (messageAttachment.isImage()) {
+                	Anchor viewImageLink = new Anchor("View",getUrl(messageAttachment, folder, uid, true), "_blank");
+                	viewImageLink.setStyleName(HupaCSS.C_attachment_view);
+                	aPanel.add(viewImageLink);
+                }
                 attachments.add(aPanel);
             }
         }
+    }
+    
+    private String getUrl(MessageAttachment messageAttachment, String folder, long uid, boolean inline) {
+        return GWT.getModuleBaseURL() + SConsts.SERVLET_DOWNLOAD 
+                + "?" + SConsts.PARAM_NAME + "=" + messageAttachment.getName() 
+                + "&" + SConsts.PARAM_FOLDER + "=" + folder
+                + "&" + SConsts.PARAM_UID + "=" + uid 
+                + (inline ? "&" + SConsts.PARAM_MODE + "=inline" : "");
     }
 
     public HasClickHandlers getForwardButtonClick() {

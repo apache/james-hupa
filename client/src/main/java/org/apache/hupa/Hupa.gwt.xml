@@ -79,9 +79,10 @@
   <!-- <inherits name="com.google.gwt.junit.JUnit"/> -->
   
   <!-- Inherit the default GWT style sheet.                       -->
-  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
-  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
-  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+<!--   <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
+<!--   <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+<!--   <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+  <inherits name='com.google.gwt.user.theme.clean.Clean'/>    
   
   <!-- CSS loaded asynchronously -->
   <stylesheet src="../Hupa.css"/>

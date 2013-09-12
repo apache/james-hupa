@@ -153,12 +153,13 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
 =======
 >>>>>>> constantly changed by manolo
         loading = new Loading(constants.loading());
-        
+
         mainContainer.setStyleName(HupaCSS.C_login_container);
+        rPanel.addStyleName(HupaCSS.C_login_box);
         flexTable.addStyleName(HupaCSS.C_login_form);
-        usernameTextBox.addStyleName(HupaCSS.C_login_box);
-        passwordTextBox.addStyleName(HupaCSS.C_login_box);
-        
+        usernameTextBox.addStyleName(HupaCSS.C_login_textbox);
+        passwordTextBox.addStyleName(HupaCSS.C_login_textbox);
+         
         buttonBar.add(submitButton);
         buttonBar.add(resetButton);
 

@@ -199,8 +199,8 @@ div.hupa-logo {
 }
 
 div.hupa-top { 
-    padding-left: 80px;
-    padding-right: 8px;
+    padding-left: 90px;
+    margin-right: 8px;
 }
 * html div.hupa-top { 
     padding-left: 0px;
@@ -282,15 +282,20 @@ div.hupa-header {
 	margin-right: 15px;
 }
 div.hupa-header {
+<<<<<<< HEAD
     color: transparent;
 <<<<<<< HEAD
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+	display: none;
+>>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
 	padding-left: 10px;
 	height: 32px;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 .hupa-central {
@@ -301,6 +306,9 @@ div.hupa-header {
 =======
 >>>>>>> first commit
 div.hupa-main {
+=======
+.hupa-central {
+>>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
 	clear: both;
 	margin: 8px 8px 8px 8px;
 	min-height: 500px;
@@ -333,8 +341,7 @@ div.hupa-main {
     text-align: center;
 }
 
-div.hupa-flash {
-	border: 1px solid #FAD163;
+.hupa-flash {
     background-color: #fae5b0;
 	text-align: center;
     margin: auto auto 2px auto;
@@ -398,14 +405,14 @@ div.hupa-bottom {
 >>>>>>> first commit
 table.hupa-login {
     text-align: right;
-	margin-left: auto;
-	margin-right: auto; 
-	padding: 40px;
+    margin-left: -220px;
+    position: relative;
+    left: 50%;
+    padding: 40px;
 }
 
 table.hupa-login td {
 	text-align: center;
-	padding-top: 6px;
 }
 table.hupa-login-form {
 <<<<<<< HEAD
@@ -648,6 +655,7 @@ div.hupa-msgview-content {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 .hupa-attachment-view {
 	margin-left: 10px;
 }
@@ -656,6 +664,12 @@ div.hupa-msgview-content {
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+.hupa-attachment-view {
+	margin-left: 10px;	
+}
+
+>>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
 /************[ view: MessageSendView ]*******************/
 table.hupa-msgsend {
 	width: 100%;
@@ -887,7 +901,7 @@ body {
 .hupa-rounded {
     box-shadow: 0 1px 4px grey;
 }
-.hupa-top-wrap, .hupa-login-form, .hupa-msg-top-bar {
+.hupa-top-wrap, .hupa-login-box, .hupa-msg-top-bar {
     background: -moz-linear-gradient(#FFFFFF, #C5D9FF);
     background: -webkit-linear-gradient(#FFFFFF, #C5D9FF);
     background: -o-linear-gradient(#FFFFFF, #C5D9FF);
@@ -957,6 +971,15 @@ div.hupa-main {
     background: -webkit-linear-gradient(#FFFFFF, #dcdcdc);
     background: -o-linear-gradient(#FFFFFF, #dcdcdc);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#dcdcdc',GradientType=0 );
+}
+
+.gwt-DecoratorPanel .middleCenter {
+   height: 100%;
+   width: 100%;
+}
+.gwt-SuggestBox {
+    border-radius: 50px;
+    max-height: 8px;
 }
 
 

@@ -39,6 +39,7 @@ public class SConsts {
     public static final String PARAM_UID = "uid";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static final String PARAM_MODE = "mode";
     
     public static final String USER_SESS_ATTR = "user";
@@ -55,6 +56,9 @@ public class SConsts {
     public static final String CONTACTS_SESS_ATTR = "contacts";
 >>>>>>> first commit
 =======
+=======
+    public static final String PARAM_MODE = "mode";
+>>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
     
     public static final String USER_SESS_ATTR = "user";
     public static final String CONTACTS_SESS_ATTR = "contacts";

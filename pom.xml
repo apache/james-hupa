@@ -193,10 +193,19 @@
         </properties>
       </profile>
       <profile>
-        <!-- Deliver Hupa with Demo stuff -->
         <id>demo</id>
         <properties>
           <mock.scope />
+        </properties>
+      </profile>
+      <profile>
+        <!-- Deliver Hupa with Demo stuff -->
+        <id>pretty</id>
+        <properties>
+          <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
+          <gwt.style>PRETTY</gwt.style>
+          <mock.scope />
+          <gwt.logLevel>TRACE</gwt.logLevel>
         </properties>
       </profile>
     </profiles>

@@ -42,12 +42,14 @@ public class HupaCSS extends WidgetsCSS {
     public static final String C_flash ="hupa-flash";
 
     public static final String C_top_container ="hupa-top";
+    public static final String C_central_container ="hupa-central";
     public static final String C_main_container ="hupa-main";
     public static final String C_bottom_container ="hupa-bottom";
     
     public static final String C_login_container = "hupa-login";
+    public static final String C_login_box = "hupa-login-box";
     public static final String C_login_form = "hupa-login-form";
-    public static final String C_login_box = "hupa-login-textbox";
+    public static final String C_login_textbox = "hupa-login-textbox";
     
     public static final String C_contacts_container = "hupa-contacts";
 

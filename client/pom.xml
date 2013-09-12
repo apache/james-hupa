@@ -138,6 +138,11 @@
             <artifactId>validation-api</artifactId>
             <scope>provided</scope>
         </dependency>
+	    <dependency>
+	      <groupId>javax.validation</groupId>
+	      <artifactId>validation-api</artifactId>
+	      <classifier>sources</classifier>
+	    </dependency>
         <dependency>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -221,6 +226,7 @@
                     <disableClassMetadata>${gwt.disableClassMetadata}</disableClassMetadata>
                     <disableCastChecking>${gwt.disableCastChecking}</disableCastChecking>
                     <logLevel>${gwt.logLevel}</logLevel>
+                    <style>${gwt.style}</style>
                     <modules>
                         <module>org.apache.hupa.Hupa${gwt.moduleSuffix}</module>
                     </modules>

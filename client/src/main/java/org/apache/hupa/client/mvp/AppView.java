@@ -77,7 +77,7 @@ public class AppView extends Composite implements AppPresenter.Display {
         appContainer.addStyleName(HupaCSS.C_app_container);
         logoContainer.addStyleName(HupaCSS.C_logo_container);
         topContainer.addStyleName(HupaCSS.C_top_container);
-        centralContainer.addStyleName(HupaCSS.C_main_container);
+        centralContainer.addStyleName(HupaCSS.C_central_container);
         bottomContainer.addStyleName(HupaCSS.C_bottom_container);
         
         topWrapper.addStyleName(HupaCSS.C_top_container + "-wrap");

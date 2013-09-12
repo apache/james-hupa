@@ -36,6 +36,7 @@
   
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   <replace-with class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorCss3">
     <when-type-is class="org.apache.hupa.widgets.ui.impl.RndPanelGenerator"/>
   </replace-with>
@@ -53,6 +54,13 @@
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+  <replace-with class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorCss3">
+    <when-type-is class="org.apache.hupa.widgets.ui.impl.RndPanelGenerator"/>
+  </replace-with>
+    
+  <replace-with class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorDecorator">
+>>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
     <when-type-is class="org.apache.hupa.widgets.ui.impl.RndPanelGenerator"/>
     <any>
       <when-property-is name="user.agent" value="ie6"/>
