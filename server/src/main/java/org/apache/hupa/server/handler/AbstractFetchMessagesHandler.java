@@ -40,6 +40,7 @@ import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.Tag;
 import org.apache.hupa.shared.data.User;
@@ -64,7 +65,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         User user = getUser();
         IMAPFolder folder = action.getFolder();
         if (folder == null) {
-            folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+            folder = new IMAPFolderImpl(user.getSettings().getInboxFolderName());
         }
         com.sun.mail.imap.IMAPFolder f = null;
         int start = action.getStart();

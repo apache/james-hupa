@@ -19,20 +19,21 @@
 
 package org.apache.hupa.server.handler;
 
-import org.apache.hupa.server.HupaGuiceTestCase;
-import org.apache.hupa.server.mock.MockIMAPFolder;
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.rpc.FetchMessages;
-import org.apache.hupa.shared.rpc.FetchMessagesResult;
-
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 import javax.mail.Flags;
+import javax.mail.Flags.Flag;
 import javax.mail.Folder;
 import javax.mail.Message;
-import javax.mail.Flags.Flag;
 import javax.mail.internet.MimeMessage;
+
+import org.apache.hupa.server.HupaGuiceTestCase;
+import org.apache.hupa.server.mock.MockIMAPFolder;
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.IMAPFolderImpl;
+import org.apache.hupa.shared.rpc.FetchMessages;
+import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
 public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
 
@@ -70,7 +71,7 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         MockIMAPFolder serverfolder = (MockIMAPFolder)store.getFolder("WHATEVER"); 
         serverfolder.create(Folder.HOLDS_MESSAGES);
         
-        IMAPFolder clientfolder = new IMAPFolder("WHATEVER");
+        IMAPFolder clientfolder = new IMAPFolderImpl("WHATEVER");
         FetchMessagesResult result = fetchMessagesHandler.execute(new FetchMessages(clientfolder, 0, 10, "*"), null);
         assertEquals(0, result.getRealCount());
         

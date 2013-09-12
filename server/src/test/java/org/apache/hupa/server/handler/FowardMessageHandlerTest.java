@@ -27,6 +27,7 @@ import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.rpc.ForwardMessage;
 
@@ -51,7 +52,7 @@ public class FowardMessageHandlerTest extends HupaGuiceTestCase {
         message = inbox.getMessageByUID(msgUid);
         assertNotNull(message);
         
-        IMAPFolder ifolder = new IMAPFolder(inbox.getFullName());
+        IMAPFolder ifolder = new IMAPFolderImpl(inbox.getFullName());
         SMTPMessage smtpmsg = TestUtils.createMockSMTPMessage(registry, 2);
         ForwardMessage action = new ForwardMessage(smtpmsg, ifolder, msgUid);
         

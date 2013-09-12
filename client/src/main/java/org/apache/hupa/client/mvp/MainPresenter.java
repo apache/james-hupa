@@ -34,6 +34,7 @@ import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.MessageDetails;
@@ -180,7 +181,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
                 public void onEditEvent(EditEvent event) {
                     if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                        IMAPFolder iFolder = new IMAPFolder((String) event.getOldValue());
+                        IMAPFolder iFolder = new IMAPFolderImpl((String) event.getOldValue());
                         final String newName = (String) event.getNewValue();
                         if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
                             dispatcher.execute(new RenameFolder(iFolder, newName), new HupaCallback<GenericResult>(dispatcher, eventBus) {
@@ -446,7 +447,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                         final IMAPTreeItem item = (IMAPTreeItem) event.getSource();
                         final String newValue = (String) event.getNewValue();
                         if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                            dispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<GenericResult>() {
+                            dispatcher.execute(new CreateFolder(new IMAPFolderImpl(newValue.trim())), new AsyncCallback<GenericResult>() {
 
                                 public void onFailure(Throwable caught) {
                                     GWT.log("Error while create folder", caught);
@@ -479,7 +480,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
-                folder = new IMAPFolder(user.getSettings().getInboxFolderName());;
+                folder = new IMAPFolderImpl(user.getSettings().getInboxFolderName());;
                 searchValue = null;
                 showMessageTable(user, folder, searchValue);
             }

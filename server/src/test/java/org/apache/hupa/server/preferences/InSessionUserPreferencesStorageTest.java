@@ -25,6 +25,7 @@ import org.apache.hupa.server.handler.FetchMessagesHandler;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.rpc.FetchFolders;
 import org.apache.hupa.shared.rpc.FetchMessages;
@@ -44,7 +45,7 @@ public class InSessionUserPreferencesStorageTest extends HupaGuiceTestCase {
         FetchFoldersHandler fetchFoldersHandler = injector.getInstance(FetchFoldersHandler.class); 
         fetchFoldersHandler.execute(new FetchFolders(), null);
         
-        IMAPFolder folder = new IMAPFolder(testUser.getSettings().getInboxFolderName());
+        IMAPFolder folder = new IMAPFolderImpl(testUser.getSettings().getInboxFolderName());
         FetchMessagesHandler fetchMessagesHandler = injector.getInstance(FetchMessagesHandler.class); 
         FetchMessagesResult result = fetchMessagesHandler.execute(new FetchMessages(folder, 0, 10, null), null);
         

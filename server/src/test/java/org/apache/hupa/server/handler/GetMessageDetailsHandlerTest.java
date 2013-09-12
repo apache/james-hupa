@@ -19,17 +19,17 @@
 
 package org.apache.hupa.server.handler;
 
-import com.sun.mail.imap.IMAPFolder;
-import com.sun.mail.imap.IMAPStore;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.internet.MimeMessage;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.MessageDetails;
 
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.internet.MimeMessage;
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPStore;
 
 public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
 
@@ -182,7 +182,7 @@ public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
         MimeMessage msg = TestUtils.loadMessageFromFile(session,"7.msg");
         serverfolder.addMessages(new Message[]{msg});
         
-        org.apache.hupa.shared.data.IMAPFolder clientfolder = new org.apache.hupa.shared.data.IMAPFolder("WHATEVER");
+        org.apache.hupa.shared.data.IMAPFolder clientfolder = new org.apache.hupa.shared.data.IMAPFolderImpl("WHATEVER");
         MessageDetails details = getDetailsHandler.exposeMessage(testUser, clientfolder, 0);
         
         // inline images have to be downloaded from the server

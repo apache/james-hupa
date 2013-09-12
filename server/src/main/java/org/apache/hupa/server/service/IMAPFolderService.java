@@ -6,7 +6,6 @@ import java.util.Properties;
 
 import javax.mail.Folder;
 import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +13,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.User;
 
 import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
@@ -83,7 +83,7 @@ public class IMAPFolderService {
         try {
             System.out.println("Creating folder: " + fullName + " for user: ");
             delimiter = String.valueOf(folder.getSeparator());
-            iFolder = new IMAPFolder(fullName);
+            iFolder = new IMAPFolderImpl(fullName);
             iFolder.setDelimiter(delimiter);
             if("[Gmail]".equals(folder.getFullName()))
                 return iFolder;

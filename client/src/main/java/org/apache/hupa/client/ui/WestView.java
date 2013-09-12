@@ -90,6 +90,7 @@ import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.User;
@@ -499,7 +500,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
 
         // Generate a new folder with a whitespace as name, this is needed as
         // workaround
-        IMAPFolder folder = new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
+        IMAPFolder folder = new IMAPFolderImpl(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
         folder.setDelimiter(oldFolder.getDelimiter());
 
         final IMAPTreeItem newItem = new IMAPTreeItem(folder);

@@ -21,17 +21,39 @@ package org.apache.hupa.shared.data;
 
 import java.util.ArrayList;
 
-import org.apache.hupa.shared.rf.Entity;
+import org.apache.hupa.shared.rf.EntityBase;
 
 /**
  * IMAPFolder
  * 
  */
-public interface IMAPFolder extends Entity{
+public class IMAPFolderImpl extends EntityBase implements IMAPFolder{
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 2084188092060266479L;
 
-    public void setSubscribed(boolean subscribed);
+    private ArrayList<IMAPFolder> childs = new ArrayList<IMAPFolder>();
+    private String fullName;
+    private String delimiter;
+    private int msgCount;
+    private int unseenMsgCount;
+    private boolean subscribed = false;
+
+    public IMAPFolderImpl() {
+    }
+
+    public IMAPFolderImpl(String fullName) {
+        setFullName(fullName);
+    }
+
+    public void setSubscribed(boolean subscribed) {
+        this.subscribed = subscribed;
+    }
     
-    public boolean getSubscribed();
+    public boolean getSubscribed() {
+        return subscribed;
+    }
     
     
     /**
@@ -39,76 +61,123 @@ public interface IMAPFolder extends Entity{
      * 
      * @return name
      */
-    public String getName();
+    public String getName() {
+        if (delimiter != null) {
+            String fParts[] = getFullName().split("\\" + delimiter);
+            if (fParts != null && fParts.length > 0) {
+                return fParts[fParts.length - 1];
+            }
+        }
+        return fullName;
+    }
 
     /**
      * Set the child folders 
      * 
      * @param childs
      */
-    public void setChildIMAPFolders(ArrayList<IMAPFolder> childs);
+    public void setChildIMAPFolders(ArrayList<IMAPFolder> childs) {
+        this.childs = childs;
+    }
 
     /**
      * Return the childs of this folder
      * 
      * @return childs
      */
-    public ArrayList<IMAPFolder> getChildIMAPFolders();
+    public ArrayList<IMAPFolder> getChildIMAPFolders() {
+        return childs;
+    }
 
     /**
      * Return the full name of the folder. This include the full path
      * @return Full name of the folder
      */
-    public String getFullName();
+    public String getFullName() {
+        return fullName;
+    }
 
     /**
      * Set the full name of the folder
      * 
      * @param fullName
      */
-    public void setFullName(String fullName);
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     /**
      * Set the delimiter which is used to seperate folders
      * 
      * @param delimiter
      */
-    public void setDelimiter(String delimiter) ;
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
+    }
 
     /**
      * Return the delimiter
      * 
      * @return delimiter
      */
-    public String getDelimiter();
+    public String getDelimiter() {
+        return delimiter;
+    }
 
     /**
      * Return the total message count of the messages that exists within this folder
      * 
      * @return msgCount
      */
-    public int getMessageCount();
+    public int getMessageCount() {
+        return msgCount;
+    }
 
     /**
      * Set total message count
      * 
      * @param msgCount
      */
-    public void setMessageCount(int msgCount);
+    public void setMessageCount(int msgCount) {
+        this.msgCount = msgCount;
+    }
 
     /**
      * Set the count of all unseen messages within this folder
      * 
      * @param unseenMsgCount
      */
-    public void setUnseenMessageCount(int unseenMsgCount) ;
+    public void setUnseenMessageCount(int unseenMsgCount) {
+        this.unseenMsgCount = unseenMsgCount;
+    }
 
     /**
      * Return the unseen message count
      * 
      * @return unseenMsgCount
      */
-    public int getUnseeMessageCount() ;
+    public int getUnseeMessageCount() {
+        return unseenMsgCount;
+    }
 
+    @Override
+    public String toString() {
+        return getFullName();
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof IMAPFolderImpl) {
+            if (((IMAPFolderImpl) o).getFullName().equals(getFullName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return getFullName().hashCode();
+    }
     
 }

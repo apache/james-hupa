@@ -33,6 +33,7 @@ import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.User;
@@ -60,7 +61,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -441,7 +441,7 @@ public class MainView extends Composite implements MainPresenter.Display {
 
         // Generate a new folder with a whitespace as name, this is needed as
         // workaround
-        IMAPFolder folder = new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
+        IMAPFolder folder = new IMAPFolderImpl(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
         folder.setDelimiter(oldFolder.getDelimiter());
 
         final IMAPTreeItem newItem = new IMAPTreeItem(folder);
