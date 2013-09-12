@@ -129,7 +129,7 @@
 		}
 	</ui:style>
 	<g:DockLayoutPanel unit="PX">
-		<g:north size="56">
+		<g:north size="0">
 			<g:HTMLPanel addStyleNames="{style.previewheader} {style.messageheader}">
 			</g:HTMLPanel>
 		</g:north>
