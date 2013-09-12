@@ -1,6 +1,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
 =======
 >>>>>>> constantly changed by manolo
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -75,12 +78,18 @@
         </dependency>
         <dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> constantly changed by manolo
             <groupId>net.customware.gwt.dispatch
         </groupId>
             <artifactId>gwt-dispatch</artifactId>
         </dependency>
         <dependency>
+<<<<<<< HEAD
+>>>>>>> constantly changed by manolo
+=======
 >>>>>>> constantly changed by manolo
             <groupId>com.googlecode.gwtupload</groupId>
             <artifactId>gwtupload</artifactId>
@@ -116,16 +125,20 @@
         </dependency>
         <dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
         </dependency>
         <dependency>
 =======
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> constantly changed by manolo
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <!-- ECS specific stuff
             ECS encryption needs oracle crypto extension to work
@@ -137,6 +150,8 @@
              <artifactId>bcprov-ext-jdk14</artifactId>
              <version>1.49</version>
         </dependency>
+=======
+>>>>>>> constantly changed by manolo
 =======
 >>>>>>> constantly changed by manolo
     </dependencies>
@@ -162,6 +177,7 @@
         </plugins>
     </build>
 </project>
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -311,3 +327,5 @@
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo

@@ -19,6 +19,7 @@
 -->
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 =======
 <project
@@ -29,15 +30,22 @@
 >>>>>>> constantly changed by manolo
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 >>>>>>> first commit
+=======
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+>>>>>>> constantly changed by manolo
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.hupa</groupId>
         <artifactId>hupa-parent</artifactId>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <version>0.0.3-SNAPSHOT</version>
 =======
         <version>0.0.2-SNAPSHOT</version>
 >>>>>>> first commit
+=======
+        <version>0.0.3-SNAPSHOT</version>
+>>>>>>> constantly changed by manolo
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>hupa</artifactId>

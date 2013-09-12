@@ -29,6 +29,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				reading, sending and managing messages, but it still lacks of many features
 				email clients nowadays have.</p>
 =======
@@ -43,6 +44,10 @@
 				reading, sending and managing messages, but it lacks of many features
 				email clients nowadays have like address book </p>
 >>>>>>> first commit
+=======
+				reading, sending and managing messages, but it still lacks of many features
+				email clients nowadays have.</p>
+>>>>>>> constantly changed by manolo
 		</section>
 
         <section name="Releases">
@@ -50,6 +55,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
 =======
 >>>>>>> constantly changed by manolo
                 Last release is Hupa 0.0.2:<br/>
@@ -61,6 +69,7 @@
                 <a href='https://builds.apache.org/job/hupa-trunk/lastBuild/org.apache.james.hupa$hupa/artifact/org.apache.james.hupa/hupa/0.0.3-SNAPSHOT/hupa-0.0.3-SNAPSHOT.war'>
                  0.3-SNAPSHOT
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                 Although there isn't a stable release yet you can download the latest
                 <a href='https://builds.apache.org/job/hupa-trunk/lastBuild/org.apache.hupa$hupa/artifact/org.apache.hupa/hupa/0.0.2-SNAPSHOT/hupa-0.0.2-SNAPSHOT.war'>
@@ -73,6 +82,8 @@
                 <a href='https://builds.apache.org/job/hupa-trunk/lastBuild/org.apache.hupa$hupa/artifact/org.apache.hupa/hupa/0.0.2-SNAPSHOT/hupa-0.0.2-SNAPSHOT.war'>
                  0.2-SNAPSHOT
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
                 </a>
                 from our continuous integration server.
             </p>
@@ -91,12 +102,16 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
 =======
 >>>>>>> constantly changed by manolo
                 <h4>Jun/2012 - Hupa 0.2 released</h4>
                 <p>
                    First stable version.
                 </p>
+<<<<<<< HEAD
 <<<<<<< HEAD
                 <h4>Apr/2012 - Hupa evolution accepted</h4>
                 <p>
@@ -119,6 +134,8 @@
                         making it better !.
 >>>>>>> constantly changed by manolo
 =======
+=======
+>>>>>>> constantly changed by manolo
                 <h4>Apr/2012 - Hupa evolution accepted</h4>
                 <p>
 <<<<<<< HEAD
@@ -154,6 +171,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <h4>Jun/2010 - Hupa 0.0.1</h4>
 =======
                 <h4>Jun/2010 - Hupa 0.1</h4>
@@ -164,6 +182,9 @@
 =======
                 <h4>Jun/2010 - Hupa 0.1</h4>
 >>>>>>> first commit
+=======
+                <h4>Jun/2010 - Hupa 0.0.1</h4>
+>>>>>>> constantly changed by manolo
                 <p>First beta release, with an improved interface and fully
                     functional (read, edit, send, secure, attachments, etc)</p>
             </subsection>

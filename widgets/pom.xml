@@ -1,6 +1,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
 =======
 >>>>>>> constantly changed by manolo
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -43,6 +46,7 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-incubator</artifactId>
         </dependency>
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -96,6 +100,8 @@
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
         <dependency>
             <groupId>org.cobogw.gwt</groupId>
             <artifactId>cobogw</artifactId>
@@ -103,6 +109,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
 =======
 >>>>>>> constantly changed by manolo
     </dependencies>
@@ -123,6 +132,7 @@
             </resource>
         </resources>
     </build>
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -151,4 +161,6 @@
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 </project>
