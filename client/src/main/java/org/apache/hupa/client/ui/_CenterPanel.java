@@ -68,7 +68,7 @@ public class _CenterPanel extends Composite {
 
 	// TODO make it display to remove this method and the corresponding code
 	public void temporarilyHiddenTheUnimplementedContactPanel(boolean hidden) {
-		thisPanel.setWidgetHidden(outlinePanel, hidden);
+//		thisPanel.setWidgetHidden(outlinePanel, hidden);
 	}
 
 	public AcceptsOneWidget getFolderListView() {

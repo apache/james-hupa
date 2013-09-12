@@ -46,21 +46,21 @@ public class ComposeActivityMapper implements ActivityMapper {
 	public Activity getActivity(final Place place) {
 		if (!(place instanceof ComposePlace))
 			return null;
-		return composeActivityProvider.get().with((ComposePlace)place);
-//		return new ActivityAsyncProxy() {
-//			@Override
-//			protected void doAsync(RunAsyncCallback callback) {
-//				GWT.runAsync(callback);
-//			}
-//
-//			@Override
-//			protected Activity createInstance() {
-//				ComposePlace composePlace = (ComposePlace) place;
-//				if (composePlace.getParameters() == null) {
-//					placeController.goTo(new MailFolderPlace(""));
-//				}
-//				return composeActivityProvider.get().with(composePlace);
-//			}
-//		};
+		final ComposePlace composePlace = (ComposePlace)place;
+		if(composePlace.getParameters() == null) return null;
+//		if(composePlace.getParameters() == null){
+//			placeController.goTo(new MailFolderPlace("Mock-Inbox"));
+//		}
+		return new ActivityAsyncProxy() {
+			@Override
+			protected void doAsync(RunAsyncCallback callback) {
+				GWT.runAsync(callback);
+			}
+
+			@Override
+			protected Activity createInstance() {
+				return composeActivityProvider.get().with(composePlace);
+			}
+		};
 	}
 }

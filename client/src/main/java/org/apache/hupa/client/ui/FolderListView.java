@@ -246,21 +246,22 @@ public class FolderListView extends Composite implements
 	public FolderListView(final FoldersTreeViewModel viewModel,
 			final EventBus eventBus, @Assisted Place place) {
 		initWidget(binder.createAndBindUi(this));
-		if (place instanceof ComposePlace) {
-			contactPanel = new HTMLPanel("contacts list");
-			if (thisView.getWidget() != null
-					&& thisView.getWidget() instanceof CellTree) {
-				thisView.remove(cellTree);
-			}
-			thisView.add(contactPanel);
-		} else {
+//		if (place instanceof ComposePlace) {
+//			contactPanel = new HTMLPanel("contacts list");
+//			if (thisView.getWidget() != null
+//					&& thisView.getWidget() instanceof CellTree) {
+//				thisView.remove(cellTree);
+//			}
+//			thisView.add(contactPanel);
+//		} else {
 			cellTree = new RightCellTree(viewModel);
 			cellTree.setAnimationEnabled(true);
-			if (thisView.getWidget() != null
-					&& thisView.getWidget() instanceof HTMLPanel) {
-				thisView.remove(contactPanel);
-			}
+//			if (thisView.getWidget() != null
+//					&& thisView.getWidget() instanceof HTMLPanel) {
+//				thisView.remove(contactPanel);
+//			}
 			thisView.add(cellTree);
+<<<<<<< HEAD
 		}
 <<<<<<< HEAD
 		cellTree.setAnimationEnabled(true);
@@ -268,6 +269,9 @@ public class FolderListView extends Composite implements
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
 >>>>>>> make compose panel left another widget rather than cell tree
+=======
+//		}
+>>>>>>> fixed issue#32
 	}
 
 	interface FolderListUiBinder extends UiBinder<SimplePanel, FolderListView> {

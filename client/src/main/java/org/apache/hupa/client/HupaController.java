@@ -309,7 +309,7 @@ public class HupaController {
 			if(((ComposePlace)place).getParameters() != null){
 			hupaLayout.switchToCompose();
 			}else{
-				this.placeController.goTo(new DefaultPlace("@"));
+				this.placeController.goTo(new MailFolderPlace("Mock-Inbox"));
 			}
 		} else {
 			hupaLayout.switchToMessage();
