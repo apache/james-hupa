@@ -204,6 +204,11 @@ public class ToolBarActivity extends AppBaseActivity {
 	//FIXME messagesDisplay can not be injected into ToolBarView, why?
 	private String folderName;
 	
+	@Override
+	public void onStop(){
+		//for tool bar work as expected, not to unbind event handlers
+	}
+	
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
