@@ -140,7 +140,6 @@ import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 public class LoginActivity extends AbstractActivity {
 
@@ -292,6 +291,9 @@ public class LoginActivity extends AbstractActivity {
 
 		display.setLoading(true);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
 //		HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
 //		rf.initialize(eventBus);
 //		UserRequest userRequest = rf.userRequest();
@@ -311,8 +313,11 @@ public class LoginActivity extends AbstractActivity {
 		
 		
 		
+<<<<<<< HEAD
 =======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+>>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
 		dispatcher.execute(new LoginUser(user, pass), new HupaEvoCallback<LoginUserResult>(dispatcher, eventBus,
 				display) {
 			public void callback(LoginUserResult result) {
@@ -371,6 +376,7 @@ public class LoginActivity extends AbstractActivity {
 			}
 		});
 		
+<<<<<<< HEAD
 =======
 				Window.alert("failure");
 //				LoginActivity.this.placeController.goTo(newGoToPlaceProvider.get());
@@ -384,6 +390,8 @@ public class LoginActivity extends AbstractActivity {
 			}
 		});
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+>>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
 	}
 
 	/**

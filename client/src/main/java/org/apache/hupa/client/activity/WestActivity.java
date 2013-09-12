@@ -310,6 +310,9 @@ import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
+import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.rf.IMAPFolderProxy;
+import org.apache.hupa.client.rf.IMAPFolderRequestContext;
 import org.apache.hupa.client.ui.WidgetContainerDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
@@ -344,8 +347,6 @@ import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.SentMessageEventHandler;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
-import org.apache.hupa.shared.rpc.FetchFolders;
-import org.apache.hupa.shared.rpc.FetchFoldersResult;
 import org.apache.hupa.shared.rpc.GenericResult;
 <<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
@@ -381,6 +382,7 @@ import com.google.gwt.user.client.ui.TreeItem;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.web.bindery.requestfactory.shared.Receiver;
 =======
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -393,6 +395,9 @@ import com.google.inject.Inject;
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> 
+=======
+import com.google.web.bindery.requestfactory.shared.Receiver;
+>>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
 
 public class WestActivity extends AbstractActivity {
 
@@ -516,6 +521,9 @@ public class WestActivity extends AbstractActivity {
     protected void loadTreeItems() {
         display.setLoadingFolders(true);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
         
         HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
 		rf.initialize(eventBus);
@@ -532,7 +540,12 @@ public class WestActivity extends AbstractActivity {
 
 			@Override
 			public void onSuccess(List<IMAPFolderProxy> response) {
+<<<<<<< HEAD
               display.bindTreeItems(createTreeNodes(response));
+=======
+System.out.println("1111111"+response);
+              display.bindTreeItems(null);
+>>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
 //              // disable
               display.getDeleteEnable().setEnabled(false);
               display.getRenameEnable().setEnabled(false);
@@ -553,6 +566,7 @@ public class WestActivity extends AbstractActivity {
 //            }
 //        });
         
+<<<<<<< HEAD
 =======
         dispatcher.execute(new FetchFolders(), new HupaEvoCallback<FetchFoldersResult>(dispatcher, eventBus, display) {
             public void callback(FetchFoldersResult result) {
@@ -565,6 +579,8 @@ public class WestActivity extends AbstractActivity {
             }
         });
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
     }
 
     /**

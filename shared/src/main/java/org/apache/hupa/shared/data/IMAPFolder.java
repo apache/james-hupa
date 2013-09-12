@@ -22,11 +22,20 @@ package org.apache.hupa.shared.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 
 import org.apache.hupa.shared.rf.EntityBase;
 =======
 >>>>>>> first commit
+=======
+import java.util.List;
+import java.util.Properties;
+
+import javax.servlet.http.HttpSession;
+
+import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
+>>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
 
 /**
  * IMAPFolder
@@ -60,9 +69,36 @@ public class IMAPFolder extends EntityBase implements Serializable {
 	/**
 =======
 public class IMAPFolder implements Serializable {
+<<<<<<< HEAD
 
     /**
 >>>>>>> first commit
+=======
+	
+	private Long id;
+	private Long version;
+	
+
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+	
+	
+
+	/**
+>>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
      * 
      */
     private static final long serialVersionUID = 2084188092060266479L;

@@ -162,9 +162,13 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
             try {
                 cstore.getStore().connect(address, port, username, password);
 <<<<<<< HEAD
+<<<<<<< HEAD
                 System.out.println(address +"ImMemory"+ port);
 =======
 >>>>>>> first commit
+=======
+                System.out.println(address +"ImMemory"+ port);
+>>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
             } catch (MessagingException e) {
                     throw (e);
             }
