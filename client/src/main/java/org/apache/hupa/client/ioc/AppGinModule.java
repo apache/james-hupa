@@ -522,6 +522,7 @@ public class AppGinModule extends AbstractGinModule {
 =======
 >>>>>>> forward and reply message to use RF
 
+<<<<<<< HEAD
 		bind(WestActivity.class).in(Singleton.class);
 =======
 		
@@ -530,6 +531,8 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 		bind(LoginActivity.class).in(Singleton.class);
 >>>>>>> remove gwt-incubator dependency in Messages List Model; 
+=======
+>>>>>>> remove the duplicate bind of LoginActivity
 		bind(TopActivity.class).in(Singleton.class);
 		bind(WestActivity.class).in(Singleton.class);
 		bind(IMAPMessageListActivity.class).in(Singleton.class);

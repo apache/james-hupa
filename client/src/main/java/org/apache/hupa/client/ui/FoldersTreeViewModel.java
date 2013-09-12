@@ -74,7 +74,6 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	 */
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
-		System.out.println("-=-=-=-=-"+value);
 		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(
 				(ImapFolder) value), new AbstractCell<ImapFolder>() {
 			@Override
@@ -103,7 +102,6 @@ public class FoldersTreeViewModel implements TreeViewModel {
 
 		@Override
 		protected void onRangeChanged(HasData<ImapFolder> display) {
-			System.out.println("display -"+display);
 			rf.fetchFoldersRequest().fetch(folder)
 					.fire(new Receiver<List<ImapFolder>>() {
 						@Override
