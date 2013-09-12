@@ -569,7 +569,12 @@ public class WestActivity extends AbstractActivity {
 =======
 =======
 	@Inject private HupaRequestFactory requestFactory;
+<<<<<<< HEAD
 >>>>>>> Succeed creating new folder
+=======
+	
+	private FetchMessagesRequest messageRequest;
+>>>>>>> Solved the "java.lang.IllegalArgumentException: Attempting to edit an EntityProxy  previously edited by another RequestContext" and make GetMessageDetails work. Thanks to http://fascynacja.wordpress.com/tag/java-lang-illegalargumentexception-attempting-to-edit-an-entityproxy-previously-edited-by-another-requestcontext/
 
 	private User user;
 	private ImapFolder folder;
@@ -902,8 +907,9 @@ System.out.println("1111111"+response);
 				}
 
 				display.setLoadingMessage(true);
-				GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
+				GetMessageDetailsRequest req = messageRequest.append(requestFactory.messageDetailsRequest());
 				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
+//				ImapFolder imapFolder = req.edit(event.getFolder());
 				action.setFolder(event.getFolder());
 				action.setUid(message.getUid());
 				req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
@@ -1092,8 +1098,8 @@ System.out.println("1111111"+response);
 				folder = (ImapFolder) tItem.getUserObject();
 =======
 				ImapFolder editableFolder = (ImapFolder) tItem.getUserObject();
-				FetchMessagesRequest req = requestFactory.messagesRequest();
-				folder = req.edit(editableFolder);
+				messageRequest = requestFactory.messagesRequest();
+				folder = messageRequest.edit(editableFolder);
 
 				// folder = (ImapFolder) tItem.getUserObject();
 				eventBus.fireEvent(new LoadMessagesEvent(user, folder));

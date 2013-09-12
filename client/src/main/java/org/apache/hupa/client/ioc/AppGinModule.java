@@ -408,6 +408,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
 
 		bind(WestActivity.class).in(Singleton.class);
+		bind(TopActivity.class).in(Singleton.class);
 		
 		// Places
 		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
