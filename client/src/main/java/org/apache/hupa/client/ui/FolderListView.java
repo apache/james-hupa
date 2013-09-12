@@ -358,12 +358,14 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 		@Override
 		public void render(Context context, LabelNode value, SafeHtmlBuilder sb) {
 			if (value != null) {
-				sb.appendEscaped(value.getName());
-			}
-			if (value.getFolder().getUnseenMessageCount() > 0) {
-				sb.appendHtmlConstant("<span style='position:absolute;right:6px;top:3px;font-weight:bold;'>(");
-				sb.appendHtmlConstant("" + value.getFolder().getUnseenMessageCount());
-				sb.appendHtmlConstant(")</span>");
+				if (value.getFolder().getUnseenMessageCount() > 0) {
+					sb.appendHtmlConstant("<span style='right:6px;top:3px;font-weight:bold;'>");
+					sb.appendHtmlConstant(value.getNameForDisplay());
+					sb.appendHtmlConstant(" (" + value.getFolder().getUnseenMessageCount());
+					sb.appendHtmlConstant(")</span>");
+				} else {
+					sb.appendHtmlConstant(value.getNameForDisplay());
+				}
 			}
 		}
 	}
