@@ -48,7 +48,7 @@ public class AppController {
 	}
 
 	public void start() {
-		RootLayoutPanel.get().add(appPanelView.getMainLayoutPanel());
+		RootLayoutPanel.get().add(appPanelView.getAppLayoutPanel());
 		placeHistoryHandler.handleCurrentHistory();
 	}
 

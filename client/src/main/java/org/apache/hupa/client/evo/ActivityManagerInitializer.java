@@ -36,9 +36,9 @@ public class ActivityManagerInitializer {
 			@Named("TopRegion") ActivityManager topActivityManager,
 			@Named("WestRegion") ActivityManager westActivityManager,
 			@Named("MainContentRegion") ActivityManager mainContentActivityManager) {
-		topActivityManager.setDisplay(appPanelView.getTopContainer());
+		topActivityManager.setDisplay(appPanelView.getNorthContainer());
 		westActivityManager.setDisplay(appPanelView.getWestContainer());
-		mainContentActivityManager.setDisplay(appPanelView.getMainContainer());
+		mainContentActivityManager.setDisplay(appPanelView.getCenterContainer());
 	}
 
 }

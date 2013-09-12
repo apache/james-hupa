@@ -510,11 +510,12 @@ import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.DataGrid;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.inject.Inject;
 
-public class MessagesCellTable extends CellTable<Message> {
+public class MessagesCellTable extends DataGrid<Message> {
 
 	private static final int PAGE_SIZE = 15;
 	

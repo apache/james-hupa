@@ -74,11 +74,16 @@ public interface AppLayout {
 =======
 
 public interface AppLayout {
+<<<<<<< HEAD
 	DockLayoutPanel getMainLayoutPanel();
 >>>>>>> use DockLayoutPanel as the App Layout
 	AcceptsOneWidget getTopContainer();
+=======
+	DockLayoutPanel getAppLayoutPanel();
+	AcceptsOneWidget getNorthContainer();
+>>>>>>> use DataGrid instead of CellTable to list messages.
 	AcceptsOneWidget getWestContainer();
-	AcceptsOneWidget getMainContainer();
+	AcceptsOneWidget getCenterContainer();
 	void setLoginLayout();
 	void setDefaultLayout();
 <<<<<<< HEAD

@@ -67,12 +67,14 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 >>>>>>> use DockLayoutPanel as the App Layout
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class AppLayoutImpl implements AppLayout {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -96,6 +98,9 @@ public class AppLayoutImpl implements AppLayout {
 >>>>>>> decorate the theme
 =======
 	private final DockLayoutPanel mainLayoutPanel;
+=======
+	private final DockLayoutPanel appLayoutPanel;
+>>>>>>> use DataGrid instead of CellTable to list messages.
 
 	interface AppLayoutUiBinder extends UiBinder<DockLayoutPanel, AppLayoutImpl> {
 >>>>>>> use DockLayoutPanel as the App Layout
@@ -137,19 +142,24 @@ public class AppLayoutImpl implements AppLayout {
 	@UiField SimplePanel westPanel;
 	@UiField SimplePanel eastPanel;
 
-	@UiField SimplePanel centerPanel;
+	@UiField LayoutPanel centerPanel;
 
 	@Inject
 	public AppLayoutImpl() {
+<<<<<<< HEAD
 		mainLayoutPanel = binder.createAndBindUi(this);
 <<<<<<< HEAD
 >>>>>>> decorate the theme
 =======
 >>>>>>> decorate the theme
+=======
+		appLayoutPanel = binder.createAndBindUi(this);
+>>>>>>> use DataGrid instead of CellTable to list messages.
 		setLoginLayout();
 	}
 
 	@Override
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -185,11 +195,15 @@ public class AppLayoutImpl implements AppLayout {
 =======
 	public DockLayoutPanel getMainLayoutPanel() {
 		return mainLayoutPanel;
+=======
+	public DockLayoutPanel getAppLayoutPanel() {
+		return appLayoutPanel;
+>>>>>>> use DataGrid instead of CellTable to list messages.
 	}
 
 >>>>>>> use DockLayoutPanel as the App Layout
 	@Override
-	public AcceptsOneWidget getTopContainer() {
+	public AcceptsOneWidget getNorthContainer() {
 		return new AcceptsOneWidget() {
 			@Override
 			public void setWidget(IsWidget w) {
@@ -227,6 +241,7 @@ public class AppLayoutImpl implements AppLayout {
 	@Override
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public AcceptsOneWidget getCenterContainer() {
 =======
 	public AcceptsOneWidget getMainContainer() {
@@ -234,6 +249,9 @@ public class AppLayoutImpl implements AppLayout {
 =======
 	public AcceptsOneWidget getMainContainer() {
 >>>>>>> decorate the theme
+=======
+	public AcceptsOneWidget getCenterContainer() {
+>>>>>>> use DataGrid instead of CellTable to list messages.
 		return new AcceptsOneWidget() {
 			@Override
 			public void setWidget(IsWidget w) {
@@ -241,12 +259,16 @@ public class AppLayoutImpl implements AppLayout {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> use DataGrid instead of CellTable to list messages.
 				if(centerPanel.getWidgetCount() > 0){
 					centerPanel.remove(0);
 				}
 				if(widget != null){
 					centerPanel.add(widget);
 				}
+<<<<<<< HEAD
 =======
 				mainPanel.setWidget(widget);
 >>>>>>> decorate the theme
@@ -256,11 +278,14 @@ public class AppLayoutImpl implements AppLayout {
 =======
 				centerPanel.setWidget(widget);
 >>>>>>> use DockLayoutPanel as the App Layout
+=======
+>>>>>>> use DataGrid instead of CellTable to list messages.
 			}
 		};
 	}
 
 	public void setDefaultLayout() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -367,13 +392,24 @@ public class AppLayoutImpl implements AppLayout {
 		mainLayoutPanel.setWidgetSize(southPanel, 2);
 		mainLayoutPanel.setWidgetSize(eastPanel, 0);
 >>>>>>> use DockLayoutPanel as the App Layout
+=======
+		this.arrangeLayout(true);
+>>>>>>> use DataGrid instead of CellTable to list messages.
 	}
 
 	public void setLoginLayout() {
-		mainLayoutPanel.setWidgetSize(westPanel, 0);
-		mainLayoutPanel.setWidgetSize(northPanel, 8);
-		mainLayoutPanel.setWidgetSize(southPanel, 2);
-		mainLayoutPanel.setWidgetSize(eastPanel, 0);
+		this.arrangeLayout(false);
+	}
+	
+	private void arrangeLayout(boolean needWest){
+		this.arrangeLayoutSize(8, 2, needWest ? 15 : 0, 0);
+	}
+	
+	private void arrangeLayoutSize(double n, double s, double w, double e){
+		appLayoutPanel.setWidgetSize(northPanel, n);
+		appLayoutPanel.setWidgetSize(southPanel, s);
+		appLayoutPanel.setWidgetSize(westPanel, w);
+		appLayoutPanel.setWidgetSize(eastPanel, e);
 	}
 <<<<<<< HEAD
 >>>>>>> decorate the theme
