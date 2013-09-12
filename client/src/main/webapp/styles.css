@@ -3,10 +3,14 @@
  *
  * Copyright (c) 2012, The Roundcube Dev Team
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Screendesign by FLINT / Bï¿½ro fï¿½r Gestaltung, bueroflint.com
 =======
  * Screendesign by FLINT / BŸro fŸr Gestaltung, bueroflint.com
 >>>>>>> refactoring theme 1 - login page
+=======
+ * Screendesign by FLINT / Bï¿½ro fï¿½r Gestaltung, bueroflint.com
+>>>>>>> make delete label in label setting work(backend now)
  *
  * The contents are subject to the Creative Commons Attribution-ShareAlike
  * License. It is allowed to copy, distribute, transmit and to adapt the work
@@ -2697,7 +2701,7 @@ a.button.disabled,input.button.disabled,input.button[disabled],a.button.disabled
 
 a.button.disabled span.inner {
 	opacity: 0.4;
-	filter: alpha(opacity = 40);
+	filter: alpha(opacity =     40);
 }
 
 a.button.pressed,a.button:active,input.button:active {
@@ -2811,7 +2815,7 @@ a.iconbutton {
 
 a.iconbutton.disabled {
 	opacity: 0.4;
-	filter: alpha(opacity = 40);
+	filter: alpha(opacity =     40);
 	cursor: default;
 }
 
@@ -3334,7 +3338,7 @@ table.layout td {
 
 .boxfooter .listbutton.disabled .inner {
 	opacity: 0.4;
-	filter: alpha(opacity = 40);
+	filter: alpha(opacity =     40);
 }
 
 .boxfooter .countdisplay {
@@ -3377,7 +3381,7 @@ table.layout td {
 
 .boxpagenav a.icon.disabled {
 	opacity: 0.4;
-	filter: alpha(opacity = 40);
+	filter: alpha(opacity =     40);
 }
 
 .centerbox {
@@ -3811,7 +3815,7 @@ ul.proplist li {
 
 .toolbar a.button.disabled {
 	opacity: 0.4;
-	filter: alpha(opacity = 40);
+	filter: alpha(opacity =     40);
 }
 
 .dropbutton {
@@ -3836,7 +3840,7 @@ ul.proplist li {
 
 .dropbutton a.button.disabled+.dropbuttontip {
 	opacity: 0.5;
-	filter: alpha(opacity = 50);
+	filter: alpha(opacity =     50);
 }
 
 .dropbutton a.button.disabled+.dropbuttontip:hover {
@@ -3974,7 +3978,7 @@ select.decorated {
 	opacity: 0;
 	height: 22px;
 	cursor: pointer;
-	filter: alpha(opacity = 0);
+	filter: alpha(opacity =     0);
 	-khtml-appearance: none;
 	-webkit-appearance: none;
 }
@@ -4110,12 +4114,12 @@ ul.toolbarmenu li span.icon {
 	background-position: -100px 0;
 	background-repeat: no-repeat;
 	opacity: 0.2;
-	filter: alpha(opacity = 20);
+	filter: alpha(opacity =     20);
 }
 
 ul.toolbarmenu li a.active span.icon {
 	opacity: 0.99;
-	filter: alpha(opacity = 100);
+	filter: alpha(opacity =     100);
 }
 
 ul.toolbarmenu li span.read {
@@ -4248,7 +4252,7 @@ ul.toolbarmenu li span.conversation {
 	color: #ccc;
 	white-space: nowrap;
 	opacity: 0.92;
-	filter: alpha(opacity = 92);
+	filter: alpha(opacity =     92);
 	text-shadow: 0px 1px 1px #333;
 }
 
@@ -4466,13 +4470,20 @@ fieldset.tab {
 }
 
 .gwt-SplitLayoutPanel-HDragger {
-	cursor: col-resize;
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
 	position: absolute;
 	background: url(images/splitter.png) center no-repeat;
+	width: 10px;
+	height: 100%;
+	cursor: e-resize;
+	cursor: col-resize;
 	background-position: 0 center;
 }
 
 .gwt-SplitLayoutPanel-VDragger {
+<<<<<<< HEAD
 <<<<<<< HEAD
     cursor: row-resize;
     position: absolute;
@@ -4484,6 +4495,18 @@ fieldset.tab {
 	position: absolute;
 	background: url(images/splitter.png) center no-repeat;
 	background-position: center 0;
+=======
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    position: absolute;
+    background: url(images/splitter.png) center no-repeat;
+    height: 10px;
+    width: 100%;
+    cursor: n-resize;
+    cursor: row-resize;
+    background-position: center 0;
+>>>>>>> make delete label in label setting work(backend now)
 }
 
 .GWTUpld,table.GWTUpld td {
@@ -4627,6 +4650,11 @@ fieldset.tab {
 .gwt-PopupPanelGlass {
 	background-color: #d4e4ff;
 	opacity: 0.3;
+<<<<<<< HEAD
 	filter: alpha(opacity = 30);
 }
 >>>>>>> beautify the multiuploader
+=======
+	filter: alpha(opacity =     30);
+}
+>>>>>>> make delete label in label setting work(backend now)

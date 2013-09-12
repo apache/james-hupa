@@ -253,14 +253,8 @@
 							</g:HTML>
 						</g:north>
 						<g:center>
-							<g:ScrollPanel ui:field="labelListContainer" />
+							<g:SimpleLayoutPanel ui:field="labelListContainer" />
 						</g:center>
-						<g:south size="43">
-							<g:FlowPanel ui:field="folderOpButtons">
-								<g:Button ui:field="add">Add</g:Button>
-								<g:Button ui:field="delete">Delete</g:Button>
-							</g:FlowPanel>
-						</g:south>
 					</g:DockLayoutPanel>
 				</g:west>
 				<g:center>

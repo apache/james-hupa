@@ -169,6 +169,7 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 		settingOuter.removeStyleName(style.selected());
 		mail.addStyleName(style.mailInnerSelected());
 		setting.removeStyleName(style.settingsInnerSelected());
+		//FIXME need the default one
 		placeController.goTo(new MailFolderPlace("Mock-Inbox"));
 	}
 	

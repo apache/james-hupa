@@ -12,9 +12,15 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<g:DockLayoutPanel>
 		<g:center>
 			<g:ScrollPanel ui:field="thisView" />
+=======
+	<g:DockLayoutPanel>
+		<g:center>
+			<g:SimplePanel ui:field="thisView" />
+>>>>>>> make delete label in label setting work(backend now)
 		</g:center>
 		<g:south size="43">
 			<g:FlowPanel ui:field="folderOpButtons">
@@ -23,7 +29,10 @@
 			</g:FlowPanel>
 		</g:south>
 	</g:DockLayoutPanel>
+<<<<<<< HEAD
 =======
 	<g:SimplePanel ui:field="thisView" />
 >>>>>>> make label settings prototype
+=======
+>>>>>>> make delete label in label setting work(backend now)
 </ui:UiBinder>

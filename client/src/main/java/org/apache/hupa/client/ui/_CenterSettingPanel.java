@@ -103,7 +103,6 @@ import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSe
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
@@ -117,9 +116,9 @@ public class _CenterSettingPanel extends Composite {
 
 	@UiField SimpleLayoutPanel settingsTab;
 	
-	@UiField ScrollPanel labelListContainer;
+	@UiField SimpleLayoutPanel labelListContainer;
 	@UiField SimplePanel labelPropertiesContainer;
-
+	
 	public _CenterSettingPanel() {
 		
 		initWidget(binder.createAndBindUi(this));
