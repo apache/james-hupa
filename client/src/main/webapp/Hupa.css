@@ -163,6 +163,7 @@ div.Hupa {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	min-width: 400px;
 }
 
@@ -191,6 +192,9 @@ div.hupa-top {
 =======
 	min-width: 800px;
 >>>>>>> make it look more beautiful
+=======
+	min-width: 400px;
+>>>>>>> decorate columns of messages list and related panels above and below.
 }
 * html div.Hupa {
    margin-top: 0px;
@@ -305,6 +309,7 @@ div.hupa-header {
 	clear: both;
 	margin: 8px 8px 8px 8px;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	min-height: 200px;
 =======
 =======
@@ -323,6 +328,9 @@ div.hupa-main {
 =======
 	min-height: 400px;
 >>>>>>> make it look more beautiful
+=======
+	min-height: 200px;
+>>>>>>> decorate columns of messages list and related panels above and below.
 }
 
 * html div.cgb-RPC-hupa-main {
@@ -468,6 +476,7 @@ table.hupa-login-form {
 	width: 100%;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	background-color: #deeeff;
 }
 
@@ -487,6 +496,8 @@ table.hupa-login-form {
 =======
 >>>>>>> first commit
     padding: 5px 4px 5px 4px;
+=======
+>>>>>>> decorate columns of messages list and related panels above and below.
     background-color: #deeeff;  
 }
 
@@ -579,11 +590,15 @@ input[type=text], input[type=file], textarea {
 	margin-left: 5px;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	padding-left: 3px;
 =======
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+  padding-left: 3px;
+>>>>>>> decorate columns of messages list and related panels above and below.
 }
 
 /*************[ buttonbars ]*********************/

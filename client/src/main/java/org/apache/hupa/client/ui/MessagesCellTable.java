@@ -508,6 +508,7 @@ import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.Column;
@@ -516,7 +517,7 @@ import com.google.inject.Inject;
 
 public class MessagesCellTable extends DataGrid<Message> {
 
-	private static final int PAGE_SIZE = 5;
+	private static final int PAGE_SIZE = 25;
 	
 	private HupaImageBundle imageBundle;
 
@@ -525,11 +526,23 @@ public class MessagesCellTable extends DataGrid<Message> {
 	        final HupaImageBundle imageBundle) {
 		super(PAGE_SIZE);
 		this.imageBundle = imageBundle;
-		addColumn(new CheckboxColumn());
-		addColumn(new FromColumn());
-		addColumn(new SubjectColumn());
-		addColumn(new AttachmentColumn());
-		addColumn(new DateColumn());
+		
+		Column<Message, ?> checkboxCol = new CheckboxColumn();
+		Column<Message, ?> fromCol = new FromColumn();
+		Column<Message, ?> subjectCol = new SubjectColumn();
+		Column<Message, ?> attachedCol = new AttachmentColumn();
+		Column<Message, ?> dateCol = new DateColumn();
+		
+		addColumn(checkboxCol);
+		this.setColumnWidth(checkboxCol, 3, Unit.EM);
+		addColumn(fromCol);
+		this.setColumnWidth(fromCol, 40, Unit.PCT);
+		addColumn(subjectCol);
+		this.setColumnWidth(subjectCol, 60, Unit.PCT);
+		addColumn(attachedCol);
+		this.setColumnWidth(attachedCol, 3, Unit.EM);
+		addColumn(dateCol);
+		this.setColumnWidth(dateCol, 10, Unit.EM);
 		setRowCount(PAGE_SIZE, false);
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
 	}
