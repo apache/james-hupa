@@ -7,20 +7,19 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
-public class MailInboxPlace extends Place {
+public class MailFolderPlace extends Place {
 
-	private static final String PREFIX = "inbox";
+	private static final String PREFIX = "folder";
 	private User user;
-	private String mailId;
+	private String folderName = "";
 	
-	public MailInboxPlace(String token){
-		this.mailId = token;
+	public String getFolderName(){
+		return folderName;
 	}
-	public String getMailId(){
-		return mailId;
-	}
-	public MailInboxPlace(){}
 
+	public void setFolderName(String folderName){
+		this.folderName = folderName;
+	}
 	/**
 	 * equality test based on Class type, to let different instance of this
 	 * Place class to be equals for CachingActivityMapper test on Place equality
@@ -29,21 +28,21 @@ public class MailInboxPlace extends Place {
 	 *            the place to compare with
 	 * @return true if this place and otherPlace are of the same Class type
 	 */
-//	@Override
-//	public boolean equals(Object otherPlace) {
-//		return this == otherPlace || (otherPlace != null && getClass() == otherPlace.getClass());
-//	}
-//
-//	@Override
-//	public int hashCode() {
-//		return (PREFIX+mailId).hashCode();
-//	}
-
-	public String toString() {
-		return this.getClass().getName() + "->[Inbox]" + mailId;
+	@Override
+	public boolean equals(Object otherPlace) {
+		return this == otherPlace ;//|| (otherPlace != null && getClass() == otherPlace.getClass());
 	}
 
-	public MailInboxPlace with(User user) {
+	@Override
+	public int hashCode() {
+		return PREFIX.hashCode();
+	}
+
+	public String toString() {
+		return this.getClass().getName() + "->[Inbox]" + folderName;
+	}
+
+	public MailFolderPlace with(User user) {
 		this.user = user;
 		return this;
 	}
@@ -53,16 +52,18 @@ public class MailInboxPlace extends Place {
 	}
 
 	@Prefix(PREFIX)
-	public static class Tokenizer implements PlaceTokenizer<MailInboxPlace> {
+	public static class Tokenizer implements PlaceTokenizer<MailFolderPlace> {
 
 		@Override
-		public MailInboxPlace getPlace(String token) {
-			return new MailInboxPlace(token);
+		public MailFolderPlace getPlace(String token) {
+			MailFolderPlace p = new MailFolderPlace();
+			p.setFolderName(token);
+			return p;
 		}
 
 		@Override
-		public String getToken(MailInboxPlace place) {
-			return place.getMailId();
+		public String getToken(MailFolderPlace place) {
+			return place.getFolderName();
 		}
 	}
 	private IMAPFolder folder;
@@ -74,11 +75,11 @@ public class MailInboxPlace extends Place {
 	public String getSearchValue() {
 		return searchValue;
 	}
-	public MailInboxPlace with(User user, IMAPFolder folder, String searchValue) {
+	public MailFolderPlace with(User user, IMAPFolder folder, String searchValue) {
 		this.folder = folder;
 		this.searchValue = searchValue;
 		this.user = user;
-		this.mailId = folder.getName();
+		this.folderName = folder.getName();
 		return this;
 	}
 }

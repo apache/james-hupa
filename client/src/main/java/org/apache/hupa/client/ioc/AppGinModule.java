@@ -101,8 +101,10 @@ import net.customware.gwt.dispatch.client.ExceptionHandler;
 
 import org.apache.hupa.client.AppController;
 import org.apache.hupa.client.CachingDispatchAsync;
+import org.apache.hupa.client.activity.IMAPMessageActivity;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
 import org.apache.hupa.client.activity.LoginActivity;
+import org.apache.hupa.client.activity.MessageSendActivity;
 import org.apache.hupa.client.activity.TopActivity;
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
@@ -114,7 +116,9 @@ import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.ui.AppLayout;
 import org.apache.hupa.client.ui.AppLayoutImpl;
 import org.apache.hupa.client.ui.IMAPMessageListView;
+import org.apache.hupa.client.ui.IMAPMessageView;
 import org.apache.hupa.client.ui.LoginView;
+import org.apache.hupa.client.ui.MessageSendView;
 import org.apache.hupa.client.ui.TopView;
 import org.apache.hupa.client.ui.WestView;
 
@@ -308,6 +312,8 @@ public class AppGinModule extends AbstractGinModule {
 		bind(TopActivity.Displayable.class).to(TopView.class);
 		bind(WestActivity.Displayable.class).to(WestView.class);
 		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
+		bind(MessageSendActivity.Displayable.class).to(MessageSendView.class);
+		bind(IMAPMessageActivity.Displayable.class).to(IMAPMessageView.class);
 		
 		
 		bind(PagingScrollTableRowDragController.class).in(Singleton.class);

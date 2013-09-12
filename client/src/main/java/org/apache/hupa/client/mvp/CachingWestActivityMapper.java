@@ -1,7 +1,7 @@
 package org.apache.hupa.client.mvp;
 
 import org.apache.hupa.client.place.DefaultPlace;
-import org.apache.hupa.client.place.MailInboxPlace;
+import org.apache.hupa.client.place.MailFolderPlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -20,7 +20,8 @@ public class CachingWestActivityMapper implements ActivityMapper {
 		FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
 			@Override
 			public Place filter(Place place) {
-				return place instanceof MailInboxPlace ? new MailInboxPlace("!").with(((MailInboxPlace)place).getUser()): place; // FIXME with user
+				return (place instanceof DefaultPlace || place instanceof MailFolderPlace) ? place
+						: new MailFolderPlace();
 			}
 		};
 

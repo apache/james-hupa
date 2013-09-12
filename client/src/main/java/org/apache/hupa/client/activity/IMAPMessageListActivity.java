@@ -381,15 +381,16 @@ import java.util.ArrayList;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import org.apache.hupa.client.HandlerRegistrationAdapter;
-import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.HupaEvoCallback;
+import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.mvp.WidgetDisplayable;
-import org.apache.hupa.client.place.MailInboxPlace;
+import org.apache.hupa.client.place.IMAPMessagePlace;
+import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
-import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
@@ -402,7 +403,6 @@ import org.apache.hupa.shared.events.MessagesReceivedEvent;
 import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
-import org.apache.hupa.shared.events.NewMessageEvent;
 import org.apache.hupa.shared.rpc.DeleteAllMessages;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
@@ -447,14 +447,16 @@ public class IMAPMessageListActivity extends AbstractActivity {
 	private final EventBus eventBus;
 	private final PlaceController placeController;
 	private DispatchAsync dispatcher;
+	private final Provider<MessageSendPlace> messageSendPlaceProvider;
     
 	@Inject
     public IMAPMessageListActivity(Displayable display, EventBus eventBus, PlaceController placeController,
-			 DispatchAsync dispatcher){
+			 DispatchAsync dispatcher,Provider<MessageSendPlace> messageSendPlaceProvider){
 		this.display = display;
 		this.eventBus = eventBus;
 		this.placeController = placeController;
 		this.dispatcher = dispatcher;
+		this.messageSendPlaceProvider = messageSendPlaceProvider;
 		
 
         // add this event on constructor because we don't want to remove it on unbind
@@ -546,7 +548,8 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		display.getNewClick().addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 
             public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
-                eventBus.fireEvent(new NewMessageEvent());
+//                eventBus.fireEvent(new NewMessageEvent());
+            	placeController.goTo(messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
             }
             
         });
@@ -778,7 +781,6 @@ public class IMAPMessageListActivity extends AbstractActivity {
                 display.redraw();
 
             }
-            
             eventBus.fireEvent(new ExpandMessageEvent(user,folder,message));
         }
 

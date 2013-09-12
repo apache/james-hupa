@@ -77,7 +77,7 @@ public class CachingDispatchAsync extends StandardDispatchAsync {
         final Class<?> clz = action.getClass();
         if (running.contains(clz)) {
             System.err.println("ATTENTION: avoiding a parallel execution of the action: " + action.getClass().getName());
-            new RuntimeException().printStackTrace();
+//            new RuntimeException().printStackTrace();
             
             return;
         } else {

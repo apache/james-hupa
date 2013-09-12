@@ -252,11 +252,10 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import org.apache.hupa.client.HupaEvoCallback;
-import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
-import org.apache.hupa.client.mvp.MainPresenter;
+import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.mvp.WidgetContainerDisplayable;
 import org.apache.hupa.client.place.IMAPMessagePlace;
-import org.apache.hupa.client.place.MailInboxPlace;
+import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
@@ -311,6 +310,7 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -326,6 +326,7 @@ public class WestActivity extends AbstractActivity {
 	private final PlaceController placeController;
 	private final Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
 	private final Provider<MessageSendPlace> messageSendPlaceProvider;
+	private final Provider<IMAPMessagePlace> messagePlaceProvider;
 	
     private DispatchAsync dispatcher;
     private User user;
@@ -334,15 +335,22 @@ public class WestActivity extends AbstractActivity {
     private HasEditable editableTreeItem;
     private String searchValue;
     
+    private Place currentPlace;
+    
+    public void setCurrentPlace(Place place){
+    	this.currentPlace = place;
+    }
+    
     @Inject
     public WestActivity(Displayable display, EventBus eventBus, PlaceController placeController,
-			DispatchAsync dispatcher,Provider<IMAPMessagePlace> IMAPMessagePlaceProvider,Provider<MessageSendPlace> messageSendPlaceProvider){
+			DispatchAsync dispatcher,Provider<IMAPMessagePlace> IMAPMessagePlaceProvider,Provider<MessageSendPlace> messageSendPlaceProvider,Provider<IMAPMessagePlace> messagePlaceProvider){
     	this.dispatcher = dispatcher;
     	this.display = display;
     	this.eventBus = eventBus;
     	this.placeController = placeController;
     	this.IMAPMessagePlaceProvider = IMAPMessagePlaceProvider;
     	this.messageSendPlaceProvider = messageSendPlaceProvider;
+    	this.messagePlaceProvider = messagePlaceProvider;
     	
     }
 
@@ -354,8 +362,9 @@ public class WestActivity extends AbstractActivity {
 		container.setWidget(display.asWidget());
 	}
 	
-    public WestActivity with(User user){
-    	this.user = user;
+    public WestActivity with(MailFolderPlace place){
+    	this.currentPlace = place;
+    	this.user = place.getUser();
     	return this;
     }
 
@@ -459,7 +468,9 @@ public class WestActivity extends AbstractActivity {
                             eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
                         }
                         display.setLoadingMessage(false);
-                        showMessage(user, folder, message, result.getMessageDetails());
+//                        showMessage(user, folder, message, result.getMessageDetails());
+
+                        placeController.goTo(messagePlaceProvider.get().with(user,folder, message,result.getMessageDetails()));
                     }
                 });
             }
@@ -676,7 +687,7 @@ public class WestActivity extends AbstractActivity {
         this.user = user;
         this.folder = folder;
         this.searchValue = searchValue;
-        placeController.goTo(new MailInboxPlace().with(user,folder, searchValue));
+        placeController.goTo(new MailFolderPlace().with(user,folder, searchValue));
 //        placeController.goTo(mailInboxPlaceProvider.get().with(user));
 //        System.out.println("111");
 //        placeController.goTo(new MailInboxPlace(folder.getName()).with(user));
@@ -687,26 +698,15 @@ public class WestActivity extends AbstractActivity {
     }
 
     private void showNewMessage() {
-    	placeController.goTo(this.messageSendPlaceProvider.get());
-//        sendPresenter.revealDisplay(user);
+    	placeController.goTo(this.messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
     }
 
     private void showForwardMessage(ForwardMessageEvent event) {
-    	placeController.goTo(this.messageSendPlaceProvider.get());
-//        sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD);
+    	placeController.goTo(this.messageSendPlaceProvider.get().with(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD));
     }
 
     private void showReplyMessage(ReplyMessageEvent event) {
-        if (event.getReplyAll()) {
-        	placeController.goTo(this.messageSendPlaceProvider.get());
-//            sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY_ALL);
-        } else {
-        	placeController.goTo(this.messageSendPlaceProvider.get());
-//            sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY);
-
-        }
-    	placeController.goTo(this.messageSendPlaceProvider.get());
-//        sendPresenter.revealDisplay();
+        placeController.goTo(this.messageSendPlaceProvider.get().with(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), event.getReplyAll()?Type.REPLY_ALL:Type.REPLY));
     }
     public interface Displayable extends WidgetContainerDisplayable {
         

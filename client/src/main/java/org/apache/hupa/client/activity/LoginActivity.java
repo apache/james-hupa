@@ -38,7 +38,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaEvoCallback;
 import org.apache.hupa.client.mvp.WidgetDisplayable;
-import org.apache.hupa.client.place.MailInboxPlace;
+import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.SessionExpireEvent;
 import org.apache.hupa.shared.events.SessionExpireEventHandler;
@@ -186,7 +186,7 @@ public class LoginActivity extends AbstractActivity {
 				display.setLoading(false);
 				// eventBus.fireEvent(new LoginEvent(result.getUser()));
 //				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get().with(result.getUser()));
-				LoginActivity.this.placeController.goTo(new MailInboxPlace("!").with(result.getUser()));
+				LoginActivity.this.placeController.goTo(new MailFolderPlace().with(result.getUser()));
 				doReset();
 			}
 

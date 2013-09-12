@@ -1,7 +1,7 @@
 package org.apache.hupa.client;
 
 import org.apache.hupa.client.place.DefaultPlace;
-import org.apache.hupa.client.place.MailInboxPlace;
+import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.ui.AppLayout;
 
 import com.google.gwt.event.shared.EventBus;
@@ -58,13 +58,17 @@ public class AppController {
 		public void onPlaceChange(PlaceChangeEvent event) {
 			Place newPlace = event.getNewPlace();
 			if (newPlace != currentPlace) {
-				if (newPlace instanceof MailInboxPlace) {
+				if (isAuth(newPlace, currentPlace)) {
 					appPanelView.setDefaultLayout();
 				} else if (newPlace instanceof DefaultPlace) {
 					appPanelView.setLoginLayout();
 				}
 				currentPlace = newPlace;
 			}
+		}
+		
+		public boolean isAuth(Place newPlace, Place currentPlace){
+			return (newPlace instanceof MailFolderPlace) && !(currentPlace instanceof MailFolderPlace);
 		}
 	}
 
