@@ -18,27 +18,25 @@
  ****************************************************************/
 package org.apache.hupa.client;
 
-import com.google.gwt.junit.GWTMockUtilities;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-
-import com.sun.mail.imap.IMAPStore;
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 import junit.framework.TestCase;
 
-import net.customware.gwt.presenter.client.EventBus;
-
+import org.apache.hupa.client.guice.GuiceClientTestModule;
 import org.apache.hupa.client.guice.GuiceMvpTestModule;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.client.guice.GuiceClientTestModule;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.User;
 
-import javax.mail.Session;
-import javax.servlet.http.HttpSession;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.junit.GWTMockUtilities;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.sun.mail.imap.IMAPStore;
 
 /**
  * Base class for testing presenters in hupa.

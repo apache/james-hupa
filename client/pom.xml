@@ -87,10 +87,6 @@
             <artifactId>gwt-dispatch</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.customware.gwt.presenter</groupId>
-            <artifactId>gwt-presenter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.google.code.gwt-dnd</groupId>
             <artifactId>gwt-dnd</artifactId>
         </dependency>

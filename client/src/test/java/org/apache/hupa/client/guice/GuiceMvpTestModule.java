@@ -25,9 +25,6 @@ import net.customware.gwt.dispatch.server.guice.GuiceDispatch;
 import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.dispatch.shared.DispatchException;
 import net.customware.gwt.dispatch.shared.Result;
-import net.customware.gwt.presenter.client.DefaultEventBus;
-import net.customware.gwt.presenter.client.Display;
-import net.customware.gwt.presenter.client.EventBus;
 
 import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.activity.MessageSendActivity;
@@ -35,6 +32,7 @@ import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.MessageSendView;
 import org.easymock.EasyMock;
 
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.AbstractModule;
@@ -66,7 +64,7 @@ public class GuiceMvpTestModule extends AbstractModule {
             bind(DispatchAsync.class).toInstance(dispatchAsyncInstance);
         }
 
-        bind(EventBus.class).to(DefaultEventBus.class);
+        bind(EventBus.class).to(SimpleEventBus.class);
         
         bind(DispatchTestAsync.class);
         
@@ -93,11 +91,6 @@ public class GuiceMvpTestModule extends AbstractModule {
             rf.initialize(eventBus, new InProcessRequestTransport(processor));
             return rf;
         }
-    }
-
-    protected <D extends Display> void bindDisplay(final Class<D> display) {
-        final D mockDisplay = EasyMock.createNiceMock(display);
-        bind(display).toInstance(mockDisplay);
     }
 
     static class DispatchTestService implements StandardDispatchService {
