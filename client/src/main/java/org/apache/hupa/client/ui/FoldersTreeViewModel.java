@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
-import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
@@ -32,8 +31,6 @@ import org.apache.hupa.shared.events.LoginEventHandler;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ValueUpdater;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;

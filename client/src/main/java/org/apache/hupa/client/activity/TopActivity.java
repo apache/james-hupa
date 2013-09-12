@@ -26,6 +26,7 @@
 package org.apache.hupa.client.activity;
 
 import org.apache.hupa.client.HupaConstants;
+<<<<<<< HEAD
 import org.apache.hupa.client.rf.IdleRequest;
 import org.apache.hupa.client.rf.LogoutUserRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;
@@ -61,6 +62,8 @@ import org.apache.hupa.shared.data.User;
 >>>>>>> introduce the top activity
 =======
 import org.apache.hupa.client.place.DefaultPlace;
+=======
+>>>>>>> scrub code
 import org.apache.hupa.client.rf.IdleRequest;
 import org.apache.hupa.client.rf.LogoutUserRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;

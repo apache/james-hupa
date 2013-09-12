@@ -21,9 +21,7 @@ package org.apache.hupa.client.evo;
 
 import org.apache.hupa.client.ui.AppLayout;
 
-import com.google.gwt.activity.shared.ActivityManager;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 /**
  * This class is responsible for ActivityManager instantiations through GIN, it

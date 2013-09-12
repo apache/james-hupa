@@ -26,6 +26,7 @@
 package org.apache.hupa.client.activity;
 
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
+<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
@@ -269,6 +270,8 @@ import java.util.List;
 >>>>>>> refactoring.
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.place.IMAPMessagePlace;
+=======
+>>>>>>> scrub code
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
