@@ -129,7 +129,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.inject.Inject;
 
 public class MessageListFooterView extends Composite implements MessageListFooterActivity.Displayable {
@@ -148,6 +148,7 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	interface MessageListFooterUiBinder extends UiBinder<HTMLPanel, MessageListFooterView> {
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
@@ -157,6 +158,9 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 =======
 	interface MessageListFooterUiBinder extends UiBinder<SimplePanel, MessageListFooterView> {
 >>>>>>> make message list view panel work as expected partly
+=======
+	interface MessageListFooterUiBinder extends UiBinder<HorizontalPanel, MessageListFooterView> {
+>>>>>>> remove deprecated code
 	}
 
 	private static MessageListFooterUiBinder binder = GWT.create(MessageListFooterUiBinder.class);
