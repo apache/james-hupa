@@ -163,9 +163,9 @@ public class WestView extends Composite implements WestActivity.Displayable {
         this.controller = controllerProvider;
         this.bus = bus;
         loader = new Loading(constants.loading());
-        newFolderButton = new EnableHyperlink(constants.newFolder(), "");
-        renameFolderButton = new EnableHyperlink(constants.renameFolder(), "");
-        deleteFolderButton = new EnableHyperlink(constants.deleteFolder(), "");
+        newFolderButton = new EnableHyperlink(constants.newFolder(), null);
+        renameFolderButton = new EnableHyperlink(constants.renameFolder(), null);
+        deleteFolderButton = new EnableHyperlink(constants.deleteFolder(), null);
         
         dockPanel = new DockPanel();
 

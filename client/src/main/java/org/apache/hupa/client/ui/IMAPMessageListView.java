@@ -756,6 +756,7 @@ import com.google.gwt.gen2.table.event.client.PageLoadHandler;
 import com.google.gwt.gen2.table.event.client.RowCountChangeEvent;
 import com.google.gwt.gen2.table.event.client.RowCountChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
@@ -794,9 +795,9 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
     private EnableButton markUnSeenButton;
 
     private ListBox pageBox = new ListBox();
-    private Hyperlink allLink;    
-    private Hyperlink noneLink;
-    private Hyperlink refreshLink;
+    private Anchor allLink;    
+    private Anchor noneLink;
+    private Anchor refreshLink;
     private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
     private SuggestBox searchBox = new SuggestBox(oracle);
     private Button searchButton;
@@ -812,9 +813,9 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
         deleteAllMailButton = new Button(constants.deleteAll());
         markSeenButton = new EnableButton(constants.markSeen());
         markUnSeenButton = new EnableButton(constants.markUnseen());
-        allLink = new Hyperlink(constants.all(),"");    
-        noneLink = new Hyperlink(constants.none(),"");
-        refreshLink = new Hyperlink(constants.refresh(),"");
+        allLink = new Anchor(constants.all());    
+        noneLink = new Anchor(constants.none());
+        refreshLink = new Anchor(constants.refresh());
         searchButton = new Button(constants.searchButton());
         loading = new Loading(constants.loading());
         this.cTableModel = new CachedTableModel<Message>(mTableModel);
