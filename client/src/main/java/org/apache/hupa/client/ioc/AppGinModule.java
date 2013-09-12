@@ -162,6 +162,7 @@ import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.mapper.CachingTopActivityMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -213,6 +214,9 @@ import org.apache.hupa.client.mapper.ComposeStatusActivityMapper;
 >>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 =======
 =======
+=======
+import org.apache.hupa.client.mapper.CachingTopBarActivityMapper;
+>>>>>>> fixed issue#46 and issue#32
 import org.apache.hupa.client.mapper.ComposeActivityMapper;
 >>>>>>> make send text mail work excellently
 import org.apache.hupa.client.mapper.ComposeToolBarActivityMapper;
@@ -325,6 +329,7 @@ public class AppGinModule extends AbstractGinModule {
 
 		// Activities
 		bind(LoginActivity.Displayable.class).to(LoginView.class);
+<<<<<<< HEAD
 <<<<<<< HEAD
 		bind(TopBarActivity.Displayable.class).to(TopBarView.class).in(Singleton.class);
 		bind(LogoActivity.Displayable.class).to(LogoView.class).in(Singleton.class);
@@ -501,6 +506,10 @@ public class AppGinModule extends AbstractGinModule {
 =======
 		bind(TopBarActivity.Displayable.class).to(TopBarView.class);
 		bind(LogoActivity.Displayable.class).to(LogoView.class);
+=======
+		bind(TopBarActivity.Displayable.class).to(TopBarView.class).in(Singleton.class);
+		bind(LogoActivity.Displayable.class).to(LogoView.class).in(Singleton.class);
+>>>>>>> fixed issue#46 and issue#32
 		bind(NavigationActivity.Displayable.class).to(NavigationView.class);
 		bind(ToolBarActivity.Displayable.class).to(ToolBarView.class);
 		// bind(FolderListActivity.Displayable.class).to(FolderListView.class);
@@ -641,7 +650,7 @@ public class AppGinModule extends AbstractGinModule {
 	@Provides
 	@Singleton
 	@Named("TopBarRegion")
-	public ActivityManager getTopBarActivityMapper(TopBarActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getTopBarActivityMapper(CachingTopBarActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 

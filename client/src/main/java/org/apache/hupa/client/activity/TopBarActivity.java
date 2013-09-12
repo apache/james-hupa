@@ -168,26 +168,45 @@ public class TopBarActivity extends AppBaseActivity {
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
-			public void onLogin(LoginEvent event) {
-				user = event.getUser();
-			}
-		});
 		container.setWidget(display.asWidget());
 		bindTo(eventBus);
-		if (user != null && !isOccupied()) {
-			display.getUserLabel().add(new HTML(user.getName()));
+		if (isNotOccupied()) {
+			try {
+				checkSessionUser();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Inject private Displayable display;
 	
 	public interface Displayable extends WidgetDisplayable {}
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+	private void checkSessionUser() {
+		CheckSessionRequest checkSession = requestFactory.sessionRequest();
+		checkSession.getUser().fire(new Receiver<User>() {
+			@Override
+			public void onSuccess(User user) {
+				if (user != null) {
+					display.getUserLabel().add(new HTML(user.getName()));
+					eventBus.fireEvent(new LoginEvent(user));
+				}
+			}
+		});
+	}
+>>>>>>> fixed issue#46 and issue#32
 	private void bindTo(EventBus eventBus) {
-
+		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
+			public void onLogin(LoginEvent event) {
+				user = event.getUser();
+			}
+		});
 		registerHandler(display.getLogoutClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				doLogout();
@@ -217,13 +236,13 @@ public class TopBarActivity extends AppBaseActivity {
 		}
 	}
 
-	private boolean isOccupied() {
+	private boolean isNotOccupied() {
 		return display.getUserLabel().getWidgetCount() < 1;
 	}
 
 	public interface Displayable extends WidgetDisplayable {
 		HasClickHandlers getLogoutClick();
-
+		void showUserName(String userName);
 		HTMLPanel getUserLabel();
 	}
 >>>>>>> add logout support

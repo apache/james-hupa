@@ -69,6 +69,8 @@ import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.HupaLayoutable;
 import org.apache.hupa.client.ui.LoginLayoutable;
 import org.apache.hupa.client.ui.LoginView;
+import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.events.LoginEvent;
 
 >>>>>>> move new theme ui from experiment to hupa evo
 import com.google.gwt.dom.client.StyleInjector;
@@ -113,13 +115,15 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class HupaController {
 
-	@Inject private PlaceHistoryHandler placeHistoryHandler;
+	private PlaceController placeController;
+	private PlaceHistoryHandler placeHistoryHandler;
 	@Inject private HupaLayoutable hupaLayout;
-	@Inject private PlaceController placeController;
 	@Inject private HupaRequestFactory requestFactory;
 	@Inject private LoginLayoutable loginLayout;
+	private EventBus eventBus;
 
 	@Inject
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public HupaController(EventBus eventBus) {
 >>>>>>> move new theme ui from experiment to hupa evo
@@ -131,6 +135,15 @@ public class HupaController {
 =======
 			ActivityManagerInitializer initializeActivityManagerByGin) {
 >>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
+=======
+	public HupaController(PlaceController placeController,
+			PlaceHistoryHandler placeHistoryHandler,
+			EventBus eventBus, 
+			ActivityManagerInitializer initializeActivityManagerByGin) {
+		this.placeController = placeController;
+		this.placeHistoryHandler = placeHistoryHandler;
+		this.eventBus = eventBus;
+>>>>>>> fixed issue#46 and issue#32
 		eventBus.addHandler(PlaceChangeEvent.TYPE, new PlaceChangHandler());
 	}
 
@@ -268,7 +281,6 @@ public class HupaController {
 =======
 >>>>>>> cope with issue #36, the default place and and the mail folder place, we would always come up with the default place whenever giving a empty string token
 		placeHistoryHandler.handleCurrentHistory();
-		checkSession();
 	}
 
 	private void bindCss() {
@@ -281,6 +293,7 @@ public class HupaController {
 		@Override
 		public void onPlaceChange(PlaceChangeEvent event) {
 			adjustLayout(event);
+			checkSession();
 		}
 	}
 
@@ -298,15 +311,16 @@ public class HupaController {
 =======
 	private void checkSession() {
 		CheckSessionRequest checkSession = requestFactory.sessionRequest();
-		checkSession.isValid().fire(new Receiver<Boolean>() {
+		checkSession.getUser().fire(new Receiver<User>() {
 			@Override
-			public void onSuccess(Boolean sessionValid) {
-				if (!sessionValid) {
+			public void onSuccess(User user) {
+				if (user == null) {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
 				} else {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(hupaLayout.get());
+                    eventBus.fireEvent(new LoginEvent(user));
 				}
 			}
 
@@ -316,6 +330,24 @@ public class HupaController {
 				RootLayoutPanel.get().add(loginLayout.get());
 			}
 		});
+//		checkSession.isValid().fire(new Receiver<Boolean>() {
+//			@Override
+//			public void onSuccess(Boolean sessionValid) {
+//				if (!sessionValid) {
+//					RootLayoutPanel.get().clear();
+//					RootLayoutPanel.get().add(loginLayout.get());
+//				} else {
+//					RootLayoutPanel.get().clear();
+//					RootLayoutPanel.get().add(hupaLayout.get());
+//				}
+//			}
+//
+//			@Override
+//			public void onFailure(ServerFailure error) {
+//				RootLayoutPanel.get().clear();
+//				RootLayoutPanel.get().add(loginLayout.get());
+//			}
+//		});
 	}
 >>>>>>> integrate them as a whole one - first: make the default place work
 }

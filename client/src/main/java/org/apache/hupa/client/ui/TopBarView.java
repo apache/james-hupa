@@ -141,6 +141,11 @@ public class TopBarView extends Composite implements TopBarActivity.Displayable 
 	public HTMLPanel getUserLabel() {
 		return userLabel;
 	}
+	
+	@Override
+	public void showUserName(String userName){
+		userLabel.add(new HTML(userName));
+	}
 
 	interface TopBarUiBinder extends UiBinder<DockLayoutPanel, TopBarView> {
 	}

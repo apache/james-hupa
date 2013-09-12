@@ -485,7 +485,8 @@ public class LoginActivity extends AbstractActivity {
 			public void onSuccess(User response) {
 				RootLayoutPanel.get().clear();
 				RootLayoutPanel.get().add(hupaLayout.get());
-				placeController.goTo(new MailFolderPlace(response.getSettings().getDraftsFolderName()));
+//				placeController.goTo(new MailFolderPlace(response.getSettings().getDraftsFolderName()));
+				placeController.goTo(new MailFolderPlace(response));
 				eventBus.fireEvent(new LoginEvent(response));
 				display.setLoading(false);
 			}

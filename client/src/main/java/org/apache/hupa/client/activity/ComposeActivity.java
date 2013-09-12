@@ -67,6 +67,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.hupa.client.place.ComposePlace;
+import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
 import org.apache.hupa.client.rf.SendMessageRequest;
 import org.apache.hupa.client.rf.SendReplyMessageRequest;
@@ -135,6 +136,7 @@ public class ComposeActivity extends AppBaseActivity {
 	private List<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private Type type = Type.NEW;
 <<<<<<< HEAD
 >>>>>>> make send text mail work excellently
@@ -146,6 +148,9 @@ public class ComposeActivity extends AppBaseActivity {
 =======
 	static private User user;
 >>>>>>> beautify the multiuploader
+=======
+	private User user;
+>>>>>>> fixed issue#46 and issue#32
 	private ComposePlace place;
 >>>>>>> coping with reply and forward sending message
 
@@ -411,6 +416,24 @@ public class ComposeActivity extends AppBaseActivity {
 >>>>>>> add user label, yet issue46 occur
 		bindTo(eventBus);
 		fillHeader();
+	}
+	
+	@Override
+	public String mayStop(){
+		super.mayStop();
+		return null;
+//		return "Do you want to leave this page?";
+	}
+	
+	@Override
+	public void onStop(){
+		super.onStop();
+//		placeController.goTo(new DefaultPlace("@"));
+	}
+	
+	@Override
+	public void onCancel(){
+		
 	}
 
 	private void fillHeader() {

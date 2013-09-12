@@ -19,11 +19,14 @@
 
 package org.apache.hupa.client.place;
 
+import org.apache.hupa.shared.domain.User;
+
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class MailFolderPlace extends AbstractPlace {
 
+	private User user;
 	private String uid;
 	private String fullName;
 	private static final String DELIMITER = "/";
@@ -41,6 +44,16 @@ public class MailFolderPlace extends AbstractPlace {
 		} else {
 			initPlace4Folder(token);
 		}
+	}
+
+	public MailFolderPlace(User user) {
+		String token = user.getSettings().getInboxFolderName();
+		if (isMessagePlace(token)) {
+			initPlace4Message(token);
+		} else {
+			initPlace4Folder(token);
+		}
+		this.user = user;
 	}
 
 	private boolean isMessagePlace(String token) {
@@ -69,6 +82,9 @@ public class MailFolderPlace extends AbstractPlace {
 		return fullName;
 	}
 
+	public User getUser(){
+		return user;
+	}
 	// the main place use empty string such that colon'd disappear
 	@Prefix("")
 	public static class Tokenizer implements PlaceTokenizer<MailFolderPlace> {

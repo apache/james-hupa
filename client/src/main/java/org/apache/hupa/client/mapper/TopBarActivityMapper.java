@@ -79,8 +79,12 @@ public class TopBarActivityMapper extends AbstractActivityMapper {
 =======
 =======
 	@Override
+<<<<<<< HEAD
 	Activity getAppActivity(Place place) {
 >>>>>>> try to fix some issues by reorganize the activity mapper and place controller
+=======
+	Activity getAppActivity(final Place place) {
+>>>>>>> fixed issue#46 and issue#32
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
