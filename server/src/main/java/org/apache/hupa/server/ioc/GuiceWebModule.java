@@ -37,6 +37,11 @@ import com.google.inject.servlet.ServletModule;
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.ioc;
 
+import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
+import org.apache.hupa.server.servlet.MessageSourceServlet;
+import org.apache.hupa.server.servlet.UploadAttachmentServlet;
+import org.apache.hupa.shared.SConsts;
+
 import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
 
@@ -54,10 +59,16 @@ public class GuiceWebModule extends ServletModule {
     bind(IocRfServlet.class).in(Singleton.class);
     serve("/gwtRequest").with(IocRfServlet.class);
 <<<<<<< HEAD
+<<<<<<< HEAD
     serve("/" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD).with(DownloadAttachmentServlet.class);
     serve("/" + SConsts.HUPA + SConsts.SERVLET_UPLOAD).with(UploadAttachmentServlet.class);
     serve("/" + SConsts.HUPA + SConsts.SERVLET_SOURCE).with(MessageSourceServlet.class);
 =======
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+    serve("/" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD).with(DownloadAttachmentServlet.class);
+    serve("/" + SConsts.HUPA + SConsts.SERVLET_UPLOAD).with(UploadAttachmentServlet.class);
+    serve("/" + SConsts.HUPA + SConsts.SERVLET_SOURCE).with(MessageSourceServlet.class);
+>>>>>>> fix issue 4
   }
 }

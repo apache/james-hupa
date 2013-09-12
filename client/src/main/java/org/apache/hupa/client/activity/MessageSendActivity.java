@@ -235,7 +235,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class MessageSendActivity extends AbstractActivity {
 
-	private ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
+	private List<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
 	private Type type = Type.NEW;
 	private ImapFolder folder;
 	private Message oldmessage;
@@ -638,10 +638,19 @@ public class MessageSendActivity extends AbstractActivity {
 			if (validate()) {
 				sendReq = requestFactory.sendMessageRequest();
 				message = sendReq.create(SmtpMessage.class);
+				List<MessageAttachment> attaches = new ArrayList<MessageAttachment>();
+				for(MessageAttachment attach : attachments){
+					MessageAttachment attachMent = sendReq.create(MessageAttachment.class);
+					attachMent.setName(attach.getName());
+					attachMent.setSize(attach.getSize());
+					attachMent.setContentType(attach.getContentType());
+					attaches.add(attachMent);
+				}
+				
 				message.setFrom(display.getFromText().getText());
 				message.setSubject(display.getSubjectText().getText());
 				message.setText(display.getMessageHTML().getHTML());
-				message.setMessageAttachments(attachments);
+				message.setMessageAttachments(attaches);
 				message.setTo(emailTextToArray(display.getToText().getText()));
 				message.setCc(emailTextToArray(display.getCcText().getText()));
 				message.setBcc(emailTextToArray(display.getBccText().getText()));

@@ -291,12 +291,17 @@ import org.apache.hupa.shared.domain.SendForwardMessageAction;
 import org.apache.hupa.shared.domain.SendMessageAction;
 import org.apache.hupa.shared.domain.SendReplyMessageAction;
 import org.apache.hupa.shared.domain.SetFlagAction;
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.SmtpMessage;
 >>>>>>> forward and reply message to use RF
 import org.apache.hupa.shared.domain.Settings;
 <<<<<<< HEAD
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 =======
+=======
+import org.apache.hupa.shared.domain.Settings;
+import org.apache.hupa.shared.domain.SmtpMessage;
+>>>>>>> fix issue 4
 import org.apache.hupa.shared.domain.Tag;
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 import org.apache.hupa.shared.domain.User;
@@ -490,6 +495,10 @@ public class GuiceServerModule extends AbstractModule {
 		
 		bind(IMAPStoreCache.class).to(getIMAPStoreCacheClass()).in(Singleton.class);
 
+        bind(DownloadAttachmentServlet.class).in(Singleton.class);
+        bind(UploadAttachmentServlet.class).in(Singleton.class);
+        bind(MessageSourceServlet.class).in(Singleton.class);
+        
 		bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);
 		bind(Session.class).toProvider(JavaMailSessionProvider.class);
 <<<<<<< HEAD
