@@ -20,6 +20,7 @@
 package org.apache.hupa.client.activity;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.LogoutUserRequest;
@@ -132,21 +133,80 @@ public class TopBarActivity extends AppBaseActivity {
 		return user;
 	}
 =======
+=======
+import org.apache.hupa.client.place.DefaultPlace;
+import org.apache.hupa.client.rf.LogoutUserRequest;
+import org.apache.hupa.client.ui.LoginLayoutable;
+>>>>>>> add logout support
 import org.apache.hupa.client.ui.WidgetDisplayable;
+import org.apache.hupa.shared.domain.LogoutUserResult;
+import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.events.LoginEvent;
+import org.apache.hupa.shared.events.LoginEventHandler;
+import org.apache.hupa.shared.events.LogoutEvent;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class TopBarActivity extends AppBaseActivity {
+
+	@Inject private Displayable display;
+	@Inject private LoginLayoutable loginLayout;
+	private User user;
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
+		bindTo(eventBus);
 	}
 
+<<<<<<< HEAD
 	@Inject private Displayable display;
 	
 	public interface Displayable extends WidgetDisplayable {}
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+	private void bindTo(EventBus eventBus) {
+
+		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
+			public void onLogin(LoginEvent event) {
+				user = event.getUser();
+			}
+		});
+		registerHandler(display.getLogoutClick().addClickHandler(
+				new ClickHandler() {
+					public void onClick(ClickEvent event) {
+						doLogout();
+					}
+				}));
+	}
+
+	private void doLogout() {
+		if (user != null) {
+			LogoutUserRequest req = requestFactory.logoutRequest();
+			req.logout().fire(new Receiver<LogoutUserResult>() {
+				@Override
+				public void onSuccess(LogoutUserResult response) {
+					eventBus.fireEvent(new LogoutEvent(response.getUser()));
+					RootLayoutPanel.get().clear();
+					RootLayoutPanel.get().add(loginLayout.get());
+					TopBarActivity.this.placeController.goTo(new DefaultPlace());
+				}
+			});
+		}
+	}
+
+	public interface Displayable extends WidgetDisplayable {
+		HasClickHandlers getLogoutClick();
+
+		HTMLPanel getUserLabel();
+	}
+>>>>>>> add logout support
 }

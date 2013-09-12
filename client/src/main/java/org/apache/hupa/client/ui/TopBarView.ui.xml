@@ -124,9 +124,8 @@
 		</g:west>
 		<g:center>
 			<g:FlowPanel>
-				<g:Anchor addStyleNames="{style.right} {style.logout}">Logout</g:Anchor>
-				<g:HTMLPanel tag="span" addStyleNames="{style.right} {style.username}">echowdx@gmail.com
-				</g:HTMLPanel>
+				<g:Anchor ui:field="logout" addStyleNames="{style.right} {style.logout}">Logout</g:Anchor>
+				<g:HTMLPanel ui:field="userLabel" tag="span" addStyleNames="{style.right} {style.username}" />
 			</g:FlowPanel>
 		</g:center>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one

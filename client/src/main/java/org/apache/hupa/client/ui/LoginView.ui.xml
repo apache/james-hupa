@@ -154,6 +154,13 @@
 			white-space: nowrap;
 			text-align: center;
 			cursor: default;
+		}
+		
+		.hidden {
+			display: none;
+		}
+		
+		.display {
 			display: inline-block;
 		}
 		
@@ -173,9 +180,7 @@
 		</g:FlowPanel>
 		<g:FlowPanel ui:field="boxBottom" styleName="{style.boxBottom}">
 			<g:FlowPanel ui:field="messageBox" addStyleNames="{style.message}">
-				<g:HTMLPanel ui:field="message" addStyleNames="{style.notice}">You have successfully
-					terminated the
-					session. Good bye!
+				<g:HTMLPanel ui:field="message" addStyleNames="{style.notice}{style.hidden}">
 				</g:HTMLPanel>
 			</g:FlowPanel>
 		</g:FlowPanel>

@@ -264,7 +264,7 @@ public class HupaController {
 	private final class PlaceChangHandler implements PlaceChangeEvent.Handler {
 		@Override
 		public void onPlaceChange(PlaceChangeEvent event) {
-			log.fine("place changed to " + event.getNewPlace());
+//			log.fine("place changed to " + event.getNewPlace());
 			// if (placeChange(event)) {
 			// checkSession();
 			// }
@@ -279,7 +279,6 @@ public class HupaController {
 					if (!(RootLayoutPanel.get().getLayoutData() instanceof HupaLayoutable)) {
 						RootLayoutPanel.get().clear();
 						RootLayoutPanel.get().add(hupaLayout.get());
-						RootLayoutPanel.get().setLayoutData(hupaLayout);
 
 					}
 				} else if (newPlace instanceof DefaultPlace) {
@@ -288,7 +287,6 @@ public class HupaController {
 					if (!(RootLayoutPanel.get().getLayoutData() instanceof LoginLayoutable)) {
 						RootLayoutPanel.get().clear();
 						RootLayoutPanel.get().add(loginLayout.get());
-						RootLayoutPanel.get().setLayoutData(loginLayout);
 					}
 				}
 				currentPlace = newPlace;
@@ -334,7 +332,7 @@ public class HupaController {
 				if (!sessionValid) {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
-					log.fine("session invalid");
+//					log.fine("session invalid");
 //					HupaController.this.placeController
 //							.goTo(new DefaultPlace());
 
