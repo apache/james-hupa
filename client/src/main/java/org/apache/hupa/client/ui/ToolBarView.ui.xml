@@ -12,6 +12,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<ui:image field="buttons" src="res/buttons.png" />
 	<ui:image field="listicons" src="res/listicons.png" />
 	<ui:style type="org.apache.hupa.client.ui.ToolBarView.Style">
@@ -22,6 +23,10 @@
 =======
 	<ui:image field="buttons" src="res/buttons.png"/>
 	<ui:style>
+=======
+	<ui:image field="buttons" src="res/buttons.png" />
+	<ui:style type="org.apache.hupa.client.ui.ToolBarView.Style">
+>>>>>>> dynamical style tool bar
 		.bar {
 			position: absolute;
 <<<<<<< HEAD
@@ -262,6 +267,11 @@
 			background-position: center -850px;
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 		}
+		
+		.disabledButton {
+			opacity: 0.4;
+			cursor: default;
+		}
 	</ui:style>
 
 	<g:FlowPanel addStyleNames="{style.bar}" ui:field="ToolBar">
@@ -293,18 +303,24 @@
 		<g:Anchor addStyleNames="{style.button} {style.checkMail}">Refresh</g:Anchor>
 		<g:Anchor addStyleNames="{style.button} {style.compose}">Compose</g:Anchor>
 		<g:HTMLPanel tag="span" addStyleNames="{style.spacer}"></g:HTMLPanel>
-		<g:Anchor addStyleNames="{style.button} {style.reply}">Reply</g:Anchor>
-		<g:HTMLPanel tag="span" addStyleNames="{style.dropButton}">
+		<g:Anchor ui:field="reply" addStyleNames="{style.button} {style.reply} {style.disabledButton}">Reply</g:Anchor>
+		<g:HTMLPanel tag="span" addStyleNames="{style.dropButton} {style.disabledButton}">
 			<g:Anchor addStyleNames="{style.button} {style.replyAll}">Reply all</g:Anchor>
 			<g:HTMLPanel tag="span" addStyleNames="{style.dropButtonTip}"></g:HTMLPanel>
 		</g:HTMLPanel>
-		<g:HTMLPanel tag="span" addStyleNames="{style.dropButton}">
+		<g:HTMLPanel tag="span" addStyleNames="{style.dropButton} {style.disabledButton}">
 			<g:Anchor addStyleNames="{style.button} {style.forward}">Forward</g:Anchor>
 			<g:HTMLPanel tag="span" addStyleNames="{style.dropButtonTip}"></g:HTMLPanel>
 		</g:HTMLPanel>
+<<<<<<< HEAD
 		<g:Anchor addStyleNames="{style.button} {style.delete}">Delete</g:Anchor>
 		<g:Anchor addStyleNames="{style.button} {style.mark}">Mark</g:Anchor>
 		<g:Anchor addStyleNames="{style.button} {style.more}">More</g:Anchor>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+		<g:Anchor addStyleNames="{style.button} {style.delete} {style.disabledButton}">Delete</g:Anchor>
+		<g:Anchor addStyleNames="{style.button} {style.mark} {style.disabledButton}">Mark</g:Anchor>
+		<g:Anchor addStyleNames="{style.button} {style.more} {style.disabledButton}">More</g:Anchor>
+>>>>>>> dynamical style tool bar
 	</g:FlowPanel>
 </ui:UiBinder>

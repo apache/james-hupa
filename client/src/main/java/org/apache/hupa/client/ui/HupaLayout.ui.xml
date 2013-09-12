@@ -102,17 +102,25 @@
 		}
 		
 		@sprite .messageContent {
-			width: auto;
-			height: auto;
+			margin: 8px;
 			gwt-image: 'originLogo';
 			background-position: center center;
-			margin: 8px;
+			width: auto;
+			height: auto;
 			filter: grayscale(100%);
 			-webkit-filter: grayscale(100%);
 			-moz-filter: grayscale(100%);
 			-ms-filter: grayscale(100%);
 			-o-filter: grayscale(100%);
 			opacity: 0.7;
+		}
+		
+		@sprite .messageContentWorkAround {
+			margin: 8px;
+            gwt-image: 'originLogo';
+            background-position: center center;
+            width: auto;
+            height: auto;
 		}
 	</ui:style>
 	<g:LayoutPanel addStyleNames="{style.minWidth}">
@@ -278,7 +286,7 @@
 										ui:field="messageContentBox">
 										<g:center>
 											<g:ScrollPanel ui:field="messageContentContainer"
-												addStyleNames="{style.messageContent}" />
+												addStyleNames="{style.messageContentWorkAround}" />
 										</g:center>
 										<g:south size="25">
 											<g:SimplePanel ui:field="statusContainer" />

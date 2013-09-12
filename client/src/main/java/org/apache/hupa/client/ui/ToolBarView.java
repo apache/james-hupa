@@ -30,6 +30,7 @@ import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.DeleteClickEvent;
 
 import com.google.gwt.core.client.GWT;
+<<<<<<< HEAD
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -322,16 +323,28 @@ import org.apache.hupa.client.activity.ToolBarActivity;
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
+=======
+import com.google.gwt.resources.client.CssResource;
+>>>>>>> dynamical style tool bar
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 
 public class ToolBarView extends Composite implements
 		ToolBarActivity.Displayable {
 
+	@UiField Anchor reply;
+	@UiField Style style;
+
 	public ToolBarView() {
 		initWidget(binder.createAndBindUi(this));
+<<<<<<< HEAD
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+		reply.addStyleName(style.disabledButton());
+>>>>>>> dynamical style tool bar
 	}
 
 	interface ToolBarUiBinder extends UiBinder<FlowPanel, ToolBarView> {
@@ -340,10 +353,17 @@ public class ToolBarView extends Composite implements
 	private static ToolBarUiBinder binder = GWT.create(ToolBarUiBinder.class);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Override
 	public HasClickHandlers getRefresh() {
 		return refresh;
 	}
 =======
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+	interface Style extends CssResource {
+		String disabledButton();
+	}
+
+>>>>>>> dynamical style tool bar
 }
