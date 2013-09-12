@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -27,4 +28,13 @@ import org.apache.hupa.shared.exception.HupaException;
 
 public interface DeleteFolderService {
 	GenericResult delete(DeleteFolderAction action) throws HupaException, MessagingException;
+=======
+package org.apache.hupa.server.service;
+
+import org.apache.hupa.shared.domain.DeleteFolderAction;
+import org.apache.hupa.shared.domain.GenericResult;
+
+public interface DeleteFolderService {
+	GenericResult delete(DeleteFolderAction action) throws Exception;
+>>>>>>> delete and rename folder
 }

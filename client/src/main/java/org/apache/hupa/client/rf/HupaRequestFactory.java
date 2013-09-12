@@ -94,5 +94,10 @@ public interface HupaRequestFactory extends RequestFactory {
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 =======
 	CreateFolderRequest createFolderRequest();
+<<<<<<< HEAD
 >>>>>>> Succeed creating new folder
+=======
+	DeleteFolderRequest deleteFolderRequest();
+	RenameFolderRequest renameFolderRequest();
+>>>>>>> delete and rename folder
 }

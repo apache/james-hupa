@@ -263,8 +263,10 @@ import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.CreateFolderRequest;
+import org.apache.hupa.client.rf.DeleteFolderRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.rf.ImapFolderRequest;
+import org.apache.hupa.client.rf.RenameFolderRequest;
 import org.apache.hupa.client.ui.WidgetContainerDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
@@ -272,9 +274,11 @@ import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.domain.CreateFolderAction;
+import org.apache.hupa.shared.domain.DeleteFolderAction;
 import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.RenameFolderAction;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.BackEventHandler;
@@ -774,17 +778,21 @@ System.out.println("1111111"+response);
 						ImapFolderImpl iFolder = new ImapFolderImpl((String) event.getOldValue());
 						final String newName = (String) event.getNewValue();
 						if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
-							// dispatcher.execute(new RenameFolder(iFolder,
-							// newName), new HupaEvoCallback<GenericResult>(
-							// dispatcher, eventBus) {
-							// public void callback(GenericResult result) {
-							// folder.setFullName(newName);
-							// }
-							//
-							// public void callbackError(Throwable caught) {
-							// record.cancelEdit();
-							// }
-							// });
+							RenameFolderRequest req = requestFactory.renameFolderRequest();
+							RenameFolderAction action = req.create(RenameFolderAction.class);
+							action.setNewName(newName);
+							action.setFolder(iFolder);
+							req.rename(action).fire(new Receiver<GenericResult>() {
+								@Override
+								public void onSuccess(GenericResult response) {
+									folder.setFullName(newName);
+								}
+								@Override
+								public void onFailure(ServerFailure error) {
+									record.cancelEdit();
+									GWT.log("Error while renaming" + error.getStackTraceString());
+								}
+							});
 						}
 					}
 				}
@@ -1086,18 +1094,19 @@ System.out.println("1111111"+response);
 		display.getDeleteConfirmClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				// dispatcher.execute(new DeleteFolder(folder), new
-				// AsyncCallback<GenericResult>() {
-				//
-				// public void onFailure(Throwable caught) {
-				// GWT.log("ERROR while deleting", caught);
-				// }
-				//
-				// public void onSuccess(GenericResult result) {
-				// display.deleteSelectedFolder();
-				// }
-				//
-				// });
+				DeleteFolderRequest req = requestFactory.deleteFolderRequest();
+				final DeleteFolderAction action = req.create(DeleteFolderAction.class);
+				action.setFolder(folder);
+				req.delete(action).fire(new Receiver<GenericResult>() {
+					@Override
+					public void onSuccess(GenericResult response) {
+						display.deleteSelectedFolder();
+					}
+					@Override
+					public void onFailure(ServerFailure error) {
+						GWT.log("Error while deleting" + error.getStackTraceString());
+					}
+				});
 			}
 
 		});

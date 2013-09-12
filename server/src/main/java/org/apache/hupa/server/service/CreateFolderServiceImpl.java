@@ -39,6 +39,9 @@ public class CreateFolderServiceImpl extends AbstractService implements CreateFo
 		User user = getUser();
 		ImapFolder folder = action.getFolder();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> delete and rename folder
 		IMAPStore store = cache.get(user);
 		Folder f = store.getFolder(folder.getFullName());
 		if (f.create(Folder.HOLDS_MESSAGES)) {
@@ -47,6 +50,7 @@ public class CreateFolderServiceImpl extends AbstractService implements CreateFo
 		} else {
 			logger.info("Unable to create folder " + folder + " for user " + user);
 			throw new Exception("Unable to create folder " + folder + " for user " + user);
+<<<<<<< HEAD
 
 =======
 
@@ -65,6 +69,9 @@ public class CreateFolderServiceImpl extends AbstractService implements CreateFo
 			logger.error("Error while creating folder " + folder + " for user " + user, e);
 			throw new Exception("Error while creating folder " + folder + " for user " + user, e);
 >>>>>>> Succeed creating new folder
+=======
+
+>>>>>>> delete and rename folder
 		}
 	}
 

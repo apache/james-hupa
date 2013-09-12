@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,20 +22,32 @@ package org.apache.hupa.server.service;
 
 import javax.mail.Folder;
 import javax.mail.MessagingException;
+=======
+package org.apache.hupa.server.service;
+
+import javax.mail.Folder;
+>>>>>>> delete and rename folder
 
 import org.apache.hupa.shared.data.GenericResultImpl;
 import org.apache.hupa.shared.domain.DeleteFolderAction;
 import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
+=======
+>>>>>>> delete and rename folder
 
 import com.sun.mail.imap.IMAPStore;
 
 public class DeleteFolderServiceImpl extends AbstractService implements DeleteFolderService {
 
 	@Override
+<<<<<<< HEAD
 	public GenericResult delete(DeleteFolderAction action) throws HupaException, MessagingException {
+=======
+	public GenericResult delete(DeleteFolderAction action) throws Exception {
+>>>>>>> delete and rename folder
 		User user = getUser();
 		ImapFolder folder = action.getFolder();
 		IMAPStore store = cache.get(user);
@@ -51,7 +64,11 @@ public class DeleteFolderServiceImpl extends AbstractService implements DeleteFo
 			logger.info("Successfully delete folder " + folder + " for user " + user);
 			return new GenericResultImpl();
 		} else {
+<<<<<<< HEAD
 			throw new HupaException("Unable to delete folder " + folder + " for user " + user);
+=======
+			throw new Exception("Unable to delete folder " + folder + " for user " + user);
+>>>>>>> delete and rename folder
 		}
 	}
 
