@@ -838,7 +838,7 @@ public class MessagesCellTable extends DataGrid<Message> {
         dataProvider.updateRowData(range.getStart(), sortedList);
 	}
 	
-	private String parseFolderName(final PlaceController pc) {
+	public String parseFolderName(final PlaceController pc) {
 		Place place = pc.getWhere();
 		if (place instanceof FolderPlace) {
 			folderName = ((FolderPlace) place).getToken();

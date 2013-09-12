@@ -194,11 +194,9 @@ import org.apache.hupa.client.activity.LabelListActivity;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.ImapFolder;
 
-import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -266,27 +264,6 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 					return item == null ? null : item.getPath();
 				}
 			});
-
-	static class LabelCell extends AbstractCell<LabelNode> {
-
-		public LabelCell() {
-		}
-
-		@Override
-		public void render(com.google.gwt.cell.client.Cell.Context context, LabelNode value, SafeHtmlBuilder sb) {
-			if (value == null) {
-				return;
-			}
-
-			if (value.getFolder().getSubscribed()) {
-				sb.appendHtmlConstant(value.getNameForDisplay());
-			} else {
-				sb.appendHtmlConstant("<span style='color:gray;'>");
-				sb.appendHtmlConstant(value.getNameForDisplay());
-				sb.appendHtmlConstant("</span>");
-			}
-		}
-	}
 
 	public class ImapLabelListDataProvider extends AsyncDataProvider<LabelNode> implements HasRefresh {
 

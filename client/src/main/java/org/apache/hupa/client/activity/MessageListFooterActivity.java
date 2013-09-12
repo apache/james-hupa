@@ -21,11 +21,15 @@ package org.apache.hupa.client.activity;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fixed issue#85, can move one message now in DEMO mode, while not test in Gmail mode
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+<<<<<<< HEAD
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -40,11 +44,18 @@ import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+>>>>>>> fixed issue#85, can move one message now in DEMO mode, while not test in Gmail mode
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.HasVisibility;
 import com.google.gwt.user.client.ui.IsWidget;
+<<<<<<< HEAD
 >>>>>>> replace with IsWidget
+=======
+import com.google.gwt.user.client.ui.ListBox;
+>>>>>>> fixed issue#85, can move one message now in DEMO mode, while not test in Gmail mode
 import com.google.inject.Inject;
 
 public class MessageListFooterActivity extends AppBaseActivity {
@@ -53,6 +64,9 @@ public class MessageListFooterActivity extends AppBaseActivity {
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fixed issue#85, can move one message now in DEMO mode, while not test in Gmail mode
 		bindTo(eventBus);
 	}
 
@@ -67,8 +81,11 @@ public class MessageListFooterActivity extends AppBaseActivity {
 				}
 			}
 		});
+<<<<<<< HEAD
 =======
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+>>>>>>> fixed issue#85, can move one message now in DEMO mode, while not test in Gmail mode
 	}
 
 	@Inject private Displayable display;
@@ -90,6 +107,8 @@ public class MessageListFooterActivity extends AppBaseActivity {
 	public interface Displayable extends IsWidget {
 >>>>>>> replace with IsWidget
 		SimplePager getPager();
+		HasVisibility getLabelsPanel();
+		ListBox getLabels();
 	}
 >>>>>>> try to rearrange the places and history managment.
 }

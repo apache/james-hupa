@@ -294,13 +294,17 @@ import org.apache.hupa.shared.data.ImapFolderImpl;
 >>>>>>> fixed issue#82, make display message first and then mark etc.
 import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
 import org.apache.hupa.shared.domain.DeleteMessageResult;
+import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.MoveMessageAction;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.DeleteClickEvent;
 import org.apache.hupa.shared.events.DeleteClickEventHandler;
+import org.apache.hupa.shared.events.MoveMessageEvent;
+import org.apache.hupa.shared.events.MoveMessageEventHandler;
 import org.apache.hupa.shared.events.RefreshMessagesEvent;
 import org.apache.hupa.shared.events.RefreshMessagesEventHandler;
 import org.apache.hupa.shared.events.RefreshUnreadEvent;
@@ -320,7 +324,7 @@ public class MessageListActivity extends AppBaseActivity {
 	@Inject private ToolBarActivity.Displayable toolBar;
 	@Inject private TopBarActivity.Displayable topBar;
 	private String folderName;
-//	private String searchValue;
+	// private String searchValue;
 	private User user;
 
 	@Override
@@ -377,20 +381,70 @@ public class MessageListActivity extends AppBaseActivity {
 		return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
 	}
 
-	private void bindTo(EventBus eventBus) {
+	private void bindTo(final EventBus eventBus) {
 		eventBus.addHandler(DeleteClickEvent.TYPE, new DeleteClickEventHandler() {
 			@Override
 			public void onDeleteClickEvent(DeleteClickEvent event) {
 				deleteSelectedMessages();
 			}
 		});
-		
-		eventBus.addHandler(RefreshMessagesEvent.TYPE, new RefreshMessagesEventHandler(){
+
+		eventBus.addHandler(RefreshMessagesEvent.TYPE, new RefreshMessagesEventHandler() {
 			@Override
 			public void onRefresh(RefreshMessagesEvent event) {
 				display.setSearchValue(event.getSearchValue());
 				display.refresh();
 			}
+		});
+
+		eventBus.addHandler(MoveMessageEvent.TYPE, new MoveMessageEventHandler() {
+
+			@Override
+			public void onMoveMessageHandler(final MoveMessageEvent event) {
+				hc.showTopLoading("Moving...");
+				MoveMessageRequest req = rf.moveMessageRequest();
+				ImapFolder f = req.create(ImapFolder.class);
+				ImapFolder newF = req.create(ImapFolder.class);
+
+				String fullName = null;
+				if (pc.getWhere() instanceof FolderPlace) {
+					fullName = ((FolderPlace) pc.getWhere()).getToken();
+				} else {
+					fullName = ((MessagePlace) pc.getWhere()).getTokenWrapper().getFolder();
+				}
+				f.setFullName(fullName);
+				newF.setFullName(event.getNewFolder().getFullName());
+				MoveMessageAction action = req.create(MoveMessageAction.class);
+
+				final List<Long> uids = display.getSelectedMessagesIds();
+				if(uids.isEmpty() || uids.size() > 1){//TODO can move more than one message once.
+					hc.hideTopLoading();
+					hc.showNotice("Please select one and only one message", 10000);
+					return;
+				}
+				action.setMessageUid(uids.get(0));
+				action.setNewFolder(newF);
+				action.setOldFolder(f);
+				req.move(action).fire(new Receiver<GenericResult>() {
+
+					@Override
+					public void onSuccess(GenericResult response) {
+						display.refresh();
+						eventBus.fireEvent(new RefreshUnreadEvent());
+						hc.hideTopLoading();
+						hc.showNotice("The conversation has been moved to \"" + event.getNewFolder() + "\"", 10000);
+					}
+
+					@Override
+					public void onFailure(ServerFailure error) {
+						super.onFailure(error);
+						hc.hideTopLoading();
+						hc.showNotice(error.getMessage(), 10000);
+					}
+
+				});
+			}
+
 		});
 
 	}
