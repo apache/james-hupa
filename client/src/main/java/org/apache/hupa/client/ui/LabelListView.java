@@ -224,6 +224,13 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 	@UiField Button add;
 	@UiField Button delete;
 
+	public interface Resources extends CellList.Resources {
+
+		Resources INSTANCE = GWT.create(Resources.class);
+
+		@Source("res/CssLabelListView.css")
+		public CellList.Style cellListStyle();
+	}
 	@UiHandler("add")
 	public void handleAdd(ClickEvent e) {
 		labelProperties.cascade(selectionModel.getSelectedObject(), data.getDataList(), CASCADE_TYPE_ADD);
@@ -235,7 +242,7 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 	public LabelListView(final HupaRequestFactory rf) {
 		initWidget(binder.createAndBindUi(this));
 		data = new ImapLabelListDataProvider(rf);
-		CellList<LabelNode> cellList = new CellList<LabelNode>(new LabelCell());
+		CellList<LabelNode> cellList = new CellList<LabelNode>(new LabelCell(), Resources.INSTANCE);
 		cellList.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			public void onSelectionChange(SelectionChangeEvent event) {
@@ -307,6 +314,8 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 
 			rf.fetchFoldersRequest().fetch(null, Boolean.TRUE).fire(new Receiver<List<ImapFolder>>() {
 
+				private String INTENTS = "&nbsp;&nbsp;&nbsp;&nbsp;";
+
 				@Override
 				public void onSuccess(List<ImapFolder> response) {
 					folderNodes.clear();
@@ -314,7 +323,7 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 						updateRowCount(-1, true);
 					} else {
 						for (ImapFolder folder : response) {
-							fillCellList(folderNodes, folder, LabelNode.ROOT, "&nbsp;&nbsp;&nbsp;&nbsp;");
+							fillCellList(folderNodes, folder, LabelNode.ROOT, INTENTS);
 						}
 						updateRowData(start, folderNodes);
 					}
@@ -331,7 +340,7 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 					folderNodes.add(labelNode);
 					if (curFolder.getHasChildren()) {
 						for (ImapFolder subFolder : curFolder.getChildren()) {
-							fillCellList(folderNodes, subFolder, labelNode, intents + "&nbsp;&nbsp;&nbsp;&nbsp;");
+							fillCellList(folderNodes, subFolder, labelNode, intents + INTENTS);
 						}
 					}
 				}

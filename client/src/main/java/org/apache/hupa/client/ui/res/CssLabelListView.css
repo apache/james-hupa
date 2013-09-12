@@ -15,8 +15,11 @@
  */
 .cellListWidget {
 	
+<<<<<<< HEAD
 	cursor:default;
 	
+=======
+>>>>>>> add adjusted style to labels list in setting palce
 }
 
 .cellListEvenItem {
@@ -52,11 +55,18 @@
 }
 
 .cellListKeyboardSelectedItem {
+<<<<<<< HEAD
     background:  #c7e3ef;
 }
 
 .cellListSelectedItem {
 	background:  #c7e3ef;
+=======
+	background: #ffc;
+}
+
+.cellListSelectedItem {
+>>>>>>> add adjusted style to labels list in setting palce
     background-color: #c7e3ef;
     color: #004458;
     height: auto;
