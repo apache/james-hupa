@@ -458,11 +458,16 @@ public class ComposeActivity extends AppBaseActivity {
 	}
 
 	private void fillHeader() {
-		if (place == null)
+		if (place == null || place.getParameters() == null)
 			return;
+		if (user == null){
+			user = place.getParameters().getUser();
+		}
+		display.getFromList().addItem(user.getName());
+		if("new".equals(place.getToken())){
+			return;
+		}
 		Message oldMessage = place.getParameters().getOldmessage();
-		if (user != null)
-			display.getFromList().addItem(user.getName());
 		display.getMessageHTML().setHTML(
 				wrapMessage(oldMessage, place.getParameters().getOldDetails(), place.getToken()));
 		if ("forward".equals(place.getToken())) {

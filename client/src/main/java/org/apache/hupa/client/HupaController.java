@@ -27,6 +27,9 @@ package org.apache.hupa.client;
 <<<<<<< HEAD
 import org.apache.hupa.client.activity.NotificationActivity;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fixed issue#18
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.activity.TopBarActivity;
 =======
@@ -153,6 +156,7 @@ public class HupaController {
 	@Inject private LoginLayoutable loginLayout;
 	@Inject private NotificationActivity.Displayable noticeRegion;
 	@Inject private TopBarActivity.Displayable topBar;
+	@Inject private ToolBarActivity.Displayable toolBar;
 	private EventBus eventBus;
 
 	private Timer noopTimer = new IdleTimer();
@@ -337,9 +341,9 @@ public class HupaController {
 
 	private void adjustLayout(PlaceChangeEvent event) {
 		Place place = event.getNewPlace();
-
 		if (place instanceof ComposePlace) {
-			if (((ComposePlace) place).getParameters() != null) {
+			ComposePlace here = (ComposePlace) place;
+			if (here.getParameters() != null) {
 				hupaLayout.switchToCompose();
 			} else {
 				this.placeController.goTo(new MailFolderPlace("Mock-Inbox"));
@@ -386,25 +390,25 @@ public class HupaController {
 		});
 	}
 
-    public void showNotice(String html, int millis){
-    	noticeRegion.notice(html);
-        if (millis > 0)
-        	hideNotice.schedule(millis);
-    }
-    
-    public void showTopLoading(String message){
-    	topBar.showLoading(message);
-    }
-    
-    public void hideTopLoading(){
-    	topBar.hideLoading();
-    }
-    
-    private final Timer hideNotice = new Timer() {
-        public void run() {
-        	noticeRegion.hideNotification();
-        }
-    };
+	public void showNotice(String html, int millis) {
+		noticeRegion.notice(html);
+		if (millis > 0)
+			hideNotice.schedule(millis);
+	}
+
+	public void showTopLoading(String message) {
+		topBar.showLoading(message);
+	}
+
+	public void hideTopLoading() {
+		topBar.hideLoading();
+	}
+
+	private final Timer hideNotice = new Timer() {
+		public void run() {
+			noticeRegion.hideNotification();
+		}
+	};
 
 	private class IdleTimer extends Timer {
 		boolean running = false;

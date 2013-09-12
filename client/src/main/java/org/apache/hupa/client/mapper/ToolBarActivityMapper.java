@@ -43,6 +43,7 @@ import com.google.gwt.activity.shared.ActivityMapper;
 =======
 =======
 import org.apache.hupa.client.place.MailFolderPlace;
+import org.apache.hupa.client.ui.ToolBarView.Parameters;
 
 import com.google.gwt.activity.shared.Activity;
 >>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
@@ -104,6 +105,7 @@ public class ToolBarActivityMapper extends MainActivityMapper {
 		this.toolBarActivityProvider = toolActivityProvider;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	public Activity getActivity(Place place) {
 <<<<<<< HEAD
@@ -116,6 +118,9 @@ public class ToolBarActivityMapper extends MainActivityMapper {
 >>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 =======
 	
+=======
+
+>>>>>>> fixed issue#18
 	@Override
 <<<<<<< HEAD
 	Activity asyncLoadActivity(Place place) {
@@ -123,8 +128,17 @@ public class ToolBarActivityMapper extends MainActivityMapper {
 >>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
 =======
 	Activity asyncLoadActivity(final Place place) {
+<<<<<<< HEAD
 		
 >>>>>>> fix the bugs resulted from the no unit tests
+=======
+		final ToolBarActivity tba = toolBarActivityProvider.get();
+		if (place instanceof MailFolderPlace) { // might be from login page
+			MailFolderPlace here = (MailFolderPlace) place;
+			tba.getDisplay().setParameters(new Parameters(here.getUser(), here.getFullName(), null, null));
+		}
+
+>>>>>>> fixed issue#18
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
@@ -134,10 +148,10 @@ public class ToolBarActivityMapper extends MainActivityMapper {
 			@Override
 			protected Activity createInstance() {
 				String token = null;
-				if(place instanceof MailFolderPlace){
-					token = ((MailFolderPlace)place).getFullName();
+				if (place instanceof MailFolderPlace) {
+					token = ((MailFolderPlace) place).getFullName();
 				}
-				return toolBarActivityProvider.get().with(token);
+				return tba.with(token);
 			}
 		};
 >>>>>>> support code split

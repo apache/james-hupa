@@ -208,6 +208,10 @@ public class ToolBarActivity extends AppBaseActivity {
 		this.folderName = folder;
 		return this;
 	}
+	
+	public Displayable getDisplay(){
+		return display;
+	}
 
 <<<<<<< HEAD
 	@Inject private Displayable display;
@@ -291,6 +295,7 @@ public class ToolBarActivity extends AppBaseActivity {
 		HasClickHandlers getForward();
 
 		void setParameters(Parameters parameters);
+		Parameters getParameters();
 
 		HasClickHandlers getMarkUnread();
 
