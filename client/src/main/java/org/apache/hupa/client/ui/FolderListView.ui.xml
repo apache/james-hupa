@@ -27,9 +27,13 @@
 >>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
 =======
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
+<<<<<<< HEAD
 >>>>>>> make message list view panel work as expected partly
 	<g:SimplePanel ui:field="FolderListView">
 		<c:CellTree ui:field="cellTree" />
 	</g:SimplePanel>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+	<g:SimplePanel ui:field="thisView" />
+>>>>>>> make compose panel left another widget rather than cell tree
 </ui:UiBinder>

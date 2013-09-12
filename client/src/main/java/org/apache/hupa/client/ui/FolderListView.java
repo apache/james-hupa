@@ -226,30 +226,45 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 public class FolderListView extends Composite implements
 		FolderListActivity.Displayable {
-	private static final Logger log = Logger.getLogger(FolderListView.class
-			.getName());
-	@UiField(provided = true) CellTree cellTree;
+	@UiField SimplePanel thisView;
+	private CellTree cellTree;
+	// FIXME here we can not support another cell tree, since both of their style
+	// would not be cleared.
+	private HTMLPanel contactPanel;
 
 	@AssistedInject
 	public FolderListView(final FoldersTreeViewModel viewModel,
 			final EventBus eventBus, @Assisted Place place) {
+		initWidget(binder.createAndBindUi(this));
 		if (place instanceof ComposePlace) {
-			// TODO this viewModel should be contacts
-			cellTree = new CellTree(viewModel, null);
-			log.fine("+++>swith to compose");
+			contactPanel = new HTMLPanel("contacts list");
+			if (thisView.getWidget() != null
+					&& thisView.getWidget() instanceof CellTree) {
+				thisView.remove(cellTree);
+			}
+			thisView.add(contactPanel);
 		} else {
 			cellTree = new CellTree(viewModel, null, Resources.INSTANCE);
-			log.fine("--->swith to other place");
+			cellTree.setAnimationEnabled(true);
+			if (thisView.getWidget() != null
+					&& thisView.getWidget() instanceof HTMLPanel) {
+				thisView.remove(contactPanel);
+			}
+			thisView.add(cellTree);
 		}
+<<<<<<< HEAD
 		cellTree.setAnimationEnabled(true);
 		initWidget(binder.createAndBindUi(this));
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+>>>>>>> make compose panel left another widget rather than cell tree
 	}
 
 	public interface Resources extends CellTree.Resources {
