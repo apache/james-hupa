@@ -68,6 +68,7 @@ import com.google.gwt.place.shared.Prefix;
 
 public class DefaultPlace extends AbstractPlace {
 
+<<<<<<< HEAD
   @Prefix("!")
   public static class Tokenizer implements PlaceTokenizer<DefaultPlace> {
 
@@ -92,5 +93,30 @@ public class DefaultPlace extends AbstractPlace {
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
+=======
+	String token;
+
+	public DefaultPlace(String token) {
+		this.token = token;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	@Prefix("!")
+	public static class Tokenizer implements PlaceTokenizer<DefaultPlace> {
+
+		@Override
+		public DefaultPlace getPlace(String token) {
+			return new DefaultPlace(token);
+		}
+
+		@Override
+		public String getToken(DefaultPlace place) {
+			return place.getToken();
+		}
+	}
+>>>>>>> cope with issue #36, the default place and and the mail folder place, we would always come up with the default place whenever giving a empty string token
 
 }

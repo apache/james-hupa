@@ -199,7 +199,7 @@ public class TopBarActivity extends AppBaseActivity {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
 					TopBarActivity.this.placeController
-							.goTo(new DefaultPlace());
+							.goTo(new DefaultPlace("@"));
 				}
 
 				@Override
@@ -207,7 +207,7 @@ public class TopBarActivity extends AppBaseActivity {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
 					TopBarActivity.this.placeController
-							.goTo(new DefaultPlace());
+							.goTo(new DefaultPlace("@"));
 				}
 			});
 		}

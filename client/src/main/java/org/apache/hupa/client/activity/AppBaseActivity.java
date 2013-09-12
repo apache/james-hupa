@@ -65,6 +65,7 @@ public abstract class AppBaseActivity extends AbstractActivity {
 
 	@Override
 	public void onStop() {
+<<<<<<< HEAD
 		for (HandlerRegistration registration : registrations) {
 <<<<<<< HEAD
 			if(registration != null){
@@ -88,6 +89,12 @@ public abstract class AppBaseActivity extends AbstractActivity {
 			registration.removeHandler();
 		}
 		registrations.clear();
+=======
+//		for (HandlerRegistration registration : registrations) {
+//			registration.removeHandler();
+//		}
+//		registrations.clear();
+>>>>>>> cope with issue #36, the default place and and the mail folder place, we would always come up with the default place whenever giving a empty string token
 	}
 <<<<<<< HEAD
 >>>>>>> fix issue 10
@@ -95,10 +102,6 @@ public abstract class AppBaseActivity extends AbstractActivity {
 
 	protected void registerHandler(HandlerRegistration handlerRegistration) {
 		registrations.add(handlerRegistration);
-	}
-
-	public String mayStop() {
-		return null;
 	}
 
 	public void onCancel() {

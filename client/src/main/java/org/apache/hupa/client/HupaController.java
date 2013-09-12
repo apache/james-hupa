@@ -262,9 +262,13 @@ public class HupaController {
 		RootLayoutPanel.get().add(hupaLayout.get());
 =======
 		bindCss();
+<<<<<<< HEAD
 		checkSession();
 >>>>>>> integrate them as a whole one - first: make the default place work
+=======
+>>>>>>> cope with issue #36, the default place and and the mail folder place, we would always come up with the default place whenever giving a empty string token
 		placeHistoryHandler.handleCurrentHistory();
+		checkSession();
 	}
 
 	private void bindCss() {

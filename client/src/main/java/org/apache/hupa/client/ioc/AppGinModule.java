@@ -872,8 +872,12 @@ public class AppGinModule extends AbstractGinModule {
 			EventBus eventBus) {
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(
 				historyMapper);
+<<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 		historyHandler.register(placeController, eventBus, new DefaultPlace());
+=======
+		historyHandler.register(placeController, eventBus, new DefaultPlace("@"));
+>>>>>>> cope with issue #36, the default place and and the mail folder place, we would always come up with the default place whenever giving a empty string token
 		return historyHandler;
 	}
 

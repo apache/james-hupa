@@ -79,7 +79,7 @@ public class AppController {
 				@Override
 				public void onSuccess(Boolean sessionValid) {
 					if (!sessionValid) {
-						AppController.this.placeController.goTo(new DefaultPlace());
+//						AppController.this.placeController.goTo(new DefaultPlace());
 					}
 				}
 			});

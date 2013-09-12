@@ -370,6 +370,7 @@ public class TopActivity extends AppBaseActivity {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //		placeController.goTo(new DefaultPlace());
 =======
 >>>>>>> introduce the top activity
@@ -378,6 +379,9 @@ public class TopActivity extends AppBaseActivity {
 =======
 		placeController.goTo(new DefaultPlace());
 >>>>>>> other RFs
+=======
+//		placeController.goTo(new DefaultPlace());
+>>>>>>> cope with issue #36, the default place and and the mail folder place, we would always come up with the default place whenever giving a empty string token
 	}
 
 	private void showContacts() {
