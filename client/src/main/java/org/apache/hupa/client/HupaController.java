@@ -97,6 +97,7 @@ import com.google.gwt.place.shared.PlaceHistoryHandler;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
@@ -129,6 +130,8 @@ public class HupaController {
 =======
 import com.google.gwt.safehtml.shared.SafeHtml;
 >>>>>>> make a notification timer to be able to schedule the notice with millis time.
+=======
+>>>>>>> make the notification be able to cope with link
 import com.google.gwt.user.client.Timer;
 >>>>>>> fixed issue#48, and add the original IdleTimer
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -378,7 +381,7 @@ public class HupaController {
 		});
 	}
 
-    public void showNotice(SafeHtml html, int millis){
+    public void showNotice(String html, int millis){
     	noticeRegion.notice(html);
         if (millis > 0)
         	hideNotice.schedule(millis);

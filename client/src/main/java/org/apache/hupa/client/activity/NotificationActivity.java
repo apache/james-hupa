@@ -27,7 +27,6 @@ import com.google.gwt.user.client.ui.IsWidget;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 >>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 import com.google.inject.Inject;
@@ -48,7 +47,11 @@ public class NotificationActivity extends AppBaseActivity {
 =======
 	public interface Displayable extends WidgetDisplayable {
 		void hideNotification();
+<<<<<<< HEAD
 		void notice(SafeHtml html);
 >>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
+=======
+		void notice(String html);
+>>>>>>> make the notification be able to cope with link
 	}
 }

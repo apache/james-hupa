@@ -71,7 +71,7 @@ public class FoldersTreeViewModel implements TreeViewModel {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
 				topBar.showLoading();//FIXME delay to show, why
-				controller.showNotice(SafeHtmlUtils.fromString("Hi, this is the notification test.<a href='http://g.cn/' target='_blacnk'>Link</a>"), 3000);
+				controller.showNotice("Hi, this is the notification test.<a href='http://g.cn/' target='_blacnk'>Link</a>", 10000);
 //				notice.notice(SafeHtmlUtils.fromString("Hi, this is the notification test.<a href='http://g.cn/' target='_blacnk'>Link</a>"));
 				SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event.getSource();
 				currentFolder = selectionModel.getSelectedObject();

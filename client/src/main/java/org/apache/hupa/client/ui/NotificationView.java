@@ -24,9 +24,13 @@ import org.apache.hupa.client.activity.NotificationActivity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.CssResource;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.google.gwt.safehtml.shared.SafeHtml;
 >>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
+=======
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+>>>>>>> make the notification be able to cope with link
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -48,10 +52,14 @@ public class NotificationView extends Composite implements NotificationActivity.
 	
 	@Override
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public void notice(String html){
 =======
 	public void notice(SafeHtml html){
 >>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
+=======
+	public void notice(String html){
+>>>>>>> make the notification be able to cope with link
 		this.notificationContainer.removeStyleName(style.hideNotification());
 		this.notification.setHTML(html);
 	}
