@@ -390,6 +390,7 @@ public class AppGinModule extends AbstractGinModule {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 		bind(TopActivity.Displayable.class).to(TopView.class);
@@ -412,7 +413,16 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> forward and reply message to use RF
 
 		bind(WestActivity.class).in(Singleton.class);
+=======
+		
+		bind(LoginActivity.class).in(Singleton.class);
+>>>>>>> remove gwt-incubator dependency in Messages List Model; 
 		bind(TopActivity.class).in(Singleton.class);
+		bind(WestActivity.class).in(Singleton.class);
+		bind(IMAPMessageListActivity.class).in(Singleton.class);
+		bind(MessageSendActivity.class).in(Singleton.class);
+		bind(IMAPMessageActivity.class).in(Singleton.class);
+
 
 		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
 		bind(MessageTableModel.class).in(Singleton.class);

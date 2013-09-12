@@ -382,6 +382,7 @@ package org.apache.hupa.client.activity;
 =======
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 
 <<<<<<< HEAD
@@ -392,6 +393,8 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 =======
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.client.HandlerRegistrationAdapter;
+=======
+>>>>>>> remove gwt-incubator dependency in Messages List Model; 
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
@@ -402,7 +405,6 @@ import org.apache.hupa.client.rf.MoveMessageRequest;
 import org.apache.hupa.client.rf.SetFlagRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
-import org.apache.hupa.shared.data.MessageImpl;
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.domain.DeleteMessageAllAction;
 import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
@@ -414,7 +416,6 @@ import org.apache.hupa.shared.domain.MoveMessageAction;
 import org.apache.hupa.shared.domain.SetFlagAction;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
-import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
 import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.IncreaseUnseenEvent;
@@ -503,6 +504,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+<<<<<<< HEAD
 import com.google.gwt.gen2.table.event.client.HasPageChangeHandlers;
 import com.google.gwt.gen2.table.event.client.HasPageLoadHandlers;
 import com.google.gwt.gen2.table.event.client.HasRowSelectionHandlers;
@@ -519,16 +521,15 @@ import com.google.gwt.gen2.table.event.client.RowSelectionHandler;
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> 
+=======
+>>>>>>> remove gwt-incubator dependency in Messages List Model; 
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.SourcesTableEvents;
-import com.google.gwt.user.client.ui.TableListener;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
-@SuppressWarnings("deprecation")
 public class IMAPMessageListActivity extends AbstractActivity {
 
 <<<<<<< HEAD
@@ -1240,10 +1241,6 @@ public class IMAPMessageListActivity extends AbstractActivity {
 	}
 
 	public interface Displayable extends WidgetDisplayable {
-		public HasRowSelectionHandlers getDataTableSelection();
-		public HasPageLoadHandlers getDataTableLoad();
-		public void addTableListener(TableListener listener);
-		public void removeTableListener(TableListener listener);
 		public void setPostFetchMessageCount(int count);
 		public HasClickHandlers getNewClick();
 		public Message getData(int rowIndex);
@@ -1268,7 +1265,6 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		public HasEnable getMarkUnseenEnable();
 		public HasClickHandlers getRefreshClick();
 		public void redraw();
-		public HasPageChangeHandlers getDataTablePageChange();
 		public void goToPage(int page);
 		public int getCurrentPage();
 		public int getRowsPerPageIndex();

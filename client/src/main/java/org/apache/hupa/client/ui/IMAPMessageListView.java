@@ -22,6 +22,7 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Set;
 =======
@@ -34,6 +35,8 @@ import java.util.ArrayList;
 =======
 >>>>>>> clean some code. Pager issue remain
 import java.util.Date;
+=======
+>>>>>>> remove gwt-incubator dependency in Messages List Model; 
 import java.util.List;
 >>>>>>> Change to new mvp framework - first step
 
@@ -82,12 +85,10 @@ import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.widgets.CommandsBar;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
-import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable;
 import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.MessageImpl;
-import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.domain.FetchMessagesAction;
 import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -106,7 +107,6 @@ import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MessagesReceivedEvent;
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.apache.hupa.widgets.ui.Loading;
-import org.apache.hupa.widgets.ui.PagingOptions;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
 
@@ -125,6 +125,7 @@ import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+<<<<<<< HEAD
 >>>>>>> use CellTable to deal with MessageTableModel, even a few issues
 =======
 >>>>>>> fix the CellTable display
@@ -135,6 +136,8 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 >>>>>>> clean some code. Pager issue remain
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+=======
+>>>>>>> remove gwt-incubator dependency in Messages List Model; 
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -145,6 +148,10 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 <<<<<<< HEAD
 import com.google.gwt.event.shared.EventBus;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
+>>>>>>> remove gwt-incubator dependency in Messages List Model; 
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.Anchor;
@@ -155,6 +162,10 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
+<<<<<<< HEAD
+=======
+import com.google.gwt.user.client.ui.VerticalPanel;
+>>>>>>> remove gwt-incubator dependency in Messages List Model; 
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.CellPreviewEvent.Handler;
@@ -1606,11 +1617,6 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	@SuppressWarnings("unused") private HupaMessages messages;
 	private HupaImageBundle imageBundle;
 
-//	private PagingOptions pagingBar;
-//	private DragRefetchPagingScrollTable<Message> mailTable;
-//	private CachedTableModel<Message> cTableModel;
-
-	private FixedWidthGrid dataTable = createDataTable();
 	private EnableButton deleteMailButton;
 	private Button newMailButton;
 	private Button deleteAllMailButton;
@@ -1873,100 +1879,6 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		initWidget(msgListContainer);
 	}
 
-	/**
-	 * @return the newly created data table.
-	 */
-	private FixedWidthGrid createDataTable() {
-		FixedWidthGrid dataTable = new FixedWidthGrid();
-		dataTable.setSelectionPolicy(SelectionPolicy.CHECKBOX);
-		return dataTable;
-	}
-
-	
-	/**
-	 * ColumnDefination which display if the message contains an attachment
-	 * 
-	 * @author Norman
-	 * 
-	 */
-	private static final class AttachmentColumnDefination extends AbstractColumnDefinition<Message, Boolean> {
-
-		@Override
-		public Boolean getCellValue(Message rowValue) {
-			return rowValue.hasAttachment();
-		}
-
-		@Override
-		public void setCellValue(Message rowValue, Boolean cellValue) {
-		}
-
-	}
-
-	/**
-	 * ColumnDefination which display the From
-	 * 
-	 */
-	private static final class FromColumnDefination extends AbstractColumnDefinition<Message, String> {
-
-		@Override
-		public String getCellValue(Message rowValue) {
-			return rowValue.getFrom();
-		}
-
-		@Override
-		public void setCellValue(Message rowValue, String cellValue) {
-			rowValue.setFrom(cellValue);
-		}
-
-	}
-
-	/**
-	 * ColumnDefination which display the Subject
-	 * 
-	 */
-	private static final class SubjectColumnDefination extends AbstractColumnDefinition<Message, String> {
-
-		@Override
-		public String getCellValue(Message rowValue) {
-			return rowValue.getSubject();
-		}
-
-		@Override
-		public void setCellValue(Message rowValue, String cellValue) {
-			rowValue.setSubject(cellValue);
-
-		}
-
-	}
-
-	/**
-	 * ColumnDefination which display the Date
-	 * 
-	 */
-	private static final class DateColumnDefination extends AbstractColumnDefinition<Message, Date> {
-
-		@Override
-		public Date getCellValue(Message rowValue) {
-			return rowValue.getReceivedDate();
-		}
-
-		@Override
-		public void setCellValue(Message rowValue, Date cellValue) {
-			rowValue.setReceivedDate(cellValue);
-		}
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#
-	 * getDataTableSelection()
-	 */
-	public HasRowSelectionHandlers getDataTableSelection() {
-		return null;
-	}
-
 	public void reloadData() {
 	}
 
@@ -1977,17 +1889,6 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 */
 	public void reset() {
 		pageBox.setSelectedIndex(0);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getDataTableLoad
-	 * ()
-	 */
-	public HasPageLoadHandlers getDataTableLoad() {
-		return null;
 	}
 
 	/*
@@ -2018,32 +1919,6 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 */
 	public HasClickHandlers getNewClick() {
 		return newMailButton;
-	}
-
-	/**
-	 * Renderer which fill empty rows with a whitespace
-	 * 
-	 * @param <E> RowType
-	 */
-	private static final class WhiteSpaceCellRenderer<E> implements CellRenderer<E, String> {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * com.google.gwt.gen2.table.client.CellRenderer#renderRowValue(java
-		 * .lang.Object, com.google.gwt.gen2.table.client.ColumnDefinition,
-		 * com.google.gwt.gen2.table.client.TableDefinition.AbstractCellView)
-		 */
-		public void renderRowValue(E rowValue, ColumnDefinition<E, String> columnDef, AbstractCellView<E> view) {
-			String cellValue = columnDef.getCellValue(rowValue);
-			if (cellValue == null || cellValue.length() < 1) {
-				view.setHTML("&nbsp");
-			} else {
-				view.setHTML(cellValue);
-			}
-		}
-
 	}
 
 	/*
@@ -2163,27 +2038,6 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#addTableListener
-	 * (com.google.gwt.user.client.ui.TableListener)
-	 */
-	public void addTableListener(TableListener listener) {
-		dataTable.addTableListener(listener);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#
-	 * removeTableListener(com.google.gwt.user.client.ui.TableListener)
-	 */
-	public void removeTableListener(TableListener listener) {
-		dataTable.removeTableListener(listener);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#
 	 * setPostFetchMessageCount(int)
 	 */
@@ -2296,16 +2150,6 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 */
 	public int getCurrentPage() {
 		return 0;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#
-	 * getDataTablePageChange()
-	 */
-	public HasPageChangeHandlers getDataTablePageChange() {
-		return null;
 	}
 
 	/*
