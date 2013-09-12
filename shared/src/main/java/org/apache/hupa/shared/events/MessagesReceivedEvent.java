@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 import org.apache.hupa.shared.data.Message;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
@@ -46,6 +47,9 @@ import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.proxy.ImapFolder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
+=======
+import org.apache.hupa.shared.domain.ImapFolder;
+>>>>>>> Allow client can use the domain entity interface.
 
 import com.google.gwt.event.shared.GwtEvent;
 

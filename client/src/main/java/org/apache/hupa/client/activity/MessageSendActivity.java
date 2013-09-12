@@ -81,9 +81,13 @@ import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.User;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 1. improve the inbox folder place.
 =======
 >>>>>>> 1. improve the inbox folder place.
+=======
+import org.apache.hupa.shared.domain.ImapFolder;
+>>>>>>> Allow client can use the domain entity interface.
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.ContactsUpdatedEvent;
 import org.apache.hupa.shared.events.ContactsUpdatedEventHandler;
@@ -93,6 +97,7 @@ import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -109,6 +114,8 @@ import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.proxy.ImapFolder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
+=======
+>>>>>>> Allow client can use the domain entity interface.
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 >>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.shared.rpc.ForwardMessage;

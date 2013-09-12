@@ -39,6 +39,7 @@ import org.apache.hupa.shared.data.ImapFolderImpl;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
 import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
@@ -51,6 +52,7 @@ import org.apache.hupa.shared.events.MessagesReceivedEvent;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 >>>>>>> Change to new mvp framework - first step
@@ -60,6 +62,8 @@ import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.proxy.ImapFolder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
+=======
+>>>>>>> Allow client can use the domain entity interface.
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
 

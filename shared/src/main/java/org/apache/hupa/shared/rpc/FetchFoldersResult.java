@@ -27,6 +27,7 @@ import java.util.List;
 import net.customware.gwt.dispatch.shared.Result;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import java.util.ArrayList;
@@ -41,6 +42,9 @@ import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.proxy.ImapFolder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
+=======
+import org.apache.hupa.shared.domain.ImapFolder;
+>>>>>>> Allow client can use the domain entity interface.
 
 public class FetchFoldersResult implements Result, Serializable {
 

@@ -271,6 +271,7 @@ import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.BackEventHandler;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
@@ -295,7 +296,6 @@ import org.apache.hupa.shared.events.ReplyMessageEvent;
 import org.apache.hupa.shared.events.ReplyMessageEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.SentMessageEventHandler;
-import org.apache.hupa.shared.proxy.ImapFolder;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.GenericResult;
@@ -568,6 +568,7 @@ public class WestActivity extends AbstractActivity {
 			public void onSuccess(List<ImapFolder> response) {
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
               display.bindTreeItems(createTreeNodes(response));
+<<<<<<< HEAD
 =======
 System.out.println("1111111"+response);
               display.bindTreeItems(null);
@@ -576,6 +577,8 @@ System.out.println("1111111"+response);
               display.bindTreeItems(createTreeNodes(response));
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 //              // disable
+=======
+>>>>>>> Allow client can use the domain entity interface.
               display.getDeleteEnable().setEnabled(false);
               display.getRenameEnable().setEnabled(false);
               display.setLoadingFolders(false);

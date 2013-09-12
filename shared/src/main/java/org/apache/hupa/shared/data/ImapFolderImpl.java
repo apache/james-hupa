@@ -25,6 +25,7 @@ import java.util.ArrayList;
 <<<<<<< HEAD
 import java.util.List;
 
+<<<<<<< HEAD
 <<<<<<< HEAD:shared/src/main/java/org/apache/hupa/shared/data/IMAPFolder.java
 import org.apache.hupa.shared.rf.EntityBase;
 =======
@@ -43,6 +44,10 @@ import org.apache.hupa.shared.rf.EntityBase;
 =======
 import org.apache.hupa.shared.proxy.ImapFolder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
+=======
+import org.apache.hupa.shared.domain.ImapFolder;
+
+>>>>>>> Allow client can use the domain entity interface.
 
 /**
  * IMAPFolder
