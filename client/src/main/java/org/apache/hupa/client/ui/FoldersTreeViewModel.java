@@ -84,25 +84,25 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	 * Get the {@link NodeInfo} that provides the children of the specified
 	 * value.
 	 */
-	// @Override
-	// public <T> NodeInfo<?> getNodeInfo(T value) {
-	// return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(
-	// (ImapFolder) value), new ImapFolderCell(images.listicons()) {
-	// @Override
-	// public void render(Context context, ImapFolder value,
-	// SafeHtmlBuilder sb) {
-	// if (value != null) {
-	// sb.appendEscaped(value.getName());
-	// }
-	// }
-	// }, selectionModel, null);
-	// }
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
 		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(
-				(ImapFolder) value), new ImapFolderCell(images.listicons()),
-				selectionModel, null);
+				(ImapFolder) value), new AbstractCell<ImapFolder>() {
+			@Override
+			public void render(Context context, ImapFolder value,
+					SafeHtmlBuilder sb) {
+				if (value != null) {
+					sb.appendEscaped(value.getName());
+				}
+			}
+		}, selectionModel, null);
 	}
+//	@Override
+//	public <T> NodeInfo<?> getNodeInfo(T value) {
+//		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(
+//				(ImapFolder) value), new ImapFolderCell(images.listicons()),
+//				selectionModel, null);
+//	}
 
 	/**
 	 * The cell used to render categories.
