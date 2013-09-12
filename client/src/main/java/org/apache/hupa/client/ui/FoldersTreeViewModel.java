@@ -41,7 +41,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ProvidesKey;
@@ -72,7 +71,6 @@ public class FoldersTreeViewModel implements TreeViewModel {
 			public void onSelectionChange(SelectionChangeEvent event) {
 				topBar.showLoading();//FIXME delay to show, why
 				controller.showNotice("Hi, this is the notification test.<a href='http://g.cn/' target='_blacnk'>Link</a>", 10000);
-//				notice.notice(SafeHtmlUtils.fromString("Hi, this is the notification test.<a href='http://g.cn/' target='_blacnk'>Link</a>"));
 				SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event.getSource();
 				currentFolder = selectionModel.getSelectedObject();
 				eventBus.fireEvent(new LoadMessagesEvent(user, selectionModel.getSelectedObject()));
