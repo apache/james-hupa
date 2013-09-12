@@ -87,10 +87,10 @@
 			<g:DockLayoutPanel unit="PX" addStyleNames="{style.box}"
 				ui:field="messageContentBox">
 				<g:center>
-					<g:SimpleLayoutPanel ui:field="messageContentContainer"
+					<g:ScrollPanel ui:field="messageContentContainer"
 						addStyleNames="{style.messageContentWorkAround}" />
 				</g:center>
-				<g:south size="0">
+				<g:south size="25">
 					<g:SimplePanel ui:field="statusContainer" />
 				</g:south>
 			</g:DockLayoutPanel>

@@ -19,6 +19,8 @@
 
 package org.apache.hupa.client.ui;
 
+import org.apache.hupa.client.activity.StatusActivity;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -29,39 +31,12 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class _ToolPanel extends Composite {
+public class _ToolPanel extends Composite implements StatusActivity.Displayable {
 
-	@UiField protected DockLayoutPanel thisPanel;
-	@UiField protected SimplePanel toolBarContainer;
-	@UiField protected SimplePanel composeToolBarContainer;
-	@UiField protected SimplePanel searchBoxContainer;
+	@UiField SimplePanel toolBarContainer;
 
 	public _ToolPanel() {
 		initWidget(binder.createAndBindUi(this));
-	}
-
-	void toggleTo(int layout) {
-		switch (layout) {
-		case HupaLayout.LAYOUT_MESSAGE:
-			this.toggleToCompose(false);break;
-		case HupaLayout.LAYOUT_COMPOSE:
-			this.toggleToCompose(true);break;
-			//TODO compose button should be shown when setting
-		default:
-			hideAll();
-		}
-	}
-
-	private void hideAll() {
-		toolBarContainer.setVisible(false);
-		searchBoxContainer.setVisible(false);
-		composeToolBarContainer.setVisible(false);
-	}
-
-	protected void toggleToCompose(boolean visible) {
-		toolBarContainer.setVisible(!visible);
-		searchBoxContainer.setVisible(!visible);
-		composeToolBarContainer.setVisible(visible);
 	}
 
 	public AcceptsOneWidget getToolBarView() {
@@ -73,27 +48,10 @@ public class _ToolPanel extends Composite {
 		};
 	}
 
-	public AcceptsOneWidget getComposeToolBarView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				composeToolBarContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
-
-	public AcceptsOneWidget getSearchBoxView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				searchBoxContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
-
 	interface _ToolPanelUiBinder extends UiBinder<DockLayoutPanel, _ToolPanel> {
 	}
 
-	private static _ToolPanelUiBinder binder = GWT.create(_ToolPanelUiBinder.class);
+	private static _ToolPanelUiBinder binder = GWT
+			.create(_ToolPanelUiBinder.class);
 
 }

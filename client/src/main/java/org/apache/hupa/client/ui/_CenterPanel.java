@@ -28,9 +28,15 @@ import com.google.gwt.user.client.ui.SplitLayoutPanel;
 
 public class _CenterPanel extends Composite {
 
+<<<<<<< HEAD
 	@UiField protected SplitLayoutPanel thisPanel;
 	@UiField protected __OutlinePanel outlinePanel;
 	@UiField protected __ContentPanel contentPanel;
+=======
+	@UiField SplitLayoutPanel thisPanel;
+	@UiField __OutlinePanel outlinePanel;
+	@UiField __ContentPanel contentPanel;
+>>>>>>> split the layout panel to more small ones
 
 	public _CenterPanel() {
 		initWidget(binder.createAndBindUi(this));

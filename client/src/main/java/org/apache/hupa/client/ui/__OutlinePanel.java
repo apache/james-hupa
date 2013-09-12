@@ -19,6 +19,11 @@
 
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
+=======
+import org.apache.hupa.client.activity.StatusActivity;
+
+>>>>>>> split the layout panel to more small ones
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -29,8 +34,14 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+<<<<<<< HEAD
 public class __OutlinePanel extends Composite {
 
+=======
+public class __OutlinePanel extends Composite implements
+		StatusActivity.Displayable {
+	
+>>>>>>> split the layout panel to more small ones
 	@UiField ScrollPanel folderListContainer;
 
 	public __OutlinePanel() {
@@ -45,7 +56,10 @@ public class __OutlinePanel extends Composite {
 			}
 		};
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> split the layout panel to more small ones
 	interface __OutlinePanelUiBinder extends
 			UiBinder<DockLayoutPanel, __OutlinePanel> {
 	}

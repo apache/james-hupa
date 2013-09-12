@@ -236,10 +236,10 @@
 		<g:layer left='10px' right='10px' top='88px' bottom="20px">
 			<g:DockLayoutPanel ui:field="mainBox">
 				<g:north size="40">
-					<hupa:ToolPanel ui:field="toolPanel" />
+					<hupa:_ToolPanel ui:field="toolPanel" />
 				</g:north>
 				<g:center>
-					<hupa:CenterPanel ui:field="centerPanel" />
+					<hupa:_CenterPanel ui:field="centerPanel" />
 				</g:center>
 			</g:DockLayoutPanel>
 <<<<<<< HEAD

@@ -27,41 +27,25 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class CenterPanel extends Composite {
-
-	@UiField SplitLayoutPanel centerPanel;
-	@UiField DockLayoutPanel folderArea;
-
-	@UiField SplitLayoutPanel messageArea;
-	@UiField ScrollPanel folderListContainer;
+public class __ContentPanel extends Composite{
+	@UiField SplitLayoutPanel thisPanel;
 	@UiField DockLayoutPanel messageListBox;
 	@UiField SimpleLayoutPanel messageListContainer;
 	@UiField SimplePanel messageListFooterContainer;
-	@UiField ScrollPanel messageContentContainer;
+	@UiField SimpleLayoutPanel messageContentContainer;
 	@UiField SimplePanel statusContainer;
 
 	@UiField HTMLPanel contactBox;
 
-	public CenterPanel() {
+	public __ContentPanel() {
 		initWidget(binder.createAndBindUi(this));
-		centerPanel.setWidgetMinSize(folderArea, 144);
-		messageArea.setWidgetHidden(contactBox, true);
-		messageArea.setWidgetMinSize(messageListBox, 130);
-	}
-
-	public AcceptsOneWidget getFolderListView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				folderListContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
+		thisPanel.setWidgetHidden(contactBox, true);
+		thisPanel.setWidgetMinSize(messageListBox, 130);
 	}
 
 	public AcceptsOneWidget getMessageListView() {
@@ -100,11 +84,11 @@ public class CenterPanel extends Composite {
 		};
 	}
 
-	interface CenterPanelUiBinder extends
-			UiBinder<SplitLayoutPanel, CenterPanel> {
+	interface __ContentPanelUiBinder extends
+			UiBinder<SplitLayoutPanel, __ContentPanel> {
 	}
 
-	private static CenterPanelUiBinder binder = GWT
-			.create(CenterPanelUiBinder.class);
+	private static __ContentPanelUiBinder binder = GWT
+			.create(__ContentPanelUiBinder.class);
 
 }

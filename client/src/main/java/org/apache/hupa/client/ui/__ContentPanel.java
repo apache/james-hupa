@@ -19,6 +19,8 @@
 
 package org.apache.hupa.client.ui;
 
+import org.apache.hupa.client.activity.StatusActivity;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -27,17 +29,19 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class __ContentPanel extends Composite{
+public class __ContentPanel extends Composite implements
+		StatusActivity.Displayable {
 	@UiField SplitLayoutPanel thisPanel;
 	@UiField DockLayoutPanel messageListBox;
 	@UiField SimpleLayoutPanel messageListContainer;
 	@UiField SimplePanel messageListFooterContainer;
-	@UiField SimpleLayoutPanel messageContentContainer;
+	@UiField ScrollPanel messageContentContainer;
 	@UiField SimplePanel statusContainer;
 
 	@UiField HTMLPanel contactBox;
