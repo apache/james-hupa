@@ -204,11 +204,15 @@ import com.google.inject.name.Named;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 @SuppressWarnings("deprecation")
 =======
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+@SuppressWarnings("deprecation")
+>>>>>>> add SuppressWarnings("depraction")
 public class AppGinModule extends AbstractGinModule {
 	public static Logger logger = Logger.getLogger(AppGinModule.class.getName());
 
@@ -574,6 +578,7 @@ public class AppGinModule extends AbstractGinModule {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
+<<<<<<< HEAD
 	// @Provides
 	// @Singleton
 	// protected DispatchAsync provideDispatchAsync(ExceptionHandler
@@ -582,6 +587,8 @@ public class AppGinModule extends AbstractGinModule {
 	// }
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
+=======
+>>>>>>> add SuppressWarnings("depraction")
 	@Provides
 	@Singleton
 	public PlaceController getPlaceController(EventBus eventBus) {
