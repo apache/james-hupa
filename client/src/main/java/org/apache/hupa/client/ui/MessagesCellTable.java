@@ -512,12 +512,11 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
-import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.inject.Inject;
 
 public class MessagesCellTable extends DataGrid<Message> {
 
-	private static final int PAGE_SIZE = 15;
+	private static final int PAGE_SIZE = 5;
 	
 	private HupaImageBundle imageBundle;
 
@@ -531,6 +530,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 		addColumn(new SubjectColumn());
 		addColumn(new AttachmentColumn());
 		addColumn(new DateColumn());
+		setRowCount(PAGE_SIZE, false);
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
 	}
 	private class CheckboxColumn extends Column<Message, Boolean> {

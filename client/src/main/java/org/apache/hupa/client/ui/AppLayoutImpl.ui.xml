@@ -234,10 +234,13 @@
 =======
 			margin: 0px 8px 8px 8px;
 <<<<<<< HEAD
+<<<<<<< HEAD
 			min-height: 400px;
 >>>>>>> make it look more beautiful
 =======
 			min-height: 300px;
+=======
+>>>>>>> make messages list pager be available
 		}
 		.southPanel{
 			text-align: center;

@@ -1679,26 +1679,26 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 				assert result != null;
 //				folder.setMessageCount(result.getRealCount());// TODO if do this, there will be auto bean has been frozen.
 //				folder.setUnseenMessageCount(result.getRealUnreadCount());
-				dataProvider.setList(result.getMessages());
-				sortHandler =  new ListHandler<Message>(dataProvider.getList());
+//				dataProvider.setList(result.getMessages());
+//				sortHandler =  new ListHandler<Message>(dataProvider.getList());
 
 //		        sortHandler.setComparator(addressColumn, new Comparator<Contact>() {
 //		          public int compare(Contact o1, Contact o2) {
 //		            return o1.address.compareTo(o2.address);
 //		          }
 //		        });
-				table.addColumnSortHandler(sortHandler);
+//				table.addColumnSortHandler(sortHandler);
 				table.setRowCount(result.getRealCount());
 				if (result.getMessages() != null) {
-					table.setRowData(start + table.getPageSize(), result.getMessages());
+					table.setRowData(start, result.getMessages());
 				} else {
-					table.setRowData(start + table.getPageSize(), result.getMessages());
+					table.setRowData(start, result.getMessages());
 				}
 				
 	            pager.setPageStart(start);
-	            if (start == 0 || !table.isRowCountExact()) {
-	            	table.setRowCount(start + result.getMessages().size(), result.getMessages().size() < table.getPageSize());
-	            }
+//	            if (start == 0 || !table.isRowCountExact()) {
+//	            	table.setRowCount(start + result.getMessages().size(), result.getMessages().size() < table.getPageSize());
+//	            }
 //				flush();
 				// Notify presenter to update folder tree view
 				eventBus.fireEvent(new MessagesReceivedEvent(folder1, result.getMessages()));
@@ -1706,8 +1706,8 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		});
 	}
 
-	private ListDataProvider<Message> dataProvider;
-    ListHandler<Message> sortHandler;
+//	private ListDataProvider<Message> dataProvider;
+//    ListHandler<Message> sortHandler;
 
 
 	protected void refreshSelection() {
@@ -1736,8 +1736,8 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	        final MessagesCellTable table) {
 		this.table = table;
 		this.eventBus = eventBus;
-		dataProvider = new ListDataProvider<Message>();
-		dataProvider.addDataDisplay(table);
+//		dataProvider = new ListDataProvider<Message>();
+//		dataProvider.addDataDisplay(table);
 
 		table.setSelectionModel(selectionModel);
 	    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
@@ -1807,6 +1807,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 
 	    SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
 	    pager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
+	    pager.setDisplay(table);
 
 		deleteMailButton = new EnableButton(constants.deleteMailButton());
 		newMailButton = new Button(constants.newMailButton());
@@ -1820,7 +1821,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		loading = new Loading(constants.loading());
 
 		LayoutPanel solidCenterPanel = new LayoutPanel();
-		solidCenterPanel.addStyleName(HupaCSS.C_msg_list_container);
+//		solidCenterPanel.addStyleName(HupaCSS.C_msg_list_container);
 
 
 		HorizontalPanel buttonBar = new HorizontalPanel();
