@@ -21,7 +21,11 @@ package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
+=======
+import org.apache.hupa.client.evo.ActivityManagerInitializer;
+>>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
@@ -245,6 +249,7 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 >>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 public class HupaLayout implements HupaLayoutable {
 
@@ -259,6 +264,7 @@ public class HupaLayout implements HupaLayoutable {
 
 	private LayoutPanel hupaMainPanel;
 
+//	@Inject
 	public HupaLayout() {
 		hupaMainPanel = binder.createAndBindUi(this);
 	}

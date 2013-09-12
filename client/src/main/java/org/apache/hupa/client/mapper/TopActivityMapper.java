@@ -20,6 +20,7 @@
 package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.TopActivity;
+import org.apache.hupa.client.place.DefaultPlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -36,6 +37,7 @@ public class TopActivityMapper implements ActivityMapper {
 	}
 
 	public Activity getActivity(Place place) {
+		if(place instanceof DefaultPlace) return null;
 		return topActivityProvider.get();
 	}
 }

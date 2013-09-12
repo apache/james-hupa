@@ -21,6 +21,7 @@ package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.ToolBarActivity;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.MessagePlace;
 import org.apache.hupa.client.place.SettingPlace;
@@ -30,6 +31,9 @@ import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 =======
+=======
+import org.apache.hupa.client.place.DefaultPlace;
+>>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -92,9 +96,13 @@ public class ToolBarActivityMapper implements ActivityMapper {
 
 	public Activity getActivity(Place place) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		return toolBarActivityProvider.get();
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+		if(place instanceof DefaultPlace) return null;
+>>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {

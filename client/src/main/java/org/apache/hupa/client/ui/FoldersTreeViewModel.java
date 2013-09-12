@@ -28,6 +28,7 @@ import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
+import org.apache.hupa.widgets.ui.HasEditable;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ValueUpdater;
@@ -90,30 +91,55 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	 */
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
-		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider((ImapFolder) value),
-				new AbstractCell<ImapFolder>(ClickEvent.getType().getName()) {
-					// TODO different images for each folder
-					@Override
-					public void render(Context context, ImapFolder value, SafeHtmlBuilder sb) {
-						if (value != null) {
-							sb.appendEscaped(value.getName());
-						}
-					}
+		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider((ImapFolder) value), new FolderCell(
+				ClickEvent.getType().getName()), selectionModel, null);
+	}
 
-					// TODO is this a click event?
-					@Override
-					public void onBrowserEvent(Context context, Element parent, ImapFolder value, NativeEvent event,
-							ValueUpdater<ImapFolder> valueUpdater) {
-						if (clickSameFolder(value)) {
-							eventBus.fireEvent(new LoadMessagesEvent(user, value));
-							placeController.goTo(new MailFolderPlace(value.getFullName()));
-						}
-					}
+	class FolderCell extends AbstractCell<ImapFolder> implements HasEditable{
+		public FolderCell(String... consumedEvents) {
+			super(consumedEvents);
+		}
+		// TODO different images for each folder
+		@Override
+		public void render(Context context, ImapFolder value, SafeHtmlBuilder sb) {
+			if (value != null) {
+				sb.appendEscaped(value.getName());
+			}
+		}
 
-					private boolean clickSameFolder(ImapFolder value) {
-						return value == currentFolder;
-					}
-				}, selectionModel, null);
+		// TODO is this a click event?
+		@Override
+		public void onBrowserEvent(Context context, Element parent, ImapFolder value, NativeEvent event,
+				ValueUpdater<ImapFolder> valueUpdater) {
+			if (clickSameFolder(value)) {
+				eventBus.fireEvent(new LoadMessagesEvent(user, value));
+				placeController.goTo(new MailFolderPlace(value.getFullName()));
+			}
+		}
+
+		private boolean clickSameFolder(ImapFolder value) {
+			return value == currentFolder;
+		}
+		@Override
+		public void startEdit() {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void cancelEdit() {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void stopEdit() {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public boolean isEdit() {
+			// TODO Auto-generated method stub
+			return false;
+		}
 	}
 
 	class ImapFolderListDataProvider extends AsyncDataProvider<ImapFolder> {

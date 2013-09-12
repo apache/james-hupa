@@ -524,8 +524,12 @@ public class AppGinModule extends AbstractGinModule {
 		bind(ComposeToolBarActivity.class).in(Singleton.class);
 		bind(ComposeActivity.class).in(Singleton.class);
 
+<<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 		bind(TopActivity.Displayable.class).to(TopView.class);
+=======
+		bind(TopActivity.Displayable.class).to(TopView.class).in(Singleton.class);
+>>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 		bind(WestActivity.Displayable.class).to(WestView.class).in(Singleton.class);
 		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
 		bind(MessageSendActivity.Displayable.class).to(MessageSendView.class);

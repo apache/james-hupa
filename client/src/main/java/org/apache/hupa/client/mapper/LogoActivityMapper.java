@@ -23,6 +23,7 @@ import org.apache.hupa.client.activity.LogoActivity;
 
 import com.google.gwt.activity.shared.Activity;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 =======
@@ -30,6 +31,8 @@ import com.google.gwt.activity.shared.ActivityMapper;
 <<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+>>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 >>>>>>> support code split
@@ -38,10 +41,14 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class LogoActivityMapper extends _HupaActivityMapper {
 =======
 public class LogoActivityMapper implements ActivityMapper {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+public class LogoActivityMapper extends AbstractActivityMapper {
+>>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 	private final Provider<LogoActivity> logoActivityProvider;
 
 	@Inject
@@ -49,6 +56,7 @@ public class LogoActivityMapper implements ActivityMapper {
 		this.logoActivityProvider = topActivityProvider;
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Override
 	public Activity asyncLoadActivity(Place place) {
@@ -69,6 +77,10 @@ public class LogoActivityMapper implements ActivityMapper {
 		return logoActivityProvider.get();
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+	@Override
+	public Activity getAppActivity(Place place) {
+>>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {

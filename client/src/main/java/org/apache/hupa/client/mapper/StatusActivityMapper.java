@@ -21,6 +21,9 @@ package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.StatusActivity;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 import org.apache.hupa.client.place.DefaultPlace;
 
 import com.google.gwt.activity.shared.Activity;
@@ -50,9 +53,13 @@ public class StatusActivityMapper implements ActivityMapper {
 	public Activity getActivity(Place place) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if(place instanceof DefaultPlace) return null;
 =======
 >>>>>>> support code split
+=======
+		if(place instanceof DefaultPlace) return null;
+>>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
