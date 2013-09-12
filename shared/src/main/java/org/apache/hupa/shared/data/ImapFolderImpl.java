@@ -148,7 +148,11 @@ public class ImapFolderImpl implements ImapFolder {
 =======
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
     private List<ImapFolder> children = new ArrayList<ImapFolder>();
+<<<<<<< HEAD
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
+=======
+    private String name;
+>>>>>>> fix the frozen autobean issue, yet another occur
     private String fullName;
     private String delimiter;
     private int messageCount;
@@ -170,7 +174,6 @@ public class ImapFolderImpl implements ImapFolder {
         return subscribed;
     }
     
-    
     /**
      * Get the name of the folder
      * 
@@ -180,10 +183,12 @@ public class ImapFolderImpl implements ImapFolder {
         if (delimiter != null) {
             String fParts[] = getFullName().split("\\" + delimiter);
             if (fParts != null && fParts.length > 0) {
-                return fParts[fParts.length - 1];
+                name = fParts[fParts.length - 1];
+                return name;
             }
         }
-        return fullName;
+        name = fullName;
+        return name;
     }
 
     /**
@@ -341,7 +346,7 @@ public class ImapFolderImpl implements ImapFolder {
     // FIXME Could not locate setter for property name in type ImapFolderImpl
 	@Override
     public void setName(String name) {
-	    this.fullName = name;
+	    this.name = name;
     }
 
 >>>>>>> Succeed creating new folder

@@ -16,7 +16,9 @@ public interface ImapFolder extends ValueProxy {
 	void setChildren(List<ImapFolder> children);
 	void setUnseenMessageCount(int count);
 	void setMessageCount(int realCount);
+	int getMessageCount();
 	String getDelimiter();
 	void setDelimiter(String delimiter);
 	void setSubscribed(boolean subscribed);
+	boolean getSubscribed();
 }

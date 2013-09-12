@@ -264,6 +264,7 @@ import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.CreateFolderRequest;
 import org.apache.hupa.client.rf.DeleteFolderRequest;
+import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.rf.ImapFolderRequest;
 import org.apache.hupa.client.rf.RenameFolderRequest;
@@ -775,7 +776,7 @@ System.out.println("1111111"+response);
 
 				public void onEditEvent(EditEvent event) {
 					if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-						ImapFolderImpl iFolder = new ImapFolderImpl((String) event.getOldValue());
+						ImapFolder iFolder = new ImapFolderImpl((String) event.getOldValue());
 						final String newName = (String) event.getNewValue();
 						if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
 							RenameFolderRequest req = requestFactory.renameFolderRequest();
@@ -1024,6 +1025,7 @@ System.out.println("1111111"+response);
 				tItem = (IMAPTreeItem) event.getSelectedItem();
 				if (tItem.isEdit())
 					return;
+<<<<<<< HEAD
 				folder = (ImapFolder) tItem.getUserObject();
 				eventBus.fireEvent(new LoadMessagesEvent(user, folder));
 			}
@@ -1066,6 +1068,14 @@ System.out.println("1111111"+response);
 				if (tItem.isEdit())
 					return;
 				folder = (ImapFolder) tItem.getUserObject();
+=======
+				ImapFolder editableFolder = (ImapFolder) tItem.getUserObject();
+				FetchMessagesRequest req = requestFactory.messagesRequest();
+				folder = req.edit(editableFolder);
+
+//				folder = (ImapFolder) tItem.getUserObject();
+				eventBus.fireEvent(new LoadMessagesEvent(user, folder));
+>>>>>>> fix the frozen autobean issue, yet another occur
 				if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
 					display.getDeleteEnable().setEnabled(false);
 					display.getRenameEnable().setEnabled(false);
@@ -1076,7 +1086,28 @@ System.out.println("1111111"+response);
 			}
 
 		});
+<<<<<<< HEAD
 >>>>>>> try to change fetch messages to use RF
+=======
+		//FIXME why another?
+//		display.getTree().addSelectionHandler(new SelectionHandler<TreeItem>() {
+//
+//			public void onSelection(SelectionEvent<TreeItem> event) {
+//				tItem = (IMAPTreeItem) event.getSelectedItem();
+//				if (tItem.isEdit())
+//					return;
+//				folder = (ImapFolder) tItem.getUserObject();
+//				if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
+//					display.getDeleteEnable().setEnabled(false);
+//					display.getRenameEnable().setEnabled(false);
+//				} else {
+//					display.getDeleteEnable().setEnabled(true);
+//					display.getRenameEnable().setEnabled(true);
+//				}
+//			}
+//
+//		});
+>>>>>>> fix the frozen autobean issue, yet another occur
 		display.getRenameClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
@@ -1237,6 +1268,8 @@ System.out.println("1111111"+response);
 		this.user = user;
 		this.folder = folder;
 		this.searchValue = searchValue;
+		
+		// FIXME goto?
 		placeController.goTo(new MailFolderPlace().with(user, folder, searchValue));
 		// placeController.goTo(mailInboxPlaceProvider.get().with(user));
 		// System.out.println("111");
