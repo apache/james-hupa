@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.NotificationActivity;
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.activity.TopBarActivity;
@@ -43,12 +44,24 @@ import org.apache.hupa.shared.events.LoginEvent;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+=======
+import org.apache.hupa.client.bundles.HupaResources;
+import org.apache.hupa.client.evo.ActivityManagerInitializer;
+import org.apache.hupa.client.place.DefaultPlace;
+import org.apache.hupa.client.place.MailFolderPlace;
+import org.apache.hupa.client.rf.CheckSessionRequest;
+import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.ui.AppLayout;
+import org.apache.hupa.client.ui.HupaLayout;
+
+>>>>>>> move new theme ui from experiment to hupa evo
 import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceChangeEvent;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+<<<<<<< HEAD
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
@@ -76,10 +89,27 @@ public class HupaController {
 		this.placeController = placeController;
 		this.placeHistoryHandler = placeHistoryHandler;
 		this.eventBus = eventBus;
+=======
+import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
+
+public class HupaController {
+
+	@Inject private PlaceHistoryHandler placeHistoryHandler;
+	@Inject private HupaLayout hupaLayout;
+	@Inject private PlaceController placeController;
+	@Inject private HupaRequestFactory requestFactory;
+	private Place currentPlace;
+
+	@Inject
+	public HupaController(EventBus eventBus) {
+>>>>>>> move new theme ui from experiment to hupa evo
 		eventBus.addHandler(PlaceChangeEvent.TYPE, new PlaceChangHandler());
 	}
 
 	public void start() {
+<<<<<<< HEAD
 		bindCss();
 		placeHistoryHandler.handleCurrentHistory();
 	}
@@ -198,4 +228,59 @@ public class HupaController {
 			}
 		}
 	}
+=======
+		StyleInjector.inject(HupaResources.INSTANCE.stylesheet().getText());// TODO
+																			// need
+																			// this?
+		RootLayoutPanel.get().add(hupaLayout.get());
+		placeHistoryHandler.handleCurrentHistory();
+	}
+
+	private final class PlaceChangHandler implements PlaceChangeEvent.Handler {
+		@Override
+		public void onPlaceChange(PlaceChangeEvent event) {
+			if (placeChange(event)) {
+				checkSession();
+			}
+			refreshActivities(event);
+		}
+
+		private void refreshActivities(PlaceChangeEvent event) {
+			Place newPlace = event.getNewPlace();
+			if (newPlace != currentPlace) {
+				if (isAuth(newPlace, currentPlace)) {
+					// appPanelView.setDefaultLayout();
+				} else if (newPlace instanceof DefaultPlace) {
+					// appPanelView.setLoginLayout();
+				}
+				currentPlace = newPlace;
+			}
+		}
+
+		private void checkSession() {
+			CheckSessionRequest checkSession = requestFactory.sessionRequest();
+			checkSession.isValid().fire(new Receiver<Boolean>() {
+				@Override
+				public void onSuccess(Boolean sessionValid) {
+					if (!sessionValid) {
+						HupaController.this.placeController
+								.goTo(new DefaultPlace());
+					}
+				}
+			});
+		}
+
+		private boolean placeChange(PlaceChangeEvent event) {
+			return currentPlace != null
+					&& !(currentPlace instanceof DefaultPlace)
+					&& event.getNewPlace() != currentPlace;
+		}
+
+		private boolean isAuth(Place newPlace, Place currentPlace) {
+			return (newPlace instanceof MailFolderPlace)
+					&& !(currentPlace instanceof MailFolderPlace);
+		}
+	}
+
+>>>>>>> move new theme ui from experiment to hupa evo
 }

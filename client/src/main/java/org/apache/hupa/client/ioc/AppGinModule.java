@@ -36,6 +36,7 @@ import java.util.logging.Logger;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
@@ -115,6 +116,9 @@ import net.customware.gwt.dispatch.client.ExceptionHandler;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.client.CachingDispatchAsync;
+=======
+import org.apache.hupa.client.HupaController;
+>>>>>>> move new theme ui from experiment to hupa evo
 import org.apache.hupa.client.activity.IMAPMessageActivity;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
 import org.apache.hupa.client.activity.LoginActivity;
@@ -165,6 +169,8 @@ import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.AppLayout;
 import org.apache.hupa.client.ui.AppLayoutImpl;
 import org.apache.hupa.client.ui.FoldersTreeViewModel;
+import org.apache.hupa.client.ui.HupaLayout;
+import org.apache.hupa.client.ui.HupaLayoutView;
 import org.apache.hupa.client.ui.IMAPMessageListView;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -228,6 +234,7 @@ public class AppGinModule extends AbstractGinModule {
 	@Override
 	protected void configure() {
 		// Views
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		bind(HupaLayoutable.class).to(HupaLayout.class).in(Singleton.class);
@@ -389,6 +396,9 @@ public class AppGinModule extends AbstractGinModule {
 =======
 >>>>>>> Change to new mvp framework - first step
 		bind(AppLayout.class).to(AppLayoutImpl.class).in(Singleton.class);
+=======
+		bind(HupaLayout.class).to(HupaLayoutView.class).in(Singleton.class);
+>>>>>>> move new theme ui from experiment to hupa evo
 
 		// Activities
 		bind(LoginActivity.Displayable.class).to(LoginView.class);
@@ -446,6 +456,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
 
 		// Application Controller
+<<<<<<< HEAD
 		bind(AppController.class).in(Singleton.class);
 <<<<<<< HEAD
 		
@@ -456,6 +467,10 @@ public class AppGinModule extends AbstractGinModule {
 
 =======
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+//		bind(AppController.class).in(Singleton.class);
+		bind(HupaController.class).in(Singleton.class);
+>>>>>>> move new theme ui from experiment to hupa evo
 
 		// bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
 	}

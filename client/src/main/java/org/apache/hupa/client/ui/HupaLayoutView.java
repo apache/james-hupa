@@ -17,37 +17,23 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.client.evo;
+package org.apache.hupa.client.ui;
 
-import org.apache.hupa.client.ioc.AppGinjector;
-
-import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.LayoutPanel;
 
-public class HupaEvo implements EntryPoint {
+public class HupaLayoutView implements HupaLayout {
+
 	@Override
-	public void onModuleLoad() {
-		handleExceptionsAsync();
-		replaceLoading();
-	    AppController appController = injector.getAppController();
-	    appController.start();
-	}
-	
-	private void handleExceptionsAsync(){
-		GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-            public void onUncaughtException(Throwable e) {
-                e.printStackTrace();
-            }
-        });
+	public LayoutPanel get() {
+		return binder.createAndBindUi(this);
 	}
 
-	private void replaceLoading() {
-		DOM.removeChild(RootPanel.getBodyElement(), DOM.getElementById("loading"));
+	interface HupaLayoutUiBinder extends UiBinder<LayoutPanel, HupaLayoutView> {
 	}
 
-	private final AppGinjector injector = GWT.create(AppGinjector.class);
+	private static HupaLayoutUiBinder binder = GWT
+			.create(HupaLayoutUiBinder.class);
 
 }

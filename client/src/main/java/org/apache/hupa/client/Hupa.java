@@ -25,6 +25,9 @@ package org.apache.hupa.client;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> move new theme ui from experiment to hupa evo
 import org.apache.hupa.client.ioc.AppGinjector;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -42,7 +45,12 @@ public class Hupa implements EntryPoint {
 
 	private void initApp() {
 		replaceLoading();
+<<<<<<< HEAD
 		injector.getHupaController().start();
+=======
+		HupaController hupaController = injector.getHupaController();
+		hupaController.start();
+>>>>>>> move new theme ui from experiment to hupa evo
 	}
 
 	private void handleExceptionsAsync() {
@@ -59,6 +67,7 @@ public class Hupa implements EntryPoint {
 	}
 
 	private final AppGinjector injector = GWT.create(AppGinjector.class);
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> Change to new mvp framework - first step
@@ -176,5 +185,7 @@ public class Hupa implements EntryPoint{
 =======
 	}
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> move new theme ui from experiment to hupa evo
 
 }

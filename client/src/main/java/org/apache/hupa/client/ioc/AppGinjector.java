@@ -26,6 +26,7 @@
 package org.apache.hupa.client.ioc;
 
 import org.apache.hupa.client.HupaController;
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
@@ -44,6 +45,8 @@ package org.apache.hupa.client.ioc;
 import org.apache.hupa.client.AppController;
 >>>>>>> Change to new mvp framework - first step
 =======
+=======
+>>>>>>> move new theme ui from experiment to hupa evo
 import org.apache.hupa.client.evo.AppController;
 >>>>>>> Make the evo more clear.
 
@@ -66,5 +69,9 @@ public interface AppGinjector extends Ginjector {
 >>>>>>> Change to new mvp framework - first step
 =======
   AppController getAppController();
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
+=======
+  HupaController getHupaController();
+>>>>>>> move new theme ui from experiment to hupa evo
 }

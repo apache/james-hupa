@@ -4522,3 +4522,16 @@ fieldset.tab {
     margin-left: 0;
 >>>>>>> refactoring theme 1 - login page
 }
+.gwt-SplitLayoutPanel-HDragger {
+    cursor: col-resize;
+    position: absolute;
+    background: url(images/splitter.png) center no-repeat;
+    background-position: 0 center;
+}
+
+.gwt-SplitLayoutPanel-VDragger {
+    cursor: row-resize;
+    position: absolute;
+    background: url(images/splitter.png) center no-repeat;
+    background-position: center 0;
+}

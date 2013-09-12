@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.core.client.GWT;
@@ -222,4 +223,10 @@ public class HupaLayout implements HupaLayoutable {
 	private static HupaLayoutUiBinder binder = GWT.create(HupaLayoutUiBinder.class);
 
 
+=======
+import com.google.gwt.user.client.ui.LayoutPanel;
+
+public interface HupaLayout {
+	LayoutPanel get();
+>>>>>>> move new theme ui from experiment to hupa evo
 }
