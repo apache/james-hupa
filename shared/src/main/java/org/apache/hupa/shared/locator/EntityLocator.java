@@ -7,13 +7,7 @@ public abstract class EntityLocator extends Locator<ValueProxy, Long> {
 
 	@Override
 	public ValueProxy create(Class<? extends ValueProxy> clazz) {
-		try {
-			return clazz.newInstance();
-		} catch (InstantiationException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
-		}
+		return null;
 	}
 
 	@Override
