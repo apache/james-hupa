@@ -67,7 +67,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.hupa.client.place.ComposePlace;
-import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
 import org.apache.hupa.client.rf.SendMessageRequest;
 import org.apache.hupa.client.rf.SendReplyMessageRequest;
@@ -84,9 +83,6 @@ import org.apache.hupa.shared.domain.SendForwardMessageAction;
 import org.apache.hupa.shared.domain.SendMessageAction;
 import org.apache.hupa.shared.domain.SendReplyMessageAction;
 import org.apache.hupa.shared.domain.SmtpMessage;
-import org.apache.hupa.shared.domain.User;
-import org.apache.hupa.shared.events.LoginEvent;
-import org.apache.hupa.shared.events.LoginEventHandler;
 
 <<<<<<< HEAD
 >>>>>>> make send text mail work excellently
@@ -97,6 +93,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.History;
@@ -122,6 +119,9 @@ public class ComposeActivity extends AppBaseActivity {
 		return this;
 	}
 =======
+=======
+import com.google.gwt.user.client.History;
+>>>>>>> fixed issue#54 just using History.back()
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasHTML;
@@ -534,6 +534,8 @@ public class ComposeActivity extends AppBaseActivity {
 	private void bindTo(EventBus eventBus) {
 
 		registerHandler(display.getSendClick().addClickHandler(sendClickHandler));
+		registerHandler(display.getCancelClick().addClickHandler(cancelClickHandler));
+		
 
 		registerHandler(display.getCcClick().addClickHandler(new ClickHandler() {
 			@Override
@@ -650,6 +652,14 @@ public class ComposeActivity extends AppBaseActivity {
 					i.remove();
 			}
 		}
+	};
+	
+	private ClickHandler cancelClickHandler = new ClickHandler(){
+		@Override
+		public void onClick(ClickEvent event) {
+			History.back();
+		}
+		
 	};
 
 >>>>>>> coping with reply and forward sending message
@@ -960,6 +970,7 @@ public class ComposeActivity extends AppBaseActivity {
 		HasText getBcc();
 		HasText getSubject();
 		HasClickHandlers getSendClick();
+		HasClickHandlers getCancelClick();
 		HasClickHandlers getCcClick();
 		HasClickHandlers get_CcClick();
 		HasClickHandlers getBccClick();

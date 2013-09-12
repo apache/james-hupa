@@ -331,6 +331,11 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	public HasClickHandlers getSendClick() {
 		return sendButton;
 	}
+	
+	@Override
+	public HasClickHandlers getCancelClick(){
+		return cancelButton;
+	}
 
 	@Override
 	public HasClickHandlers getCcClick() {
