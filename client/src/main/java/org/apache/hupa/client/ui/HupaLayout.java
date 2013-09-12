@@ -28,6 +28,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
@@ -241,10 +242,12 @@ import com.google.gwt.user.client.ui.IsWidget;
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class HupaLayout implements HupaLayoutable {
 
+	@UiField SplitLayoutPanel messageBox;
 	@UiField SimplePanel topBarContainer;
 	@UiField SimplePanel logoContainer;
 	
@@ -252,8 +255,12 @@ public class HupaLayout implements HupaLayoutable {
 	@UiField LayoutPanel navigationContainer;
 	@UiField SimplePanel toolBarContainer;
 	@UiField SimplePanel folderListContainer;
+	@UiField LayoutPanel messageListBox;
 	@UiField LayoutPanel messageListContainer;
 	@UiField SimplePanel messageListFooterContainer;
+	
+	@UiField HTMLPanel contactBox;
+	
 	@UiField SimplePanel messageContentContainer;
 	@UiField SimplePanel statusContainer;
 
@@ -261,6 +268,7 @@ public class HupaLayout implements HupaLayoutable {
 
 	public HupaLayout() {
 		hupaMainPanel = binder.createAndBindUi(this);
+		messageBox.setWidgetHidden(contactBox, true);
 	}
 
 	@Override

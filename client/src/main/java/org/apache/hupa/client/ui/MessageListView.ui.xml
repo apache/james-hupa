@@ -12,6 +12,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<g:SimpleLayoutPanel ui:field="thisView" />
 =======
@@ -34,4 +35,8 @@
 		</g:layer>
 	</g:LayoutPanel>
 >>>>>>> make message list view panel work as expected partly
+=======
+	xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
+	<hupa:MessagesCellTable ui:field="table" />
+>>>>>>> adjust to the ui of folder list panel
 </ui:UiBinder>

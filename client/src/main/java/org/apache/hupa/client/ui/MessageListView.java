@@ -190,6 +190,7 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	interface MessageListUiBinder extends UiBinder<HTMLPanel, MessageListView> {
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
@@ -198,6 +199,9 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 =======
 	interface MessageListUiBinder extends UiBinder<LayoutPanel, MessageListView> {
 >>>>>>> make message list view panel work as expected partly
+=======
+	interface MessageListUiBinder extends UiBinder<MessagesCellTable, MessageListView> {
+>>>>>>> adjust to the ui of folder list panel
 	}
 
 	private static MessageListUiBinder binder = GWT.create(MessageListUiBinder.class);

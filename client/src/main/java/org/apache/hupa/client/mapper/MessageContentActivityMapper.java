@@ -88,7 +88,6 @@ public class MessageContentActivityMapper implements ActivityMapper {
 		else if (place instanceof MailFolderPlace)
 			return null;
 		else if (place instanceof IMAPMessagePlace) {
-			System.out.println("+++___+_+_+_"+((IMAPMessagePlace) place).getMessageDetails().getText());
 			return messageContentActivityProvider.get().with((IMAPMessagePlace) place);
 		}
 		return null;

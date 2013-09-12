@@ -179,7 +179,6 @@ public class MessageContentActivity extends AppBaseActivity {
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		display.fillMessageContent(messageDetails.getText());
-		System.out.println("+++"+messageDetails.getText());
 		container.setWidget(display.asWidget());
 	}
 

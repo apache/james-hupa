@@ -213,16 +213,15 @@
 									</g:SimplePanel>
 								</g:layer>
 							</g:LayoutPanel>
-
 						</g:west>
 						<g:center>
-							<g:DockLayoutPanel unit="PCT" ui:field="RightBox">
+							<g:DockLayoutPanel unit="PCT" ui:field="rightBox">
 								<g:west size="100">
-									<g:SplitLayoutPanel ui:field="MessageBox">
+									<g:SplitLayoutPanel ui:field="messageBox">
 										<g:north size="200">
 											<g:LayoutPanel addStyleNames="{style.box}"
-												ui:field="MessageListBox">
-												<g:layer>
+												ui:field="messageListBox">
+												<g:layer top="0" height="175px">
 													<g:LayoutPanel ui:field="messageListContainer" />
 												</g:layer>
 												<g:layer bottom="0" height="25px">
@@ -230,6 +229,11 @@
 												</g:layer>
 											</g:LayoutPanel>
 										</g:north>
+										<g:west size="200">
+											<g:HTMLPanel ui:field="contactBox" addStyleNames="{style.box}">
+												Address
+											</g:HTMLPanel>
+										</g:west>
 										<g:center>
 											<g:LayoutPanel addStyleNames="{style.box}"
 												ui:field="MessageContentBox">

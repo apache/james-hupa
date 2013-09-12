@@ -545,10 +545,12 @@ public class MessagesCellTable extends DataGrid<Message> {
 			return item == null ? null : item.getUid();
 		}
 	};
-	private final SelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(KEY_PROVIDER);
+	private final SelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(
+			KEY_PROVIDER);
 
 	@Inject
-	public MessagesCellTable(final HupaImageBundle imageBundle, final HupaConstants constants) {
+	public MessagesCellTable(final HupaImageBundle imageBundle,
+			final HupaConstants constants) {
 		super(PAGE_SIZE);
 		this.imageBundle = imageBundle;
 
@@ -562,7 +564,8 @@ public class MessagesCellTable extends DataGrid<Message> {
 		header.setUpdater(new ValueUpdater<Boolean>() {
 			@Override
 			public void update(Boolean value) {
-				List<Message> displayedItems = MessagesCellTable.this.getVisibleItems();
+				List<Message> displayedItems = MessagesCellTable.this
+						.getVisibleItems();
 				for (Message msg : displayedItems) {
 					selectionModel.setSelected(msg, value);
 				}
@@ -581,7 +584,9 @@ public class MessagesCellTable extends DataGrid<Message> {
 		setColumnWidth(dateCol, 10, Unit.EM);
 		setRowCount(PAGE_SIZE, false);
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
-		setSelectionModel(selectionModel, DefaultSelectionEventManager.<Message> createCheckboxManager(0));
+		setAutoHeaderRefreshDisabled(true);
+		setSelectionModel(selectionModel,
+				DefaultSelectionEventManager.<Message> createCheckboxManager(0));
 	}
 
 	public class CheckboxColumn extends Column<Message, Boolean> {
