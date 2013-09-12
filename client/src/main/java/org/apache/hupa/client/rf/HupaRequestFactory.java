@@ -90,5 +90,9 @@ public interface HupaRequestFactory extends RequestFactory {
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 =======
 	FetchMessagesRequest messagesRequest();
+<<<<<<< HEAD
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
+=======
+	CreateFolderRequest createFolderRequest();
+>>>>>>> Succeed creating new folder
 }

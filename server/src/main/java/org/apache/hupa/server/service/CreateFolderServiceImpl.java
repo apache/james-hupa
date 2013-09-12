@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,6 +18,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> Succeed creating new folder
 package org.apache.hupa.server.service;
 
 import javax.mail.Folder;
@@ -35,6 +38,7 @@ public class CreateFolderServiceImpl extends AbstractService implements CreateFo
 	public GenericResult create(CreateFolderAction action) throws Exception {
 		User user = getUser();
 		ImapFolder folder = action.getFolder();
+<<<<<<< HEAD
 		IMAPStore store = cache.get(user);
 		Folder f = store.getFolder(folder.getFullName());
 		if (f.create(Folder.HOLDS_MESSAGES)) {
@@ -44,6 +48,23 @@ public class CreateFolderServiceImpl extends AbstractService implements CreateFo
 			logger.info("Unable to create folder " + folder + " for user " + user);
 			throw new Exception("Unable to create folder " + folder + " for user " + user);
 
+=======
+
+		try {
+			IMAPStore store = cache.get(user);
+			Folder f = store.getFolder(folder.getFullName());
+			if (f.create(Folder.HOLDS_MESSAGES)) {
+				logger.info("Successfully create folder " + folder + " for user " + user);
+				return new GenericResultImpl();
+			} else {
+				logger.info("Unable to create folder " + folder + " for user " + user);
+				throw new Exception("Unable to create folder " + folder + " for user " + user);
+
+			}
+		} catch (Exception e) {
+			logger.error("Error while creating folder " + folder + " for user " + user, e);
+			throw new Exception("Error while creating folder " + folder + " for user " + user, e);
+>>>>>>> Succeed creating new folder
 		}
 	}
 

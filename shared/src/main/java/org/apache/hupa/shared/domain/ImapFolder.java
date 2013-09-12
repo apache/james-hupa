@@ -9,6 +9,7 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 public interface ImapFolder extends ValueProxy {
 	int getUnseenMessageCount();
 	String getName();
+	void setName(String name);
 	String getFullName();
 	void setFullName(String oldFullName);
 	List<ImapFolder> getChildren();

@@ -74,8 +74,13 @@ import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.service.CheckSessionService;
 import org.apache.hupa.server.service.CheckSessionServiceImpl;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 =======
+=======
+import org.apache.hupa.server.service.CreateFolderService;
+import org.apache.hupa.server.service.CreateFolderServiceImpl;
+>>>>>>> Succeed creating new folder
 import org.apache.hupa.server.service.FetchMessagesService;
 import org.apache.hupa.server.service.FetchMessagesServiceImpl;
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
@@ -83,6 +88,7 @@ import org.apache.hupa.server.service.ImapFolderService;
 import org.apache.hupa.server.service.ImapFolderServiceImpl;
 import org.apache.hupa.server.service.LoginUserService;
 import org.apache.hupa.server.service.LoginUserServiceImpl;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.server.service.LogoutUserService;
@@ -161,11 +167,19 @@ import org.apache.hupa.shared.domain.Tag;
 import org.apache.hupa.shared.data.FetchMessagesActionImpl;
 import org.apache.hupa.shared.data.FetchMessagesResultImpl;
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
+=======
+import org.apache.hupa.shared.data.CreateFolderActionImpl;
+import org.apache.hupa.shared.data.FetchMessagesActionImpl;
+import org.apache.hupa.shared.data.FetchMessagesResultImpl;
+import org.apache.hupa.shared.data.GenericResultImpl;
+>>>>>>> Succeed creating new folder
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.TagImpl;
 import org.apache.hupa.shared.data.UserImpl;
+import org.apache.hupa.shared.domain.CreateFolderAction;
 import org.apache.hupa.shared.domain.FetchMessagesAction;
 import org.apache.hupa.shared.domain.FetchMessagesResult;
+import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Settings;
 <<<<<<< HEAD
@@ -250,7 +264,12 @@ public class GuiceServerModule extends AbstractModule {
 		bind(FetchMessagesAction.class).to(FetchMessagesActionImpl.class);
 		bind(FetchMessagesResult.class).to(FetchMessagesResultImpl.class);
 		bind(Tag.class).to(TagImpl.class);
+<<<<<<< HEAD
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
+=======
+		bind(GenericResult.class).to(GenericResultImpl.class);
+		bind(CreateFolderAction.class).to(CreateFolderActionImpl.class);
+>>>>>>> Succeed creating new folder
 		
 		bind(CheckSessionService.class).to(CheckSessionServiceImpl.class);
 		bind(LoginUserService.class).to(LoginUserServiceImpl.class);
@@ -286,7 +305,11 @@ public class GuiceServerModule extends AbstractModule {
 =======
 =======
 		bind(FetchMessagesService.class).to(FetchMessagesServiceImpl.class);
+<<<<<<< HEAD
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
+=======
+		bind(CreateFolderService.class).to(CreateFolderServiceImpl.class);
+>>>>>>> Succeed creating new folder
 		
 		bind(IMAPStoreCache.class).to(getIMAPStoreCacheClass()).in(Singleton.class);
 

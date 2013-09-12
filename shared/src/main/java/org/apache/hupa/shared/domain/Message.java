@@ -20,9 +20,12 @@
 package org.apache.hupa.shared.domain;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import java.util.ArrayList;
 >>>>>>> try to change fetch messages to use RF
+=======
+>>>>>>> Succeed creating new folder
 import java.util.Date;
 import java.util.List;
 

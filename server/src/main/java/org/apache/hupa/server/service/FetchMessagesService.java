@@ -39,6 +39,10 @@ import org.apache.hupa.shared.domain.FetchMessagesAction;
 import org.apache.hupa.shared.domain.FetchMessagesResult;
 
 public interface FetchMessagesService {
+<<<<<<< HEAD
 	public FetchMessagesResult fetch(FetchMessagesAction action);
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
+=======
+	FetchMessagesResult fetch(FetchMessagesAction action);
+>>>>>>> Succeed creating new folder
 }

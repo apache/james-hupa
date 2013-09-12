@@ -335,6 +335,15 @@ public class ImapFolderImpl implements ImapFolder {
 >>>>>>> first commit
 =======
 
+<<<<<<< HEAD
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    // FIXME Could not locate setter for property name in type ImapFolderImpl
+	@Override
+    public void setName(String name) {
+	    this.fullName = name;
+    }
+
+>>>>>>> Succeed creating new folder
     
 }
