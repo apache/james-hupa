@@ -55,7 +55,13 @@ import org.apache.hupa.shared.data.User;
 >>>>>>> introduce the top activity
 =======
 import org.apache.hupa.client.place.DefaultPlace;
+import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.rf.IdleRequest;
+import org.apache.hupa.client.rf.LogoutUserRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;
+import org.apache.hupa.shared.domain.IdleAction;
+import org.apache.hupa.shared.domain.IdleResult;
+import org.apache.hupa.shared.domain.LogoutUserResult;
 import org.apache.hupa.shared.domain.User;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.shared.events.FlashEvent;
@@ -115,16 +121,21 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.inject.Provider;
 =======
 >>>>>>> introduce the top activity
 =======
 import com.google.inject.Provider;
 >>>>>>> 
+=======
+import com.google.web.bindery.requestfactory.shared.Receiver;
+>>>>>>> other RFs
 
 public class TopActivity extends AbstractActivity {
 
 	private static final int IDLE_INTERVAL = 150000;
+<<<<<<< HEAD
 <<<<<<< HEAD
 	HupaConstants constants;
 <<<<<<< HEAD
@@ -133,10 +144,14 @@ public class TopActivity extends AbstractActivity {
 >>>>>>> introduce the top activity
 =======
 >>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
+=======
+
+>>>>>>> other RFs
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
 		bind();
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -149,6 +164,9 @@ public class TopActivity extends AbstractActivity {
 =======
 //		checkSession();
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+		// checkSession();
+>>>>>>> other RFs
 	}
 
 	private void bind() {
@@ -186,6 +204,7 @@ public class TopActivity extends AbstractActivity {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				TopActivity.this.placeController.goTo(defaultPlaceProvider.get());
 			}
 <<<<<<< HEAD
@@ -214,6 +233,8 @@ public class TopActivity extends AbstractActivity {
 =======
 //				TopActivity.this.placeController.goTo(defaultPlaceProvider.get());
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+>>>>>>> other RFs
 			}
 >>>>>>> introduce the top activity
 
@@ -283,26 +304,8 @@ public class TopActivity extends AbstractActivity {
 		});
 	}
 
-	private void checkSession() {
-		System.out.println("+++++++++++++");
-//		dispatcher.execute(new CheckSession(), new AsyncCallback<CheckSessionResult>() {
-//			public void onFailure(Throwable caught) {
-//				serverStatus = ServerStatus.Unavailable;
-//				display.setServerStatus(serverStatus);
-//				showLogin(null);
-//			}
-//			public void onSuccess(CheckSessionResult result) {
-//				serverStatus = ServerStatus.Available;
-//				display.setServerStatus(serverStatus);
-//				if (result.isValid()) {
-//					eventBus.fireEvent(new LoginEvent(result.getUser()));
-//				} else {
-//					showLogin(null);
-//				}
-//			}
-//		});
-	}
 	private void doLogout() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 		if (user != null) {
 			dispatcher.execute(new LogoutUser(), new HupaEvoCallback<LogoutUserResult>(dispatcher, eventBus) {
@@ -324,6 +327,17 @@ public class TopActivity extends AbstractActivity {
 //			});
 //		}
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+		if (user != null) {
+			LogoutUserRequest req = requestFactory.logoutRequest();
+			req.logout().fire(new Receiver<LogoutUserResult>() {
+				@Override
+				public void onSuccess(LogoutUserResult response) {
+					eventBus.fireEvent(new LogoutEvent(response.getUser()));
+				}
+			});
+		}
+>>>>>>> other RFs
 	}
 
 	private void showMain(User user) {
@@ -335,11 +349,15 @@ public class TopActivity extends AbstractActivity {
 		display.showTopNavigation(false);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //		placeController.goTo(new DefaultPlace());
 =======
 >>>>>>> introduce the top activity
 =======
 >>>>>>> introduce the top activity
+=======
+		placeController.goTo(new DefaultPlace());
+>>>>>>> other RFs
 	}
 
 	private void showContacts() {
@@ -348,6 +366,9 @@ public class TopActivity extends AbstractActivity {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> other RFs
 
 	private Timer noopTimer = new IdleTimer();
 
@@ -442,19 +463,23 @@ public class TopActivity extends AbstractActivity {
 	@Inject private Displayable display;
 	@Inject private EventBus eventBus;
 	@Inject private PlaceController placeController;
-//	@Inject private DispatchAsync dispatcher;
-//	@Inject private Provider<DefaultPlace> defaultPlaceProvider;
 	@Inject private HupaConstants constants;
+<<<<<<< HEAD
 	
 >>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
+=======
+	@Inject private HupaRequestFactory requestFactory;
+>>>>>>> other RFs
 	private User user;
 	private ServerStatus serverStatus = ServerStatus.Available;
 
 	private class IdleTimer extends Timer {
 		boolean running = false;
+
 		public void run() {
 			if (!running) {
 				running = true;
+<<<<<<< HEAD
 <<<<<<< HEAD
 				dispatcher.execute(new Idle(), new HupaEvoCallback<IdleResult>(dispatcher, eventBus) {
 					public void callback(IdleResult result) {
@@ -462,10 +487,19 @@ public class TopActivity extends AbstractActivity {
 >>>>>>> introduce the top activity
 =======
 >>>>>>> introduce the top activity
+=======
+				IdleRequest req = requestFactory.idleRequest();
+				IdleAction action = req.create(IdleAction.class);
+				req.idle(action).fire(new Receiver<IdleResult>() {
+
+					@Override
+					public void onSuccess(IdleResult response) {
+>>>>>>> other RFs
 						running = false;
 						// check if the server is not supporting the Idle
 						// command.
 						// if so cancel this Timer
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 						if (response.isSupported() == false) {
@@ -475,11 +509,15 @@ public class TopActivity extends AbstractActivity {
 =======
 						if (result.isSupported() == false) {
 >>>>>>> introduce the top activity
+=======
+						if (response.isSupported() == false) {
+>>>>>>> other RFs
 							IdleTimer.this.cancel();
 						}
 						// Noop
 						// TODO: put code here to read new events from server
 						// (new messages ...)
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -505,6 +543,11 @@ public class TopActivity extends AbstractActivity {
 //					}
 //				});
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+
+					}
+				});
+>>>>>>> other RFs
 			}
 		}
 	}

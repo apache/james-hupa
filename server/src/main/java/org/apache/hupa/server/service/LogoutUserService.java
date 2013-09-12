@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -24,4 +25,12 @@ import org.apache.hupa.shared.exception.HupaException;
 
 public interface LogoutUserService {
 	LogoutUserResult logout() throws HupaException;
+=======
+package org.apache.hupa.server.service;
+
+import org.apache.hupa.shared.domain.LogoutUserResult;
+
+public interface LogoutUserService {
+	LogoutUserResult logout();
+>>>>>>> other RFs
 }

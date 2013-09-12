@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,17 +18,26 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> other RFs
 package org.apache.hupa.server.service;
 
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.data.LogoutUserResultImpl;
 import org.apache.hupa.shared.domain.LogoutUserResult;
 import org.apache.hupa.shared.domain.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
 
 public class LogoutUserServiceImpl extends AbstractService implements LogoutUserService {
 	@Override
 	public LogoutUserResult logout() throws HupaException {
+=======
+
+public class LogoutUserServiceImpl extends AbstractService implements LogoutUserService {
+	@Override
+	public LogoutUserResult logout() {
+>>>>>>> other RFs
 
 		User user = getUser();
 		user.setAuthenticated(false);
@@ -36,7 +46,11 @@ public class LogoutUserServiceImpl extends AbstractService implements LogoutUser
 		cache.delete(user);
 
 		// remove user attributes from session
+<<<<<<< HEAD
 		SessionUtils.cleanSessionAttributes(httpSessionProvider.get());
+=======
+		SessionUtils.cleanSessionAttributes(httpSession);
+>>>>>>> other RFs
 
 		return new LogoutUserResultImpl(user);
 

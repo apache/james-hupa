@@ -398,6 +398,8 @@ import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.DeleteMessageAllRequest;
 import org.apache.hupa.client.rf.DeleteMessageByUidRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.rf.MoveMessageRequest;
+import org.apache.hupa.client.rf.SetFlagRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.MessageImpl;
@@ -405,13 +407,17 @@ import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.domain.DeleteMessageAllAction;
 import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
 import org.apache.hupa.shared.domain.DeleteMessageResult;
+import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.MoveMessageAction;
+import org.apache.hupa.shared.domain.SetFlagAction;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
 import org.apache.hupa.shared.events.FolderSelectionEventHandler;
+import org.apache.hupa.shared.events.IncreaseUnseenEvent;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.LogoutEventHandler;
@@ -643,18 +649,21 @@ public class IMAPMessageListActivity extends AbstractActivity {
 
 		});
 		eventBus.addHandler(MoveMessageEvent.TYPE, new MoveMessageEventHandler() {
-
 			public void onMoveMessageHandler(MoveMessageEvent event) {
 				final Message message = event.getMessage();
-				// dispatcher.execute(new MoveMessage(event.getOldFolder(),
-				// event.getNewFolder(), message.getUid()), new
-				// HupaEvoCallback<MoveMessageResult>(dispatcher, eventBus) {
-				// public void callback(MoveMessageResult result) {
-				// ArrayList<Message> messageArray = new ArrayList<Message>();
-				// messageArray.add(message);
-				// display.removeMessages(messageArray);
-				// }
-				// });
+				MoveMessageRequest req = requestFactory.moveMessageRequest();
+				MoveMessageAction action = req.create(MoveMessageAction.class);
+				action.setMessageUid(message.getUid());
+				action.setNewFolder(event.getNewFolder());
+				action.setOldFolder(event.getOldFolder());
+				req.move(action).fire(new Receiver<GenericResult>() {
+					@Override
+					public void onSuccess(GenericResult response) {
+						List<Message> messageArray = new ArrayList<Message>();
+						messageArray.add(message);
+						display.removeMessages(messageArray);
+					}
+				});
 			}
 
 		});
@@ -735,20 +744,25 @@ public class IMAPMessageListActivity extends AbstractActivity {
 						selectedMessages.remove(m);
 					}
 				}
-				// dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, true,
-				// uids), new HupaEvoCallback<GenericResult>(dispatcher,
-				// eventBus) {
-				// public void callback(GenericResult result) {
-				// for (Message m : selectedMessages) {
-				// if (m.getFlags().contains(IMAPFlag.SEEN) == false) {
-				// m.getFlags().add(IMAPFlag.SEEN);
-				// }
-				// }
-				// display.redraw();
-				// eventBus.fireEvent(new DecreaseUnseenEvent(user,
-				// folder,selectedMessages.size()));
-				// }
-				// });
+
+				SetFlagRequest req = requestFactory.setFlagRequest();
+				SetFlagAction action = req.create(SetFlagAction.class);
+				action.setFlag(IMAPFlag.SEEN);
+				action.setFolder(folder);
+				action.setUids(uids);
+				action.setValue(true);
+				req.set(action).fire(new Receiver<GenericResult>() {
+					@Override
+					public void onSuccess(GenericResult response) {
+						for (Message m : selectedMessages) {
+							if (m.getFlags().contains(IMAPFlag.SEEN) == false) {
+								m.getFlags().add(IMAPFlag.SEEN);
+							}
+						}
+						display.redraw();
+						eventBus.fireEvent(new DecreaseUnseenEvent(user, folder, selectedMessages.size()));
+					}
+				});
 			}
 
 		});
@@ -764,21 +778,25 @@ public class IMAPMessageListActivity extends AbstractActivity {
 						selectedMessages.remove(m);
 					}
 				}
+				SetFlagRequest req = requestFactory.setFlagRequest();
+				SetFlagAction action = req.create(SetFlagAction.class);
+				action.setFlag(IMAPFlag.SEEN);
+				action.setFolder(folder);
+				action.setUids(uids);
+				action.setValue(false);
+				req.set(action).fire(new Receiver<GenericResult>() {
+					@Override
+					public void onSuccess(GenericResult response) {
+						for (Message m : selectedMessages) {
+							if (m.getFlags().contains(IMAPFlag.SEEN)) {
+								m.getFlags().remove(IMAPFlag.SEEN);
+							}
+						}
+						display.redraw();
+						eventBus.fireEvent(new IncreaseUnseenEvent(user, folder, selectedMessages.size()));
 
-				// dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, false,
-				// uids), new HupaEvoCallback<GenericResult>(dispatcher,
-				// eventBus) {
-				// public void callback(GenericResult result) {
-				// for (Message m : selectedMessages) {
-				// if (m.getFlags().contains(IMAPFlag.SEEN)) {
-				// m.getFlags().remove(IMAPFlag.SEEN);
-				// }
-				// }
-				// display.redraw();
-				// eventBus.fireEvent(new IncreaseUnseenEvent(user,
-				// folder,selectedMessages.size()));
-				// }
-				// });
+					}
+				});
 			}
 
 		});

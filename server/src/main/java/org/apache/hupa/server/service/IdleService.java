@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -28,5 +29,15 @@ import org.apache.hupa.shared.exception.HupaException;
 public interface IdleService {
 
 	IdleResult idle(IdleAction action) throws HupaException, MessagingException;
+=======
+package org.apache.hupa.server.service;
+
+import org.apache.hupa.shared.domain.IdleAction;
+import org.apache.hupa.shared.domain.IdleResult;
+
+public interface IdleService {
+
+	IdleResult idle(IdleAction action) throws Exception;
+>>>>>>> other RFs
 
 }

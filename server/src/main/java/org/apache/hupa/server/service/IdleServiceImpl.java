@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -25,12 +26,23 @@ import org.apache.hupa.shared.data.IdleResultImpl;
 import org.apache.hupa.shared.domain.IdleAction;
 import org.apache.hupa.shared.domain.IdleResult;
 import org.apache.hupa.shared.exception.HupaException;
+=======
+package org.apache.hupa.server.service;
+
+import org.apache.hupa.shared.data.IdleResultImpl;
+import org.apache.hupa.shared.domain.IdleAction;
+import org.apache.hupa.shared.domain.IdleResult;
+>>>>>>> other RFs
 
 import com.sun.mail.imap.IMAPStore;
 
 public class IdleServiceImpl extends AbstractService implements IdleService {
 	@Override
+<<<<<<< HEAD
 	public IdleResult idle(IdleAction action) throws HupaException, MessagingException {
+=======
+	public IdleResult idle(IdleAction action) throws Exception {
+>>>>>>> other RFs
 		try {
 			IMAPStore store = cache.get(getUser());
 
@@ -44,8 +56,13 @@ public class IdleServiceImpl extends AbstractService implements IdleService {
 				}
 			}
 			return new IdleResultImpl(true);
+<<<<<<< HEAD
 		} catch (HupaException e) {
 			throw new HupaException("Unable to send NOOP " + e.getMessage());
+=======
+		} catch (Exception e) {
+			throw new Exception("Unable to send NOOP " + e.getMessage());
+>>>>>>> other RFs
 		}
 	}
 }

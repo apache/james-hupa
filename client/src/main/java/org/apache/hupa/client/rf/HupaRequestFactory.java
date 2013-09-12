@@ -87,12 +87,18 @@ public interface HupaRequestFactory extends RequestFactory {
 	CheckSessionRequest sessionRequest();
 	LoginUserRequest loginRequest();
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 =======
 	FetchMessagesRequest messagesRequest();
 <<<<<<< HEAD
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 =======
+=======
+	LogoutUserRequest logoutRequest();
+	FetchMessagesRequest messagesRequest();
+	MoveMessageRequest moveMessageRequest();
+>>>>>>> other RFs
 	CreateFolderRequest createFolderRequest();
 <<<<<<< HEAD
 >>>>>>> Succeed creating new folder
@@ -114,5 +120,10 @@ public interface HupaRequestFactory extends RequestFactory {
 	SendMessageRequest sendMessageRequest();
 	SendForwardMessageRequest sendForwardMessageRequest();
 	SendReplyMessageRequest sendReplyMessageRequest();
+<<<<<<< HEAD
 >>>>>>> forward and reply message to use RF
+=======
+	IdleRequest idleRequest();
+	SetFlagRequest setFlagRequest();
+>>>>>>> other RFs
 }

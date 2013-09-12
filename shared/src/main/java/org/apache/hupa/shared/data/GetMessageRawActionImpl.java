@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,10 +18,16 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> other RFs
 package org.apache.hupa.shared.data;
 
 import org.apache.hupa.shared.domain.GetMessageRawAction;
 import org.apache.hupa.shared.domain.ImapFolder;
+<<<<<<< HEAD
+=======
+import org.apache.hupa.shared.rpc.RawMessage;
+>>>>>>> other RFs
 
 public class GetMessageRawActionImpl implements GetMessageRawAction {
 
@@ -44,8 +51,13 @@ public class GetMessageRawActionImpl implements GetMessageRawAction {
     }
     
     public boolean equals(Object obj) {
+<<<<<<< HEAD
         if (obj instanceof GetMessageRawAction) {
             GetMessageRawAction action = (GetMessageRawAction) obj;
+=======
+        if (obj instanceof RawMessage) {
+            RawMessage action = (RawMessage) obj;
+>>>>>>> other RFs
             if (action.getFolder().equals(getFolder()) && action.getUid() == getUid()) {
                 return true;
             }

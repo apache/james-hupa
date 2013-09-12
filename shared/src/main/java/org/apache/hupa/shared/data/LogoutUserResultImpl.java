@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,6 +18,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> other RFs
 package org.apache.hupa.shared.data;
 
 import org.apache.hupa.shared.domain.LogoutUserResult;
