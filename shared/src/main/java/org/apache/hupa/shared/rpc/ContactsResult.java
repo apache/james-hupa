@@ -88,6 +88,7 @@ import net.customware.gwt.dispatch.shared.Result;
 
 public class ContactsResult implements Result, Serializable {
 
+<<<<<<< HEAD
     public static class Contact implements Result, Serializable {
         private static final long serialVersionUID = -8632580327693416473L;
         public String mail;
@@ -137,5 +138,59 @@ public class ContactsResult implements Result, Serializable {
         this.contacts = contacts;
     }
 >>>>>>> first commit
+=======
+	public static class Contact implements Result, Serializable {
+		private static final long serialVersionUID = -8632580327693416473L;
+		public String mail;
+		public String realname;
+
+		public Contact() {
+		}
+
+		public Contact(String address) {
+			mail = address.replaceAll("^.*<([^>]+)>", "$1");
+
+			realname = mail.equals(address) ? mail : address
+			        .replaceAll("<.+$", "")
+			        .replaceAll("^[\\s\"']+", "")
+			        .replaceAll("[\\s\"']+$", "");
+
+			if (realname.isEmpty())
+				realname = mail;
+		}
+
+		public Contact(String realname, String mail) {
+			this.realname = realname;
+			this.mail = mail;
+		}
+
+		public String toString() {
+			return (realname != null ? realname : "") + "<" + mail + ">";
+		}
+
+		public String toKey() {
+			return toString().replaceAll("[^\\w\\d<@>]+", "").toLowerCase();
+		}
+
+	}
+
+	private static final long serialVersionUID = -8740775403377441876L;
+	private Contact[] contacts;
+
+	public ContactsResult() {
+	}
+
+	public ContactsResult(Contact... contacts) {
+		this.contacts = contacts;
+	}
+
+	public Contact[] getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(Contact[] contacts) {
+		this.contacts = contacts;
+	}
+>>>>>>> constant changed by manolo
 
 }

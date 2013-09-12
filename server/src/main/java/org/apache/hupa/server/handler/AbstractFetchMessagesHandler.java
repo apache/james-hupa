@@ -126,25 +126,13 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             Message m = messages[i];                
             String from = null;
             if (m.getFrom() != null && m.getFrom().length >0 ) {
-                from = m.getFrom()[0].toString().trim();
-                try {
-                    from = MimeUtility.decodeText(from);
-                    userPreferences.addContact(from);
-                } catch (UnsupportedEncodingException e) {
-                    logger.debug("Unable to decode from " + from + " " + e.getMessage());
-                }
+                from = decodeText(m.getFrom()[0].toString());
             }
             msg.setFrom(from);
 
             String replyto = null;
             if (m.getReplyTo() != null && m.getReplyTo().length >0 ) {
-                replyto = m.getReplyTo()[0].toString().trim();
-                try {
-                    replyto = MimeUtility.decodeText(replyto);
-                    userPreferences.addContact(replyto);
-                } catch (UnsupportedEncodingException e) {
-                    logger.debug("Unable to decode replyto " + replyto + " " + e.getMessage());
-                }
+                replyto = decodeText(m.getReplyTo()[0].toString());
             }
             msg.setReplyto(replyto);
             
@@ -153,27 +141,17 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             Address[] toArray = m.getRecipients(RecipientType.TO);
             if (toArray != null) {
                 for (Address addr : toArray) {
-                    String mailTo = null;
-                    try {
-                        mailTo = MimeUtility.decodeText(addr.toString());
-                        userPreferences.addContact(mailTo);
-                    } catch (UnsupportedEncodingException e) {
-                        logger.debug("Unable to decode mailTo " + mailTo + " " + e.getMessage());
-                    }
-                    if (mailTo != null)
-                        to.add(mailTo);
+                    String mailTo = decodeText(addr.toString());
+                    to.add(mailTo);
                 }
             }
             msg.setTo(to);
+
             
             // Check if a subject exist and if so decode it
             String subject = m.getSubject();
             if (subject != null) {
-                try {
-                    subject = MimeUtility.decodeText(subject);
-                } catch (UnsupportedEncodingException e) {
-                    logger.debug("Unable to decode subject " + subject + " " + e.getMessage());
-                }
+                subject = decodeText(subject);
             }
             msg.setSubject(subject);
             
@@ -182,18 +160,16 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             ArrayList<String> cc = new ArrayList<String>();
             if (ccArray != null) {
                 for (Address addr : ccArray) {
-                    String mailCc = null;
-                    try {
-                    	mailCc = MimeUtility.decodeText(addr.toString());
-                        userPreferences.addContact(mailCc);
-                    } catch (UnsupportedEncodingException e) {
-                        logger.debug("Unable to decode mailTo " + mailCc + " " + e.getMessage());
-                    }
-                    if (mailCc != null)
-                        cc.add(mailCc);
+                    String mailCc = decodeText(addr.toString());
+                    cc.add(mailCc);
                 }            	
             }
             msg.setCc(cc);
+
+            userPreferences.addContact(from);
+            userPreferences.addContact(to);
+            userPreferences.addContact(replyto);
+            userPreferences.addContact(cc);
 
             // Using sentDate since received date is not useful in the view when using fetchmail
             msg.setReceivedDate(m.getSentDate());
@@ -268,5 +244,22 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         public Message[] getMesssages() {
             return messages;
         }
+    }
+
+    /**
+     * Decode iso-xxxx strings present in subjects and emails like:
+     * 
+     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
+     */
+    private String decodeText(String s) {
+    	String ret = s;
+    	try {
+    		ret = MimeUtility.decodeText(s);
+        } catch (UnsupportedEncodingException e) {
+            logger.debug("Unable to decode text " + s + " " + e.getMessage());
+        }
+        // Remove quotes around names in email addresses
+        ret =  ret.replaceFirst("^[\"' ]+(.*?)[\"' ]+<", "$1 <");
+        return ret;
     }
 }
