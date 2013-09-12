@@ -128,6 +128,65 @@
 			color: #666;
 			cursor: default;
 		}
+		
+		.composeoptionsbox {
+			padding: 4px 8px 0 8px;
+			background: #d2d2d2;
+			border-bottom: 1px solid #e8e8e8;
+			-webkit-box-shadow: 0 2px 3px 0 #999;
+			-moz-box-shadow: 0 2px 3px 0 #999;
+			box-shadow: 0 2px 3px 0 #999;
+			white-space: nowrap;
+		}
+		
+		.composebodycontainer {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 260px;
+			bottom: 0;
+		}
+		
+		.composeattachments {
+			position: absolute;
+			right: 0;
+			top: 1px;
+			bottom: 0;
+			width: 240px;
+			background: #f0f0f0;
+			border-left: 1px solid #ddd;
+			padding: 8px;
+			overflow: auto;
+		}
+		
+		.mailviewbottom {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 26px;
+		}
+		
+		.statusbar {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 27px;
+			padding-left: 8px;
+			border-top: 1px solid #ddd;
+			border-radius: 0 0 4px 4px;
+			background: #eaeaea;
+			background: -moz-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eaeaea),
+				color-stop(100%, #c8c8c8) );
+			background: -o-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+			background: -ms-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+			background: linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 	</ui:style>
 	<g:DockLayoutPanel ui:field="thisPanel" unit="PX"
 		addStyleNames="{style.box}">
@@ -160,19 +219,21 @@
 		<g:center>
 			<g:DockLayoutPanel ui:field="composeContent" unit="PX">
 				<g:north size="23">
-					<g:HTMLPanel>composeOption</g:HTMLPanel>
+					<g:HTMLPanel addStyleNames="{style.composeoptionsbox}">composeOption</g:HTMLPanel>
 				</g:north>
 				<g:east size="257">
-					<g:HTMLPanel>composeAttachment</g:HTMLPanel>
+					<g:HTMLPanel addStyleNames="{style.composeattachments}">composeAttachment
+					</g:HTMLPanel>
 				</g:east>
 				<g:center>
-					<g:HTMLPanel>composeBody</g:HTMLPanel>
+					<g:HTMLPanel addStyleNames="{style.composebodycontainer}">composeBody</g:HTMLPanel>
 				</g:center>
 			</g:DockLayoutPanel>
 		</g:center>
 		<g:south size="28">
-			<g:SimplePanel ui:field="composeStatus">
-				<g:HTMLPanel>composeStatus</g:HTMLPanel>
+			<g:SimplePanel ui:field="composeStatus"
+				addStyleNames="{style.mailviewbottom}{style.box}">
+				<g:HTMLPanel addStyleNames="{style.statusbar}">composeStatus</g:HTMLPanel>
 			</g:SimplePanel>
 >>>>>>> preparing for composing panel
 		</g:south>
