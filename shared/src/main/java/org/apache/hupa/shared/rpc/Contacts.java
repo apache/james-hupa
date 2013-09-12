@@ -19,10 +19,6 @@
 
 package org.apache.hupa.shared.rpc;
 
-import java.io.Serializable;
 
-import net.customware.gwt.dispatch.shared.Action;
-
-public class Contacts implements Action<ContactsResult>, Serializable{
-    private static final long serialVersionUID = 1l;
+public class Contacts{
 }

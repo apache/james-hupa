@@ -19,8 +19,8 @@
 
 package org.apache.hupa.shared.rpc;
 
-import java.io.Serializable;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.user.client.rpc.IsSerializable;
@@ -88,9 +88,12 @@ public class ContactsResult{
 =======
 >>>>>>> first commit
 import net.customware.gwt.dispatch.shared.Result;
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 
-public class ContactsResult implements Result, Serializable {
+public class ContactsResult{
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -151,6 +154,9 @@ public class ContactsResult implements Result, Serializable {
 >>>>>>> constant changed by manolo
 	public static class Contact implements Result, Serializable {
 		private static final long serialVersionUID = -8632580327693416473L;
+=======
+	public static class Contact {
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 		public String mail;
 		public String realname;
 

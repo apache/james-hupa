@@ -45,6 +45,7 @@
         <dependency>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> constantly changed by manolo
@@ -56,6 +57,8 @@
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>

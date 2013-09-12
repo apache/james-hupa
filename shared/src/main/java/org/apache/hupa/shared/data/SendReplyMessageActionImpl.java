@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -18,8 +21,11 @@
  * under the License.                                           *
  ****************************************************************/
 
+<<<<<<< HEAD
 =======
 >>>>>>> forward and reply message to use RF
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.shared.data;
 
 import org.apache.hupa.shared.domain.ImapFolder;

@@ -23,12 +23,15 @@ public class SConsts {
     public static final String HUPA = "hupa/";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     public static final String SERVLET_DISPATCH = "dispatch";
 >>>>>>> first commit
 =======
     public static final String SERVLET_DISPATCH = "dispatch";
 >>>>>>> first commit
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
     public static final String SERVLET_DOWNLOAD = "downloadAttachmentServlet";
     public static final String SERVLET_UPLOAD = "uploadAttachmentServlet";
     public static final String SERVLET_SOURCE = "messageSourceServlet";
