@@ -106,7 +106,7 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 
 	private static final Logger log = Logger.getLogger(MessageListView.class.getName());
 
-	@UiField(provided = true) DataGrid<Message> grid;
+	@UiField(provided = true) MessagesCellTable grid;
 	private HupaRequestFactory requestFactory;
 	private ImapFolder folder;
 	private String searchValue;

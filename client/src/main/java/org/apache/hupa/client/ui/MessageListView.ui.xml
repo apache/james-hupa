@@ -43,9 +43,13 @@
 =======
 	xmlns:hupa='urn:import:org.apache.hupa.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<c:DataGrid ui:field="table" />
 >>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
 =======
 	<c:DataGrid ui:field="grid" />
 >>>>>>> prepare for place management and history controller
+=======
+	<hupa:MessagesCellTable ui:field="grid" />
+>>>>>>> try to link the mark actions to rf services
 </ui:UiBinder>

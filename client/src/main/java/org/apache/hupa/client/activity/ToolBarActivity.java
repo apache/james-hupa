@@ -22,6 +22,7 @@ package org.apache.hupa.client.activity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,12 +153,22 @@ public class ToolBarActivity extends AppBaseActivity {
 =======
 =======
 =======
+=======
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.hupa.client.rf.SetFlagRequest;
+>>>>>>> try to link the mark actions to rf services
 import org.apache.hupa.client.ui.MessagesCellTable;
 >>>>>>> link the mark action to the message list such that they can change upon the actions
 import org.apache.hupa.client.ui.ToolBarView.Parameters;
 >>>>>>> coping with reply and forward sending message
 import org.apache.hupa.client.ui.WidgetDisplayable;
+import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+import org.apache.hupa.shared.domain.GenericResult;
+import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.SetFlagAction;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.ExpandMessageEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
@@ -173,11 +184,13 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class ToolBarActivity extends AppBaseActivity {
 
 	@Inject private Displayable display;
 	@Inject private MessagesCellTable table;
+	protected ImapFolder folder;
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
@@ -202,6 +215,7 @@ public class ToolBarActivity extends AppBaseActivity {
 			public void onLoadMessagesEvent(LoadMessagesEvent e) {
 				display.disableMessageTools();
 				display.setParameters(new Parameters(e.getUser(), e.getFolder(), null, null));
+				folder = e.getFolder();
 			}
 		});
 		eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
@@ -239,11 +253,27 @@ public class ToolBarActivity extends AppBaseActivity {
 	}
 
 	protected void toMarkRead(boolean read) {
+		List<Long> uids = new ArrayList<Long>();
 		for (Message msg : table.getVisibleItems()) {
 			if (table.getSelectionModel().isSelected(msg)) {
-				table.markRead(msg, read);
+				uids.add(msg.getUid());
 			}
 		}
+		SetFlagRequest req = this.requestFactory.setFlagRequest();
+		SetFlagAction action = req.create(SetFlagAction.class);
+		ImapFolder f = req.create(ImapFolder.class);
+		f.setFullName(folder.getFullName());
+		action.setFolder(f);
+		action.setFlag(IMAPFlag.SEEN);
+		action.setValue(read);
+		action.setUids(uids);
+		req.set(action).fire(new Receiver<GenericResult>() {
+			@Override
+			public void onSuccess(GenericResult response) {
+				table.redraw();
+				table.onResize();
+			}
+		});
 	}
 
 	public interface Displayable extends WidgetDisplayable {
