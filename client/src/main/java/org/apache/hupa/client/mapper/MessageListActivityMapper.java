@@ -94,13 +94,15 @@ public class MessageListActivityMapper implements ActivityMapper {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
 	public Activity getActivity(final Place place) {
-		if (place instanceof MailFolderPlace) {
-			return new ActivityAsyncProxy() {
-				@Override
-				protected void doAsync(RunAsyncCallback callback) {
-					GWT.runAsync(callback);
-				}
+		if (!(place instanceof MailFolderPlace))
+			return null;
+		return new ActivityAsyncProxy() {
+			@Override
+			protected void doAsync(RunAsyncCallback callback) {
+				GWT.runAsync(callback);
+			}
 
+<<<<<<< HEAD
 				@Override
 				protected Activity createInstance() {
 					return messageListActivityProvider.get().with(((MailFolderPlace) place).getFullName());
@@ -109,5 +111,12 @@ public class MessageListActivityMapper implements ActivityMapper {
 		}
 		return null;
 >>>>>>> support code split
+=======
+			@Override
+			protected Activity createInstance() {
+				return messageListActivityProvider.get().with(((MailFolderPlace) place).getFullName());
+			}
+		};
+>>>>>>> fixed issue#57 - really disable the tools in toolbar
 	}
 }

@@ -33,12 +33,15 @@ import org.apache.hupa.client.place.FolderPlace;
 =======
 import org.apache.hupa.client.HupaController;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> fixed issue#61; add loading to mark, unmark.
 =======
 import org.apache.hupa.client.place.ComposePlace;
 >>>>>>> scrub code
 import org.apache.hupa.client.place.MailFolderPlace;
 >>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
+=======
+>>>>>>> fixed issue#57 - really disable the tools in toolbar
 import org.apache.hupa.client.rf.SetFlagRequest;
 import org.apache.hupa.client.ui.MessagesCellTable;
 import org.apache.hupa.client.ui.ToolBarView.Parameters;
@@ -186,9 +189,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
@@ -197,10 +200,10 @@ public class ToolBarActivity extends AppBaseActivity {
 	@Inject private Displayable display;
 	@Inject private MessagesCellTable table;
 	@Inject private MessageListActivity.Displayable messagesDisplay;
-	@Inject private MessageListActivity messageListActivity;
 	@Inject private HupaController hupaController;
 	//FIXME messagesDisplay can not be injected into ToolBarView, why?
 	private String folderName;
+	
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
@@ -225,15 +228,6 @@ public class ToolBarActivity extends AppBaseActivity {
 =======
 	private void bindTo(EventBus eventBus) {
 
-		registerHandler(display.getMark().addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				Widget source = (Widget) event.getSource();
-				int left = source.getAbsoluteLeft();
-				int top = source.getAbsoluteTop() + source.getOffsetHeight();
-				display.getPopup().setPopupPosition(left, top);
-				display.getPopup().show();
-			}
-		}));
 		registerHandler(display.getMarkRead().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -250,16 +244,15 @@ public class ToolBarActivity extends AppBaseActivity {
 				display.getPopup().hide();
 			}
 		}));
-		registerHandler(display.getDelete().addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {		
-				if (!(placeController.getWhere() instanceof MailFolderPlace))
-					return;
-				messageListActivity.deleteSelectedMessages();
-			}
-		}));
+		
+		registerHandler(display.getDeleteReg());
+		registerHandler(display.getMarkReg());
+		registerHandler(display.getReplyReg());
+		registerHandler(display.getReplyAllReg());
+		registerHandler(display.getForwardReg());
 	}
+
+	
 
 	protected void toMarkRead(boolean read) {
 		List<Long> uids = new ArrayList<Long>();
@@ -290,6 +283,11 @@ public class ToolBarActivity extends AppBaseActivity {
 	public interface Displayable extends WidgetDisplayable {
 
 		void enableSendingTools(boolean is);
+		HandlerRegistration getForwardReg();
+		HandlerRegistration getReplyAllReg();
+		HandlerRegistration getReplyReg();
+		HandlerRegistration getMarkReg();
+		HandlerRegistration getDeleteReg();
 		void enableDealingTools(boolean is);
 		void enableAllTools(boolean is);
 
@@ -310,6 +308,7 @@ public class ToolBarActivity extends AppBaseActivity {
 		HasClickHandlers getDelete();
 
 		PopupPanel getPopup();
+		HasClickHandlers getCompose();
 	}
 >>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
 }

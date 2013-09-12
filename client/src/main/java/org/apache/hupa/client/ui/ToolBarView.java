@@ -27,12 +27,17 @@ import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.place.ComposePlace;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import org.apache.hupa.client.place.MailFolderPlace;
+>>>>>>> fixed issue#57 - really disable the tools in toolbar
 import org.apache.hupa.client.rf.HupaRequestFactory;
 <<<<<<< HEAD
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.DeleteClickEvent;
+<<<<<<< HEAD
 =======
 =======
 import java.util.ArrayList;
@@ -67,6 +72,8 @@ import com.google.gwt.event.shared.EventBus;
 =======
 import org.apache.hupa.shared.domain.User;
 >>>>>>> beautify the multiuploader
+=======
+>>>>>>> fixed issue#57 - really disable the tools in toolbar
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -77,11 +84,17 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 >>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
 import com.google.gwt.event.dom.client.HasClickHandlers;
+<<<<<<< HEAD
 >>>>>>> coping with reply and forward sending message
+=======
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.HandlerRegistration;
+>>>>>>> fixed issue#57 - really disable the tools in toolbar
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+<<<<<<< HEAD
 import com.google.gwt.uibinder.client.UiHandler;
 <<<<<<< HEAD
 import com.google.gwt.user.client.ui.Anchor;
@@ -374,6 +387,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 =======
 >>>>>>> composing composing panel
+=======
+>>>>>>> fixed issue#57 - really disable the tools in toolbar
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedPopupPanel;
@@ -388,6 +403,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 
 	@Inject private PlaceController placeController;
 	@Inject private HupaRequestFactory requestFactory;
+	@Inject private EventBus eventBus;
 
 	@UiField Anchor refresh;
 	@UiField Anchor compose;
@@ -399,6 +415,12 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	@UiField Anchor delete;
 	@UiField Anchor mark;
 	@UiField Anchor more;
+
+	HandlerRegistration replyReg;
+	HandlerRegistration replyAllReg;
+	HandlerRegistration forwardReg;
+	HandlerRegistration deleteReg;
+	HandlerRegistration markReg;
 
 	@UiField Style style;
 
@@ -474,25 +496,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		}
 	}
 
-	@UiHandler("compose")
-	void handleCompose(ClickEvent e){
-		placeController.goTo(new ComposePlace("new").with(parameters));
-	}
-	
-	@UiHandler("reply")
-	void handleReplyClick(ClickEvent e) {
-		placeController.goTo(new ComposePlace("reply").with(parameters));
-	}
-
-	@UiHandler("replyAll")
-	void handleReplyAllClick(ClickEvent e) {
-		placeController.goTo(new ComposePlace("replyAll").with(parameters));
-	}
-
-	@UiHandler("forward")
-	void handleForwardClick(ClickEvent e) {
-		placeController.goTo(new ComposePlace("forward").with(parameters));
-	}
 
 	public ToolBarView() {
 		initWidget(binder.createAndBindUi(this));
@@ -534,9 +537,59 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		popup.add(markRead);
 		popup.add(markUnread);
 		simplePopup.setWidget(popup);
+<<<<<<< HEAD
 >>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
-	}
+=======
 
+		markReg = mark.addClickHandler(markHandler);
+		deleteReg = delete.addClickHandler(deleteHandler);
+		replyReg = reply.addClickHandler(replyHandler);
+		replyAllReg = replyAll.addClickHandler(replyAllHandler);
+		forwardReg = forward.addClickHandler(forwardHandler);
+>>>>>>> fixed issue#57 - really disable the tools in toolbar
+	}
+	private ClickHandler forwardHandler = new ClickHandler(){
+
+		@Override
+		public void onClick(ClickEvent event) {
+			placeController.goTo(new ComposePlace("forward").with(parameters));	
+		}
+		
+	};
+	private ClickHandler replyAllHandler = new ClickHandler(){
+
+		@Override
+		public void onClick(ClickEvent event) {
+			placeController.goTo(new ComposePlace("replyAll").with(parameters));	
+		}
+		
+	};
+	private ClickHandler replyHandler = new ClickHandler(){
+
+		@Override
+		public void onClick(ClickEvent event) {
+			placeController.goTo(new ComposePlace("reply").with(parameters));
+		}
+		
+	};
+	private ClickHandler deleteHandler = new ClickHandler(){
+
+		@Override
+		public void onClick(ClickEvent event) {		
+			if (!(placeController.getWhere() instanceof MailFolderPlace))
+				return;
+			eventBus.fireEvent(new DeleteClickEvent());
+		}
+	};
+	private ClickHandler markHandler = new ClickHandler() {
+		public void onClick(ClickEvent event) {
+			Widget source = (Widget) event.getSource();
+			int left = source.getAbsoluteLeft();
+			int top = source.getAbsoluteTop() + source.getOffsetHeight();
+			simplePopup.setPopupPosition(left, top);
+			simplePopup.show();
+		}
+	};
 	@Override
 	public HasClickHandlers getMark() {
 		return mark;
@@ -552,6 +605,10 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		return markUnread;
 	}
 
+	@Override
+	public HasClickHandlers getCompose() {
+		return compose;
+	}
 	@Override
 	public HasClickHandlers getReply() {
 		return reply;
@@ -603,17 +660,31 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		reply.addStyleName(style.disabledButton());
 		replyAllGroup.addStyleName(style.disabledButton());
 		forwardGroup.addStyleName(style.disabledButton());
+		
+		replyReg.removeHandler();
+		replyAllReg.removeHandler();
+		forwardReg.removeHandler();
 	}
 
 	private void removeSendingDisableds() {
 		reply.removeStyleName(style.disabledButton());
 		replyAllGroup.removeStyleName(style.disabledButton());
 		forwardGroup.removeStyleName(style.disabledButton());
+		
+		replyReg = reply.addClickHandler(replyHandler);
+		replyAllReg = replyAll.addClickHandler(replyAllHandler);
+		forwardReg = forward.addClickHandler(forwardHandler);
+		
 	}
+	
+	
 
 	private void addDealingDisableds() {
 		delete.addStyleName(style.disabledButton());
 		mark.addStyleName(style.disabledButton());
+		
+		deleteReg.removeHandler();
+		markReg.removeHandler();
 	}
 
 	private void removeDealingDisableds() {
@@ -622,7 +693,13 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 >>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
 =======
 		mark.removeStyleName(style.disabledButton());
+<<<<<<< HEAD
 >>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
+=======
+		
+		markReg = mark.addClickHandler(markHandler);
+		deleteReg = delete.addClickHandler(deleteHandler);
+>>>>>>> fixed issue#57 - really disable the tools in toolbar
 	}
 
 	interface ToolBarUiBinder extends UiBinder<FlowPanel, ToolBarView> {
@@ -630,6 +707,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 
 	private static ToolBarUiBinder binder = GWT.create(ToolBarUiBinder.class);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -649,6 +727,33 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 =======
 >>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
 =======
+=======
+	@Override
+	public HandlerRegistration getForwardReg() {
+		return forwardReg;
+	}
+
+	@Override
+	public HandlerRegistration getReplyAllReg() {
+		return replyAllReg;
+	}
+
+	@Override
+	public HandlerRegistration getReplyReg() {
+		return replyReg;
+	}
+
+	@Override
+	public HandlerRegistration getMarkReg() {
+		return markReg;
+	}
+
+	@Override
+	public HandlerRegistration getDeleteReg() {
+		return deleteReg;
+	}
+
+>>>>>>> fixed issue#57 - really disable the tools in toolbar
 
 >>>>>>> scrub code
 }

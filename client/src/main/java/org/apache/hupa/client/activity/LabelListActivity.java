@@ -21,6 +21,7 @@ package org.apache.hupa.client.activity;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.rf.DeleteFolderRequest;
 import org.apache.hupa.client.ui.LabelNode;
@@ -116,6 +117,8 @@ public class LabelListActivity extends AppBaseActivity {
 =======
 import org.apache.hupa.client.ui.LabelNode;
 >>>>>>> add rename RF to label setting feature
+=======
+>>>>>>> fixed issue#57 - really disable the tools in toolbar
 import org.apache.hupa.client.ui.WidgetDisplayable;
 
 import com.google.gwt.event.shared.EventBus;
