@@ -24,6 +24,7 @@
 <<<<<<< HEAD
 package org.apache.hupa.server.service;
 
+<<<<<<< HEAD
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 =======
@@ -34,6 +35,8 @@ package org.apache.hupa.server.service;
 import javax.mail.MessagingException;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
+=======
+>>>>>>> alert people "invilid login" for the wrong username and/or password, which should be improved with a gentle way
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.UserImpl;
@@ -52,6 +55,7 @@ public class LoginUserServiceImpl extends AbstractService implements LoginUserSe
 	@Inject private Provider<Settings> settingsProvider;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public User login(String username, String password) throws HupaException, MessagingException {
 		HttpSession httpSession = httpSessionProvider.get();
         SessionUtils.cleanSessionAttributes(httpSession);
@@ -61,14 +65,18 @@ public class LoginUserServiceImpl extends AbstractService implements LoginUserSe
 		cache.get(user);
 =======
 	public User login(String username, String password) {
+=======
+	public User login(String username, String password) throws Exception {
+>>>>>>> alert people "invilid login" for the wrong username and/or password, which should be improved with a gentle way
 		SessionUtils.cleanSessionAttributes(httpSession);
 		User user = new UserImpl();
 		user.setName(username);
 		user.setPassword(password);
 		try {
 			cache.get(user);
-		} catch (MessagingException e) {
+		} catch (Exception e) {
 			logger.error("Unable to authenticate user: " + username, e);
+			throw e;
 		}
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		user.setAuthenticated(true);

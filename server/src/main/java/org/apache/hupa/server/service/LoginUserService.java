@@ -39,6 +39,10 @@ package org.apache.hupa.server.service;
 import org.apache.hupa.shared.domain.User;
 
 public interface LoginUserService {
+<<<<<<< HEAD
 	public User login(String username, String password);
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+	public User login(String username, String password) throws Exception;
+>>>>>>> alert people "invilid login" for the wrong username and/or password, which should be improved with a gentle way
 }

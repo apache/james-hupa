@@ -120,10 +120,14 @@ import com.google.gwt.event.shared.EventBus;
 =======
 import com.google.gwt.place.shared.PlaceController;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 import com.google.gwt.user.client.Window;
 =======
 >>>>>>> introduce the top activity
+=======
+import com.google.gwt.user.client.Window;
+>>>>>>> alert people "invilid login" for the wrong username and/or password, which should be improved with a gentle way
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasValue;
@@ -442,7 +446,10 @@ public class LoginActivity extends AbstractActivity {
 			}
 			@Override
 			public void onFailure(ServerFailure error){
-				placeController.goTo(new DefaultPlace());
+				Window.alert(error.getMessage());//TODO a more gentle way
+				display.setLoading(false);
+				doReset();
+//				placeController.goTo(new DefaultPlace());
 			}
 		});
 
