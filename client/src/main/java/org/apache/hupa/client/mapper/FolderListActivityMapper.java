@@ -25,6 +25,9 @@ import org.apache.hupa.client.activity.FolderListActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> attempt to add label setting feature
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.activity.shared.Activity;
@@ -71,10 +74,9 @@ public class FolderListActivityMapper extends AbstractActivityMapper {
 public class FolderListActivityMapper extends MainActivityMapper {
 >>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
 	private final Provider<FolderListActivity> folderListActivityProvider;
-	
+
 	@Inject
-	public FolderListActivityMapper(
-			Provider<FolderListActivity> folderListActivityProvider) {
+	public FolderListActivityMapper(Provider<FolderListActivity> folderListActivityProvider) {
 		this.folderListActivityProvider = folderListActivityProvider;
 	}
 
@@ -92,7 +94,12 @@ public class FolderListActivityMapper extends MainActivityMapper {
 >>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 =======
 	Activity asyncLoadActivity(final Place place) {
+<<<<<<< HEAD
 >>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
+=======
+		if (place instanceof SettingPlace)
+			return null;
+>>>>>>> attempt to add label setting feature
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {

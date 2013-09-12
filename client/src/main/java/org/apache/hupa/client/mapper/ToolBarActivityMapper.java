@@ -43,6 +43,7 @@ import com.google.gwt.activity.shared.ActivityMapper;
 =======
 =======
 import org.apache.hupa.client.place.MailFolderPlace;
+import org.apache.hupa.client.place.SettingPlace;
 import org.apache.hupa.client.ui.ToolBarView.Parameters;
 
 import com.google.gwt.activity.shared.Activity;
@@ -129,9 +130,13 @@ public class ToolBarActivityMapper extends MainActivityMapper {
 =======
 	Activity asyncLoadActivity(final Place place) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		
 >>>>>>> fix the bugs resulted from the no unit tests
 =======
+=======
+		if(place instanceof SettingPlace) return null;
+>>>>>>> attempt to add label setting feature
 		final ToolBarActivity tba = toolBarActivityProvider.get();
 		if (place instanceof MailFolderPlace) { // might be from login page
 			MailFolderPlace here = (MailFolderPlace) place;

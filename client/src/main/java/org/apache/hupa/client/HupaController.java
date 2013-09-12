@@ -82,7 +82,11 @@ import org.apache.hupa.client.place.DefaultPlace;
 =======
 >>>>>>> fixed issue#48, and add the original IdleTimer
 import org.apache.hupa.client.place.MailFolderPlace;
+<<<<<<< HEAD
 >>>>>>> prepare to make composeView's reload work
+=======
+import org.apache.hupa.client.place.SettingPlace;
+>>>>>>> attempt to add label setting feature
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.rf.IdleRequest;
@@ -348,6 +352,8 @@ public class HupaController {
 			} else {
 				this.placeController.goTo(new MailFolderPlace("Mock-Inbox"));
 			}
+		} else if(place instanceof SettingPlace) {
+			hupaLayout.switchToSetting();
 		} else {
 			hupaLayout.switchToMessage();
 		}

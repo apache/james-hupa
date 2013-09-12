@@ -272,6 +272,7 @@ import org.apache.hupa.client.ui.ToolBarView;
 import org.apache.hupa.client.ui.TopBarView;
 import org.apache.hupa.client.ui.TopView;
 import org.apache.hupa.client.ui.WestView;
+import org.apache.hupa.client.ui._CenterSettingPanel;
 
 import com.google.gwt.activity.shared.ActivityManager;
 <<<<<<< HEAD
@@ -370,6 +371,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(MessageListActivity.class).in(Singleton.class);
 		bind(ComposeToolBarActivity.class).in(Singleton.class);
 		bind(ComposeActivity.class).in(Singleton.class);
+<<<<<<< HEAD
 		bind(SearchBoxActivity.class).in(Singleton.class);
 		
 		bind(LabelListActivity.class).in(Singleton.class);
@@ -538,6 +540,10 @@ public class AppGinModule extends AbstractGinModule {
 		bind(MessageListActivity.class).in(Singleton.class);
 		bind(ComposeToolBarActivity.class).in(Singleton.class);
 		bind(ComposeActivity.class).in(Singleton.class);
+=======
+		
+		bind(_CenterSettingPanel.class).in(Singleton.class);
+>>>>>>> attempt to add label setting feature
 
 <<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers

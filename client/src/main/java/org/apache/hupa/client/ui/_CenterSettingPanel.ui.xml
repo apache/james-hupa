@@ -8,6 +8,7 @@
 	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
 	OF ANY KIND, either express or implied. See the License for the specific 
 	language governing permissions and limitations under the License. -->
+<<<<<<< HEAD
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
 
@@ -129,4 +130,24 @@
 			</g:LayoutPanel>
 		</g:center>
 	</g:SplitLayoutPanel>
+=======
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
+	<g:DockLayoutPanel ui:field="thisPanel">
+		<g:west size="373">
+			<g:HTMLPanel>Settings</g:HTMLPanel>
+		</g:west>
+		<g:center>
+			<g:SplitLayoutPanel>
+				<g:west size="373">
+					<g:HTMLPanel>Section</g:HTMLPanel>
+				</g:west>
+				<g:center>
+					<g:HTMLPanel>PlayGround</g:HTMLPanel>
+				</g:center>
+			</g:SplitLayoutPanel>
+		</g:center>
+	</g:DockLayoutPanel>
+>>>>>>> attempt to add label setting feature
 </ui:UiBinder>

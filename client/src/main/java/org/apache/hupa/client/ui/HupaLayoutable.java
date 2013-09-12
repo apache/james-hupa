@@ -136,5 +136,10 @@ public interface HupaLayoutable extends Layoutable {
 =======
 
 	AcceptsOneWidget getNotificationView();
+<<<<<<< HEAD
 >>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
+=======
+
+	void switchToSetting();
+>>>>>>> attempt to add label setting feature
 }

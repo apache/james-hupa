@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.core.client.GWT;
@@ -86,10 +87,25 @@ public class _CenterSettingPanel extends Composite {
 	}
 
 	interface _CeterSettingPanelUiBinder extends UiBinder<SplitLayoutPanel, _CenterSettingPanel> {
+=======
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+
+public class _CenterSettingPanel extends Composite {
+
+	public _CenterSettingPanel() {
+		initWidget(binder.createAndBindUi(this));
+	}
+
+	interface _CeterSettingPanelUiBinder extends UiBinder<DockLayoutPanel, _CenterSettingPanel> {
+>>>>>>> attempt to add label setting feature
 	}
 
 	private static _CeterSettingPanelUiBinder binder = GWT.create(_CeterSettingPanelUiBinder.class);
 
+<<<<<<< HEAD
 	public AcceptsOneWidget getLabelListView() {
 		return settingLabelPanel.getLabelListView();
 	}
@@ -118,4 +134,6 @@ public class _CenterSettingPanel extends Composite {
 		showOrHideLabel(lyt);
 
 	}
+=======
+>>>>>>> attempt to add label setting feature
 }

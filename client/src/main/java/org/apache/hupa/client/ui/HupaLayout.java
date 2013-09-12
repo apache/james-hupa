@@ -35,6 +35,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
@@ -252,6 +253,7 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 >>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 public class HupaLayout implements HupaLayoutable {
 
@@ -264,11 +266,15 @@ public class HupaLayout implements HupaLayoutable {
 	@UiField _ToolPanel toolPanel;
 
 	@UiField _CenterPanel centerPanel;
+	@UiField DockLayoutPanel mainBox;
+	
+	private _CenterSettingPanel settingPanel;
 
 	private LayoutPanel hupaMainPanel;
 
-//	@Inject
-	public HupaLayout() {
+	@Inject
+	public HupaLayout(_CenterSettingPanel settingPanel) {
+		this.settingPanel = settingPanel;
 		hupaMainPanel = binder.createAndBindUi(this);
 	}
 
@@ -449,5 +455,14 @@ public interface HupaLayout {
 =======
 	private static HupaLayoutUiBinder binder = GWT
 			.create(HupaLayoutUiBinder.class);
+<<<<<<< HEAD
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
+=======
+
+	@Override
+	public void switchToSetting() {
+		centerPanel.removeFromParent();
+		mainBox.add(settingPanel);
+	}
+>>>>>>> attempt to add label setting feature
 }

@@ -45,7 +45,7 @@ public class __ContentPanel extends Composite{
 
 	public __ContentPanel() {
 		initWidget(binder.createAndBindUi(this));
-		thisPanel.setWidgetHidden(contactBox, true);
+//		thisPanel.setWidgetHidden(contactBox, true);
 		thisPanel.setWidgetMinSize(messageListBox, 130);
 	}
 
