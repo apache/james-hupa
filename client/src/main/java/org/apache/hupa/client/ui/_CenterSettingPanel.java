@@ -94,12 +94,18 @@ import java.util.Arrays;
 import java.util.List;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.cell.client.TextCell;
 >>>>>>> make label settings prototype
 =======
+=======
+import org.apache.hupa.client.ui.FolderListView.Resources;
+
+>>>>>>> fixed issue#66 and remove one useless class, make MessageListFooterActivityMapper do not map anything when it comes to setting place
 import com.google.gwt.cell.client.AbstractCell;
 >>>>>>> try to rearrange the places and history managment.
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.resources.client.ClientBundle.Source;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -132,8 +138,15 @@ public class _CenterSettingPanel extends Composite {
 
 	private static final List<String> TABS = Arrays.asList("Folders");
 
+	public interface Resources extends CellList.Resources {
+
+		Resources INSTANCE = GWT.create(Resources.class);
+
+		@Source("res/CssLabelListView.css")
+		public CellList.Style cellListStyle();
+	}
 	private CellList<String> createTabList() {
-		CellList<String> cellList = new CellList<String>(new SpanCell());
+		CellList<String> cellList = new CellList<String>(new SpanCell(), Resources.INSTANCE);
 		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		final SingleSelectionModel<String> selectionModel = new SingleSelectionModel<String>();
 		cellList.setSelectionModel(selectionModel);
@@ -168,7 +181,7 @@ public class _CenterSettingPanel extends Composite {
 			if (value == null) {
 				return;
 			}
-			sb.appendHtmlConstant("<span style='display: block;color: #376572;text-shadow: 0px 1px 1px #fff;text-decoration: none;cursor: default;padding: 6px 8px 2px 8px;height: 17px;white-space: nowrap;'>");
+			sb.appendHtmlConstant("<span >");
 			sb.appendHtmlConstant(value);
 			sb.appendHtmlConstant("</span>");
 		}
