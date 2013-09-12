@@ -398,6 +398,7 @@ public class WestActivity extends AbstractActivity {
 	private final PlaceController placeController;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private final Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
 	private final Provider<MessageSendPlace> messageSendPlaceProvider;
 	private final Provider<IMAPMessagePlace> messagePlaceProvider;
@@ -421,6 +422,8 @@ public class WestActivity extends AbstractActivity {
 =======
 =======
 	private final Provider<MailInboxPlace> mailInboxPlaceProvider;
+=======
+>>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
 	private final Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
 	private final Provider<MessageSendPlace> messageSendPlaceProvider;
 >>>>>>> 
@@ -435,15 +438,20 @@ public class WestActivity extends AbstractActivity {
     @Inject
     public WestActivity(Displayable display, EventBus eventBus, PlaceController placeController,
 <<<<<<< HEAD
+<<<<<<< HEAD
 			DispatchAsync dispatcher){
 >>>>>>> Change to new mvp framework - first step
 =======
 			DispatchAsync dispatcher,Provider<MailInboxPlace> mailInboxPlaceProvider,Provider<IMAPMessagePlace> IMAPMessagePlaceProvider,Provider<MessageSendPlace> messageSendPlaceProvider){
 >>>>>>> 
+=======
+			DispatchAsync dispatcher,Provider<IMAPMessagePlace> IMAPMessagePlaceProvider,Provider<MessageSendPlace> messageSendPlaceProvider){
+>>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
     	this.dispatcher = dispatcher;
     	this.display = display;
     	this.eventBus = eventBus;
     	this.placeController = placeController;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     	this.IMAPMessagePlaceProvider = IMAPMessagePlaceProvider;
@@ -453,6 +461,8 @@ public class WestActivity extends AbstractActivity {
 >>>>>>> Change to new mvp framework - first step
 =======
     	this.mailInboxPlaceProvider = mailInboxPlaceProvider;
+=======
+>>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
     	this.IMAPMessagePlaceProvider = IMAPMessagePlaceProvider;
     	this.messageSendPlaceProvider = messageSendPlaceProvider;
 >>>>>>> 
@@ -839,8 +849,12 @@ public class WestActivity extends AbstractActivity {
 =======
                 folder = new IMAPFolder(user.getSettings().getInboxFolderName());;
                 searchValue = null;
+<<<<<<< HEAD
                 showMessageTable(user, folder, searchValue);
 >>>>>>> 
+=======
+//                showMessageTable(user, folder, searchValue);
+>>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
             }
             
         });
@@ -930,7 +944,10 @@ public class WestActivity extends AbstractActivity {
         this.user = user;
         this.folder = folder;
         this.searchValue = searchValue;
-        placeController.goTo(mailInboxPlaceProvider.get().with(user));
+        placeController.goTo(new MailInboxPlace().with(user,folder, searchValue));
+//        placeController.goTo(mailInboxPlaceProvider.get().with(user));
+//        System.out.println("111");
+//        placeController.goTo(new MailInboxPlace(folder.getName()).with(user));
     }
 
     private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {

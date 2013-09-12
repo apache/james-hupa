@@ -147,7 +147,6 @@ public class LoginActivity extends AbstractActivity {
 	private final Displayable display;
 	private final EventBus eventBus;
 	private final PlaceController placeController;
-	private final Provider<MailInboxPlace> mailInboxPlaceProvider;
 	private DispatchAsync dispatcher;
 	private HupaConstants constants = GWT.create(HupaConstants.class);
 
@@ -158,12 +157,15 @@ public class LoginActivity extends AbstractActivity {
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 	public LoginActivity(Displayable display, EventBus eventBus, PlaceController placeController,
+<<<<<<< HEAD
 			Provider<MailInboxPlace> mailInboxPlaceProvider, DispatchAsync dispatcher) {
 >>>>>>> Change to new mvp framework - first step
+=======
+			DispatchAsync dispatcher) {
+>>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
 		this.display = display;
 		this.eventBus = eventBus;
 		this.placeController = placeController;
-		this.mailInboxPlaceProvider = mailInboxPlaceProvider;
 		this.dispatcher = dispatcher;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -327,8 +329,13 @@ public class LoginActivity extends AbstractActivity {
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 				// eventBus.fireEvent(new LoginEvent(result.getUser()));
+<<<<<<< HEAD
 				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get().with(result.getUser()));
 >>>>>>> Change to new mvp framework - first step
+=======
+//				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get().with(result.getUser()));
+				LoginActivity.this.placeController.goTo(new MailInboxPlace("!").with(result.getUser()));
+>>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
 				doReset();
 			}
 

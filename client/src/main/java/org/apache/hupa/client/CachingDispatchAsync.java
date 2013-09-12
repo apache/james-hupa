@@ -85,6 +85,7 @@ public class CachingDispatchAsync extends StandardDispatchAsync {
         } else {
             running.add(clz);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 //            if (action instanceof FetchMessages) {
 //                new RuntimeException().printStackTrace();
@@ -170,6 +171,11 @@ public class CachingDispatchAsync extends StandardDispatchAsync {
             return;
         } else {
             running.add(clz);
+=======
+//            if (action instanceof FetchMessages) {
+//                new RuntimeException().printStackTrace();
+//            }
+>>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
             super.execute(action, new AsyncCallback<R>() {
                 public void onFailure(Throwable caught) {
                     running.remove(clz);

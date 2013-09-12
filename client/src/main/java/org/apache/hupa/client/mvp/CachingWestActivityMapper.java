@@ -20,7 +20,7 @@ public class CachingWestActivityMapper implements ActivityMapper {
 		FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
 			@Override
 			public Place filter(Place place) {
-				return place instanceof DefaultPlace ? place : new MailInboxPlace(null); // FIXME with user
+				return place instanceof MailInboxPlace ? new MailInboxPlace("!").with(((MailInboxPlace)place).getUser()): place; // FIXME with user
 			}
 		};
 
