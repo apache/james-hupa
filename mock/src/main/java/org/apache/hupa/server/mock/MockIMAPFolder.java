@@ -20,11 +20,14 @@
 package org.apache.hupa.server.mock;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,14 +36,19 @@ import java.util.List;
 import javax.mail.FetchProfile;
 import javax.mail.Flags;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import javax.mail.Flags.Flag;
 =======
 >>>>>>> first commit
+=======
+import javax.mail.Flags.Flag;
+>>>>>>> constantly changed by manolo
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import javax.mail.internet.MimeMessage;
 import javax.mail.search.SearchTerm;
@@ -54,6 +62,14 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.search.SearchTerm;
 
 >>>>>>> first commit
+=======
+import javax.mail.internet.MimeMessage;
+import javax.mail.search.SearchTerm;
+
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPStore;
+
+>>>>>>> constantly changed by manolo
 public class MockIMAPFolder extends IMAPFolder {
 
     public static final char SEPARATOR = '.';
@@ -273,6 +289,7 @@ public class MockIMAPFolder extends IMAPFolder {
 
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
     public synchronized Message[] search(SearchTerm search)
             throws MessagingException {
         checkExists();
@@ -289,6 +306,18 @@ public class MockIMAPFolder extends IMAPFolder {
         checkExists();
         return getMessages();
 >>>>>>> first commit
+=======
+    public synchronized Message[] search(SearchTerm search)
+            throws MessagingException {
+        checkExists();
+        ArrayList<Message> ret = new ArrayList<Message>();
+        for (Message m : messages) {
+        	if (search.match(m)) {
+        		ret.add(m);
+        	}
+        }
+        return ret.toArray(new Message[0]);
+>>>>>>> constantly changed by manolo
     }
 
     @Override

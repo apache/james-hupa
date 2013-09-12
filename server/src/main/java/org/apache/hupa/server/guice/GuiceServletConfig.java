@@ -106,7 +106,7 @@ public class GuiceServletConfig extends GuiceServletContextListener{
         if (demoHostName == null || System.getProperty(demoHostName) == null) {
         	List<String> configurationList = new ArrayList<String>();
             configurationList.add(System.getProperty(SYS_PROP_CONFIG_FILE));
-            configurationList.add(System.getProperty(System.getenv("HOME") + "/.hupa/" + CONFIG_FILE_NAME));
+            configurationList.add(System.getenv("HOME") + "/.hupa/" + CONFIG_FILE_NAME);
             configurationList.add("/etc/default/hupa");
             configurationList.add(servletContextRealPath + "/" + CONFIG_DIR_IN_WAR + CONFIG_FILE_NAME);
 

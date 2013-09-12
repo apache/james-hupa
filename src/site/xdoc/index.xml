@@ -79,10 +79,16 @@
 =======
                 <h4>Apr/2012 - Hupa evolution accepted</h4>
                 <p>
+<<<<<<< HEAD
                     Whe have got a GSOC student who will work with Hupa this Summer
                     <a href="http://www.google-melange.com/gsoc/proposal/review/google/gsoc2012/echo/1"
                         target="_blank">making it better.</a>
 >>>>>>> first commit
+=======
+                    We have got a <a href="http://www.google-melange.com/gsoc/proposal/review/google/gsoc2012/echo/1"
+                        target="_blank">GSOC student</a> who will work with Hupa this Summer
+                        making it better !.
+>>>>>>> constantly changed by manolo
                 </p>
                 <h4>Mar/2012 - removed snapshots</h4>
                 <p>Removed snapshot dependencies, updated to last GWT release,

@@ -97,6 +97,9 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
      */
     public IMAPStore get(User user) throws MessagingException {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
     	IMAPStore ret =  get(user.getName(),user.getPassword());
     	
     	// TODO: this is a hack, we should have a default domain suffix in configuration files
@@ -104,9 +107,12 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
     		user.setName(user.getName() + "@gmail.com");
     	}
     	return ret;
+<<<<<<< HEAD
 =======
         return get(user.getName(),user.getPassword());
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
     }
     
     /*
