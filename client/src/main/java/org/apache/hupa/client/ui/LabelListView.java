@@ -338,6 +338,11 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 					labelNode.setParent(parent);
 					labelNode.setPath(curFolder.getFullName());
 					folderNodes.add(labelNode);
+					if("inbox".equalsIgnoreCase(curFolder.getName())){
+						if(selectionModel.getSelectedObject() == null){
+							selectionModel.setSelected(labelNode, true);
+						}
+					}
 					if (curFolder.getHasChildren()) {
 						for (ImapFolder subFolder : curFolder.getChildren()) {
 							fillCellList(folderNodes, subFolder, labelNode, intents + INTENTS);

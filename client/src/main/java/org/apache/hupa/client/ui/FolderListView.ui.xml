@@ -15,6 +15,7 @@
 <<<<<<< HEAD
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<g:SimplePanel ui:field="thisView" />
 =======
 =======
@@ -40,4 +41,7 @@
 >>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 	<g:SimplePanel ui:field="thisView" />
 >>>>>>> make compose panel left another widget rather than cell tree
+=======
+	<g:ScrollPanel ui:field="thisView" />
+>>>>>>> fixed issue#67; fixed issue#69 (with default select inbox folder); fixed issue#70;
 </ui:UiBinder>
