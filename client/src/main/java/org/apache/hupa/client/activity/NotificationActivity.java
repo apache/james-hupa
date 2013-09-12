@@ -19,9 +19,17 @@
 
 package org.apache.hupa.client.activity;
 
+<<<<<<< HEAD
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
+=======
+import org.apache.hupa.client.ui.WidgetDisplayable;
+
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 import com.google.inject.Inject;
 
 public class NotificationActivity extends AppBaseActivity {
@@ -33,8 +41,14 @@ public class NotificationActivity extends AppBaseActivity {
 
 	@Inject private Displayable display;
 
+<<<<<<< HEAD
 	public interface Displayable extends IsWidget {
 		void hideNotification();
 		void notice(String html);
+=======
+	public interface Displayable extends WidgetDisplayable {
+		void hideNotification();
+		void notice(SafeHtml html);
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 	}
 }

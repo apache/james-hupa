@@ -131,5 +131,10 @@ public interface HupaLayoutable extends Layoutable {
 	AcceptsOneWidget getComposeToolBarView();
 
 	AcceptsOneWidget getComposeView();
+<<<<<<< HEAD
 >>>>>>> make send text mail work excellently
+=======
+
+	AcceptsOneWidget getNotificationView();
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 }

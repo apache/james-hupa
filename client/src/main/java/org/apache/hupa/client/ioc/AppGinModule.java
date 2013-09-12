@@ -153,6 +153,7 @@ import org.apache.hupa.client.activity.MessageListActivity;
 import org.apache.hupa.client.activity.MessageListFooterActivity;
 import org.apache.hupa.client.activity.MessageSendActivity;
 import org.apache.hupa.client.activity.NavigationActivity;
+import org.apache.hupa.client.activity.NotificationActivity;
 import org.apache.hupa.client.activity.StatusActivity;
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.activity.TopActivity;
@@ -228,6 +229,7 @@ import org.apache.hupa.client.mapper.MessageContentActivityMapper;
 import org.apache.hupa.client.mapper.MessageListActivityMapper;
 import org.apache.hupa.client.mapper.MessageListFooterActivityMapper;
 import org.apache.hupa.client.mapper.NavigationActivityMapper;
+import org.apache.hupa.client.mapper.NotificationActivityMapper;
 import org.apache.hupa.client.mapper.StatusActivityMapper;
 import org.apache.hupa.client.mapper.ToolBarActivityMapper;
 <<<<<<< HEAD
@@ -264,6 +266,7 @@ import org.apache.hupa.client.ui.MessageListView;
 import org.apache.hupa.client.ui.MessageSendView;
 import org.apache.hupa.client.ui.MessagesCellTable;
 import org.apache.hupa.client.ui.NavigationView;
+import org.apache.hupa.client.ui.NotificationView;
 import org.apache.hupa.client.ui.StatusView;
 import org.apache.hupa.client.ui.ToolBarView;
 import org.apache.hupa.client.ui.TopBarView;
@@ -671,6 +674,12 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
 
+	@Provides
+	@Singleton
+	@Named("NotificationRegion")
+	public ActivityManager getNotificationActivityMapper(NotificationActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
 	@Provides
 	@Singleton
 	@Named("NavigationRegion")

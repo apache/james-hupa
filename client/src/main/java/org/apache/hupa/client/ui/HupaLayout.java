@@ -22,11 +22,14 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
 =======
 import org.apache.hupa.client.evo.ActivityManagerInitializer;
 >>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 
+=======
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -249,13 +252,13 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 >>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
 
 public class HupaLayout implements HupaLayoutable {
 
 	@UiField SimplePanel topBarContainer;
 
 	@UiField SimplePanel logoContainer;
+	@UiField SimplePanel notificationContainer;
 	@UiField SimpleLayoutPanel navigationContainer;
 
 	@UiField _ToolPanel toolPanel;
@@ -332,6 +335,15 @@ public class HupaLayout implements HupaLayoutable {
 		};
 	}
 
+	@Override
+	public AcceptsOneWidget getNotificationView() {
+		return new AcceptsOneWidget() {
+			@Override
+			public void setWidget(IsWidget w) {
+				notificationContainer.setWidget(Widget.asWidgetOrNull(w));
+			}
+		};
+	}
 	@Override
 	public AcceptsOneWidget getNavigationView() {
 		return new AcceptsOneWidget() {

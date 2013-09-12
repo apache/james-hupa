@@ -21,7 +21,10 @@
 		}
 		
 		.fontFeel {
+<<<<<<< HEAD
 			z-index: 9999;
+=======
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 			position: relative;
 			display: inline-block;
 			border-color: #f0c36d;

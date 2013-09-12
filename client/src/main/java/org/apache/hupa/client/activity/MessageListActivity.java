@@ -299,7 +299,8 @@ public class MessageListActivity extends AppBaseActivity {
 	@Inject private Displayable display;
 	@Inject private HupaRequestFactory requestFactory;
 	@Inject private PlaceController placeController;
-	@Inject private ToolBarActivity.Displayable toolBarDisplay;
+	@Inject private ToolBarActivity.Displayable toolBar;
+	@Inject private TopBarActivity.Displayable topBar;
 	private ImapFolder folder;
 	private String searchValue;
 	private User user;
@@ -379,6 +380,12 @@ public class MessageListActivity extends AppBaseActivity {
 				assert result != null;
 				display.getGrid().setRowCount(result.getRealCount());
 				display.getGrid().setRowData(start, result.getMessages());
+//				Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+//				    @Override
+//				    public void execute() {
+//				    	topBar.hideLoading();
+//				    }
+//				});
 			}
 
 			@Override
@@ -443,7 +450,7 @@ public class MessageListActivity extends AppBaseActivity {
 	private void antiSelectMessages(Collection<Message> c) {
 		for (Message msg : c) {
 			display.getGrid().getSelectionModel().setSelected(msg, false);
-			toolBarDisplay.enableAllTools(false);
+			toolBar.enableAllTools(false);
 		}
 	}
 	public void deleteSelectedMessages() {

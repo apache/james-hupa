@@ -28,7 +28,11 @@ import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+<<<<<<< HEAD
 public class NotificationActivityMapper extends _HupaActivityMapper {
+=======
+public class NotificationActivityMapper extends MainActivityMapper {
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 	private final Provider<NotificationActivity> notificationActivityProvider;
 
 	@Inject

@@ -12,6 +12,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<ui:image field="topBarBackgroundImg" src="res/linen_header.jpg" />
 	<ui:image field="buttons" src="res/buttons.png" />
     <ui:style type="org.apache.hupa.client.ui.TopBarView.Style">
@@ -20,6 +21,11 @@
 	<ui:image field="buttons" src="res/buttons.png"/>
 	<ui:style>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+	<ui:image field="topBarBackgroundImg" src="res/linen_header.jpg" />
+	<ui:image field="buttons" src="res/buttons.png" />
+    <ui:style type="org.apache.hupa.client.ui.TopBarView.Style">
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 		@sprite .self {
 			gwt-image: 'topBarBackgroundImg';
 			width: 100%;
@@ -62,6 +68,9 @@
 			float: right;
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 		
 		.textCenter {
 			text-align: center;
@@ -92,6 +101,7 @@
 		.hideLoading {
 			visibility: hidden;
 		}
+<<<<<<< HEAD
 	</ui:style>
 	<g:DockLayoutPanel ui:field="TopBar" unit="PX"
 		addStyleNames="{style.self} ">
@@ -114,20 +124,33 @@
 			</g:FlowPanel>
 		</g:east>
 =======
+=======
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 	</ui:style>
 	<g:DockLayoutPanel ui:field="TopBar" unit="PX"
-		addStyleNames="{style.self}">
-		<g:west size="60">
+		addStyleNames="{style.self} ">
+		<g:west size="300">
 			<g:SimplePanel addStyleNames="{style.left}">
 				<g:Anchor ui:field="about" styleName="{style.about}">About</g:Anchor>
 			</g:SimplePanel>
 		</g:west>
 		<g:center>
+			<g:SimplePanel addStyleNames="{style.hideLoading} {style.loadingPosition} {style.textCenter}" ui:field="loading">
+				<g:HTMLPanel addStyleNames="{style.fontFeel}">Loading...
+				</g:HTMLPanel>
+			</g:SimplePanel>
+		</g:center>
+		<g:east size="300">
 			<g:FlowPanel>
 				<g:Anchor ui:field="logout" addStyleNames="{style.right} {style.logout}">Logout</g:Anchor>
-				<g:HTMLPanel ui:field="userLabel" tag="span" addStyleNames="{style.right} {style.username}" />
+				<g:HTMLPanel ui:field="userLabel" tag="span"
+					addStyleNames="{style.right} {style.username}" />
 			</g:FlowPanel>
+<<<<<<< HEAD
 		</g:center>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+		</g:east>
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 	</g:DockLayoutPanel>
 </ui:UiBinder>

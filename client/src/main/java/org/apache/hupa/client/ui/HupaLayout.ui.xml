@@ -7,6 +7,7 @@
 	<ui:style>
 		.minWidth {
 			min-width: 700px;
+<<<<<<< HEAD
 =======
 =======
 	<ui:image field="originLogo" src="res/hupa-logo-original-transparent.png" />
@@ -15,6 +16,8 @@
 		.minWidth {
 			min-width: 1150px;
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 		}
 		
 		.feature {
@@ -156,11 +159,16 @@
 					<g:LayoutPanel addStyleNames="{style.feature}"
 						ui:field="HupaFeature">
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+						
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 						<g:layer width="177px" left="10px">
 							<g:SimplePanel ui:field="logoContainer" />
 						</g:layer>
 						<g:layer>
+<<<<<<< HEAD
 							<g:SimplePanel ui:field="notificationContainer" />
 						</g:layer>
 						<g:layer width="287px" right="0">
@@ -204,6 +212,10 @@
 >>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
 =======
 =======
+=======
+						  <g:SimplePanel ui:field="notificationContainer" />
+						</g:layer>
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 						<g:layer width="287px" right="0">
 <<<<<<< HEAD
 <<<<<<< HEAD

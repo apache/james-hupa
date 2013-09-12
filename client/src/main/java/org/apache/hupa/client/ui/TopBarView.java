@@ -48,13 +48,17 @@ public class TopBarView extends Composite implements TopBarActivity.Displayable 
 	@UiField Anchor logout;
 	@UiField HTMLPanel userLabel;
 	@UiField SimplePanel loading;
+<<<<<<< HEAD
 	@UiField HTML loadingRegion;
+=======
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 	
 	@UiField Style style;
 
 	interface Style extends CssResource {
 		String hideLoading();
 	}
+<<<<<<< HEAD
 =======
 =======
 import org.apache.hupa.client.activity.TopBarActivity;
@@ -85,6 +89,8 @@ public class TopBarView extends Composite implements TopBarActivity.Displayable 
 	@UiField Anchor logout;
 	@UiField HTMLPanel userLabel;
 >>>>>>> add logout support
+=======
+>>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 
 	public TopBarView() {
 		initWidget(binder.createAndBindUi(this));
@@ -132,6 +138,16 @@ public class TopBarView extends Composite implements TopBarActivity.Displayable 
 =======
 >>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
 
+	@Override
+	public void showLoading(){
+		loading.removeStyleName(style.hideLoading());
+	}
+	
+	@Override
+	public void hideLoading(){
+		loading.addStyleName(style.hideLoading());
+	}
+	
 	@Override
 	public HasClickHandlers getLogoutClick() {
 		return logout;

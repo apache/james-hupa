@@ -21,6 +21,8 @@ package org.apache.hupa.client.ui;
 
 import java.util.List;
 
+import org.apache.hupa.client.activity.NotificationActivity;
+import org.apache.hupa.client.activity.TopBarActivity;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -38,6 +40,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ProvidesKey;
@@ -52,7 +55,8 @@ public class FoldersTreeViewModel implements TreeViewModel {
 
 	@Inject private HupaRequestFactory rf;
 	@Inject private PlaceController placeController;
-	// @Inject private Provider<MailFolderPlace> folderPlaceProvider;
+	@Inject private TopBarActivity.Displayable topBar;
+	@Inject private NotificationActivity.Displayable notice;
 	private User user;
 	private ImapFolder currentFolder;
 	private EventBus eventBus;
@@ -64,6 +68,8 @@ public class FoldersTreeViewModel implements TreeViewModel {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
+				topBar.showLoading();//FIXME delay to show, why
+				notice.notice(SafeHtmlUtils.fromString("Hi, this is the notification test."));
 				SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event.getSource();
 				currentFolder = selectionModel.getSelectedObject();
 				eventBus.fireEvent(new LoadMessagesEvent(user, selectionModel.getSelectedObject()));
@@ -107,10 +113,20 @@ public class FoldersTreeViewModel implements TreeViewModel {
 			}
 		}
 
+//		@Override
+//        public Set<String> getConsumedEvents() {
+//            HashSet<String> events = new HashSet<String>();
+//            events.add("click");
+//            return events;
+//        }
 		// TODO is this a click event?
 		@Override
 		public void onBrowserEvent(Context context, Element parent, ImapFolder value, NativeEvent event,
 				ValueUpdater<ImapFolder> valueUpdater) {
+			super.onBrowserEvent(context, parent, value, event, valueUpdater);
+//			if("click".equals(event.getType())){//FIXME why slow in debug mode
+//				topBar.showLoading();
+//			}
 			if (clickSameFolder(value)) {
 				eventBus.fireEvent(new LoadMessagesEvent(user, value));
 				placeController.goTo(new MailFolderPlace(value.getFullName()));

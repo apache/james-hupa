@@ -37,6 +37,7 @@ public class ActivityManagerInitializer {
 			@Named("LoginPage") ActivityManager loginActivityManager,
 			@Named("TopBarRegion") ActivityManager topBarActivityManager,
 			@Named("LogoRegion") ActivityManager logoActivityManager,
+			@Named("NotificationRegion") ActivityManager notificationActivityManager,
 			@Named("NavigationRegion") ActivityManager navigationActivityManager,
 			@Named("ToolBarRegion") ActivityManager toolBarActivityManager,
 			@Named("FolderListRegion") ActivityManager folderListActivityManager,
@@ -49,6 +50,7 @@ public class ActivityManagerInitializer {
 		loginActivityManager.setDisplay(loginLayout.getLoginView());
 		topBarActivityManager.setDisplay(hupaLayout.getTopBarView());
 		logoActivityManager.setDisplay(hupaLayout.getLogoView());
+		notificationActivityManager.setDisplay(hupaLayout.getNotificationView());
 		navigationActivityManager.setDisplay(hupaLayout.getNavigationView());
 		toolBarActivityManager.setDisplay(hupaLayout.getToolBarView());
 		folderListActivityManager.setDisplay(hupaLayout.getFolderListView());
