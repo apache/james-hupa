@@ -34,6 +34,7 @@ import org.apache.hupa.shared.events.DeleteClickEvent;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
+<<<<<<< HEAD
 >>>>>>> coping with reply and forward sending message
 
 import com.google.gwt.core.client.GWT;
@@ -44,6 +45,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 =======
+=======
+import org.apache.hupa.shared.domain.User;
+>>>>>>> beautify the multiuploader
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -371,7 +375,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	@UiField Style style;
 
 	private Parameters parameters;
-	
+
 	public Parameters getParameters() {
 		return parameters;
 	}
@@ -382,14 +386,24 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	}
 
 	public static class Parameters {
+		private User user;
 		private ImapFolder folder;
 		private Message oldmessage;
 		private MessageDetails oldDetails;
 
-		public Parameters(ImapFolder folder, Message oldmessage, MessageDetails oldDetails) {
+		public Parameters(User user, ImapFolder folder, Message oldmessage, MessageDetails oldDetails) {
+			this.user = user;
 			this.folder = folder;
 			this.oldmessage = oldmessage;
 			this.oldDetails = oldDetails;
+		}
+
+		public User getUser() {
+			return user;
+		}
+
+		public void setUser(User user) {
+			this.user = user;
 		}
 
 		public ImapFolder getFolder() {
@@ -423,7 +437,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 
 	@UiHandler("compose")
 	void handleClick(ClickEvent e) {
-		placeController.goTo(new ComposePlace("new"));
+		placeController.goTo(new ComposePlace("new").with(parameters));
 	}
 
 	@UiHandler("reply")

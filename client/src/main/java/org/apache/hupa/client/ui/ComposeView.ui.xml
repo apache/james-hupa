@@ -273,6 +273,12 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
+		
+		.uploader{
+	
+}
+.uploaderCancel{}
+.uploaderFilename{}
 	</ui:style>
 	<g:DockLayoutPanel ui:field="thisPanel" unit="PX"
 		addStyleNames="{style.box}">

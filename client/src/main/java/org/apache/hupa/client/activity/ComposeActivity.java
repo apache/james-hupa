@@ -63,6 +63,7 @@ import com.google.gwt.activity.shared.Activity;
 =======
 >>>>>>> make attachments sending work as expected
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.hupa.client.place.ComposePlace;
@@ -130,6 +131,7 @@ public class ComposeActivity extends AppBaseActivity {
 	@Inject private Displayable display;
 	private List<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private Type type = Type.NEW;
 <<<<<<< HEAD
 >>>>>>> make send text mail work excellently
@@ -138,6 +140,9 @@ public class ComposeActivity extends AppBaseActivity {
 >>>>>>> add user label, yet issue46 occur
 =======
 	private User user;
+=======
+	static private User user;
+>>>>>>> beautify the multiuploader
 	private ComposePlace place;
 >>>>>>> coping with reply and forward sending message
 
@@ -402,21 +407,19 @@ public class ComposeActivity extends AppBaseActivity {
 =======
 >>>>>>> add user label, yet issue46 occur
 		bindTo(eventBus);
-
-		display.getFromList().addItem("demo");
-		if (user != null) {// FIXME why user would be a null
+		if (user != null)
 			display.getFromList().addItem(user.getName());
-		}
 	}
 
 	private void bindTo(EventBus eventBus) {
 		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
+			@Override
 			public void onLogin(LoginEvent event) {
 				user = event.getUser();
 			}
 		});
 		registerHandler(display.getSendClick().addClickHandler(sendClickHandler));
-		
+
 		registerHandler(display.getCcClick().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -526,9 +529,10 @@ public class ComposeActivity extends AppBaseActivity {
 
 	private OnCancelUploaderHandler onCancelUploadHandler = new OnCancelUploaderHandler() {
 		public void onCancel(IUploader uploader) {
-			for (MessageAttachment attachment : attachments) {
+			for (Iterator<MessageAttachment> i = attachments.iterator(); i.hasNext();) {
+				MessageAttachment attachment = i.next();
 				if (attachment.getName().equals(uploader.getInputName()))
-					attachments.remove(attachment);
+					i.remove();
 			}
 		}
 	};

@@ -23,12 +23,17 @@ import java.util.List;
 
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
+import org.apache.hupa.shared.events.LoginEvent;
+import org.apache.hupa.shared.events.LoginEventHandler;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ValueUpdater;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -48,28 +53,30 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 public class FoldersTreeViewModel implements TreeViewModel {
 
 	@Inject private HupaRequestFactory rf;
-	@Inject private EventBus eventBus;
 	@Inject private PlaceController placeController;
 	// @Inject private Provider<MailFolderPlace> folderPlaceProvider;
 	private User user;
 	private ImapFolder currentFolder;
+	private EventBus eventBus;
 
-	public FoldersTreeViewModel() {
-
-		selectionModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-					@SuppressWarnings("unchecked")
-					@Override
-					public void onSelectionChange(SelectionChangeEvent event) {
-						SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event
-								.getSource();
-						currentFolder = selectionModel.getSelectedObject();
-						eventBus.fireEvent(new LoadMessagesEvent(user,
-								selectionModel.getSelectedObject()));
-						placeController.goTo(new MailFolderPlace(selectionModel
-								.getSelectedObject().getFullName()));
-					}
-				});
+	@Inject
+	public FoldersTreeViewModel(final EventBus eventBus) {
+		this.eventBus = eventBus;
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event.getSource();
+				currentFolder = selectionModel.getSelectedObject();
+				eventBus.fireEvent(new LoadMessagesEvent(user, selectionModel.getSelectedObject()));
+				placeController.goTo(new MailFolderPlace(selectionModel.getSelectedObject().getFullName()));
+			}
+		});
+		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
+			public void onLogin(LoginEvent event) {
+				user = event.getUser();
+			}
+		});
 	}
 
 	private final SingleSelectionModel<ImapFolder> selectionModel = new SingleSelectionModel<ImapFolder>(
@@ -86,34 +93,30 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	 */
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
-		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(
-				(ImapFolder) value), new AbstractCell<ImapFolder>(ClickEvent
-				.getType().getName()) {
-			// TODO different images for each folder
-			@Override
-			public void render(Context context, ImapFolder value,
-					SafeHtmlBuilder sb) {
-				if (value != null) {
-					sb.appendEscaped(value.getName());
-				}
-			}
+		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider((ImapFolder) value),
+				new AbstractCell<ImapFolder>(ClickEvent.getType().getName()) {
+					// TODO different images for each folder
+					@Override
+					public void render(Context context, ImapFolder value, SafeHtmlBuilder sb) {
+						if (value != null) {
+							sb.appendEscaped(value.getName());
+						}
+					}
 
-			// TODO is this a click event?
-			@Override
-			public void onBrowserEvent(Context context, Element parent,
-					ImapFolder value, NativeEvent event,
-					ValueUpdater<ImapFolder> valueUpdater) {
-				if (clickSameFolder(value)) {
-					eventBus.fireEvent(new LoadMessagesEvent(user, value));
-					placeController.goTo(new MailFolderPlace(value
-							.getFullName()));
-				}
-			}
+					// TODO is this a click event?
+					@Override
+					public void onBrowserEvent(Context context, Element parent, ImapFolder value, NativeEvent event,
+							ValueUpdater<ImapFolder> valueUpdater) {
+						if (clickSameFolder(value)) {
+							eventBus.fireEvent(new LoadMessagesEvent(user, value));
+							placeController.goTo(new MailFolderPlace(value.getFullName()));
+						}
+					}
 
-			private boolean clickSameFolder(ImapFolder value) {
-				return value == currentFolder;
-			}
-		}, selectionModel, null);
+					private boolean clickSameFolder(ImapFolder value) {
+						return value == currentFolder;
+					}
+				}, selectionModel, null);
 	}
 
 	class ImapFolderListDataProvider extends AsyncDataProvider<ImapFolder> {
@@ -131,25 +134,24 @@ public class FoldersTreeViewModel implements TreeViewModel {
 
 		@Override
 		protected void onRangeChanged(HasData<ImapFolder> display) {
-			rf.fetchFoldersRequest().fetch(folder)
-					.fire(new Receiver<List<ImapFolder>>() {
-						@Override
-						public void onSuccess(List<ImapFolder> response) {
-							if (response == null || response.size() == 0) {
-								updateRowCount(-1, true);
-							} else {
-								updateRowData(0, response);
-							}
-						}
+			rf.fetchFoldersRequest().fetch(folder).fire(new Receiver<List<ImapFolder>>() {
+				@Override
+				public void onSuccess(List<ImapFolder> response) {
+					if (response == null || response.size() == 0) {
+						updateRowCount(-1, true);
+					} else {
+						updateRowData(0, response);
+					}
+				}
 
-						@Override
-						public void onFailure(ServerFailure error) {
-							if (error.isFatal()) {
-								throw new RuntimeException(error.getMessage());
-							}
-						}
+				@Override
+				public void onFailure(ServerFailure error) {
+					if (error.isFatal()) {
+						throw new RuntimeException(error.getMessage());
+					}
+				}
 
-					});
+			});
 
 		}
 
