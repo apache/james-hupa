@@ -21,6 +21,7 @@ package org.apache.hupa.client.mock;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import gwtupload.client.IFileInput;
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploadStatus.Status;
@@ -39,18 +40,26 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 
+=======
+>>>>>>> commit frequently based on (http://t.cn/zjxJ71X), there should be more robust and user-friendly features to develop.
 import gwtupload.client.IFileInput;
 import gwtupload.client.IUploadStatus;
-import gwtupload.client.IUploader;
 import gwtupload.client.IUploadStatus.Status;
-import gwtupload.client.IUploader.UploadedInfo;
+import gwtupload.client.IUploader;
 
 import java.util.Iterator;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Widget;
+
+>>>>>>> commit frequently based on (http://t.cn/zjxJ71X), there should be more robust and user-friendly features to develop.
 public class MockUploader implements IUploader {
 
     public HandlerRegistration addOnCancelUploadHandler(OnCancelUploaderHandler handler) {
