@@ -26,7 +26,6 @@ import net.customware.gwt.presenter.client.EventBus;
 
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
@@ -85,7 +84,7 @@ public class MessageTableModel extends MutableTableModel<Message> {
             
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
-                folder = new IMAPFolderImpl(user.getSettings().getInboxFolderName());
+                folder = new IMAPFolder(user.getSettings().getInboxFolderName());
                 searchValue = null;
             }
         });

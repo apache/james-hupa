@@ -19,6 +19,14 @@
 
 package org.apache.hupa.server.handler;
 
+import net.customware.gwt.dispatch.shared.ActionException;
+
+import org.apache.hupa.server.HupaGuiceTestCase;
+import org.apache.hupa.server.mock.MockIMAPFolder;
+import org.apache.hupa.server.mock.MockIMAPStore;
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.rpc.DeleteMessageByUid;
+
 import java.util.ArrayList;
 
 import javax.mail.Folder;
@@ -26,19 +34,10 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import net.customware.gwt.dispatch.shared.ActionException;
-
-import org.apache.hupa.server.HupaGuiceTestCase;
-import org.apache.hupa.server.mock.MockIMAPFolder;
-import org.apache.hupa.server.mock.MockIMAPStore;
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.IMAPFolderImpl;
-import org.apache.hupa.shared.rpc.DeleteMessageByUid;
-
 public class DeleteMessageByUidHandlerTest extends HupaGuiceTestCase {
     
     public void testDeleteFolderNotExists() throws MessagingException {
-        IMAPFolder folder = new IMAPFolderImpl();
+        IMAPFolder folder = new IMAPFolder();
         folder.setFullName("NOT_EXISTS");
         DeleteMessageByUid action = new DeleteMessageByUid(folder,new ArrayList<Long>());
         try {
@@ -49,7 +48,7 @@ public class DeleteMessageByUidHandlerTest extends HupaGuiceTestCase {
     }
     
     public void testDeleteFolderExistsAndNotTrash() throws MessagingException {
-        IMAPFolder folder = new IMAPFolderImpl();
+        IMAPFolder folder = new IMAPFolder();
         folder.setFullName("EXISTS");
         MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
         store.clear();
@@ -78,7 +77,7 @@ public class DeleteMessageByUidHandlerTest extends HupaGuiceTestCase {
     }
     
     public void testDeleteFolderExistsAndIsTrash() throws MessagingException {
-        IMAPFolder folder = new IMAPFolderImpl();
+        IMAPFolder folder = new IMAPFolder();
         folder.setFullName(testUser.getSettings().getTrashFolderName());
         MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
         

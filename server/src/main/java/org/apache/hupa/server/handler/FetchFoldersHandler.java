@@ -32,7 +32,6 @@ import net.customware.gwt.dispatch.shared.ActionException;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.FetchFolders;
 import org.apache.hupa.shared.rpc.FetchFoldersResult;
@@ -128,7 +127,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
         try {
             logger.debug("Creating folder: " + fullName + " for user: " + getUser());
             delimiter = String.valueOf(folder.getSeparator());
-            iFolder = new IMAPFolderImpl(fullName);
+            iFolder = new IMAPFolder(fullName);
             iFolder.setDelimiter(delimiter);
             if("[Gmail]".equals(folder.getFullName()))
                 return iFolder;

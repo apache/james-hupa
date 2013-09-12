@@ -18,9 +18,6 @@
  ****************************************************************/
 package org.apache.hupa.server.handler;
 
-import javax.mail.Folder;
-import javax.mail.MessagingException;
-
 import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
@@ -28,9 +25,11 @@ import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.exception.InvalidSessionException;
 import org.apache.hupa.shared.rpc.CreateFolder;
+
+import javax.mail.Folder;
+import javax.mail.MessagingException;
 
 public class CreateFolderHandlerTest extends HupaGuiceTestCase {
     
@@ -76,7 +75,7 @@ public class CreateFolderHandlerTest extends HupaGuiceTestCase {
     }
     
     private IMAPFolder createFolder() {
-        IMAPFolder folder = new IMAPFolderImpl();
+        IMAPFolder folder = new IMAPFolder();
         folder.setFullName("NewFolder");
         folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPARATOR));
         return folder;

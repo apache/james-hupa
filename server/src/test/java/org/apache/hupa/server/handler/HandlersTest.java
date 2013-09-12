@@ -29,8 +29,8 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.guice.GuiceServerTestModule;
+import org.apache.hupa.server.guice.providers.LogProvider;
 import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.FetchFolders;
@@ -74,7 +74,7 @@ public class HandlersTest extends HupaGuiceTestCase {
         IMAPStore store = storeCache.get(testUser);
         
         String folderName = testUser.getSettings().getInboxFolderName();
-        IMAPFolder sFolder = new IMAPFolderImpl();
+        IMAPFolder sFolder = new IMAPFolder();
         sFolder.setFullName(folderName);
         
         com.sun.mail.imap.IMAPFolder f1 = (com.sun.mail.imap.IMAPFolder)store.getFolder(sFolder.getFullName());
@@ -98,7 +98,7 @@ public class HandlersTest extends HupaGuiceTestCase {
         IMAPStore store = storeCache.get(testUser);
         
         String folderName = testUser.getSettings().getInboxFolderName() + store.getDefaultFolder().getSeparator() + "newFolder";
-        IMAPFolder sFolder = new IMAPFolderImpl();
+        IMAPFolder sFolder = new IMAPFolder();
         sFolder.setFullName(folderName);
         
         Folder f1 = store.getFolder(sFolder.getFullName());

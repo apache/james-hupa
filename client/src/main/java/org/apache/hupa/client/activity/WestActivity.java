@@ -263,7 +263,6 @@ import org.apache.hupa.client.ui.WidgetContainerDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.MessageDetails;
@@ -340,8 +339,6 @@ public class WestActivity extends AbstractActivity {
     
     private Place currentPlace;
     
-    private List<IMAPFolderProxy> folders;
-    
     public void setCurrentPlace(Place place){
     	this.currentPlace = place;
     }
@@ -391,9 +388,11 @@ public class WestActivity extends AbstractActivity {
 
 			@Override
 			public void onSuccess(List<IMAPFolderProxy> response) {
-				folders = response;
+System.out.println("1111111"+response);
               display.bindTreeItems(null);
-              enableClick(false);
+//              // disable
+              display.getDeleteEnable().setEnabled(false);
+              display.getRenameEnable().setEnabled(false);
               display.setLoadingFolders(false);
 				
 			}
@@ -413,12 +412,6 @@ public class WestActivity extends AbstractActivity {
         
     }
 
-    private void enableClick(boolean flag){
-        display.getDeleteEnable().setEnabled(flag);
-        display.getRenameEnable().setEnabled(flag);
-    }
-    
-    
     /**
      * Create recursive the TreeNodes with all childs
      * 
@@ -435,7 +428,7 @@ public class WestActivity extends AbstractActivity {
 
                 public void onEditEvent(EditEvent event) {
                     if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                        IMAPFolder iFolder = new IMAPFolderImpl((String) event.getOldValue());
+                        IMAPFolder iFolder = new IMAPFolder((String) event.getOldValue());
                         final String newName = (String) event.getNewValue();
                         if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
                             dispatcher.execute(new RenameFolder(iFolder, newName), new HupaEvoCallback<GenericResult>(dispatcher, eventBus) {
@@ -608,9 +601,11 @@ public class WestActivity extends AbstractActivity {
                     return;
                 folder = (IMAPFolder) tItem.getUserObject();
                 if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
-                	enableClick(false);
+                    display.getDeleteEnable().setEnabled(false);
+                    display.getRenameEnable().setEnabled(false);
                 } else {
-                	enableClick(true);
+                    display.getDeleteEnable().setEnabled(true);
+                    display.getRenameEnable().setEnabled(true);
                 }
             }
 
@@ -655,7 +650,7 @@ public class WestActivity extends AbstractActivity {
                         final IMAPTreeItem item = (IMAPTreeItem) event.getSource();
                         final String newValue = (String) event.getNewValue();
                         if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                            dispatcher.execute(new CreateFolder(new IMAPFolderImpl(newValue.trim())), new AsyncCallback<GenericResult>() {
+                            dispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<GenericResult>() {
 
                                 public void onFailure(Throwable caught) {
                                     GWT.log("Error while create folder", caught);
@@ -686,7 +681,7 @@ public class WestActivity extends AbstractActivity {
 
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
-                folder = new IMAPFolderImpl(user.getSettings().getInboxFolderName());;
+                folder = new IMAPFolder(user.getSettings().getInboxFolderName());;
                 searchValue = null;
 //                showMessageTable(user, folder, searchValue);
             }

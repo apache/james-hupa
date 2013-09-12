@@ -18,8 +18,7 @@
  ****************************************************************/
 package org.apache.hupa.client.mvp;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.google.inject.Module;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.shared.Action;
@@ -27,12 +26,11 @@ import net.customware.gwt.presenter.client.EventBus;
 
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.HupaMvpTestCase;
-import org.apache.hupa.client.guice.GuiceClientTestModule;
 import org.apache.hupa.client.guice.GuiceMvpTestModule;
 import org.apache.hupa.client.guice.GuiceMvpTestModule.DispatchTestAsync;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
+import org.apache.hupa.client.guice.GuiceClientTestModule;
 import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.SMTPMessage;
@@ -45,7 +43,8 @@ import org.apache.hupa.shared.rpc.ReplyMessage;
 import org.apache.hupa.shared.rpc.SendMessage;
 import org.easymock.EasyMock;
 
-import com.google.inject.Module;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MessageSendPresenterTest extends HupaMvpTestCase {
 
@@ -222,7 +221,7 @@ public class MessageSendPresenterTest extends HupaMvpTestCase {
         oldDetails.setText("Message");
         oldDetails.setUid(0l);
         
-        IMAPFolder folder = new IMAPFolderImpl();
+        IMAPFolder folder = new IMAPFolder();
         folder.setFullName("FOLDER");
         
         presenter.bind();

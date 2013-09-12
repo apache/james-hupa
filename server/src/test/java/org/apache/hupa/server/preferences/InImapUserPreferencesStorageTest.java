@@ -31,7 +31,6 @@ import org.apache.hupa.server.guice.providers.LogProvider;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
@@ -135,7 +134,7 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
             assertTrue(folder.getMessageCount() == 0);
         
         // Fetch inbox messages
-        IMAPFolder cFolder = new IMAPFolderImpl(testUser.getSettings().getInboxFolderName());
+        IMAPFolder cFolder = new IMAPFolder(testUser.getSettings().getInboxFolderName());
         FetchMessagesResult result = fetchMessagesHandler.execute(new FetchMessages(cFolder, 0, 10, null), null);
         
         // Could be possible that there insn't any message in inbox
