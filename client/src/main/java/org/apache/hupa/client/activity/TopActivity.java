@@ -29,7 +29,6 @@ import org.apache.hupa.client.HupaConstants;
 <<<<<<< HEAD
 import org.apache.hupa.client.rf.IdleRequest;
 import org.apache.hupa.client.rf.LogoutUserRequest;
-import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.domain.IdleAction;
 import org.apache.hupa.shared.domain.IdleResult;
 import org.apache.hupa.shared.domain.LogoutUserResult;
@@ -116,6 +115,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
@@ -408,6 +408,7 @@ public class TopActivity extends AppBaseActivity {
 	private User user;
 	private ServerStatus serverStatus = ServerStatus.Available;
 	
+<<<<<<< HEAD
 =======
 	private Timer noopTimer = new IdleTimer();
 
@@ -456,6 +457,9 @@ public class TopActivity extends AppBaseActivity {
 	
 >>>>>>> scrub code
 	public interface Displayable extends WidgetDisplayable {
+=======
+	public interface Displayable extends IsWidget {
+>>>>>>> replace with IsWidget
 		public HasClickHandlers getLogoutClick();
 		public HasClickHandlers getContactsClick();
 		public HasClickHandlers getMainClick();

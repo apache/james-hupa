@@ -34,6 +34,7 @@ import org.apache.hupa.client.place.AbstractPlace;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.MessagePlace;
 import org.apache.hupa.client.rf.DeleteMessageByUidRequest;
+<<<<<<< HEAD
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 import org.apache.hupa.client.rf.MoveMessageRequest;
 import org.apache.hupa.client.ui.MessagesCellTable;
@@ -274,20 +275,22 @@ import org.apache.hupa.client.place.MessagePlace;
 >>>>>>> change place management and make refresh folder and message list more gentle
 import org.apache.hupa.client.rf.DeleteMessageByUidRequest;
 import org.apache.hupa.client.rf.FetchMessagesRequest;
+=======
+>>>>>>> replace with IsWidget
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
-import org.apache.hupa.client.ui.HasRefresh;
 import org.apache.hupa.client.ui.MessagesCellTable;
 <<<<<<< HEAD
 >>>>>>> let messages list activity make use of mvp
 =======
 import org.apache.hupa.client.ui.ToolBarView;
+<<<<<<< HEAD
 >>>>>>> fixed issue#61; add loading to mark, unmark.
 import org.apache.hupa.client.ui.WidgetDisplayable;
+=======
+>>>>>>> replace with IsWidget
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
 import org.apache.hupa.shared.domain.DeleteMessageResult;
-import org.apache.hupa.shared.domain.FetchMessagesAction;
-import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -300,10 +303,9 @@ import org.apache.hupa.shared.events.RefreshUnreadEvent;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.view.client.AsyncDataProvider;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.CellPreviewEvent.Handler;
-import com.google.gwt.view.client.HasData;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -392,6 +394,7 @@ public class MessageListActivity extends AppBaseActivity {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject private Displayable display;
 <<<<<<< HEAD
 	
@@ -406,6 +409,9 @@ public class MessageListActivity extends AppBaseActivity {
 =======
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 	public interface Displayable extends WidgetDisplayable {
+=======
+	public interface Displayable extends IsWidget {
+>>>>>>> replace with IsWidget
 		MessagesCellTable getGrid();
 
 		void refresh();

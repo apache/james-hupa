@@ -181,8 +181,11 @@ import org.apache.hupa.client.rf.SetFlagRequest;
 import org.apache.hupa.client.ui.MessagesCellTable;
 >>>>>>> link the mark action to the message list such that they can change upon the actions
 import org.apache.hupa.client.ui.ToolBarView.Parameters;
+<<<<<<< HEAD
 >>>>>>> coping with reply and forward sending message
 import org.apache.hupa.client.ui.WidgetDisplayable;
+=======
+>>>>>>> replace with IsWidget
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -196,6 +199,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -282,6 +286,7 @@ public class ToolBarActivity extends AppBaseActivity {
 		});
 	}
 
+<<<<<<< HEAD
 
 	// FIXME: for some reason if we extend WidgetDisplayable we get the error
 	// ToolBarActivity.java:[124,38] error: cannot find symbol
@@ -289,6 +294,9 @@ public class ToolBarActivity extends AppBaseActivity {
 	    // FIXME: added this method until we fix the problem with inheritance
 	    com.google.gwt.user.client.ui.Widget asWidget();
 
+=======
+	public interface Displayable extends IsWidget {
+>>>>>>> replace with IsWidget
 		void enableSendingTools(boolean is);
 		HandlerRegistration getForwardReg();
 		HandlerRegistration getReplyAllReg();

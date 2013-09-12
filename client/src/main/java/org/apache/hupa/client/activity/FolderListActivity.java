@@ -22,6 +22,7 @@ package org.apache.hupa.client.activity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.events.RefreshUnreadEvent;
 import org.apache.hupa.shared.events.RefreshUnreadEventHandler;
 
@@ -39,6 +40,11 @@ import org.apache.hupa.client.ui.WidgetDisplayable;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.IsWidget;
+>>>>>>> replace with IsWidget
 import com.google.inject.Inject;
 
 public class FolderListActivity extends AppBaseActivity {
@@ -103,10 +109,14 @@ public class FolderListActivity extends AppBaseActivity {
 		return this;
 	}
 
+<<<<<<< HEAD
 >>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
 =======
 >>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 	public interface Displayable extends WidgetDisplayable {
+=======
+	public interface Displayable extends IsWidget {
+>>>>>>> replace with IsWidget
 		void refresh();
 	}
 >>>>>>> make reload mail folder place work, fixed issue #7

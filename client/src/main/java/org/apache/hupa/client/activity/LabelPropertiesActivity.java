@@ -22,11 +22,11 @@ package org.apache.hupa.client.activity;
 import java.util.List;
 
 import org.apache.hupa.client.ui.LabelNode;
-import org.apache.hupa.client.ui.WidgetDisplayable;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 
 public class LabelPropertiesActivity extends AppBaseActivity {
@@ -38,7 +38,7 @@ public class LabelPropertiesActivity extends AppBaseActivity {
 
 	@Inject private Displayable display;
 
-	public interface Displayable extends WidgetDisplayable {
+	public interface Displayable extends IsWidget {
 		void cascade(LabelNode labelNode, List<LabelNode> list, int cascadeTypeAdd);
 		HasClickHandlers getSave();
 	}

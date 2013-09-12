@@ -31,6 +31,7 @@ import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.rf.LoginUserRequest;
 import org.apache.hupa.client.ui.HupaLayoutable;
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.LoginEvent;
@@ -80,6 +81,8 @@ import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.rf.LoginUserRequest;
 import org.apache.hupa.client.ui.HupaLayoutable;
 import org.apache.hupa.client.ui.WidgetDisplayable;
+=======
+>>>>>>> replace with IsWidget
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.LoginEvent;
@@ -144,9 +147,13 @@ import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasValue;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.IsWidget;
 =======
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+import com.google.gwt.user.client.ui.IsWidget;
+>>>>>>> replace with IsWidget
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -528,6 +535,7 @@ public class LoginActivity extends AbstractActivity {
 	@Inject private HupaConstants constants;
 
 	public interface Displayable extends IsWidget {
+<<<<<<< HEAD
 		public HasClickHandlers getLoginClick();
 		public HasValue<String> getUserNameValue();
 		public HasValue<String> getPasswordValue();
@@ -549,6 +557,8 @@ public class LoginActivity extends AbstractActivity {
 >>>>>>> scrub code
 	public interface Displayable extends WidgetDisplayable {
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> replace with IsWidget
 		public HasClickHandlers getLoginClick();
 		public HasValue<String> getUserNameValue();
 		public HasValue<String> getPasswordValue();

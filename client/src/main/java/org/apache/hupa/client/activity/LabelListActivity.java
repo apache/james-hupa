@@ -26,6 +26,7 @@ package org.apache.hupa.client.activity;
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.rf.DeleteFolderRequest;
 import org.apache.hupa.client.ui.LabelNode;
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.DeleteFolderAction;
 import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -126,6 +127,8 @@ import org.apache.hupa.client.rf.DeleteFolderRequest;
 import org.apache.hupa.client.ui.LabelNode;
 >>>>>>> make delete label in label setting work(backend now)
 import org.apache.hupa.client.ui.WidgetDisplayable;
+=======
+>>>>>>> replace with IsWidget
 import org.apache.hupa.shared.domain.DeleteFolderAction;
 import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -140,6 +143,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -182,6 +186,7 @@ public class LabelListActivity extends AppBaseActivity {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject private Displayable display;
 <<<<<<< HEAD
 	
@@ -192,6 +197,9 @@ public class LabelListActivity extends AppBaseActivity {
 =======
 >>>>>>> make add of label setting work in backend
 	public interface Displayable extends WidgetDisplayable {
+=======
+	public interface Displayable extends IsWidget {
+>>>>>>> replace with IsWidget
 		final int CASCADE_TYPE_ADD = 0x01;
 		final int CASCADE_TYPE_RENAME = 0x02;
 		SingleSelectionModel<LabelNode> getSelectionModel();

@@ -71,7 +71,6 @@ import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
 import org.apache.hupa.client.rf.SendMessageRequest;
 import org.apache.hupa.client.rf.SendReplyMessageRequest;
-import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.MessageAttachmentImpl;
@@ -997,7 +996,7 @@ public class ComposeActivity extends AppBaseActivity {
 >>>>>>> fixed issue#61; add loading to mark, unmark.
 	}
 
-	public interface Displayable extends WidgetDisplayable {
+	public interface Displayable extends IsWidget {
 		String getFromText();
 		void showCc();
 		void hideCc();

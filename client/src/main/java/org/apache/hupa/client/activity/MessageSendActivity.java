@@ -49,7 +49,6 @@ import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
 import org.apache.hupa.client.rf.SendMessageRequest;
 import org.apache.hupa.client.rf.SendReplyMessageRequest;
-import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.MessageAttachmentImpl;
@@ -197,6 +196,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -608,6 +608,7 @@ public class MessageSendActivity extends AppBaseActivity {
 	private User user;
 	private SendMessageRequest sendReq;
 	
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 1. improve the inbox folder place.
@@ -1164,6 +1165,9 @@ public class MessageSendActivity extends AppBaseActivity {
 	
 >>>>>>> scrub code
 	public interface Displayable extends WidgetDisplayable {
+=======
+	public interface Displayable extends IsWidget {
+>>>>>>> replace with IsWidget
 		public HasText getFromText();
 		public HasText getToText();
 		public HasText getCcText();
