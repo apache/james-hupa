@@ -276,6 +276,7 @@
 
 	<g:FlowPanel addStyleNames="{style.bar}" ui:field="ToolBar">
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<g:Anchor ui:field="refresh" addStyleNames="{style.button} {style.checkMail} {style.handCursor}">Refresh</g:Anchor>
 		<g:Anchor ui:field="compose" addStyleNames="{style.button} {style.compose} {style.handCursor}">Compose</g:Anchor>
 		<g:HTMLPanel tag="span" addStyleNames="{style.spacer}"></g:HTMLPanel>
@@ -302,16 +303,21 @@
 =======
 		<g:Anchor addStyleNames="{style.button} {style.checkMail}">Refresh</g:Anchor>
 		<g:Anchor addStyleNames="{style.button} {style.compose}">Compose</g:Anchor>
+=======
+		<g:Anchor ui:field="refresh" addStyleNames="{style.button} {style.checkMail}">Refresh</g:Anchor>
+		<g:Anchor ui:field="compose" addStyleNames="{style.button} {style.compose}">Compose</g:Anchor>
+>>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
 		<g:HTMLPanel tag="span" addStyleNames="{style.spacer}"></g:HTMLPanel>
 		<g:Anchor ui:field="reply" addStyleNames="{style.button} {style.reply} {style.disabledButton}">Reply</g:Anchor>
-		<g:HTMLPanel tag="span" addStyleNames="{style.dropButton} {style.disabledButton}">
-			<g:Anchor addStyleNames="{style.button} {style.replyAll}">Reply all</g:Anchor>
+		<g:HTMLPanel ui:field="replyAllGroup" tag="span" addStyleNames="{style.dropButton} {style.disabledButton}">
+			<g:Anchor ui:field="replyAll" addStyleNames="{style.button} {style.replyAll}">Reply all</g:Anchor>
 			<g:HTMLPanel tag="span" addStyleNames="{style.dropButtonTip}"></g:HTMLPanel>
 		</g:HTMLPanel>
-		<g:HTMLPanel tag="span" addStyleNames="{style.dropButton} {style.disabledButton}">
-			<g:Anchor addStyleNames="{style.button} {style.forward}">Forward</g:Anchor>
+		<g:HTMLPanel ui:field="forwardGroup" tag="span" addStyleNames="{style.dropButton} {style.disabledButton}">
+			<g:Anchor ui:field="forward" addStyleNames="{style.button} {style.forward}">Forward</g:Anchor>
 			<g:HTMLPanel tag="span" addStyleNames="{style.dropButtonTip}"></g:HTMLPanel>
 		</g:HTMLPanel>
+<<<<<<< HEAD
 <<<<<<< HEAD
 		<g:Anchor addStyleNames="{style.button} {style.delete}">Delete</g:Anchor>
 		<g:Anchor addStyleNames="{style.button} {style.mark}">Mark</g:Anchor>
@@ -322,5 +328,10 @@
 		<g:Anchor addStyleNames="{style.button} {style.mark} {style.disabledButton}">Mark</g:Anchor>
 		<g:Anchor addStyleNames="{style.button} {style.more} {style.disabledButton}">More</g:Anchor>
 >>>>>>> dynamical style tool bar
+=======
+		<g:Anchor ui:field="delete" addStyleNames="{style.button} {style.delete} {style.disabledButton}">Delete</g:Anchor>
+		<g:Anchor ui:field="mark" addStyleNames="{style.button} {style.mark} {style.disabledButton}">Mark</g:Anchor>
+		<g:Anchor ui:field="more" addStyleNames="{style.button} {style.more} {style.disabledButton}">More</g:Anchor>
+>>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
 	</g:FlowPanel>
 </ui:UiBinder>

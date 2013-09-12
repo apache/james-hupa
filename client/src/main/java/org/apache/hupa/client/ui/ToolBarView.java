@@ -331,20 +331,54 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 
 public class ToolBarView extends Composite implements
 		ToolBarActivity.Displayable {
 
-	@UiField Anchor reply;
 	@UiField Style style;
+
+	@UiField Anchor refresh;
+	@UiField Anchor compose;
+	@UiField Anchor reply;
+	@UiField HTMLPanel replyAllGroup;
+	@UiField Anchor replyAll;
+	@UiField HTMLPanel forwardGroup;
+	@UiField Anchor forward;
+	@UiField Anchor delete;
+	@UiField Anchor mark;
+	@UiField Anchor more;
 
 	public ToolBarView() {
 		initWidget(binder.createAndBindUi(this));
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
 		reply.addStyleName(style.disabledButton());
 >>>>>>> dynamical style tool bar
+=======
+	}
+
+	interface Style extends CssResource {
+		String disabledButton();
+	}
+
+	@Override
+	public void disableMessageTools() {
+		reply.addStyleName(style.disabledButton());
+		replyAllGroup.addStyleName(style.disabledButton());
+		forwardGroup.addStyleName(style.disabledButton());
+		delete.addStyleName(style.disabledButton());
+	}
+
+	@Override
+	public void enableMessageTools() {
+		reply.removeStyleName(style.disabledButton());
+		replyAllGroup.removeStyleName(style.disabledButton());
+		forwardGroup.removeStyleName(style.disabledButton());
+		delete.removeStyleName(style.disabledButton());
+>>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
 	}
 
 	interface ToolBarUiBinder extends UiBinder<FlowPanel, ToolBarView> {
@@ -352,6 +386,7 @@ public class ToolBarView extends Composite implements
 
 	private static ToolBarUiBinder binder = GWT.create(ToolBarUiBinder.class);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	@Override
@@ -366,4 +401,6 @@ public class ToolBarView extends Composite implements
 	}
 
 >>>>>>> dynamical style tool bar
+=======
+>>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
 }

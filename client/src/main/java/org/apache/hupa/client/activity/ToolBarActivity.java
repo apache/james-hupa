@@ -149,6 +149,10 @@ public class ToolBarActivity extends AppBaseActivity {
 	}
 =======
 import org.apache.hupa.client.ui.WidgetDisplayable;
+import org.apache.hupa.shared.events.ExpandMessageEvent;
+import org.apache.hupa.shared.events.ExpandMessageEventHandler;
+import org.apache.hupa.shared.events.LoadMessagesEvent;
+import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -156,13 +160,40 @@ import com.google.inject.Inject;
 
 public class ToolBarActivity extends AppBaseActivity {
 
+	@Inject private Displayable display;
+
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
+		bindTo(eventBus);
 	}
 
+<<<<<<< HEAD
 	@Inject private Displayable display;
 	
 	public interface Displayable extends WidgetDisplayable {}
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+	private void bindTo(EventBus eventBus) {
+		eventBus.addHandler(LoadMessagesEvent.TYPE,
+				new LoadMessagesEventHandler() {
+					public void onLoadMessagesEvent(
+							LoadMessagesEvent loadMessagesEvent) {
+						display.disableMessageTools();
+					}
+				});
+		eventBus.addHandler(ExpandMessageEvent.TYPE,
+				new ExpandMessageEventHandler() {
+					public void onExpandMessage(ExpandMessageEvent event) {
+						display.enableMessageTools();
+					}
+				});
+	}
+
+	public interface Displayable extends WidgetDisplayable {
+		void disableMessageTools();
+
+		void enableMessageTools();
+	}
+>>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
 }
