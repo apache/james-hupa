@@ -31,6 +31,7 @@ import org.apache.hupa.client.mapper.ActivityManagerInitializer;
 import org.apache.hupa.client.place.ComposePlace;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.HupaPlace;
@@ -67,13 +68,18 @@ import org.apache.hupa.client.bundles.HupaResources;
 >>>>>>> could change main panel dynamically currently by clicking the compose button
 =======
 import org.apache.hupa.client.place.DefaultPlace;
+=======
+>>>>>>> fixed issue#48, and add the original IdleTimer
 import org.apache.hupa.client.place.MailFolderPlace;
 >>>>>>> prepare to make composeView's reload work
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.rf.IdleRequest;
 import org.apache.hupa.client.ui.HupaLayoutable;
 import org.apache.hupa.client.ui.LoginLayoutable;
 import org.apache.hupa.client.ui.LoginView;
+import org.apache.hupa.shared.domain.IdleAction;
+import org.apache.hupa.shared.domain.IdleResult;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.LoginEvent;
 
@@ -84,6 +90,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceChangeEvent;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -113,6 +120,9 @@ public class HupaController {
 		this.placeHistoryHandler = placeHistoryHandler;
 		this.eventBus = eventBus;
 =======
+=======
+import com.google.gwt.user.client.Timer;
+>>>>>>> fixed issue#48, and add the original IdleTimer
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -120,6 +130,7 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class HupaController {
 
+	private static final int IDLE_INTERVAL = 15000;
 	private PlaceController placeController;
 	private PlaceHistoryHandler placeHistoryHandler;
 	@Inject private HupaLayoutable hupaLayout;
@@ -127,7 +138,10 @@ public class HupaController {
 	@Inject private LoginLayoutable loginLayout;
 	private EventBus eventBus;
 
+	private Timer noopTimer = new IdleTimer();
+
 	@Inject
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	public HupaController(EventBus eventBus) {
@@ -144,6 +158,9 @@ public class HupaController {
 	public HupaController(PlaceController placeController,
 			PlaceHistoryHandler placeHistoryHandler,
 			EventBus eventBus, 
+=======
+	public HupaController(PlaceController placeController, PlaceHistoryHandler placeHistoryHandler, EventBus eventBus,
+>>>>>>> fixed issue#48, and add the original IdleTimer
 			ActivityManagerInitializer initializeActivityManagerByGin) {
 		this.placeController = placeController;
 		this.placeHistoryHandler = placeHistoryHandler;
@@ -290,8 +307,7 @@ public class HupaController {
 
 	private void bindCss() {
 		// TODO:replace with a more gentle approach
-		StyleInjector.inject(LoginView.Resources.INSTANCE.stylesheet()
-				.getText());
+		StyleInjector.inject(LoginView.Resources.INSTANCE.stylesheet().getText());
 	}
 
 	private final class PlaceChangHandler implements PlaceChangeEvent.Handler {
@@ -304,11 +320,11 @@ public class HupaController {
 
 	private void adjustLayout(PlaceChangeEvent event) {
 		Place place = event.getNewPlace();
-		
+
 		if (place instanceof ComposePlace) {
-			if(((ComposePlace)place).getParameters() != null){
-			hupaLayout.switchToCompose();
-			}else{
+			if (((ComposePlace) place).getParameters() != null) {
+				hupaLayout.switchToCompose();
+			} else {
 				this.placeController.goTo(new MailFolderPlace("Mock-Inbox"));
 			}
 		} else {
@@ -318,25 +334,29 @@ public class HupaController {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> move new theme ui from experiment to hupa evo
 =======
 =======
 	private User user;
 	
 >>>>>>> prepare to make composeView's reload work
+=======
+>>>>>>> fixed issue#48, and add the original IdleTimer
 	private void checkSession() {
 		CheckSessionRequest checkSession = requestFactory.sessionRequest();
 		checkSession.getUser().fire(new Receiver<User>() {
 			@Override
 			public void onSuccess(User user) {
-				HupaController.this.user = user;
 				if (user == null) {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
+					noopTimer.cancel();
 				} else {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(hupaLayout.get());
-                    eventBus.fireEvent(new LoginEvent(user));
+					eventBus.fireEvent(new LoginEvent(user));
+					noopTimer.scheduleRepeating(IDLE_INTERVAL);
 				}
 			}
 
@@ -344,26 +364,35 @@ public class HupaController {
 			public void onFailure(ServerFailure error) {
 				RootLayoutPanel.get().clear();
 				RootLayoutPanel.get().add(loginLayout.get());
+				noopTimer.cancel();
 			}
 		});
-//		checkSession.isValid().fire(new Receiver<Boolean>() {
-//			@Override
-//			public void onSuccess(Boolean sessionValid) {
-//				if (!sessionValid) {
-//					RootLayoutPanel.get().clear();
-//					RootLayoutPanel.get().add(loginLayout.get());
-//				} else {
-//					RootLayoutPanel.get().clear();
-//					RootLayoutPanel.get().add(hupaLayout.get());
-//				}
-//			}
-//
-//			@Override
-//			public void onFailure(ServerFailure error) {
-//				RootLayoutPanel.get().clear();
-//				RootLayoutPanel.get().add(loginLayout.get());
-//			}
-//		});
+	}
+
+	private class IdleTimer extends Timer {
+		boolean running = false;
+
+		public void run() {
+			if (!running) {
+				running = true;
+				IdleRequest idle = requestFactory.idleRequest();
+				IdleAction action = idle.create(IdleAction.class);
+				idle.idle(action).fire(new Receiver<IdleResult>() {
+					@Override
+					public void onSuccess(IdleResult response) {
+						running = false;
+						// check if the server is not supporting the Idle
+						// command. if so cancel this Timer
+						if (response.isSupported() == false) {
+							IdleTimer.this.cancel();
+						}
+						// Noop
+						// TODO: put code here to read new events from server
+						// (new messages ...)
+					}
+				});
+			}
+		}
 	}
 >>>>>>> integrate them as a whole one - first: make the default place work
 }
