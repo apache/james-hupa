@@ -253,6 +253,7 @@ public class WestActivity extends AppBaseActivity {
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.client.activity;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -264,55 +265,40 @@ import java.util.List;
 <<<<<<< HEAD
 =======
 >>>>>>> try to change fetch messages to use RF
+=======
+>>>>>>> refactoring.
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
-import org.apache.hupa.client.rf.CreateFolderRequest;
-import org.apache.hupa.client.rf.DeleteFolderRequest;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
-import org.apache.hupa.client.rf.HupaRequestFactory;
-import org.apache.hupa.client.rf.ImapFolderRequest;
-import org.apache.hupa.client.rf.RenameFolderRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;
-import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
-import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
-import org.apache.hupa.shared.domain.CreateFolderAction;
-import org.apache.hupa.shared.domain.DeleteFolderAction;
-import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
-import org.apache.hupa.shared.domain.MessageDetails;
-import org.apache.hupa.shared.domain.RenameFolderAction;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.BackEventHandler;
-import org.apache.hupa.shared.events.DecreaseUnseenEvent;
-import org.apache.hupa.shared.events.DecreaseUnseenEventHandler;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.ExpandMessageEventHandler;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
 import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.ForwardMessageEvent;
 import org.apache.hupa.shared.events.ForwardMessageEventHandler;
-import org.apache.hupa.shared.events.IncreaseUnseenEvent;
-import org.apache.hupa.shared.events.IncreaseUnseenEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
-import org.apache.hupa.shared.events.MessagesReceivedEvent;
-import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
 import org.apache.hupa.shared.events.NewMessageEvent;
 import org.apache.hupa.shared.events.NewMessageEventHandler;
 import org.apache.hupa.shared.events.ReplyMessageEvent;
 import org.apache.hupa.shared.events.ReplyMessageEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.SentMessageEventHandler;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
@@ -377,9 +363,11 @@ import org.apache.hupa.shared.rpc.RenameFolder;
 >>>>>>> try to change fetch messages to use RF
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.event.EditHandler;
+=======
+>>>>>>> refactoring.
 import org.apache.hupa.widgets.ui.HasEditable;
-import org.apache.hupa.widgets.ui.HasEnable;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.activity.shared.AbstractActivity;
 <<<<<<< HEAD
@@ -395,16 +383,18 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+=======
+>>>>>>> refactoring.
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.TreeItem;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.web.bindery.requestfactory.shared.Receiver;
+<<<<<<< HEAD
 =======
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
@@ -423,6 +413,8 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 =======
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 >>>>>>> Succeed creating new folder
+=======
+>>>>>>> refactoring.
 
 public class WestActivity extends AppBaseActivity {
 
@@ -540,8 +532,6 @@ public class WestActivity extends AppBaseActivity {
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		display.setUser(user);
-		loadTreeItems();
 		bind();
 		container.setWidget(display.asWidget());
 	}
@@ -612,6 +602,7 @@ public class WestActivity extends AppBaseActivity {
 		return this;
 	}
 
+<<<<<<< HEAD
 	protected void loadTreeItems() {
 		display.setLoadingFolders(true);
 		HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
@@ -855,6 +846,8 @@ System.out.println("1111111"+response);
 		return tList;
 	}
 
+=======
+>>>>>>> refactoring.
 	private void cloneFolder(ImapFolder desc, ImapFolder src) {
 	    desc.setChildren(src.getChildren());
 		desc.setDelimiter(src.getDelimiter());
@@ -937,7 +930,6 @@ System.out.println("1111111"+response);
 					decreaseUnseen = false;
 				}
 
-				display.setLoadingMessage(true);
 				GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
 				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
 				final ImapFolder f = req.create(ImapFolder.class);
@@ -952,7 +944,6 @@ System.out.println("1111111"+response);
 						 * TODO if (decreaseUnseen) { eventBus.fireEvent(new
 						 * DecreaseUnseenEvent(user, folder)); }
 						 */
-						display.setLoadingMessage(false);
 						placeController.goTo(messagePlaceProvider.get().with(user, f, message,
 						        response.getMessageDetails()));
 					}
@@ -1010,6 +1001,7 @@ System.out.println("1111111"+response);
 				}
 			}
 		});
+<<<<<<< HEAD
 		eventBus.addHandler(DecreaseUnseenEvent.TYPE, new DecreaseUnseenEventHandler() {
 			public void onDecreaseUnseenEvent(DecreaseUnseenEvent event) {
 				display.decreaseUnseenMessageCount(event.getFolder(), event.getAmount());
@@ -1256,13 +1248,12 @@ System.out.println("1111111"+response);
 				display.updateTreeItem(f);
 			}
 		});
+=======
+>>>>>>> refactoring.
 		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 			public void onLogin(LoginEvent event) {
 				user = event.getUser();
-				// folder = (IMAPFolderProxy)new
-				// IMAPFolder(user.getSettings().getInboxFolderName());;
 				searchValue = null;
-				// showMessageTable(user, folder, searchValue);
 			}
 <<<<<<< HEAD
 
@@ -1350,11 +1341,9 @@ System.out.println("1111111"+response);
 
 		// FIXME goto?
 		placeController.goTo(new MailFolderPlace().with(user, folder, searchValue));
-		// placeController.goTo(mailInboxPlaceProvider.get().with(user));
-		// placeController.goTo(new
-		// MailInboxPlace(folder.getName()).with(user));
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	private void showMessage(User user, ImapFolder folder, Message message, MessageDetails details) {
 		placeController.goTo(IMAPMessagePlaceProvider.get());
@@ -1366,6 +1355,8 @@ System.out.println("1111111"+response);
 //	}
 >>>>>>> fixed issue #16
 
+=======
+>>>>>>> refactoring.
 	private void showNewMessage() {
 		placeController.goTo(this.messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
 	}
@@ -1381,7 +1372,6 @@ System.out.println("1111111"+response);
 	}
 
 	@Inject private Displayable display;
-//	@Inject private Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
 	@Inject private Provider<MessageSendPlace> messageSendPlaceProvider;
 	@Inject private Provider<IMAPMessagePlace> messagePlaceProvider;
 	private User user;
@@ -1392,6 +1382,7 @@ System.out.println("1111111"+response);
 	private Place currentPlace;
 
 	public interface Displayable extends WidgetDisplayable {
+<<<<<<< HEAD
 		public HasSelectionHandlers<TreeItem> getTree();
 <<<<<<< HEAD
 
@@ -1548,6 +1539,8 @@ System.out.println("1111111"+response);
 		public void setLoadingMessage(boolean loading);
 >>>>>>> scrub code
 		public void setUser(User user);
+=======
+>>>>>>> refactoring.
 	}
 >>>>>>> try to change fetch messages to use RF
 

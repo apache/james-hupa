@@ -20,13 +20,13 @@
 package org.apache.hupa.client.ui;
 
 import com.google.gwt.user.cellview.client.CellTree;
-import com.google.gwt.view.client.TreeViewModel;
+import com.google.inject.Inject;
 
-public class FolderTree extends CellTree {
+public class FoldersCellTree extends CellTree {
 
-	public <T> FolderTree(TreeViewModel viewModel, T rootValue, Resources resources) {
-	    super(viewModel, rootValue, resources);
-	    // TODO Auto-generated constructor stub
-    }
+	@Inject
+	public FoldersCellTree(final FoldersTreeViewModel viewModel, Resources resources) {
+		super(viewModel, null, resources);
+	}
 
 }

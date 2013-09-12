@@ -164,7 +164,8 @@ import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.AppLayout;
 import org.apache.hupa.client.ui.AppLayoutImpl;
-import org.apache.hupa.client.ui.FolderTreeViewModel;
+import org.apache.hupa.client.ui.FoldersTreeViewModel;
+import org.apache.hupa.client.ui.FoldersCellTree;
 import org.apache.hupa.client.ui.IMAPMessageListView;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -198,11 +199,15 @@ import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.cellview.client.CellTree;
 =======
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+import com.google.gwt.user.cellview.client.CellTree;
+>>>>>>> refactoring.
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
@@ -433,7 +438,8 @@ public class AppGinModule extends AbstractGinModule {
 		bind(IMAPMessageActivity.class).in(Singleton.class);
 
 		bind(MessagesCellTable.class).in(Singleton.class);
-		bind(FolderTreeViewModel.class).in(Singleton.class);
+		bind(FoldersTreeViewModel.class);
+		bind(CellTree.Resources.class).to(CellTree.BasicResources.class);
 		// Places
 		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
 

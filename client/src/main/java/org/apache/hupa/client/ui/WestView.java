@@ -21,6 +21,7 @@ package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
@@ -85,18 +86,13 @@ import java.util.List;
 import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
+=======
+>>>>>>> refactoring.
 import org.apache.hupa.client.activity.WestActivity;
-import org.apache.hupa.client.bundles.IMAPTreeImages;
-import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
-import org.apache.hupa.client.widgets.ConfirmDialogBox;
-import org.apache.hupa.client.widgets.HasDialog;
-import org.apache.hupa.client.widgets.IMAPTreeItem;
-import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.domain.ImapFolder;
-import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
+<<<<<<< HEAD
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
@@ -124,38 +120,28 @@ import org.apache.hupa.widgets.ui.HasEditable;
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.apache.hupa.widgets.ui.Loading;
 import org.apache.hupa.widgets.ui.RndPanel;
+=======
+>>>>>>> refactoring.
 
-import com.allen_sauer.gwt.dnd.client.DragContext;
-import com.allen_sauer.gwt.dnd.client.VetoDragException;
-import com.allen_sauer.gwt.dnd.client.drop.DropController;
-import com.allen_sauer.gwt.dnd.client.drop.SimpleDropController;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.cellview.client.CellTree;
-import com.google.gwt.user.cellview.client.TreeNode;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.Tree;
-import com.google.gwt.user.client.ui.TreeItem;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
-import com.google.gwt.view.client.TreeViewModel;
 import com.google.inject.Inject;
+
 /**
- * MainView acts like a container of other widgets which will get displayed after the user successfully logged in
+ * MainView acts like a container of other widgets which will get displayed
+ * after the user successfully logged in
  * 
- *
+ * 
  */
 public class WestView extends Composite implements WestActivity.Displayable {
 
+<<<<<<< HEAD
     private DockPanel dockPanel;
     private VerticalPanel north;
     private HupaConstants constants;
@@ -194,12 +180,20 @@ public class WestView extends Composite implements WestActivity.Displayable {
     public WestView(FolderTreeViewModel viewModel, final EventBus eventBus, PagingScrollTableRowDragController controllerProvider, HupaConstants constants, HupaMessages messages) {
     	this.viewModel = viewModel;
     	selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+=======
+	protected User user;
+	private FoldersCellTree cellTree;
+>>>>>>> refactoring.
 
+	@Inject
+	public WestView(final FoldersTreeViewModel viewModel, final EventBus eventBus) {
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@SuppressWarnings("unchecked")
 			@Override
-            public void onSelectionChange(SelectionChangeEvent event) {
-	            @SuppressWarnings("unchecked")
-                SingleSelectionModel<ImapFolder> selectionModel =(SingleSelectionModel<ImapFolder>) event.getSource();
+			public void onSelectionChange(SelectionChangeEvent event) {
+				SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event.getSource();
 				eventBus.fireEvent(new LoadMessagesEvent(user, selectionModel.getSelectedObject()));
+<<<<<<< HEAD
 	            
             }});
     	viewModel.setSelectionModel(selectionModel);
@@ -781,16 +775,28 @@ public class WestView extends Composite implements WestActivity.Displayable {
             }
         }
     }
+=======
+			}
+		});
+		viewModel.setSelectionModel(selectionModel);
 
+		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
+		cellTree = new FoldersCellTree(viewModel, res);
+		cellTree.setAnimationEnabled(true);
+		initWidget(cellTree);
+>>>>>>> refactoring.
 
-    /*
-     * (non-Javadoc)
-     * @see org.apache.hupa.client.mvp.NameAwareDisplay#getName()
-     */
-    public String getName() {
-        return constants.mailTab();
-    }
+	}
 
+	private final SingleSelectionModel<ImapFolder> selectionModel = new SingleSelectionModel<ImapFolder>(
+	        new ProvidesKey<ImapFolder>() {
+		        @Override
+		        public Object getKey(ImapFolder item) {
+			        return item == null ? null : item.getFullName();
+		        }
+	        });
+
+<<<<<<< HEAD
 	@Override
 	public void setUser(User user) {
 		this.user = user;
@@ -799,5 +805,9 @@ public class WestView extends Composite implements WestActivity.Displayable {
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+	public Widget asWidget() {
+		return this;
+>>>>>>> refactoring.
 	}
 }

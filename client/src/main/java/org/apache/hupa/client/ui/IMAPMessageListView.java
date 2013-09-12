@@ -124,6 +124,7 @@ import org.cobogw.gwt.user.client.ui.ButtonBar;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> Change to new mvp framework - first step
@@ -135,6 +136,8 @@ import com.google.gwt.cell.client.TextCell;
 =======
 import com.google.gwt.cell.client.FieldUpdater;
 >>>>>>> make the messages list can be selected without bothering the checkbox column's behavior of it.
+=======
+>>>>>>> refactoring.
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
