@@ -499,6 +499,9 @@ public class MessagesCellTable extends DataGrid<Message> {
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.client.ui;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -540,6 +543,8 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.ColumnSortEvent.AsyncHandler;
+import com.google.gwt.user.cellview.client.ColumnSortList.ColumnSortInfo;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.RowStyles;
@@ -548,6 +553,7 @@ import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.Range;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -560,7 +566,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 	private String folderName;
 	private String searchValue;
 
-	public static final int PAGE_SIZE = 25;
+	public static final int PAGE_SIZE = 100;
 
 	private HupaImageBundle imageBundle;
 	CheckboxColumn checkboxCol = new CheckboxColumn();
@@ -644,7 +650,6 @@ public class MessagesCellTable extends DataGrid<Message> {
 				if (null != contactsString) {
 					for (String contact : contactsString.split(",")) {
 						contacts.add(contact.replace("[", "").replace("]", "").trim());
-
 					}
 				}
 				contactsStore.setItem(CONTACTS_STORE, contacts.toString());
@@ -670,6 +675,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 					} else {
 						updateRowCount(response.getRealCount(), true);
 						updateRowData(start, response.getMessages());
+					    getColumnSortList().push(dateCol);
 					}
 					hc.hideTopLoading();
 					Scheduler.get().scheduleDeferred(new ScheduledCommand() {
@@ -787,9 +793,51 @@ public class MessagesCellTable extends DataGrid<Message> {
 			dataProvider = new MessageListDataProvider();
 			dataProvider.addDataDisplay(this);
 		}
+		
+		// make table sortable
+	    AsyncHandler columnSortHandler = new AsyncHandler(this);
+	    addColumnSortHandler(columnSortHandler);
+        fromCol.setSortable(true);
+        subjectCol.setSortable(true);
+        attachedCol.setSortable(true);
+        dateCol.setSortable(true);
+        
 		refresh();
 	}
 
+	// TODO: this should be perform in the server side, but in the meanwhile it is useful
+	// some kind of sorting in client side.
+	@Override
+	public void setVisibleRangeAndClearData(Range range, boolean forceRangeChangeEvent) {
+	    final ColumnSortInfo sortInfo = getColumnSortList().get(0);
+
+	    List<Message> sortedList = new ArrayList<Message>(getVisibleItems());
+        Collections.sort(sortedList, new Comparator<Message>() {
+            public int compare(Message o1, Message o2) {
+                Column<?,?> column = sortInfo.getColumn();
+                Message a = sortInfo.isAscending() ? o1 : o2;
+                Message b = sortInfo.isAscending() ? o2 : o1;
+                if (fromCol.equals(column)) {
+                    return a.getFrom().compareToIgnoreCase(b.getFrom());
+                }
+                if (attachedCol.equals(column)) {
+                    return Boolean.valueOf(a.hasAttachment()).compareTo(Boolean.valueOf(b.hasAttachment()));
+                }
+                if (dateCol.equals(column)) {
+                    return a.getReceivedDate().compareTo(b.getReceivedDate());
+                }
+                if (subjectCol.equals(column)) {
+                    // Remove Re & Fwd, using ugly regex since replaceAll is not case-insensitive in client side.
+                    String s1 = a.getSubject().replaceAll("^([Rr][Ee]|[Ff][Ww][Dd]): (.+)$", "$2 ");
+                    String s2 = b.getSubject().replaceAll("^([Rr][Ee]|[Ff][Ww][Dd]): (.+)$", "$2 ");
+                    return s1.compareTo(s2);
+                }
+                return 0;
+            }
+        });
+        dataProvider.updateRowData(range.getStart(), sortedList);
+	}
+	
 	private String parseFolderName(final PlaceController pc) {
 		Place place = pc.getWhere();
 		if (place instanceof FolderPlace) {
