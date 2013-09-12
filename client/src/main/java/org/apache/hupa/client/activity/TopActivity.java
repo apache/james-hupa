@@ -61,7 +61,6 @@ import org.apache.hupa.shared.data.User;
 >>>>>>> introduce the top activity
 =======
 import org.apache.hupa.client.place.DefaultPlace;
-import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.rf.IdleRequest;
 import org.apache.hupa.client.rf.LogoutUserRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;
@@ -95,16 +94,20 @@ import org.apache.hupa.shared.rpc.LogoutUserResult;
 =======
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
+<<<<<<< HEAD
 import com.google.gwt.activity.shared.AbstractActivity;
 <<<<<<< HEAD
 >>>>>>> introduce the top activity
 =======
 >>>>>>> introduce the top activity
+=======
+>>>>>>> scrub code
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.user.client.Timer;
@@ -121,6 +124,8 @@ public class TopActivity extends AppBaseActivity {
 =======
 >>>>>>> introduce the top activity
 import com.google.gwt.place.shared.PlaceController;
+=======
+>>>>>>> scrub code
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasText;
@@ -138,7 +143,7 @@ import com.google.inject.Provider;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 >>>>>>> other RFs
 
-public class TopActivity extends AbstractActivity {
+public class TopActivity extends AppBaseActivity {
 
 	private static final int IDLE_INTERVAL = 150000;
 <<<<<<< HEAD
@@ -161,6 +166,7 @@ public class TopActivity extends AbstractActivity {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		checkSession();
 >>>>>>> introduce the top activity
@@ -173,6 +179,8 @@ public class TopActivity extends AbstractActivity {
 =======
 		// checkSession();
 >>>>>>> other RFs
+=======
+>>>>>>> scrub code
 	}
 
 	private void bind() {
@@ -186,6 +194,7 @@ public class TopActivity extends AbstractActivity {
 			}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		});
 		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
 =======
@@ -199,6 +208,10 @@ public class TopActivity extends AbstractActivity {
 >>>>>>> introduce the top activity
 =======
 >>>>>>> introduce the top activity
+=======
+		});
+		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
+>>>>>>> scrub code
 			public void onLogout(LogoutEvent event) {
 				User u = event.getUser();
 				String username = null;
@@ -229,6 +242,7 @@ public class TopActivity extends AbstractActivity {
 			public void onClick(ClickEvent event) {
 				showMain(user);
 			}
+<<<<<<< HEAD
 		}));
 		eventBus.addHandler(ServerStatusEvent.TYPE, new ServerStatusEventHandler() {
 =======
@@ -244,34 +258,33 @@ public class TopActivity extends AbstractActivity {
 			}
 >>>>>>> introduce the top activity
 
+=======
+>>>>>>> scrub code
 		});
-		display.getLogoutClick().addClickHandler(new ClickHandler() {
-
+		registerHandler(display.getLogoutClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				doLogout();
 			}
-
-		});
-		display.getContactsClick().addClickHandler(new ClickHandler() {
-
+		}));
+		registerHandler(display.getContactsClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				showContacts();
 			}
-
-		});
-		display.getMainClick().addClickHandler(new ClickHandler() {
-
+		}));
+		registerHandler(display.getMainClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				showMain(user);
 			}
-
-		});
+		}));
 		eventBus.addHandler(ServerStatusEvent.TYPE, new ServerStatusEventHandler() {
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 >>>>>>> introduce the top activity
 =======
 >>>>>>> introduce the top activity
+=======
+>>>>>>> scrub code
 			public void onServerStatusChange(ServerStatusEvent event) {
 				if (event.getStatus() != serverStatus) {
 					GWT.log("Server status has hanged from " + serverStatus + " to" + event.getStatus(), null);
@@ -279,6 +292,7 @@ public class TopActivity extends AbstractActivity {
 					display.setServerStatus(serverStatus);
 				}
 			}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		});
@@ -300,13 +314,13 @@ public class TopActivity extends AbstractActivity {
 =======
 >>>>>>> introduce the top activity
 
+=======
+>>>>>>> scrub code
 		});
 		eventBus.addHandler(FlashEvent.TYPE, new FlashEventHandler() {
-
 			public void onFlash(FlashEvent event) {
 				display.showMessage(event.getMessage(), event.getMillisec());
 			}
-
 		});
 	}
 
@@ -393,6 +407,7 @@ public class TopActivity extends AbstractActivity {
 	private Timer noopTimer = new IdleTimer();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject
 <<<<<<< HEAD
 	public TopActivity(Displayable display, EventBus eventBus, PlaceController placeController,
@@ -422,6 +437,14 @@ public class TopActivity extends AbstractActivity {
 >>>>>>> introduce the top activity
 =======
 >>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
+=======
+
+	@Inject private Displayable display;
+	@Inject private HupaConstants constants;
+	private User user;
+	private ServerStatus serverStatus = ServerStatus.Available;
+	
+>>>>>>> scrub code
 	public interface Displayable extends WidgetDisplayable {
 		public HasClickHandlers getLogoutClick();
 		public HasClickHandlers getContactsClick();
@@ -434,6 +457,7 @@ public class TopActivity extends AbstractActivity {
 		public void showMessage(String message, int millisecs);
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -479,6 +503,8 @@ public class TopActivity extends AbstractActivity {
 	private User user;
 	private ServerStatus serverStatus = ServerStatus.Available;
 
+=======
+>>>>>>> scrub code
 	private class IdleTimer extends Timer {
 		boolean running = false;
 

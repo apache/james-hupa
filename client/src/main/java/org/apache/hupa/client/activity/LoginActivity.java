@@ -26,6 +26,7 @@
 package org.apache.hupa.client.activity;
 
 import org.apache.hupa.client.HupaConstants;
+<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.rf.LoginUserRequest;
 import org.apache.hupa.client.ui.HupaLayoutable;
@@ -69,8 +70,9 @@ import org.apache.hupa.client.place.MailInboxPlace;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.place.DefaultPlace;
+=======
+>>>>>>> scrub code
 import org.apache.hupa.client.place.MailFolderPlace;
-import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.rf.LoginUserRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.data.ImapFolderImpl;
@@ -87,6 +89,7 @@ import org.apache.hupa.shared.rpc.LoginUserResult;
 =======
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
+<<<<<<< HEAD
 import com.google.gwt.activity.shared.AbstractActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -111,10 +114,13 @@ import com.google.gwt.core.client.GWT;
 >>>>>>> decorate the theme
 =======
 >>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
+=======
+>>>>>>> scrub code
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -126,6 +132,8 @@ import com.google.gwt.user.client.Window;
 =======
 >>>>>>> introduce the top activity
 =======
+=======
+>>>>>>> scrub code
 import com.google.gwt.user.client.Window;
 >>>>>>> alert people "invilid login" for the wrong username and/or password, which should be improved with a gentle way
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -140,6 +148,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class LoginActivity extends AppBaseActivity {
+<<<<<<< HEAD
 	
 
 	@Inject private HupaLayoutable hupaLayout;
@@ -219,6 +228,8 @@ public class LoginActivity extends AbstractActivity {
 =======
 	@Inject private HupaRequestFactory requestFactory;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+>>>>>>> scrub code
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
@@ -247,15 +258,20 @@ public class LoginActivity extends AbstractActivity {
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 		display.setLoading(false);
+<<<<<<< HEAD
 >>>>>>> fix bugs, including 1)folders appending on west panel; 2)unread email folder's been frozen exception; 3)back, logout, ...buttons wired behavior.
 
+=======
+>>>>>>> scrub code
 	}
 
 	public void bind() {
-		display.getLoginClick().addClickHandler(new ClickHandler() {
+		registerHandler(display.getLoginClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				doLogin();// FIXME double run if press "ENTER" key in the login page
+				doLogin();// FIXME double run if press "ENTER" key in the login
+						  // page
 			}
+<<<<<<< HEAD
 		});
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -274,12 +290,16 @@ public class LoginActivity extends AbstractActivity {
 =======
 		display.getResetClick().addClickHandler(new ClickHandler() {
 
+=======
+		}));
+		registerHandler(display.getResetClick().addClickHandler(new ClickHandler() {
+>>>>>>> scrub code
 			public void onClick(ClickEvent event) {
 				doReset();
 			}
-
-		});
+		}));
 		eventBus.addHandler(SessionExpireEvent.TYPE, new SessionExpireEventHandler() {
+<<<<<<< HEAD
 
 <<<<<<< HEAD
             public void onSessionExpireEvent(SessionExpireEvent event) {
@@ -300,11 +320,18 @@ public class LoginActivity extends AbstractActivity {
 =======
 
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+			public void onSessionExpireEvent(SessionExpireEvent event) {
+				eventBus.fireEvent(new FlashEvent(constants.sessionTimedOut(), 4000));
+			}
+		});
+>>>>>>> scrub code
 	}
 
 	private void doLogin() {
 		String user = display.getUserNameValue().getValue().trim();
 		String pass = display.getPasswordValue().getValue().trim();
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		if (user.isEmpty() || pass.isEmpty())
@@ -328,10 +355,12 @@ public class LoginActivity extends AbstractActivity {
 =======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 
+=======
+>>>>>>> scrub code
 		if (user.isEmpty() || pass.isEmpty())
 			return;
-
 		display.setLoading(true);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -437,26 +466,31 @@ public class LoginActivity extends AbstractActivity {
 >>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
 =======
 
+=======
+>>>>>>> scrub code
 		LoginUserRequest loginRequest = requestFactory.loginRequest();
 		loginRequest.login(user, pass).fire(new Receiver<User>() {
 			@Override
 			public void onSuccess(User response) {
 				placeController.goTo(new MailFolderPlace().with(response, useDefaultInboxFolder(response), null));
-                eventBus.fireEvent(new LoginEvent(response));
+				eventBus.fireEvent(new LoginEvent(response));
 			}
 			@Override
-			public void onFailure(ServerFailure error){
-				Window.alert(error.getMessage());//TODO a more gentle way
+			public void onFailure(ServerFailure error) {
+				Window.alert(error.getMessage());// TODO a more gentle way
 				display.setLoading(false);
 				doReset();
-//				placeController.goTo(new DefaultPlace());
+				// placeController.goTo(new DefaultPlace());
 			}
 		});
+<<<<<<< HEAD
 
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+>>>>>>> scrub code
 	}
-	
-	private ImapFolder useDefaultInboxFolder(User user){
+
+	private ImapFolder useDefaultInboxFolder(User user) {
 		return new ImapFolderImpl(user.getSettings().getInboxFolderName());
 	}
 
@@ -469,6 +503,7 @@ public class LoginActivity extends AbstractActivity {
 		display.getUserNameFocus().setFocus(true);
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -491,24 +526,27 @@ public class LoginActivity extends AbstractActivity {
 	public interface Display {
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
+=======
+	@Inject private Displayable display;
+	@Inject private HupaConstants constants;
+
+>>>>>>> scrub code
 	public interface Displayable extends WidgetDisplayable {
 >>>>>>> Change to new mvp framework - first step
 		public HasClickHandlers getLoginClick();
-
 		public HasClickHandlers getResetClick();
-
 		public HasValue<String> getUserNameValue();
-
 		public HasValue<String> getPasswordValue();
-
 		public Focusable getUserNameFocus();
-
 		public void setLoading(boolean loading);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+>>>>>>> scrub code
 		public Widget asWidget();
 	}
 }

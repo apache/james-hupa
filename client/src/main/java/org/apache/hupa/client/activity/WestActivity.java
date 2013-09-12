@@ -274,7 +274,7 @@ import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.rf.ImapFolderRequest;
 import org.apache.hupa.client.rf.RenameFolderRequest;
-import org.apache.hupa.client.ui.WidgetContainerDisplayable;
+import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.ImapFolderImpl;
@@ -380,11 +380,14 @@ import org.apache.hupa.widgets.event.EditHandler;
 import org.apache.hupa.widgets.ui.HasEditable;
 import org.apache.hupa.widgets.ui.HasEnable;
 
+<<<<<<< HEAD
 import com.google.gwt.activity.shared.AbstractActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> 
+=======
+>>>>>>> scrub code
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -394,10 +397,8 @@ import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -423,7 +424,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 >>>>>>> Succeed creating new folder
 
-public class WestActivity extends AbstractActivity {
+public class WestActivity extends AppBaseActivity {
 
 <<<<<<< HEAD
 	private final Displayable display;
@@ -472,6 +473,7 @@ public class WestActivity extends AbstractActivity {
 		container.setWidget(display.asWidget());
 	}
 
+<<<<<<< HEAD
 	@Inject private Displayable display;
 	@Inject private EventBus eventBus;
 	@Inject private PlaceController placeController;
@@ -598,6 +600,8 @@ public class WestActivity extends AbstractActivity {
 
 	private Place currentPlace;
 
+=======
+>>>>>>> scrub code
 	public void setCurrentPlace(Place place) {
 		this.currentPlace = place;
 	}
@@ -852,14 +856,13 @@ System.out.println("1111111"+response);
 	private void bind() {
 >>>>>>> try to change fetch messages to use RF
 		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
-
 			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
 				showMessageTable(loadMessagesEvent.getUser(), loadMessagesEvent.getFolder(),
 				        loadMessagesEvent.getSearchValue());
 			}
-
 		});
 		eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
+<<<<<<< HEAD
 
 <<<<<<< HEAD
             public void onExpandMessage(ExpandMessageEvent event) {
@@ -910,6 +913,8 @@ System.out.println("1111111"+response);
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
             }
 =======
+=======
+>>>>>>> scrub code
 			public void onExpandMessage(ExpandMessageEvent event) {
 				final boolean decreaseUnseen;
 				final Message message = event.getMessage();
@@ -935,99 +940,81 @@ System.out.println("1111111"+response);
 				action.setFolder(folder);
 				action.setUid(message.getUid());
 				req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
-
 					@Override
 					public void onSuccess(GetMessageDetailsResult response) {
-
-						/*TODO
-						if (decreaseUnseen) {
-							eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
-						}*/
+						/*
+						 * TODO if (decreaseUnseen) { eventBus.fireEvent(new
+						 * DecreaseUnseenEvent(user, folder)); }
+						 */
 						display.setLoadingMessage(false);
 						placeController.goTo(messagePlaceProvider.get().with(user, folder, message,
 						        response.getMessageDetails()));
 					}
 				});
 			}
+<<<<<<< HEAD
 >>>>>>> try to change fetch messages to use RF
 
+=======
+>>>>>>> scrub code
 		});
 		eventBus.addHandler(NewMessageEvent.TYPE, new NewMessageEventHandler() {
-
 			public void onNewMessageEvent(NewMessageEvent event) {
 				showNewMessage();
 			}
-
 		});
 		eventBus.addHandler(SentMessageEvent.TYPE, new SentMessageEventHandler() {
-
 			public void onSentMessageEvent(SentMessageEvent ev) {
 				showMessageTable(user, folder, searchValue);
 			}
-
 		});
 		eventBus.addHandler(ForwardMessageEvent.TYPE, new ForwardMessageEventHandler() {
-
 			public void onForwardMessageEvent(ForwardMessageEvent event) {
 				showForwardMessage(event);
 			}
-
 		});
 		eventBus.addHandler(ReplyMessageEvent.TYPE, new ReplyMessageEventHandler() {
-
 			public void onReplyMessageEvent(ReplyMessageEvent event) {
 				showReplyMessage(event);
 			}
-
 		});
 		eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
-
 			public void onFolderSelectionEvent(FolderSelectionEvent event) {
 				user = event.getUser();
 				folder = event.getFolder();
 				showMessageTable(user, event.getFolder(), searchValue);
 			}
-
 		});
 		eventBus.addHandler(BackEvent.TYPE, new BackEventHandler() {
-
 			public void onBackEvent(BackEvent event) {
 				showMessageTable(user, folder, searchValue);
 			}
-
 		});
 		eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
-
 			public void onExpandMessage(ExpandMessageEvent event) {
 				if (editableTreeItem != null && editableTreeItem.isEdit()) {
 					editableTreeItem.cancelEdit();
 				}
 			}
-
 		});
 		eventBus.addHandler(NewMessageEvent.TYPE, new NewMessageEventHandler() {
-
 			public void onNewMessageEvent(NewMessageEvent event) {
 				if (editableTreeItem != null && editableTreeItem.isEdit()) {
 					editableTreeItem.cancelEdit();
 				}
 			}
-
 		});
 		eventBus.addHandler(DecreaseUnseenEvent.TYPE, new DecreaseUnseenEventHandler() {
-
 			public void onDecreaseUnseenEvent(DecreaseUnseenEvent event) {
 				display.decreaseUnseenMessageCount(event.getFolder(), event.getAmount());
 			}
-
 		});
 		eventBus.addHandler(IncreaseUnseenEvent.TYPE, new IncreaseUnseenEventHandler() {
-
 			public void onIncreaseUnseenEvent(IncreaseUnseenEvent event) {
 				display.increaseUnseenMessageCount(event.getFolder(), event.getAmount());
 			}
-
 		});
+<<<<<<< HEAD
 		display.getTree().addSelectionHandler(new SelectionHandler<TreeItem>() {
 
 <<<<<<< HEAD
@@ -1051,10 +1038,14 @@ System.out.println("1111111"+response);
                 eventBus.fireEvent(new LoadMessagesEvent(user, folder));
             }
 =======
+=======
+		registerHandler(display.getTree().addSelectionHandler(new SelectionHandler<TreeItem>() {
+>>>>>>> scrub code
 			public void onSelection(SelectionEvent<TreeItem> event) {
 				tItem = (IMAPTreeItem) event.getSelectedItem();
 				if (tItem.isEdit())
 					return;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 				folder = (ImapFolder) tItem.getUserObject();
@@ -1109,19 +1100,24 @@ System.out.println("1111111"+response);
 //				messagesRequest = requestFactory.messagesRequest();
 //				folder = messagesRequest.edit(editableFolder);
 >>>>>>> make it usable by removing a function that showing the unread message number dynamically.
+=======
+				// ImapFolder editableFolder = (ImapFolder)
+				// tItem.getUserObject();
+				//
+				// messagesRequest = requestFactory.messagesRequest();
+				// folder = messagesRequest.edit(editableFolder);
+>>>>>>> scrub code
 
-				 folder = (ImapFolder) tItem.getUserObject();
+				folder = (ImapFolder) tItem.getUserObject();
 				// FIXME not good to find
 				eventBus.fireEvent(new LoadMessagesEvent(user, folder));
 <<<<<<< HEAD
 >>>>>>> fix the frozen autobean issue, yet another occur
 =======
 			}
-
-		});
+		}));
 		// FIXME why same?
-		display.getTree().addSelectionHandler(new SelectionHandler<TreeItem>() {
-
+		registerHandler(display.getTree().addSelectionHandler(new SelectionHandler<TreeItem>() {
 			public void onSelection(SelectionEvent<TreeItem> event) {
 				tItem = (IMAPTreeItem) event.getSelectedItem();
 				if (tItem.isEdit())
@@ -1136,6 +1132,7 @@ System.out.println("1111111"+response);
 					display.getRenameEnable().setEnabled(true);
 				}
 			}
+<<<<<<< HEAD
 
 		});
 <<<<<<< HEAD
@@ -1189,20 +1186,20 @@ System.out.println("1111111"+response);
 >>>>>>> forward and reply message to use RF
 		display.getRenameClick().addClickHandler(new ClickHandler() {
 
+=======
+		}));
+		registerHandler(display.getRenameClick().addClickHandler(new ClickHandler() {
+>>>>>>> scrub code
 			public void onClick(ClickEvent event) {
 				tItem.startEdit();
 			}
-
-		});
-		display.getDeleteClick().addClickHandler(new ClickHandler() {
-
+		}));
+		registerHandler(display.getDeleteClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				display.getDeleteConfirmDialog().show();
 			}
-
-		});
-		display.getDeleteConfirmClick().addClickHandler(new ClickHandler() {
-
+		}));
+		registerHandler(display.getDeleteConfirmClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				DeleteFolderRequest req = requestFactory.deleteFolderRequest();
 				final DeleteFolderAction action = req.create(DeleteFolderAction.class);
@@ -1218,10 +1215,8 @@ System.out.println("1111111"+response);
 					}
 				});
 			}
-
-		});
-		display.getNewClick().addClickHandler(new ClickHandler() {
-
+		}));
+		registerHandler(display.getNewClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				editableTreeItem = display.createFolder(new EditHandler() {
 					public void onEditEvent(EditEvent event) {
@@ -1246,21 +1241,16 @@ System.out.println("1111111"+response);
 							});
 						}
 					}
-
 				});
 			}
-
-		});
+		}));
 		eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
-
 			public void onMessagesReceived(MessagesReceivedEvent event) {
 				ImapFolder f = event.getFolder();
 				display.updateTreeItem(f);
 			}
-
 		});
 		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
-
 			public void onLogin(LoginEvent event) {
 				user = event.getUser();
 				// folder = (IMAPFolderProxy)new
@@ -1268,6 +1258,7 @@ System.out.println("1111111"+response);
 				searchValue = null;
 				// showMessageTable(user, folder, searchValue);
 			}
+<<<<<<< HEAD
 
 <<<<<<< HEAD
             public void onMessagesReceived(MessagesReceivedEvent event) {
@@ -1290,6 +1281,9 @@ System.out.println("1111111"+response);
 		});
 >>>>>>> try to change fetch messages to use RF
 
+=======
+		});
+>>>>>>> scrub code
 		exportJSMethods(this);
 	}
 
@@ -1374,9 +1368,20 @@ System.out.println("1111111"+response);
 		        event.getMessage(), event.getMessageDetails(), event.getReplyAll() ? Type.REPLY_ALL : Type.REPLY));
 	}
 
-	public interface Displayable extends WidgetContainerDisplayable {
+	@Inject private Displayable display;
+	@Inject private Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
+	@Inject private Provider<MessageSendPlace> messageSendPlaceProvider;
+	@Inject private Provider<IMAPMessagePlace> messagePlaceProvider;
+	private User user;
+	private ImapFolder folder;
+	private IMAPTreeItem tItem;
+	private HasEditable editableTreeItem;
+	private String searchValue;
+	private Place currentPlace;
 
+	public interface Displayable extends WidgetDisplayable {
 		public HasSelectionHandlers<TreeItem> getTree();
+<<<<<<< HEAD
 
 <<<<<<< HEAD
     private void showReplyMessage(ReplyMessageEvent event) {
@@ -1445,23 +1450,19 @@ System.out.println("1111111"+response);
 		public void bindTreeItems(List<IMAPTreeItem> treeList);
 >>>>>>> try to change fetch messages to use RF
 
+=======
+		public void bindTreeItems(List<IMAPTreeItem> treeList);
+>>>>>>> scrub code
 		public HasClickHandlers getRenameClick();
-
 		public HasClickHandlers getDeleteClick();
-
 		public HasClickHandlers getNewClick();
-
 		public HasDialog getDeleteConfirmDialog();
-
 		public HasClickHandlers getDeleteConfirmClick();
-
 		public HasEnable getRenameEnable();
-
 		public HasEnable getDeleteEnable();
-
 		public HasEnable getNewEnable();
-
 		public void updateTreeItem(ImapFolder folder);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1481,9 +1482,12 @@ System.out.println("1111111"+response);
 		public void deleteSelectedFolder();
 >>>>>>> try to change fetch messages to use RF
 
+=======
+		public void deleteSelectedFolder();
+>>>>>>> scrub code
 		public HasEditable createFolder(EditHandler handler);
-
 		public void increaseUnseenMessageCount(ImapFolder folder, int amount);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1513,9 +1517,11 @@ System.out.println("1111111"+response);
         
         public void setUser(User user);
 =======
+=======
+>>>>>>> scrub code
 		public void decreaseUnseenMessageCount(ImapFolder folder, int amount);
-
 		public void setLoadingFolders(boolean loading);
+<<<<<<< HEAD
 >>>>>>> try to change fetch messages to use RF
 
 		public void setLoadingMessage(boolean loading);
@@ -1526,8 +1532,10 @@ System.out.println("1111111"+response);
 =======
 >>>>>>> Change to new mvp framework - first step
 =======
+=======
+		public void setLoadingMessage(boolean loading);
+>>>>>>> scrub code
 		public void setUser(User user);
-
 	}
 >>>>>>> try to change fetch messages to use RF
 

@@ -732,32 +732,6 @@ public class WestView extends Composite implements WestActivity.Displayable {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.customware.gwt.presenter.client.widget.WidgetContainerDisplay#addWidget(com.google.gwt.user.client.ui.Widget)
-     */
-    public void addWidget(Widget widget) {
-        showWidget(widget);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see net.customware.gwt.presenter.client.widget.WidgetContainerDisplay#removeWidget(com.google.gwt.user.client.ui.Widget)
-     */
-    public void removeWidget(Widget widget) {
-        centerWidget = null;
-        center.remove(widget); 
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see net.customware.gwt.presenter.client.widget.WidgetContainerDisplay#showWidget(com.google.gwt.user.client.ui.Widget)
-     */
-    public void showWidget(Widget widget) {
-        centerWidget = widget;
-        center.setWidget(centerWidget); 
-    }
-
 
     /*
      * (non-Javadoc)

@@ -45,6 +45,7 @@ import java.util.List;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.client.place.MessageSendPlace;
+<<<<<<< HEAD
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
 import org.apache.hupa.client.rf.SendMessageRequest;
 import org.apache.hupa.client.rf.SendReplyMessageRequest;
@@ -85,6 +86,8 @@ import org.apache.hupa.client.place.MessageSendPlace;
 =======
 =======
 import org.apache.hupa.client.rf.HupaRequestFactory;
+=======
+>>>>>>> scrub code
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
 import org.apache.hupa.client.rf.SendMessageRequest;
 import org.apache.hupa.client.rf.SendReplyMessageRequest;
@@ -238,6 +241,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class MessageSendActivity extends AppBaseActivity {
 
+<<<<<<< HEAD
 	private List<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
 	private Type type = Type.NEW;
 	private ImapFolder folder;
@@ -259,6 +263,8 @@ public class MessageSendActivity extends AppBaseActivity {
 =======
 >>>>>>> 1. improve the inbox folder place.
 
+=======
+>>>>>>> scrub code
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		bind();
@@ -271,6 +277,7 @@ public class MessageSendActivity extends AppBaseActivity {
 <<<<<<< HEAD
 
 	public MessageSendActivity with(MessageSendPlace place) {
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 1. improve the inbox folder place.
@@ -296,6 +303,8 @@ public class MessageSendActivity extends AppBaseActivity {
 >>>>>>> 1. improve the inbox folder place.
 =======
 >>>>>>> 1. improve the inbox folder place.
+=======
+>>>>>>> scrub code
 		this.user = place.getUser();
 		this.folder = place.getFolder();
 		this.oldmessage = place.getMessage();
@@ -627,15 +636,12 @@ public class MessageSendActivity extends AppBaseActivity {
 				eventBus.fireEvent(new BackEvent());
 			}
 		}));
-
 		registrations.add(display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler));
 		registrations.add(display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler));
 		registrations.add(display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler));
-
 		reset();
 	}
 
-	SendMessageRequest sendReq;
 	protected ClickHandler sendClickHandler = new ClickHandler() {
 		public void onClick(ClickEvent event) {
 			if (validate()) {
@@ -1143,7 +1149,20 @@ public class MessageSendActivity extends AppBaseActivity {
 		}
 	};
 
+<<<<<<< HEAD
 >>>>>>> forward and reply message to use RF
+=======
+	@Inject private Displayable display;
+	private List<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
+	private Type type = Type.NEW;
+	private ImapFolder folder;
+	private Message oldmessage;
+	protected SmtpMessage message;
+	private MessageDetails oldDetails;
+	private User user;
+	private SendMessageRequest sendReq;
+	
+>>>>>>> scrub code
 	public interface Displayable extends WidgetDisplayable {
 		public HasText getFromText();
 		public HasText getToText();
