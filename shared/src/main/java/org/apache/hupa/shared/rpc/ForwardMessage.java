@@ -63,6 +63,8 @@ public class ForwardMessage extends SendMessage {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 =======
     private ImapFolder folder;
+    private String inReplyTo;
+    private String references;
 
     public ForwardMessage(SMTPMessage msg, ImapFolder folder, long uid) {
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
@@ -93,4 +95,24 @@ public class ForwardMessage extends SendMessage {
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         return folder;
     }
+    
+    @Override
+    public String getInReplyTo() {
+		return inReplyTo;
+	}
+
+    @Override
+    public String getReferences() {
+		return references;
+	}
+
+  public ForwardMessage setInReplyTo(String inReplyTo) {
+		this.inReplyTo = inReplyTo;
+		return this;
+	}
+   
+  public ForwardMessage setReferences(String references) {
+		this.references = references;
+		return this;
+	}
 }

@@ -21,22 +21,31 @@ package org.apache.hupa.shared.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.hupa.shared.SConsts;
 
 public class MessageDetails implements Serializable{
     /**
-     * 
-     */
-    private static final long serialVersionUID = 7611536915564919521L;
-    private String text;
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String text;
     private ArrayList<MessageAttachment> aList;
     private long uid;
     private String raw;
+    private Map<String, List<String>> headers = new HashMap<String, List<String>>();
 
+    
     public String toString() {
         return "uid=" + String.valueOf(getUid()) +
         " text.length=" + (text != null ? text.length() : 0) + 
         " raw.length=" + (raw != null ? raw.length() : 0) + 
-        " attachments=" + (aList != null ? aList.size() : 0); 
+        " attachments=" + (aList != null ? aList.size() : 0) + 
+        " headers=" + (headers != null ? headers.size() : 0); 
     }
     
     
@@ -66,6 +75,21 @@ public class MessageDetails implements Serializable{
         return raw;
     }
     
+    public Map<String, List<String>> getHeaders() {
+		return headers;
+	}
+    
+    public void addHeader(String name, String value) {
+    	List<String> list = headers.get(name);
+    	if (list == null) {
+    		list = new ArrayList<String>();
+    		headers.put(name, list);
+    	}
+    	list.add(value);
+    }
+    
+    
+    
     /**
      * Set the body text of the content
      * 
@@ -92,6 +116,31 @@ public class MessageDetails implements Serializable{
         this.aList = aList;
     }
 
+    /**
+     * 
+     * @return the In-Reply-To header field.
+     */
+    public String getInReplyTo() {
+        return getHeaderValue(SConsts.HEADER_IN_REPLY_TO);
+    }
+
+    public String getHeaderValue(String key) {
+        List<String> h = headers.get(key);
+        return h != null && !h.isEmpty() ? h.get(0) : null;
+    }
+
+    /**
+     * 
+     * @return the References header field.
+     */
+    public String getReferences() {
+        return getHeaderValue(SConsts.HEADER_REFERENCES);
+    }
+
+    public String getMessageId() {
+        return getHeaderValue(SConsts.HEADER_MESSAGE_ID);
+    }    
+    
     /**
      * Return the attachments 
      * 

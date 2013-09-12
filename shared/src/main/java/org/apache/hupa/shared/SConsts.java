@@ -62,5 +62,14 @@ public class SConsts {
     
     public static final String USER_SESS_ATTR = "user";
     public static final String CONTACTS_SESS_ATTR = "contacts";
+<<<<<<< HEAD
 >>>>>>> first commit
+=======
+    
+    public static final String HEADER_IN_REPLY_TO = "In-Reply-To";
+    public static final String HEADER_REFERENCES = "References";
+    public static final String HEADER_MESSAGE_ID = "Message-ID";
+    public static final String HEADER_REFERENCES_SEPARATOR = "\r\n ";
+    
+>>>>>>> Fixes HUPA-96 : pass reference ids when replying. Patch by Zsombor Gegesy
 }
