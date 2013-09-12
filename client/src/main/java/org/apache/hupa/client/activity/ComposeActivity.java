@@ -404,7 +404,7 @@ public class ComposeActivity extends AppBaseActivity {
 		bindTo(eventBus);
 
 		display.getFromList().addItem("demo");
-		if (user != null) {// FIXME
+		if (user != null) {// FIXME why user would be a null
 			display.getFromList().addItem(user.getName());
 		}
 	}
@@ -416,9 +416,9 @@ public class ComposeActivity extends AppBaseActivity {
 			}
 		});
 		registerHandler(display.getSendClick().addClickHandler(sendClickHandler));
-		display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler);
-		display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler);
-		display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler);
+		registerHandler(display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler));
+		registerHandler(display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler));
+		registerHandler(display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler));
 	}
 
 <<<<<<< HEAD
@@ -465,8 +465,13 @@ public class ComposeActivity extends AppBaseActivity {
 
 	private OnStatusChangedHandler onStatusChangedHandler = new OnStatusChangedHandler() {
 		public void onStatusChanged(IUploader uploader) {
-			// Status stat = display.getUploader().getStatus(); //TODO buttons
-			// disabled
+			// TODO buttons disabled
+			// Status stat = display.getUploader().getStatus();
+
+			// if (stat == Status.INPROGRESS)
+			// display.getSendEnable().setEnabled(false);
+			// else
+			// display.getSendEnable().setEnabled(true);
 		}
 	};
 
