@@ -171,6 +171,8 @@ import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.SetFlagAction;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.ExpandMessageEventHandler;
+import org.apache.hupa.shared.events.LoadMessagesEvent;
+import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 
@@ -219,6 +221,11 @@ public class ToolBarActivity extends AppBaseActivity {
 				display.enableMessageTools();
 				display.setParameters(new Parameters(event.getUser(), event.getFolder(), event.getMessage(), event
 						.getMessageDetails()));
+			}
+		});
+		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
+			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
+				display.disableMessageTools();
 			}
 		});
 		registerHandler(display.getMark().addClickHandler(new ClickHandler() {

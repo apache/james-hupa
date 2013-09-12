@@ -278,6 +278,7 @@ import org.apache.hupa.shared.events.LoginEventHandler;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -293,6 +294,7 @@ public class MessageListActivity extends AppBaseActivity {
 	@Inject private Displayable display;
 	@Inject private HupaRequestFactory requestFactory;
 	@Inject private PlaceController placeController;
+	@Inject private ToolBarActivity.Displayable toolBarDisplay;
 	private ImapFolder folder;
 	private String searchValue;
 	private User user;
@@ -334,11 +336,14 @@ public class MessageListActivity extends AppBaseActivity {
 							}
 						}
 					});
+				} else if (hasChangedFirstCol(event)) {
+					Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+						@Override
+						public void execute() {
+							toolBarDisplay.enableMessageTools();
+						}
+					});
 				}
-			}
-
-			private boolean hasClickedButFirstCol(CellPreviewEvent<Message> event) {
-				return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
 			}
 
 		});
@@ -348,9 +353,26 @@ public class MessageListActivity extends AppBaseActivity {
 				fetch(event.getNewRange().getStart());
 			}
 		});
-
+		if (!pending) {
+			pending = true;
+			Scheduler.get().scheduleFinally(new ScheduledCommand() {
+				@Override
+				public void execute() {
+					pending = false;
+					fetch(0);
+				}
+			});
+		}
 	}
 
+	private boolean hasClickedButFirstCol(CellPreviewEvent<Message> event) {
+		return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
+	}
+	private boolean hasChangedFirstCol(CellPreviewEvent<Message> event) {
+		GWT.log(event.getNativeEvent().getType() + " "
+				+ ("change".equals(event.getNativeEvent().getType()) && 0 == event.getColumn()));
+		return "change".equals(event.getNativeEvent().getType()) && 0 == event.getColumn();
+	}
 	public void fetch(final int start) {
 		FetchMessagesRequest req = requestFactory.messagesRequest();
 		FetchMessagesAction action = req.create(FetchMessagesAction.class);
@@ -391,23 +413,25 @@ public class MessageListActivity extends AppBaseActivity {
 
 			}
 		});
-		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
-			public void onLogin(LoginEvent event) {
-				user = event.getUser();
-				folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
-				searchValue = null;
-				if (!pending) {
-					pending = true;
-					Scheduler.get().scheduleFinally(new ScheduledCommand() {
-						@Override
-						public void execute() {
-							pending = false;
-							fetch(0);
-						}
-					});
-				}
-			}
-		});
+//		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
+//			public void onLogin(LoginEvent event) {
+//				user = event.getUser();
+//				if (folder == null) {
+//					folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
+//					searchValue = null;
+//					if (!pending) {
+//						pending = true;
+//						Scheduler.get().scheduleFinally(new ScheduledCommand() {
+//							@Override
+//							public void execute() {
+//								pending = false;
+//								fetch(0);
+//							}
+//						});
+//					}
+//				}
+//			}
+//		});
 
 	}
 
@@ -437,8 +461,8 @@ public class MessageListActivity extends AppBaseActivity {
 
 	public void setFolder(ImapFolder folder) {
 		this.folder = folder;
-		if (folder != null)
-			fetch(0);
+		// if (folder != null)
+		// fetch(0);
 	}
 >>>>>>> prepare for message content panel
 }

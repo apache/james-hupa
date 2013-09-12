@@ -117,9 +117,14 @@ public class ToolBarActivityMapper extends MainActivityMapper {
 =======
 	
 	@Override
+<<<<<<< HEAD
 	Activity asyncLoadActivity(Place place) {
 		final String token = ((MailFolderPlace)place).getFullName();
 >>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
+=======
+	Activity asyncLoadActivity(final Place place) {
+		
+>>>>>>> fix the bugs resulted from the no unit tests
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
@@ -128,6 +133,10 @@ public class ToolBarActivityMapper extends MainActivityMapper {
 
 			@Override
 			protected Activity createInstance() {
+				String token = null;
+				if(place instanceof MailFolderPlace){
+					token = ((MailFolderPlace)place).getFullName();
+				}
 				return toolBarActivityProvider.get().with(token);
 			}
 		};

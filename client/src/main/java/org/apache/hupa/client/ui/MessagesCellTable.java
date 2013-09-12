@@ -658,7 +658,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 				@Override
 				public void update(int index, Message object, Boolean value) {
 					selectionModel.setSelected(object, value);
-					toolBarDisplay.disableMessageTools();
+					toolBarDisplay.enableMessageTools();
 				}
 			});
 		}
