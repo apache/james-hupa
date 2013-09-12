@@ -21,15 +21,19 @@ package org.apache.hupa.client.ui;
 
 import java.util.List;
 
+import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
-import org.apache.hupa.client.ui.res.TreeResources;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 
 import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.core.shared.GWT;
+import com.google.gwt.cell.client.ValueUpdater;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
@@ -38,15 +42,17 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class FoldersTreeViewModel implements TreeViewModel {
 
-	protected User user;
 	@Inject protected HupaRequestFactory rf;
 	@Inject protected EventBus eventBus;
-	private static TreeResources images;
+	@Inject protected PlaceController placeController;
+	@Inject private Provider<MailFolderPlace> folderPlaceProvider;
+	protected User user;
 
 	public FoldersTreeViewModel() {
 
@@ -59,11 +65,10 @@ public class FoldersTreeViewModel implements TreeViewModel {
 								.getSource();
 						eventBus.fireEvent(new LoadMessagesEvent(user,
 								selectionModel.getSelectedObject()));
+						placeController.goTo(folderPlaceProvider.get().with(
+								selectionModel.getSelectedObject()));
 					}
 				});
-		if (images == null) {
-			images = GWT.create(TreeResources.class);
-		}
 	}
 
 	private final SingleSelectionModel<ImapFolder> selectionModel = new SingleSelectionModel<ImapFolder>(
@@ -81,13 +86,23 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
 		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(
-				(ImapFolder) value), new AbstractCell<ImapFolder>() {//TODO subfolders style and different image for each folder
+				(ImapFolder) value), new AbstractCell<ImapFolder>(ClickEvent
+				.getType().getName()) {
+			// TODO different images for each folder
 			@Override
 			public void render(Context context, ImapFolder value,
 					SafeHtmlBuilder sb) {
 				if (value != null) {
 					sb.appendEscaped(value.getName());
 				}
+			}
+
+			@Override
+			public void onBrowserEvent(Context context, Element parent,
+					ImapFolder value, NativeEvent event,
+					ValueUpdater<ImapFolder> valueUpdater) {
+				eventBus.fireEvent(new LoadMessagesEvent(user, value));
+				placeController.goTo(folderPlaceProvider.get().with(value.getName()));
 			}
 		}, selectionModel, null);
 	}

@@ -243,6 +243,7 @@ public class MessageListActivity extends AppBaseActivity {
 =======
 =======
 import org.apache.hupa.client.place.IMAPMessagePlace;
+import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 >>>>>>> prepare for message content panel
 import org.apache.hupa.client.ui.WidgetDisplayable;
@@ -260,7 +261,6 @@ import org.apache.hupa.shared.events.LoginEventHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class MessageListActivity extends AppBaseActivity {
@@ -315,6 +315,11 @@ public class MessageListActivity extends AppBaseActivity {
 			}
 		});
 	}
+	
+	public MessageListActivity with(MailFolderPlace place){
+		display.setFolder(place.getFolder());
+		return this;
+	}
 
 	private void cloneFolder(ImapFolder desc, ImapFolder src) {
 		desc.setChildren(src.getChildren());
@@ -339,6 +344,7 @@ public class MessageListActivity extends AppBaseActivity {
 >>>>>>> make message content work as expected partly
 
 	public interface Displayable extends WidgetDisplayable {
+		void setFolder(ImapFolder folder);
 	}
 >>>>>>> prepare for message content panel
 }

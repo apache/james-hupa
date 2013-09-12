@@ -92,7 +92,7 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 public class MessageListView extends Composite implements
 		MessageListActivity.Displayable {
 
-	@UiField(provided = true) DataGrid<Message> table;
+	@UiField(provided = true) DataGrid<Message> grid;
 	private HupaRequestFactory requestFactory;
 	private EventBus eventBus;
 	private ImapFolder folder;
@@ -106,9 +106,9 @@ public class MessageListView extends Composite implements
 			final MessagesCellTable table) {
 		this.requestFactory = requestFactory;
 		this.eventBus = eventBus;
-		this.table = table;
+		grid = table;
 		initWidget(binder.createAndBindUi(this));
-		this.table.addCellPreviewHandler(new Handler<Message>() {
+		grid.addCellPreviewHandler(new Handler<Message>() {
 			@Override
 			public void onCellPreview(CellPreviewEvent<Message> event) {
 				if (hasClickedButFirstCol(event)) {
@@ -118,8 +118,9 @@ public class MessageListView extends Composite implements
 					}
 					table.getSelectionModel().setSelected(event.getValue(),
 							true);
-					eventBus.fireEvent(new ExpandMessageEvent(user, folder,
-							event.getValue()));
+					MessageListView.this.eventBus
+							.fireEvent(new ExpandMessageEvent(user, folder,
+									event.getValue()));
 				}
 			}
 
@@ -130,7 +131,7 @@ public class MessageListView extends Composite implements
 			}
 
 		});
-		this.table.addRangeChangeHandler(new RangeChangeEvent.Handler() {
+		grid.addRangeChangeHandler(new RangeChangeEvent.Handler() {
 			@Override
 			public void onRangeChange(RangeChangeEvent event) {
 				fetch(event.getNewRange().getStart());
@@ -180,7 +181,7 @@ public class MessageListView extends Composite implements
 		folder1.setSubscribed(folder.getSubscribed());
 		folder1.setUnseenMessageCount(folder.getUnseenMessageCount());
 		action.setFolder(folder1);
-		action.setOffset(table.getPageSize());
+		action.setOffset(grid.getPageSize());
 		action.setSearchString(searchValue);
 		action.setStart(start);
 		messagesRequest.fetch(action).fire(new Receiver<FetchMessagesResult>() {
@@ -198,8 +199,8 @@ public class MessageListView extends Composite implements
 				// folder.setMessageCount(result.getRealCount());// TODO if do
 				// this, there will be auto bean has been frozen.
 				// folder.setUnseenMessageCount(result.getRealUnreadCount());
-				table.setRowCount(result.getRealCount());
-				table.setRowData(start, result.getMessages());
+				grid.setRowCount(result.getRealCount());
+				grid.setRowData(start, result.getMessages());
 
 				// pager.setPageStart(start);
 				// eventBus.fireEvent(new MessagesReceivedEvent(folder1,
@@ -208,6 +209,7 @@ public class MessageListView extends Composite implements
 		});
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -226,11 +228,16 @@ public class MessageListView extends Composite implements
 =======
 	interface MessageListUiBinder extends UiBinder<DataGrid, MessageListView> {
 >>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
+=======
+	interface MessageListUiBinder extends
+			UiBinder<DataGrid<Message>, MessageListView> {
+>>>>>>> prepare for place management and history controller
 	}
 
 	private static MessageListUiBinder binder = GWT
 			.create(MessageListUiBinder.class);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Override
 	public MessagesCellTable getGrid() {
@@ -275,4 +282,11 @@ public class MessageListView extends Composite implements
 
 =======
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+	@Override
+	public void setFolder(ImapFolder folder) {
+		this.folder = folder;
+	}
+
+>>>>>>> prepare for place management and history controller
 }

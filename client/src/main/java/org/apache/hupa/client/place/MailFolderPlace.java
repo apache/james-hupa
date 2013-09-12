@@ -30,14 +30,15 @@ public class MailFolderPlace extends AbstractPlace {
 	private static final String PREFIX = "folder";
 	private User user;
 	private String folderName = "";
-	
-	public String getFolderName(){
+
+	public String getFolderName() {
 		return folderName;
 	}
 
-	public void setFolderName(String folderName){
+	public void setFolderName(String folderName) {
 		this.folderName = folderName;
 	}
+
 	/**
 	 * equality test based on Class type, to let different instance of this
 	 * Place class to be equals for CachingActivityMapper test on Place equality
@@ -48,7 +49,8 @@ public class MailFolderPlace extends AbstractPlace {
 	 */
 	@Override
 	public boolean equals(Object otherPlace) {
-		return this == otherPlace ;//|| (otherPlace != null && getClass() == otherPlace.getClass());
+		return this == otherPlace;// || (otherPlace != null && getClass() ==
+									// otherPlace.getClass());
 	}
 
 	@Override
@@ -61,6 +63,17 @@ public class MailFolderPlace extends AbstractPlace {
 		return this;
 	}
 
+	public MailFolderPlace with(String folderName) {
+		this.folderName = folderName;
+		return this;
+	}
+
+	public MailFolderPlace with(ImapFolder folder) {
+		this.folder = folder;
+		this.folderName = folder.getName();
+		return this;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -70,9 +83,7 @@ public class MailFolderPlace extends AbstractPlace {
 
 		@Override
 		public MailFolderPlace getPlace(String token) {
-			MailFolderPlace p = new MailFolderPlace();
-			p.setFolderName(token);
-			return p;
+			return new MailFolderPlace().with(token);
 		}
 
 		@Override
@@ -80,15 +91,18 @@ public class MailFolderPlace extends AbstractPlace {
 			return place.getFolderName();
 		}
 	}
+
 	private ImapFolder folder;
 	private String searchValue;
-	
+
 	public ImapFolder getFolder() {
 		return folder;
 	}
+
 	public String getSearchValue() {
 		return searchValue;
 	}
+
 	public MailFolderPlace with(User user, ImapFolder folder, String searchValue) {
 		this.folder = folder;
 		this.searchValue = searchValue;
