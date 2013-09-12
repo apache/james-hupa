@@ -85,10 +85,14 @@ public class SendReplyMessageServiceImpl extends SendMessageBaseServiceImpl impl
 
         // Only original inline images have to be added to the list 
 <<<<<<< HEAD
+<<<<<<< HEAD
         Message msg = folder.getMessageByUID(replyAction.getUid());
 =======
         Message msg = folder.getMessageByUID(replyAction.getReplyMessageUid());
 >>>>>>> forward and reply message to use RF
+=======
+        Message msg = folder.getMessageByUID(replyAction.getUid());
+>>>>>>> fixed the requestfactory's quirk
         try {
             items = MessageUtils.extractInlineImages(logger, msg.getContent());
             if (items.size() > 0)

@@ -84,10 +84,14 @@ public class SendForwardMessageServiceImpl extends SendMessageBaseServiceImpl im
         }
         // Put the original attachments in the list 
 <<<<<<< HEAD
+<<<<<<< HEAD
         Message msg = folder.getMessageByUID(forwardAction.getUid());
 =======
         Message msg = folder.getMessageByUID(forwardAction.getReplyMessageUid());
 >>>>>>> forward and reply message to use RF
+=======
+        Message msg = folder.getMessageByUID(forwardAction.getUid());
+>>>>>>> fixed the requestfactory's quirk
         try {
             items = MessageUtils.extractMessageAttachments(logger, msg.getContent());
             logger.debug("Forwarding a message, extracted: " + items.size() + " from original.");

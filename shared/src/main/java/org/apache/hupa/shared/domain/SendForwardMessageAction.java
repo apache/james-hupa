@@ -32,6 +32,7 @@ import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
 @ProxyFor(SendForwardMessageAction.class)
 <<<<<<< HEAD
+<<<<<<< HEAD
 public interface SendForwardMessageAction extends SendMessageAction {
 
 	ImapFolder getFolder();
@@ -44,13 +45,23 @@ public interface SendForwardMessageAction extends SendMessageAction{
 
 	long getReplyMessageUid();
 >>>>>>> forward and reply message to use RF
+=======
+public interface SendForwardMessageAction extends SendMessageAction {
+
+	ImapFolder getFolder();
+
+	long getUid();
+>>>>>>> fixed the requestfactory's quirk
 
 	void setFolder(ImapFolder folder);
 
 	void setUid(long uid);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	
 >>>>>>> forward and reply message to use RF
+=======
+>>>>>>> fixed the requestfactory's quirk
 
 }

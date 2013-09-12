@@ -397,8 +397,11 @@ public class ComposeActivity extends AppBaseActivity {
 =======
 >>>>>>> add user label, yet issue46 occur
 		bindTo(eventBus);
-		if (user != null)
+
+		display.getFromList().addItem("demo");
+		if (user != null) {//FIXME
 			display.getFromList().addItem(user.getName());
+		}
 	}
 
 	private void bindTo(EventBus eventBus) {
@@ -506,7 +509,6 @@ public class ComposeActivity extends AppBaseActivity {
 >>>>>>> coping with java.lang.IllegalArgumentException: uid
 
 			if ("new".equals(place.getToken())) {
-				System.out.println("new: " + place.getParameters().getOldmessage().getUid());
 				SendMessageRequest sendReq = requestFactory.sendMessageRequest();
 				SendMessageAction sendAction = sendReq.create(SendMessageAction.class);
 <<<<<<< HEAD
@@ -546,6 +548,7 @@ public class ComposeActivity extends AppBaseActivity {
 			} else if ("reply".equals(place.getToken())) {
 =======
 			} else if ("forward".equals(place.getToken())) {
+<<<<<<< HEAD
 				System.out.println("reply: " + place.getParameters().getOldmessage().getUid());
 >>>>>>> coping with java.lang.IllegalArgumentException: uid
 				SendForwardMessageRequest forwardReq = requestFactory.sendForwardMessageRequest();
@@ -557,6 +560,17 @@ public class ComposeActivity extends AppBaseActivity {
 				forwardAction.setUid(place.getParameters().getOldmessage().getUid());
 				forwardReq.send(forwardAction).fire(new Receiver<GenericResult>() {
 >>>>>>> coping with reply and forward sending message
+=======
+				//FIXME will get a NullPointerException given accessing directly from some URL like #/compose:forward
+				SendForwardMessageRequest req = requestFactory.sendForwardMessageRequest();
+				SendForwardMessageAction action = req.create(SendForwardMessageAction.class);
+				action.setMessage(parseMessage(req));
+				ImapFolder f = req.create(ImapFolder.class);
+				f.setFullName(place.getParameters().getFolder().getFullName());
+				action.setFolder(f);
+				action.setUid(place.getParameters().getOldmessage().getUid());
+				req.send(action).fire(new Receiver<GenericResult>() {
+>>>>>>> fixed the requestfactory's quirk
 					@Override
 					public void onSuccess(GenericResult response) {
 						afterSend(response);

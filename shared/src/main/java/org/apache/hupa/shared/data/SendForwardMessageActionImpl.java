@@ -60,10 +60,14 @@ public class SendForwardMessageActionImpl extends SendMessageActionImpl implemen
 
 	@Override
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public long getUid() {
 =======
 	public long getReplyMessageUid() {
 >>>>>>> forward and reply message to use RF
+=======
+	public long getUid() {
+>>>>>>> fixed the requestfactory's quirk
 		return uid;
 	}
 
@@ -82,6 +86,7 @@ public class SendForwardMessageActionImpl extends SendMessageActionImpl implemen
 		return references;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	@Override
 	public void setInReplyTo(String inReplyTo) {
@@ -93,14 +98,21 @@ public class SendForwardMessageActionImpl extends SendMessageActionImpl implemen
 		this.references = references;
 	}
 =======
+=======
+
+>>>>>>> fixed the requestfactory's quirk
 	@Override
-    public void setInReplyTo(String inReplyTo) {
+	public void setInReplyTo(String inReplyTo) {
 		this.inReplyTo = inReplyTo;
-    }
+	}
 
 	@Override
-    public void setReferences(String references) {
+	public void setReferences(String references) {
 		this.references = references;
+<<<<<<< HEAD
     }
 >>>>>>> forward and reply message to use RF
+=======
+	}
+>>>>>>> fixed the requestfactory's quirk
 }

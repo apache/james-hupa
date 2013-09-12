@@ -83,9 +83,13 @@ public interface HupaRequestFactory extends RequestFactory {
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 =======
 	SubjectRequest subjectRequest();
+
 	ImapFolderRequest folderRequest();
+
 	CheckSessionRequest sessionRequest();
+
 	LoginUserRequest loginRequest();
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
@@ -95,22 +99,41 @@ public interface HupaRequestFactory extends RequestFactory {
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 =======
 =======
+=======
+
+>>>>>>> fixed the requestfactory's quirk
 	LogoutUserRequest logoutRequest();
+
 	FetchFoldersRequest fetchFoldersRequest();
+
 	FetchMessagesRequest messagesRequest();
+
 	MoveMessageRequest moveMessageRequest();
+<<<<<<< HEAD
 >>>>>>> other RFs
 	CreateFolderRequest createFolderRequest();
 <<<<<<< HEAD
 >>>>>>> Succeed creating new folder
 =======
+=======
+
+	CreateFolderRequest createFolderRequest();
+
+>>>>>>> fixed the requestfactory's quirk
 	DeleteFolderRequest deleteFolderRequest();
+
 	RenameFolderRequest renameFolderRequest();
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> delete and rename folder
 =======
+=======
+
+>>>>>>> fixed the requestfactory's quirk
 	DeleteMessageByUidRequest deleteMessageByUidRequest();
+
 	DeleteMessageAllRequest deleteMessageAllRequest();
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> delete messages, make WestActivity Singleton
 =======
@@ -118,13 +141,25 @@ public interface HupaRequestFactory extends RequestFactory {
 <<<<<<< HEAD
 >>>>>>> try to get message details, problem is:
 =======
+=======
+
+	GetMessageDetailsRequest messageDetailsRequest();
+
+>>>>>>> fixed the requestfactory's quirk
 	SendMessageRequest sendMessageRequest();
+
 	SendForwardMessageRequest sendForwardMessageRequest();
+
 	SendReplyMessageRequest sendReplyMessageRequest();
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> forward and reply message to use RF
 =======
+=======
+
+>>>>>>> fixed the requestfactory's quirk
 	IdleRequest idleRequest();
+
 	SetFlagRequest setFlagRequest();
 >>>>>>> other RFs
 }
