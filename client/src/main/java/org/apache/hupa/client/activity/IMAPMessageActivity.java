@@ -136,18 +136,9 @@ public class IMAPMessageActivity  extends AbstractActivity {
     	
     }
     
-    @Inject
-    public IMAPMessageActivity(Displayable display, EventBus eventBus, PlaceController placeController,
-    		 CachingDispatchAsync dispatcher){
-    	this.display = display;
-    	this.dispatcher = dispatcher;
-    	this.eventBus = eventBus;
-    	this.placeController = placeController;
-    	
-    	
-    }
     private MessageDetails messageDetails;
     private Message message;
+<<<<<<< HEAD
     private CachingDispatchAsync dispatcher;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -160,12 +151,15 @@ public class IMAPMessageActivity  extends AbstractActivity {
     private IMAPFolderProxy folder;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 =======
+=======
+>>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
     private ImapFolder folder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
     private User user;
-	private final Displayable display;
-	private final EventBus eventBus;
-	private final PlaceController placeController;
+    @Inject private CachingDispatchAsync dispatcher;
+    @Inject private Displayable display;
+    @Inject private EventBus eventBus;
+    @Inject private PlaceController placeController;
 	public interface Displayable extends WidgetDisplayable{
         public void setHeaders(Message msg);
         public void setAttachments(List<MessageAttachment> attachements, String folder,  long uid);

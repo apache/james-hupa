@@ -119,11 +119,14 @@ import com.google.inject.Provider;
 public class TopActivity extends AbstractActivity {
 
 	private static final int IDLE_INTERVAL = 150000;
+<<<<<<< HEAD
 	HupaConstants constants;
 <<<<<<< HEAD
 >>>>>>> introduce the top activity
 =======
 >>>>>>> introduce the top activity
+=======
+>>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
@@ -337,6 +340,7 @@ public class TopActivity extends AbstractActivity {
 =======
 	private Timer noopTimer = new IdleTimer();
 
+<<<<<<< HEAD
 	@Inject
 <<<<<<< HEAD
 	public TopActivity(Displayable display, EventBus eventBus, PlaceController placeController,
@@ -364,6 +368,8 @@ public class TopActivity extends AbstractActivity {
 >>>>>>> introduce the top activity
 =======
 >>>>>>> introduce the top activity
+=======
+>>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
 	public interface Displayable extends WidgetDisplayable {
 		public HasClickHandlers getLogoutClick();
 		public HasClickHandlers getContactsClick();
@@ -376,6 +382,7 @@ public class TopActivity extends AbstractActivity {
 		public void showMessage(String message, int millisecs);
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	private class IdleTimer extends Timer {
@@ -406,6 +413,15 @@ public class TopActivity extends AbstractActivity {
 	private final Provider<DefaultPlace> defaultPlaceProvider;
 >>>>>>> 
 
+=======
+	@Inject private Displayable display;
+	@Inject private EventBus eventBus;
+	@Inject private PlaceController placeController;
+	@Inject private DispatchAsync dispatcher;
+	@Inject private Provider<DefaultPlace> defaultPlaceProvider;
+	@Inject private HupaConstants constants;
+	
+>>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
 	private User user;
 	private ServerStatus serverStatus = ServerStatus.Available;
 

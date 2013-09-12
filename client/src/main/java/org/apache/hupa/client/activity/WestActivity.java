@@ -401,6 +401,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class WestActivity extends AbstractActivity {
 
+<<<<<<< HEAD
 	private final Displayable display;
 	private final EventBus eventBus;
 	private final PlaceController placeController;
@@ -438,8 +439,24 @@ public class WestActivity extends AbstractActivity {
 >>>>>>> 
 =======
 >>>>>>> 1. improve the inbox folder place.
+=======
+	@Override
+	public void start(AcceptsOneWidget container, EventBus eventBus) {
+		display.setUser(user);
+		loadTreeItems();
+		bind();
+		container.setWidget(display.asWidget());
+	}
 	
-    private DispatchAsync dispatcher;
+	@Inject private DispatchAsync dispatcher;
+	@Inject private Displayable display;
+	@Inject private EventBus eventBus;
+	@Inject private PlaceController placeController;
+	@Inject private Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
+	@Inject private Provider<MessageSendPlace> messageSendPlaceProvider;
+	@Inject private Provider<IMAPMessagePlace> messagePlaceProvider;
+>>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
+	
     private User user;
     private ImapFolder folder;
     private IMAPTreeItem tItem;
@@ -451,6 +468,7 @@ public class WestActivity extends AbstractActivity {
     public void setCurrentPlace(Place place){
     	this.currentPlace = place;
     }
+<<<<<<< HEAD
     
     @Inject
     public WestActivity(Displayable display, EventBus eventBus, PlaceController placeController,
@@ -511,6 +529,9 @@ public class WestActivity extends AbstractActivity {
     	this.user = user;
 >>>>>>> Change to new mvp framework - first step
 =======
+=======
+    	
+>>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
     public WestActivity with(MailFolderPlace place){
     	this.currentPlace = place;
     	this.user = place.getUser();

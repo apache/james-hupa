@@ -75,6 +75,7 @@ import com.google.gwt.activity.shared.AbstractActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.core.client.GWT;
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
@@ -90,6 +91,8 @@ import com.google.gwt.core.client.GWT;
 =======
 import com.google.gwt.core.client.GWT;
 >>>>>>> decorate the theme
+=======
+>>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -124,6 +127,7 @@ import com.google.inject.Inject;
 
 public class LoginActivity extends AbstractActivity {
 
+<<<<<<< HEAD
 	private final Displayable display;
 	private final EventBus eventBus;
 	private final PlaceController placeController;
@@ -181,6 +185,13 @@ public class LoginActivity extends AbstractActivity {
 >>>>>>> Change to new mvp framework - first step
 	}
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+	@Inject private Displayable display;
+	@Inject private EventBus eventBus;
+	@Inject private PlaceController placeController;
+	@Inject private DispatchAsync dispatcher;
+	@Inject private HupaConstants constants;
+>>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {

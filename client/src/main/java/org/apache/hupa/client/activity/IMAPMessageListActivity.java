@@ -523,6 +523,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
     private ShowMessageTableListener tableListener = new ShowMessageTableListener();
 
 
+<<<<<<< HEAD
 	private final Displayable display;
 	private final EventBus eventBus;
 	private final PlaceController placeController;
@@ -530,16 +531,14 @@ public class IMAPMessageListActivity extends AbstractActivity {
 <<<<<<< HEAD
 	private DispatchAsync dispatcher;
 	private final Provider<MessageSendPlace> messageSendPlaceProvider;
+=======
+    @Inject private Displayable display;
+    @Inject private EventBus eventBus;
+    @Inject private PlaceController placeController;
+    @Inject private DispatchAsync dispatcher;
+    @Inject private Provider<MessageSendPlace> messageSendPlaceProvider;
+>>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
     
-	@Inject
-    public IMAPMessageListActivity(Displayable display, EventBus eventBus, PlaceController placeController,
-			 DispatchAsync dispatcher,Provider<MessageSendPlace> messageSendPlaceProvider){
-		this.display = display;
-		this.eventBus = eventBus;
-		this.placeController = placeController;
-		this.dispatcher = dispatcher;
-		this.messageSendPlaceProvider = messageSendPlaceProvider;
-	}
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		bind();

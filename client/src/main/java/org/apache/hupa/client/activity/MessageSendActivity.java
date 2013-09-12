@@ -150,7 +150,6 @@ public class MessageSendActivity extends AppBaseActivity {
 
 public class MessageSendActivity extends AbstractActivity {
 
-    private DispatchAsync dispatcher;
     private ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
     private Type type = Type.NEW;
 <<<<<<< HEAD
@@ -171,9 +170,11 @@ public class MessageSendActivity extends AbstractActivity {
     protected SMTPMessage message = null;
     @SuppressWarnings("unused")
     private MessageDetails oldDetails;
-	private final Displayable display;
-	private final EventBus eventBus;
-	private final PlaceController placeController;
+    
+	@Inject private DispatchAsync dispatcher;
+    @Inject private Displayable display;
+    @Inject private EventBus eventBus;
+    @Inject private PlaceController placeController;
 	
 	private MessageSendPlace place;
 	
@@ -191,6 +192,7 @@ public class MessageSendActivity extends AbstractActivity {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	public MessageSendActivity with(MessageSendPlace place) {
 =======
@@ -205,6 +207,8 @@ public class MessageSendActivity extends AbstractActivity {
 		this.placeController = placeController;
 		
 	}
+=======
+>>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
 	
 	public MessageSendActivity with(MessageSendPlace place){
 		this.place = place;
