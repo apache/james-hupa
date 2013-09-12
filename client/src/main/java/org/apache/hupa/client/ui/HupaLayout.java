@@ -344,21 +344,40 @@ public interface HupaLayout {
 =======
 	@Override
 	public void switchToCompose() {
-		if (centerPanel.thisPanel.getWidgetIndex(centerPanel.contentPanel) >= 0) {
-			centerPanel.thisPanel.remove(centerPanel.contentPanel);
-			centerPanel.thisPanel.add(centerPanel.composePanel);
+		if (isMessageOccupied()) {
+			changeToCompose();
 		}
+	}
+
+	private void changeToCompose() {
+		centerPanel.thisPanel.remove(centerPanel.contentPanel);
+		centerPanel.thisPanel.add(centerPanel.composeView);
+	}
+
+	private boolean isMessageOccupied() {
+		return centerPanel.thisPanel.getWidgetIndex(centerPanel.contentPanel) >= 0;
 	}
 
 	@Override
 	public void switchToMessage() {
-		if (centerPanel.thisPanel.getWidgetIndex(centerPanel.contentPanel) >= 0)
+		if (isMessageOccupied())
 			return;
-		if (centerPanel.thisPanel.getWidgetIndex(centerPanel.composePanel) >= 0) {
-			centerPanel.thisPanel.remove(centerPanel.composePanel);
-			centerPanel.thisPanel.add(centerPanel.contentPanel);
+		if (isComposeOccupied()) {
+			changeToMessage();
 		}
 	}
 
+<<<<<<< HEAD
 >>>>>>> could change main panel dynamically currently by clicking the compose button
+=======
+	private void changeToMessage() {
+		centerPanel.thisPanel.remove(centerPanel.composeView);
+		centerPanel.thisPanel.add(centerPanel.contentPanel);
+	}
+
+	private boolean isComposeOccupied() {
+		return centerPanel.thisPanel.getWidgetIndex(centerPanel.composeView) >= 0;
+	}
+
+>>>>>>> scrub code
 }

@@ -37,17 +37,21 @@ public class _CenterPanel extends Composite {
 	@UiField __OutlinePanel outlinePanel;
 	@UiField __ContentPanel contentPanel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> split the layout panel to more small ones
 =======
 	@UiField __ComposePanel composePanel;
 >>>>>>> preparing for composing panel
+=======
+	@UiField ComposeView composeView;
+>>>>>>> scrub code
 
 	public _CenterPanel() {
 		initWidget(binder.createAndBindUi(this));
 		thisPanel.setWidgetMinSize(outlinePanel, 144);
-		thisPanel.setWidgetHidden(composePanel, true);
-//		thisPanel.remove(contentPanel);
-//		thisPanel.add(composePanel);
+		thisPanel.setWidgetHidden(composeView, true);
+		// thisPanel.remove(contentPanel);
+		// thisPanel.add(composePanel);
 	}
 
 	public AcceptsOneWidget getFolderListView() {
