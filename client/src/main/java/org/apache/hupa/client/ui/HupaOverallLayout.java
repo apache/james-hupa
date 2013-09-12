@@ -19,56 +19,21 @@
 
 package org.apache.hupa.client.ui;
 
-<<<<<<< HEAD
-import org.apache.hupa.client.place.SettingPlace;
-
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
-
-public interface HupaLayoutable extends Layoutable {
-	AcceptsOneWidget getTopBarView();
-
-	AcceptsOneWidget getLogoView();
-
-	AcceptsOneWidget getNavigationView();
-
-	AcceptsOneWidget getToolBarView();
-
-	AcceptsOneWidget getFolderListView();
-
-	AcceptsOneWidget getMessageListView();
-
-	AcceptsOneWidget getMessageListFooterView();
-
-	AcceptsOneWidget getMessageContentView();
-
-	AcceptsOneWidget getStatusView();
-
-	AcceptsOneWidget getComposeToolBarView();
-
-	AcceptsOneWidget getComposeView();
-
-	AcceptsOneWidget getNotificationView();
-
-	AcceptsOneWidget getLabelListView();
-	AcceptsOneWidget getContactListView();
-
-	AcceptsOneWidget getLabelPropertiesView();
-
-	void switchTo(int layout);
-
-	AcceptsOneWidget getContactPropertiesView();
-
-	AcceptsOneWidget getContactsListView();
-
-	AcceptsOneWidget getSearchBoxView();
-
-	AcceptsOneWidget getSettingNavView();
-
-	void arrangeSettingLayout(SettingPlace sp);
-=======
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.LayoutPanel;
 
-public interface HupaLayoutable {
-	LayoutPanel get();
->>>>>>> refactoring
+public class HupaOverallLayout implements HupaLayoutable {
+
+	@Override
+	public LayoutPanel get() {
+		return binder.createAndBindUi(this);
+	}
+
+	interface HupaLayoutUiBinder extends UiBinder<LayoutPanel, HupaOverallLayout> {
+	}
+
+	private static HupaLayoutUiBinder binder = GWT
+			.create(HupaLayoutUiBinder.class);
+
 }

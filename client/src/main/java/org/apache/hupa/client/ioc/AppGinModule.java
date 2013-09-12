@@ -169,8 +169,8 @@ import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.AppLayout;
 import org.apache.hupa.client.ui.AppLayoutImpl;
 import org.apache.hupa.client.ui.FoldersTreeViewModel;
-import org.apache.hupa.client.ui.HupaLayout;
-import org.apache.hupa.client.ui.HupaLayoutView;
+import org.apache.hupa.client.ui.HupaLayoutable;
+import org.apache.hupa.client.ui.HupaOverallLayout;
 import org.apache.hupa.client.ui.IMAPMessageListView;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -234,6 +234,7 @@ public class AppGinModule extends AbstractGinModule {
 	@Override
 	protected void configure() {
 		// Views
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -399,6 +400,9 @@ public class AppGinModule extends AbstractGinModule {
 =======
 		bind(HupaLayout.class).to(HupaLayoutView.class).in(Singleton.class);
 >>>>>>> move new theme ui from experiment to hupa evo
+=======
+		bind(HupaLayoutable.class).to(HupaOverallLayout.class).in(Singleton.class);
+>>>>>>> refactoring
 
 		// Activities
 		bind(LoginActivity.Displayable.class).to(LoginView.class);
