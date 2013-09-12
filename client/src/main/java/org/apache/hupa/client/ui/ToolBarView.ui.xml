@@ -299,6 +299,12 @@
 		.toolBarMenu td {
             border-top: 1px solid #5a5a5a;
             border-bottom: 1px solid #333;
+            padding: 3px 8px;
+        }
+        
+        .toolBarMenu td:hover {
+	       background-color: #0186ba;
+
         }
 		
 		.activeIcon {
@@ -309,7 +315,7 @@
 			text-decoration: none;
 			min-height: 14px;
 			color: #eee;
-			padding: 2px 20px;
+			padding: 2px 25px;
 			cursor: default;
 		}
 		

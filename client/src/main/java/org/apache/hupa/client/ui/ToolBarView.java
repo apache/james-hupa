@@ -371,6 +371,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -405,6 +406,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	}
 
 	private VerticalPanel popup;
+	final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
 	private Anchor markRead;
 	private Anchor markUnread;
 
@@ -511,6 +513,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
 		reply.addStyleName(style.disabledButton());
@@ -518,6 +521,8 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 =======
 =======
 		final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
+=======
+>>>>>>> link the mark action to the message list such that they can change upon the actions
 		simplePopup.addStyleName(style.popupMenu());
 		mark.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -531,8 +536,8 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 			}
 		});
 		popup = new VerticalPanel();
-		markRead = new Anchor("As Unread");
-		markUnread = new Anchor("As Read");
+		markRead = new Anchor("As Read");
+		markUnread = new Anchor("As Unread");
 		popup.addStyleName(style.toolBarMenu());
 		markRead.addStyleName(style.activeIcon());
 		markRead.addStyleName(style.listicon());
@@ -544,6 +549,21 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		popup.add(markUnread);
 		simplePopup.setWidget(popup);
 >>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
+	}
+
+	@Override
+	public HasClickHandlers getMark() {
+		return mark;
+	}
+
+	@Override
+	public HasClickHandlers getMarkRead() {
+		return markRead;
+	}
+
+	@Override
+	public HasClickHandlers getMarkUnread() {
+		return markUnread;
 	}
 
 	@Override
@@ -559,6 +579,10 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	@Override
 	public HasClickHandlers getForward() {
 		return forward;
+	}
+	@Override
+	public PopupPanel getPopup() {
+		return simplePopup;
 	}
 
 	// TODO realy disabled the click event of the tool bar coupled with graying

@@ -21,6 +21,7 @@ package org.apache.hupa.client.activity;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,9 +151,13 @@ public class ToolBarActivity extends AppBaseActivity {
 	}
 =======
 =======
+=======
+import org.apache.hupa.client.ui.MessagesCellTable;
+>>>>>>> link the mark action to the message list such that they can change upon the actions
 import org.apache.hupa.client.ui.ToolBarView.Parameters;
 >>>>>>> coping with reply and forward sending message
 import org.apache.hupa.client.ui.WidgetDisplayable;
+import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.ExpandMessageEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
@@ -160,14 +165,19 @@ import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class ToolBarActivity extends AppBaseActivity {
 
 	@Inject private Displayable display;
+	@Inject private MessagesCellTable table;
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
@@ -197,9 +207,43 @@ public class ToolBarActivity extends AppBaseActivity {
 		eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
 			public void onExpandMessage(ExpandMessageEvent event) {
 				display.enableMessageTools();
-				display.setParameters(new Parameters(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails()));
+				display.setParameters(new Parameters(event.getUser(), event.getFolder(), event.getMessage(), event
+						.getMessageDetails()));
 			}
 		});
+		registerHandler(display.getMark().addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				// Reposition the popup relative to the button
+				Widget source = (Widget) event.getSource();
+				int left = source.getAbsoluteLeft();
+				int top = source.getAbsoluteTop() + source.getOffsetHeight();
+				display.getPopup().setPopupPosition(left, top);
+				// Show the popup
+				display.getPopup().show();
+			}
+		}));
+		registerHandler(display.getMarkRead().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				toMarkRead(true);
+				display.getPopup().hide();
+			}
+		}));
+		registerHandler(display.getMarkUnread().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				toMarkRead(false);
+				display.getPopup().hide();
+			}
+		}));
+	}
+
+	protected void toMarkRead(boolean read) {
+		for (Message msg : table.getVisibleItems()) {
+			if (table.getSelectionModel().isSelected(msg)) {
+				table.markRead(msg, read);
+			}
+		}
 	}
 
 	public interface Displayable extends WidgetDisplayable {
@@ -214,6 +258,14 @@ public class ToolBarActivity extends AppBaseActivity {
 		HasClickHandlers getForward();
 
 		void setParameters(Parameters parameters);
+
+		HasClickHandlers getMarkUnread();
+
+		HasClickHandlers getMarkRead();
+
+		HasClickHandlers getMark();
+
+		PopupPanel getPopup();
 	}
 >>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
 }

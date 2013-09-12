@@ -610,24 +610,42 @@ public class MessagesCellTable extends DataGrid<Message> {
 		setRowStyles(new RowStyles<Message>() {
 			@Override
 			public String getStyleNames(Message row, int rowIndex) {
-				return haveRead(row) ? markAsRead() : markAsUnread();
-			}
-
-			private String markAsUnread() {
-				return Resources.INSTANCE.dataGridStyle().fontBold();
-			}
-
-			private String markAsRead() {
-				return Resources.INSTANCE.dataGridStyle().fontNormal();
-			}
-
-			private boolean haveRead(Message row) {
-				return row.getFlags().contains(IMAPFlag.SEEN);
+				return getMessageStyle(row);
 			}
 		});
+		redraw();
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
 		setAutoHeaderRefreshDisabled(true);
 		setSelectionModel(selectionModel, DefaultSelectionEventManager.<Message> createCheckboxManager(0));
+	}
+
+
+	private String getMessageStyle(Message row) {
+		return haveRead(row) ? getReadStyle() : getUnreadStyle();
+	}
+	private String getUnreadStyle() {
+		return Resources.INSTANCE.dataGridStyle().fontBold();
+	}
+
+	private String getReadStyle() {
+		return Resources.INSTANCE.dataGridStyle().fontNormal();
+	}
+
+	private boolean haveRead(Message row) {
+		return row.getFlags().contains(IMAPFlag.SEEN);
+	}
+	public void markRead(final Message message, final boolean read) {
+		setRowStyles(new RowStyles<Message>() {
+			@Override
+			public String getStyleNames(Message row, int rowIndex) {
+				if (message.equals(row)) {
+					return (read ? getReadStyle() : getUnreadStyle());
+				} else {
+					return getMessageStyle(row);// keep original
+				}
+			}
+		});
+		redraw();
 	}
 
 	public class CheckboxColumn extends Column<Message, Boolean> {
