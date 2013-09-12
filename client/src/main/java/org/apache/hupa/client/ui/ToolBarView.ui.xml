@@ -37,7 +37,7 @@
 >>>>>>> beautify message list and content
 			right: 390px;
 			left: 0;
-			height: 36px;
+			height: 40px;
 			white-space: nowrap;
 			z-index: 10;
 		}

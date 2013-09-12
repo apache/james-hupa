@@ -232,10 +232,14 @@
 				</g:center>
 			</g:DockLayoutPanel>
 		</g:layer>
+<<<<<<< HEAD
 =======
 		<g:layer left='10px' right='10px' top='88px' bottom="20px">
+=======
+		<g:layer left='10px' right='10px' top='84px' bottom="20px">
+>>>>>>> make fine tuning with tool buttons in toolbar
 			<g:DockLayoutPanel ui:field="mainBox">
-				<g:north size="40">
+				<g:north size="44">
 					<hupa:_ToolPanel ui:field="toolPanel" />
 				</g:north>
 				<g:center>
