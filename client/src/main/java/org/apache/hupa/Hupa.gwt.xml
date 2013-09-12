@@ -95,8 +95,6 @@
 <!--   <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
  <!--  <inherits name='com.google.gwt.user.theme.clean.Clean'/>    --> 
   
-  <!-- reduce browser inconsistencies -->
-  <stylesheet src="../reset.css"/>
   
   <!-- CSS loaded asynchronously -->
   <stylesheet src="../styles.css"/>
