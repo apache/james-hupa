@@ -1741,8 +1741,8 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 
 	@Inject
 	public IMAPMessageListView(final HupaConstants constants, final HupaMessages messages, final EventBus eventBus,
-	        final HupaRequestFactory requestFactory, final HupaImageBundle imageBundle) {
-		this.table = new MessagesCellTable(imageBundle);
+	        final HupaRequestFactory requestFactory, final MessagesCellTable table) {
+		this.table = table;
 		this.eventBus = eventBus;
 		this.requestFactory = requestFactory;
 		selectionModel = table.getSelectionModel();

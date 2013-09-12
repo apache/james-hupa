@@ -502,6 +502,7 @@ package org.apache.hupa.client.ui;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.shared.domain.Message;
 
@@ -547,7 +548,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 	private final SelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(KEY_PROVIDER);
 
 	@Inject
-	public MessagesCellTable(final HupaImageBundle imageBundle) {
+	public MessagesCellTable(final HupaImageBundle imageBundle, final HupaConstants constants) {
 		super(PAGE_SIZE);
 		this.imageBundle = imageBundle;
 
@@ -570,13 +571,13 @@ public class MessagesCellTable extends DataGrid<Message> {
 
 		addColumn(checkboxCol, header);
 		this.setColumnWidth(checkboxCol, 3, Unit.EM);
-		addColumn(fromCol, "From");
+		addColumn(fromCol, constants.mailTableFrom());
 		this.setColumnWidth(fromCol, 40, Unit.PCT);
-		addColumn(subjectCol, "Subject");
+		addColumn(subjectCol, constants.mailTableSubject());
 		this.setColumnWidth(subjectCol, 60, Unit.PCT);
-		addColumn(attachedCol, "Attached");
+		addColumn(attachedCol, "Attached");// TODO i18n
 		this.setColumnWidth(attachedCol, 7, Unit.EM);
-		addColumn(dateCol, "Date");
+		addColumn(dateCol, constants.mailTableDate());
 		this.setColumnWidth(dateCol, 10, Unit.EM);
 		setRowCount(PAGE_SIZE, false);
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
