@@ -61,6 +61,7 @@
 
 .cellListKeyboardSelectedItem {
 <<<<<<< HEAD
+<<<<<<< HEAD
     background:  #c7e3ef;
 }
 
@@ -72,6 +73,13 @@
 
 .cellListSelectedItem {
 >>>>>>> add adjusted style to labels list in setting palce
+=======
+    background:  #c7e3ef;
+}
+
+.cellListSelectedItem {
+	background:  #c7e3ef;
+>>>>>>> fixed issue#71, use an unique background
     background-color: #c7e3ef;
     color: #004458;
     height: auto;
