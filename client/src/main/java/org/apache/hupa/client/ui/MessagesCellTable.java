@@ -531,7 +531,7 @@ import com.google.inject.Inject;
 public class MessagesCellTable extends DataGrid<Message> {
 
 	public static final int PAGE_SIZE = 25;
-	@Inject ToolBarActivity.Displayable display;
+	@Inject ToolBarActivity.Displayable toolBarDisplay;
 
 	private HupaImageBundle imageBundle;
 	CheckboxColumn checkboxCol = new CheckboxColumn();
@@ -657,7 +657,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 				@Override
 				public void update(int index, Message object, Boolean value) {
 					selectionModel.setSelected(object, value);
-					display.disableMessageTools();
+					toolBarDisplay.disableMessageTools();
 				}
 			});
 		}

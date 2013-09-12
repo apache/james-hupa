@@ -22,6 +22,7 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 <<<<<<< HEAD
@@ -74,41 +75,23 @@ import org.apache.hupa.client.place.MailFolderPlace;
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
+=======
+import org.apache.hupa.client.activity.MessageListActivity;
+>>>>>>> scrub code
 import org.apache.hupa.client.rf.HupaRequestFactory;
-import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.domain.FetchMessagesAction;
-import org.apache.hupa.shared.domain.FetchMessagesResult;
-import org.apache.hupa.shared.domain.GetMessageDetailsAction;
-import org.apache.hupa.shared.domain.GetMessageDetailsResult;
-import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
-import org.apache.hupa.shared.domain.User;
-import org.apache.hupa.shared.events.ExpandMessageEvent;
-import org.apache.hupa.shared.events.LoadMessagesEvent;
-import org.apache.hupa.shared.events.LoadMessagesEventHandler;
-import org.apache.hupa.shared.events.LoginEvent;
-import org.apache.hupa.shared.events.LoginEventHandler;
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.view.client.CellPreviewEvent;
-import com.google.gwt.view.client.CellPreviewEvent.Handler;
-import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.inject.Inject;
-import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class MessageListView extends Composite implements MessageListActivity.Displayable {
-
-	private static final Logger log = Logger.getLogger(MessageListView.class.getName());
 
 	@UiField(provided = true) MessagesCellTable grid;
 	

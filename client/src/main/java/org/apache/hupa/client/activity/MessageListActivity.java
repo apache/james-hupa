@@ -253,7 +253,6 @@ import org.apache.hupa.client.place.MailFolderPlace;
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 =======
 import java.util.List;
-import java.util.logging.Level;
 
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.place.MailFolderPlace;
@@ -283,8 +282,8 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.view.client.CellPreviewEvent;
-import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.gwt.view.client.CellPreviewEvent.Handler;
+import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -298,6 +297,7 @@ public class MessageListActivity extends AppBaseActivity {
 	private String searchValue;
 	private User user;
 	private boolean pending;
+
 	@Override
 	public void start(AcceptsOneWidget container, final EventBus eventBus) {
 		container.setWidget(display.asWidget());
@@ -319,14 +319,15 @@ public class MessageListActivity extends AppBaseActivity {
 					req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
 						@Override
 						public void onSuccess(GetMessageDetailsResult response) {
-							eventBus.fireEvent(new ExpandMessageEvent(user, folder, event.getValue(), response.getMessageDetails()));
+							eventBus.fireEvent(new ExpandMessageEvent(user, folder, event.getValue(), response
+									.getMessageDetails()));
 							placeController.goTo(new MailFolderPlace(f.getFullName() + "/" + event.getValue().getUid()));
 						}
 
 						@Override
 						public void onFailure(ServerFailure error) {
 							if (error.isFatal()) {
-//								log.log(Level.SEVERE, error.getMessage());
+								// log.log(Level.SEVERE, error.getMessage());
 								// TODO write the error message to
 								// status bar.
 								throw new RuntimeException(error.getMessage());
@@ -345,32 +346,6 @@ public class MessageListActivity extends AppBaseActivity {
 			@Override
 			public void onRangeChange(RangeChangeEvent event) {
 				fetch(event.getNewRange().getStart());
-			}
-		});
-		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
-			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
-				user = loadMessagesEvent.getUser();
-				folder = loadMessagesEvent.getFolder();
-				searchValue = loadMessagesEvent.getSearchValue();
-				fetch(0);
-
-			}
-		});
-		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
-			public void onLogin(LoginEvent event) {
-				user = event.getUser();
-				folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
-				searchValue = null;
-				if (!pending) {
-					pending = true;
-					Scheduler.get().scheduleFinally(new ScheduledCommand() {
-						@Override
-						public void execute() {
-							pending = false;
-							fetch(0);
-						}
-					});
-				}
 			}
 		});
 
@@ -406,8 +381,34 @@ public class MessageListActivity extends AppBaseActivity {
 		});
 	}
 
-
 	private void bindTo(EventBus eventBus) {
+		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
+			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
+				user = loadMessagesEvent.getUser();
+				folder = loadMessagesEvent.getFolder();
+				searchValue = loadMessagesEvent.getSearchValue();
+				fetch(0);
+
+			}
+		});
+		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
+			public void onLogin(LoginEvent event) {
+				user = event.getUser();
+				folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
+				searchValue = null;
+				if (!pending) {
+					pending = true;
+					Scheduler.get().scheduleFinally(new ScheduledCommand() {
+						@Override
+						public void execute() {
+							pending = false;
+							fetch(0);
+						}
+					});
+				}
+			}
+		});
+
 	}
 
 	public MessageListActivity with(MailFolderPlace place) {
