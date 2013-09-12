@@ -248,32 +248,32 @@ import com.google.gwt.user.client.ui.Widget;
 public class HupaLayout implements HupaLayoutable {
 
 	@UiField SimplePanel topBarContainer;
-	
+
 	@UiField SimplePanel logoContainer;
 	@UiField LayoutPanel navigationContainer;
 
 	@UiField SimplePanel toolBarContainer;
-	
 
 	@UiField SplitLayoutPanel messageSpace;
-	@UiField LayoutPanel leftArea;
-	
-	@UiField SplitLayoutPanel messageBox;
+	@UiField LayoutPanel folderArea;
+
+	@UiField SplitLayoutPanel messageArea;
 	@UiField SimplePanel folderListContainer;
 	@UiField LayoutPanel messageListBox;
 	@UiField LayoutPanel messageListContainer;
 	@UiField SimplePanel messageListFooterContainer;
 	@UiField SimplePanel messageContentContainer;
 	@UiField SimplePanel statusContainer;
-	
+
 	@UiField HTMLPanel contactBox;
 
 	private LayoutPanel hupaMainPanel;
 
 	public HupaLayout() {
 		hupaMainPanel = binder.createAndBindUi(this);
-		messageSpace.setWidgetMinSize(leftArea, 144);
-		messageBox.setWidgetHidden(contactBox, true);
+		messageSpace.setWidgetMinSize(folderArea, 144);
+		messageArea.setWidgetMinSize(messageListBox, 72);
+		messageArea.setWidgetHidden(contactBox, true);
 	}
 
 	@Override

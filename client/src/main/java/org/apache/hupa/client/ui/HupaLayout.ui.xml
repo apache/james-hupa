@@ -202,7 +202,7 @@
 				<g:center>
 					<g:SplitLayoutPanel ui:field="messageSpace">
 						<g:west size="373">
-							<g:LayoutPanel ui:field="leftArea"
+							<g:LayoutPanel ui:field="folderArea"
 								addStyleNames="{style.folderList}  {style.box}  {style.listBox}">
 								<g:layer top="0" height="100%">
 									<g:SimplePanel ui:field="folderListContainer" />
@@ -215,59 +215,37 @@
 							</g:LayoutPanel>
 						</g:west>
 						<g:center>
-							<g:DockLayoutPanel unit="PCT" ui:field="rightArea">
-								<g:west size="100">
-									<g:SplitLayoutPanel ui:field="messageBox">
-										<g:north size="200">
-											<g:LayoutPanel addStyleNames="{style.box}"
-												ui:field="messageListBox">
-												<g:layer top="0" height="175px">
-													<g:LayoutPanel ui:field="messageListContainer" />
-												</g:layer>
-												<g:layer bottom="0" height="25px">
-													<g:SimplePanel ui:field="messageListFooterContainer" />
-												</g:layer>
-											</g:LayoutPanel>
-										</g:north>
-										<g:west size="200">
-											<g:HTMLPanel ui:field="contactBox" addStyleNames="{style.box}">
-												Address
-											</g:HTMLPanel>
-										</g:west>
-										<g:center>
-											<g:LayoutPanel addStyleNames="{style.box}"
-												ui:field="MessageContentBox">
-												<g:layer>
-													<g:SimplePanel ui:field="messageContentContainer">
-													</g:SimplePanel>
-												</g:layer>
-												<g:layer bottom="0" height="25px">
-													<g:SimplePanel ui:field="statusContainer">
-													</g:SimplePanel>
-												</g:layer>
-											</g:LayoutPanel>
-										</g:center>
-									</g:SplitLayoutPanel>
+							<g:SplitLayoutPanel ui:field="messageArea">
+								<g:north size="200">
+									<g:LayoutPanel addStyleNames="{style.box}"
+										ui:field="messageListBox">
+										<g:layer top="0" height="175px">
+											<g:LayoutPanel ui:field="messageListContainer" />
+										</g:layer>
+										<g:layer bottom="0" height="25px">
+											<g:SimplePanel ui:field="messageListFooterContainer" />
+										</g:layer>
+									</g:LayoutPanel>
+								</g:north>
+								<g:west size="200">
+									<g:HTMLPanel ui:field="contactBox" addStyleNames="{style.box}">
+										Address
+									</g:HTMLPanel>
 								</g:west>
-								<g:center size="0">
-									<g:SplitLayoutPanel ui:field="ContactBox">
-										<g:west size="150">
-											<g:HTMLPanel addStyleNames="{style.box}">Address</g:HTMLPanel>
-										</g:west>
-										<g:center size="100">
-											<g:LayoutPanel addStyleNames="{style.box}">
-												<g:layer>
-													<g:HTMLPanel>MessageContent
-													</g:HTMLPanel>
-												</g:layer>
-												<g:layer bottom="0" height="25px">
-													<hupa:StatusView />
-												</g:layer>
-											</g:LayoutPanel>
-										</g:center>
-									</g:SplitLayoutPanel>
+								<g:center>
+									<g:LayoutPanel addStyleNames="{style.box}"
+										ui:field="MessageContentBox">
+										<g:layer>
+											<g:SimplePanel ui:field="messageContentContainer">
+											</g:SimplePanel>
+										</g:layer>
+										<g:layer bottom="0" height="25px">
+											<g:SimplePanel ui:field="statusContainer">
+											</g:SimplePanel>
+										</g:layer>
+									</g:LayoutPanel>
 								</g:center>
-							</g:DockLayoutPanel>
+							</g:SplitLayoutPanel>
 						</g:center>
 					</g:SplitLayoutPanel>
 				</g:center>
