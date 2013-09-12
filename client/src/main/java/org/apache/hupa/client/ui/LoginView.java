@@ -240,7 +240,7 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 		submitButton.getElement().setClassName(resetButton.getElement().getClassName());
 		loading = new Loading(constants.loading());
 
-		mainContainer.setStyleName(HupaCSS.C_login_container);
+//		mainContainer.setStyleName(HupaCSS.C_login_container);
 		flexTable.addStyleName(HupaCSS.C_login_form);
 		usernameTextBox.addStyleName(HupaCSS.C_login_box);
 		passwordTextBox.addStyleName(HupaCSS.C_login_box);
@@ -259,11 +259,14 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 		formPanel.add(flexTable);
 		mainContainer.add(rPanel);
 		mainContainer.add(loading);
+<<<<<<< HEAD
 		initWidget(mainContainer);
 <<<<<<< HEAD
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+>>>>>>> make login form available
 
 		usernameTextBox.addKeyUpHandler(this);
 		usernameTextBox.setFocus(true);
@@ -331,12 +334,16 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 		// loginButton must be in the document to handle the click() method
 		mainContainer.add(loginButton);
 		loginButton.setVisible(false);
+<<<<<<< HEAD
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 		// loginButton must be in the document to handle the click() method
 		mainContainer.add(loginButton);
 		loginButton.setVisible(false);
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+		initWidget(mainContainer);
+>>>>>>> make login form available
 	}
 
 	@Override
