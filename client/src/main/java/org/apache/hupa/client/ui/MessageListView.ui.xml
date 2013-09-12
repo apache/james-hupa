@@ -15,7 +15,14 @@
 	<g:SimpleLayoutPanel ui:field="thisView" />
 =======
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+<<<<<<< HEAD
 	<g:HTMLPanel>MessageList
 	</g:HTMLPanel>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+	<g:SimplePanel>
+		<g:HTMLPanel>MessageList
+		</g:HTMLPanel>
+	</g:SimplePanel>
+>>>>>>> try to integrate the messages list's panel
 </ui:UiBinder>
