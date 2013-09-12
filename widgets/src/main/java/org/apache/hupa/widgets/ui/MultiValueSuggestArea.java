@@ -21,6 +21,7 @@ package org.apache.hupa.widgets.ui;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
@@ -28,6 +29,11 @@ import com.google.gwt.event.dom.client.KeyDownHandler;
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+>>>>>>> Avoid entering a new-line in the textarea when selecting a suggestion element
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Focusable;
@@ -60,6 +66,9 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
             super(oracle, new TextArea() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Avoid entering a new-line in the textarea when selecting a suggestion element
                 
                 {
                     // Avoid entering a new-line when selecting a suggestion element
@@ -72,10 +81,13 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
                         }
                     });
                 }
+<<<<<<< HEAD
 =======
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+>>>>>>> Avoid entering a new-line in the textarea when selecting a suggestion element
 
                 String search = null;
                 
