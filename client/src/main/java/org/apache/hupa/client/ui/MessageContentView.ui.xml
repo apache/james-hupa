@@ -12,6 +12,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<ui:image field="buttons" src="res/buttons.png" />
 	<ui:style>
 		.messageContent {
@@ -97,4 +98,7 @@
 	<g:HTMLPanel>MessageContent
 	</g:HTMLPanel>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+	<g:VerticalPanel ui:field="messageContainer" />
+>>>>>>> prepare for message content panel
 </ui:UiBinder>

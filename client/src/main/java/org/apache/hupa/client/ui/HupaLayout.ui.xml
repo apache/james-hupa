@@ -235,7 +235,6 @@
 												ui:field="MessageContentBox">
 												<g:layer>
 													<g:SimplePanel ui:field="messageContentContainer">
-														<hupa:MessageContentView ui:field="messageContentView" />
 													</g:SimplePanel>
 												</g:layer>
 												<g:layer bottom="0" height="25px">

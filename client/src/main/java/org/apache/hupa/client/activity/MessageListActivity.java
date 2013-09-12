@@ -20,6 +20,7 @@
 package org.apache.hupa.client.activity;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -240,21 +241,107 @@ public class MessageListActivity extends AppBaseActivity {
 		});
 	}
 =======
+=======
+import org.apache.hupa.client.place.IMAPMessagePlace;
+import org.apache.hupa.client.rf.GetMessageDetailsRequest;
+>>>>>>> prepare for message content panel
 import org.apache.hupa.client.ui.WidgetDisplayable;
+import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+import org.apache.hupa.shared.domain.GetMessageDetailsAction;
+import org.apache.hupa.shared.domain.GetMessageDetailsResult;
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.events.ExpandMessageEvent;
+import org.apache.hupa.shared.events.ExpandMessageEventHandler;
+import org.apache.hupa.shared.events.LoginEvent;
+import org.apache.hupa.shared.events.LoginEventHandler;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class MessageListActivity extends AppBaseActivity {
+
+//	@Inject private Provider<IMAPMessagePlace> messagePlaceProvider;
+	private User user;
+	private String searchValue;
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
+		bindTo(eventBus);
+	}
+
+	private void bindTo(EventBus eventBus) {
+		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
+			public void onLogin(LoginEvent event) {
+				user = event.getUser();
+				searchValue = null;
+			}
+		});
+		eventBus.addHandler(ExpandMessageEvent.TYPE,
+				new ExpandMessageEventHandler() {
+					public void onExpandMessage(ExpandMessageEvent event) {
+						// final boolean decreaseUnseen;
+						final Message message = event.getMessage();
+						// check if the message was already seen in the past
+						if (event.getMessage().getFlags()
+								.contains(IMAPFlag.SEEN) == false) {
+							// decreaseUnseen = true;//TODO 1209
+						} else {
+							// decreaseUnseen = false;
+						}
+
+						GetMessageDetailsRequest req = requestFactory
+								.messageDetailsRequest();
+						GetMessageDetailsAction action = req
+								.create(GetMessageDetailsAction.class);
+						final ImapFolder f = req.create(ImapFolder.class);
+						// event.getFolder().setFolderTo(f);
+						cloneFolder(f, event.getFolder());
+						action.setFolder(f);
+						action.setUid(message.getUid());
+						req.get(action).fire(
+								new Receiver<GetMessageDetailsResult>() {
+									@Override
+									public void onSuccess(
+											GetMessageDetailsResult response) {
+										/*
+										 * TODO if (decreaseUnseen) {
+										 * eventBus.fireEvent(new
+										 * DecreaseUnseenEvent(user, folder)); }
+										 */
+										placeController
+												.goTo(new IMAPMessagePlace(
+														String.valueOf(message
+																.getUid())));
+									}
+								});
+					}
+				});
+	}
+
+	private void cloneFolder(ImapFolder desc, ImapFolder src) {
+		desc.setChildren(src.getChildren());
+		desc.setDelimiter(src.getDelimiter());
+		desc.setFullName(src.getFullName());
+		desc.setMessageCount(src.getMessageCount());
+		desc.setName(src.getName());
+		desc.setSubscribed(src.getSubscribed());
+		desc.setUnseenMessageCount(src.getUnseenMessageCount());
 	}
 
 	@Inject private Displayable display;
+<<<<<<< HEAD
 	
 	public interface Displayable extends WidgetDisplayable {}
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+
+	public interface Displayable extends WidgetDisplayable {
+	}
+>>>>>>> prepare for message content panel
 }

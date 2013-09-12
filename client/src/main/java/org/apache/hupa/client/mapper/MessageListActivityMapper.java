@@ -80,7 +80,7 @@ public class MessageListActivityMapper implements ActivityMapper {
 =======
 	public Activity getActivity(Place place) {
 		if(place instanceof DefaultPlace)return null;
-		else if (place instanceof MailFolderPlace) messageListActivityProvider.get();
+		else if (place instanceof MailFolderPlace) return messageListActivityProvider.get();
 		return messageListActivityProvider.get();
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 	}

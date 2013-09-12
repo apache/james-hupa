@@ -179,7 +179,6 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 				// folder.setMessageCount(result.getRealCount());// TODO if do
 				// this, there will be auto bean has been frozen.
 				// folder.setUnseenMessageCount(result.getRealUnreadCount());
-				System.out.println("+_+_+_+_+"+result.getMessages());
 				table.setRowCount(result.getRealCount());
 				table.setRowData(start, result.getMessages());
 
