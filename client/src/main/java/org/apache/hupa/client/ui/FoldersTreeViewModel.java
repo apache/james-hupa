@@ -92,20 +92,15 @@ public class FoldersTreeViewModel implements TreeViewModel {
 		ImapFolder folder;
 
 		@Override
-		public void addDataDisplay(HasData<ImapFolder> display) {
-			super.addDataDisplay(display);
-		}
-
-		@Override
-		protected void onRangeChanged(HasData<ImapFolder> display) {//TODO how to deal with init, here folder should be inject from some place rather null
+		protected void onRangeChanged(HasData<ImapFolder> display) {
+			System.out.println(display.getVisibleItemCount() + "---" +display.getRowCount()+"="+display.getVisibleItems()+"="+display.getVisibleRange());
 			rf.fetchFoldersRequest().fetch(folder).fire(new Receiver<List<ImapFolder>>() {
 				@Override
 				public void onSuccess(List<ImapFolder> response) {
 					if (response == null || response.size() == 0) {
 						updateRowCount(-1, true);
-					} else{
+					} else
 						updateRowData(0, response);
-					}
 				}
 			});
 

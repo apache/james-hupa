@@ -47,6 +47,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
 
 	protected User user;
 	private CellTree cellTree;
+<<<<<<< HEAD
 
 	@Inject
 	public WestView(final EventBus eventBus) {
@@ -184,9 +185,11 @@ public class WestView extends Composite implements WestActivity.Displayable {
 	protected User user;
 	private FoldersCellTree cellTree;
 >>>>>>> refactoring.
+=======
+>>>>>>> make folder list panel work as expected
 
 	@Inject
-	public WestView(final FoldersTreeViewModel viewModel, final EventBus eventBus) {
+	public WestView(final EventBus eventBus) {
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -781,7 +784,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
 //		viewModel.setSelectionModel(selectionModel);
 
 		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
-//		cellTree = new FoldersCellTree(viewModel, res);
+		cellTree = new CellTree(null, res);
 		cellTree.setAnimationEnabled(true);
 		initWidget(cellTree);
 >>>>>>> refactoring.
