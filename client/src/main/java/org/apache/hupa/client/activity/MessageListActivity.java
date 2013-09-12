@@ -421,6 +421,7 @@ public class MessageListActivity extends AppBaseActivity {
 		}
 	}
 	private void deleteSelectedMessages() {
+		hc.showTopLoading("Deleting...");
 		String fullName = null;
 		if (pc.getWhere() instanceof FolderPlace) {
 			fullName = ((FolderPlace) pc.getWhere()).getToken();
@@ -439,6 +440,7 @@ public class MessageListActivity extends AppBaseActivity {
 			public void onSuccess(DeleteMessageResult response) {
 				antiSelectMessages(display.getSelectedMessages());
 				display.refresh();
+				hc.hideTopLoading();
 				eventBus.fireEvent(new RefreshUnreadEvent());
 			}
 		});
