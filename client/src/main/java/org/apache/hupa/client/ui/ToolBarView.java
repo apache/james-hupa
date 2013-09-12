@@ -744,16 +744,21 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 
 	private static ToolBarUiBinder binder = GWT.create(ToolBarUiBinder.class);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+
+>>>>>>> fixed issue#81, add refresh event handler
 	@Override
 	public HasClickHandlers getRefresh() {
 		return refresh;
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
@@ -796,4 +801,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 >>>>>>> scrub code
 =======
 >>>>>>> done issue#72, get back the unread count
+=======
+>>>>>>> fixed issue#81, add refresh event handler
 }

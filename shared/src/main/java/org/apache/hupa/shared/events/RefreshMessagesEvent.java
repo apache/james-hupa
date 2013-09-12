@@ -21,6 +21,7 @@ package org.apache.hupa.shared.events;
 
 import com.google.gwt.event.shared.GwtEvent;
 
+<<<<<<< HEAD
 public class RefreshMessagesEvent extends GwtEvent<RefreshMessagesEventHandler> {
 	public final static Type<RefreshMessagesEventHandler> TYPE = new Type<RefreshMessagesEventHandler>();
 
@@ -44,5 +45,18 @@ public class RefreshMessagesEvent extends GwtEvent<RefreshMessagesEventHandler> 
 	public com.google.gwt.event.shared.GwtEvent.Type<RefreshMessagesEventHandler> getAssociatedType() {
 		return TYPE;
 	}
+=======
+public class RefreshMessagesEvent extends GwtEvent<RefreshMessagesEventHandler>{
+    public final static Type<RefreshMessagesEventHandler> TYPE = new Type<RefreshMessagesEventHandler>();
+    @Override
+    protected void dispatch(RefreshMessagesEventHandler handler) {
+        handler.onRefresh(this);
+    }
+
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<RefreshMessagesEventHandler> getAssociatedType() {
+        return TYPE;
+    }
+>>>>>>> fixed issue#81, add refresh event handler
 
 }

@@ -28,6 +28,7 @@ import java.util.List;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
 =======
 =======
@@ -44,6 +45,8 @@ import org.apache.hupa.client.place.MailFolderPlace;
 =======
 >>>>>>> fixed issue#57 - really disable the tools in toolbar
 =======
+=======
+>>>>>>> fixed issue#81, add refresh event handler
 import org.apache.hupa.client.place.FolderPlace;
 >>>>>>> try to make messages list better for user experience
 import org.apache.hupa.client.rf.SetFlagRequest;
@@ -72,6 +75,7 @@ public class ToolBarActivity extends AppBaseActivity {
 	@Inject private Displayable display;
 	@Inject private MessagesCellTable table;
 	@Inject private MessageListActivity.Displayable messagesDisplay;
+<<<<<<< HEAD
 	private String folderName;
 
 	@Override
@@ -212,6 +216,8 @@ public class ToolBarActivity extends AppBaseActivity {
 	@Inject private MessagesCellTable table;
 	@Inject private MessageListActivity.Displayable messagesDisplay;
 	@Inject private HupaController hupaController;
+=======
+>>>>>>> fixed issue#81, add refresh event handler
 	private String folderName;
 
 	@Override
@@ -233,16 +239,20 @@ public class ToolBarActivity extends AppBaseActivity {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject private Displayable display;
 	
 	public interface Displayable extends WidgetDisplayable {}
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
 	private void bindTo(EventBus eventBus) {
+=======
+	private void bindTo(final EventBus eventBus) {
+>>>>>>> fixed issue#81, add refresh event handler
 		registerHandler(display.getMarkRead().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				hupaController.showTopLoading("Loading");
+				hc.showTopLoading("Loading");
 				toMarkRead(true);
 				display.getPopup().hide();
 			}
@@ -250,9 +260,18 @@ public class ToolBarActivity extends AppBaseActivity {
 		registerHandler(display.getMarkUnread().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				hupaController.showTopLoading("Loading");
+				hc.showTopLoading("Loading");
 				toMarkRead(false);
 				display.getPopup().hide();
+			}
+		}));
+
+		registerHandler(display.getRefresh().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				hc.showTopLoading("Loading");
+				eventBus.fireEvent(new RefreshMessagesEvent());
+				eventBus.fireEvent(new RefreshUnreadEvent());
 			}
 		}));
 	}
@@ -278,7 +297,7 @@ public class ToolBarActivity extends AppBaseActivity {
 			public void onSuccess(GenericResult response) {
 				eventBus.fireEvent(new RefreshUnreadEvent());
 				messagesDisplay.refresh();
-				hupaController.hideTopLoading();
+				hc.hideTopLoading();
 			}
 		});
 	}
@@ -297,6 +316,8 @@ public class ToolBarActivity extends AppBaseActivity {
 		void enableSendingTools(boolean is);
 		void enableDealingTools(boolean is);
 		void enableAllTools(boolean is);
+
+		HasClickHandlers getRefresh();
 		HasClickHandlers getReply();
 		HasClickHandlers getReplyAll();
 		HasClickHandlers getForward();

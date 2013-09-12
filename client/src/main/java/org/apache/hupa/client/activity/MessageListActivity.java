@@ -299,7 +299,10 @@ import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.DeleteClickEvent;
 import org.apache.hupa.shared.events.DeleteClickEventHandler;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
+import org.apache.hupa.shared.events.RefreshMessagesEvent;
+import org.apache.hupa.shared.events.RefreshMessagesEventHandler;
 import org.apache.hupa.shared.events.RefreshUnreadEvent;
+import org.apache.hupa.shared.events.RefreshUnreadEventHandler;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -380,6 +383,13 @@ public class MessageListActivity extends AppBaseActivity {
 			@Override
 			public void onDeleteClickEvent(DeleteClickEvent event) {
 				deleteSelectedMessages();
+			}
+		});
+		
+		eventBus.addHandler(RefreshMessagesEvent.TYPE, new RefreshMessagesEventHandler(){
+			@Override
+			public void onRefresh(RefreshMessagesEvent event) {
+				display.refresh();
 			}
 		});
 
