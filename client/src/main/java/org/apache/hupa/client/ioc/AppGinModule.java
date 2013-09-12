@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
@@ -125,6 +126,8 @@ import org.apache.hupa.client.AppController;
 =======
 >>>>>>> Make the evo more clear.
 import org.apache.hupa.client.CachingDispatchAsync;
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.client.activity.IMAPMessageActivity;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
 import org.apache.hupa.client.activity.LoginActivity;
@@ -150,6 +153,7 @@ import org.apache.hupa.client.mapper.CachingWestActivityMapper;
 import org.apache.hupa.client.mapper.MainContentActivityMapper;
 >>>>>>> Make the evo more clear.
 import org.apache.hupa.client.place.DefaultPlace;
+import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.AppLayout;
 import org.apache.hupa.client.ui.AppLayoutImpl;
 import org.apache.hupa.client.ui.IMAPMessageListView;
@@ -164,6 +168,7 @@ import org.apache.hupa.client.ui.TopView;
 import org.apache.hupa.client.ui.WestView;
 
 import com.google.gwt.activity.shared.ActivityManager;
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
 import org.apache.hupa.client.ui.LoginView;
@@ -172,6 +177,9 @@ import org.apache.hupa.client.ui.WestView;
 
 import com.google.gwt.activity.shared.ActivityManager;
 >>>>>>> Change to new mvp framework - first step
+=======
+import com.google.gwt.core.client.GWT;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -374,6 +382,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(MessageSendActivity.Displayable.class).to(MessageSendView.class);
 		bind(IMAPMessageActivity.Displayable.class).to(IMAPMessageView.class);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 		bind(TopActivity.Displayable.class).to(TopView.class);
@@ -385,6 +394,9 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> 1. improve the inbox folder place.
 		
 		
+=======
+
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
 
 		// Places
@@ -395,13 +407,18 @@ public class AppGinModule extends AbstractGinModule {
 
 		// Application Controller
 		bind(AppController.class).in(Singleton.class);
+<<<<<<< HEAD
 		
 		bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
 <<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 	}
 
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
+		// bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
+	}
 
 <<<<<<< HEAD
 =======
@@ -417,11 +434,10 @@ public class AppGinModule extends AbstractGinModule {
 	@Provides
 	@Singleton
 	@Named("TopRegion")
-	public ActivityManager getTopRegionActivityMapper(CachingTopActivityMapper activityMapper,
-			EventBus eventBus) {
+	public ActivityManager getTopRegionActivityMapper(CachingTopActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
-	
+
 	@Provides
 	@Singleton
 <<<<<<< HEAD
@@ -432,6 +448,7 @@ public class AppGinModule extends AbstractGinModule {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public ActivityManager getVerticalMasterRegionActivityMapper(WestActivityMapper activityMapper,
 >>>>>>> Change to new mvp framework - first step
 =======
@@ -456,6 +473,9 @@ public class AppGinModule extends AbstractGinModule {
 	public ActivityManager getWestRegionActivityMapper(CachingWestActivityMapper activityMapper,
 >>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
 			EventBus eventBus) {
+=======
+	public ActivityManager getWestRegionActivityMapper(CachingWestActivityMapper activityMapper, EventBus eventBus) {
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
@@ -494,6 +514,7 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> Change to new mvp framework - first step
 =======
 	public ActivityManager getMainContentRegionActivityMapper(MainContentActivityMapper activityMapper,
+<<<<<<< HEAD
 >>>>>>> introduce the top activity
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
@@ -516,6 +537,18 @@ public class AppGinModule extends AbstractGinModule {
 		return new CachingDispatchAsync(exceptionHandler);
 >>>>>>> Change to new mvp framework - first step
 	}
+=======
+	        EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+
+	// @Provides
+	// @Singleton
+	// protected DispatchAsync provideDispatchAsync(ExceptionHandler
+	// exceptionHandler) {
+	// return new CachingDispatchAsync(exceptionHandler);
+	// }
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 	@Provides
 	@Singleton
@@ -526,7 +559,7 @@ public class AppGinModule extends AbstractGinModule {
 	@Provides
 	@Singleton
 	public PlaceHistoryHandler getHistoryHandler(PlaceController placeController, PlaceHistoryMapper historyMapper,
-			EventBus eventBus) {
+	        EventBus eventBus) {
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -550,7 +583,18 @@ public class AppGinModule extends AbstractGinModule {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+	@Provides
+	@Singleton
+	HupaRequestFactory getRequestFactory(EventBus eventBus) {
+		HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
+		rf.initialize(eventBus);
+		return rf;
+	}
+
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 }

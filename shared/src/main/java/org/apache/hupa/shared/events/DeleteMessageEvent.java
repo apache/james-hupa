@@ -38,8 +38,12 @@ import org.apache.hupa.shared.data.User;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.domain.User;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import com.google.gwt.event.shared.GwtEvent;
 

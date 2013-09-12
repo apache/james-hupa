@@ -23,6 +23,7 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
 public interface HupaRequestFactory extends RequestFactory {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	SubjectRequest subjectRequest();
 
 	ImapFolderRequest folderRequest();
@@ -80,4 +81,10 @@ public interface HupaRequestFactory extends RequestFactory {
 =======
   ImapFolderRequestContext folderRequest();
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
+=======
+	SubjectRequest subjectRequest();
+	ImapFolderRequest folderRequest();
+	CheckSessionRequest sessionRequest();
+	LoginUserRequest loginRequest();
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 }

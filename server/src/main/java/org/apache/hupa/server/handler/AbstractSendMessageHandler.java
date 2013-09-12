@@ -58,7 +58,7 @@ import org.apache.hupa.server.utils.RegexPatterns;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.SMTPMessage;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.SendMessage;
 

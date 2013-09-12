@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -25,4 +26,13 @@ import org.apache.hupa.shared.exception.HupaException;
 public interface CheckSessionService {
 	public User getUser() throws HupaException;
 	public Boolean isValid() throws HupaException;
+=======
+package org.apache.hupa.server.service;
+
+import org.apache.hupa.shared.domain.User;
+
+public interface CheckSessionService {
+	public User getUser();
+	public Boolean isValid();
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 }

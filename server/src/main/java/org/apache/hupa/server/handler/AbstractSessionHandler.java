@@ -31,7 +31,7 @@ import net.customware.gwt.dispatch.shared.Result;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.exception.InvalidSessionException;
 
 import com.google.inject.Inject;

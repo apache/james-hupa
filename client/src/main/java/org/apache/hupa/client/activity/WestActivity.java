@@ -252,7 +252,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import net.customware.gwt.dispatch.client.DispatchAsync;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -262,7 +261,7 @@ import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
-import org.apache.hupa.client.rf.ImapFolderRequestContext;
+import org.apache.hupa.client.rf.ImapFolderRequest;
 import org.apache.hupa.client.ui.WidgetContainerDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
@@ -270,8 +269,8 @@ import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.MessageDetails;
-import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.BackEventHandler;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
@@ -448,7 +447,7 @@ public class WestActivity extends AbstractActivity {
 		container.setWidget(display.asWidget());
 	}
 	
-	@Inject private DispatchAsync dispatcher;
+//	@Inject private DispatchAsync dispatcher;
 	@Inject private Displayable display;
 	@Inject private EventBus eventBus;
 	@Inject private PlaceController placeController;
@@ -548,7 +547,7 @@ public class WestActivity extends AbstractActivity {
         
         HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
 		rf.initialize(eventBus);
-		ImapFolderRequestContext folderRequest = rf.folderRequest();
+		ImapFolderRequest folderRequest = rf.folderRequest();
 //		IMAPFolderProxy folder = folderRequest.create(IMAPFolderProxy.class);
 //		folderRequest.echo("..........Hi++++").fire(new Receiver<String>(){
 //
@@ -648,26 +647,26 @@ System.out.println("1111111"+response);
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 
             final IMAPTreeItem record = new IMAPTreeItem(iFolder);
-            record.addEditHandler(new EditHandler() {
-
-                public void onEditEvent(EditEvent event) {
-                    if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                        ImapFolderImpl iFolder = new ImapFolderImpl((String) event.getOldValue());
-                        final String newName = (String) event.getNewValue();
-                        if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
-                            dispatcher.execute(new RenameFolder(iFolder, newName), new HupaEvoCallback<GenericResult>(dispatcher, eventBus) {
-                                public void callback(GenericResult result) {
-                                    folder.setFullName(newName);
-                                }
-                                public void callbackError(Throwable caught) {
-                                    record.cancelEdit();
-                                }
-                            }); 
-                        }
-                    }
-                }
-
-            });
+//            record.addEditHandler(new EditHandler() {
+//
+//                public void onEditEvent(EditEvent event) {
+//                    if (event.getEventType().equals(EditEvent.EventType.Stop)) {
+//                        ImapFolderImpl iFolder = new ImapFolderImpl((String) event.getOldValue());
+//                        final String newName = (String) event.getNewValue();
+//                        if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
+//                            dispatcher.execute(new RenameFolder(iFolder, newName), new HupaEvoCallback<GenericResult>(dispatcher, eventBus) {
+//                                public void callback(GenericResult result) {
+//                                    folder.setFullName(newName);
+//                                }
+//                                public void callbackError(Throwable caught) {
+//                                    record.cancelEdit();
+//                                }
+//                            }); 
+//                        }
+//                    }
+//                }
+//
+//            });
             record.setUserObject(iFolder);
 
 <<<<<<< HEAD
@@ -736,6 +735,7 @@ System.out.println("1111111"+response);
                 }
 
                 display.setLoadingMessage(true);
+<<<<<<< HEAD
                 dispatcher.execute(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaEvoCallback<GetMessageDetailsResult>(dispatcher, eventBus, display) {
                     public void callback(GetMessageDetailsResult result) {
                         if (decreaseUnseen) {
@@ -757,6 +757,19 @@ System.out.println("1111111"+response);
 >>>>>>> 1. improve the inbox folder place.
                     }
                 });
+=======
+//                dispatcher.execute(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaEvoCallback<GetMessageDetailsResult>(dispatcher, eventBus, display) {
+//                    public void callback(GetMessageDetailsResult result) {
+//                        if (decreaseUnseen) {
+//                            eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
+//                        }
+//                        display.setLoadingMessage(false);
+////                        showMessage(user, folder, message, result.getMessageDetails());
+//
+//                        placeController.goTo(messagePlaceProvider.get().with(user,folder, message,result.getMessageDetails()));
+//                    }
+//                });
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
             }
 
         });
@@ -905,17 +918,17 @@ System.out.println("1111111"+response);
 		display.getDeleteConfirmClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
-                dispatcher.execute(new DeleteFolder(folder), new AsyncCallback<GenericResult>() {
-
-                    public void onFailure(Throwable caught) {
-                        GWT.log("ERROR while deleting", caught);
-                    }
-
-                    public void onSuccess(GenericResult result) {
-                        display.deleteSelectedFolder();
-                    }
-
-                });
+//                dispatcher.execute(new DeleteFolder(folder), new AsyncCallback<GenericResult>() {
+//
+//                    public void onFailure(Throwable caught) {
+//                        GWT.log("ERROR while deleting", caught);
+//                    }
+//
+//                    public void onSuccess(GenericResult result) {
+//                        display.deleteSelectedFolder();
+//                    }
+//
+//                });
             }
 
         });
@@ -927,20 +940,20 @@ System.out.println("1111111"+response);
                     public void onEditEvent(EditEvent event) {
                         final IMAPTreeItem item = (IMAPTreeItem) event.getSource();
                         final String newValue = (String) event.getNewValue();
-                        if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                            dispatcher.execute(new CreateFolder(new ImapFolderImpl(newValue.trim())), new AsyncCallback<GenericResult>() {
-
-                                public void onFailure(Throwable caught) {
-                                    GWT.log("Error while create folder", caught);
-                                    item.cancelEdit();
-                                }
-
-                                public void onSuccess(GenericResult result) {
-                                    // Nothing todo
-                                }
-
-                            });
-                        }
+//                        if (event.getEventType().equals(EditEvent.EventType.Stop)) {
+//                            dispatcher.execute(new CreateFolder(new ImapFolderImpl(newValue.trim())), new AsyncCallback<GenericResult>() {
+//
+//                                public void onFailure(Throwable caught) {
+//                                    GWT.log("Error while create folder", caught);
+//                                    item.cancelEdit();
+//                                }
+//
+//                                public void onSuccess(GenericResult result) {
+//                                    // Nothing todo
+//                                }
+//
+//                            });
+//                        }
                     }
 
                 });

@@ -27,8 +27,8 @@ import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
-import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.ForwardMessageEvent;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
@@ -91,11 +91,11 @@ public class IMAPMessageActivity  extends AbstractActivity {
             public void onClick(ClickEvent event) {
                 ArrayList<Long> uidList = new ArrayList<Long>();
                 uidList.add(message.getUid());
-                dispatcher.execute(new DeleteMessageByUid(folder, uidList), new HupaEvoCallback<DeleteMessageResult>(dispatcher, eventBus) {
-                    public void callback(DeleteMessageResult result) {
-                        eventBus.fireEvent(new LoadMessagesEvent(user,folder));
-                    }
-                }); 
+//                dispatcher.execute(new DeleteMessageByUid(folder, uidList), new HupaEvoCallback<DeleteMessageResult>(dispatcher, eventBus) {
+//                    public void callback(DeleteMessageResult result) {
+//                        eventBus.fireEvent(new LoadMessagesEvent(user,folder));
+//                    }
+//                }); 
             }
 
         });
@@ -160,7 +160,7 @@ public class IMAPMessageActivity  extends AbstractActivity {
     private ImapFolder folder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
     private User user;
-    @Inject private CachingDispatchAsync dispatcher;
+//    @Inject private CachingDispatchAsync dispatcher;
     @Inject private Displayable display;
     @Inject private EventBus eventBus;
     @Inject private PlaceController placeController;

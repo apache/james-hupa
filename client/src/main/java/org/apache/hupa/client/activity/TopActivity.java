@@ -34,9 +34,8 @@ import org.apache.hupa.shared.domain.User;
 >>>>>>> introduce the top activity
 package org.apache.hupa.client.activity;
 
-import net.customware.gwt.dispatch.client.DispatchAsync;
-
 import org.apache.hupa.client.HupaConstants;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.client.evo.HupaEvoCallback;
@@ -54,6 +53,11 @@ import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.data.User;
 >>>>>>> introduce the top activity
+=======
+import org.apache.hupa.client.place.DefaultPlace;
+import org.apache.hupa.client.ui.WidgetDisplayable;
+import org.apache.hupa.shared.domain.User;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.FlashEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;
@@ -63,6 +67,7 @@ import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.ServerStatusEvent;
 import org.apache.hupa.shared.events.ServerStatusEvent.ServerStatus;
 import org.apache.hupa.shared.events.ServerStatusEventHandler;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -75,6 +80,8 @@ import org.apache.hupa.shared.rpc.Idle;
 import org.apache.hupa.shared.rpc.IdleResult;
 import org.apache.hupa.shared.rpc.LogoutUser;
 import org.apache.hupa.shared.rpc.LogoutUserResult;
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import com.google.gwt.activity.shared.AbstractActivity;
 <<<<<<< HEAD
@@ -103,7 +110,6 @@ public class TopActivity extends AppBaseActivity {
 >>>>>>> introduce the top activity
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
@@ -133,12 +139,16 @@ public class TopActivity extends AbstractActivity {
 		bind();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		checkSession();
 >>>>>>> introduce the top activity
 =======
 		checkSession();
 >>>>>>> introduce the top activity
+=======
+//		checkSession();
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 	}
 
 	private void bind() {
@@ -175,6 +185,7 @@ public class TopActivity extends AbstractActivity {
 				noopTimer.cancel();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				TopActivity.this.placeController.goTo(defaultPlaceProvider.get());
 			}
 <<<<<<< HEAD
@@ -200,6 +211,9 @@ public class TopActivity extends AbstractActivity {
 =======
 				TopActivity.this.placeController.goTo(defaultPlaceProvider.get());
 >>>>>>> 
+=======
+//				TopActivity.this.placeController.goTo(defaultPlaceProvider.get());
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 			}
 >>>>>>> introduce the top activity
 
@@ -270,24 +284,26 @@ public class TopActivity extends AbstractActivity {
 	}
 
 	private void checkSession() {
-		dispatcher.execute(new CheckSession(), new AsyncCallback<CheckSessionResult>() {
-			public void onFailure(Throwable caught) {
-				serverStatus = ServerStatus.Unavailable;
-				display.setServerStatus(serverStatus);
-				showLogin(null);
-			}
-			public void onSuccess(CheckSessionResult result) {
-				serverStatus = ServerStatus.Available;
-				display.setServerStatus(serverStatus);
-				if (result.isValid()) {
-					eventBus.fireEvent(new LoginEvent(result.getUser()));
-				} else {
-					showLogin(null);
-				}
-			}
-		});
+		System.out.println("+++++++++++++");
+//		dispatcher.execute(new CheckSession(), new AsyncCallback<CheckSessionResult>() {
+//			public void onFailure(Throwable caught) {
+//				serverStatus = ServerStatus.Unavailable;
+//				display.setServerStatus(serverStatus);
+//				showLogin(null);
+//			}
+//			public void onSuccess(CheckSessionResult result) {
+//				serverStatus = ServerStatus.Available;
+//				display.setServerStatus(serverStatus);
+//				if (result.isValid()) {
+//					eventBus.fireEvent(new LoginEvent(result.getUser()));
+//				} else {
+//					showLogin(null);
+//				}
+//			}
+//		});
 	}
 	private void doLogout() {
+<<<<<<< HEAD
 		if (user != null) {
 			dispatcher.execute(new LogoutUser(), new HupaEvoCallback<LogoutUserResult>(dispatcher, eventBus) {
 				public void callback(LogoutUserResult result) {
@@ -299,6 +315,15 @@ public class TopActivity extends AbstractActivity {
 				}
 			});
 		}
+=======
+//		if (user != null) {
+//			dispatcher.execute(new LogoutUser(), new HupaEvoCallback<LogoutUserResult>(dispatcher, eventBus) {
+//				public void callback(LogoutUserResult result) {
+//					eventBus.fireEvent(new LogoutEvent(result.getUser()));
+//				}
+//			});
+//		}
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 	}
 
 	private void showMain(User user) {
@@ -417,8 +442,8 @@ public class TopActivity extends AbstractActivity {
 	@Inject private Displayable display;
 	@Inject private EventBus eventBus;
 	@Inject private PlaceController placeController;
-	@Inject private DispatchAsync dispatcher;
-	@Inject private Provider<DefaultPlace> defaultPlaceProvider;
+//	@Inject private DispatchAsync dispatcher;
+//	@Inject private Provider<DefaultPlace> defaultPlaceProvider;
 	@Inject private HupaConstants constants;
 	
 >>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
@@ -430,6 +455,7 @@ public class TopActivity extends AbstractActivity {
 		public void run() {
 			if (!running) {
 				running = true;
+<<<<<<< HEAD
 				dispatcher.execute(new Idle(), new HupaEvoCallback<IdleResult>(dispatcher, eventBus) {
 					public void callback(IdleResult result) {
 <<<<<<< HEAD
@@ -463,6 +489,22 @@ public class TopActivity extends AbstractActivity {
 >>>>>>> introduce the top activity
 					}
 				});
+=======
+//				dispatcher.execute(new Idle(), new HupaEvoCallback<IdleResult>(dispatcher, eventBus) {
+//					public void callback(IdleResult result) {
+//						running = false;
+//						// check if the server is not supporting the Idle
+//						// command.
+//						// if so cancel this Timer
+//						if (result.isSupported() == false) {
+//							IdleTimer.this.cancel();
+//						}
+//						// Noop
+//						// TODO: put code here to read new events from server
+//						// (new messages ...)
+//					}
+//				});
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 			}
 		}
 	}

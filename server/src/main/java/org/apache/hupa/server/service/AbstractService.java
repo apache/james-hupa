@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,6 +18,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 package org.apache.hupa.server.service;
 
 import javax.servlet.http.HttpSession;
@@ -25,15 +28,21 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
 import org.apache.hupa.shared.exception.InvalidSessionException;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+=======
+
+import com.google.inject.Inject;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 public abstract class AbstractService {
 	
     @Inject protected IMAPStoreCache cache;
+<<<<<<< HEAD
     @Inject protected Provider<HttpSession> httpSessionProvider;
     @Inject protected Log logger;
 
@@ -45,5 +54,16 @@ public abstract class AbstractService {
         } else {
             return user;
         }
+=======
+    @Inject protected HttpSession httpSession;
+    @Inject protected Log logger;
+
+	protected User getUser() {
+		return (User) getHttpSession().getAttribute(SConsts.USER_SESS_ATTR);
+	}
+
+	protected HttpSession getHttpSession() {
+		return httpSession;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 	}
 }

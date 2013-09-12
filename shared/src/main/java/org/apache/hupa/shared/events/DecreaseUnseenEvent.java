@@ -23,6 +23,7 @@ package org.apache.hupa.shared.events;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
 =======
@@ -49,6 +50,10 @@ import org.apache.hupa.shared.proxy.ImapFolder;
 =======
 import org.apache.hupa.shared.domain.ImapFolder;
 >>>>>>> Allow client can use the domain entity interface.
+=======
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.User;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import com.google.gwt.event.shared.GwtEvent;
 

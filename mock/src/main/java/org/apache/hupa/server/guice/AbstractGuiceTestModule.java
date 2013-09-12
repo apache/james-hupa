@@ -32,8 +32,8 @@ import com.google.inject.AbstractModule;
 >>>>>>> first commit
 import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
 
-import org.apache.hupa.shared.data.Settings;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.data.SettingsImpl;
+import org.apache.hupa.shared.data.UserImpl;
 
 <<<<<<< HEAD
 >>>>>>> first commit
@@ -98,7 +98,7 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
 >>>>>>> first commit
 public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
 
-    protected static class TestUser extends User {
+    protected static class TestUser extends UserImpl {
         private static final long serialVersionUID = 1L;
 <<<<<<< HEAD
 >>>>>>> first commit
@@ -115,6 +115,7 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             setPassword(password);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             setSettings(new SettingsImpl() {
 =======
             setSettings(new Settings() {
@@ -124,6 +125,9 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             setSettings(new Settings() {
                 private static final long serialVersionUID = 1L;
 >>>>>>> first commit
+=======
+            setSettings(new SettingsImpl() {
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
                 {
                     setInboxFolderName(inbox);
                     setSentFolderName(sent);

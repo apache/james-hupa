@@ -19,7 +19,8 @@
 
 package org.apache.hupa.server.guice;
 
-import org.apache.hupa.shared.data.Settings;
+import org.apache.hupa.shared.data.SettingsImpl;
+import org.apache.hupa.shared.domain.Settings;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -46,7 +47,7 @@ public class DefaultUserSettingsProvider implements Provider<Settings> {
      * @see com.google.inject.Provider#get()
      */
     public Settings get() {
-        Settings settings = new Settings();
+        Settings settings = new SettingsImpl();
         settings.setInboxFolderName(inboxFolder);
         settings.setSentFolderName(sentFolder);
         settings.setTrashFolderName(trashFolder);

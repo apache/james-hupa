@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,16 +18,23 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 package org.apache.hupa.server.ioc;
 
 import java.util.Properties;
 
 import javax.mail.Session;
+<<<<<<< HEAD
+=======
+import javax.servlet.http.HttpSession;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
+<<<<<<< HEAD
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
 import org.apache.hupa.server.guice.providers.LogProvider;
 import org.apache.hupa.server.preferences.InImapUserPreferencesStorage;
@@ -51,10 +59,18 @@ import org.apache.hupa.server.service.GetMessageRawService;
 import org.apache.hupa.server.service.GetMessageRawServiceImpl;
 import org.apache.hupa.server.service.IdleService;
 import org.apache.hupa.server.service.IdleServiceImpl;
+=======
+import org.apache.hupa.server.guice.providers.HttpSessionProvider;
+import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
+import org.apache.hupa.server.guice.providers.LogProvider;
+import org.apache.hupa.server.service.CheckSessionService;
+import org.apache.hupa.server.service.CheckSessionServiceImpl;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.server.service.ImapFolderService;
 import org.apache.hupa.server.service.ImapFolderServiceImpl;
 import org.apache.hupa.server.service.LoginUserService;
 import org.apache.hupa.server.service.LoginUserServiceImpl;
+<<<<<<< HEAD
 import org.apache.hupa.server.service.LogoutUserService;
 import org.apache.hupa.server.service.LogoutUserServiceImpl;
 import org.apache.hupa.server.service.MoveMessageService;
@@ -126,6 +142,13 @@ import org.apache.hupa.shared.domain.SetFlagAction;
 import org.apache.hupa.shared.domain.Settings;
 import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.domain.Tag;
+=======
+import org.apache.hupa.shared.data.ImapFolderImpl;
+import org.apache.hupa.shared.data.SettingsImpl;
+import org.apache.hupa.shared.data.UserImpl;
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Settings;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.shared.domain.User;
 
 import com.google.inject.AbstractModule;
@@ -160,6 +183,7 @@ public class GuiceServerModule extends AbstractModule {
 		bind(ServiceLayerDecorator.class).to(IocRfServiceDecorator.class);
 		bind(IocRfServiceLocator.class);
 		
+<<<<<<< HEAD
 		bind(MailHeader.class).to(MailHeaderImpl.class);
 		
 		bind(User.class).to(UserImpl.class);
@@ -192,10 +216,16 @@ public class GuiceServerModule extends AbstractModule {
 		bind(SetFlagAction.class).to(SetFlagActionImpl.class);
 		
 		
+=======
+		bind(User.class).to(UserImpl.class);
+		bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(Singleton.class);
+		bind(ImapFolder.class).to(ImapFolderImpl.class);
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		
 		bind(CheckSessionService.class).to(CheckSessionServiceImpl.class);
 		bind(LoginUserService.class).to(LoginUserServiceImpl.class);
 		bind(ImapFolderService.class).to(ImapFolderServiceImpl.class);
+<<<<<<< HEAD
 		bind(FetchFoldersService.class).to(FetchFoldersServiceImpl.class);
 		bind(FetchMessagesService.class).to(FetchMessagesServiceImpl.class);
 		bind(CreateFolderService.class).to(CreateFolderServiceImpl.class);
@@ -222,6 +252,14 @@ public class GuiceServerModule extends AbstractModule {
 		bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);
 		bind(Session.class).toProvider(JavaMailSessionProvider.class);
         bind(UserPreferencesStorage.class).to(InImapUserPreferencesStorage.class);
+=======
+		
+		bind(IMAPStoreCache.class).to(getIMAPStoreCacheClass()).in(Singleton.class);
+
+		bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);
+		bind(Session.class).toProvider(JavaMailSessionProvider.class);
+//		bind(HttpSession.class).toProvider(HttpSessionProvider.class);
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		bind(Properties.class).toInstance(properties);
 	}
 

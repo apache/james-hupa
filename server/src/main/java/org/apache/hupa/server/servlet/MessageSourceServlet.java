@@ -38,6 +38,7 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.User;
+<<<<<<< HEAD
 =======
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 =======
@@ -54,6 +55,8 @@ import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import com.google.inject.Inject;
 import com.sun.mail.imap.IMAPFolder;

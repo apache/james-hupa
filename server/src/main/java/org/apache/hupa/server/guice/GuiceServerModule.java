@@ -56,7 +56,7 @@ import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
 import org.apache.hupa.server.servlet.MessageSourceServlet;
 import org.apache.hupa.server.servlet.UploadAttachmentServlet;
-import org.apache.hupa.shared.data.Settings;
+import org.apache.hupa.shared.domain.Settings;
 import org.apache.hupa.shared.rpc.CheckSession;
 import org.apache.hupa.shared.rpc.Contacts;
 import org.apache.hupa.shared.rpc.CreateFolder;

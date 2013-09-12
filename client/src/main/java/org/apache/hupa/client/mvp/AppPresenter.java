@@ -27,7 +27,7 @@ import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
 
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.HupaConstants;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.FlashEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;

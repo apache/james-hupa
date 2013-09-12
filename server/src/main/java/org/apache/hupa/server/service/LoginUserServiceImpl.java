@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,13 +22,21 @@ package org.apache.hupa.server.service;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+=======
+package org.apache.hupa.server.service;
+
+import javax.mail.MessagingException;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.UserImpl;
 import org.apache.hupa.shared.domain.Settings;
 import org.apache.hupa.shared.domain.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -36,6 +45,7 @@ public class LoginUserServiceImpl extends AbstractService implements LoginUserSe
 
 	@Inject private Provider<Settings> settingsProvider;
 
+<<<<<<< HEAD
 	public User login(String username, String password) throws HupaException, MessagingException {
 		HttpSession httpSession = httpSessionProvider.get();
         SessionUtils.cleanSessionAttributes(httpSession);
@@ -43,6 +53,18 @@ public class LoginUserServiceImpl extends AbstractService implements LoginUserSe
 		user.setName(username);
 		user.setPassword(password);
 		cache.get(user);
+=======
+	public User login(String username, String password) {
+		SessionUtils.cleanSessionAttributes(httpSession);
+		User user = new UserImpl();
+		user.setName(username);
+		user.setPassword(password);
+		try {
+			cache.get(user);
+		} catch (MessagingException e) {
+			logger.error("Unable to authenticate user: " + username, e);
+		}
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		user.setAuthenticated(true);
 		user.setSettings(settingsProvider.get());
 		httpSession.setAttribute(SConsts.USER_SESS_ATTR, user);

@@ -21,7 +21,7 @@ package org.apache.hupa.shared.rpc;
 
 import java.io.Serializable;
 
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.User;
 
 import net.customware.gwt.dispatch.shared.Result;
 

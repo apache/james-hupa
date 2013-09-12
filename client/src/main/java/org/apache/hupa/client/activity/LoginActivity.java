@@ -36,6 +36,7 @@ import org.apache.hupa.shared.events.SessionExpireEventHandler;
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 package org.apache.hupa.client.activity;
 
+<<<<<<< HEAD
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 <<<<<<< HEAD
@@ -58,16 +59,24 @@ import org.apache.hupa.client.mvp.WidgetDisplayable;
 import org.apache.hupa.client.place.MailInboxPlace;
 >>>>>>> Change to new mvp framework - first step
 =======
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.client.HupaConstants;
-import org.apache.hupa.client.evo.HupaEvoCallback;
+import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.place.MailFolderPlace;
+import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.rf.LoginUserRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.SessionExpireEvent;
 import org.apache.hupa.shared.events.SessionExpireEventHandler;
+<<<<<<< HEAD
 >>>>>>> decorate the theme
 import org.apache.hupa.shared.rpc.LoginUser;
 import org.apache.hupa.shared.rpc.LoginUserResult;
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import com.google.gwt.activity.shared.AbstractActivity;
 <<<<<<< HEAD
@@ -144,6 +153,8 @@ import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class LoginActivity extends AbstractActivity {
 
@@ -189,9 +200,13 @@ public class LoginActivity extends AbstractActivity {
 	@Inject private Displayable display;
 	@Inject private EventBus eventBus;
 	@Inject private PlaceController placeController;
-	@Inject private DispatchAsync dispatcher;
+	// @Inject private DispatchAsync dispatcher;
 	@Inject private HupaConstants constants;
+<<<<<<< HEAD
 >>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
+=======
+	@Inject private HupaRequestFactory requestFactory;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
@@ -303,6 +318,7 @@ public class LoginActivity extends AbstractActivity {
 		display.setLoading(true);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
 //		HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
@@ -403,6 +419,21 @@ public class LoginActivity extends AbstractActivity {
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 >>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
+=======
+
+		LoginUserRequest loginRequest = requestFactory.loginRequest();
+		loginRequest.login(user, pass).fire(new Receiver<User>() {
+			@Override
+			public void onSuccess(User response) {
+				placeController.goTo(new MailFolderPlace().with(response));
+			}
+			@Override
+			public void onFailure(ServerFailure error){
+				placeController.goTo(new DefaultPlace());
+			}
+		});
+
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 	}
 
 	/**

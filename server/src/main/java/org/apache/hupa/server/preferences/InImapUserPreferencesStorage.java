@@ -50,6 +50,7 @@ import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.utils.MessageUtils;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
 =======
 import org.apache.hupa.shared.data.User;
@@ -57,6 +58,9 @@ import org.apache.hupa.shared.data.User;
 =======
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.domain.User;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 
 import com.google.inject.Inject;

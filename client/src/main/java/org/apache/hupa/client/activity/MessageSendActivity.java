@@ -36,6 +36,7 @@ import java.util.List;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
 import org.apache.hupa.client.rf.SendMessageRequest;
@@ -64,6 +65,8 @@ import org.apache.hupa.client.ui.WidgetDisplayable;
 =======
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.shared.Action;
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.MessageSendPlace;
@@ -79,6 +82,7 @@ import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.SMTPMessage;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.User;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -88,6 +92,10 @@ import org.apache.hupa.shared.data.User;
 =======
 import org.apache.hupa.shared.domain.ImapFolder;
 >>>>>>> Allow client can use the domain entity interface.
+=======
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.User;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.ContactsUpdatedEvent;
 import org.apache.hupa.shared.events.ContactsUpdatedEventHandler;
@@ -178,7 +186,7 @@ public class MessageSendActivity extends AbstractActivity {
     @SuppressWarnings("unused")
     private MessageDetails oldDetails;
     
-	@Inject private DispatchAsync dispatcher;
+//	@Inject private DispatchAsync dispatcher;
     @Inject private Displayable display;
     @Inject private EventBus eventBus;
     @Inject private PlaceController placeController;
@@ -578,7 +586,7 @@ public class MessageSendActivity extends AbstractActivity {
                 } else {
                     command = new ReplyMessage(message, folder, oldmessage.getUid());
                 }
-                dispatchMessage(dispatcher, eventBus, command);
+//                dispatchMessage(dispatcher, eventBus, command);
             }
         }
     };
@@ -604,20 +612,20 @@ public class MessageSendActivity extends AbstractActivity {
     }
 
     // Although dispatcher and eventBus parameters are not necessary, they are needed for testability
-    protected void dispatchMessage(DispatchAsync dispatcher, final EventBus eventBus, Action<GenericResult> command) {
-        display.setLoading(true);
-        dispatcher.execute(command, new HupaEvoCallback<GenericResult>(dispatcher, eventBus) {
-            public void callback(GenericResult result) {
-                if (result.isSuccess()) {
-                    eventBus.fireEvent(new SentMessageEvent());
-                    reset();
-                } else {
-                    eventBus.fireEvent(new FlashEvent(result.getMessage(), 6000));
-                }
-                display.setLoading(false);
-            }
-        });
-    }
+//    protected void dispatchMessage(DispatchAsync dispatcher, final EventBus eventBus, Action<GenericResult> command) {
+//        display.setLoading(true);
+//        dispatcher.execute(command, new HupaEvoCallback<GenericResult>(dispatcher, eventBus) {
+//            public void callback(GenericResult result) {
+//                if (result.isSuccess()) {
+//                    eventBus.fireEvent(new SentMessageEvent());
+//                    reset();
+//                } else {
+//                    eventBus.fireEvent(new FlashEvent(result.getMessage(), 6000));
+//                }
+//                display.setLoading(false);
+//            }
+//        });
+//    }
     
 <<<<<<< HEAD
 <<<<<<< HEAD

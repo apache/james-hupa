@@ -31,6 +31,7 @@ import javax.mail.Transport;
 import org.apache.commons.logging.Log;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
 =======
 import org.apache.hupa.shared.data.User;
@@ -38,6 +39,9 @@ import org.apache.hupa.shared.data.User;
 =======
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.domain.User;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -163,12 +167,15 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
                 cstore.getStore().connect(address, port, username, password);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 System.out.println(address +"ImMemory"+ port);
 =======
 >>>>>>> first commit
 =======
                 System.out.println(address +"ImMemory"+ port);
 >>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
             } catch (MessagingException e) {
                     throw (e);
             }

@@ -19,8 +19,7 @@
 
 package org.apache.hupa.server.handler;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.server.ActionHandler;
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -30,13 +29,14 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.Settings;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.data.UserImpl;
+import org.apache.hupa.shared.domain.Settings;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.rpc.LoginUser;
 import org.apache.hupa.shared.rpc.LoginUserResult;
 
-
-import javax.servlet.http.HttpSession;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * Handler for login a user via username and password
@@ -71,7 +71,7 @@ public class LoginUserHandler implements
         try {
             
             // construct a new user
-            User user = new User();
+            User user = new UserImpl();
             user.setName(username);
             user.setPassword(password);
             

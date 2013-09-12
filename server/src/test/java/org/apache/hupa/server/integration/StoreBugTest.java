@@ -35,6 +35,7 @@ import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLog;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.UserImpl;
 import org.apache.hupa.shared.domain.User;
 =======
@@ -43,6 +44,10 @@ import org.apache.hupa.shared.data.User;
 =======
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.data.UserImpl;
+import org.apache.hupa.shared.domain.User;
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -67,6 +72,7 @@ public class StoreBugTest {
         truststore, truststorePassword, new JavaMailSessionProvider().get());
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     static User user = new UserImpl() {
 =======
     static User user = new User() {
@@ -74,6 +80,9 @@ public class StoreBugTest {
 >>>>>>> first commit
 =======
     static User user = new User() {
+=======
+    static User user = new UserImpl() {
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
        private static final long serialVersionUID = 1L;
 >>>>>>> first commit
        {setName(imapUser); setPassword(imapPass);}

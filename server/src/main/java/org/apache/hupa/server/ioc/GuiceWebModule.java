@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -27,6 +28,15 @@ import org.apache.hupa.shared.SConsts;
 import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
 
+=======
+package org.apache.hupa.server.ioc;
+
+import com.google.inject.Singleton;
+import com.google.inject.servlet.ServletModule;
+
+/**
+ */
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 public class GuiceWebModule extends ServletModule {
   
   @Override
@@ -34,8 +44,11 @@ public class GuiceWebModule extends ServletModule {
 
     bind(IocRfServlet.class).in(Singleton.class);
     serve("/gwtRequest").with(IocRfServlet.class);
+<<<<<<< HEAD
     serve("/" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD).with(DownloadAttachmentServlet.class);
     serve("/" + SConsts.HUPA + SConsts.SERVLET_UPLOAD).with(UploadAttachmentServlet.class);
     serve("/" + SConsts.HUPA + SConsts.SERVLET_SOURCE).with(MessageSourceServlet.class);
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
   }
 }

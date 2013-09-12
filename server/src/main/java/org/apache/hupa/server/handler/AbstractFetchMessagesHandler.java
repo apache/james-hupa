@@ -65,8 +65,8 @@ import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.Tag;
-import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
 

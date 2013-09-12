@@ -21,6 +21,7 @@ package org.apache.hupa.server.mock;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.Properties;
 
 import org.apache.hupa.shared.data.SettingsImpl;
@@ -33,11 +34,18 @@ import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
 
+=======
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import java.util.Properties;
 <<<<<<< HEAD
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+
+import org.apache.hupa.shared.data.SettingsImpl;
+import org.apache.hupa.shared.data.UserImpl;
+import org.apache.hupa.shared.domain.Settings;
+import org.apache.hupa.shared.domain.User;
 
 /**
  * Constants and properties used for mock mode
@@ -61,6 +69,7 @@ public class MockConstants {
     public static String SESSION_ID = "MockID";
 >>>>>>> constantly changed by manolo
      
+<<<<<<< HEAD
     public final static Settings mockSettings = new Settings() {
         private static final long serialVersionUID = 1L;
 >>>>>>> first commit
@@ -69,6 +78,9 @@ public class MockConstants {
     public final static Settings mockSettings = new Settings() {
         private static final long serialVersionUID = 1L;
 >>>>>>> first commit
+=======
+    public final static Settings mockSettings = new SettingsImpl() {
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
         {
             setInboxFolderName(MockIMAPStore.MOCK_INBOX_FOLDER);
             setSentFolderName(MockIMAPStore.MOCK_SENT_FOLDER);
@@ -113,6 +125,7 @@ public class MockConstants {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public final static Settings mockUserSettings = new SettingsImpl() {
 =======
     public final static Settings mockUserSettings = new Settings() {
@@ -122,6 +135,9 @@ public class MockConstants {
     public final static Settings mockUserSettings = new Settings() {
         private static final long serialVersionUID = 1L;
 >>>>>>> first commit
+=======
+    public final static Settings mockUserSettings = new SettingsImpl() {
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
         {
             setInboxFolderName(MockIMAPStore.MOCK_INBOX_FOLDER);
             setSentFolderName(MockIMAPStore.MOCK_SENT_FOLDER);
@@ -130,6 +146,7 @@ public class MockConstants {
         }
     };
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public final static User mockUser = new UserImpl() {
@@ -141,6 +158,9 @@ public class MockConstants {
     public final static User mockUser = new User() {
         private static final long serialVersionUID = 1L;
 >>>>>>> first commit
+=======
+    public final static User mockUser = new UserImpl() {
+>>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
         {
             setName(MockIMAPStore.MOCK_LOGIN);
             setPassword(MockIMAPStore.MOCK_LOGIN);

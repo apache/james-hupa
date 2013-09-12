@@ -164,7 +164,7 @@ import org.apache.hupa.server.handler.SendMessageHandler;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.rpc.SendMessage;
 
 import javax.mail.Session;

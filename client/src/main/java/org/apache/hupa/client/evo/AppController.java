@@ -2,6 +2,8 @@ package org.apache.hupa.client.evo;
 
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.place.MailFolderPlace;
+import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.ui.AppLayout;
 
 import com.google.gwt.event.shared.EventBus;
@@ -11,40 +13,18 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
-/**
- * This is the main controller of the application.
- */
 public class AppController {
 
-	private final PlaceController placeController;
-	private final PlaceHistoryHandler placeHistoryHandler;
-	private final AppLayout appPanelView;
+	@Inject private PlaceHistoryHandler placeHistoryHandler;
+	@Inject private AppLayout appPanelView;
+	@Inject private PlaceController placeController;
+	@Inject private HupaRequestFactory requestFactory;
 	private Place currentPlace;
 
-	/**
-	 * All parameters are injected by GIN
-	 * 
-	 * @param placeController
-	 *            the application's PlaceController
-	 * @param eventBus
-	 *            the application's EventBus
-	 * @param placeHistoryHandler
-	 *            the application's PlaceHistoryHandler
-	 * @param appLayout
-	 *            this is the application's main panel
-	 * @param mainMenuView
-	 *            this is the application's navigation top bar
-	 * @param activityManagerInitializer
-	 *            unused parameter, it's here just to force GIN's initialization
-	 *            of ActivityManagers
-	 */
 	@Inject
-	public AppController(PlaceController placeController, EventBus eventBus, PlaceHistoryHandler placeHistoryHandler,
-			AppLayout appLayout, ActivityManagerInitializer activityManagerInitializer) {
-		this.placeController = placeController;
-		this.placeHistoryHandler = placeHistoryHandler;
-		this.appPanelView = appLayout;
+	public AppController(EventBus eventBus, ActivityManagerInitializer initializeActivityManagerByGin) {
 		eventBus.addHandler(PlaceChangeEvent.TYPE, new PlaceLayoutHandler());
 	}
 
@@ -56,6 +36,13 @@ public class AppController {
 	private final class PlaceLayoutHandler implements PlaceChangeEvent.Handler {
 		@Override
 		public void onPlaceChange(PlaceChangeEvent event) {
+			if (placeChange(event)) {
+				checkSession();
+			}
+			refreshActivities(event);
+		}
+
+		private void refreshActivities(PlaceChangeEvent event) {
 			Place newPlace = event.getNewPlace();
 			if (newPlace != currentPlace) {
 				if (isAuth(newPlace, currentPlace)) {
@@ -66,8 +53,24 @@ public class AppController {
 				currentPlace = newPlace;
 			}
 		}
-		
-		public boolean isAuth(Place newPlace, Place currentPlace){
+
+		private void checkSession() {
+			CheckSessionRequest checkSession = requestFactory.sessionRequest();
+			checkSession.isValid().fire(new Receiver<Boolean>() {
+				@Override
+				public void onSuccess(Boolean sessionValid) {
+					if (!sessionValid) {
+						AppController.this.placeController.goTo(new DefaultPlace());
+					}
+				}
+			});
+		}
+
+		private boolean placeChange(PlaceChangeEvent event) {
+			return currentPlace != null && !(currentPlace instanceof DefaultPlace) && event.getNewPlace() != currentPlace;
+		}
+
+		private boolean isAuth(Place newPlace, Place currentPlace) {
 			return (newPlace instanceof MailFolderPlace) && !(currentPlace instanceof MailFolderPlace);
 		}
 	}

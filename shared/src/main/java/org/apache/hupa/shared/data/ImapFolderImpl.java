@@ -19,7 +19,6 @@
 
 package org.apache.hupa.shared.data;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 <<<<<<< HEAD
 <<<<<<< HEAD

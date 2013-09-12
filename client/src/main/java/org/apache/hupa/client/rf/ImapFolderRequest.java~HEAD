@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -18,27 +17,19 @@
  * under the License.                                           *
  ****************************************************************/
 
-=======
->>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
-package org.apache.hupa.server.ioc;
+package org.apache.hupa.client.rf;
 
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.web.bindery.requestfactory.shared.ServiceLocator;
+import java.util.List;
 
-/**
- * This is Guice-injected ServiceLocator.  Use this class to provide dependency-injected
- * instances of your RequestFactory services. When defining a new Request interface,
- * set this in the locator attribute of the @Service annotation.
- */
-public class IocRfServiceLocator implements ServiceLocator {
+import org.apache.hupa.server.ioc.IocRfServiceLocator;
+import org.apache.hupa.server.service.ImapFolderService;
+import org.apache.hupa.shared.domain.ImapFolder;
 
-  @Inject
-  private Injector injector;
-  
-  @Override
-  public Object getInstance(Class<?> clazz) {
-    return injector.getInstance(clazz);
-  }
+import com.google.web.bindery.requestfactory.shared.Request;
+import com.google.web.bindery.requestfactory.shared.RequestContext;
+import com.google.web.bindery.requestfactory.shared.Service;
 
+@Service(value = ImapFolderService.class, locator = IocRfServiceLocator.class)
+public interface ImapFolderRequest extends RequestContext {
+	Request<List<ImapFolder>> requestFolders();
 }

@@ -1,7 +1,7 @@
 package org.apache.hupa.client.place;
 
-import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.User;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
