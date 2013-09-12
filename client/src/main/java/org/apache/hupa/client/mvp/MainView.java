@@ -41,6 +41,7 @@ import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.event.EditHandler;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
@@ -60,7 +61,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -441,7 +441,7 @@ public class MainView extends Composite implements MainPresenter.Display {
 
         // Generate a new folder with a whitespace as name, this is needed as
         // workaround
-        IMAPFolder folder = new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
+        IMAPFolderProxy folder = (IMAPFolderProxy)new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
         folder.setDelimiter(oldFolder.getDelimiter());
 
         final IMAPTreeItem newItem = new IMAPTreeItem(folder);
@@ -485,7 +485,7 @@ public class MainView extends Composite implements MainPresenter.Display {
      * @seeorg.apache.hupa.client.mvp.IMAPFolderPresenter.Display#
      * decreaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
-    public void decreaseUnseenMessageCount(IMAPFolder folder, int amount) {
+    public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -503,7 +503,7 @@ public class MainView extends Composite implements MainPresenter.Display {
      * @seeorg.apache.hupa.client.mvp.IMAPFolderPresenter.Display#
      * increaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
-    public void increaseUnseenMessageCount(IMAPFolder folder, int amount) {
+    public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -516,8 +516,8 @@ public class MainView extends Composite implements MainPresenter.Display {
     }
 
     
-    private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolder folder) {
-        if (folder.getFullName().equalsIgnoreCase(((IMAPFolder) item.getUserObject()).getFullName())) {
+    private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolderProxy folder) {
+        if (folder.getFullName().equalsIgnoreCase(((IMAPFolderProxy) item.getUserObject()).getFullName())) {
             return item;
         }
         for (int i = 0; i < item.getChildCount(); i++) {
@@ -533,7 +533,7 @@ public class MainView extends Composite implements MainPresenter.Display {
      * (non-Javadoc)
      * @see org.apache.hupa.client.mvp.MainPresenter.Display#updateTreeItem(org.apache.hupa.shared.data.IMAPFolder)
      */
-    public void updateTreeItem(IMAPFolder folder) {
+    public void updateTreeItem(IMAPFolderProxy folder) {
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);

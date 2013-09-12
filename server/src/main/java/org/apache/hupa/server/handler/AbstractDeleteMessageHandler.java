@@ -30,6 +30,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.DeleteMessage;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 
@@ -57,7 +58,7 @@ public abstract class AbstractDeleteMessageHandler<Action extends DeleteMessage>
      */
     public DeleteMessageResult executeInternal(Action action,
             ExecutionContext context) throws ActionException {
-        org.apache.hupa.shared.data.IMAPFolder folder = action.getFolder();
+    	IMAPFolderProxy folder = action.getFolder();
         User user = getUser();
         try {
             IMAPStore store = cache.get(user);

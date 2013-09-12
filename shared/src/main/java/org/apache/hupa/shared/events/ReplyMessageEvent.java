@@ -20,6 +20,7 @@
 package org.apache.hupa.shared.events;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
@@ -30,6 +31,12 @@ import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.data.Message;
+import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -37,7 +44,7 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
 
     public final static Type<ReplyMessageEventHandler> TYPE = new Type<ReplyMessageEventHandler>();
     private User user;
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
     private Message message;
     private MessageDetails details;
     private boolean replyAll;
@@ -52,7 +59,7 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
         return TYPE;
     }
     
-    public ReplyMessageEvent(User user, IMAPFolder folder, Message message, MessageDetails details, boolean replyAll) {
+    public ReplyMessageEvent(User user, IMAPFolderProxy folder, Message message, MessageDetails details, boolean replyAll) {
         this.user = user;
         this.folder = folder;
         this.message = message;
@@ -64,7 +71,7 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
         return user;
     }
     
-    public IMAPFolder getFolder() {
+    public IMAPFolderProxy getFolder() {
         return folder;
     }
     

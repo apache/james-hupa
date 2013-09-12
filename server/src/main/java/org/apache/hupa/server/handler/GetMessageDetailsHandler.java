@@ -19,16 +19,41 @@
 
 package org.apache.hupa.server.handler;
 
+import static org.apache.hupa.server.utils.RegexPatterns.regex_badAttrs;
+import static org.apache.hupa.server.utils.RegexPatterns.regex_badTags;
+import static org.apache.hupa.server.utils.RegexPatterns.regex_email;
+import static org.apache.hupa.server.utils.RegexPatterns.regex_existingEmailLinks;
+import static org.apache.hupa.server.utils.RegexPatterns.regex_existingHttpLinks;
+import static org.apache.hupa.server.utils.RegexPatterns.regex_gt;
+import static org.apache.hupa.server.utils.RegexPatterns.regex_htmllink;
+import static org.apache.hupa.server.utils.RegexPatterns.regex_inlineImg;
+import static org.apache.hupa.server.utils.RegexPatterns.regex_lt;
+import static org.apache.hupa.server.utils.RegexPatterns.regex_nl;
+import static org.apache.hupa.server.utils.RegexPatterns.regex_unneededTags;
+import static org.apache.hupa.server.utils.RegexPatterns.repl_badAttrs;
+import static org.apache.hupa.server.utils.RegexPatterns.repl_badTags;
+import static org.apache.hupa.server.utils.RegexPatterns.repl_email;
+import static org.apache.hupa.server.utils.RegexPatterns.repl_existingHttpLinks;
+import static org.apache.hupa.server.utils.RegexPatterns.repl_existngEmailLinks;
+import static org.apache.hupa.server.utils.RegexPatterns.repl_gt;
+import static org.apache.hupa.server.utils.RegexPatterns.repl_htmllink;
+import static org.apache.hupa.server.utils.RegexPatterns.repl_inlineImg;
+import static org.apache.hupa.server.utils.RegexPatterns.repl_lt;
+import static org.apache.hupa.server.utils.RegexPatterns.repl_nl;
+import static org.apache.hupa.server.utils.RegexPatterns.repl_unneededTags;
+import static org.apache.hupa.server.utils.RegexPatterns.replaceAll;
+import static org.apache.hupa.server.utils.RegexPatterns.replaceAllRecursive;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.mail.Flags;
+import javax.mail.Flags.Flag;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
-import javax.mail.Flags.Flag;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpSession;
@@ -38,11 +63,10 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import static org.apache.hupa.server.utils.RegexPatterns.*;
-import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.GetMessageDetails;
 import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
 
@@ -81,7 +105,7 @@ public class GetMessageDetailsHandler extends
         return GetMessageDetails.class;
     }
 
-    protected MessageDetails exposeMessage(User user, IMAPFolder folder,
+    protected MessageDetails exposeMessage(User user, IMAPFolderProxy folder,
             long uid) throws ActionException {
         IMAPStore store = null;
         com.sun.mail.imap.IMAPFolder f = null;

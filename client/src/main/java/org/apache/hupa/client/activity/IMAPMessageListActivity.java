@@ -387,7 +387,6 @@ import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
-import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.User;
@@ -403,6 +402,7 @@ import org.apache.hupa.shared.events.MessagesReceivedEvent;
 import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.DeleteAllMessages;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
@@ -439,7 +439,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
 
     private String searchValue;
     private User user;
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
     private ShowMessageTableListener tableListener = new ShowMessageTableListener();
 
 
@@ -701,7 +701,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
             display.reloadData();  
         }
     }
-    public void revealDisplay(User user, IMAPFolder folder, String searchValue) {
+    public void revealDisplay(User user, IMAPFolderProxy folder, String searchValue) {
         this.user = user;
        
         if (this.user == null 

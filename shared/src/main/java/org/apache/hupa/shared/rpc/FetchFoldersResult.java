@@ -20,12 +20,11 @@
 package org.apache.hupa.shared.rpc;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.hupa.shared.data.IMAPFolder;
-
 import net.customware.gwt.dispatch.shared.Result;
+
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
 public class FetchFoldersResult implements Result, Serializable {
 
@@ -33,9 +32,9 @@ public class FetchFoldersResult implements Result, Serializable {
      * 
      */
     private static final long serialVersionUID = -6215610133650989605L;
-    private List<IMAPFolder> folders;
+    private List<IMAPFolderProxy> folders;
 
-    public FetchFoldersResult(List<IMAPFolder> folders) {
+    public FetchFoldersResult(List<IMAPFolderProxy> folders) {
         this.folders=folders;
     }
     
@@ -43,24 +42,24 @@ public class FetchFoldersResult implements Result, Serializable {
     private FetchFoldersResult() {
     }
     
-    public List<IMAPFolder> getFolders() {
+    public List<IMAPFolderProxy> getFolders() {
         return folders;
     }
 
     public String toString() {
         StringBuffer ret = new StringBuffer("");
-        for (IMAPFolder folder : folders) {
+        for (IMAPFolderProxy folder : folders) {
             ret.append(folder.getFullName()).append("\n");
-            for (IMAPFolder f : folder.getChildIMAPFolders()) {
+            for (IMAPFolderProxy f : folder.getChildIMAPFolders()) {
                 childFolder(f, ret);
             }
         }
         return ret.toString();
     }
     
-    private void childFolder(IMAPFolder child, StringBuffer ret) {
+    private void childFolder(IMAPFolderProxy child, StringBuffer ret) {
         ret.append(child.getFullName()).append("\n");
-        for (IMAPFolder folder : child.getChildIMAPFolders()) {
+        for (IMAPFolderProxy folder : child.getChildIMAPFolders()) {
             childFolder(folder, ret);
         }
     }

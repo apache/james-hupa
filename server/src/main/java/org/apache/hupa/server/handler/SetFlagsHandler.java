@@ -22,10 +22,10 @@ package org.apache.hupa.server.handler;
 import java.util.ArrayList;
 
 import javax.mail.Flags;
+import javax.mail.Flags.Flag;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Flags.Flag;
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -33,8 +33,8 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.SetFlag;
 
@@ -54,7 +54,7 @@ public class SetFlagsHandler extends AbstractSessionHandler<SetFlag, GenericResu
     protected GenericResult executeInternal(SetFlag action,
             ExecutionContext context) throws ActionException {
         User user = getUser();
-        IMAPFolder folder = action.getFolder();
+        IMAPFolderProxy folder = action.getFolder();
         ArrayList<Long> uids = action.getUids();
         com.sun.mail.imap.IMAPFolder f = null;
         try {

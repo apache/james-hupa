@@ -20,18 +20,24 @@
 package org.apache.hupa.shared.events;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
 import com.google.gwt.event.shared.GwtEvent;
 
 public class FolderSelectionEvent extends GwtEvent<FolderSelectionEventHandler>{
     
     private User user;
+<<<<<<< HEAD
 <<<<<<< HEAD
     private ImapFolder folder;
     public final static Type<FolderSelectionEventHandler> TYPE = new Type<FolderSelectionEventHandler>();
@@ -41,15 +47,24 @@ public class FolderSelectionEvent extends GwtEvent<FolderSelectionEventHandler>{
     public final static Type<FolderSelectionEventHandler> TYPE = new Type<FolderSelectionEventHandler>();
     public FolderSelectionEvent(User user, IMAPFolder folder) {
 >>>>>>> first commit
+=======
+    private IMAPFolderProxy folder;
+    public final static Type<FolderSelectionEventHandler> TYPE = new Type<FolderSelectionEventHandler>();
+    public FolderSelectionEvent(User user, IMAPFolderProxy folder) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.user =user;
         this.folder = folder;
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ImapFolder getFolder() {
 =======
     public IMAPFolder getFolder() {
 >>>>>>> first commit
+=======
+    public IMAPFolderProxy getFolder() {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         return folder;
     }
     

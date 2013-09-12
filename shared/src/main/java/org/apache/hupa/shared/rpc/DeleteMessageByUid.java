@@ -21,7 +21,8 @@ package org.apache.hupa.shared.rpc;
 
 import java.util.ArrayList;
 
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+
 
 public class DeleteMessageByUid extends DeleteMessage {
 
@@ -29,7 +30,7 @@ public class DeleteMessageByUid extends DeleteMessage {
 
     private ArrayList<Long> messageUids;
 
-    public DeleteMessageByUid(IMAPFolder folder, ArrayList<Long> messageUids) {
+    public DeleteMessageByUid(IMAPFolderProxy folder, ArrayList<Long> messageUids) {
         super(folder);
         this.messageUids = messageUids;
     }

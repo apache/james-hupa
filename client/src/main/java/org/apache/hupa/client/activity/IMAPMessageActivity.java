@@ -8,7 +8,6 @@ import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
@@ -17,6 +16,7 @@ import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.ForwardMessageEvent;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.ReplyMessageEvent;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 
@@ -122,7 +122,7 @@ public class IMAPMessageActivity  extends AbstractActivity {
     private MessageDetails messageDetails;
     private Message message;
     private CachingDispatchAsync dispatcher;
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
     private User user;
 	private final Displayable display;
 	private final EventBus eventBus;

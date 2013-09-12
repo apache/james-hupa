@@ -19,19 +19,14 @@
 
 package org.apache.hupa.client.mvp;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.HasHTML;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.inject.Inject;
-
-import gwtupload.client.IUploader;
 import gwtupload.client.IUploadStatus.Status;
+import gwtupload.client.IUploader;
 import gwtupload.client.IUploader.OnCancelUploaderHandler;
 import gwtupload.client.IUploader.OnFinishUploaderHandler;
 import gwtupload.client.IUploader.OnStatusChangedHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.shared.Action;
@@ -57,15 +52,21 @@ import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.shared.rpc.ForwardMessage;
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.ReplyMessage;
 import org.apache.hupa.shared.rpc.SendMessage;
-import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.widgets.ui.HasEnable;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HasHTML;
+import com.google.gwt.user.client.ui.HasText;
+import com.google.inject.Inject;
 
 /**
  * Presenter which handles the sending, reply, replay-all, forward of mails
@@ -76,7 +77,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
     private DispatchAsync dispatcher;
     private ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
     private Type type = Type.NEW;
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
     private Message oldmessage;
     
     protected SMTPMessage message = null;
@@ -281,7 +282,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
      * @param type
      *            the type
      */
-    public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, String mailto, Type type) {
+    public void revealDisplay(User user, IMAPFolderProxy folder, Message oldmessage, MessageDetails oldDetails, String mailto, Type type) {
         this.reset();
         this.oldmessage = oldmessage;
         this.oldDetails = oldDetails;
@@ -333,7 +334,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         display.getEditorFocus().setFocus(true);
     }
 
-    public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
+    public void revealDisplay(User user, IMAPFolderProxy folder, Message oldmessage, MessageDetails oldDetails, Type type) {
         this.revealDisplay(user, folder, oldmessage, oldDetails, null, type);
     }
 

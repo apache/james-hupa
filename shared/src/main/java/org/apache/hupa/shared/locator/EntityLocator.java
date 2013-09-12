@@ -1,10 +1,10 @@
-package org.apache.hupa.server.locator;
+package org.apache.hupa.shared.locator;
 
 import org.apache.hupa.shared.rf.EntityBase;
 
 import com.google.web.bindery.requestfactory.shared.Locator;
 
-public class EntityLocator extends Locator<EntityBase, Long> {
+public abstract class EntityLocator extends Locator<EntityBase, Long> {
 
 	@Override
 	public EntityBase create(Class<? extends EntityBase> clazz) {
@@ -18,10 +18,7 @@ public class EntityLocator extends Locator<EntityBase, Long> {
 	}
 
 	@Override
-	public EntityBase find(Class<? extends EntityBase> clazz, Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract EntityBase find(Class<? extends EntityBase> clazz, Long id);
 
 	@Override
 	public Class<EntityBase> getDomainType() {

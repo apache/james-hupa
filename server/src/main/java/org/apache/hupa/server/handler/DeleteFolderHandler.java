@@ -27,8 +27,8 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.GenericResult;
 
@@ -53,7 +53,7 @@ public class DeleteFolderHandler extends AbstractSessionHandler<DeleteFolder, Ge
     protected GenericResult executeInternal(DeleteFolder action,
             ExecutionContext context) throws ActionException {
         User user = getUser();
-        IMAPFolder folder = action.getFolder();
+        IMAPFolderProxy folder = action.getFolder();
         try {
             IMAPStore store = cache.get(user);
             

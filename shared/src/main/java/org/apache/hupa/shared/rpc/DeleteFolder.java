@@ -23,22 +23,22 @@ import java.io.Serializable;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
 public class DeleteFolder implements Action<GenericResult> , Serializable{
 
     private static final long serialVersionUID = 7921329310932404439L;
     
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
 
-    public DeleteFolder(IMAPFolder folder) {
+    public DeleteFolder(IMAPFolderProxy folder) {
         this.folder = folder;
     }
 
     protected DeleteFolder() {
     }
     
-    public IMAPFolder getFolder() {
+    public IMAPFolderProxy getFolder() {
         return folder;
     }
 }

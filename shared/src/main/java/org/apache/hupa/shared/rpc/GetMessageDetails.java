@@ -24,15 +24,15 @@ import java.io.Serializable;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
 public class GetMessageDetails implements Action<GetMessageDetailsResult>, Serializable {
 
     private static final long serialVersionUID = 5826298202494313834L;
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
     private long uid;
 
-    public GetMessageDetails(IMAPFolder folder, long uid) {
+    public GetMessageDetails(IMAPFolderProxy folder, long uid) {
         this.folder = folder;
         this.uid = uid;
     }
@@ -41,7 +41,7 @@ public class GetMessageDetails implements Action<GetMessageDetailsResult>, Seria
     private GetMessageDetails() {
     }
     
-    public IMAPFolder getFolder() {
+    public IMAPFolderProxy getFolder() {
         return folder;
     }
     

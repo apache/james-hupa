@@ -36,6 +36,7 @@ import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MessagesReceivedEvent;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
@@ -54,7 +55,7 @@ public class MessageTableModel extends MutableTableModel<Message> {
     private EventBus eventBus;
     private DispatchAsync dispatcher;
     private User user;
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
     private String searchValue;
 
     @Inject
@@ -84,7 +85,7 @@ public class MessageTableModel extends MutableTableModel<Message> {
             
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
-                folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+//                folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());
                 searchValue = null;
             }
         });

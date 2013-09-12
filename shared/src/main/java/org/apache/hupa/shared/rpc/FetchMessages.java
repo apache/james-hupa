@@ -23,12 +23,12 @@ import java.io.Serializable;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
 public class FetchMessages implements Action<FetchMessagesResult>, Serializable {
     
     private static final long serialVersionUID = -3181183289937321202L;
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
     private int start;
     private int offset;
     private String searchString;
@@ -36,14 +36,14 @@ public class FetchMessages implements Action<FetchMessagesResult>, Serializable 
     protected FetchMessages() {
     }
     
-    public FetchMessages(IMAPFolder folder,int start, int offset,String searchString) {
+    public FetchMessages(IMAPFolderProxy folder,int start, int offset,String searchString) {
         this.folder = folder;
         this.start = start;
         this.offset = offset;
         this.searchString = searchString;
     }
     
-    public IMAPFolder getFolder() {
+    public IMAPFolderProxy getFolder() {
         return folder;
     }
     

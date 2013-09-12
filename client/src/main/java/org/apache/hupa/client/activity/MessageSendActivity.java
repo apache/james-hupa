@@ -55,7 +55,6 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.shared.Action;
 
 import org.apache.hupa.client.evo.HupaEvoCallback;
-import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.validation.EmailListValidator;
@@ -76,6 +75,7 @@ import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 <<<<<<< HEAD
 import org.apache.hupa.widgets.ui.HasEnable;
@@ -113,7 +113,7 @@ public class MessageSendActivity extends AbstractActivity {
     private DispatchAsync dispatcher;
     private ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
     private Type type = Type.NEW;
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
     private Message oldmessage;
     
     protected SMTPMessage message = null;
@@ -544,7 +544,7 @@ public class MessageSendActivity extends AbstractActivity {
         });
     }
     
-    public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, String mailto, Type type) {
+    public void revealDisplay(User user, IMAPFolderProxy folder, Message oldmessage, MessageDetails oldDetails, String mailto, Type type) {
         this.reset();
         this.oldmessage = oldmessage;
         this.oldDetails = oldDetails;
@@ -594,7 +594,7 @@ public class MessageSendActivity extends AbstractActivity {
         display.getEditorFocus().setFocus(true);
     }
 
-    public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
+    public void revealDisplay(User user, IMAPFolderProxy folder, Message oldmessage, MessageDetails oldDetails, Type type) {
         this.revealDisplay(user, folder, oldmessage, oldDetails, null, type);
     }
 

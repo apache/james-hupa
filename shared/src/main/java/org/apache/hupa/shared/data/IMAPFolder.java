@@ -22,17 +22,14 @@ package org.apache.hupa.shared.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
-import javax.servlet.http.HttpSession;
-
-import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
+import org.apache.hupa.shared.rf.EntityBase;
 
 /**
  * IMAPFolder
  * 
  */
-public class IMAPFolder implements Serializable {
+public class IMAPFolder extends EntityBase implements Serializable {
 	
 	private Long id;
 	private Long version;
@@ -61,7 +58,7 @@ public class IMAPFolder implements Serializable {
      */
     private static final long serialVersionUID = 2084188092060266479L;
 
-    private ArrayList<IMAPFolder> childs = new ArrayList<IMAPFolder>();
+    private List<IMAPFolder> childs = new ArrayList<IMAPFolder>();
     private String fullName;
     private String delimiter;
     private int msgCount;
@@ -104,7 +101,7 @@ public class IMAPFolder implements Serializable {
      * 
      * @param childs
      */
-    public void setChildIMAPFolders(ArrayList<IMAPFolder> childs) {
+    public void setChildIMAPFolders(List<IMAPFolder> childs) {
         this.childs = childs;
     }
 
@@ -113,7 +110,7 @@ public class IMAPFolder implements Serializable {
      * 
      * @return childs
      */
-    public ArrayList<IMAPFolder> getChildIMAPFolders() {
+    public List<IMAPFolder> getChildIMAPFolders() {
         return childs;
     }
 
@@ -207,5 +204,6 @@ public class IMAPFolder implements Serializable {
     public int hashCode() {
         return getFullName().hashCode();
     }
+
     
 }

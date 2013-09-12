@@ -257,7 +257,6 @@ import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
-import org.apache.hupa.client.rf.IMAPFolderProxy;
 import org.apache.hupa.client.rf.IMAPFolderRequestContext;
 import org.apache.hupa.client.ui.WidgetContainerDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
@@ -291,6 +290,7 @@ import org.apache.hupa.shared.events.ReplyMessageEvent;
 import org.apache.hupa.shared.events.ReplyMessageEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.SentMessageEventHandler;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.GenericResult;
@@ -332,7 +332,7 @@ public class WestActivity extends AbstractActivity {
 	
     private DispatchAsync dispatcher;
     private User user;
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
     private IMAPTreeItem tItem;
     private HasEditable editableTreeItem;
     private String searchValue;
@@ -388,8 +388,7 @@ public class WestActivity extends AbstractActivity {
 
 			@Override
 			public void onSuccess(List<IMAPFolderProxy> response) {
-System.out.println("1111111"+response);
-              display.bindTreeItems(null);
+              display.bindTreeItems(createTreeNodes(response));
 //              // disable
               display.getDeleteEnable().setEnabled(false);
               display.getRenameEnable().setEnabled(false);
@@ -418,10 +417,10 @@ System.out.println("1111111"+response);
      * @param list
      * @return
      */
-    private List<IMAPTreeItem> createTreeNodes(List<IMAPFolder> list) {
+    private List<IMAPTreeItem> createTreeNodes(List<IMAPFolderProxy> list) {
         List<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
 
-        for (IMAPFolder iFolder : list) {
+        for (IMAPFolderProxy iFolder : list) {
 
             final IMAPTreeItem record = new IMAPTreeItem(iFolder);
             record.addEditHandler(new EditHandler() {
@@ -446,7 +445,7 @@ System.out.println("1111111"+response);
             });
             record.setUserObject(iFolder);
 
-            List<IMAPFolder> childFolders = iFolder.getChildIMAPFolders();
+            List<IMAPFolderProxy> childFolders = iFolder.getChildIMAPFolders();
             List<IMAPTreeItem> items = createTreeNodes(childFolders);
             for (IMAPTreeItem item : items) {
                 record.addItem(item);
@@ -588,7 +587,7 @@ System.out.println("1111111"+response);
                 tItem = (IMAPTreeItem) event.getSelectedItem();
                 if (tItem.isEdit()) 
                     return;
-                folder = (IMAPFolder) tItem.getUserObject();
+                folder = (IMAPFolderProxy) tItem.getUserObject();
                 eventBus.fireEvent(new LoadMessagesEvent(user, folder));
             }
 
@@ -599,7 +598,7 @@ System.out.println("1111111"+response);
                 tItem = (IMAPTreeItem) event.getSelectedItem();
                 if (tItem.isEdit()) 
                     return;
-                folder = (IMAPFolder) tItem.getUserObject();
+                folder = (IMAPFolderProxy) tItem.getUserObject();
                 if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
                     display.getDeleteEnable().setEnabled(false);
                     display.getRenameEnable().setEnabled(false);
@@ -672,7 +671,7 @@ System.out.println("1111111"+response);
 		eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
 
             public void onMessagesReceived(MessagesReceivedEvent event) {
-                IMAPFolder f = event.getFolder();
+            	IMAPFolderProxy f = event.getFolder();
                 display.updateTreeItem(f);
             }
 
@@ -681,7 +680,7 @@ System.out.println("1111111"+response);
 
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
-                folder = new IMAPFolder(user.getSettings().getInboxFolderName());;
+//                folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());;
                 searchValue = null;
 //                showMessageTable(user, folder, searchValue);
             }
@@ -713,7 +712,7 @@ System.out.println("1111111"+response);
         return false;
       };
     }-*/;
-    private void showMessageTable(User user, IMAPFolder folder, String searchValue) {
+    private void showMessageTable(User user, IMAPFolderProxy folder, String searchValue) {
         this.user = user;
         this.folder = folder;
         this.searchValue = searchValue;
@@ -760,15 +759,15 @@ System.out.println("1111111"+response);
 
         public HasEnable getNewEnable();
 
-        public void updateTreeItem(IMAPFolder folder);
+        public void updateTreeItem(IMAPFolderProxy folder);
 
         public void deleteSelectedFolder();
 
         public HasEditable createFolder(EditHandler handler);
 
-        public void increaseUnseenMessageCount(IMAPFolder folder, int amount);
+        public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
 
-        public void decreaseUnseenMessageCount(IMAPFolder folder, int amount);
+        public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
         
         public void setLoadingFolders(boolean loading);
         public void setLoadingMessage(boolean loading);

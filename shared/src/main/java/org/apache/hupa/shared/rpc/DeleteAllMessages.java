@@ -19,13 +19,13 @@
 
 package org.apache.hupa.shared.rpc;
 
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
 public class DeleteAllMessages extends DeleteMessage{
 
     private static final long serialVersionUID = -6801849429581798842L;
 
-    public DeleteAllMessages(IMAPFolder folder) {
+    public DeleteAllMessages(IMAPFolderProxy folder) {
         super(folder);
     }
     

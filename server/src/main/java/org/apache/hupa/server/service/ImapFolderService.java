@@ -21,7 +21,7 @@ import com.sun.mail.imap.IMAPStore;
 
 public class IMAPFolderService {
 
-	private static boolean useSSL = false;
+	private static boolean useSSL = true;
 	
 	public static String echo(String s){
 		return s;

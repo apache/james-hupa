@@ -21,6 +21,7 @@
 package org.apache.hupa.shared.events;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
@@ -31,6 +32,12 @@ import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.data.Message;
+import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -38,6 +45,7 @@ public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
 
     public final static Type<ForwardMessageEventHandler> TYPE = new Type<ForwardMessageEventHandler>();
     private User user;
+<<<<<<< HEAD
 <<<<<<< HEAD
     private ImapFolder folder;
     private Message message;
@@ -51,6 +59,13 @@ public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
 
     public ForwardMessageEvent(User user, IMAPFolder folder, Message message, MessageDetails details) {
 >>>>>>> first commit
+=======
+    private IMAPFolderProxy folder;
+    private Message message;
+    private MessageDetails details;
+
+    public ForwardMessageEvent(User user, IMAPFolderProxy folder, Message message, MessageDetails details) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.user = user;
         this.folder = folder;
         this.message = message;
@@ -62,10 +77,14 @@ public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ImapFolder getFolder() {
 =======
     public IMAPFolder getFolder() {
 >>>>>>> first commit
+=======
+    public IMAPFolderProxy getFolder() {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         return folder;
     }
 
