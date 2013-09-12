@@ -362,7 +362,7 @@ public class HupaController {
 				hupaLayout.switchTo(HupaLayout.LAYOUT_COMPOSE);
 			} else {
 				//FIXME when gmail mode
-				this.placeController.goTo(new FolderPlace("Mock-Inbox"));
+				this.placeController.goTo(new FolderPlace("INBOX"));
 			}
 		} else if (place instanceof SettingPlace) {
 			hupaLayout.switchTo(HupaLayout.LAYOUT_SETTING);

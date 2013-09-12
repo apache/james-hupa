@@ -302,7 +302,6 @@ import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.RefreshMessagesEvent;
 import org.apache.hupa.shared.events.RefreshMessagesEventHandler;
 import org.apache.hupa.shared.events.RefreshUnreadEvent;
-import org.apache.hupa.shared.events.RefreshUnreadEventHandler;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;

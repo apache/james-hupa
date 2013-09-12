@@ -612,6 +612,14 @@ public class ComposeActivity extends AppBaseActivity {
 		registerHandler(display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler));
 		registerHandler(display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler));
 		registerHandler(display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler));
+
+		eventBus.addHandler(MailToEvent.TYPE, new MailToEventHandler(){
+
+			@Override
+			public void onMailTo(MailToEvent event) {
+				display.getTo().setText(event.getMailto());
+			}});
+		
 	}
 
 <<<<<<< HEAD
