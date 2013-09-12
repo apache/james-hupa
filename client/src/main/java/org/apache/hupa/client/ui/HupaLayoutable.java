@@ -120,5 +120,10 @@ public interface HupaLayoutable extends Layoutable {
 	AcceptsOneWidget getComposeContent();
 
 	AcceptsOneWidget getComposeStatus();
+<<<<<<< HEAD
 >>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
+=======
+
+	AcceptsOneWidget getComposeToolBarView();
+>>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 }

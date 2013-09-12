@@ -46,6 +46,7 @@ public class ActivityManagerInitializer {
 			@Named("MessageListFooterRegion") ActivityManager messageListFooterActivityManager,
 			@Named("MessageContentRegion") ActivityManager messageContentActivityManager,
 			@Named("StatusRegion") ActivityManager statusActivityManager,
+			@Named("ComposeToolBarRegion") ActivityManager composeToolBarActivityManager,
 			@Named("ComposeHeaderRegion") ActivityManager composeHeaderActivityManager,
 			@Named("ComposeContentRegion") ActivityManager composeContentActivityManager,
 			@Named("ComposeStatusRegion") ActivityManager composeStatusActivityManager) {
@@ -61,6 +62,8 @@ public class ActivityManagerInitializer {
 		messageContentActivityManager.setDisplay(hupaLayout
 				.getMessageContentView());
 		statusActivityManager.setDisplay(hupaLayout.getStatusView());
+		composeToolBarActivityManager.setDisplay(hupaLayout
+				.getComposeToolBarView());
 		composeHeaderActivityManager.setDisplay(hupaLayout.getComposeHeader());
 		composeContentActivityManager
 				.setDisplay(hupaLayout.getComposeContent());

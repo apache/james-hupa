@@ -56,7 +56,6 @@ public class _CenterPanel extends Composite {
 	public _CenterPanel() {
 		initWidget(binder.createAndBindUi(this));
 		thisPanel.setWidgetMinSize(outlinePanel, 144);
-		temporarilyHiddenTheUnimplementedContactPanel(true);
 		thisPanel.setWidgetHidden(composePanel, true);
 	}
 

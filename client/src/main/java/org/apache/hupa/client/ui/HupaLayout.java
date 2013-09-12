@@ -268,11 +268,47 @@ public class HupaLayout implements HupaLayoutable {
 		return hupaMainPanel;
 	}
 
-	interface HupaLayoutUiBinder extends UiBinder<LayoutPanel, HupaLayout> {
+	@Override
+	public void switchToCompose() {
+		if (isMessageOccupied()) {
+			changeToCompose();
+		}
 	}
 
-	private static HupaLayoutUiBinder binder = GWT
-			.create(HupaLayoutUiBinder.class);
+	@Override
+	public void switchToMessage() {
+		System.out.println("compose=====1"+(centerPanel.thisPanel.getWidgetIndex(centerPanel.composePanel)));
+		System.out.println("content-----1"+(centerPanel.thisPanel.getWidgetIndex(centerPanel.contentPanel)));
+		if (isMessageOccupied())
+			return;
+		if (isComposeOccupied()) {
+			changeToMessage();
+		}
+		System.out.println("compose====="+(centerPanel.thisPanel.getWidgetIndex(centerPanel.composePanel)));
+		System.out.println("content-----"+(centerPanel.thisPanel.getWidgetIndex(centerPanel.contentPanel)));
+	}
+
+	private void changeToCompose() {
+		centerPanel.thisPanel.remove(centerPanel.contentPanel);
+		centerPanel.thisPanel.add(centerPanel.composePanel);
+		toolPanel.toggleToCompose(true);
+		centerPanel.temporarilyHiddenTheUnimplementedContactPanel(true);
+	}
+
+	private boolean isMessageOccupied() {
+		return centerPanel.thisPanel.getWidgetIndex(centerPanel.contentPanel) >= 0;
+	}
+
+	private void changeToMessage() {
+		centerPanel.thisPanel.remove(centerPanel.composePanel);
+		centerPanel.thisPanel.add(centerPanel.contentPanel);
+		toolPanel.toggleToCompose(false);
+		centerPanel.temporarilyHiddenTheUnimplementedContactPanel(false);
+	}
+
+	private boolean isComposeOccupied() {
+		return centerPanel.thisPanel.getWidgetIndex(centerPanel.composePanel) >= 0;
+	}
 
 	@Override
 	public AcceptsOneWidget getTopBarView() {
@@ -310,6 +346,11 @@ public class HupaLayout implements HupaLayoutable {
 	}
 
 	@Override
+	public AcceptsOneWidget getComposeToolBarView() {
+		return toolPanel.getComposeToolBarView();
+	}
+
+	@Override
 	public AcceptsOneWidget getFolderListView() {
 		return centerPanel.getFolderListView();
 	}
@@ -333,20 +374,10 @@ public class HupaLayout implements HupaLayoutable {
 	public AcceptsOneWidget getStatusView() {
 		return centerPanel.getStatusView();
 	}
-	
+
 	@Override
-	public AcceptsOneWidget getComposeHeader(){
+	public AcceptsOneWidget getComposeHeader() {
 		return centerPanel.getComposeHeader();
-	}
-	
-	@Override
-	public AcceptsOneWidget getComposeContent(){
-		return centerPanel.getComposeContent();
-	}
-	
-	@Override
-	public AcceptsOneWidget getComposeStatus(){
-		return centerPanel.getComposeStatus();
 	}
 
 <<<<<<< HEAD
@@ -358,23 +389,12 @@ public interface HupaLayout {
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
 	@Override
-	public void switchToCompose() {
-		if (isMessageOccupied()) {
-			changeToCompose();
-		}
-	}
-
-	private void changeToCompose() {
-		centerPanel.thisPanel.remove(centerPanel.contentPanel);
-		centerPanel.thisPanel.add(centerPanel.composePanel);
-		centerPanel.temporarilyHiddenTheUnimplementedContactPanel(true);
-	}
-
-	private boolean isMessageOccupied() {
-		return centerPanel.thisPanel.getWidgetIndex(centerPanel.contentPanel) >= 0;
+	public AcceptsOneWidget getComposeContent() {
+		return centerPanel.getComposeContent();
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void switchToMessage() {
 		if (isMessageOccupied())
 			return;
@@ -390,11 +410,19 @@ public interface HupaLayout {
 		centerPanel.thisPanel.remove(centerPanel.composePanel);
 		centerPanel.thisPanel.add(centerPanel.contentPanel);
 		centerPanel.temporarilyHiddenTheUnimplementedContactPanel(false);
+=======
+	public AcceptsOneWidget getComposeStatus() {
+		return centerPanel.getComposeStatus();
+>>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 	}
 
-	private boolean isComposeOccupied() {
-		return centerPanel.thisPanel.getWidgetIndex(centerPanel.composePanel) >= 0;
+	interface HupaLayoutUiBinder extends UiBinder<LayoutPanel, HupaLayout> {
 	}
 
+<<<<<<< HEAD
 >>>>>>> scrub code
+=======
+	private static HupaLayoutUiBinder binder = GWT
+			.create(HupaLayoutUiBinder.class);
+>>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 }

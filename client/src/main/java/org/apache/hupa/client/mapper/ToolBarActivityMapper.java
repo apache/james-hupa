@@ -86,8 +86,8 @@ public class ToolBarActivityMapper implements ActivityMapper {
 	private final Provider<ToolBarActivity> toolBarActivityProvider;
 
 	@Inject
-	public ToolBarActivityMapper(Provider<ToolBarActivity> topActivityProvider) {
-		this.toolBarActivityProvider = topActivityProvider;
+	public ToolBarActivityMapper(Provider<ToolBarActivity> toolActivityProvider) {
+		this.toolBarActivityProvider = toolActivityProvider;
 	}
 
 	public Activity getActivity(Place place) {

@@ -12,7 +12,11 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<ui:image field="buttons" src="res/buttons.png" />
+<<<<<<< HEAD
 	<ui:style>
+=======
+	<ui:style type="org.apache.hupa.client.ui.ToolBarView.Style">
+>>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 		.bar {
 			position: absolute;
 			display: block;

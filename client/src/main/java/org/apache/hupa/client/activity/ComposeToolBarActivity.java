@@ -19,9 +19,16 @@
 
 package org.apache.hupa.client.activity;
 
+<<<<<<< HEAD
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
+=======
+import org.apache.hupa.client.ui.WidgetDisplayable;
+
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+>>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 import com.google.inject.Inject;
 
 public class ComposeToolBarActivity extends AppBaseActivity {
@@ -33,5 +40,9 @@ public class ComposeToolBarActivity extends AppBaseActivity {
 
 	@Inject private Displayable display;
 	
+<<<<<<< HEAD
 	public interface Displayable extends IsWidget {}
+=======
+	public interface Displayable extends WidgetDisplayable {}
+>>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 }
