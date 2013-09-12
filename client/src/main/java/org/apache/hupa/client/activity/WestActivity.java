@@ -263,6 +263,7 @@ import org.apache.hupa.client.ui.WidgetContainerDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.IMAPFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.MessageDetails;
@@ -339,6 +340,8 @@ public class WestActivity extends AbstractActivity {
     
     private Place currentPlace;
     
+    private List<IMAPFolderProxy> folders;
+    
     public void setCurrentPlace(Place place){
     	this.currentPlace = place;
     }
@@ -388,11 +391,9 @@ public class WestActivity extends AbstractActivity {
 
 			@Override
 			public void onSuccess(List<IMAPFolderProxy> response) {
-System.out.println("1111111"+response);
+				folders = response;
               display.bindTreeItems(null);
-//              // disable
-              display.getDeleteEnable().setEnabled(false);
-              display.getRenameEnable().setEnabled(false);
+              enableClick(false);
               display.setLoadingFolders(false);
 				
 			}
@@ -412,6 +413,12 @@ System.out.println("1111111"+response);
         
     }
 
+    private void enableClick(boolean flag){
+        display.getDeleteEnable().setEnabled(flag);
+        display.getRenameEnable().setEnabled(flag);
+    }
+    
+    
     /**
      * Create recursive the TreeNodes with all childs
      * 
@@ -428,7 +435,7 @@ System.out.println("1111111"+response);
 
                 public void onEditEvent(EditEvent event) {
                     if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                        IMAPFolder iFolder = new IMAPFolder((String) event.getOldValue());
+                        IMAPFolder iFolder = new IMAPFolderImpl((String) event.getOldValue());
                         final String newName = (String) event.getNewValue();
                         if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
                             dispatcher.execute(new RenameFolder(iFolder, newName), new HupaEvoCallback<GenericResult>(dispatcher, eventBus) {
@@ -601,11 +608,9 @@ System.out.println("1111111"+response);
                     return;
                 folder = (IMAPFolder) tItem.getUserObject();
                 if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
-                    display.getDeleteEnable().setEnabled(false);
-                    display.getRenameEnable().setEnabled(false);
+                	enableClick(false);
                 } else {
-                    display.getDeleteEnable().setEnabled(true);
-                    display.getRenameEnable().setEnabled(true);
+                	enableClick(true);
                 }
             }
 
@@ -650,7 +655,7 @@ System.out.println("1111111"+response);
                         final IMAPTreeItem item = (IMAPTreeItem) event.getSource();
                         final String newValue = (String) event.getNewValue();
                         if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                            dispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<GenericResult>() {
+                            dispatcher.execute(new CreateFolder(new IMAPFolderImpl(newValue.trim())), new AsyncCallback<GenericResult>() {
 
                                 public void onFailure(Throwable caught) {
                                     GWT.log("Error while create folder", caught);
@@ -681,7 +686,7 @@ System.out.println("1111111"+response);
 
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
-                folder = new IMAPFolder(user.getSettings().getInboxFolderName());;
+                folder = new IMAPFolderImpl(user.getSettings().getInboxFolderName());;
                 searchValue = null;
 //                showMessageTable(user, folder, searchValue);
             }
