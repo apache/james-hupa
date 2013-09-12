@@ -24,8 +24,11 @@ public interface HupaRequestFactory extends RequestFactory {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	SubjectRequest subjectRequest();
 
+=======
+>>>>>>> Remove unused stuff
 	ImapFolderRequest folderRequest();
 
 	CheckSessionRequest sessionRequest();
