@@ -928,16 +928,9 @@ System.out.println("1111111"+response);
 				display.setLoadingMessage(true);
 				GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
 				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
-				final ImapFolder folder = req.create(ImapFolder.class);
-				folder.setChildren(event.getFolder().getChildren());
-				folder.setDelimiter(event.getFolder().getDelimiter());
-				folder.setFullName(event.getFolder().getFullName());
-				folder.setMessageCount(event.getFolder().getMessageCount());
-				folder.setName(event.getFolder().getName());
-				folder.setSubscribed(event.getFolder().getSubscribed());
-				folder.setUnseenMessageCount(event.getFolder().getUnseenMessageCount());
-				// ImapFolder imapFolder = req.edit(event.getFolder());
-				action.setFolder(folder);
+				final ImapFolder f = req.create(ImapFolder.class);
+				event.getFolder().setFolderTo(f);
+				action.setFolder(f);
 				action.setUid(message.getUid());
 				req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
 					@Override
@@ -947,7 +940,7 @@ System.out.println("1111111"+response);
 						 * DecreaseUnseenEvent(user, folder)); }
 						 */
 						display.setLoadingMessage(false);
-						placeController.goTo(messagePlaceProvider.get().with(user, folder, message,
+						placeController.goTo(messagePlaceProvider.get().with(user, f, message,
 						        response.getMessageDetails()));
 					}
 				});

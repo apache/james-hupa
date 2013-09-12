@@ -40,4 +40,10 @@ public interface ImapFolder extends ValueProxy {
 	void setDelimiter(String delimiter);
 	void setSubscribed(boolean subscribed);
 	boolean getSubscribed();
+
+	/**
+	 * use this to proxy the dumping method, or an alternative to clone, for the ValueProxy's must be set/get-ter
+	 * @param folder to be dumped
+	 */
+	void setFolderTo(ImapFolder folder);
 }

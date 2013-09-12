@@ -668,9 +668,13 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 				final Message message = event.getMessage();
 				MoveMessageRequest req = requestFactory.moveMessageRequest();
 				MoveMessageAction action = req.create(MoveMessageAction.class);
+				ImapFolder newOne = req.create(ImapFolder.class);
+				ImapFolder oldOne = req.create(ImapFolder.class);
+				event.getNewFolder().setFolderTo(newOne);
+				event.getOldFolder().setFolderTo(oldOne);
 				action.setMessageUid(message.getUid());
-				action.setNewFolder(event.getNewFolder());
-				action.setOldFolder(event.getOldFolder());
+				action.setNewFolder(newOne);
+				action.setOldFolder(oldOne);
 				req.move(action).fire(new Receiver<GenericResult>() {
 					@Override
 					public void onSuccess(GenericResult response) {
@@ -721,12 +725,13 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 			public void onClick(ClickEvent event) {
 				DeleteMessageAllRequest req = requestFactory.deleteMessageAllRequest();
 				DeleteMessageAllAction action = req.create(DeleteMessageAllAction.class);
-				action.setFolder(folder);
+				ImapFolder f = req.create(ImapFolder.class);
+				folder.setFolderTo(f);
+				action.setFolder(f);
 				req.delete(action).fire(new Receiver<DeleteMessageResult>() {
 					@Override
 					public void onSuccess(DeleteMessageResult response) {
-						display.reset();
-						display.reloadData();
+						redrawTable();
 						eventBus.fireEvent(new DecreaseUnseenEvent(user, folder, response.getCount()));
 					}
 				});
@@ -745,8 +750,10 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 				}
 				SetFlagRequest req = requestFactory.setFlagRequest();
 				SetFlagAction action = req.create(SetFlagAction.class);
+				ImapFolder f = req.create(ImapFolder.class);
+				folder.setFolderTo(f);
 				action.setFlag(IMAPFlag.SEEN);
-				action.setFolder(folder);
+				action.setFolder(f);
 				action.setUids(uids);
 				action.setValue(true);
 				req.set(action).fire(new Receiver<GenericResult>() {
@@ -776,8 +783,10 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 				}
 				SetFlagRequest req = requestFactory.setFlagRequest();
 				SetFlagAction action = req.create(SetFlagAction.class);
+				ImapFolder f = req.create(ImapFolder.class);
+				folder.setFolderTo(f);
 				action.setFlag(IMAPFlag.SEEN);
-				action.setFolder(folder);
+				action.setFolder(f);
 				action.setUids(uids);
 				action.setValue(false);
 				req.set(action).fire(new Receiver<GenericResult>() {
@@ -825,32 +834,29 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 		List<Long> uids = new ArrayList<Long>();
 		for (Message m : selectedMessages) {
 			uids.add(m.getUid());
-			display.getTable().getSelectionModel().setSelected(m, false); // FIXME should be deSelected, or remove?
+			display.getTable().getSelectionModel().setSelected(m, false); // FIXME should be deSelected, or removed?
 		}
 		// maybe its better to just remove the messages from the table and
 		// expect the removal will work
 		display.removeMessages(selectedMessages);
 		DeleteMessageByUidRequest req = requestFactory.deleteMessageByUidRequest();
 		DeleteMessageByUidAction action = req.create(DeleteMessageByUidAction.class);
-		ImapFolder folder1 = req.create(ImapFolder.class);
-		folder1.setChildren(folder.getChildren());
-		folder1.setDelimiter(folder.getDelimiter());
-		folder1.setFullName(folder.getFullName());
-		folder1.setMessageCount(folder.getMessageCount());
-		folder1.setName(folder.getName());
-		folder1.setSubscribed(folder.getSubscribed());
-		folder1.setUnseenMessageCount(folder.getUnseenMessageCount());
+		ImapFolder f = req.create(ImapFolder.class);
+		folder.setFolderTo(f);
 		action.setMessageUids(uids);
-		action.setFolder(folder1);
+		action.setFolder(f);
 		req.delete(action).fire(new Receiver<DeleteMessageResult>() {
 			@Override
 			public void onSuccess(DeleteMessageResult response) {
-				display.getTable().setVisibleRangeAndClearData(display.getTable().getVisibleRange(), true);
-				
+				redrawTable();//TODO presenter
 				eventBus.fireEvent(new DecreaseUnseenEvent(user, folder, response.getCount()));
 			}
 		});
 	}
+
+	private void redrawTable() {
+        display.getTable().setVisibleRangeAndClearData(display.getTable().getVisibleRange(), true);
+    }
 	public IMAPMessageListActivity with(MailFolderPlace place) {
 		this.user = place.getUser();
 		this.folder = place.getFolder();
