@@ -296,6 +296,7 @@ import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.DeleteClickEvent;
 import org.apache.hupa.shared.events.DeleteClickEventHandler;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
+import org.apache.hupa.shared.events.RefreshUnreadEvent;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -321,48 +322,54 @@ public class MessageListActivity extends AppBaseActivity {
 		container.setWidget(display.asWidget());
 		bindTo(eventBus);
 		display.refresh();
-//		this.registerHandler(display.getGrid().addCellPreviewHandler(new Handler<Message>() {
-//			@Override
-//			public void onCellPreview(final CellPreviewEvent<Message> event) {
-//				if (hasClickedButFirstCol(event)) {
-//					antiSelectMessages(display.getGrid().getVisibleItems());
-//					GetMessageDetailsRequest req = rf.messageDetailsRequest();
-//					GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
-//					final ImapFolder f = req.create(ImapFolder.class);
-//					f.setFullName(folderName);
-//					action.setFolder(f);
-//					action.setUid(event.getValue().getUid());
-//					req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
-//						@Override
-//						public void onSuccess(GetMessageDetailsResult response) {
-//							eventBus.fireEvent(new ExpandMessageEvent(user, new ImapFolderImpl(folderName), event
-//									.getValue(), response.getMessageDetails()));
-////							display.getGrid().getSelectionModel().setSelected(event.getValue(), true);
-//							display.getGrid().noSelectionModel.setSelected(event.getValue(), true);
-//							toolBar.enableAllTools(true);
-//							ToolBarView.Parameters p = new ToolBarView.Parameters(user, folderName, event.getValue(),
-//									response.getMessageDetails());
-//							toolBar.setParameters(p);
-//							MessagePlace place = new MessagePlace(folderName + AbstractPlace.SPLITTER
-//									+ event.getValue().getUid());
-//							pc.goTo(place);
-//						}
-//
-//						@Override
-//						public void onFailure(ServerFailure error) {
-//							if (error.isFatal()) {
-//								// log.log(Level.SEVERE, error.getMessage());
-//								// TODO write the error message to
-//								// status bar.
-//								toolBar.enableAllTools(false);
-//								throw new RuntimeException(error.getMessage());
-//							}
-//						}
-//					});
-//				}
-//			}
-//
-//		}));
+		this.registerHandler(display.getGrid().addCellPreviewHandler(new Handler<Message>() {
+			@Override
+			public void onCellPreview(final CellPreviewEvent<Message> event) {
+				if (hasClickedButFirstCol(event)) {
+					antiSelectMessages(display.getGrid().getVisibleItems());
+					GetMessageDetailsRequest req = rf.messageDetailsRequest();
+					GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
+					final ImapFolder f = req.create(ImapFolder.class);
+					f.setFullName(folderName);
+					action.setFolder(f);
+					action.setUid(event.getValue().getUid());
+					req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
+						@Override
+						public void onSuccess(GetMessageDetailsResult response) {
+							eventBus.fireEvent(new ExpandMessageEvent(user, new ImapFolderImpl(folderName), event
+									.getValue(), response.getMessageDetails()));
+							// display.getGrid().getSelectionModel().setSelected(event.getValue(),
+							// true);
+							display.getGrid().getSelectionModel().setSelected(event.getValue(), true);
+							toolBar.enableAllTools(true);
+							ToolBarView.Parameters p = new ToolBarView.Parameters(user, folderName, event.getValue(),
+									response.getMessageDetails());
+							toolBar.setParameters(p);
+							MessagePlace place = new MessagePlace(folderName + AbstractPlace.SPLITTER
+									+ event.getValue().getUid());
+							pc.goTo(place);
+							display.refresh();
+							eventBus.fireEvent(new RefreshUnreadEvent());
+						}
+
+						@Override
+						public void onFailure(ServerFailure error) {
+							if (error.isFatal()) {
+								// log.log(Level.SEVERE, error.getMessage());
+								// TODO write the error message to
+								// status bar.
+								toolBar.enableAllTools(false);
+								throw new RuntimeException(error.getMessage());
+							}
+						}
+					});
+				}
+			}
+
+		}));
+	}
+	private boolean hasClickedButFirstCol(CellPreviewEvent<Message> event) {
+		return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
 	}
 
 	private void bindTo(EventBus eventBus) {
@@ -397,7 +404,7 @@ public class MessageListActivity extends AppBaseActivity {
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 	public interface Displayable extends WidgetDisplayable {
 		MessagesCellTable getGrid();
-		
+
 		void refresh();
 
 		List<Long> getSelectedMessagesIds();
@@ -431,7 +438,8 @@ public class MessageListActivity extends AppBaseActivity {
 			@Override
 			public void onSuccess(DeleteMessageResult response) {
 				antiSelectMessages(display.getSelectedMessages());
-//				refresh();
+				display.refresh();
+				eventBus.fireEvent(new RefreshUnreadEvent());
 			}
 		});
 	}

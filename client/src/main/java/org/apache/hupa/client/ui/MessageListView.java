@@ -261,7 +261,7 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 		List<Long> selecteds = new ArrayList<Long>();
 		MultiSelectionModel<? super Message> selectionModel = (MultiSelectionModel<? super Message>) grid
 				.getSelectionModel();
-		NoSelectionModel<? super Message> noSelectionModel = (NoSelectionModel<? super Message>)grid.getSelectionModel();
+//		NoSelectionModel<? super Message> noSelectionModel = (NoSelectionModel<? super Message>)grid.getSelectionModel();
 		
 		selectionModel.getSelectedSet();
 		for (Message msg : getSelectedMessages()) {

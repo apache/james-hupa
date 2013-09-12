@@ -585,7 +585,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 		}
 	};
 	private final MultiSelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(KEY_PROVIDER);
-	public final NoSelectionModel<Message> noSelectionModel = new NoSelectionModel<Message>(KEY_PROVIDER);
+//	public final NoSelectionModel<Message> noSelectionModel = new NoSelectionModel<Message>(KEY_PROVIDER);
 
 	PlaceController pc;
 	HupaRequestFactory rf;
@@ -700,49 +700,49 @@ public class MessagesCellTable extends DataGrid<Message> {
 		// setSelectionModel(selectionModel,
 		// DefaultSelectionEventManager.<Message> createCheckboxManager(0));
 
-		setSelectionModel(noSelectionModel, DefaultSelectionEventManager.<Message> createBlacklistManager(0));
+		setSelectionModel(selectionModel, DefaultSelectionEventManager.<Message> createBlacklistManager(0));
 
-		noSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-			@Override
-			public void onSelectionChange(SelectionChangeEvent event) {
-				message = noSelectionModel.getLastSelectedObject();
-				GetMessageDetailsRequest req = rf.messageDetailsRequest();
-				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
-				final ImapFolder f = req.create(ImapFolder.class);
-
-				f.setFullName(parseFolderName(pc));
-				action.setFolder(f);
-				action.setUid(message.getUid());
-				req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
-					@Override
-					public void onSuccess(GetMessageDetailsResult response) {
-						// display.getGrid().getSelectionModel().setSelected(event.getValue(),
-						// true);
-						// noSelectionModel.setSelected(message, true);
-						toolBar.enableAllTools(true);
-						ToolBarView.Parameters p = new ToolBarView.Parameters(null, folderName, message, response
-								.getMessageDetails());
-						toolBar.setParameters(p);
-						MessagePlace place = new MessagePlace(folderName + AbstractPlace.SPLITTER + message.getUid());
-						refresh();
-						eventBus.fireEvent(new RefreshUnreadEvent());
-						pc.goTo(place);
-					}
-
-					@Override
-					public void onFailure(ServerFailure error) {
-						if (error.isFatal()) {
-							// log.log(Level.SEVERE, error.getMessage());
-							// TODO write the error message to
-							// status bar.
-							toolBar.enableAllTools(false);
-							throw new RuntimeException(error.getMessage());
-						}
-					}
-				});
-			}
-
-		});
+//		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+//			@Override
+//			public void onSelectionChange(SelectionChangeEvent event) {
+//				message = eventselectionModel.get;
+//				GetMessageDetailsRequest req = rf.messageDetailsRequest();
+//				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
+//				final ImapFolder f = req.create(ImapFolder.class);
+//
+//				f.setFullName(parseFolderName(pc));
+//				action.setFolder(f);
+//				action.setUid(message.getUid());
+//				req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
+//					@Override
+//					public void onSuccess(GetMessageDetailsResult response) {
+//						// display.getGrid().getSelectionModel().setSelected(event.getValue(),
+//						// true);
+//						// noSelectionModel.setSelected(message, true);
+//						toolBar.enableAllTools(true);
+//						ToolBarView.Parameters p = new ToolBarView.Parameters(null, folderName, message, response
+//								.getMessageDetails());
+//						toolBar.setParameters(p);
+//						MessagePlace place = new MessagePlace(folderName + AbstractPlace.SPLITTER + message.getUid());
+//						refresh();
+//						eventBus.fireEvent(new RefreshUnreadEvent());
+//						pc.goTo(place);
+//					}
+//
+//					@Override
+//					public void onFailure(ServerFailure error) {
+//						if (error.isFatal()) {
+//							// log.log(Level.SEVERE, error.getMessage());
+//							// TODO write the error message to
+//							// status bar.
+//							toolBar.enableAllTools(false);
+//							throw new RuntimeException(error.getMessage());
+//						}
+//					}
+//				});
+//			}
+//
+//		});
 
 		if (dataProvider == null) {
 			dataProvider = new MessageListDataProvider();
