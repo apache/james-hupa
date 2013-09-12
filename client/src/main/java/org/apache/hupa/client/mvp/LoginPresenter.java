@@ -50,10 +50,13 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
     
     private HupaConstants constants = GWT.create(HupaConstants.class);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     private int minUsernameLength = 1;
     private int minPasswordLength = 1;
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 
     public interface Display extends WidgetDisplay{
         public HasClickHandlers getLoginClick();
@@ -77,6 +80,7 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
      */
     private void doLogin() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         String user = display.getUserNameValue().getValue().trim();
         String pass = display.getPasswordValue().getValue().trim();
         
@@ -87,6 +91,12 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
         
         if (user.length() < minUsernameLength || pass.length() < minPasswordLength)
 >>>>>>> first commit
+=======
+        String user = display.getUserNameValue().getValue().trim();
+        String pass = display.getPasswordValue().getValue().trim();
+        
+        if (user.isEmpty() || pass.isEmpty())
+>>>>>>> constantly changed by manolo
             return;
         
         display.setLoading(true);

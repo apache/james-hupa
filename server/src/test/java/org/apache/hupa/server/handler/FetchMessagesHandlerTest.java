@@ -48,6 +48,7 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         is = new ByteArrayInputStream("From: \"=?ISO-8859-1?Q?Manolo_Pe=F1a?=\" <penya@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
         MimeMessage m2 = new MimeMessage(session, is);
         is = new ByteArrayInputStream("From: a@foo.com\nTo: \"<b@foo.com>\" <b@foo.com>\nSubject: =?ISO-8859-1?Q?Monta=F1a?=\n\ndata".getBytes());
+<<<<<<< HEAD
 =======
         ByteArrayInputStream is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
 =======
@@ -61,6 +62,8 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         MimeMessage m2 = new MimeMessage(session, is);
         is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: =?ISO-8859-1?Q?Monta=F1a?=\n\ndata".getBytes());
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
         MimeMessage m3 = new MimeMessage(session, is);
         
         ArrayList<org.apache.hupa.shared.data.Message> msgs = fetchMessagesHandler.convert(2, f, new Message[]{m1, m2, m3});
@@ -91,10 +94,15 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         msgs = fetchMessagesHandler.convert(10, f, new Message[]{m3});
         assertEquals("Monta\u00F1a",  msgs.get(0).getSubject());
 <<<<<<< HEAD
+<<<<<<< HEAD
         assertEquals("b@foo.com <b@foo.com>",  msgs.get(0).getTo().get(0));
 
 =======
 >>>>>>> first commit
+=======
+        assertEquals("b@foo.com <b@foo.com>",  msgs.get(0).getTo().get(0));
+
+>>>>>>> constantly changed by manolo
     }
 
     public void testFetchMessages() throws Exception {

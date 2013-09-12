@@ -157,9 +157,7 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
         mainContainer.setStyleName(HupaCSS.C_login_container);
         flexTable.addStyleName(HupaCSS.C_login_form);
         usernameTextBox.addStyleName(HupaCSS.C_login_box);
-        usernameTextBox.setName("user");
         passwordTextBox.addStyleName(HupaCSS.C_login_box);
-        usernameTextBox.setName("password");
         
         buttonBar.add(submitButton);
         buttonBar.add(resetButton);
@@ -197,13 +195,19 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
         formPanel.addSubmitHandler(new FormPanel.SubmitHandler() {
             public void onSubmit(SubmitEvent event) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
                 if (!usernameTextBox.getValue().trim().isEmpty() && !passwordTextBox.getValue().trim().isEmpty()) {
                     loginButton.click();
                 }
 //                event.cancel();
+<<<<<<< HEAD
 =======
                 event.cancel();
                 loginButton.click();
+>>>>>>> constantly changed by manolo
+=======
 >>>>>>> constantly changed by manolo
             }
         });
@@ -238,6 +242,10 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
 >>>>>>> first commit
 =======
                 submitButton.click();
+<<<<<<< HEAD
+>>>>>>> constantly changed by manolo
+=======
+//                formPanel.submit();
 >>>>>>> constantly changed by manolo
             }
         }

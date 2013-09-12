@@ -18,11 +18,15 @@
     under the License.
 -->
 <<<<<<< HEAD
+<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 =======
 <project
     xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+=======
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>>>>>>> constantly changed by manolo
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 >>>>>>> first commit
     <modelVersion>4.0.0</modelVersion>
@@ -95,16 +99,22 @@
             <artifactId>gwt-user</artifactId>
             <exclusions>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
                 <exclusion>
                     <groupId>javax.validation</groupId>
                     <artifactId>validation-api</artifactId>
                 </exclusion>
+<<<<<<< HEAD
 =======
               <exclusion>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
               </exclusion>
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
             </exclusions>
         </dependency>
         <dependency>
@@ -122,6 +132,7 @@
         </dependency>
         <dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>4.2.0.Final</version>
@@ -130,6 +141,11 @@
           <artifactId>hibernate-validator</artifactId>
           <version>4.2.0.Final</version>
 >>>>>>> first commit
+=======
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.2.0.Final</version>
+>>>>>>> constantly changed by manolo
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -148,6 +164,9 @@
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
@@ -156,6 +175,7 @@
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-webapp</artifactId>
         </dependency>
+<<<<<<< HEAD
 =======
 		<dependency>
 		    <groupId>org.eclipse.jetty</groupId>
@@ -166,6 +186,8 @@
 		    <artifactId>jetty-webapp</artifactId>
 		</dependency>        
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
     </dependencies>
     <build>
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
@@ -177,10 +199,14 @@
                     <runTarget>Hupa.html</runTarget>
                     <extraJvmArgs>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         -Xmx512M -Xss128M
 =======
                         -Xmx512M -Xss128M -Dhupa.config.file=${project.parent.basedir}/server/src/main/webapp/WEB-INF/conf/config.properties
 >>>>>>> first commit
+=======
+                        -Xmx512M -Xss128M
+>>>>>>> constantly changed by manolo
                     </extraJvmArgs>
                     <localWorkers>1</localWorkers>
                     <compileReport>true</compileReport>
@@ -233,11 +259,15 @@
                     </webResources>
                     <warName>${project.artifactId}-${project.version}</warName>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
                     <archive>
                         <manifest>
                             <mainClass>org.apache.hupa.Launcher</mainClass>
                         </manifest>
                     </archive>
+<<<<<<< HEAD
 =======
   			        <archive>
 			           <manifest>
@@ -245,6 +275,8 @@
 			           </manifest>
 			        </archive>
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
                 </configuration>
             </plugin>
             <plugin>
@@ -300,10 +332,14 @@
             </plugin>
             <plugin>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <groupId>org.apache.maven.plugins</groupId>
 =======
                <groupId>org.apache.maven.plugins</groupId>
 >>>>>>> first commit
+=======
+                <groupId>org.apache.maven.plugins</groupId>
+>>>>>>> constantly changed by manolo
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
@@ -333,10 +369,14 @@
                                 <resource>
                                     <directory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</directory>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     <include>org/apache/hupa/Launcher.class</include>
 =======
                                      <include>org/apache/hupa/Launcher.class</include>
 >>>>>>> first commit
+=======
+                                    <include>org/apache/hupa/Launcher.class</include>
+>>>>>>> constantly changed by manolo
                                 </resource>
                             </resources>
                         </configuration>
@@ -344,6 +384,9 @@
                 </executions>
             </plugin>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -364,6 +407,7 @@
                     </execution>
                 </executions>
             </plugin>
+<<<<<<< HEAD
         </plugins>
     </build>
 =======
@@ -387,6 +431,8 @@
 			      </execution>
 			   </executions>
 			</plugin>            
+=======
+>>>>>>> constantly changed by manolo
         </plugins>
     </build>
 <<<<<<< HEAD

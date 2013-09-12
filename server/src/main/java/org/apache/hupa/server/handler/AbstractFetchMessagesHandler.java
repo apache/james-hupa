@@ -20,6 +20,7 @@
 package org.apache.hupa.server.handler;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -37,6 +38,20 @@ import com.google.inject.Provider;
 
 import com.sun.mail.imap.IMAPStore;
 >>>>>>> first commit
+=======
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.mail.Address;
+import javax.mail.FetchProfile;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.UIDFolder;
+import javax.mail.internet.MimeMessage.RecipientType;
+import javax.servlet.http.HttpSession;
+>>>>>>> constantly changed by manolo
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.ActionException;
@@ -44,6 +59,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -57,13 +73,17 @@ import org.apache.hupa.shared.rpc.FetchMessagesResult;
 import com.google.inject.Provider;
 import com.sun.mail.imap.IMAPStore;
 =======
+=======
+import org.apache.hupa.server.utils.MessageUtils;
+>>>>>>> constantly changed by manolo
 import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.Tag;
 import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -79,6 +99,10 @@ import javax.mail.internet.MimeUtility;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
 >>>>>>> first commit
+=======
+import com.google.inject.Provider;
+import com.sun.mail.imap.IMAPStore;
+>>>>>>> constantly changed by manolo
 
 public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> extends AbstractSessionHandler<A, FetchMessagesResult>{
 
@@ -172,6 +196,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             if (m.getFrom() != null && m.getFrom().length >0 ) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 from = MessageUtils.decodeText(m.getFrom()[0].toString());
 =======
                 from = m.getFrom()[0].toString().trim();
@@ -185,11 +210,15 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 =======
                 from = decodeText(m.getFrom()[0].toString());
 >>>>>>> constant changed by manolo
+=======
+                from = MessageUtils.decodeText(m.getFrom()[0].toString());
+>>>>>>> constantly changed by manolo
             }
             msg.setFrom(from);
 
             String replyto = null;
             if (m.getReplyTo() != null && m.getReplyTo().length >0 ) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                 replyto = MessageUtils.decodeText(m.getReplyTo()[0].toString());
@@ -205,6 +234,9 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 =======
                 replyto = decodeText(m.getReplyTo()[0].toString());
 >>>>>>> constant changed by manolo
+=======
+                replyto = MessageUtils.decodeText(m.getReplyTo()[0].toString());
+>>>>>>> constantly changed by manolo
             }
             msg.setReplyto(replyto);
             
@@ -213,6 +245,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             Address[] toArray = m.getRecipients(RecipientType.TO);
             if (toArray != null) {
                 for (Address addr : toArray) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                     String mailTo = MessageUtils.decodeText(addr.toString());
@@ -230,6 +263,9 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 >>>>>>> first commit
 =======
                     String mailTo = decodeText(addr.toString());
+=======
+                    String mailTo = MessageUtils.decodeText(addr.toString());
+>>>>>>> constantly changed by manolo
                     to.add(mailTo);
 >>>>>>> constant changed by manolo
                 }
@@ -239,6 +275,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             // Check if a subject exist and if so decode it
             String subject = m.getSubject();
             if (subject != null) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                 subject = MessageUtils.decodeText(subject);
@@ -252,6 +289,9 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 =======
                 subject = decodeText(subject);
 >>>>>>> constant changed by manolo
+=======
+                subject = MessageUtils.decodeText(subject);
+>>>>>>> constantly changed by manolo
             }
             msg.setSubject(subject);
             
@@ -260,6 +300,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             ArrayList<String> cc = new ArrayList<String>();
             if (ccArray != null) {
                 for (Address addr : ccArray) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                     String mailCc = MessageUtils.decodeText(addr.toString());
@@ -277,6 +318,9 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 >>>>>>> first commit
 =======
                     String mailCc = decodeText(addr.toString());
+=======
+                    String mailCc = MessageUtils.decodeText(addr.toString());
+>>>>>>> constantly changed by manolo
                     cc.add(mailCc);
 >>>>>>> constant changed by manolo
                 }            	
@@ -379,6 +423,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
 >>>>>>> first commit
 =======
 
+<<<<<<< HEAD
     /**
      * Decode iso-xxxx strings present in subjects and emails like:
      * 
@@ -396,4 +441,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         return ret;
     }
 >>>>>>> constant changed by manolo
+=======
+
+>>>>>>> constantly changed by manolo
 }

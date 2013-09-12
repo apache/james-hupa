@@ -159,6 +159,7 @@ public class ContactsResult implements Result, Serializable {
 
 		public Contact(String address) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			mail = address.replaceAll("^.*<([^>]+)>\\s*$", "$1");
 
 			realname = mail.equals(address) ? mail : address
@@ -177,6 +178,18 @@ public class ContactsResult implements Result, Serializable {
 			        .replaceAll("^[\\s\"']+", "")
 			        .replaceAll("[\\s\"']+$", "");
 >>>>>>> constant changed by manolo
+=======
+			mail = address.replaceAll("^.*<([^>]+)>\\s*$", "$1");
+
+			realname = mail.equals(address) ? mail : address
+			        // remove the email part
+			        .replaceAll("<[^<>]+>\\s*$", "")
+			        // remove start symbols in the name
+			        .replaceAll("^[\\s\"'<]+", "")
+			        // remove end symbols in the name
+			        .replaceAll("[\\s\"'>]+$", "")
+			        ;
+>>>>>>> constantly changed by manolo
 
 			if (realname.isEmpty())
 				realname = mail;

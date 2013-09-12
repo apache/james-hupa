@@ -148,10 +148,14 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         message.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
         message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
 <<<<<<< HEAD
+<<<<<<< HEAD
         message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
 =======
         message.setSubject(m.getSubject());
 >>>>>>> first commit
+=======
+        message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
+>>>>>>> constantly changed by manolo
         message.saveChanges();
         return message;
     }

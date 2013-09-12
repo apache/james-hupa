@@ -43,9 +43,13 @@ import org.apache.hupa.server.HupaGuiceTestCase;
 import java.util.List;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import javax.mail.Address;
 =======
 >>>>>>> first commit
+=======
+import javax.mail.Address;
+>>>>>>> constantly changed by manolo
 import javax.mail.BodyPart;
 import javax.mail.Message;
 
@@ -94,8 +98,13 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     @Test public void getRecipients () throws Exception  {
+=======
+    
+    public void testGetRecipients () throws Exception  {
+>>>>>>> constantly changed by manolo
 =======
     
     public void testGetRecipients () throws Exception  {
@@ -108,10 +117,13 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
         assertEquals(addr[0].toString(), addr[1].toString());
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 }
