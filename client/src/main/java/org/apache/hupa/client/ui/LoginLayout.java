@@ -32,6 +32,7 @@ public class LoginLayout implements LoginLayoutable {
 
 	@UiField SimplePanel loginContainer;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	private LayoutPanel loginMainPanel;
 
@@ -51,27 +52,31 @@ public class LoginLayout implements LoginLayoutable {
 
 =======
 	
+=======
+
+>>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
 	private LayoutPanel loginMainPanel;
-	
-	public LoginLayout(){
+
+	public LoginLayout() {
 		this.loginMainPanel = binder.createAndBindUi(this);
 	}
-	
+
 	@Override
-	public AcceptsOneWidget getLoginView(){
+	public AcceptsOneWidget getLoginView() {
 		return new AcceptsOneWidget() {
 			@Override
 			public void setWidget(IsWidget w) {
-				Widget widget = Widget.asWidgetOrNull(w);
-				if(widget != null){
-					loginContainer.add(widget);
-				}
+				loginContainer.add(Widget.asWidgetOrNull(w));
 			}
 		};
-	
+
 	}
+<<<<<<< HEAD
 	
 >>>>>>> integrate them as a whole one - first: make the default place work
+=======
+
+>>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
 	@Override
 	public LayoutPanel get() {
 		return loginMainPanel;

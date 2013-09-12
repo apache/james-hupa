@@ -22,11 +22,10 @@ package org.apache.hupa.client.place;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
 
-import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
-public class MailFolderPlace extends Place {
+public class MailFolderPlace extends AbstractPlace {
 
 	private static final String PREFIX = "folder";
 	private User user;
@@ -55,10 +54,6 @@ public class MailFolderPlace extends Place {
 	@Override
 	public int hashCode() {
 		return PREFIX.hashCode();
-	}
-
-	public String toString() {
-		return this.getClass().getName() + "->[Inbox]" + folderName;
 	}
 
 	public MailFolderPlace with(User user) {

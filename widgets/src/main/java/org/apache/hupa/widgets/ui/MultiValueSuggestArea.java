@@ -102,6 +102,7 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
         public String getValue() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             return DOM.getElementProperty(getValueBox().getElement(), "value");
 =======
             return DOM.getElementProperty(getTextBox().getElement(), "value");
@@ -109,10 +110,14 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
 =======
             return DOM.getElementProperty(getTextBox().getElement(), "value");
 >>>>>>> first commit
+=======
+            return DOM.getElementProperty(getValueBox().getElement(), "value");
+>>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
         }
 
         @Override
         public void setValue(String text) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             DOM.setElementProperty(getValueBox().getElement(), "value", text);
@@ -122,6 +127,9 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
 =======
             DOM.setElementProperty(getTextBox().getElement(), "value", text);
 >>>>>>> first commit
+=======
+            DOM.setElementProperty(getValueBox().getElement(), "value", text);
+>>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
         }
     }
 

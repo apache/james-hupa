@@ -65,6 +65,7 @@ import org.apache.hupa.shared.domain.User;
 >>>>>>> 
 =======
 
+<<<<<<< HEAD
 >>>>>>> 1. improve the inbox folder place.
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
@@ -81,6 +82,12 @@ public class IMAPMessagePlace extends Place {
 =======
 	
 =======
+=======
+import com.google.gwt.place.shared.PlaceTokenizer;
+import com.google.gwt.place.shared.Prefix;
+
+public class IMAPMessagePlace extends AbstractPlace {
+>>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
 
 >>>>>>> forward and reply message to use RF
 	private Message message;
@@ -189,10 +196,6 @@ public class IMAPMessagePlace extends Place {
 		public String getToken(IMAPMessagePlace place) {
 			return String.valueOf(place.getMessage().getUid());
 		}
-	}
-
-	public String toString() {
-		return this.getClass().getName() + "->[IMAPMessage]";
 	}
 
 	public IMAPMessagePlace with(User user, ImapFolder folder, Message message, MessageDetails messageDetails) {

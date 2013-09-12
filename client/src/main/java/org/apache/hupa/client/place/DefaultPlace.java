@@ -63,11 +63,10 @@ public class DefaultPlace extends AbstractPlace {
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.client.place;
 
-import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
-public class DefaultPlace extends Place {
+public class DefaultPlace extends AbstractPlace {
 
   @Prefix("")
   public static class Tokenizer implements PlaceTokenizer<DefaultPlace> {
@@ -82,6 +81,7 @@ public class DefaultPlace extends Place {
       return "";
     }
   }
+<<<<<<< HEAD
   
   public String toString(){
 	  return this.getClass().getName()+"->[home page]";
@@ -90,5 +90,7 @@ public class DefaultPlace extends Place {
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
 
 }

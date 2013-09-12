@@ -88,6 +88,7 @@ import com.google.gwt.place.shared.Prefix;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class MessageSendPlace extends AbstractPlace {
 
 	
@@ -213,6 +214,9 @@ public class MessageSendPlace extends Place {
 >>>>>>> 1. improve the inbox folder place.
 =======
 public class MessageSendPlace extends Place {
+=======
+public class MessageSendPlace extends AbstractPlace {
+>>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
 
 	
 	private User user ;
@@ -234,10 +238,6 @@ public class MessageSendPlace extends Place {
 		public String getToken(MessageSendPlace place) {
 			return place.getForward().toString();
 		}
-	}
-
-	public String toString() {
-		return this.getClass().getName() + "->[MessageSend]";
 	}
 
 	public Place with(User user, ImapFolder folder, Message message, MessageDetails messageDetails, Type forward) {

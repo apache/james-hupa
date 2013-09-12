@@ -23,13 +23,19 @@ import com.google.gwt.place.shared.Place;
 
 public class AbstractPlace extends Place {
 
+<<<<<<< HEAD
 	public static final String SPLITTER = ":";
 
+=======
+>>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
 	@Override
 	public String toString() {
 		return getClass().getName().substring(
 				getClass().getName().lastIndexOf("."));
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
 }
