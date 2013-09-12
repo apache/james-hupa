@@ -13,10 +13,14 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<ui:image field="buttons" src="res/buttons.png"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<ui:style type="org.apache.hupa.client.ui.NavigationView.Style">
 =======
 	<ui:style>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+	<ui:style type="org.apache.hupa.client.ui.NavigationView.Style">
+>>>>>>> make navigation styles shufflling be working as expected
 		@sprite .navigation .inner {
 			gwt-image: 'buttons';
 			display: inline-block;
@@ -41,6 +45,7 @@
 		
 		.navigation .mailInner {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			background-position: 0 2px;
 		}
 
@@ -55,6 +60,16 @@
 			/*background-position: 0 2px;*/
 		}
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+			background-position: 0 2px;
+		}
+
+        .navigation .mailInnerSelected {
+            background-position: 0 -22px;
+            color: #3cf;
+        }
+
+>>>>>>> make navigation styles shufflling be working as expected
 		
 		.navigation mailInner:hover,.navigation .mailInner.selected {
 			background-position: 0 -22px;
@@ -80,11 +95,17 @@
 		}
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
         .navigation .settingsInnerSelected {
             background-position: 0 -120px;
         }
 =======
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+        .navigation .settingsInnerSelected {
+            background-position: 0 -120px;
+        }
+>>>>>>> make navigation styles shufflling be working as expected
 		.navigation a.settings:hover span.inner,.navigation a.settings.selected span.inner
 			{
 			background-position: 0 -120px;
@@ -102,6 +123,7 @@
 	<g:DockLayoutPanel unit="PX" ui:field="Navigation">
 		<g:west size="74">
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<g:SimplePanel ui:field="mailOuter" addStyleNames="{style.navigation} {style.selected}">
 				<g:Anchor  ui:field="mail"
 					addStyleNames=" 
@@ -112,6 +134,12 @@
 					addStyleNames=" 
                                 {style.mailInner} {style.inner}">
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+			<g:SimplePanel ui:field="mailOuter" addStyleNames="{style.navigation} {style.selected}">
+				<g:Anchor  ui:field="mail"
+					addStyleNames=" 
+                                {style.mailInnerSelected} {style.inner}">
+>>>>>>> make navigation styles shufflling be working as expected
 					Mail
 				</g:Anchor>
 			</g:SimplePanel>
@@ -122,8 +150,12 @@
 				<g:Anchor  ui:field="contact"
 =======
 			<g:SimplePanel addStyleNames="{style.navigation}">
+<<<<<<< HEAD
 				<g:Anchor
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+				<g:Anchor  ui:field="contact"
+>>>>>>> make navigation styles shufflling be working as expected
 					addStyleNames="
                                 {style.contactInner} {style.inner}">
 					Contacts
@@ -131,6 +163,7 @@
 			</g:SimplePanel>
 		</g:center>
 		<g:east size="97">
+<<<<<<< HEAD
 <<<<<<< HEAD
 			<g:SimplePanel ui:field="settingOuter" addStyleNames="{style.navigation}">
 				<g:Anchor ui:field="setting"
@@ -140,6 +173,9 @@
 				<g:Anchor
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
+=======
+			<g:SimplePanel ui:field="settingOuter" addStyleNames="{style.navigation}">
+>>>>>>> make navigation styles shufflling be working as expected
 				<g:Anchor ui:field="setting"
 >>>>>>> try to make switch to setting work
 					addStyleNames="
