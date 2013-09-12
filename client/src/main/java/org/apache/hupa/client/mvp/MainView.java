@@ -150,6 +150,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         // Not used so far
         // createNorth();
         // dockPanel.add(north, DockPanel.NORTH);
+        // dockPanel.setCellHorizontalAlignment(north, DockPanel.ALIGN_RIGHT);
         
 >>>>>>> constant changed by manolo
         createWest();
@@ -158,8 +159,11 @@ public class MainView extends Composite implements MainPresenter.Display {
 
         createCenter();
         dockPanel.add(center, DockPanel.CENTER);
+<<<<<<< HEAD
         dockPanel.setCellHorizontalAlignment(north, DockPanel.ALIGN_RIGHT);
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
         dockPanel.setCellHorizontalAlignment(center, DockPanel.ALIGN_LEFT);
 
         initWidget(dockPanel);

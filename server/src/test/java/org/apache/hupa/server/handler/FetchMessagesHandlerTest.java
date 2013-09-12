@@ -42,6 +42,7 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
         
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         ByteArrayInputStream is = new ByteArrayInputStream("From: \"a b c\"<aa@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
         MimeMessage m1 = new MimeMessage(session, is);
         is = new ByteArrayInputStream("From: \"=?ISO-8859-1?Q?Manolo_Pe=F1a?=\" <penya@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
@@ -52,6 +53,9 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
 =======
         ByteArrayInputStream is = new ByteArrayInputStream("From: \"aa@foo.com\" <aa@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
 >>>>>>> constant changed by manolo
+=======
+        ByteArrayInputStream is = new ByteArrayInputStream("From: \"a b c\"<aa@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
+>>>>>>> constantly changed by manolo
         MimeMessage m1 = new MimeMessage(session, is);
         is = new ByteArrayInputStream("From: \"=?ISO-8859-1?Q?Manolo_Pe=F1a?=\" <penya@foo.com>\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
         MimeMessage m2 = new MimeMessage(session, is);
@@ -74,8 +78,12 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
 =======
         
         msgs = fetchMessagesHandler.convert(10, f, new Message[]{m1});
+<<<<<<< HEAD
         assertEquals("aa@foo.com <aa@foo.com>",  msgs.get(0).getFrom());
 >>>>>>> constant changed by manolo
+=======
+        assertEquals("a b c <aa@foo.com>",  msgs.get(0).getFrom());
+>>>>>>> constantly changed by manolo
 
         msgs = fetchMessagesHandler.convert(10, f, new Message[]{m2});
         assertEquals("Manolo Pe\u00F1a <penya@foo.com>",  msgs.get(0).getFrom());

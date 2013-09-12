@@ -131,11 +131,14 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
                 new NotEmptyValidator(getToText()).addActionForFailure(sAction).addActionForFailure(fAction));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         try {
         } catch (Exception e) {
         }
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
     }
 
     /*

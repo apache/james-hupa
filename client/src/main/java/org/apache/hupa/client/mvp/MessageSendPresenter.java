@@ -331,11 +331,15 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                 display.getToText().setText(mailto);
         } else if (type.equals(Type.FORWARD)) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
         	String subject = oldmessage.getSubject() != null ? oldmessage.getSubject().trim() : "";
         	if (!subject.toLowerCase().startsWith("fwd:")){
         		subject = "Fwd: " + subject;
         	}
         	display.getSubjectText().setText(subject);
+<<<<<<< HEAD
         } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
         	String subject = oldmessage.getSubject() != null ? oldmessage.getSubject().trim() : "";
         	if (!subject.toLowerCase().startsWith("re:")){
@@ -351,6 +355,14 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
                 display.getSubjectText().setText("Re: " + oldmessage.getSubject());
             }
 >>>>>>> first commit
+=======
+        } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
+        	String subject = oldmessage.getSubject() != null ? oldmessage.getSubject().trim() : "";
+        	if (!subject.toLowerCase().startsWith("re:")){
+        		subject = "Re: " + subject;
+        	}
+        	display.getSubjectText().setText(subject);
+>>>>>>> constantly changed by manolo
             if (type.equals(Type.REPLY)) { 
                 if (oldmessage.getReplyto() != null && !oldmessage.getFrom().contains(oldmessage.getReplyto())) {
                     display.getToText().setText(oldmessage.getReplyto());
