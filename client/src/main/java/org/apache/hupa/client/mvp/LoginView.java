@@ -257,10 +257,14 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
      */
     public HasClickHandlers getLoginClick() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         return submitButton;
 =======
         return loginButton;
 >>>>>>> first commit
+=======
+        return submitButton;
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
     }
 
     /*

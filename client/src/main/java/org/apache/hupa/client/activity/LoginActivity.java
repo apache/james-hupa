@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -31,21 +32,29 @@ import org.apache.hupa.shared.events.SessionExpireEvent;
 import org.apache.hupa.shared.events.SessionExpireEventHandler;
 
 =======
+=======
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 package org.apache.hupa.client.activity;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import org.apache.hupa.client.HupaConstants;
+<<<<<<< HEAD
 import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.SessionExpireEvent;
 import org.apache.hupa.shared.events.SessionExpireEventHandler;
+=======
+import org.apache.hupa.client.HupaEvoCallback;
+import org.apache.hupa.client.place.LoginPlace;
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 import org.apache.hupa.shared.rpc.LoginUser;
 import org.apache.hupa.shared.rpc.LoginUserResult;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.core.client.GWT;
@@ -55,10 +64,14 @@ import com.google.gwt.core.client.GWT;
 =======
 import com.google.gwt.core.client.GWT;
 >>>>>>> decorate the theme
+=======
+import com.google.gwt.core.client.GWT;
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import com.google.gwt.place.shared.PlaceController;
@@ -97,10 +110,48 @@ public class LoginActivity extends AbstractActivity {
 	@Inject
 	public LoginActivity(Displayable display, EventBus eventBus, PlaceController placeController,
 			DispatchAsync dispatcher) {
+=======
+import com.google.gwt.place.shared.PlaceController;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
+public class LoginActivity extends AbstractActivity {
+
+	private HupaConstants constants = GWT.create(HupaConstants.class);
+
+	private LoginPlace place;
+	private final Display display;
+	private final EventBus eventBus;
+	// private final HupaEvoCallback loginRpcService;
+	private PlaceController placeController;
+
+	private DispatchAsync dispatcher;
+	private Provider<LoginPlace> oldGoToPlaceProvider;
+	private Provider<LoginPlace> newGoToPlaceProvider;
+
+	@Inject
+	public LoginActivity(Display display, EventBus eventBus, PlaceController placeController, DispatchAsync dispatcher,
+			Provider<LoginPlace> newGoToPlaceProvider) {
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 		this.display = display;
 		this.eventBus = eventBus;
 		this.placeController = placeController;
 		this.dispatcher = dispatcher;
+<<<<<<< HEAD
+	}
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+		this.newGoToPlaceProvider = newGoToPlaceProvider;
+		// this.loginRpcService = loginRpcService;
+	}
+
+	public void init(LoginPlace place) {
+		this.place = place;
 	}
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 
@@ -108,6 +159,7 @@ public class LoginActivity extends AbstractActivity {
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		bind();
 		container.setWidget(display.asWidget());
+<<<<<<< HEAD
 <<<<<<< HEAD
 		display.setLoading(false);
 	}
@@ -125,6 +177,8 @@ public class LoginActivity extends AbstractActivity {
 			}
 		});
 =======
+=======
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 
 	}
 
@@ -134,6 +188,7 @@ public class LoginActivity extends AbstractActivity {
 				doLogin();
 			}
 		});
+<<<<<<< HEAD
 		display.getResetClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
@@ -150,11 +205,15 @@ public class LoginActivity extends AbstractActivity {
 		});
 
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 	}
 
 	private void doLogin() {
 		String user = display.getUserNameValue().getValue().trim();
 		String pass = display.getPasswordValue().getValue().trim();
+<<<<<<< HEAD
 <<<<<<< HEAD
 		if (user.isEmpty() || pass.isEmpty())
 			return;
@@ -174,11 +233,14 @@ public class LoginActivity extends AbstractActivity {
 				Window.alert(error.getMessage());// TODO a more gentle way
 				display.setLoading(false);
 =======
+=======
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 
 		if (user.isEmpty() || pass.isEmpty())
 			return;
 
 		display.setLoading(true);
+<<<<<<< HEAD
 //		HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
 //		rf.initialize(eventBus);
 //		UserRequest userRequest = rf.userRequest();
@@ -198,18 +260,27 @@ public class LoginActivity extends AbstractActivity {
 		
 		
 		
+=======
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 		dispatcher.execute(new LoginUser(user, pass), new HupaEvoCallback<LoginUserResult>(dispatcher, eventBus,
 				display) {
 			public void callback(LoginUserResult result) {
 				display.setLoading(false);
+<<<<<<< HEAD
 				// eventBus.fireEvent(new LoginEvent(result.getUser()));
 //				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get().with(result.getUser()));
 				LoginActivity.this.placeController.goTo(new MailFolderPlace().with(result.getUser()));
+=======
+				Window.alert("success");
+				// eventBus.fireEvent(new LoginEvent(result.getUser()));
+//				LoginActivity.this.placeController.goTo(newGoToPlaceProvider.get());
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 				doReset();
 			}
 
 			public void callbackError(Throwable caught) {
 				display.setLoading(false);
+<<<<<<< HEAD
 <<<<<<< HEAD
 				Window.alert("error");
 <<<<<<< HEAD
@@ -227,6 +298,15 @@ public class LoginActivity extends AbstractActivity {
 			}
 		});
 		
+=======
+				Window.alert("failure");
+//				LoginActivity.this.placeController.goTo(newGoToPlaceProvider.get());
+				// eventBus.fireEvent(new FlashEvent(constants.loginInvalid(),
+				// 4000));
+				doReset();
+			}
+		});
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 	}
 
 	/**
@@ -238,6 +318,7 @@ public class LoginActivity extends AbstractActivity {
 		display.getUserNameFocus().setFocus(true);
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	@Inject private Displayable display;
@@ -254,6 +335,9 @@ public class LoginActivity extends AbstractActivity {
 =======
 	public interface Displayable extends WidgetDisplayable {
 >>>>>>> Change to new mvp framework - first step
+=======
+	public interface Display {
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 		public HasClickHandlers getLoginClick();
 
 		public HasClickHandlers getResetClick();
@@ -266,6 +350,9 @@ public class LoginActivity extends AbstractActivity {
 
 		public void setLoading(boolean loading);
 
+<<<<<<< HEAD
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 		public Widget asWidget();
 	}

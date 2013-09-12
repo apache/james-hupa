@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -37,16 +38,23 @@ import org.apache.hupa.widgets.ui.Loading;
 import org.apache.hupa.widgets.ui.RndPanel;
 
 >>>>>>> Change to new mvp framework - first step
+=======
+package org.apache.hupa.client.ui;
+
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.CssResource.NotStrict;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+=======
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 import com.google.gwt.user.client.DOM;
@@ -56,6 +64,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.FormPanel;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
@@ -157,6 +166,8 @@ public class LoginView extends Composite implements KeyUpHandler,
 =======
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.PasswordTextBox;
@@ -164,9 +175,22 @@ import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+<<<<<<< HEAD
 import com.google.inject.Inject;
 
 public class LoginView extends Composite implements KeyUpHandler, LoginActivity.Displayable {
+=======
+import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
+import com.google.inject.Inject;
+
+import org.apache.hupa.client.HupaCSS;
+import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.client.activity.LoginActivity;
+import org.apache.hupa.widgets.ui.Loading;
+import org.apache.hupa.widgets.ui.RndPanel;
+
+public class LoginView extends Composite implements KeyUpHandler, LoginActivity.Display {
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 	private Button loginButton = new Button();
 	private SubmitButton submitButton;
 	private Button resetButton;
@@ -214,12 +238,16 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 		mainContainer.add(rPanel);
 		mainContainer.add(loading);
 		initWidget(mainContainer);
+<<<<<<< HEAD
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 
 		usernameTextBox.addKeyUpHandler(this);
 		usernameTextBox.setFocus(true);
 		passwordTextBox.addKeyUpHandler(this);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 		/*
 		 * The user submits the form so as the browser detect it and displays
@@ -231,6 +259,8 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 				if (!usernameTextBox.getValue().trim().isEmpty()
 						&& !passwordTextBox.getValue().trim().isEmpty()) {
 =======
+=======
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 		loading.hide();
 
 		// The user submits the form so as the browser detect it and displays
@@ -240,12 +270,16 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 		formPanel.addSubmitHandler(new FormPanel.SubmitHandler() {
 			public void onSubmit(SubmitEvent event) {
 				if (!usernameTextBox.getValue().trim().isEmpty() && !passwordTextBox.getValue().trim().isEmpty()) {
+<<<<<<< HEAD
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 					loginButton.click();
 				}
 				// event.cancel();
 			}
 		});
+<<<<<<< HEAD
 <<<<<<< HEAD
 		innerBox.add(loginButton);
 		loginButton.setVisible(false);
@@ -276,6 +310,11 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 		mainContainer.add(loginButton);
 		loginButton.setVisible(false);
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+		// loginButton must be in the document to handle the click() method
+		mainContainer.add(loginButton);
+		loginButton.setVisible(false);
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 	}
 
 	@Override
@@ -298,12 +337,18 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 
 	@Override
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 	public HasClickHandlers getResetClick() {
 		return resetButton;
 	}
 
 	@Override
+<<<<<<< HEAD
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 	public HasValue<String> getUserNameValue() {
 		return usernameTextBox;
@@ -320,6 +365,7 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// FIXME the ajax loader will not hidden after normal logout
 	@Override
 	public void setLoading(boolean load) {
@@ -332,6 +378,8 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 			message.addStyleName(style.hidden());
 		}
 =======
+=======
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 	@Override
 	public void setLoading(boolean load) {
 		if (load) {
@@ -340,6 +388,9 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 			loading.hide();
 		}
 
+<<<<<<< HEAD
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 	}
 
@@ -349,12 +400,15 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	interface LoginViewUiBinder extends UiBinder<FlowPanel, LoginView> {
 	}
 
 	private static LoginViewUiBinder binder = GWT
 			.create(LoginViewUiBinder.class);
 
+=======
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 }
