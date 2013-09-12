@@ -51,7 +51,6 @@
 		}
 		
 		.attachBox {
-	       cursor:pointer;
 			float: right;
 			width: 230px;
 			margin: 8px;
@@ -139,8 +138,8 @@
 					<g:ScrollPanel ui:field="messageContent" addStyleNames="{style.messageContent}" />
 				</g:center>
 				<g:east size="216">
-					<g:ScrollPanel ui:field="attachments" addStyleNames="{style.attachBox}">
-					</g:ScrollPanel>
+					<g:FlowPanel ui:field="attachments" addStyleNames="{style.attachBox}">
+					</g:FlowPanel>
 				</g:east>
 			</g:DockLayoutPanel>
 		</g:center>

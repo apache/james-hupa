@@ -273,7 +273,8 @@ public class MessageContentView extends Composite implements MessageContentActiv
 =======
 >>>>>>> change the message content view with scrollbar
 
-	@UiField ScrollPanel attachments;
+	//TODO should use a scrolled panel which can contain multiple children
+	@UiField FlowPanel attachments;
 
 <<<<<<< HEAD
 >>>>>>> prepare for message content panel
