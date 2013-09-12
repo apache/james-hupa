@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -29,14 +30,33 @@ import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.SessionExpireEvent;
 import org.apache.hupa.shared.events.SessionExpireEventHandler;
 
+=======
+package org.apache.hupa.client.activity;
+
+import net.customware.gwt.dispatch.client.DispatchAsync;
+
+import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.client.HupaEvoCallback;
+import org.apache.hupa.client.place.LoginPlace;
+import org.apache.hupa.shared.rpc.LoginUser;
+import org.apache.hupa.shared.rpc.LoginUserResult;
+
+import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.core.client.GWT;
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+<<<<<<< HEAD
+=======
+import com.google.gwt.place.shared.PlaceController;
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasValue;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -48,11 +68,46 @@ public class LoginActivity extends AppBaseActivity {
 	
 
 	@Inject private HupaLayoutable hupaLayout;
+=======
+import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
+public class LoginActivity extends AbstractActivity {
+
+	private HupaConstants constants = GWT.create(HupaConstants.class);
+
+	private LoginPlace place;
+	private final Display display;
+	private final EventBus eventBus;
+	// private final HupaEvoCallback loginRpcService;
+	private PlaceController placeController;
+
+	private DispatchAsync dispatcher;
+	private Provider<LoginPlace> oldGoToPlaceProvider;
+	private Provider<LoginPlace> newGoToPlaceProvider;
+
+	@Inject
+	public LoginActivity(Display display, EventBus eventBus, PlaceController placeController, DispatchAsync dispatcher,
+			Provider<LoginPlace> newGoToPlaceProvider) {
+		this.display = display;
+		this.eventBus = eventBus;
+		this.placeController = placeController;
+		this.dispatcher = dispatcher;
+		this.newGoToPlaceProvider = newGoToPlaceProvider;
+		// this.loginRpcService = loginRpcService;
+	}
+
+	public void init(LoginPlace place) {
+		this.place = place;
+	}
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		bind();
 		container.setWidget(display.asWidget());
+<<<<<<< HEAD
 		display.setLoading(false);
 	}
 
@@ -68,11 +123,24 @@ public class LoginActivity extends AppBaseActivity {
 				eventBus.fireEvent(new FlashEvent(constants.sessionTimedOut(), 4000));
 			}
 		});
+=======
+
+	}
+
+	public void bind() {
+		display.getLoginClick().addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				doLogin();
+			}
+		});
+
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 	}
 
 	private void doLogin() {
 		String user = display.getUserNameValue().getValue().trim();
 		String pass = display.getPasswordValue().getValue().trim();
+<<<<<<< HEAD
 		if (user.isEmpty() || pass.isEmpty())
 			return;
 		display.setLoading(true);
@@ -90,6 +158,29 @@ public class LoginActivity extends AppBaseActivity {
 			public void onFailure(ServerFailure error) {
 				Window.alert(error.getMessage());// TODO a more gentle way
 				display.setLoading(false);
+=======
+
+		if (user.isEmpty() || pass.isEmpty())
+			return;
+
+		display.setLoading(true);
+		dispatcher.execute(new LoginUser(user, pass), new HupaEvoCallback<LoginUserResult>(dispatcher, eventBus,
+				display) {
+			public void callback(LoginUserResult result) {
+				display.setLoading(false);
+				Window.alert("success");
+				// eventBus.fireEvent(new LoginEvent(result.getUser()));
+//				LoginActivity.this.placeController.goTo(newGoToPlaceProvider.get());
+				doReset();
+			}
+
+			public void callbackError(Throwable caught) {
+				display.setLoading(false);
+				Window.alert("failure");
+//				LoginActivity.this.placeController.goTo(newGoToPlaceProvider.get());
+				// eventBus.fireEvent(new FlashEvent(constants.loginInvalid(),
+				// 4000));
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 				doReset();
 			}
 		});
@@ -104,6 +195,7 @@ public class LoginActivity extends AppBaseActivity {
 		display.getUserNameFocus().setFocus(true);
 	}
 
+<<<<<<< HEAD
 	@Inject private Displayable display;
 	@Inject private HupaConstants constants;
 
@@ -113,6 +205,21 @@ public class LoginActivity extends AppBaseActivity {
 		public HasValue<String> getPasswordValue();
 		public Focusable getUserNameFocus();
 		public void setLoading(boolean loading);
+=======
+	public interface Display {
+		public HasClickHandlers getLoginClick();
+
+		public HasClickHandlers getResetClick();
+
+		public HasValue<String> getUserNameValue();
+
+		public HasValue<String> getPasswordValue();
+
+		public Focusable getUserNameFocus();
+
+		public void setLoading(boolean loading);
+
+>>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 		public Widget asWidget();
 	}
 }

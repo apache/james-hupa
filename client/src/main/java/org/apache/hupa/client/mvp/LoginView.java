@@ -144,7 +144,7 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
      * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getLoginClick()
      */
     public HasClickHandlers getLoginClick() {
-        return loginButton;
+        return submitButton;
     }
 
     /*
