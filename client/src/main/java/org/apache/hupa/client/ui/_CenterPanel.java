@@ -46,8 +46,8 @@ public class _CenterPanel extends Composite {
 		initWidget(binder.createAndBindUi(this));
 		thisPanel.setWidgetMinSize(outlinePanel, 144);
 		thisPanel.setWidgetHidden(composePanel, true);
-		thisPanel.remove(contentPanel);
-		thisPanel.add(composePanel);
+//		thisPanel.remove(contentPanel);
+//		thisPanel.add(composePanel);
 	}
 
 	public AcceptsOneWidget getFolderListView() {

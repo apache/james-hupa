@@ -104,5 +104,12 @@ public interface HupaLayoutable extends Layoutable {
 	AcceptsOneWidget getMessageContentView();
 
 	AcceptsOneWidget getStatusView();
+<<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+
+	void switchToCompose();
+
+	void switchToMessage();
+>>>>>>> could change main panel dynamically currently by clicking the compose button
 }
