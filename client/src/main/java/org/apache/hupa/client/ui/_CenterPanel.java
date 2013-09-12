@@ -56,13 +56,13 @@ public class _CenterPanel extends Composite {
 	public _CenterPanel() {
 		initWidget(binder.createAndBindUi(this));
 		thisPanel.setWidgetMinSize(outlinePanel, 144);
-		temporarilyHiddenTheUnimplementedContactPanel();
+		temporarilyHiddenTheUnimplementedContactPanel(true);
 		thisPanel.setWidgetHidden(composePanel, true);
 	}
 
-	// TODO make it display
-	private void temporarilyHiddenTheUnimplementedContactPanel() {
-		thisPanel.setWidgetHidden(outlinePanel, true);
+	// TODO make it display to remove this method and the corresponding code
+	public void temporarilyHiddenTheUnimplementedContactPanel(boolean hidden) {
+		thisPanel.setWidgetHidden(outlinePanel, hidden);
 	}
 
 	public AcceptsOneWidget getFolderListView() {

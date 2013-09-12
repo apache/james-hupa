@@ -367,6 +367,7 @@ public interface HupaLayout {
 	private void changeToCompose() {
 		centerPanel.thisPanel.remove(centerPanel.contentPanel);
 		centerPanel.thisPanel.add(centerPanel.composePanel);
+		centerPanel.temporarilyHiddenTheUnimplementedContactPanel(true);
 	}
 
 	private boolean isMessageOccupied() {
@@ -388,6 +389,7 @@ public interface HupaLayout {
 	private void changeToMessage() {
 		centerPanel.thisPanel.remove(centerPanel.composePanel);
 		centerPanel.thisPanel.add(centerPanel.contentPanel);
+		centerPanel.temporarilyHiddenTheUnimplementedContactPanel(false);
 	}
 
 	private boolean isComposeOccupied() {

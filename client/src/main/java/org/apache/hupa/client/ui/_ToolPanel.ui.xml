@@ -12,7 +12,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<g:DockLayoutPanel unit="PX">
-		<g:west size="550">
+		<g:west size="518">
 			<g:SimplePanel ui:field="toolBarContainer" />
 		</g:west>
 		<g:east size="180">
@@ -22,7 +22,7 @@
 			</g:HTMLPanel>
 		</g:east>
 		<g:center>
-			<g:HTMLPanel />
+            <g:SimplePanel ui:field="composeToolBarContainer" />
 		</g:center>
 	</g:DockLayoutPanel>
 </ui:UiBinder>
