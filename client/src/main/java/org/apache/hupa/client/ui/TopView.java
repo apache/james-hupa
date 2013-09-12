@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -130,10 +131,29 @@ public class TopView extends Composite implements TopActivity.Displayable {
 			flashLabel.setText("");
 		}
 	};
+=======
+package org.apache.hupa.client.ui;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.IsWidget;
+
+public class TopView extends Composite implements IsWidget {
+>>>>>>> decorate the theme
 
 	interface TopViewUiBinder extends UiBinder<FlowPanel, TopView> {
 	}
 
 	private static TopViewUiBinder binder = GWT.create(TopViewUiBinder.class);
 
+<<<<<<< HEAD
+=======
+	public TopView() {
+		FlowPanel panel = binder.createAndBindUi(this);
+		initWidget(panel);
+	}
+
+>>>>>>> decorate the theme
 }

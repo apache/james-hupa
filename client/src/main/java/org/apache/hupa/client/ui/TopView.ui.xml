@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements. See the NOTICE file
@@ -30,5 +31,18 @@
 			<g:Label ui:field="appnameLabel"></g:Label>
 			<g:Label ui:field="extraLabel"></g:Label>
 		</g:HorizontalPanel>
+=======
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:style>
+		.round-corner-panel {
+			border: 1px solid #7FAAFF;
+			box-shadow: 0 1px 4px grey;
+			border-radius: 5px;
+			overflow: hidden;
+		}
+	</ui:style>
+	<g:FlowPanel addStyleNames="{style.round-corner-panel}">
+>>>>>>> decorate the theme
 	</g:FlowPanel>
 </ui:UiBinder>

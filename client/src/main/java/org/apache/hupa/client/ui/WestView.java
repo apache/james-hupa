@@ -133,7 +133,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
     private DockPanel dockPanel;
     private VerticalPanel north;
     private HupaConstants constants;
-    private RndPanel west;
+    private VerticalPanel west;
     private IMAPTreeImages tImages = GWT.create(IMAPTreeImages.class);
     private Tree folderTree = new Tree(tImages, true);
   
@@ -185,11 +185,12 @@ public class WestView extends Composite implements WestActivity.Displayable {
         dockPanel.add(center, DockPanel.CENTER);
         dockPanel.setCellHorizontalAlignment(center, DockPanel.ALIGN_LEFT);
 
+        west.setWidth("100%");
         initWidget(west);
     }
 
     private void createWest() {
-        west = new RndPanel();
+        west = new VerticalPanel();
         west.add(folderTree);
         west.addStyleName(HupaCSS.C_tree_container);
 

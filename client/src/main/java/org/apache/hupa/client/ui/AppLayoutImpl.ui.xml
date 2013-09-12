@@ -39,6 +39,7 @@
 	</g:DockLayoutPanel>
 =======
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+<<<<<<< HEAD
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:my='urn:import:org.apache.hupa.client.ui'>
   <ui:image field="maincontent"/>
@@ -82,4 +83,89 @@
     </g:layer>
   </g:LayoutPanel>
 >>>>>>> Change to new mvp framework - first step
+=======
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:my='urn:import:org.apache.hupa.client.ui'>
+	<ui:style>
+		.Hupa {
+			text-align: left;
+			margin-top: 0px;
+			padding: 0px;
+			width: 100%;
+			min-width: 920px;
+			margin-top: 15px;
+		}
+		
+		* html div.Hupa {
+			margin-top: 15px;
+		}
+		
+		.topPanel {
+			padding-left: 80px;
+			padding-right: 8px;
+		}
+		
+		.topView {
+			height: 64px;
+			background-color: #C5D9FF;
+			background: -moz-linear-gradient(#FFFFFF, #C5D9FF);
+			background: -webkit-linear-gradient(#FFFFFF, #C5D9FF);
+			background: -o-linear-gradient(#FFFFFF, #C5D9FF);
+		}
+		
+		.hupa-logo {
+			width: 90px;
+			height: 64px;
+			float: left;
+			background: url(images/hupa-logo-64-transparent.png) no-repeat;
+		}
+		
+		.hupa-main {
+			clear: both;
+			margin: 8px 8px 8px 8px;
+			min-height: 500px;
+			background: -moz-linear-gradient(#eaeaea, #fafafa);
+			background: -webkit-linear-gradient(#eaeaea, #fafafa);
+			background: -o-linear-gradient(#eaeaea, #fafafa);
+		}
+		
+		.westPanel {
+			border: 1px solid #7FAAFF;
+			box-shadow: 0 1px 4px grey;
+			border-radius: 5px;
+			overflow: hidden;
+			background: -moz-linear-gradient(#eaeaea, #fafafa);
+			background: -webkit-linear-gradient(#eaeaea, #fafafa);
+			background: -o-linear-gradient(#eaeaea, #fafafa);
+			clear: both;
+			margin: 8px 8px 8px 8px;
+		}
+		
+		.mainPanel {
+			border: 1px solid #7FAAFF;
+			box-shadow: 0 1px 4px grey;
+			border-radius: 5px;
+			overflow: hidden;
+			background: -moz-linear-gradient(#eaeaea, #fafafa);
+			background: -webkit-linear-gradient(#eaeaea, #fafafa);
+			background: -o-linear-gradient(#eaeaea, #fafafa);
+			clear: both;
+			margin: 8px 8px 8px 8px;
+			min-height: 500px;
+		}
+	</ui:style>
+	<g:LayoutPanel addStyleNames="{style.Hupa}">
+		<g:layer>
+			<g:FlowPanel ui:field="topPanel" addStyleNames="{style.topPanel}">
+				<g:HTMLPanel addStyleNames="{style.hupa-logo}" />
+				<my:TopView ui:field="topView" addStyleNames="{style.topView}" />
+			</g:FlowPanel>
+		</g:layer>
+		<g:layer>
+			<g:SimplePanel ui:field="westPanel" addStyleNames="{style.westPanel}" />
+		</g:layer>
+		<g:layer>
+			<g:SimplePanel ui:field="mainPanel" addStyleNames="{style.mainPanel}" />
+		</g:layer>
+	</g:LayoutPanel>
+>>>>>>> decorate the theme
 </ui:UiBinder>
