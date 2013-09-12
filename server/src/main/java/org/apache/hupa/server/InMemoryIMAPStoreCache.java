@@ -103,6 +103,9 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
 =======
 >>>>>>> constantly changed by manolo
     	IMAPStore ret =  get(user.getName(),user.getPassword());
@@ -113,6 +116,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
     	}
     	return ret;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         return get(user.getName(),user.getPassword());
 >>>>>>> first commit
@@ -121,6 +125,8 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
 =======
         return get(user.getName(),user.getPassword());
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
     }
     
     /*

@@ -107,10 +107,14 @@ public class GuiceServletConfig extends GuiceServletContextListener{
         	List<String> configurationList = new ArrayList<String>();
             configurationList.add(System.getProperty(SYS_PROP_CONFIG_FILE));
 <<<<<<< HEAD
+<<<<<<< HEAD
             configurationList.add(System.getenv("HOME") + "/.hupa/" + CONFIG_FILE_NAME);
 =======
             configurationList.add(System.getProperty(System.getenv("HOME") + "/.hupa/" + CONFIG_FILE_NAME));
 >>>>>>> first commit
+=======
+            configurationList.add(System.getenv("HOME") + "/.hupa/" + CONFIG_FILE_NAME);
+>>>>>>> constantly changed by manolo
             configurationList.add("/etc/default/hupa");
             configurationList.add(servletContextRealPath + "/" + CONFIG_DIR_IN_WAR + CONFIG_FILE_NAME);
 

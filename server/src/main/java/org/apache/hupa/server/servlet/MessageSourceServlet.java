@@ -34,6 +34,7 @@ import org.apache.commons.logging.Log;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.User;
@@ -47,6 +48,9 @@ import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
 =======
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
+=======
+import org.apache.hupa.server.IMAPStoreCache;
+>>>>>>> constantly changed by manolo
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
@@ -61,6 +65,7 @@ import com.sun.mail.imap.IMAPStore;
 public class MessageSourceServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1245563204035792963L;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -88,6 +93,13 @@ public class MessageSourceServlet extends HttpServlet {
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> first commit
+=======
+    private IMAPStoreCache cache;
+    private Log logger;
+
+    @Inject
+    public MessageSourceServlet(IMAPStoreCache cache, Log logger) {
+>>>>>>> constantly changed by manolo
         this.cache = cache;
         this.logger = logger;
     }
@@ -128,6 +140,7 @@ public class MessageSourceServlet extends HttpServlet {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             throw new ServletException(msg, e);
 =======
             throw new ServletException(msg);
@@ -138,6 +151,9 @@ public class MessageSourceServlet extends HttpServlet {
 =======
             throw new ServletException(msg);
 >>>>>>> first commit
+=======
+            throw new ServletException(msg, e);
+>>>>>>> constantly changed by manolo
         } finally {
             IOUtils.closeQuietly(outs);
         }

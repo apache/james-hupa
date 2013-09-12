@@ -22,6 +22,7 @@ package org.apache.hupa.server.mock;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
@@ -34,6 +35,8 @@ import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +47,7 @@ import javax.mail.Flags;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import javax.mail.Flags.Flag;
 =======
 >>>>>>> first commit
@@ -52,6 +56,9 @@ import javax.mail.Flags.Flag;
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> first commit
+=======
+import javax.mail.Flags.Flag;
+>>>>>>> constantly changed by manolo
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -60,6 +67,7 @@ import javax.mail.Store;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import javax.mail.internet.MimeMessage;
 import javax.mail.search.SearchTerm;
 
@@ -85,6 +93,14 @@ import com.sun.mail.imap.IMAPStore;
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> first commit
+=======
+import javax.mail.internet.MimeMessage;
+import javax.mail.search.SearchTerm;
+
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPStore;
+
+>>>>>>> constantly changed by manolo
 public class MockIMAPFolder extends IMAPFolder {
 
     public static final char SEPARATOR = '.';
@@ -306,6 +322,7 @@ public class MockIMAPFolder extends IMAPFolder {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public synchronized Message[] search(SearchTerm search)
             throws MessagingException {
         checkExists();
@@ -329,6 +346,11 @@ public class MockIMAPFolder extends IMAPFolder {
     public synchronized Message[] search(SearchTerm search)
             throws MessagingException {
         checkExists();
+=======
+    public synchronized Message[] search(SearchTerm search)
+            throws MessagingException {
+        checkExists();
+>>>>>>> constantly changed by manolo
         ArrayList<Message> ret = new ArrayList<Message>();
         for (Message m : messages) {
         	if (search.match(m)) {
@@ -336,9 +358,12 @@ public class MockIMAPFolder extends IMAPFolder {
         	}
         }
         return ret.toArray(new Message[0]);
+<<<<<<< HEAD
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
     }
 
     @Override
