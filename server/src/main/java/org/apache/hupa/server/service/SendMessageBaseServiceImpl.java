@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -18,8 +21,11 @@
  * under the License.                                           *
  ****************************************************************/
 
+<<<<<<< HEAD
 =======
 >>>>>>> forward and reply message to use RF
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import java.io.File;
@@ -48,10 +54,13 @@ import javax.mail.internet.MimeMessage.RecipientType;
 import javax.mail.internet.MimeMultipart;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import net.customware.gwt.dispatch.shared.ActionException;
 
 >>>>>>> forward and reply message to use RF
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 import org.apache.commons.fileupload.FileItem;
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
@@ -140,9 +149,12 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * @throws AddressException
      * @throws MessagingException
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
      * @throws ActionException
 >>>>>>> forward and reply message to use RF
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
      */
     protected Message createMessage(Session session, SendMessageAction action) throws AddressException, MessagingException {
         MimeMessage message = new MimeMessage(session);
@@ -192,12 +204,15 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * @return filledMessage
      * @throws MessagingException
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @throws IOException 
 	 * @throws HupaException 
      */
     protected Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException, HupaException {
 =======
      * @throws ActionException
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
      * @throws IOException 
      */
     protected Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException {

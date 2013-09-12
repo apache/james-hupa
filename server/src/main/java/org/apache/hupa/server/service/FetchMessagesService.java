@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -18,6 +21,7 @@
  * under the License.                                           *
  ****************************************************************/
 
+<<<<<<< HEAD
 package org.apache.hupa.server.service;
 
 import java.util.List;
@@ -33,11 +37,12 @@ public interface FetchMessagesService {
 	FetchMessagesResult fetch(FetchMessagesAction action) throws HupaException;
 	List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException;
 =======
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import org.apache.hupa.shared.domain.FetchMessagesAction;
 import org.apache.hupa.shared.domain.FetchMessagesResult;
-import org.apache.hupa.shared.domain.ImapFolder;
 
 public interface FetchMessagesService {
 <<<<<<< HEAD

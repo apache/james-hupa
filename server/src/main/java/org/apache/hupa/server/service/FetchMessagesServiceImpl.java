@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -58,6 +61,7 @@ import org.apache.hupa.server.handler.JavamailUtil;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.FetchMessagesResultImpl;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.data.TagImpl;
@@ -127,9 +131,12 @@ import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.TagImpl;
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 >>>>>>> fix some bugs related to RF, and try to use new CellView to replace gwt-incubator 
+=======
+import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+import org.apache.hupa.shared.data.TagImpl;
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 import org.apache.hupa.shared.domain.FetchMessagesAction;
 import org.apache.hupa.shared.domain.FetchMessagesResult;
-import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Tag;
 import org.apache.hupa.shared.domain.User;
 

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -18,8 +21,11 @@
  * under the License.                                           *
  ****************************************************************/
 
+<<<<<<< HEAD
 =======
 >>>>>>> Allow client can use the domain entity interface.
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import java.util.ArrayList;
@@ -113,8 +119,6 @@ import java.util.Properties;
 import javax.mail.Folder;
 import javax.mail.MessagingException;
 
-import net.customware.gwt.dispatch.shared.ActionException;
-
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
@@ -200,7 +204,6 @@ public class ImapFolderServiceImpl extends AbstractService implements ImapFolder
 	 * 
 	 * @param folder Folder to walk
 	 * @param imapFolder Current IMAPFolder
-	 * @throws ActionException If an error occurs
 	 * @throws MessagingException If an error occurs
 	 */
 	private void walkFolders(Folder folder, ImapFolder imapFolder) throws MessagingException {
@@ -216,7 +219,7 @@ public class ImapFolderServiceImpl extends AbstractService implements ImapFolder
 	 * 
 	 * @param folder Current folder
 	 * @return imapFolder Created IMAPFolder
-	 * @throws ActionException If an error occurs
+	 * @throws Exception If an error occurs
 	 * @throws MessagingException If an error occurs
 	 */
 	private ImapFolder createIMAPFolder(Folder folder) {

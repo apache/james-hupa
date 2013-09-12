@@ -29,11 +29,15 @@ import junit.framework.Assert;
 import org.apache.commons.io.FileUtils;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.server.ioc.GuiceListener;
 =======
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+import org.apache.hupa.server.ioc.GuiceListener;
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 import org.apache.hupa.server.mock.MockConstants;
 import org.apache.hupa.server.utils.ConfigurationProperties;
 import org.junit.Before;
@@ -45,6 +49,7 @@ public class ServerModulTest {
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private String configDir = GuiceListener.CONFIG_DIR_IN_WAR;
 =======
     private String configDir = GuiceServletConfig.CONFIG_DIR_IN_WAR;
@@ -52,6 +57,9 @@ public class ServerModulTest {
 =======
     private String configDir = GuiceServletConfig.CONFIG_DIR_IN_WAR;
 >>>>>>> first commit
+=======
+    private String configDir = GuiceListener.CONFIG_DIR_IN_WAR;
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
     
 
     @Before
@@ -78,6 +86,7 @@ public class ServerModulTest {
     public void testLoadPropertiesWithEmptyFile() throws Exception {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         GuiceListener sconfig = new GuiceListener();
 =======
         GuiceServletConfig sconfig = new GuiceServletConfig();
@@ -85,6 +94,9 @@ public class ServerModulTest {
 =======
         GuiceServletConfig sconfig = new GuiceServletConfig();
 >>>>>>> first commit
+=======
+        GuiceListener sconfig = new GuiceListener();
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
         
         File tmp = File.createTempFile("foo", ".properties");
         tmp.deleteOnExit();
@@ -99,6 +111,7 @@ public class ServerModulTest {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.setProperty(GuiceListener.SYS_PROP_CONFIG_FILE, tmp.toString());
 =======
         System.setProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE, tmp.toString());
@@ -106,6 +119,9 @@ public class ServerModulTest {
 =======
         System.setProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE, tmp.toString());
 >>>>>>> first commit
+=======
+        System.setProperty(GuiceListener.SYS_PROP_CONFIG_FILE, tmp.toString());
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
         try {
             sconfig.loadProperties();
         } catch (IllegalArgumentException e) {
@@ -115,6 +131,7 @@ public class ServerModulTest {
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.clearProperty(GuiceListener.SYS_PROP_CONFIG_FILE);
 =======
         System.clearProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE);
@@ -122,6 +139,9 @@ public class ServerModulTest {
 =======
         System.clearProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE);
 >>>>>>> first commit
+=======
+        System.clearProperty(GuiceListener.SYS_PROP_CONFIG_FILE);
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
     }
 
     @Test
@@ -137,6 +157,7 @@ public class ServerModulTest {
         
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.setProperty(GuiceListener.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
         p = new GuiceListener().loadProperties();
 =======
@@ -147,10 +168,15 @@ public class ServerModulTest {
         System.setProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
         p = new GuiceServletConfig().loadProperties();
 >>>>>>> first commit
+=======
+        System.setProperty(GuiceListener.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
+        p = new GuiceListener().loadProperties();
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
         Assert.assertNotNull(p);
         Assert.assertEquals(MockConstants.mockSettings.getInboxFolderName(), p.get("DefaultInboxFolder"));
         Assert.assertEquals(MockConstants.mockSettings.getTrashFolderName(), p.get("DefaultTrashFolder"));
         Assert.assertEquals(MockConstants.mockSettings.getSentFolderName(), p.get("DefaultSentFolder"));
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         System.clearProperty(GuiceListener.SYS_PROP_CONFIG_FILE);
@@ -160,6 +186,9 @@ public class ServerModulTest {
 =======
         System.clearProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE);
 >>>>>>> first commit
+=======
+        System.clearProperty(GuiceListener.SYS_PROP_CONFIG_FILE);
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
     }
 
 }

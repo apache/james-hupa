@@ -21,6 +21,7 @@ package org.apache.hupa.server.utils;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.io.File;
 import java.io.IOException;
 <<<<<<< HEAD
@@ -31,6 +32,12 @@ import java.io.OutputStream;
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> constantly changed by manolo
+=======
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,12 +79,15 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 >>>>>>> first commit
 =======
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 >>>>>>> first commit
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 
 
 
@@ -227,6 +237,7 @@ public class MessageUtils {
         MimeBodyPart messageBodyPart = new MimeBodyPart();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         DataSource source = new FileItemDataStore(item);
 =======
         DataSource source = new AbstractSendMessageHandler.FileItemDataStore(item);
@@ -234,12 +245,18 @@ public class MessageUtils {
 =======
         DataSource source = new AbstractSendMessageHandler.FileItemDataStore(item);
 >>>>>>> first commit
+=======
+        DataSource source = new FileItemDataStore(item);
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
         messageBodyPart.setDataHandler(new DataHandler(source));
         messageBodyPart.setFileName(source.getName());
         return messageBodyPart;
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 
     /**
      * DataStore which wrap a FileItem
@@ -294,6 +311,7 @@ public class MessageUtils {
         }
 
     }  
+<<<<<<< HEAD
     /**
      * Decode iso-xxxx strings present in subjects and emails like:
      * 
@@ -395,6 +413,8 @@ public class MessageUtils {
 <<<<<<< HEAD
 >>>>>>> first commit
 =======
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
     /**
      * Decode iso-xxxx strings present in subjects and emails like:
      * 
