@@ -265,6 +265,7 @@ import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.CreateFolderRequest;
 import org.apache.hupa.client.rf.DeleteFolderRequest;
 import org.apache.hupa.client.rf.FetchMessagesRequest;
+import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.rf.ImapFolderRequest;
 import org.apache.hupa.client.rf.RenameFolderRequest;
@@ -272,13 +273,15 @@ import org.apache.hupa.client.ui.WidgetContainerDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.domain.CreateFolderAction;
 import org.apache.hupa.shared.domain.DeleteFolderAction;
 import org.apache.hupa.shared.domain.GenericResult;
+import org.apache.hupa.shared.domain.GetMessageDetailsAction;
+import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.RenameFolderAction;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.BackEvent;
@@ -899,6 +902,25 @@ System.out.println("1111111"+response);
 				}
 
 				display.setLoadingMessage(true);
+				GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
+				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
+				action.setFolder(event.getFolder());
+				action.setUid(message.getUid());
+				req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
+
+					@Override
+					public void onSuccess(GetMessageDetailsResult response) {
+
+						if (decreaseUnseen) {
+							eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
+						}
+						display.setLoadingMessage(false);
+//						showMessage(user, folder, message, response.getMessageDetails());
+
+						placeController.goTo(messagePlaceProvider.get().with(user, folder, message,
+						        response.getMessageDetails()));
+					}
+				});
 				// dispatcher.execute(new
 				// GetMessageDetails(event.getFolder(),
 				// message.getUid()), new
@@ -1073,7 +1095,7 @@ System.out.println("1111111"+response);
 				FetchMessagesRequest req = requestFactory.messagesRequest();
 				folder = req.edit(editableFolder);
 
-//				folder = (ImapFolder) tItem.getUserObject();
+				// folder = (ImapFolder) tItem.getUserObject();
 				eventBus.fireEvent(new LoadMessagesEvent(user, folder));
 >>>>>>> fix the frozen autobean issue, yet another occur
 				if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
@@ -1086,6 +1108,7 @@ System.out.println("1111111"+response);
 			}
 
 		});
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> try to change fetch messages to use RF
 =======
@@ -1108,6 +1131,29 @@ System.out.println("1111111"+response);
 //
 //		});
 >>>>>>> fix the frozen autobean issue, yet another occur
+=======
+		// FIXME why another?
+		// display.getTree().addSelectionHandler(new
+		// SelectionHandler<TreeItem>() {
+		//
+		// public void onSelection(SelectionEvent<TreeItem> event) {
+		// tItem = (IMAPTreeItem) event.getSelectedItem();
+		// if (tItem.isEdit())
+		// return;
+		// folder = (ImapFolder) tItem.getUserObject();
+		// if
+		// (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName()))
+		// {
+		// display.getDeleteEnable().setEnabled(false);
+		// display.getRenameEnable().setEnabled(false);
+		// } else {
+		// display.getDeleteEnable().setEnabled(true);
+		// display.getRenameEnable().setEnabled(true);
+		// }
+		// }
+		//
+		// });
+>>>>>>> try to get message details, problem is:
 		display.getRenameClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
@@ -1268,7 +1314,7 @@ System.out.println("1111111"+response);
 		this.user = user;
 		this.folder = folder;
 		this.searchValue = searchValue;
-		
+
 		// FIXME goto?
 		placeController.goTo(new MailFolderPlace().with(user, folder, searchValue));
 		// placeController.goTo(mailInboxPlaceProvider.get().with(user));
@@ -1277,7 +1323,7 @@ System.out.println("1111111"+response);
 		// MailInboxPlace(folder.getName()).with(user));
 	}
 
-	private void showMessage(User user, ImapFolderImpl folder, Message message, MessageDetails details) {
+	private void showMessage(User user, ImapFolder folder, Message message, MessageDetails details) {
 		placeController.goTo(IMAPMessagePlaceProvider.get());
 >>>>>>> try to change fetch messages to use RF
 	}

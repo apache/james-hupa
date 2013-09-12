@@ -25,7 +25,7 @@ import com.sun.mail.imap.IMAPStore;
 import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.domain.MessageDetails;
 
 import javax.mail.Folder;
 import javax.mail.Message;

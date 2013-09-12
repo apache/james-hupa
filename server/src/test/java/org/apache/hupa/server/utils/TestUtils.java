@@ -55,12 +55,16 @@ import org.apache.hupa.shared.domain.SmtpMessage;
 >>>>>>> first commit
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.mock.MockIMAPFolder;
-import org.apache.hupa.shared.data.MessageAttachment;
+import org.apache.hupa.shared.data.MessageAttachmentImpl;
 import org.apache.hupa.shared.data.SMTPMessage;
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.domain.MessageAttachment;
+>>>>>>> try to get message details, problem is:
 
 import com.sun.mail.imap.IMAPStore;
 
@@ -216,6 +220,7 @@ public class TestUtils extends TestCase {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             MessageAttachment msgAttach = new MessageAttachmentImpl();
 =======
             MessageAttachment msgAttach = new MessageAttachment();
@@ -223,6 +228,9 @@ public class TestUtils extends TestCase {
 =======
             MessageAttachment msgAttach = new MessageAttachment();
 >>>>>>> first commit
+=======
+            MessageAttachment msgAttach = new MessageAttachmentImpl();
+>>>>>>> try to get message details, problem is:
             msgAttach.setName(fileItem.getFieldName());
             msgAttach.setContentType(fileItem.getContentType());
             msgAttach.setSize((int) fileItem.getSize());

@@ -95,11 +95,4 @@ public class MessageAttachmentImpl implements MessageAttachment {
     public int getSize() {
         return size;
     }
-
-	@Override
-    public void setImage(boolean image) {
-	    //FIXME just for MessageSendActivity's NullPointerException, with adding the RequestContext's create List<MeeageAttachment>
-    }
-    
-    
 }

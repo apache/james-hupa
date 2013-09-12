@@ -38,8 +38,11 @@ public interface MessageAttachment extends ValueProxy {
 
 	boolean isImage();
 	
+<<<<<<< HEAD
 	void setImage(boolean image);
 	
 	String getContentType();
 	
+=======
+>>>>>>> try to get message details, problem is:
 }

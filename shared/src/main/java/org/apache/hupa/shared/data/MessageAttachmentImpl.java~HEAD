@@ -19,20 +19,16 @@
 
 package org.apache.hupa.shared.data;
 
-import java.io.Serializable;
+import org.apache.hupa.shared.domain.MessageAttachment;
 
 /**
  * Attachment of a message
  * 
  *
  */
-public class MessageAttachment implements Serializable {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -6896197131104882424L;
-    private String cType;
+public class MessageAttachmentImpl implements MessageAttachment {
+	
+    private String contentType;
     private int size;
     private String name;
 
@@ -58,10 +54,10 @@ public class MessageAttachment implements Serializable {
     /**
      * Set the content-type of the attachment
      * 
-     * @param cType
+     * @param contentType
      */
-    public void setContentType(String cType) {
-        this.cType = cType;
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
     
     /**
@@ -70,7 +66,7 @@ public class MessageAttachment implements Serializable {
      * @return cType
      */
     public String getContentType() {
-        return cType;
+        return contentType;
     }
 
     /**
@@ -79,7 +75,7 @@ public class MessageAttachment implements Serializable {
      * @return cType
      */
     public boolean isImage() {
-    	  return cType != null && cType.toLowerCase().startsWith("image/");
+    	  return contentType != null && contentType.toLowerCase().startsWith("image/");
     }
 
     /**
@@ -99,4 +95,11 @@ public class MessageAttachment implements Serializable {
     public int getSize() {
         return size;
     }
+
+	@Override
+    public void setImage(boolean image) {
+	    //FIXME just for MessageSendActivity's NullPointerException, with adding the RequestContext's create List<MeeageAttachment>
+    }
+    
+    
 }

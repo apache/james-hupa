@@ -62,6 +62,7 @@ import org.apache.hupa.server.service.FetchMessagesService;
 import org.apache.hupa.server.service.FetchMessagesServiceImpl;
 import org.apache.hupa.server.service.GetMessageDetailsService;
 import org.apache.hupa.server.service.GetMessageDetailsServiceImpl;
+<<<<<<< HEAD
 import org.apache.hupa.server.service.GetMessageRawService;
 import org.apache.hupa.server.service.GetMessageRawServiceImpl;
 import org.apache.hupa.server.service.IdleService;
@@ -92,6 +93,8 @@ import org.apache.hupa.server.service.DeleteFolderServiceImpl;
 import org.apache.hupa.server.service.FetchMessagesService;
 import org.apache.hupa.server.service.FetchMessagesServiceImpl;
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
+=======
+>>>>>>> try to get message details, problem is:
 import org.apache.hupa.server.service.ImapFolderService;
 import org.apache.hupa.server.service.ImapFolderServiceImpl;
 import org.apache.hupa.server.service.LoginUserService;
@@ -137,6 +140,7 @@ import org.apache.hupa.shared.data.FetchMessagesResultImpl;
 import org.apache.hupa.shared.data.GenericResultImpl;
 import org.apache.hupa.shared.data.GetMessageDetailsActionImpl;
 import org.apache.hupa.shared.data.GetMessageDetailsResultImpl;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.GetMessageRawActionImpl;
 import org.apache.hupa.shared.data.GetMessageRawResultImpl;
 import org.apache.hupa.shared.data.IdleActionImpl;
@@ -155,6 +159,12 @@ import org.apache.hupa.shared.data.SendReplyMessageActionImpl;
 import org.apache.hupa.shared.data.SetFlagActionImpl;
 import org.apache.hupa.shared.data.SmtpMessageImpl;
 =======
+=======
+import org.apache.hupa.shared.data.ImapFolderImpl;
+import org.apache.hupa.shared.data.MailHeaderImpl;
+import org.apache.hupa.shared.data.MessageAttachmentImpl;
+import org.apache.hupa.shared.data.MessageDetailsImpl;
+>>>>>>> try to get message details, problem is:
 import org.apache.hupa.shared.data.RenameFolderActionImpl;
 >>>>>>> delete and rename folder
 import org.apache.hupa.shared.data.TagImpl;
@@ -176,6 +186,7 @@ import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.GetMessageRawAction;
 import org.apache.hupa.shared.domain.GetMessageRawResult;
 import org.apache.hupa.shared.domain.IdleAction;
@@ -187,6 +198,12 @@ import org.apache.hupa.shared.domain.MailHeader;
 import org.apache.hupa.shared.domain.MessageAttachment;
 import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.MoveMessageAction;
+=======
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.MailHeader;
+import org.apache.hupa.shared.domain.MessageAttachment;
+import org.apache.hupa.shared.domain.MessageDetails;
+>>>>>>> try to get message details, problem is:
 import org.apache.hupa.shared.domain.RenameFolderAction;
 import org.apache.hupa.shared.domain.SendForwardMessageAction;
 import org.apache.hupa.shared.domain.SendMessageAction;
@@ -258,11 +275,15 @@ public class GuiceServerModule extends AbstractModule {
 		bind(IocRfServiceLocator.class);
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> try to get message details, problem is:
 		bind(MailHeader.class).to(MailHeaderImpl.class);
 		
 		bind(User.class).to(UserImpl.class);
 		bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(Singleton.class);
 		bind(ImapFolder.class).to(ImapFolderImpl.class);
+<<<<<<< HEAD
 <<<<<<< HEAD
 		bind(Tag.class).to(TagImpl.class);
 		bind(MessageDetails.class).to(MessageDetailsImpl.class);
@@ -303,7 +324,14 @@ public class GuiceServerModule extends AbstractModule {
 <<<<<<< HEAD
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 =======
+=======
+		bind(Tag.class).to(TagImpl.class);
+		bind(MessageDetails.class).to(MessageDetailsImpl.class);
+		bind(MessageAttachment.class).to(MessageAttachmentImpl.class);
+>>>>>>> try to get message details, problem is:
 		bind(GenericResult.class).to(GenericResultImpl.class);
+		bind(FetchMessagesAction.class).to(FetchMessagesActionImpl.class);
+		bind(FetchMessagesResult.class).to(FetchMessagesResultImpl.class);
 		bind(CreateFolderAction.class).to(CreateFolderActionImpl.class);
 <<<<<<< HEAD
 >>>>>>> Succeed creating new folder
@@ -315,7 +343,13 @@ public class GuiceServerModule extends AbstractModule {
 =======
 		bind(DeleteMessageAllAction.class).to(DeleteMessageAllActionImpl.class);
 		bind(DeleteMessageByUidAction.class).to(DeleteMessageByUidActionImpl.class);
+<<<<<<< HEAD
 >>>>>>> delete messages, make WestActivity Singleton
+=======
+		bind(GetMessageDetailsAction.class).to(GetMessageDetailsActionImpl.class);
+		bind(GetMessageDetailsResult.class).to(GetMessageDetailsResultImpl.class);
+		
+>>>>>>> try to get message details, problem is:
 		
 		bind(CheckSessionService.class).to(CheckSessionServiceImpl.class);
 		bind(LoginUserService.class).to(LoginUserServiceImpl.class);
@@ -365,7 +399,11 @@ public class GuiceServerModule extends AbstractModule {
 =======
 		bind(DeleteMessageAllService.class).to(DeleteMessageAllServiceImpl.class);
 		bind(DeleteMessageByUidService.class).to(DeleteMessageByUidServiceImpl.class);
+<<<<<<< HEAD
 >>>>>>> delete messages, make WestActivity Singleton
+=======
+		bind(GetMessageDetailsService.class).to(GetMessageDetailsServiceImpl.class);
+>>>>>>> try to get message details, problem is:
 		
 		bind(IMAPStoreCache.class).to(getIMAPStoreCacheClass()).in(Singleton.class);
 

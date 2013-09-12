@@ -21,6 +21,8 @@ package org.apache.hupa.shared.data;
 
 import java.util.ArrayList;
 
+import org.apache.hupa.shared.domain.MessageAttachment;
+
 public class SMTPMessage extends AbstractMessage{
     private static final long serialVersionUID = 7331361994526216161L;
     private ArrayList<String> bcc;

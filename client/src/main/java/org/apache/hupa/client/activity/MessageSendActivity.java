@@ -37,6 +37,7 @@ import java.util.List;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
 import org.apache.hupa.client.rf.SendMessageRequest;
@@ -69,6 +70,8 @@ import net.customware.gwt.dispatch.shared.Action;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import org.apache.hupa.client.evo.HupaEvoCallback;
+=======
+>>>>>>> try to get message details, problem is:
 import org.apache.hupa.client.place.MessageSendPlace;
 <<<<<<< HEAD
 >>>>>>> 1. improve the inbox folder place.
@@ -77,9 +80,7 @@ import org.apache.hupa.client.ui.WidgetDisplayable;
 >>>>>>> Make the evo more clear.
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.shared.Util;
-import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.MessageAttachment;
-import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.MessageAttachmentImpl;
 import org.apache.hupa.shared.data.SMTPMessage;
 <<<<<<< HEAD
 import org.apache.hupa.shared.data.User;
@@ -94,16 +95,18 @@ import org.apache.hupa.shared.domain.ImapFolder;
 =======
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.MessageAttachment;
+import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.User;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.ContactsUpdatedEvent;
 import org.apache.hupa.shared.events.ContactsUpdatedEventHandler;
-import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
 import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
+<<<<<<< HEAD
 import org.apache.hupa.shared.events.SentMessageEvent;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -124,10 +127,11 @@ import org.apache.hupa.shared.proxy.ImapFolder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 =======
 >>>>>>> Allow client can use the domain entity interface.
+=======
+>>>>>>> try to get message details, problem is:
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 >>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.shared.rpc.ForwardMessage;
-import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.ReplyMessage;
 import org.apache.hupa.shared.rpc.SendMessage;
 import org.apache.hupa.widgets.ui.HasEnable;
@@ -787,7 +791,7 @@ public class MessageSendActivity extends AbstractActivity {
         public void onFinish(IUploader uploader) {
             if (uploader.getStatus() == Status.SUCCESS) {
                 String name = uploader.getInputName();
-                MessageAttachment attachment = new MessageAttachment();
+                MessageAttachment attachment = new MessageAttachmentImpl();
                 attachment.setName(name);
                 attachments.add(attachment);
                 display.getSendEnable().setEnabled(true);

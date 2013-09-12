@@ -104,5 +104,9 @@ public interface HupaRequestFactory extends RequestFactory {
 =======
 	DeleteMessageByUidRequest deleteMessageByUidRequest();
 	DeleteMessageAllRequest deleteMessageAllRequest();
+<<<<<<< HEAD
 >>>>>>> delete messages, make WestActivity Singleton
+=======
+	GetMessageDetailsRequest messageDetailsRequest();
+>>>>>>> try to get message details, problem is:
 }

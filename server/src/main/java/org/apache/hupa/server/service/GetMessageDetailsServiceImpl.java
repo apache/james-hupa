@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,6 +18,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> try to get message details, problem is:
 package org.apache.hupa.server.service;
 
 import static org.apache.hupa.server.utils.RegexPatterns.regex_badAttrs;
@@ -125,6 +128,11 @@ public class GetMessageDetailsServiceImpl extends AbstractService implements Get
 
 		boolean isHTML = handleParts(message, con, sbPlain, attachmentList);
 
+<<<<<<< HEAD
+=======
+		System.out.println(isHTML);
+
+>>>>>>> try to get message details, problem is:
 		if (isHTML) {
 			mDetails.setText(filterHtmlDocument(sbPlain.toString(), folderName, uid));
 		} else {

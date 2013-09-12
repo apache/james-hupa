@@ -65,12 +65,12 @@ import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.Util;
-import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.MessageAttachment;
-import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.MessageAttachmentImpl;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.MessageAttachment;
+import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.ContactsUpdatedEvent;
@@ -164,7 +164,7 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         public void onFinish(IUploader uploader) {
             if (uploader.getStatus() == Status.SUCCESS) {
                 String name = uploader.getInputName();
-                MessageAttachment attachment = new MessageAttachment();
+                MessageAttachment attachment = new MessageAttachmentImpl();
                 attachment.setName(name);
                 attachments.add(attachment);
                 display.getSendEnable().setEnabled(true);

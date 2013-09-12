@@ -32,10 +32,11 @@ import org.apache.hupa.client.guice.GuiceMvpTestModule;
 import org.apache.hupa.client.guice.GuiceMvpTestModule.DispatchTestAsync;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.MessageDetailsImpl;
 import org.apache.hupa.shared.data.MessageImpl;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.ServerStatusEvent;
@@ -218,7 +219,7 @@ public class MessageSendPresenterTest extends HupaMvpTestCase {
         oldmessage.setReplyto("replyto@dom.com");
         oldmessage.setSubject("Subject");
         
-        MessageDetails oldDetails = new MessageDetails();
+        MessageDetails oldDetails = new MessageDetailsImpl();
         oldDetails.setText("Message");
         oldDetails.setUid(0l);
         
