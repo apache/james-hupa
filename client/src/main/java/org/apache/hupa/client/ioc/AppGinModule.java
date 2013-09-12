@@ -169,6 +169,7 @@ import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.mapper.CachingTopActivityMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -221,6 +222,9 @@ import org.apache.hupa.client.mapper.ComposeStatusActivityMapper;
 =======
 =======
 =======
+=======
+import org.apache.hupa.client.mapper.CachingMessageListActivityMapper;
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 import org.apache.hupa.client.mapper.CachingTopBarActivityMapper;
 >>>>>>> fixed issue#46 and issue#32
 import org.apache.hupa.client.mapper.ComposeActivityMapper;

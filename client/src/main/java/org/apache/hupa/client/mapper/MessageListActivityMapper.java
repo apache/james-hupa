@@ -124,7 +124,15 @@ public class MessageListActivityMapper extends _MessageActivityMapper {
 			return null;
 =======
 	protected Activity lazyLoadActivity(final Place place) {
+<<<<<<< HEAD
 >>>>>>> change place management and make refresh folder and message list more gentle
+=======
+		if (place instanceof FolderPlace) {
+			return messageListActivityProvider.get().with(((FolderPlace) place).getToken());
+		} else if(place instanceof MessagePlace){
+			return messageListActivityProvider.get().with(((MessagePlace) place).getTokenWrapper().getFolder());
+		}
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {

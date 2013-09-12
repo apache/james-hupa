@@ -41,6 +41,7 @@ public abstract class AppBaseActivity extends AbstractActivity {
 	@Inject protected EventBus eventBus;
 	@Inject protected HupaController hc;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject protected PlaceController pc;
 	@Inject protected HupaRequestFactory rf;
 
@@ -65,6 +66,10 @@ public abstract class AppBaseActivity extends AbstractActivity {
 >>>>>>> try to rearrange the places and history managment.
 	@Inject protected PlaceController placeController;
 	@Inject protected HupaRequestFactory requestFactory;
+=======
+	@Inject protected PlaceController pc;
+	@Inject protected HupaRequestFactory rf;
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 
 >>>>>>> scrub code
 	protected List<HandlerRegistration> registrations = new ArrayList<HandlerRegistration>();

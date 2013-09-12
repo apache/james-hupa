@@ -204,7 +204,7 @@ public class MessageContentActivity extends AppBaseActivity {
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		if (isUidSet()) {
-			GetMessageDetailsRequest req = requestFactory
+			GetMessageDetailsRequest req = rf
 					.messageDetailsRequest();
 			GetMessageDetailsAction action = req
 					.create(GetMessageDetailsAction.class);

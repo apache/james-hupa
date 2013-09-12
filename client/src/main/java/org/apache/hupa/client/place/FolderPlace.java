@@ -232,6 +232,7 @@ public class FolderPlace extends HupaPlace {
 			return place.getToken();
 		}
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD:client/src/main/java/org/apache/hupa/client/place/IMAPMessagePlace.java
 
 <<<<<<< HEAD
@@ -265,4 +266,26 @@ public class FolderPlace extends HupaPlace {
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 =======
 >>>>>>> change place management and make refresh folder and message list more gentle:client/src/main/java/org/apache/hupa/client/place/FolderPlace.java
+=======
+//
+//	@Override
+//	public boolean equals(Object o) {
+//		if (o == null)
+//			return false;
+//		if (o == this)
+//			return true;
+//		if (o.getClass() != getClass())
+//			return false;
+//		FolderPlace place = (FolderPlace) o;
+//		return (token == place.token || (token != null && token.equals(place.token)));
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((token == null) ? 0 : token.hashCode());
+//		return result;
+//	}
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 }

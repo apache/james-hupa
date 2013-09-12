@@ -113,6 +113,7 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 			public void onMoveMessageHandler(MoveMessageEvent event) {
 				final Message message = event.getMessage();
 				MoveMessageRequest req = rf.moveMessageRequest();
+<<<<<<< HEAD
 				MoveMessageAction action = req.create(MoveMessageAction.class);
 				ImapFolder newOne = req.create(ImapFolder.class);
 				ImapFolder oldOne = req.create(ImapFolder.class);
@@ -670,6 +671,8 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 			public void onMoveMessageHandler(MoveMessageEvent event) {
 				final Message message = event.getMessage();
 				MoveMessageRequest req = requestFactory.moveMessageRequest();
+=======
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 				MoveMessageAction action = req.create(MoveMessageAction.class);
 				ImapFolder newOne = req.create(ImapFolder.class);
 				ImapFolder oldOne = req.create(ImapFolder.class);
@@ -716,7 +719,7 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 		registrations.add(display.getNewClick().addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
 				// eventBus.fireEvent(new NewMessageEvent());
-				placeController.goTo(messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
+				pc.goTo(messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
 			}
 		}));
 		registrations.add(display.getDeleteAllClick().addClickHandler(new ClickHandler() {
@@ -726,7 +729,7 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 		}));
 		registrations.add(display.getConfirmDeleteAllDialogClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				DeleteMessageAllRequest req = requestFactory.deleteMessageAllRequest();
+				DeleteMessageAllRequest req = rf.deleteMessageAllRequest();
 				DeleteMessageAllAction action = req.create(DeleteMessageAllAction.class);
 				ImapFolder f = req.create(ImapFolder.class);
 				folder.setFolderTo(f);
@@ -751,7 +754,7 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 						selectedMessages.remove(m);
 					}
 				}
-				SetFlagRequest req = requestFactory.setFlagRequest();
+				SetFlagRequest req = rf.setFlagRequest();
 				SetFlagAction action = req.create(SetFlagAction.class);
 				ImapFolder f = req.create(ImapFolder.class);
 				folder.setFolderTo(f);
@@ -784,7 +787,7 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 						selectedMessages.remove(m);
 					}
 				}
-				SetFlagRequest req = requestFactory.setFlagRequest();
+				SetFlagRequest req = rf.setFlagRequest();
 				SetFlagAction action = req.create(SetFlagAction.class);
 				ImapFolder f = req.create(ImapFolder.class);
 				folder.setFolderTo(f);
@@ -842,7 +845,7 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 		// maybe its better to just remove the messages from the table and
 		// expect the removal will work
 		display.removeMessages(selectedMessages);
-		DeleteMessageByUidRequest req = requestFactory.deleteMessageByUidRequest();
+		DeleteMessageByUidRequest req = rf.deleteMessageByUidRequest();
 		DeleteMessageByUidAction action = req.create(DeleteMessageByUidAction.class);
 		ImapFolder f = req.create(ImapFolder.class);
 //		folder.setFolderTo(f); FIXME cannot use any more, for it's already a requestContext assigned.

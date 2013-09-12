@@ -271,8 +271,12 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 =======
 		this.viewModel = viewModel;
 		cellTree = new CellTree(viewModel,null,Resources.INSTANCE);
+<<<<<<< HEAD
 >>>>>>> try to rearrange the places and history managment.
 		cellTree.setAnimationEnabled(true);
+=======
+//		cellTree.setAnimationEnabled(true);
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 		thisView.add(cellTree);
 >>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 	}

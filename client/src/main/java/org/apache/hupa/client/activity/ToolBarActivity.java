@@ -199,21 +199,14 @@ public class ToolBarActivity extends AppBaseActivity {
 
 	@Inject private Displayable display;
 	@Inject private MessagesCellTable table;
-	@Inject private MessageListActivity messagesDisplay;
+	@Inject private MessageListActivity.Displayable messagesDisplay;
 	@Inject private FolderListActivity.Displayable folderListDisplay;
 	@Inject private HupaController hupaController;
-	// FIXME messagesDisplay can not be injected into ToolBarView, why?
 	private String folderName;
-
-//	@Override
-//	public void onStop() {
-//		// for tool bar work as expected, not to unbind event handlers
-//	}
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
-//		display.enableAllTools(false);
 		bindTo(eventBus);
 	}
 
@@ -233,7 +226,6 @@ public class ToolBarActivity extends AppBaseActivity {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
 	private void bindTo(EventBus eventBus) {
-
 		registerHandler(display.getMarkRead().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -250,7 +242,6 @@ public class ToolBarActivity extends AppBaseActivity {
 				display.getPopup().hide();
 			}
 		}));
-
 		registerHandler(display.getDeleteReg());
 		registerHandler(display.getMarkReg());
 		registerHandler(display.getReplyReg());
@@ -266,7 +257,7 @@ public class ToolBarActivity extends AppBaseActivity {
 				table.markRead(msg, read);
 			}
 		}
-		SetFlagRequest req = this.requestFactory.setFlagRequest();
+		SetFlagRequest req = this.rf.setFlagRequest();
 		SetFlagAction action = req.create(SetFlagAction.class);
 		ImapFolder f = req.create(ImapFolder.class);
 		f.setFullName(folderName);
@@ -277,18 +268,14 @@ public class ToolBarActivity extends AppBaseActivity {
 		req.set(action).fire(new Receiver<GenericResult>() {
 			@Override
 			public void onSuccess(GenericResult response) {
-				table.refresh();
-//				table.setStyleBaseOnTag();
 				folderListDisplay.refresh();
 				messagesDisplay.refresh();
 				hupaController.hideTopLoading();
 			}
 		});
-
 	}
 
 	public interface Displayable extends WidgetDisplayable {
-
 		void enableSendingTools(boolean is);
 		HandlerRegistration getForwardReg();
 		HandlerRegistration getReplyAllReg();
@@ -297,23 +284,15 @@ public class ToolBarActivity extends AppBaseActivity {
 		HandlerRegistration getDeleteReg();
 		void enableDealingTools(boolean is);
 		void enableAllTools(boolean is);
-
 		HasClickHandlers getReply();
-
 		HasClickHandlers getReplyAll();
-
 		HasClickHandlers getForward();
-
 		void setParameters(Parameters parameters);
 		Parameters getParameters();
-
 		HasClickHandlers getMarkUnread();
-
 		HasClickHandlers getMarkRead();
-
 		HasClickHandlers getMark();
 		HasClickHandlers getDelete();
-
 		PopupPanel getPopup();
 		HasClickHandlers getCompose();
 	}

@@ -195,7 +195,7 @@ public class LabelListActivity extends AppBaseActivity {
 		hupaController.showTopLoading("Deleting...");
 		SingleSelectionModel<LabelNode> selectionModel = display.getSelectionModel();
 		LabelNode labelNode = selectionModel.getSelectedObject();
-		DeleteFolderRequest req = requestFactory.deleteFolderRequest();
+		DeleteFolderRequest req = rf.deleteFolderRequest();
 		DeleteFolderAction action = req.create(DeleteFolderAction.class);
 		final ImapFolder f = req.create(ImapFolder.class);
 		f.setFullName(labelNode.getFolder().getFullName());

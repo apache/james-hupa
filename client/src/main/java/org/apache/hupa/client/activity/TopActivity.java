@@ -309,6 +309,7 @@ public class TopActivity extends AppBaseActivity {
 	private void doLogout() {
 		if (user != null) {
 			LogoutUserRequest req = rf.logoutRequest();
+<<<<<<< HEAD
 			req.logout().fire(new Receiver<LogoutUserResult>() {
 				@Override
 				public void onSuccess(LogoutUserResult response) {
@@ -353,6 +354,8 @@ public class TopActivity extends AppBaseActivity {
 =======
 		if (user != null) {
 			LogoutUserRequest req = requestFactory.logoutRequest();
+=======
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 			req.logout().fire(new Receiver<LogoutUserResult>() {
 				@Override
 				public void onSuccess(LogoutUserResult response) {
@@ -475,6 +478,7 @@ public class TopActivity extends AppBaseActivity {
 			if (!running) {
 				running = true;
 				IdleRequest req = rf.idleRequest();
+<<<<<<< HEAD
 				IdleAction action = req.create(IdleAction.class);
 				req.idle(action).fire(new Receiver<IdleResult>() {
 
@@ -528,6 +532,8 @@ public class TopActivity extends AppBaseActivity {
 >>>>>>> introduce the top activity
 =======
 				IdleRequest req = requestFactory.idleRequest();
+=======
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 				IdleAction action = req.create(IdleAction.class);
 				req.idle(action).fire(new Receiver<IdleResult>() {
 

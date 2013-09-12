@@ -353,6 +353,7 @@ public class LoginActivity extends AbstractActivity {
 			return;
 		display.setLoading(true);
 		LoginUserRequest loginRequest = rf.loginRequest();
+<<<<<<< HEAD
 		loginRequest.login(user, pass).fire(new Receiver<User>() {
 			@Override
 			public void onSuccess(User response) {
@@ -484,12 +485,14 @@ public class LoginActivity extends AbstractActivity {
 =======
 >>>>>>> scrub code
 		LoginUserRequest loginRequest = requestFactory.loginRequest();
+=======
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 		loginRequest.login(user, pass).fire(new Receiver<User>() {
 			@Override
 			public void onSuccess(User response) {
 				RootLayoutPanel.get().clear();
 				RootLayoutPanel.get().add(hupaLayout.get());
-				placeController.goTo(new FolderPlace(response.getSettings().getInboxFolderName()));
+				pc.goTo(new FolderPlace(response.getSettings().getInboxFolderName()));
 				eventBus.fireEvent(new LoginEvent(response));
 				display.setLoading(false);
 			}

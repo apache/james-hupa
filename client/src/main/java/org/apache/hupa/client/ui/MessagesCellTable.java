@@ -503,9 +503,21 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.bundles.HupaImageBundle;
+import org.apache.hupa.client.place.AbstractPlace;
+import org.apache.hupa.client.place.FolderPlace;
+import org.apache.hupa.client.place.MessagePlace;
+import org.apache.hupa.client.rf.FetchMessagesRequest;
+import org.apache.hupa.client.rf.GetMessageDetailsRequest;
+import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+import org.apache.hupa.shared.domain.FetchMessagesAction;
+import org.apache.hupa.shared.domain.FetchMessagesResult;
+import org.apache.hupa.shared.domain.GetMessageDetailsAction;
+import org.apache.hupa.shared.domain.GetMessageDetailsResult;
+import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 
 import com.google.gwt.cell.client.CheckboxCell;
@@ -517,15 +529,23 @@ import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.place.shared.Place;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.RowStyles;
+import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
+import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.NoSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class MessagesCellTable extends DataGrid<Message> {
 
@@ -563,13 +583,75 @@ public class MessagesCellTable extends DataGrid<Message> {
 		}
 	};
 	private final MultiSelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(KEY_PROVIDER);
+	public final NoSelectionModel<Message> noSelectionModel = new NoSelectionModel<Message>(KEY_PROVIDER);
 
+	PlaceController pc;
+	HupaRequestFactory rf;
+
+	private MessageListDataProvider dataProvider;
+
+	public class MessageListDataProvider extends AsyncDataProvider<Message> implements HasRefresh {
+
+		HasData<Message> display;
+
+		@Override
+		public void addDataDisplay(HasData<Message> display) {
+			super.addDataDisplay(display);
+			this.display = display;
+		}
+
+		@Override
+		public void refresh() {
+			this.onRangeChanged(display);
+		}
+
+		@Override
+		protected void onRangeChanged(HasData<Message> display) {
+			FetchMessagesRequest req = rf.messagesRequest();
+			FetchMessagesAction action = req.create(FetchMessagesAction.class);
+			final ImapFolder f = req.create(ImapFolder.class);
+			f.setFullName(parseFolderName(pc));
+			action.setFolder(f);
+			action.setOffset(display.getVisibleRange().getLength());
+			action.setSearchString(searchValue);
+			action.setStart(display.getVisibleRange().getStart());
+			req.fetch(action).fire(new Receiver<FetchMessagesResult>() {
+				@Override
+				public void onSuccess(final FetchMessagesResult response) {
+					if (response == null || response.getRealCount() == 0) {
+						updateRowCount(-1, true);
+					} else {
+						updateRowData(0, response.getMessages());
+					}
+					hc.hideTopLoading();
+				}
+
+				@Override
+				public void onFailure(ServerFailure error) {
+					if (error.isFatal()) {
+						throw new RuntimeException(error.getMessage());
+					}
+					hc.hideTopLoading();
+				}
+			});
+
+		}
+
+	}
+
+	@Inject private ToolBarActivity.Displayable toolBar;
+	private String folderName;
+	private String searchValue;
+	@Inject protected HupaController hc;
 	@Inject
-	public MessagesCellTable(final HupaImageBundle imageBundle, final HupaConstants constants) {
+	public MessagesCellTable(final HupaImageBundle imageBundle, final HupaConstants constants, 
+			final PlaceController pc,
+			final HupaRequestFactory rf) {
 		super(PAGE_SIZE, Resources.INSTANCE);
-
+		this.pc = pc;
+		this.rf = rf;
 		this.imageBundle = imageBundle;
-
+		
 		CheckboxCell headerCheckbox = new CheckboxCell();
 		ImageResourceCell headerAttached = new ImageResourceCell();
 		Header<Boolean> header = new Header<Boolean>(headerCheckbox) {
@@ -609,8 +691,66 @@ public class MessagesCellTable extends DataGrid<Message> {
 		// redraw();
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
 		setAutoHeaderRefreshDisabled(true);
-		setSelectionModel(selectionModel, DefaultSelectionEventManager.<Message> createCheckboxManager(0));
+//		setSelectionModel(selectionModel, DefaultSelectionEventManager.<Message> createCheckboxManager(0));
+
+		setSelectionModel(noSelectionModel, DefaultSelectionEventManager.<Message> createBlacklistManager(0));
+
+		noSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				message = noSelectionModel.getLastSelectedObject();
+				GetMessageDetailsRequest req = rf.messageDetailsRequest();
+				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
+				final ImapFolder f = req.create(ImapFolder.class);
+
+				f.setFullName(parseFolderName(pc));
+				action.setFolder(f);
+				action.setUid(message.getUid());
+				req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
+					@Override
+					public void onSuccess(GetMessageDetailsResult response) {
+						// display.getGrid().getSelectionModel().setSelected(event.getValue(),
+						// true);
+//						noSelectionModel.setSelected(message, true);
+						toolBar.enableAllTools(true);
+						MessagePlace place = new MessagePlace(folderName + AbstractPlace.SPLITTER + message.getUid());
+						refresh();
+						pc.goTo(place);
+					}
+
+					@Override
+					public void onFailure(ServerFailure error) {
+						if (error.isFatal()) {
+							// log.log(Level.SEVERE, error.getMessage());
+							// TODO write the error message to
+							// status bar.
+							// toolBar.enableAllTools(false);
+							throw new RuntimeException(error.getMessage());
+						}
+					}
+				});
+			}
+
+		});
+
+		if (dataProvider == null) {
+			dataProvider = new MessageListDataProvider();
+			dataProvider.addDataDisplay(this);
+		}
+		refresh();
 	}
+
+
+	private String parseFolderName(final PlaceController pc) {
+		Place place = pc.getWhere();
+		if(place instanceof FolderPlace){
+			folderName= ((FolderPlace)place).getToken();
+		}else if (place instanceof MessagePlace){
+			folderName = ((MessagePlace)place).getTokenWrapper().getFolder();
+		}
+		return folderName;
+	}
+	Message message; // the object selected by selectionModel
 
 	public String getMessageStyle(Message row) {
 		return haveRead(row) ? getReadStyle() : getUnreadStyle();
@@ -700,17 +840,6 @@ public class MessagesCellTable extends DataGrid<Message> {
 			return object.getReceivedDate();
 		}
 	}
-	
-	@Override
-	public void onResize(){
-		super.onResize();
-		refresh();
-	}
-
-	public void refresh() {
-//		redraw();
-//		flush();
-	}
 
 	public void setStyleBaseOnTag() {
 		setRowStyles(new RowStyles<Message>() {
@@ -719,6 +848,9 @@ public class MessagesCellTable extends DataGrid<Message> {
 				return getMessageStyle(row);
 			}
 		});
+	}
+	public void refresh() {
+		dataProvider.refresh();
 	}
 
 }

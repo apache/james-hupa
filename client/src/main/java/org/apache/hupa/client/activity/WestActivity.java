@@ -116,6 +116,7 @@ public class WestActivity extends AppBaseActivity {
 				}
 
 				GetMessageDetailsRequest req = rf.messageDetailsRequest();
+<<<<<<< HEAD
 				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
 				final ImapFolder f = req.create(ImapFolder.class);
 //				event.getFolder().setFolderTo(f);
@@ -940,6 +941,8 @@ System.out.println("1111111"+response);
 				}
 
 				GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
+=======
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
 				final ImapFolder f = req.create(ImapFolder.class);
 //				event.getFolder().setFolderTo(f);
@@ -1367,16 +1370,16 @@ System.out.println("1111111"+response);
 =======
 >>>>>>> refactoring.
 	private void showNewMessage() {
-		placeController.goTo(this.messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
+		pc.goTo(this.messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
 	}
 
 	private void showForwardMessage(ForwardMessageEvent event) {
-		placeController.goTo(this.messageSendPlaceProvider.get().with(event.getUser(), event.getFolder(),
+		pc.goTo(this.messageSendPlaceProvider.get().with(event.getUser(), event.getFolder(),
 		        event.getMessage(), event.getMessageDetails(), Type.FORWARD));
 	}
 
 	private void showReplyMessage(ReplyMessageEvent event) {
-		placeController.goTo(this.messageSendPlaceProvider.get().with(event.getUser(), event.getFolder(),
+		pc.goTo(this.messageSendPlaceProvider.get().with(event.getUser(), event.getFolder(),
 		        event.getMessage(), event.getMessageDetails(), event.getReplyAll() ? Type.REPLY_ALL : Type.REPLY));
 	}
 

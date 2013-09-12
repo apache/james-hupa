@@ -699,6 +699,7 @@ public class ComposeActivity extends AppBaseActivity {
 
 			if ("new".equals(place.getToken())) {
 				SendMessageRequest sendReq = rf.sendMessageRequest();
+<<<<<<< HEAD
 				SendMessageAction sendAction = sendReq.create(SendMessageAction.class);
 				sendAction.setMessage(parseMessage(sendReq));
 =======
@@ -727,6 +728,8 @@ public class ComposeActivity extends AppBaseActivity {
 
 			if ("new".equals(place.getToken())) {
 				SendMessageRequest sendReq = requestFactory.sendMessageRequest();
+=======
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 				SendMessageAction sendAction = sendReq.create(SendMessageAction.class);
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -752,6 +755,7 @@ public class ComposeActivity extends AppBaseActivity {
 			} else if ("forward".equals(place.getToken())) {
 				// FIXME will get a NullPointerException given accessing
 				// directly from some URL like #/compose:forward
+<<<<<<< HEAD
 <<<<<<< HEAD
 				SendForwardMessageRequest req = rf.sendForwardMessageRequest();
 				SendForwardMessageAction action = req.create(SendForwardMessageAction.class);
@@ -783,6 +787,9 @@ public class ComposeActivity extends AppBaseActivity {
 =======
 >>>>>>> scrub code
 				SendForwardMessageRequest req = requestFactory.sendForwardMessageRequest();
+=======
+				SendForwardMessageRequest req = rf.sendForwardMessageRequest();
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 				SendForwardMessageAction action = req.create(SendForwardMessageAction.class);
 				action.setMessage(parseMessage(req));
 				ImapFolder f = req.create(ImapFolder.class);
@@ -849,7 +856,7 @@ public class ComposeActivity extends AppBaseActivity {
 =======
 >>>>>>> coping with java.lang.IllegalArgumentException: uid
 			} else {
-				SendReplyMessageRequest replyReq = requestFactory.sendReplyMessageRequest();
+				SendReplyMessageRequest replyReq = rf.sendReplyMessageRequest();
 				SendReplyMessageAction action = replyReq.create(SendReplyMessageAction.class);
 				action.setMessage(parseMessage(replyReq));
 				ImapFolder folder = replyReq.create(ImapFolder.class);

@@ -22,6 +22,7 @@ package org.apache.hupa.client.ui;
 import java.util.List;
 
 import org.apache.hupa.client.HupaController;
+import org.apache.hupa.client.activity.MessageListActivity;
 import org.apache.hupa.client.activity.NotificationActivity;
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.place.FolderPlace;
@@ -52,6 +53,7 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	@Inject private PlaceController placeController;
 	@Inject private NotificationActivity.Displayable notice;
 	@Inject private ToolBarActivity.Displayable toolBar;
+	@Inject private MessageListActivity.Displayable msgListDisplay;
 
 	@Inject
 	public FoldersTreeViewModel() {
@@ -63,6 +65,7 @@ public class FoldersTreeViewModel implements TreeViewModel {
 				SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event.getSource();
 				toolBar.enableAllTools(false);
 				placeController.goTo(new FolderPlace(selectionModel.getSelectedObject().getFullName()));
+				msgListDisplay.refresh();
 			}
 		});
 	}
@@ -109,13 +112,13 @@ public class FoldersTreeViewModel implements TreeViewModel {
 		}
 
 		// TODO is this a click event?
-		@Override
-		public void onBrowserEvent(Context context, Element parent, ImapFolder value, NativeEvent event,
-				ValueUpdater<ImapFolder> valueUpdater) {
-			super.onBrowserEvent(context, parent, value, event, valueUpdater);
-				placeController.goTo(new FolderPlace(value.getFullName()));
-
-		}
+//		@Override
+//		public void onBrowserEvent(Context context, Element parent, ImapFolder value, NativeEvent event,
+//				ValueUpdater<ImapFolder> valueUpdater) {
+//			super.onBrowserEvent(context, parent, value, event, valueUpdater);
+//				placeController.goTo(new FolderPlace(value.getFullName()));
+//
+//		}
 
 	}
 

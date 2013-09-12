@@ -320,107 +320,48 @@ public class MessageListActivity extends AppBaseActivity {
 	public void start(AcceptsOneWidget container, final EventBus eventBus) {
 		container.setWidget(display.asWidget());
 		bindTo(eventBus);
-		this.registerHandler(display.getGrid().addCellPreviewHandler(new Handler<Message>() {
-			@Override
-			public void onCellPreview(final CellPreviewEvent<Message> event) {
-				if (hasClickedButFirstCol(event)) {
-					antiSelectMessages(display.getGrid().getVisibleItems());
-					GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
-					GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
-					final ImapFolder f = req.create(ImapFolder.class);
-					f.setFullName(folderName);
-					action.setFolder(f);
-					action.setUid(event.getValue().getUid());
-					req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
-						@Override
-						public void onSuccess(GetMessageDetailsResult response) {
-							eventBus.fireEvent(new ExpandMessageEvent(user, new ImapFolderImpl(folderName), event
-									.getValue(), response.getMessageDetails()));
-							display.getGrid().getSelectionModel().setSelected(event.getValue(), true);
-							toolBar.enableAllTools(true);
-							ToolBarView.Parameters p = new ToolBarView.Parameters(user, folderName, event.getValue(),
-									response.getMessageDetails());
-							toolBar.setParameters(p);
-							MessagePlace place = new MessagePlace(folderName+AbstractPlace.SPLITTER+event.getValue().getUid());
-							placeController.goTo(place);
-						}
-
-						@Override
-						public void onFailure(ServerFailure error) {
-							if (error.isFatal()) {
-								// log.log(Level.SEVERE, error.getMessage());
-								// TODO write the error message to
-								// status bar.
-								toolBar.enableAllTools(false);
-								throw new RuntimeException(error.getMessage());
-							}
-						}
-					});
-				}
-			}
-
-		}));
-		dataProvider = new MessageListDataProvider();
-		dataProvider.addDataDisplay(display.getGrid());
-	}
-	
-	public void refresh(){
-		dataProvider.refresh();
-	}
-
-	private MessageListDataProvider dataProvider;
-	public class MessageListDataProvider extends AsyncDataProvider<Message> implements HasRefresh{
-
-		HasData<Message> display;
-		
-		@Override
-		public void addDataDisplay(HasData<Message> display) {
-			super.addDataDisplay(display);
-			this.display = display;
-		}
-		
-
-		@Override
-		public void refresh() {
-			this.onRangeChanged(display);
-		}
-
-		@Override
-		protected void onRangeChanged(HasData<Message> display) {
-			FetchMessagesRequest req = requestFactory.messagesRequest();
-			FetchMessagesAction action = req.create(FetchMessagesAction.class);
-			final ImapFolder f = req.create(ImapFolder.class);
-			f.setFullName(folderName);
-			action.setFolder(f);
-			action.setOffset(display.getVisibleRange().getLength());
-			action.setSearchString(searchValue);
-			action.setStart(display.getVisibleRange().getStart());
-			req.fetch(action).fire(new Receiver<FetchMessagesResult>() {
-				@Override
-				public void onSuccess(final FetchMessagesResult response) {
-					if (response == null || response.getRealCount()== 0) {
-						updateRowCount(-1, true);
-					} else {
-						updateRowData(0, response.getMessages());
-					}
-					hc.hideTopLoading();
-				}
-
-				@Override
-				public void onFailure(ServerFailure error) {
-					if (error.isFatal()) {
-						throw new RuntimeException(error.getMessage());
-					}
-					hc.hideTopLoading();
-				}
-			});
-
-		}
-		
-	}
-
-	private boolean hasClickedButFirstCol(CellPreviewEvent<Message> event) {
-		return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
+//		this.registerHandler(display.getGrid().addCellPreviewHandler(new Handler<Message>() {
+//			@Override
+//			public void onCellPreview(final CellPreviewEvent<Message> event) {
+//				if (hasClickedButFirstCol(event)) {
+//					antiSelectMessages(display.getGrid().getVisibleItems());
+//					GetMessageDetailsRequest req = rf.messageDetailsRequest();
+//					GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
+//					final ImapFolder f = req.create(ImapFolder.class);
+//					f.setFullName(folderName);
+//					action.setFolder(f);
+//					action.setUid(event.getValue().getUid());
+//					req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
+//						@Override
+//						public void onSuccess(GetMessageDetailsResult response) {
+//							eventBus.fireEvent(new ExpandMessageEvent(user, new ImapFolderImpl(folderName), event
+//									.getValue(), response.getMessageDetails()));
+////							display.getGrid().getSelectionModel().setSelected(event.getValue(), true);
+//							display.getGrid().noSelectionModel.setSelected(event.getValue(), true);
+//							toolBar.enableAllTools(true);
+//							ToolBarView.Parameters p = new ToolBarView.Parameters(user, folderName, event.getValue(),
+//									response.getMessageDetails());
+//							toolBar.setParameters(p);
+//							MessagePlace place = new MessagePlace(folderName + AbstractPlace.SPLITTER
+//									+ event.getValue().getUid());
+//							pc.goTo(place);
+//						}
+//
+//						@Override
+//						public void onFailure(ServerFailure error) {
+//							if (error.isFatal()) {
+//								// log.log(Level.SEVERE, error.getMessage());
+//								// TODO write the error message to
+//								// status bar.
+//								toolBar.enableAllTools(false);
+//								throw new RuntimeException(error.getMessage());
+//							}
+//						}
+//					});
+//				}
+//			}
+//
+//		}));
 	}
 
 	private void bindTo(EventBus eventBus) {
@@ -455,10 +396,10 @@ public class MessageListActivity extends AppBaseActivity {
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 	public interface Displayable extends WidgetDisplayable {
 		MessagesCellTable getGrid();
+		
+		void refresh();
 
 		List<Long> getSelectedMessagesIds();
-
-		void refresh();
 
 		Set<Message> getSelectedMessages();
 	}
@@ -472,14 +413,14 @@ public class MessageListActivity extends AppBaseActivity {
 		}
 	}
 	private void deleteSelectedMessages() {
-		String fullName= null;
-		if(placeController.getWhere() instanceof FolderPlace){
-			fullName=((FolderPlace) placeController.getWhere()).getToken();
-		}else{
-			fullName=((MessagePlace) placeController.getWhere()).getTokenWrapper().getFolder();
+		String fullName = null;
+		if (pc.getWhere() instanceof FolderPlace) {
+			fullName = ((FolderPlace) pc.getWhere()).getToken();
+		} else {
+			fullName = ((MessagePlace) pc.getWhere()).getTokenWrapper().getFolder();
 		}
 		final List<Long> uids = display.getSelectedMessagesIds();
-		DeleteMessageByUidRequest req = requestFactory.deleteMessageByUidRequest();
+		DeleteMessageByUidRequest req = rf.deleteMessageByUidRequest();
 		DeleteMessageByUidAction action = req.create(DeleteMessageByUidAction.class);
 		ImapFolder f = req.create(ImapFolder.class);
 		f.setFullName(fullName);
@@ -489,7 +430,7 @@ public class MessageListActivity extends AppBaseActivity {
 			@Override
 			public void onSuccess(DeleteMessageResult response) {
 				antiSelectMessages(display.getSelectedMessages());
-				refresh();
+//				refresh();
 			}
 		});
 	}

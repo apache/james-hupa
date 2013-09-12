@@ -14,6 +14,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<g:SimpleLayoutPanel ui:field="thisView" />
 =======
@@ -52,4 +53,8 @@
 =======
 	<hupa:MessagesCellTable ui:field="grid" />
 >>>>>>> try to link the mark actions to rf services
+=======
+    xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<g:SimpleLayoutPanel ui:field="thisView" />
+>>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 </ui:UiBinder>

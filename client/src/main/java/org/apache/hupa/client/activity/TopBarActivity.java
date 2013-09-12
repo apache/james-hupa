@@ -189,7 +189,7 @@ public class TopBarActivity extends AppBaseActivity {
 =======
 =======
 	private void checkSessionUser() {
-		CheckSessionRequest checkSession = requestFactory.sessionRequest();
+		CheckSessionRequest checkSession = rf.sessionRequest();
 		checkSession.getUser().fire(new Receiver<User>() {
 			@Override
 			public void onSuccess(User user) {
@@ -216,21 +216,21 @@ public class TopBarActivity extends AppBaseActivity {
 
 	private void doLogout() {
 		if (user != null) {
-			LogoutUserRequest req = requestFactory.logoutRequest();
+			LogoutUserRequest req = rf.logoutRequest();
 			req.logout().fire(new Receiver<LogoutUserResult>() {
 				@Override
 				public void onSuccess(LogoutUserResult response) {
 					eventBus.fireEvent(new LogoutEvent(response.getUser()));
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
-					TopBarActivity.this.placeController.goTo(new DefaultPlace("@"));
+					TopBarActivity.this.pc.goTo(new DefaultPlace("@"));
 				}
 
 				@Override
 				public void onFailure(ServerFailure error) {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
-					TopBarActivity.this.placeController.goTo(new DefaultPlace("@"));
+					TopBarActivity.this.pc.goTo(new DefaultPlace("@"));
 				}
 			});
 		}
