@@ -50,6 +50,7 @@ public class RegexPatterns {
     public static final String repl_inlineImg = "$1'" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         + "?" + SConsts.PARAM_MODE + "=inline" 
                                         + "&" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
 =======
@@ -58,6 +59,10 @@ public class RegexPatterns {
 =======
                                         + "?" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
 >>>>>>> first commit
+=======
+                                        + "?" + SConsts.PARAM_MODE + "=inline" 
+                                        + "&" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
+>>>>>>> Fix issue in chrome with inlined images in messages
                                         + "&" + SConsts.PARAM_UID + "=%%UID%%" 
                                         + "&" + SConsts.PARAM_NAME + "=$2' name='cid:$2'";
     
@@ -110,6 +115,7 @@ public class RegexPatterns {
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
@@ -117,3 +123,6 @@ public class RegexPatterns {
 =======
 }
 >>>>>>> first commit
+=======
+}
+>>>>>>> Fix issue in chrome with inlined images in messages

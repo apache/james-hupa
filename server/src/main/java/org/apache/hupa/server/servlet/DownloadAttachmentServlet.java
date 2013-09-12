@@ -110,9 +110,10 @@ public class DownloadAttachmentServlet extends HttpServlet {
 >>>>>>> first commit
 =======
         String mode = request.getParameter(SConsts.PARAM_MODE);
-        if (!"inline".equals(mode)) {
-	        response.setHeader("Content-disposition", "attachment; filename="
-	                + attachmentName + "");
+        boolean inline = "inline".equals(mode);
+        if (!inline) {
+	    response.setHeader("Content-disposition", "attachment; filename="
+	        + attachmentName + "");
         }
 >>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
         InputStream in = null;
@@ -138,17 +139,23 @@ public class DownloadAttachmentServlet extends HttpServlet {
             if (in != null) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Fix issue in chrome with inlined images in messages
                 // FIXME: for some reason Chrome does not display inline images when they have the content-length
                 // it's like the size reported in server is different than the received bytes.
                 if (!inline) {
                     response.setContentLength(part.getSize());
                 }
+<<<<<<< HEAD
 =======
                 response.setContentLength(part.getSize());
 >>>>>>> first commit
 =======
                 response.setContentLength(part.getSize());
 >>>>>>> first commit
+=======
+>>>>>>> Fix issue in chrome with inlined images in messages
                 IOUtils.copy(in, out);
             } else {
                 response.setContentLength(0);
