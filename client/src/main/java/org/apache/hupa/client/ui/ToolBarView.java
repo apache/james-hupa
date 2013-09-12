@@ -557,9 +557,12 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		replyAllReg = replyAll.addClickHandler(replyAllHandler);
 		forwardReg = forward.addClickHandler(forwardHandler);
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> fixed issue#57 - really disable the tools in toolbar
 =======
 		enableAllTools(false);
+=======
+>>>>>>> try to make messages list better for user experience
 	}
 
 	@UiHandler("compose")
@@ -683,6 +686,9 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 			replyReg.removeHandler();
 			replyAllReg.removeHandler();
 			forwardReg.removeHandler();	
+			replyReg = null;
+			replyAllReg = null;
+			forwardReg = null;
 		}
 	}
 
@@ -692,7 +698,12 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		forwardGroup.removeStyleName(style.disabledButton());
 		replyAllTip.removeStyleName(style.disabledButton());
 		forwardTip.removeStyleName(style.disabledButton());
-		
+
+		if(replyReg != null){
+			replyReg.removeHandler();
+			replyAllReg.removeHandler();
+			forwardReg.removeHandler();	
+		}
 		replyReg = reply.addClickHandler(replyHandler);
 		replyAllReg = replyAll.addClickHandler(replyAllHandler);
 		forwardReg = forward.addClickHandler(forwardHandler);
@@ -708,6 +719,8 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		if(deleteReg != null){
 			deleteReg.removeHandler();
 			markReg.removeHandler();
+			deleteReg = null;
+			markReg = null;
 		}
 	}
 
@@ -718,9 +731,17 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 =======
 		mark.removeStyleName(style.disabledButton());
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
 =======
 		
+=======
+
+		if(markReg != null){
+			deleteReg.removeHandler();
+			markReg.removeHandler();
+		}
+>>>>>>> try to make messages list better for user experience
 		markReg = mark.addClickHandler(markHandler);
 		deleteReg = delete.addClickHandler(deleteHandler);
 >>>>>>> fixed issue#57 - really disable the tools in toolbar

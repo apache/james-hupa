@@ -320,6 +320,7 @@ public class MessageListActivity extends AppBaseActivity {
 	public void start(AcceptsOneWidget container, final EventBus eventBus) {
 		container.setWidget(display.asWidget());
 		bindTo(eventBus);
+		display.refresh();
 //		this.registerHandler(display.getGrid().addCellPreviewHandler(new Handler<Message>() {
 //			@Override
 //			public void onCellPreview(final CellPreviewEvent<Message> event) {

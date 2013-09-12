@@ -519,6 +519,7 @@ import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.events.RefreshUnreadEvent;
 
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.DateCell;
@@ -528,6 +529,8 @@ import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
@@ -550,7 +553,6 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 public class MessagesCellTable extends DataGrid<Message> {
 
 	public static final int PAGE_SIZE = 25;
-	@Inject ToolBarActivity.Displayable toolBarDisplay;
 
 	private HupaImageBundle imageBundle;
 	CheckboxColumn checkboxCol = new CheckboxColumn();
@@ -643,15 +645,19 @@ public class MessagesCellTable extends DataGrid<Message> {
 	private String folderName;
 	private String searchValue;
 	@Inject protected HupaController hc;
+	@Inject EventBus eventBus;
+
+//	private HandlerRegistration selectionManagerReg = addCellPreviewHandler(DefaultSelectionEventManager
+//			.<Message> createCheckboxManager(0));
+
 	@Inject
-	public MessagesCellTable(final HupaImageBundle imageBundle, final HupaConstants constants, 
-			final PlaceController pc,
-			final HupaRequestFactory rf) {
+	public MessagesCellTable(final HupaImageBundle imageBundle, final HupaConstants constants,
+			final PlaceController pc, final HupaRequestFactory rf) {
 		super(PAGE_SIZE, Resources.INSTANCE);
 		this.pc = pc;
 		this.rf = rf;
 		this.imageBundle = imageBundle;
-		
+
 		CheckboxCell headerCheckbox = new CheckboxCell();
 		ImageResourceCell headerAttached = new ImageResourceCell();
 		Header<Boolean> header = new Header<Boolean>(headerCheckbox) {
@@ -691,7 +697,8 @@ public class MessagesCellTable extends DataGrid<Message> {
 		// redraw();
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
 		setAutoHeaderRefreshDisabled(true);
-//		setSelectionModel(selectionModel, DefaultSelectionEventManager.<Message> createCheckboxManager(0));
+		// setSelectionModel(selectionModel,
+		// DefaultSelectionEventManager.<Message> createCheckboxManager(0));
 
 		setSelectionModel(noSelectionModel, DefaultSelectionEventManager.<Message> createBlacklistManager(0));
 
@@ -711,10 +718,14 @@ public class MessagesCellTable extends DataGrid<Message> {
 					public void onSuccess(GetMessageDetailsResult response) {
 						// display.getGrid().getSelectionModel().setSelected(event.getValue(),
 						// true);
-//						noSelectionModel.setSelected(message, true);
+						// noSelectionModel.setSelected(message, true);
 						toolBar.enableAllTools(true);
+						ToolBarView.Parameters p = new ToolBarView.Parameters(null, folderName, message, response
+								.getMessageDetails());
+						toolBar.setParameters(p);
 						MessagePlace place = new MessagePlace(folderName + AbstractPlace.SPLITTER + message.getUid());
 						refresh();
+						eventBus.fireEvent(new RefreshUnreadEvent());
 						pc.goTo(place);
 					}
 
@@ -724,7 +735,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 							// log.log(Level.SEVERE, error.getMessage());
 							// TODO write the error message to
 							// status bar.
-							// toolBar.enableAllTools(false);
+							toolBar.enableAllTools(false);
 							throw new RuntimeException(error.getMessage());
 						}
 					}
@@ -740,16 +751,16 @@ public class MessagesCellTable extends DataGrid<Message> {
 		refresh();
 	}
 
-
 	private String parseFolderName(final PlaceController pc) {
 		Place place = pc.getWhere();
-		if(place instanceof FolderPlace){
-			folderName= ((FolderPlace)place).getToken();
-		}else if (place instanceof MessagePlace){
-			folderName = ((MessagePlace)place).getTokenWrapper().getFolder();
+		if (place instanceof FolderPlace) {
+			folderName = ((FolderPlace) place).getToken();
+		} else if (place instanceof MessagePlace) {
+			folderName = ((MessagePlace) place).getTokenWrapper().getFolder();
 		}
 		return folderName;
 	}
+
 	Message message; // the object selected by selectionModel
 
 	public String getMessageStyle(Message row) {
@@ -780,10 +791,10 @@ public class MessagesCellTable extends DataGrid<Message> {
 					selectionModel.setSelected(object, value);
 					int size = selectionModel.getSelectedSet().size();
 					if (size >= 1) {
-						toolBarDisplay.enableDealingTools(true);
-						toolBarDisplay.enableSendingTools(false);
+						toolBar.enableDealingTools(true);
+						toolBar.enableSendingTools(false);
 					} else {
-						toolBarDisplay.enableAllTools(false);
+						toolBar.enableAllTools(false);
 					}
 				}
 			});

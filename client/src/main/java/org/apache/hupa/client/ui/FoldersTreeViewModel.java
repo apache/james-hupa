@@ -28,12 +28,12 @@ import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.events.RefreshUnreadEvent;
+import org.apache.hupa.shared.events.RefreshUnreadEventHandler;
 
 import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.cell.client.ValueUpdater;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.view.client.AsyncDataProvider;
@@ -56,7 +56,7 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	@Inject private MessageListActivity.Displayable msgListDisplay;
 
 	@Inject
-	public FoldersTreeViewModel() {
+	public FoldersTreeViewModel(final EventBus eventBus) {
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -66,6 +66,13 @@ public class FoldersTreeViewModel implements TreeViewModel {
 				toolBar.enableAllTools(false);
 				placeController.goTo(new FolderPlace(selectionModel.getSelectedObject().getFullName()));
 				msgListDisplay.refresh();
+			}
+		});
+
+		eventBus.addHandler(RefreshUnreadEvent.TYPE, new RefreshUnreadEventHandler() {
+			@Override
+			public void onRefreshEvent(RefreshUnreadEvent event) {
+				refresh();
 			}
 		});
 	}
