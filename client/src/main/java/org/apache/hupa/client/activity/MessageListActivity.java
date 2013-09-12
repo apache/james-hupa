@@ -326,6 +326,7 @@ public class MessageListActivity extends AppBaseActivity {
 			@Override
 			public void onCellPreview(final CellPreviewEvent<Message> event) {
 				if (hasClickedButFirstCol(event)) {
+					hc.showTopLoading("Loading...");
 					antiSelectMessages(display.getGrid().getVisibleItems());
 					GetMessageDetailsRequest req = rf.messageDetailsRequest();
 					GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
@@ -349,6 +350,7 @@ public class MessageListActivity extends AppBaseActivity {
 									+ event.getValue().getUid());
 							pc.goTo(place);
 							display.refresh();
+							hc.hideTopLoading();
 							eventBus.fireEvent(new RefreshUnreadEvent());
 						}
 
@@ -359,6 +361,7 @@ public class MessageListActivity extends AppBaseActivity {
 								// TODO write the error message to
 								// status bar.
 								toolBar.enableAllTools(false);
+								hc.hideTopLoading();
 								throw new RuntimeException(error.getMessage());
 							}
 						}
