@@ -38,7 +38,7 @@ public class __ContentPanel extends Composite{
 	@UiField DockLayoutPanel messageListBox;
 	@UiField SimpleLayoutPanel messageListContainer;
 	@UiField SimplePanel messageListFooterContainer;
-	@UiField ScrollPanel messageContentContainer;
+	@UiField SimpleLayoutPanel messageContentContainer;
 	@UiField SimplePanel statusContainer;
 
 	@UiField HTMLPanel contactBox;

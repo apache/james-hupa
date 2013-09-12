@@ -23,6 +23,7 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 
 import org.apache.hupa.client.HupaCSS;
@@ -65,10 +66,18 @@ public class MessageContentView extends Composite implements MessageContentActiv
 	@Inject
 =======
 =======
+=======
+import java.util.List;
+
+import org.apache.hupa.client.HupaCSS;
+>>>>>>> fixed issue#64, add attachments region in message content view
 import org.apache.hupa.client.activity.MessageContentActivity;
+import org.apache.hupa.shared.SConsts;
+import org.apache.hupa.shared.domain.MessageAttachment;
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
+<<<<<<< HEAD
 =======
 import java.util.List;
 
@@ -86,11 +95,23 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 >>>>>>> prepare for message content panel
 =======
 >>>>>>> make message content work as expected partly
+=======
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+>>>>>>> fixed issue#64, add attachments region in message content view
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.inject.Inject;
 
 <<<<<<< HEAD
@@ -247,8 +268,9 @@ public class MessageContentView extends Composite implements
 public class MessageContentView extends Composite implements MessageContentActivity.Displayable {
 >>>>>>> make message content work as expected partly
 
-	@UiField
-	HTML messageContent;
+	@UiField HTML messageContent;
+
+	@UiField FlowPanel attachments;
 
 <<<<<<< HEAD
 >>>>>>> prepare for message content panel
@@ -259,6 +281,7 @@ public class MessageContentView extends Composite implements MessageContentActiv
 		initWidget(binder.createAndBindUi(this));
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -351,6 +374,9 @@ public class MessageContentView extends Composite implements MessageContentActiv
 =======
 	interface MessageContentUiBinder extends UiBinder<SimplePanel, MessageContentView> {
 >>>>>>> beautify message list and content
+=======
+	interface MessageContentUiBinder extends UiBinder<DockLayoutPanel, MessageContentView> {
+>>>>>>> fixed issue#64, add attachments region in message content view
 	}
 
 	private static MessageContentUiBinder binder = GWT.create(MessageContentUiBinder.class);
@@ -360,5 +386,46 @@ public class MessageContentView extends Composite implements MessageContentActiv
 		messageContent.setHTML(messageDetail);
 	}
 
+<<<<<<< HEAD
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+	@Override
+	public void setAttachments(List<MessageAttachment> attachements, final String folder, final long uid) {
+
+		attachments.clear();
+		final Element downloadIframe = RootPanel.get("__download").getElement();
+		if (attachements != null) {
+			for (final MessageAttachment messageAttachment : attachements) {
+				Label link = new Label(messageAttachment.getName() + " (" + messageAttachment.getSize() / 1024 + "kB)");
+				link.setStyleName(HupaCSS.C_hyperlink);
+				link.addClickHandler(new ClickHandler() {
+					public void onClick(ClickEvent event) {
+						String url = getUrl(messageAttachment, folder, uid, false);
+						if (downloadIframe == null)
+							Window.open(url, "_blank", "");
+						else
+							DOM.setElementAttribute(RootPanel.get("__download").getElement(), "src", url);
+					}
+				});
+				HorizontalPanel aPanel = new HorizontalPanel();
+				aPanel.addStyleName(HupaCSS.C_attachment);
+				// aPanel.add(new Image(imageBundle.attachmentIcon()));
+				aPanel.add(link);
+				if (messageAttachment.isImage()) {
+					Anchor viewImageLink = new Anchor("View", getUrl(messageAttachment, folder, uid, true), "_blank");
+					viewImageLink.setStyleName(HupaCSS.C_attachment_view);
+					aPanel.add(viewImageLink);
+				}
+				attachments.add(aPanel);
+			}
+		}
+	}
+
+	private String getUrl(MessageAttachment messageAttachment, String folder, long uid, boolean inline) {
+		return GWT.getModuleBaseURL() + SConsts.SERVLET_DOWNLOAD + "?" + SConsts.PARAM_NAME + "="
+				+ messageAttachment.getName() + "&" + SConsts.PARAM_FOLDER + "=" + folder + "&" + SConsts.PARAM_UID
+				+ "=" + uid + (inline ? "&" + SConsts.PARAM_MODE + "=inline" : "");
+	}
+
+>>>>>>> fixed issue#64, add attachments region in message content view
 }

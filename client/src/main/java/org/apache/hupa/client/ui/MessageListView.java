@@ -104,7 +104,7 @@ import com.google.inject.Inject;
 
 public class MessageListView extends Composite implements MessageListActivity.Displayable {
 
-	@UiField SimplePanel thisView;
+	@UiField SimpleLayoutPanel thisView;
 	private MessagesCellTable grid;
 
 	@Inject

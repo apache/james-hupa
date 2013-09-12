@@ -23,6 +23,9 @@ package org.apache.hupa.client.activity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fixed issue#64, add attachments region in message content view
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -184,6 +187,7 @@ import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.MessageAttachment;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
@@ -194,8 +198,7 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class MessageContentActivity extends AppBaseActivity {
 
-	private static final Logger log = Logger
-			.getLogger(MessageContentActivity.class.getName());
+	private static final Logger log = Logger.getLogger(MessageContentActivity.class.getName());
 
 	@Inject private Displayable display;
 	private String fullName;
@@ -204,10 +207,8 @@ public class MessageContentActivity extends AppBaseActivity {
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		if (isUidSet()) {
-			GetMessageDetailsRequest req = rf
-					.messageDetailsRequest();
-			GetMessageDetailsAction action = req
-					.create(GetMessageDetailsAction.class);
+			GetMessageDetailsRequest req = rf.messageDetailsRequest();
+			GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
 			final ImapFolder f = req.create(ImapFolder.class);
 			f.setFullName(fullName);
 			action.setFolder(f);
@@ -215,8 +216,8 @@ public class MessageContentActivity extends AppBaseActivity {
 			req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
 				@Override
 				public void onSuccess(GetMessageDetailsResult response) {
-					display.fillMessageContent(response.getMessageDetails()
-							.getText());
+					display.fillMessageContent(response.getMessageDetails().getText());
+					display.setAttachments(response.getMessageDetails().getMessageAttachments(), fullName, Long.parseLong(uid));
 				}
 
 				@Override
@@ -224,7 +225,7 @@ public class MessageContentActivity extends AppBaseActivity {
 					if (error.isFatal()) {
 						log.log(Level.SEVERE, error.getMessage());
 						// TODO write the error message to status bar.
-						 throw new RuntimeException(error.getMessage());
+						throw new RuntimeException(error.getMessage());
 					}
 				}
 			});
@@ -250,10 +251,11 @@ public class MessageContentActivity extends AppBaseActivity {
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 	public interface Displayable extends WidgetDisplayable {
 		void fillMessageContent(String messageContent);
+		void setAttachments(List<MessageAttachment> attachements, String folder, long uid);
 	}
 
 	public Activity with(TokenWrapper tokenWrapper) {
-		fullName= tokenWrapper.getFolder();
+		fullName = tokenWrapper.getFolder();
 		uid = tokenWrapper.getUid();
 		return this;
 	}
