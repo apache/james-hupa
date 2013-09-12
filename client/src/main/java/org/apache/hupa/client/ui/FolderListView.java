@@ -235,11 +235,10 @@ public class FolderListView extends Composite implements
 			final EventBus eventBus, @Assisted Place place) {
 		if (place instanceof MailFolderPlace) {
 			cellTree = new CellTree(viewModel, null, Resources.INSTANCE);
-			cellTree.setAnimationEnabled(true);
-		} else {
+		} else {// TODO this viewModel should be contacts
 			cellTree = new CellTree(viewModel, null);
-			cellTree.setAnimationEnabled(true);
 		}
+		cellTree.setAnimationEnabled(true);
 		initWidget(binder.createAndBindUi(this));
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 	}
