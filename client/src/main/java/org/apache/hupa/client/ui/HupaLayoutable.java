@@ -67,8 +67,14 @@ public interface HupaLayoutable extends Layoutable {
 	void arrangeSettingLayout(SettingPlace sp);
 =======
 import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 
 public interface HupaLayoutable {
 	LayoutPanel get();
+<<<<<<< HEAD
 >>>>>>> refactoring
+=======
+
+	SimplePanel getLoginView();
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 }

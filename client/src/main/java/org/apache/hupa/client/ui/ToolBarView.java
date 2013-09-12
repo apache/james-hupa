@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
@@ -314,6 +315,17 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	private void removeDealingDisableds() {
 		delete.removeStyleName(style.disabledButton());
 		mark.removeStyleName(style.disabledButton());
+=======
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
+
+public class ToolBarView extends Composite {
+
+	public ToolBarView() {
+		initWidget(binder.createAndBindUi(this));
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 	}
 
 	interface ToolBarUiBinder extends UiBinder<FlowPanel, ToolBarView> {
@@ -321,8 +333,11 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 
 	private static ToolBarUiBinder binder = GWT.create(ToolBarUiBinder.class);
 
+<<<<<<< HEAD
 	@Override
 	public HasClickHandlers getRefresh() {
 		return refresh;
 	}
+=======
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 }

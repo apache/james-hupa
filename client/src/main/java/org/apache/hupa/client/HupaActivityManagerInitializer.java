@@ -17,31 +17,24 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.client.ui;
+package org.apache.hupa.client;
 
-<<<<<<< HEAD
-import org.apache.hupa.client.activity.LogoActivity;
+import org.apache.hupa.client.ui.HupaLayoutable;
 
-=======
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.activity.shared.ActivityManager;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
-<<<<<<< HEAD
-public class LogoView extends Composite implements LogoActivity.Displayable {
-=======
-public class LogoView extends Composite {
->>>>>>> make login page as one part of the overall layout & splite layout to little one
+/**
+ * This class is responsible for ActivityManager instantiations through GIN, it
+ * also associate every ActivityManager with the corresponding display region
+ */
+public class HupaActivityManagerInitializer {
 
-	public LogoView() {
-		initWidget(binder.createAndBindUi(this));
+	@Inject
+	public HupaActivityManagerInitializer(HupaLayoutable layout,
+			@Named("LoginPage") ActivityManager loginActivityManager) {
+		loginActivityManager.setDisplay(layout.getLoginView());
 	}
-
-	interface LogoUiBinder extends UiBinder<SimplePanel, LogoView> {
-	}
-
-	private static LogoUiBinder binder = GWT.create(LogoUiBinder.class);
 
 }

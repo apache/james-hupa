@@ -11,9 +11,15 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+<<<<<<< HEAD
 	<ui:image field="topBarBackgroundImg" src="res/linen_header.jpg" />
 	<ui:image field="buttons" src="res/buttons.png" />
     <ui:style type="org.apache.hupa.client.ui.TopBarView.Style">
+=======
+	<ui:image field="topBarBackgroundImg" src="res/linen_header.jpg"/>
+	<ui:image field="buttons" src="res/buttons.png"/>
+	<ui:style>
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		@sprite .self {
 			gwt-image: 'topBarBackgroundImg';
 			width: 100%;
@@ -55,6 +61,7 @@
 		.right {
 			float: right;
 		}
+<<<<<<< HEAD
 		
 		.textCenter {
 			text-align: center;
@@ -106,5 +113,22 @@
 					addStyleNames="{style.right} {style.username}" />
 			</g:FlowPanel>
 		</g:east>
+=======
+	</ui:style>
+	<g:DockLayoutPanel ui:field="TopBar" unit="PX"
+		addStyleNames="{style.self}">
+		<g:west size="60">
+			<g:SimplePanel addStyleNames="{style.left}">
+				<g:Anchor styleName="{style.about}">About</g:Anchor>
+			</g:SimplePanel>
+		</g:west>
+		<g:center>
+			<g:FlowPanel>
+				<g:Anchor addStyleNames="{style.right} {style.logout}">Logout</g:Anchor>
+				<g:HTMLPanel tag="span" addStyleNames="{style.right} {style.username}">echowdx@gmail.com
+				</g:HTMLPanel>
+			</g:FlowPanel>
+		</g:center>
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 	</g:DockLayoutPanel>
 </ui:UiBinder>

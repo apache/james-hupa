@@ -20,6 +20,7 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.core.client.GWT;
@@ -224,9 +225,38 @@ public class HupaLayout implements HupaLayoutable {
 
 
 =======
+=======
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 
+public class HupaLayout implements HupaLayoutable {
+
+	@UiField SimplePanel loginView;
+
+	@Override
+	public LayoutPanel get() {
+		return binder.createAndBindUi(this);
+	}
+
+	interface HupaLayoutUiBinder extends UiBinder<LayoutPanel, HupaLayout> {
+	}
+
+	private static HupaLayoutUiBinder binder = GWT
+			.create(HupaLayoutUiBinder.class);
+	
+	@Override
+	public SimplePanel getLoginView(){
+		return loginView;
+	}
+
+<<<<<<< HEAD
 public interface HupaLayout {
 	LayoutPanel get();
 >>>>>>> move new theme ui from experiment to hupa evo
+=======
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 }

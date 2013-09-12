@@ -1,10 +1,16 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
 	<ui:image field="buttons" src="res/buttons.png" />
+<<<<<<< HEAD
 	<ui:image field="originLogo" src="res/hupa-logo-original-transparent.png" />
 	<ui:style>
 		.minWidth {
 			min-width: 700px;
+=======
+	<ui:style>
+		.minWidth {
+			min-width: 1150px;
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		}
 		
 		.feature {
@@ -18,16 +24,76 @@
 			background: -ms-linear-gradient(top, #404040 0%, #060606 100%);
 			background: linear-gradient(top, #404040 0%, #060606 100%);
 		}
+<<<<<<< HEAD
 	</ui:style>
 	<g:LayoutPanel addStyleNames="{style.minWidth}">
 		<g:layer left='0' right='0' top='0' height='92px'>
 			<g:DockLayoutPanel unit="PX" ui:field="Header">
 				<g:north size="23">
 					<g:SimplePanel ui:field="topBarContainer" />
+=======
+		
+		.folderList {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			bottom: 0;
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+		
+		.box {
+			border: 1px solid #A3A3A3;
+			border-radius: 4px;
+			overflow: hidden;
+			box-shadow: 0 0 2px #999;
+			-o-box-shadow: 0 0 2px #999;
+			-webkit-box-shadow: 0 0 2px #999;
+			-moz-box-shadow: 0 0 2px #999;
+			background: white;
+		}
+		
+		.listBox {
+			background: #D9ECF4;
+			overflow: hidden;
+		}
+		
+		.box .boxFooter {
+			border-radius: 0 0 4px 4px;
+		}
+		
+		.listBox .boxFooter {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 42px;
+			border-top: 1px solid #CCDDE4;
+			background: #D9ECF4;
+			-webkit-box-shadow: inset 0 1px 0 0 white;
+			-moz-box-shadow: inset 0 1px 0 0 #fff;
+			box-shadow: inset 0 1px 0 0 white;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+	</ui:style>
+	<g:LayoutPanel addStyleNames="{style.minWidth}">
+		<g:layer>
+			<g:SimplePanel ui:field="loginView">
+	            <hupa:LoginView/>
+	        </g:SimplePanel>
+		</g:layer> <!--
+		<g:layer left='0' right='0' top='0' height='92px'>
+			<g:DockLayoutPanel unit="PX" ui:field="Header">
+				<g:north size="23">
+					<hupa:TopBarView />
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 				</g:north>
 				<g:center>
 					<g:LayoutPanel addStyleNames="{style.feature}"
 						ui:field="HupaFeature">
+<<<<<<< HEAD
 
 						<g:layer width="177px" left="10px">
 							<g:SimplePanel ui:field="logoContainer" />
@@ -37,11 +103,19 @@
 						</g:layer>
 						<g:layer width="287px" right="0">
 							<g:SimpleLayoutPanel ui:field="navigationContainer" />
+=======
+						<g:layer width="177px" left="10px">
+							<hupa:LogoView />
+						</g:layer>
+						<g:layer width="301px" right="0">
+							<hupa:NavigationView />
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 						</g:layer>
 					</g:LayoutPanel>
 				</g:center>
 			</g:DockLayoutPanel>
 		</g:layer>
+<<<<<<< HEAD
 		<g:layer left='10px' right='10px' top='84px' bottom="20px">
 			<g:DockLayoutPanel>
 				<g:north size="44">
@@ -65,5 +139,80 @@
 				</g:center>
 			</g:DockLayoutPanel>
 		</g:layer>
+=======
+		<g:layer left='10px' right='10px' top='88px' bottom="20px">
+			<g:DockLayoutPanel ui:field="MainBox">
+				<g:north size="40">
+					<hupa:ToolBarView />
+				</g:north>
+				<g:center>
+					<g:SplitLayoutPanel ui:field="MessageSpace">
+						<g:west size="373">
+							<g:LayoutPanel ui:field="LeftBox"
+								addStyleNames="{style.folderList}  {style.box}  {style.listBox}">
+								<g:layer top="0" height="100%">
+									<hupa:FolderListView />
+								</g:layer>
+								<g:layer bottom="0" height="41px">
+									<g:SimplePanel styleName="{style.boxFooter}">
+										<g:HTMLPanel tag="span"></g:HTMLPanel>
+									</g:SimplePanel>
+								</g:layer>
+							</g:LayoutPanel>
+
+						</g:west>
+						<g:center>
+							<g:DockLayoutPanel unit="PCT" ui:field="RightBox">
+								<g:west size="100">
+									<g:SplitLayoutPanel ui:field="MessageBox">
+										<g:north size="200">
+											<g:LayoutPanel addStyleNames="{style.box}"
+												ui:field="MessageListBox">
+												<g:layer>
+													<hupa:MessageListView />
+												</g:layer>
+												<g:layer bottom="0" height="25px">
+													<hupa:MessageListFooterView />
+												</g:layer>
+											</g:LayoutPanel>
+										</g:north>
+										<g:center>
+											<g:LayoutPanel addStyleNames="{style.box}"
+												ui:field="MessageContentBox">
+												<g:layer>
+													<hupa:MessageContentView />
+												</g:layer>
+												<g:layer bottom="0" height="25px">
+													<hupa:StatusView />
+												</g:layer>
+											</g:LayoutPanel>
+										</g:center>
+									</g:SplitLayoutPanel>
+								</g:west>
+								<g:center size="0">
+									<g:SplitLayoutPanel ui:field="ContactBox">
+										<g:west size="150">
+											<g:HTMLPanel addStyleNames="{style.box}">Address</g:HTMLPanel>
+										</g:west>
+										<g:center size="100">
+											<g:LayoutPanel addStyleNames="{style.box}">
+												<g:layer>
+													<g:HTMLPanel>MessageContent
+													</g:HTMLPanel>
+												</g:layer>
+												<g:layer bottom="0" height="25px">
+													<hupa:StatusView />
+												</g:layer>
+											</g:LayoutPanel>
+										</g:center>
+									</g:SplitLayoutPanel>
+								</g:center>
+							</g:DockLayoutPanel>
+						</g:center>
+					</g:SplitLayoutPanel>
+				</g:center>
+			</g:DockLayoutPanel>
+		</g:layer> -->
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 	</g:LayoutPanel>
 </ui:UiBinder>

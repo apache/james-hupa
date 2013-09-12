@@ -10,6 +10,7 @@
 	language governing permissions and limitations under the License. -->
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+<<<<<<< HEAD
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
 	<ui:style>
@@ -24,4 +25,9 @@
 			<g:ListBox ui:field="labels"></g:ListBox>
 		</g:SimplePanel>
 	</g:HorizontalPanel>
+=======
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<g:HTMLPanel>MessageListFooter
+	</g:HTMLPanel>
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 </ui:UiBinder>

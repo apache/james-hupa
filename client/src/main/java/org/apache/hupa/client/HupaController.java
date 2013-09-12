@@ -46,12 +46,10 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 =======
 import org.apache.hupa.client.bundles.HupaResources;
-import org.apache.hupa.client.evo.ActivityManagerInitializer;
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
-import org.apache.hupa.client.ui.AppLayout;
 import org.apache.hupa.client.ui.HupaLayoutable;
 
 >>>>>>> move new theme ui from experiment to hupa evo
@@ -103,8 +101,13 @@ public class HupaController {
 	private Place currentPlace;
 
 	@Inject
+<<<<<<< HEAD
 	public HupaController(EventBus eventBus) {
 >>>>>>> move new theme ui from experiment to hupa evo
+=======
+	public HupaController(EventBus eventBus,
+			HupaActivityManagerInitializer initializeActivityManagerByGin) {
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		eventBus.addHandler(PlaceChangeEvent.TYPE, new PlaceChangHandler());
 	}
 

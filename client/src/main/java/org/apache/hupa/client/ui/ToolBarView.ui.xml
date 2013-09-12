@@ -11,6 +11,7 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+<<<<<<< HEAD
 	<ui:image field="buttons" src="res/buttons.png" />
 	<ui:image field="listicons" src="res/listicons.png" />
 	<ui:style type="org.apache.hupa.client.ui.ToolBarView.Style">
@@ -18,6 +19,13 @@
 			position: absolute;
 			display: block;
 			top: -2px;
+=======
+	<ui:image field="buttons" src="res/buttons.png"/>
+	<ui:style>
+		.bar {
+			position: absolute;
+			top: -6px;
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 			right: 390px;
 			left: 0;
 			height: 40px;
@@ -25,6 +33,7 @@
 			z-index: 10;
 		}
 		
+<<<<<<< HEAD
 		@sprite .listicon {
 			gwt-image: 'listicons';
 			display: block;
@@ -35,6 +44,8 @@
 			opacity: 0.99;
 		}
 		
+=======
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		@sprite .button {
 			gwt-image: 'buttons';
 			text-align: center;
@@ -46,7 +57,11 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
+<<<<<<< HEAD
 			padding: 28px 2px 0 2px;
+=======
+			padding: 24px 2px 0 2px;
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 			text-shadow: 0px 1px 1px #EEE;
 			box-shadow: none;
 			-webkit-box-shadow: none;
@@ -56,6 +71,7 @@
 			margin: 0 2px;
 			border-radius: 4px;
 			text-decoration: none;
+<<<<<<< HEAD
 		}
 		
 		.checkMail {
@@ -64,6 +80,17 @@
 		
 		.compose {
 			background-position: center -530px;
+=======
+			cursor: pointer;
+		}
+		
+		.checkMail {
+			background-position: center -1180px;
+		}
+		
+		.compose {
+			background-position: center -534px;
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		}
 		
 		.spacer {
@@ -74,7 +101,11 @@
 		}
 		
 		.reply {
+<<<<<<< HEAD
 			background-position: center -570px;
+=======
+			background-position: center -574px;
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		}
 		
 		.dropButton {
@@ -91,7 +122,11 @@
 		
 		.replyAll {
 			min-width: 64px;
+<<<<<<< HEAD
 			background-position: left -610px;
+=======
+			background-position: left -614px;
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		}
 		
 		@sprite .dropButton .dropButtonTip {
@@ -102,6 +137,7 @@
 			top: 0;
 			height: 42px;
 			width: 18px;
+<<<<<<< HEAD
 			background-position: 0 -1255px;
 		}
 		
@@ -176,10 +212,32 @@
 		
 		.unread {
 			background-position: 0 -1198px;
+=======
+			background-position: 0 -1259px;
+			cursor: pointer;
+		}
+		
+		.forward {
+			min-width: 64px;
+			background-position: left -654px;
+		}
+		
+		.delete {
+			background-position: center -694px;
+		}
+		
+		.mark {
+			background-position: center -1098px;
+		}
+		
+		.more {
+			background-position: center -854px;
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		}
 	</ui:style>
 
 	<g:FlowPanel addStyleNames="{style.bar}" ui:field="ToolBar">
+<<<<<<< HEAD
 		<g:Anchor ui:field="refresh" addStyleNames="{style.button} {style.checkMail} {style.handCursor}">Refresh</g:Anchor>
 		<g:Anchor ui:field="compose" addStyleNames="{style.button} {style.compose} {style.handCursor}">Compose</g:Anchor>
 		<g:HTMLPanel tag="span" addStyleNames="{style.spacer}"></g:HTMLPanel>
@@ -203,5 +261,22 @@
 			addStyleNames="{style.button} {style.mark} {style.handCursor}">Mark</g:Anchor>
 		<g:Anchor ui:field="more"
 			addStyleNames="{style.button} {style.more} {style.handCursor}">More</g:Anchor>
+=======
+		<g:Anchor addStyleNames="{style.button} {style.checkMail}">Refresh</g:Anchor>
+		<g:Anchor addStyleNames="{style.button} {style.compose}">Compose</g:Anchor>
+		<g:HTMLPanel tag="span" addStyleNames="{style.spacer}"></g:HTMLPanel>
+		<g:Anchor addStyleNames="{style.button} {style.reply}">Reply</g:Anchor>
+		<g:HTMLPanel tag="span" addStyleNames="{style.dropButton}">
+			<g:Anchor addStyleNames="{style.button} {style.replyAll}">Reply all</g:Anchor>
+			<g:HTMLPanel tag="span" addStyleNames="{style.dropButtonTip}"></g:HTMLPanel>
+		</g:HTMLPanel>
+		<g:HTMLPanel tag="span" addStyleNames="{style.dropButton}">
+			<g:Anchor addStyleNames="{style.button} {style.forward}">Forward</g:Anchor>
+			<g:HTMLPanel tag="span" addStyleNames="{style.dropButtonTip}"></g:HTMLPanel>
+		</g:HTMLPanel>
+		<g:Anchor addStyleNames="{style.button} {style.delete}">Delete</g:Anchor>
+		<g:Anchor addStyleNames="{style.button} {style.mark}">Mark</g:Anchor>
+		<g:Anchor addStyleNames="{style.button} {style.more}">More</g:Anchor>
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 	</g:FlowPanel>
 </ui:UiBinder>

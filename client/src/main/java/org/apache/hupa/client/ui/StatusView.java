@@ -19,14 +19,21 @@
 
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.StatusActivity;
 
+=======
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+<<<<<<< HEAD
 public class StatusView extends Composite implements StatusActivity.Displayable {
+=======
+public class StatusView extends Composite {
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 
 	public StatusView() {
 		initWidget(binder.createAndBindUi(this));

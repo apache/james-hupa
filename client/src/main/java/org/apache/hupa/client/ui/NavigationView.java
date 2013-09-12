@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.NavigationActivity;
 import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.FolderPlace;
@@ -57,10 +58,19 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 		String mailInnerSelected();
 		String contactInnerSelected();
 	}
+=======
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+
+public class NavigationView extends Composite {
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 
 	public NavigationView() {
 		initWidget(binder.createAndBindUi(this));
 	}
+<<<<<<< HEAD
 	
 	@UiHandler("mail")
 	public void onMailClick(ClickEvent e){
@@ -109,6 +119,8 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 	}
 	
 	
+=======
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 
 	interface NavigationUiBinder extends UiBinder<DockLayoutPanel, NavigationView> {
 	}

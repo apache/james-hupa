@@ -11,6 +11,7 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+<<<<<<< HEAD
 	<ui:image field="buttons" src="res/buttons.png" />
 	<ui:style>
 		.messageContent {
@@ -92,4 +93,8 @@
 			</g:DockLayoutPanel>
 		</g:center>
 	</g:DockLayoutPanel>
+=======
+	<g:HTMLPanel>MessageContent
+	</g:HTMLPanel>
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 </ui:UiBinder>

@@ -37,6 +37,10 @@ import java.util.logging.Logger;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import org.apache.hupa.client.HupaConstants;
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
@@ -125,10 +129,13 @@ import org.apache.hupa.client.activity.LoginActivity;
 import org.apache.hupa.client.activity.MessageSendActivity;
 import org.apache.hupa.client.activity.TopActivity;
 import org.apache.hupa.client.activity.WestActivity;
-import org.apache.hupa.client.evo.AppController;
 import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
 import org.apache.hupa.client.mapper.CachingTopActivityMapper;
+<<<<<<< HEAD
 import org.apache.hupa.client.mapper.CachingWestActivityMapper;
+=======
+import org.apache.hupa.client.mapper.LoginActivityMapper;
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 import org.apache.hupa.client.mapper.MainContentActivityMapper;
 =======
 import org.apache.hupa.client.AppController;
@@ -166,11 +173,9 @@ import org.apache.hupa.client.mapper.WestActivityMapper;
 >>>>>>> delete messages, make WestActivity Singleton
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
-import org.apache.hupa.client.ui.AppLayout;
-import org.apache.hupa.client.ui.AppLayoutImpl;
 import org.apache.hupa.client.ui.FoldersTreeViewModel;
+import org.apache.hupa.client.ui.HupaLayout;
 import org.apache.hupa.client.ui.HupaLayoutable;
-import org.apache.hupa.client.ui.HupaOverallLayout;
 import org.apache.hupa.client.ui.IMAPMessageListView;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -234,6 +239,7 @@ public class AppGinModule extends AbstractGinModule {
 	@Override
 	protected void configure() {
 		// Views
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -403,6 +409,9 @@ public class AppGinModule extends AbstractGinModule {
 =======
 		bind(HupaLayoutable.class).to(HupaOverallLayout.class).in(Singleton.class);
 >>>>>>> refactoring
+=======
+		bind(HupaLayoutable.class).to(HupaLayout.class).in(Singleton.class);
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 
 		// Activities
 		bind(LoginActivity.Displayable.class).to(LoginView.class);
@@ -478,6 +487,7 @@ public class AppGinModule extends AbstractGinModule {
 
 		// bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
 	}
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
@@ -490,6 +500,16 @@ public class AppGinModule extends AbstractGinModule {
 	}
 	
 >>>>>>> introduce the top activity
+=======
+	
+	@Provides
+	@Singleton
+	@Named("LoginPage")
+	public ActivityManager getLoginActivityMapper(LoginActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+	
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 	@Provides
 	@Singleton
 	@Named("TopRegion")

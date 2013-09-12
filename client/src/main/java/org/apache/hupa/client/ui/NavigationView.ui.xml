@@ -12,7 +12,11 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<ui:image field="buttons" src="res/buttons.png"/>
+<<<<<<< HEAD
 	<ui:style type="org.apache.hupa.client.ui.NavigationView.Style">
+=======
+	<ui:style>
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		@sprite .navigation .inner {
 			gwt-image: 'buttons';
 			display: inline-block;
@@ -36,6 +40,7 @@
 		}
 		
 		.navigation .mailInner {
+<<<<<<< HEAD
 			background-position: 0 2px;
 		}
 
@@ -44,6 +49,12 @@
             color: #3cf;
         }
 
+=======
+			background-position: 0 -22px;
+			color: #3cf;
+			/*background-position: 0 2px;*/
+		}
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		
 		.navigation mailInner:hover,.navigation .mailInner.selected {
 			background-position: 0 -22px;
@@ -52,9 +63,12 @@
 		.navigation .contactInner {
 			background-position: 0 -48px;
 		}
+<<<<<<< HEAD
         .navigation .contactInnerSelected {
             background-position: 0 -72px;
         }
+=======
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		
 		.navigation a.contact:hover span.inner,.navigation a.contact.selected span.inner
 			{
@@ -65,9 +79,12 @@
 			background-position: 0 -96px;
 		}
 		
+<<<<<<< HEAD
         .navigation .settingsInnerSelected {
             background-position: 0 -120px;
         }
+=======
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 		.navigation a.settings:hover span.inner,.navigation a.settings.selected span.inner
 			{
 			background-position: 0 -120px;
@@ -84,17 +101,29 @@
 	</ui:style>
 	<g:DockLayoutPanel unit="PX" ui:field="Navigation">
 		<g:west size="74">
+<<<<<<< HEAD
 			<g:SimplePanel ui:field="mailOuter" addStyleNames="{style.navigation} {style.selected}">
 				<g:Anchor  ui:field="mail"
 					addStyleNames=" 
                                 {style.mailInnerSelected} {style.inner}">
+=======
+			<g:SimplePanel addStyleNames="{style.navigation} {style.selected}">
+				<g:Anchor
+					addStyleNames=" 
+                                {style.mailInner} {style.inner}">
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 					Mail
 				</g:Anchor>
 			</g:SimplePanel>
 		</g:west>
 		<g:center>
+<<<<<<< HEAD
 			<g:SimplePanel ui:field="contactOuter" addStyleNames="{style.navigation}">
 				<g:Anchor  ui:field="contact"
+=======
+			<g:SimplePanel addStyleNames="{style.navigation}">
+				<g:Anchor
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 					addStyleNames="
                                 {style.contactInner} {style.inner}">
 					Contacts
@@ -102,8 +131,13 @@
 			</g:SimplePanel>
 		</g:center>
 		<g:east size="97">
+<<<<<<< HEAD
 			<g:SimplePanel ui:field="settingOuter" addStyleNames="{style.navigation}">
 				<g:Anchor ui:field="setting"
+=======
+			<g:SimplePanel addStyleNames="{style.navigation}">
+				<g:Anchor
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 					addStyleNames="
                                 {style.settingsInner} {style.inner}">
 					Settings

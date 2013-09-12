@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,10 +117,25 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 	}
 
 	interface MessageListFooterUiBinder extends UiBinder<HorizontalPanel, MessageListFooterView> {
+=======
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
+
+public class MessageListFooterView extends Composite {
+
+	public MessageListFooterView() {
+		initWidget(binder.createAndBindUi(this));
+	}
+
+	interface MessageListFooterUiBinder extends UiBinder<HTMLPanel, MessageListFooterView> {
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 	}
 
 	private static MessageListFooterUiBinder binder = GWT.create(MessageListFooterUiBinder.class);
 
+<<<<<<< HEAD
 	@Override
 	public SimplePager getPager() {
 		return simplePager;
@@ -135,4 +151,6 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 		return labels;
 	}
 
+=======
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 }

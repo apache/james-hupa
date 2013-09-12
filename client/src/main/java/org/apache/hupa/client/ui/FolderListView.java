@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -205,6 +206,17 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 		public void refresh() {
 			this.onRangeChanged(display);
 		}
+=======
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.SimplePanel;
+
+public class FolderListView extends Composite {
+
+	public FolderListView() {
+		initWidget(binder.createAndBindUi(this));
+>>>>>>> make login page as one part of the overall layout & splite layout to little one
 	}
 
 	interface FolderListUiBinder extends UiBinder<SimplePanel, FolderListView> {
