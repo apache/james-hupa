@@ -14,11 +14,15 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<ui:image field="buttons" src="res/buttons.png" />
+=======
+>>>>>>> beautify message list and content
 	<ui:style>
 		.messageContent {
 			display: block;
 			background-color: white;
+<<<<<<< HEAD
 			width: 100%;
 			height: 100%;
 		}
@@ -107,4 +111,13 @@
 		<g:HTML ui:field="messageContent" />
 	</g:ScrollPanel>
 >>>>>>> make message content work as expected partly
+=======
+			width:100%;
+			height:100%;
+		}
+	</ui:style>
+	<g:SimplePanel addStyleNames="{style.messageContent}">
+		<g:HTML ui:field="messageContent" />
+	</g:SimplePanel>
+>>>>>>> beautify message list and content
 </ui:UiBinder>

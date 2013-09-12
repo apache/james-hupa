@@ -517,11 +517,9 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
-import com.google.gwt.user.cellview.client.SafeHtmlHeader;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
@@ -561,10 +559,17 @@ public class MessagesCellTable extends DataGrid<Message> {
 		this.imageBundle = imageBundle;
 
 		CheckboxCell headerCheckbox = new CheckboxCell();
+		ImageResourceCell headerAttached = new ImageResourceCell();
 		Header<Boolean> header = new Header<Boolean>(headerCheckbox) {
 			@Override
 			public Boolean getValue() {
 				return false;
+			}
+		};
+		Header<ImageResource> attachedPin = new Header<ImageResource>(headerAttached) {
+			@Override
+			public ImageResource getValue() {
+				return imageBundle.attachmentIcon();
 			}
 		};
 		header.setUpdater(new ValueUpdater<Boolean>() {
@@ -585,8 +590,8 @@ public class MessagesCellTable extends DataGrid<Message> {
 		setColumnWidth(fromCol, 40, Unit.PCT);
 		addColumn(subjectCol, constants.mailTableSubject());
 		setColumnWidth(subjectCol, 60, Unit.PCT);
-		addColumn(attachedCol, "Attached");// TODO i18n
-		setColumnWidth(attachedCol, 7, Unit.EM);
+		addColumn(attachedCol, attachedPin);
+		setColumnWidth(attachedCol, 33, Unit.PX);
 		addColumn(dateCol, constants.mailTableDate());
 		setColumnWidth(dateCol, 10, Unit.EM);
 		setRowCount(PAGE_SIZE, false);

@@ -90,7 +90,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.inject.Inject;
 
 <<<<<<< HEAD
@@ -262,6 +262,7 @@ public class MessageContentView extends Composite implements MessageContentActiv
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Override
 	public void fillMessageContent(String messageDetail) {
 		messageContentHTML.setHTML(messageDetail);
@@ -347,6 +348,9 @@ public class MessageContentView extends Composite implements MessageContentActiv
 =======
 	interface MessageContentUiBinder extends UiBinder<ScrollPanel, MessageContentView> {
 >>>>>>> make message content work as expected partly
+=======
+	interface MessageContentUiBinder extends UiBinder<SimplePanel, MessageContentView> {
+>>>>>>> beautify message list and content
 	}
 
 	private static MessageContentUiBinder binder = GWT.create(MessageContentUiBinder.class);

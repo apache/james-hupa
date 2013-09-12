@@ -24,11 +24,15 @@
 	<ui:style>
 		.bar {
 			position: absolute;
+<<<<<<< HEAD
 			top: -6px;
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+			top: -2px;
+>>>>>>> beautify message list and content
 			right: 390px;
 			left: 0;
-			height: 40px;
+			height: 36px;
 			white-space: nowrap;
 			z-index: 10;
 		}
@@ -58,10 +62,14 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 <<<<<<< HEAD
+<<<<<<< HEAD
 			padding: 28px 2px 0 2px;
 =======
 			padding: 24px 2px 0 2px;
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+			padding: 28px 2px 0 2px;
+>>>>>>> beautify message list and content
 			text-shadow: 0px 1px 1px #EEE;
 			box-shadow: none;
 			-webkit-box-shadow: none;

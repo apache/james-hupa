@@ -2,11 +2,15 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
 	<ui:image field="buttons" src="res/buttons.png" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<ui:image field="originLogo" src="res/hupa-logo-original-transparent.png" />
 	<ui:style>
 		.minWidth {
 			min-width: 700px;
 =======
+=======
+	<ui:image field="originLogo" src="res/hupa-logo-original-transparent.png" />
+>>>>>>> beautify message list and content
 	<ui:style>
 		.minWidth {
 			min-width: 1150px;
@@ -95,6 +99,20 @@
 			background: -ms-linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
 			background: linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
 			border-radius: 0 0 4px 4px;
+		}
+		
+		@sprite .messageContent {
+			width: auto;
+			height: auto;
+			gwt-image: 'originLogo';
+			background-position: center center;
+			margin: 8px;
+			filter: grayscale(100%);
+			-webkit-filter: grayscale(100%);
+			-moz-filter: grayscale(100%);
+			-ms-filter: grayscale(100%);
+			-o-filter: grayscale(100%);
+			opacity: 0.7;
 		}
 	</ui:style>
 	<g:LayoutPanel addStyleNames="{style.minWidth}">
@@ -224,7 +242,7 @@
 				<g:center>
 					<g:SplitLayoutPanel ui:field="messageSpace">
 						<g:west size="373">
-							<g:DockLayoutPanel ui:field="folderArea"
+							<g:DockLayoutPanel unit="PX" ui:field="folderArea"
 								addStyleNames="{style.folderList}  {style.box}  {style.listBox}">
 								<g:center>
 									<g:ScrollPanel ui:field="folderListContainer" />
@@ -257,9 +275,10 @@
 								</g:west>
 								<g:center>
 									<g:DockLayoutPanel unit="PX" addStyleNames="{style.box}"
-										ui:field="MessageContentBox">
+										ui:field="messageContentBox">
 										<g:center>
-											<g:ScrollPanel ui:field="messageContentContainer" />
+											<g:ScrollPanel ui:field="messageContentContainer"
+												addStyleNames="{style.messageContent}" />
 										</g:center>
 										<g:south size="25">
 											<g:SimplePanel ui:field="statusContainer" />
