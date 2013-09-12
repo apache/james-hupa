@@ -1,0 +1,126 @@
+@def selectionBorderWidth 2px;
+.dataGridWidget {
+	
+}
+
+.dataGridFirstColumn {
+	
+}
+
+.dataGridLastColumn {
+	
+}
+
+.dataGridFooter {
+	border-top: 2px solid #6f7277;
+	padding: 3px 15px;
+	text-align: left;
+	color: #4b4a4a;
+	text-shadow: #ddf 1px 1px 0;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.dataGridHeader {
+    color: #69939e;
+    font-size: 11px;
+    font-weight: bold;
+    background: #d6eaf3;
+    background: -moz-linear-gradient(left, #e3f2f6 0, #d6eaf3 14px, #d6eaf3 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0,#e3f2f6), color-stop(8%,#d6eaf3), color-stop(100%,#d6eaf3));
+    background: -o-linear-gradient(left, #e3f2f6 0, #d6eaf3 14px, #d6eaf3 100%);
+    background: -ms-linear-gradient(left, #e3f2f6 0, #d6eaf3 14px ,#d6eaf3 100%);
+    background: linear-gradient(left, #e3f2f6 0, #d6eaf3 14px, #d6eaf3 100%);
+    border-left: 1px solid #bbd3da;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height:23px;
+    padding: 2px 3px;
+}
+
+.dataGridCell {
+	cursor:default;
+}
+
+.dataGridFirstColumnFooter {
+	
+}
+
+.dataGridFirstColumnHeader {
+	
+}
+
+.dataGridLastColumnFooter {
+	
+}
+
+.dataGridLastColumnHeader {
+	
+}
+
+.dataGridSortableHeader {
+	cursor: pointer;
+	cursor: hand;
+}
+
+.dataGridSortableHeader:hover {
+	color: #6c6b6b;
+}
+
+.dataGridSortedHeaderAscending {
+	
+}
+
+.dataGridSortedHeaderDescending {
+	
+}
+
+.dataGridEvenRow {
+	background: #ffffff;
+}
+
+.dataGridEvenRowCell {
+	border: selectionBorderWidth solid #ffffff;
+}
+
+.dataGridOddRow {
+	background: #f3f7fb;
+}
+
+.dataGridOddRowCell {
+	border: selectionBorderWidth solid #f3f7fb;
+}
+
+.dataGridHoveredRow {
+	background: #eee;
+}
+
+.dataGridHoveredRowCell {
+	border: selectionBorderWidth solid #eee;
+}
+
+.dataGridKeyboardSelectedRow {
+	background: #ffc;
+}
+
+.dataGridKeyboardSelectedRowCell {
+	border: selectionBorderWidth solid #ffc;
+}
+
+.dataGridSelectedRow {
+	background: #628cd5;
+	color: white;
+	height: auto;
+	overflow: auto;
+}
+
+.dataGridSelectedRowCell {
+	border: selectionBorderWidth solid #628cd5;
+}
+
+/**
+ * The keyboard selected cell is visible over selection.
+ */
+.dataGridKeyboardSelectedCell {
+	border: selectionBorderWidth solid #d7dde8;
+}
