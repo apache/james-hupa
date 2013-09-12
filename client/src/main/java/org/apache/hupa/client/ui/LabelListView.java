@@ -197,10 +197,12 @@ import org.apache.hupa.shared.domain.ImapFolder;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -216,29 +218,37 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class LabelListView extends Composite implements LabelListActivity.Displayable {
-
+	
+	@Inject LabelPropertiesActivity.Displayable labelProperties;
 	@UiField SimplePanel thisView;
 
 	@UiField Button add;
 	@UiField Button delete;
 
+	@UiHandler("add")
+	public void handleAdd(ClickEvent e) {
+		labelProperties.cascade(selectionModel.getSelectedObject(), data.getDataList(), CASCADE_TYPE_ADD);
+	}
+
+	private final ImapLabelListDataProvider data;
+
 	@Inject
-	public LabelListView(HupaRequestFactory rf, final LabelPropertiesActivity.Displayable labelProperties) {
+	public LabelListView(final HupaRequestFactory rf) {
 		initWidget(binder.createAndBindUi(this));
-		final ImapLabelListDataProvider data = new ImapLabelListDataProvider(rf);
+		data = new ImapLabelListDataProvider(rf);
 		CellList<LabelNode> cellList = new CellList<LabelNode>(new LabelCell());
 		cellList.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			public void onSelectionChange(SelectionChangeEvent event) {
-				labelProperties.cascade(selectionModel.getSelectedObject(), data.getDataList());
+				labelProperties.cascade(selectionModel.getSelectedObject(), data.getDataList(), CASCADE_TYPE_RENAME);
 			}
 		});
 		data.addDataDisplay(cellList);
 		thisView.setWidget(cellList);
 	}
-	
+
 	@Override
-	public SingleSelectionModel<LabelNode> getSelectionModel(){
+	public SingleSelectionModel<LabelNode> getSelectionModel() {
 		return this.selectionModel;
 	}
 
@@ -326,9 +336,7 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 				}
 
 			});
-
 		}
-
 	}
 
 <<<<<<< HEAD

@@ -24,6 +24,7 @@ import java.util.List;
 import org.apache.hupa.client.ui.LabelNode;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
@@ -38,7 +39,7 @@ public class LabelPropertiesActivity extends AppBaseActivity {
 	@Inject private Displayable display;
 
 	public interface Displayable extends WidgetDisplayable {
-
-		void cascade(LabelNode labelNode, List<LabelNode> list);
+		void cascade(LabelNode labelNode, List<LabelNode> list, int cascadeTypeAdd);
+		HasClickHandlers getSave();
 	}
 }

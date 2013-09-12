@@ -23,10 +23,15 @@ import java.util.List;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.LabelListActivity;
 =======
 >>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
+=======
+import org.apache.hupa.client.HupaController;
+import org.apache.hupa.client.activity.LabelListActivity;
+>>>>>>> make add of label setting work in backend
 import org.apache.hupa.client.activity.LabelPropertiesActivity;
 import org.apache.hupa.client.rf.CreateFolderRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
@@ -40,6 +45,7 @@ import org.apache.hupa.shared.events.RefreshLabelListEvent;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+<<<<<<< HEAD
 import com.google.gwt.event.shared.EventBus;
 =======
 import org.apache.hupa.client.activity.LabelListActivity;
@@ -53,18 +59,25 @@ import org.apache.hupa.shared.domain.RenameFolderAction;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 >>>>>>> add rename RF to label setting feature
+=======
+>>>>>>> make add of label setting work in backend
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.CaptionPanel;
 =======
 >>>>>>> add rename RF to label setting feature
+=======
+import com.google.gwt.user.client.ui.CaptionPanel;
+>>>>>>> make add of label setting work in backend
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.inject.Inject;
@@ -74,10 +87,17 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 >>>>>>> add rename RF to label setting feature
+=======
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
+>>>>>>> make add of label setting work in backend
 
 public class LabelPropertiesView extends Composite implements LabelPropertiesActivity.Displayable {
 
 	@Inject HupaRequestFactory rf;
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Inject HupaController hc;
 	@Inject EventBus eventBus;
@@ -149,11 +169,23 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 	
 	@UiField TextBox _name;
 	@UiField ListBox _parent;
+=======
+	@Inject HupaController hc;
+
+	@UiField TextBox name;
+	@UiField ListBox parent;
+>>>>>>> make add of label setting work in backend
 	@UiField Button save;
 	
+	@UiField VerticalPanel propContainer;
+	@UiField CaptionPanel information;
+	
+	private int state;
+
 	ImapFolder folder;
 
 	@UiHandler("save")
+<<<<<<< HEAD
 	void handleCompose(ClickEvent e){
 		RenameFolderRequest req = rf.renameFolderRequest();
 		RenameFolderAction action = req.create(RenameFolderAction.class);
@@ -167,6 +199,49 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 			}
 		});
 >>>>>>> add rename RF to label setting feature
+=======
+	void handleSave(ClickEvent e) {
+		hc.showTopLoading("Saving...");
+		if(state == LabelListActivity.Displayable.CASCADE_TYPE_RENAME){
+			RenameFolderRequest req = rf.renameFolderRequest();
+			RenameFolderAction action = req.create(RenameFolderAction.class);
+			final ImapFolder f = req.create(ImapFolder.class);
+			f.setFullName(folder.getFullName());
+			action.setFolder(f);
+			action.setNewName(name.getText());
+			req.rename(action).fire(new Receiver<GenericResult>() {
+				@Override
+				public void onSuccess(GenericResult response) {
+					hc.hideTopLoading();
+					hc.showNotice("The label \"" + f.getFullName() + "\" has been renamed to "+name.getText(), 10000);
+				}
+				@Override
+				public void onFailure(ServerFailure error) {
+					hc.hideTopLoading();
+					hc.showNotice(error.getMessage(), 10000);
+				}
+			});	
+		} else if (state == LabelListActivity.Displayable.CASCADE_TYPE_ADD){
+			CreateFolderRequest req = rf.createFolderRequest();
+			CreateFolderAction action = req.create(CreateFolderAction.class);
+			final ImapFolder f = req.create(ImapFolder.class);
+			f.setFullName(folder.getFullName()+"/"+name.getText());
+			action.setFolder(f);
+			req.create(action).fire(new Receiver<GenericResult>(){
+				@Override
+				public void onSuccess(GenericResult response) {
+					hc.hideTopLoading();
+					hc.showNotice("The label \"" + f.getFullName() + "\" was created.", 10000);
+				}
+				@Override
+				public void onFailure(ServerFailure error) {
+					hc.hideTopLoading();
+					hc.showNotice(error.getMessage(), 10000);
+				}
+			});
+			
+		}
+>>>>>>> make add of label setting work in backend
 	}
 	public LabelPropertiesView() {
 		initWidget(binder.createAndBindUi(this));
@@ -179,24 +254,34 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 
 	@Override
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> make add of label setting work in backend
 	public void cascade(LabelNode labelNode, List<LabelNode> wholeList, int type) {
 		state = type;
 		switch (type) {
 		case LabelListActivity.Displayable.CASCADE_TYPE_ADD:
 			makeParentList(labelNode, true, wholeList);
 			name.setText("");
+<<<<<<< HEAD
 			path = labelNode.getPath();
+=======
+>>>>>>> make add of label setting work in backend
 			information.setVisible(false);
 			break;
 		case LabelListActivity.Displayable.CASCADE_TYPE_RENAME:
 			name.setText(labelNode.getName());
+<<<<<<< HEAD
 			path = labelNode.getPath();
+=======
+>>>>>>> make add of label setting work in backend
 			makeParentList(labelNode, false, wholeList);
 			information.setVisible(true);
 			break;
 		default:
 			name.setText("");
 		}
+<<<<<<< HEAD
 		folder = labelNode.getFolder();
 		if (!(labelNode.getFolder().getSubscribed())) {
 			name.setEnabled(false);
@@ -238,18 +323,32 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 =======
 	public void cascade(LabelNode labelNode, List<LabelNode> list) {
 		_name.setText(labelNode.getName());
+=======
+>>>>>>> make add of label setting work in backend
 		folder = labelNode.getFolder();
 		if (!(labelNode.getFolder().getSubscribed())) {
-			_name.setEnabled(false);
+			name.setEnabled(false);
 		} else {
-			_name.setEnabled(true);
+			name.setEnabled(true);
 		}
-		_parent.clear();
-		for (LabelNode folderNode : list) {
-			_parent.addItem(folderNode.getName(), folderNode.getPath());
+	}
+	private void makeParentList(LabelNode labelNode, boolean isParent, List<LabelNode> wholeList) {
+		parent.clear();
+		parent.addItem("---", "root");
+		for (LabelNode folderNode : wholeList) {
+			parent.addItem(folderNode.getName(), folderNode.getPath());
 		}
+<<<<<<< HEAD
 		_parent.setSelectedIndex(list.indexOf(labelNode.getParent()));
 >>>>>>> add rename RF to label setting feature
+=======
+		int parentIndex = wholeList.indexOf(isParent ? labelNode : labelNode.getParent());
+		parent.setSelectedIndex(parentIndex < 0 ? 0 : parentIndex);
+	}
+	@Override
+	public HasClickHandlers getSave() {
+		return save;
+>>>>>>> make add of label setting work in backend
 	}
 
 }

@@ -61,26 +61,26 @@
 	</ui:style>
 	<g:DecoratorPanel addStyleNames="{style.propform}">
 		<g:CaptionPanel captionText="Properties">
-			<g:VerticalPanel>
+			<g:VerticalPanel ui:field="propContainer">
 				<g:CaptionPanel captionText="Location">
 					<g:VerticalPanel addStyleNames="{style.attribute}">
 						<g:HorizontalPanel addStyleNames="{style.noBorder}">
 							<g:Label>
 								<ui:msg key='folderName'>Folder Name:</ui:msg>
 							</g:Label>
-							<g:TextBox ui:field='_name' name="_name" />
+							<g:TextBox ui:field='name' name="_name" />
 						</g:HorizontalPanel>
 						<g:HorizontalPanel addStyleNames="{style.noBorder}">
 							<g:Label>
 								<ui:msg key='parentFolder'>Parent Folder:</ui:msg>
 							</g:Label>
-							<g:ListBox ui:field='_parent'>
+							<g:ListBox ui:field='parent'>
 								<g:item value="1">---</g:item>
 							</g:ListBox>
 						</g:HorizontalPanel>
 					</g:VerticalPanel>
 				</g:CaptionPanel>
-				<g:CaptionPanel captionText="Infomation">
+				<g:CaptionPanel ui:field="information" captionText="Information">
 					<g:VerticalPanel addStyleNames="{style.attribute}">
 					</g:VerticalPanel>
 				</g:CaptionPanel>

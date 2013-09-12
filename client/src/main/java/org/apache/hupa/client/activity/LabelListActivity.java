@@ -145,7 +145,10 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class LabelListActivity extends AppBaseActivity {
 
-	@Inject HupaController hupaController;
+	@Inject private HupaController hupaController;
+	@Inject private Displayable display;
+	@Inject private LabelPropertiesActivity.Displayable labelProperties;
+
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
@@ -170,6 +173,7 @@ public class LabelListActivity extends AppBaseActivity {
 		});
 	}
 
+<<<<<<< HEAD
 	@Inject private Displayable display;
 <<<<<<< HEAD
 	
@@ -177,14 +181,18 @@ public class LabelListActivity extends AppBaseActivity {
 >>>>>>> make label settings prototype
 =======
 
+=======
+>>>>>>> make add of label setting work in backend
 	public interface Displayable extends WidgetDisplayable {
+		final int CASCADE_TYPE_ADD = 0x01;
+		final int CASCADE_TYPE_RENAME = 0x02;
 		SingleSelectionModel<LabelNode> getSelectionModel();
 		HasClickHandlers getAdd();
 		HasClickHandlers getDelete();
 	}
 
 	public void deleteSelected() {
-		hupaController.showTopLoading("Deleting");
+		hupaController.showTopLoading("Deleting...");
 		SingleSelectionModel<LabelNode> selectionModel = display.getSelectionModel();
 		LabelNode labelNode = selectionModel.getSelectedObject();
 		DeleteFolderRequest req = requestFactory.deleteFolderRequest();
@@ -203,9 +211,7 @@ public class LabelListActivity extends AppBaseActivity {
 				hupaController.hideTopLoading();
 				hupaController.showNotice(error.getMessage(), 10000);
 			}
-
 		});
-
 	}
 >>>>>>> add rename RF to label setting feature
 }
