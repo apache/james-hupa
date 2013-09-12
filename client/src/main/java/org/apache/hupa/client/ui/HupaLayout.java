@@ -35,7 +35,6 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
@@ -253,21 +252,27 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 >>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
 
 public class HupaLayout implements HupaLayoutable {
 
-	@UiField SimplePanel topBarContainer;
+	/*
+	 * The flag of layout can be defined as any single bit. such as: 0b0001
+	 * 0b0010 0b0100, namely, 0x01 0x02 0x04 respectively
+	 */
+	public static final int LAYOUT_MESSAGE = 0x01;
+	public static final int LAYOUT_COMPOSE = 0x02;
+	public static final int LAYOUT_SETTING = 0x04;
 
+	@UiField SimplePanel topBarContainer;
 	@UiField SimplePanel logoContainer;
 	@UiField SimplePanel notificationContainer;
 	@UiField SimpleLayoutPanel navigationContainer;
-
 	@UiField _ToolPanel toolPanel;
 
+	@UiField LayoutPanel mainBox;
+
 	@UiField _CenterPanel centerPanel;
-	@UiField DockLayoutPanel mainBox;
-	
+	@UiField _CenterComposePanel composePanel;
 	@UiField _CenterSettingPanel settingPanel;
 
 	private LayoutPanel hupaMainPanel;
@@ -282,44 +287,8 @@ public class HupaLayout implements HupaLayoutable {
 	}
 
 	@Override
-	public void switchToCompose() {
-		if (isMessageOccupied()) {
-			changeToCompose();
-		}
-	}
-
-	@Override
-	public void switchToMessage() {
-		if (isMessageOccupied())
-			return;
-		if (isComposeOccupied()) {
-			changeToMessage();
-		}
-	}
-
-	private void changeToCompose() {
-		centerPanel.thisPanel.remove(centerPanel.contentPanel);
-		centerPanel.thisPanel.add(centerPanel.composeContainer);
-		toolPanel.toggleToCompose(true);
-		centerPanel.temporarilyHiddenTheUnimplementedContactPanel(true);
-	}
-
-	private boolean isMessageOccupied() {
-		return centerPanel.thisPanel.getWidgetIndex(centerPanel.contentPanel) >= 0;
-	}
-
-	private void changeToMessage() {
-//		mainBox.remove(settingPanel);
-		mainBox.setWidgetHidden(settingPanel, true);
-		mainBox.setWidgetHidden(centerPanel,false);
-		centerPanel.thisPanel.remove(centerPanel.composeContainer);
-		centerPanel.thisPanel.add(centerPanel.contentPanel);
-		toolPanel.toggleToCompose(false);
-		centerPanel.temporarilyHiddenTheUnimplementedContactPanel(false);
-	}
-
-	private boolean isComposeOccupied() {
-		return centerPanel.thisPanel.getWidgetIndex(centerPanel.composeContainer) >= 0;
+	public void switchTo(int layout) {
+		arrangeLayout(layout);
 	}
 
 	@Override
@@ -365,14 +334,11 @@ public class HupaLayout implements HupaLayoutable {
 	public AcceptsOneWidget getToolBarView() {
 		return toolPanel.getToolBarView();
 	}
-	
-
 
 	@Override
 	public AcceptsOneWidget getComposeView() {
-		return centerPanel.getComposeView();
+		return composePanel.getComposeView();
 	}
-	
 
 	@Override
 	public AcceptsOneWidget getComposeToolBarView() {
@@ -382,6 +348,10 @@ public class HupaLayout implements HupaLayoutable {
 	@Override
 	public AcceptsOneWidget getFolderListView() {
 		return centerPanel.getFolderListView();
+	}
+	@Override
+	public AcceptsOneWidget getContactListView() {
+		return composePanel.getContactListView();
 	}
 
 	@Override
@@ -403,17 +373,18 @@ public class HupaLayout implements HupaLayoutable {
 	public AcceptsOneWidget getStatusView() {
 		return centerPanel.getStatusView();
 	}
-	
+
 	@Override
 	public AcceptsOneWidget getLabelListView() {
 		return settingPanel.getLabelListView();
 	}
-	
+
 	@Override
-	public AcceptsOneWidget getLabelPropertiesView(){
+	public AcceptsOneWidget getLabelPropertiesView() {
 		return settingPanel.getLabelPropertiesView();
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Override
 	public AcceptsOneWidget getComposeHeader() {
@@ -469,12 +440,37 @@ public interface HupaLayout {
 <<<<<<< HEAD
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 =======
-
-	@Override
-	public void switchToSetting() {
-//		centerPanel.removeFromParent();
-		mainBox.setWidgetHidden(centerPanel, true);
-		mainBox.setWidgetHidden(settingPanel, false);
+=======
+	private void arrangeLayout(int lyt) {
+		toolPanel.toggleTo(lyt);
+		showOrHideMessage(lyt);
+		showOrHideCompose(lyt);
+		showOrHideSetting(lyt);
 	}
+
+	private void showOrHideSetting(int lyt) {
+		mainBox.setWidgetLeftWidth(settingPanel, 0, Unit.PCT, (lyt & LAYOUT_SETTING) / LAYOUT_SETTING * 100, Unit.PCT);
+		mainBox.setWidgetTopHeight(settingPanel, 0, Unit.PCT, (lyt & LAYOUT_SETTING) / LAYOUT_SETTING * 100, Unit.PCT);
+	}
+>>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
+
+	private void showOrHideCompose(int lyt) {
+		mainBox.setWidgetLeftWidth(composePanel, 0, Unit.PCT, (lyt & LAYOUT_COMPOSE) / LAYOUT_COMPOSE * 100, Unit.PCT);
+		mainBox.setWidgetTopHeight(composePanel, 0, Unit.PCT, (lyt & LAYOUT_COMPOSE) / LAYOUT_COMPOSE * 100, Unit.PCT);
+	}
+<<<<<<< HEAD
 >>>>>>> attempt to add label setting feature
+=======
+
+	private void showOrHideMessage(int lyt) {
+		mainBox.setWidgetLeftWidth(centerPanel, 0, Unit.PCT, (lyt & LAYOUT_MESSAGE) / LAYOUT_MESSAGE * 100, Unit.PCT);
+		mainBox.setWidgetTopHeight(centerPanel, 0, Unit.PCT, (lyt & LAYOUT_MESSAGE) / LAYOUT_MESSAGE * 100, Unit.PCT);
+	}
+
+	interface HupaLayoutUiBinder extends UiBinder<LayoutPanel, HupaLayout> {
+	}
+
+	private static HupaLayoutUiBinder binder = GWT.create(HupaLayoutUiBinder.class);
+
+>>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 }

@@ -39,10 +39,27 @@ public class _ToolPanel extends Composite {
 
 	public _ToolPanel() {
 		initWidget(binder.createAndBindUi(this));
-		toggleToCompose(false);
 	}
-	
-	protected void toggleToCompose(boolean visible){
+
+	void toggleTo(int layout) {
+		switch (layout) {
+		case HupaLayout.LAYOUT_MESSAGE:
+			this.toggleToCompose(false);break;
+		case HupaLayout.LAYOUT_COMPOSE:
+			this.toggleToCompose(true);break;
+			//TODO compose button should be shown when setting
+		default:
+			hideAll();
+		}
+	}
+
+	private void hideAll() {
+		toolBarContainer.setVisible(false);
+		searchFilterContainer.setVisible(false);
+		composeToolBarContainer.setVisible(false);
+	}
+
+	protected void toggleToCompose(boolean visible) {
 		toolBarContainer.setVisible(!visible);
 		searchFilterContainer.setVisible(!visible);
 		composeToolBarContainer.setVisible(visible);
@@ -69,7 +86,6 @@ public class _ToolPanel extends Composite {
 	interface _ToolPanelUiBinder extends UiBinder<DockLayoutPanel, _ToolPanel> {
 	}
 
-	private static _ToolPanelUiBinder binder = GWT
-			.create(_ToolPanelUiBinder.class);
+	private static _ToolPanelUiBinder binder = GWT.create(_ToolPanelUiBinder.class);
 
 }

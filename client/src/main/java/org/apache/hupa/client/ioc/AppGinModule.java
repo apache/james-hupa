@@ -278,7 +278,6 @@ import org.apache.hupa.client.ui.ToolBarView;
 import org.apache.hupa.client.ui.TopBarView;
 import org.apache.hupa.client.ui.TopView;
 import org.apache.hupa.client.ui.WestView;
-import org.apache.hupa.client.ui._CenterSettingPanel;
 
 import com.google.gwt.activity.shared.ActivityManager;
 <<<<<<< HEAD
@@ -569,11 +568,14 @@ public class AppGinModule extends AbstractGinModule {
 		bind(LabelPropertiesActivity.class).in(Singleton.class);
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 		bind(_CenterSettingPanel.class).in(Singleton.class);
 >>>>>>> attempt to add label setting feature
 =======
 //		bind(_CenterSettingPanel.class).in(Singleton.class);
 >>>>>>> try to make switch to setting work
+=======
+>>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 
 <<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers

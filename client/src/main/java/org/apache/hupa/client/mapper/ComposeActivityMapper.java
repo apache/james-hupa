@@ -21,8 +21,6 @@ package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.place.ComposePlace;
-import org.apache.hupa.client.place.MailFolderPlace;
-import org.apache.hupa.client.ui.ToolBarView.Parameters;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;

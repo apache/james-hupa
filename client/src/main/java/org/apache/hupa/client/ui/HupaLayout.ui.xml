@@ -160,14 +160,19 @@
 						ui:field="HupaFeature">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 						
 >>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
+=======
+
+>>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 						<g:layer width="177px" left="10px">
 							<g:SimplePanel ui:field="logoContainer" />
 						</g:layer>
 						<g:layer>
+<<<<<<< HEAD
 <<<<<<< HEAD
 							<g:SimplePanel ui:field="notificationContainer" />
 						</g:layer>
@@ -214,6 +219,9 @@
 =======
 =======
 						  <g:SimplePanel ui:field="notificationContainer" />
+=======
+							<g:SimplePanel ui:field="notificationContainer" />
+>>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 						</g:layer>
 >>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 						<g:layer width="287px" right="0">
@@ -249,17 +257,28 @@
 		<g:layer left='10px' right='10px' top='88px' bottom="20px">
 =======
 		<g:layer left='10px' right='10px' top='84px' bottom="20px">
+<<<<<<< HEAD
 >>>>>>> make fine tuning with tool buttons in toolbar
 			<g:DockLayoutPanel ui:field="mainBox">
+=======
+			<g:DockLayoutPanel>
+>>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 				<g:north size="44">
 					<hupa:_ToolPanel ui:field="toolPanel" />
 				</g:north>
 				<g:center>
-					<hupa:_CenterPanel ui:field="centerPanel" />
+					<g:LayoutPanel ui:field="mainBox">
+						<g:layer left="0%" width="100%" top="0%" height="100%">
+							<hupa:_CenterPanel ui:field="centerPanel" />
+						</g:layer>
+						<g:layer left="0%" width="0%" top="0%" height="0%">
+							<hupa:_CenterSettingPanel ui:field="settingPanel" />
+						</g:layer>
+                        <g:layer left="0%" width="0%" top="0%" height="0%">
+                            <hupa:_CenterComposePanel ui:field="composePanel" />
+                        </g:layer>
+					</g:LayoutPanel>
 				</g:center>
-				<g:south size="0">
-				    <hupa:_CenterSettingPanel ui:field="settingPanel" />
-				</g:south>
 			</g:DockLayoutPanel>
 <<<<<<< HEAD
 		</g:layer> -->

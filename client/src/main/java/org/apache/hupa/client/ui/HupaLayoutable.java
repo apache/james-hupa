@@ -108,6 +108,7 @@ public interface HupaLayoutable extends Layoutable {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
 
+<<<<<<< HEAD
 	void switchToCompose();
 
 	void switchToMessage();
@@ -128,6 +129,8 @@ public interface HupaLayoutable extends Layoutable {
 	AcceptsOneWidget getComposeToolBarView();
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 =======
+=======
+>>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 	AcceptsOneWidget getComposeToolBarView();
 
 	AcceptsOneWidget getComposeView();
@@ -140,6 +143,7 @@ public interface HupaLayoutable extends Layoutable {
 >>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 =======
 
+<<<<<<< HEAD
 	void switchToSetting();
 <<<<<<< HEAD
 >>>>>>> attempt to add label setting feature
@@ -152,4 +156,12 @@ public interface HupaLayoutable extends Layoutable {
 
 	AcceptsOneWidget getLabelPropertiesView();
 >>>>>>> add rename RF to label setting feature
+=======
+	AcceptsOneWidget getLabelListView();
+	AcceptsOneWidget getContactListView();
+
+	AcceptsOneWidget getLabelPropertiesView();
+
+	void switchTo(int layout);
+>>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 }

@@ -22,8 +22,11 @@ package org.apache.hupa.client.ui;
 import java.util.List;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.LabelListActivity;
+=======
+>>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 import org.apache.hupa.client.activity.LabelPropertiesActivity;
 import org.apache.hupa.client.rf.CreateFolderRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;

@@ -24,10 +24,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 public class _CenterPanel extends Composite {
 
@@ -36,6 +33,7 @@ public class _CenterPanel extends Composite {
 	@UiField protected SplitLayoutPanel thisPanel;
 	@UiField protected __OutlinePanel outlinePanel;
 	@UiField protected __ContentPanel contentPanel;
+<<<<<<< HEAD
 =======
 	@UiField SplitLayoutPanel thisPanel;
 	@UiField __OutlinePanel outlinePanel;
@@ -59,16 +57,12 @@ public class _CenterPanel extends Composite {
 =======
 	@UiField protected SimpleLayoutPanel composeContainer;
 >>>>>>> make send text mail work excellently
+=======
+>>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 
 	public _CenterPanel() {
 		initWidget(binder.createAndBindUi(this));
 		thisPanel.setWidgetMinSize(outlinePanel, 144);
-		thisPanel.setWidgetHidden(composeContainer, true);
-	}
-
-	// TODO make it display to remove this method and the corresponding code
-	public void temporarilyHiddenTheUnimplementedContactPanel(boolean hidden) {
-//		thisPanel.setWidgetHidden(outlinePanel, hidden);
 	}
 
 	public AcceptsOneWidget getFolderListView() {
@@ -97,15 +91,5 @@ public class _CenterPanel extends Composite {
 
 	private static _CenterPanelUiBinder binder = GWT
 			.create(_CenterPanelUiBinder.class);
-
-
-	public AcceptsOneWidget getComposeView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				composeContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
 
 }

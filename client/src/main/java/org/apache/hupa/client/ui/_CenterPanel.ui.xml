@@ -31,8 +31,5 @@
 		<g:center>
 			<hupa:__ContentPanel ui:field="contentPanel" />
 		</g:center>
-		<g:south size="0">
-			<g:SimpleLayoutPanel ui:field="composeContainer" />
-		</g:south>
 	</g:SplitLayoutPanel>
 </ui:UiBinder>
