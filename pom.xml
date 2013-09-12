@@ -116,12 +116,17 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <gwtVersion>2.5.1</gwtVersion>
         <gwtMavenVersion>2.5.1</gwtMavenVersion>
 =======
         <gwtVersion>2.5.0</gwtVersion>
         <gwtMavenVersion>2.5.0</gwtMavenVersion>
 >>>>>>> update to the latest 2.5.0 version of gwt
+=======
+        <gwtVersion>2.5.1</gwtVersion>
+        <gwtMavenVersion>2.5.1</gwtMavenVersion>
+>>>>>>> upgrade gwt to 2.5.1
         <gwt.moduleSuffix />
         <gwt.logLevel>ERROR</gwt.logLevel>
         <jettyVersion>7.3.0.v20110203</jettyVersion>
