@@ -248,9 +248,8 @@ public class HupaLayout implements HupaLayoutable {
 	@UiField SimplePanel topBarContainer;
 	@UiField SimplePanel logoContainer;
 	
-	// TODO why can not be SimplePanel here? can not display
+	// can not be SimplePanel here, sub panel need its parent to implements the ProvidesResize interface, the same with messageListContainer
 	@UiField LayoutPanel navigationContainer;
-												
 	@UiField SimplePanel toolBarContainer;
 	@UiField SimplePanel folderListContainer;
 	@UiField LayoutPanel messageListContainer;
