@@ -37,34 +37,36 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class FoldersTreeViewModel implements TreeViewModel {
 
 	protected User user;
 	@Inject protected HupaRequestFactory rf;
 	@Inject protected EventBus eventBus;
-	
-	
-	public FoldersTreeViewModel(){
 
-		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-			@SuppressWarnings("unchecked")
-			@Override
-			public void onSelectionChange(SelectionChangeEvent event) {
-				SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event.getSource();
-				eventBus.fireEvent(new LoadMessagesEvent(user, selectionModel.getSelectedObject()));
-			}
-		});
+	public FoldersTreeViewModel() {
+
+		selectionModel
+				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+					@SuppressWarnings("unchecked")
+					@Override
+					public void onSelectionChange(SelectionChangeEvent event) {
+						SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event
+								.getSource();
+						eventBus.fireEvent(new LoadMessagesEvent(user,
+								selectionModel.getSelectedObject()));
+					}
+				});
 	}
 
-
 	private final SingleSelectionModel<ImapFolder> selectionModel = new SingleSelectionModel<ImapFolder>(
-	        new ProvidesKey<ImapFolder>() {
-		        @Override
-		        public Object getKey(ImapFolder item) {
-			        return item == null ? null : item.getFullName();
-		        }
-	        });
+			new ProvidesKey<ImapFolder>() {
+				@Override
+				public Object getKey(ImapFolder item) {
+					return item == null ? null : item.getFullName();
+				}
+			});
 
 	/**
 	 * Get the {@link NodeInfo} that provides the children of the specified
@@ -72,18 +74,21 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	 */
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
-		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider((ImapFolder) value),
-		        new AbstractCell<ImapFolder>() {
-			        @Override
-			        public void render(Context context, ImapFolder value, SafeHtmlBuilder sb) {
-				        if (value != null) {
-					        sb.appendEscaped(value.getName());
-				        }
-			        }
-		        }, selectionModel, null);
+		System.out.println("-=-=-=-=-"+value);
+		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(
+				(ImapFolder) value), new AbstractCell<ImapFolder>() {
+			@Override
+			public void render(Context context, ImapFolder value,
+					SafeHtmlBuilder sb) {
+				if (value != null) {
+					sb.appendEscaped(value.getName());
+				}
+			}
+		}, selectionModel, null);
 	}
 
-	private class ImapFolderListDataProvider extends AsyncDataProvider<ImapFolder> {
+	private class ImapFolderListDataProvider extends
+			AsyncDataProvider<ImapFolder> {
 
 		public ImapFolderListDataProvider(ImapFolder folder) {
 			this.folder = folder;
@@ -91,18 +96,33 @@ public class FoldersTreeViewModel implements TreeViewModel {
 
 		ImapFolder folder;
 
+        @Override
+        public void addDataDisplay(HasData<ImapFolder> display) {
+                super.addDataDisplay(display);
+        }
+
 		@Override
 		protected void onRangeChanged(HasData<ImapFolder> display) {
-			System.out.println(display.getVisibleItemCount() + "---" +display.getRowCount()+"="+display.getVisibleItems()+"="+display.getVisibleRange());
-			rf.fetchFoldersRequest().fetch(folder).fire(new Receiver<List<ImapFolder>>() {
-				@Override
-				public void onSuccess(List<ImapFolder> response) {
-					if (response == null || response.size() == 0) {
-						updateRowCount(-1, true);
-					} else
-						updateRowData(0, response);
-				}
-			});
+			System.out.println("display -"+display);
+			rf.fetchFoldersRequest().fetch(folder)
+					.fire(new Receiver<List<ImapFolder>>() {
+						@Override
+						public void onSuccess(List<ImapFolder> response) {
+							System.out.println("list of folders-"+response);
+							if (response == null || response.size() == 0) {
+								updateRowCount(-1, true);
+							} else {
+								updateRowData(0, response);
+							}
+						}
+						@Override
+						public void onFailure(ServerFailure error) {
+							if (error.isFatal()) {
+								throw new RuntimeException(error.getMessage());
+							}
+						}
+
+					});
 
 		}
 

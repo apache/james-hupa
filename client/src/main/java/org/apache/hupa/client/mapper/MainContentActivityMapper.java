@@ -52,7 +52,7 @@ public class MainContentActivityMapper implements ActivityMapper {
 
 	public Activity getActivity(Place place) {
 		if (place instanceof MailFolderPlace) {
-			return messageListActivityProvider.get().with((MailFolderPlace)place);
+//			return messageListActivityProvider.get().with((MailFolderPlace)place);
 		} else if (place instanceof DefaultPlace) {
 			return loginActivityProvider.get();
 		} else if(place instanceof MessageSendPlace){

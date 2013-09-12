@@ -473,6 +473,19 @@ public class AppGinModule extends AbstractGinModule {
 		bind(MessageListFooterActivity.Displayable.class).to(MessageListFooterView.class);
 		bind(MessageContentActivity.Displayable.class).to(MessageContentView.class);
 		bind(StatusActivity.Displayable.class).to(StatusView.class);
+		
+		bind(LoginActivity.class).in(Singleton.class);
+		bind(TopBarActivity.class).in(Singleton.class);
+		bind(LogoActivity.class).in(Singleton.class);
+		bind(NavigationActivity.class).in(Singleton.class);
+		bind(ToolBarActivity.class).in(Singleton.class);
+		bind(FolderListActivity.class).in(Singleton.class);
+		bind(MessageListActivity.class).in(Singleton.class);
+		bind(MessageListFooterActivity.class).in(Singleton.class);
+		bind(MessageContentActivity.class).in(Singleton.class);
+		bind(StatusActivity.class).in(Singleton.class);
+		
+		
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 		bind(TopActivity.Displayable.class).to(TopView.class);
@@ -524,7 +537,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(IMAPMessageActivity.class).in(Singleton.class);
 
 		bind(MessagesCellTable.class).in(Singleton.class);
-		bind(FoldersTreeViewModel.class);
+		bind(FoldersTreeViewModel.class).in(Singleton.class);
 		bind(CellTree.Resources.class).to(CellTree.BasicResources.class);
 		// Places
 		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(

@@ -97,6 +97,7 @@ public class ImapFolderServiceImpl extends AbstractService implements ImapFolder
 		ImapFolder iFolder = null;
 
 		try {
+<<<<<<< HEAD
 			delimiter = String.valueOf(folder.getSeparator());
 			iFolder = new ImapFolderImpl(fullName);
 			iFolder.setDelimiter(delimiter);
@@ -230,6 +231,8 @@ public class ImapFolderServiceImpl extends AbstractService implements ImapFolder
 
 		try {
 			System.out.println("Creating folder: " + fullName + " for user: ");
+=======
+>>>>>>> bind FolderListActivity to Singleton, otherwise it might create its view several times
 			delimiter = String.valueOf(folder.getSeparator());
 			iFolder = new ImapFolderImpl(fullName);
 			iFolder.setDelimiter(delimiter);
