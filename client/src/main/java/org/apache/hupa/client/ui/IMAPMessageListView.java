@@ -1647,13 +1647,13 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		FetchMessagesRequest messagesRequest = requestFactory.messagesRequest();
 		FetchMessagesAction action = messagesRequest.create(FetchMessagesAction.class);
 		final ImapFolder folder1 = messagesRequest.create(ImapFolder.class);
-		folder1.setChildren(this.folder.getChildren());
-		folder1.setDelimiter(this.folder.getDelimiter());
-		folder1.setFullName(this.folder.getFullName());
-		folder1.setMessageCount(this.folder.getMessageCount());
-		folder1.setName(this.folder.getName());
-		folder1.setSubscribed(this.folder.getSubscribed());
-		folder1.setUnseenMessageCount(this.folder.getUnseenMessageCount());
+		folder1.setChildren(folder.getChildren());
+		folder1.setDelimiter(folder.getDelimiter());
+		folder1.setFullName(folder.getFullName());
+		folder1.setMessageCount(folder.getMessageCount());
+		folder1.setName(folder.getName());
+		folder1.setSubscribed(folder.getSubscribed());
+		folder1.setUnseenMessageCount(folder.getUnseenMessageCount());
 		// FIXME cannot put setFolder to the first place
 		action.setOffset(table.getPageSize());
 		action.setFolder(folder1);
@@ -1670,8 +1670,8 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 			@Override
 			public void onSuccess(final FetchMessagesResult result) {
 				assert result != null;
-				folder.setMessageCount(result.getRealCount());
-				folder.setUnseenMessageCount(result.getRealUnreadCount());
+//				folder.setMessageCount(result.getRealCount());// TODO if do this, there will be auto bean has been frozen.
+//				folder.setUnseenMessageCount(result.getRealUnreadCount());
 				dataProvider.setList(result.getMessages());
 				sortHandler =  new ListHandler<Message>(dataProvider.getList());
 

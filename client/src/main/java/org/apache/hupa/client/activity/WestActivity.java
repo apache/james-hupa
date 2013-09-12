@@ -1049,6 +1049,7 @@ System.out.println("1111111"+response);
 				if (tItem.isEdit())
 					return;
 <<<<<<< HEAD
+<<<<<<< HEAD
 				folder = (ImapFolder) tItem.getUserObject();
 				eventBus.fireEvent(new LoadMessagesEvent(user, folder));
 			}
@@ -1095,8 +1096,14 @@ System.out.println("1111111"+response);
 				ImapFolder editableFolder = (ImapFolder) tItem.getUserObject();
 				messagesRequest = requestFactory.messagesRequest();
 				folder = messagesRequest.edit(editableFolder);
+=======
+//				ImapFolder editableFolder = (ImapFolder) tItem.getUserObject();
+//				
+//				messagesRequest = requestFactory.messagesRequest();
+//				folder = messagesRequest.edit(editableFolder);
+>>>>>>> make it usable by removing a function that showing the unread message number dynamically.
 
-				// folder = (ImapFolder) tItem.getUserObject();
+				 folder = (ImapFolder) tItem.getUserObject();
 				// FIXME not good to find
 				eventBus.fireEvent(new LoadMessagesEvent(user, folder));
 <<<<<<< HEAD
