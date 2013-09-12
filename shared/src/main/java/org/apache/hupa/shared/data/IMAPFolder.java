@@ -21,14 +21,42 @@ package org.apache.hupa.shared.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import javax.servlet.http.HttpSession;
+
+import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
 
 /**
  * IMAPFolder
  * 
  */
 public class IMAPFolder implements Serializable {
+	
+	private Long id;
+	private Long version;
+	
 
-    /**
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+	
+	
+
+	/**
      * 
      */
     private static final long serialVersionUID = 2084188092060266479L;

@@ -256,6 +256,9 @@ import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
+import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.rf.IMAPFolderProxy;
+import org.apache.hupa.client.rf.IMAPFolderRequestContext;
 import org.apache.hupa.client.ui.WidgetContainerDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
@@ -290,8 +293,6 @@ import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.SentMessageEventHandler;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
-import org.apache.hupa.shared.rpc.FetchFolders;
-import org.apache.hupa.shared.rpc.FetchFoldersResult;
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.GetMessageDetails;
 import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
@@ -318,6 +319,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class WestActivity extends AbstractActivity {
 
@@ -370,16 +372,44 @@ public class WestActivity extends AbstractActivity {
 
     protected void loadTreeItems() {
         display.setLoadingFolders(true);
-        dispatcher.execute(new FetchFolders(), new HupaEvoCallback<FetchFoldersResult>(dispatcher, eventBus, display) {
-            public void callback(FetchFoldersResult result) {
-                display.bindTreeItems(createTreeNodes(result.getFolders()));
-                // disable
-                display.getDeleteEnable().setEnabled(false);
-                display.getRenameEnable().setEnabled(false);
-                display.setLoadingFolders(false);
+        
+        HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
+		rf.initialize(eventBus);
+		IMAPFolderRequestContext folderRequest = rf.folderRequest();
+//		IMAPFolderProxy folder = folderRequest.create(IMAPFolderProxy.class);
+//		folderRequest.echo("..........Hi++++").fire(new Receiver<String>(){
+//
+//			@Override
+//			public void onSuccess(String response) {
+//				System.out.println(response);
+//				
+//			}});
+		folderRequest.requestFolders().fire(new Receiver<List<IMAPFolderProxy>>() {
 
-            }
-        });
+			@Override
+			public void onSuccess(List<IMAPFolderProxy> response) {
+System.out.println("1111111"+response);
+              display.bindTreeItems(null);
+//              // disable
+              display.getDeleteEnable().setEnabled(false);
+              display.getRenameEnable().setEnabled(false);
+              display.setLoadingFolders(false);
+				
+			}
+			
+		});
+        
+//        dispatcher.execute(new FetchFolders(), new HupaEvoCallback<FetchFoldersResult>(dispatcher, eventBus, display) {
+//            public void callback(FetchFoldersResult result) {
+//                display.bindTreeItems(createTreeNodes(result.getFolders()));
+//                // disable
+//                display.getDeleteEnable().setEnabled(false);
+//                display.getRenameEnable().setEnabled(false);
+//                display.setLoadingFolders(false);
+//
+//            }
+//        });
+        
     }
 
     /**

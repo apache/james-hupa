@@ -61,5 +61,10 @@ public interface HupaRequestFactory extends RequestFactory {
 	SetFlagRequest setFlagRequest();
 =======
   SubjectRequest subjectRequest();
+<<<<<<< HEAD
 >>>>>>> first commit
+=======
+  UserRequest userRequest();
+  IMAPFolderRequestContext folderRequest();
+>>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
 }

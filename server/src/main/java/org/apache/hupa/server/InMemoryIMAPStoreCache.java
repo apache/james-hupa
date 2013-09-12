@@ -147,6 +147,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
         if (cstore.getStore().isConnected() == false) {
             try {
                 cstore.getStore().connect(address, port, username, password);
+                System.out.println(address +"ImMemory"+ port);
             } catch (MessagingException e) {
                     throw (e);
             }
