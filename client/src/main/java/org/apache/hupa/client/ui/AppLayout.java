@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -32,12 +33,19 @@ public interface AppLayout {
 	void setDefaultLayout();
 =======
 package org.apache.hupa.client.ui;
+=======
+package org.apache.hupa.client.ui;
+
+>>>>>>> Change to new mvp framework - first step
 
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
 
 public interface AppLayout {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Change to new mvp framework - first step
 
   LayoutPanel getMainLayoutPanel();
 
@@ -49,6 +57,7 @@ public interface AppLayout {
 
   void setDefaultLayout();
 
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
 	LayoutPanel getMainLayoutPanel();
@@ -58,4 +67,6 @@ public interface AppLayout {
 	void setLoginLayout();
 	void setDefaultLayout();
 >>>>>>> introduce the top activity
+=======
+>>>>>>> Change to new mvp framework - first step
 }

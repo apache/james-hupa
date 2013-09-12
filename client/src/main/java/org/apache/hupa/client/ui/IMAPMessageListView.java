@@ -20,8 +20,14 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Set;
+=======
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+>>>>>>> Change to new mvp framework - first step
 =======
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +38,7 @@ import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
@@ -64,6 +71,8 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Style.Unit;
 =======
+=======
+>>>>>>> Change to new mvp framework - first step
 import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
 import org.apache.hupa.client.widgets.CommandsBar;
@@ -80,6 +89,9 @@ import org.apache.hupa.widgets.ui.PagingOptions;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
 
+<<<<<<< HEAD
+>>>>>>> Change to new mvp framework - first step
+=======
 >>>>>>> Change to new mvp framework - first step
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -88,6 +100,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.cellview.client.SimplePager;
@@ -733,6 +746,8 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		return table;
 	}
 =======
+=======
+>>>>>>> Change to new mvp framework - first step
 import com.google.gwt.gen2.table.client.AbstractColumnDefinition;
 import com.google.gwt.gen2.table.client.AbstractScrollTable.ColumnResizePolicy;
 import com.google.gwt.gen2.table.client.AbstractScrollTable.ResizePolicy;
@@ -756,7 +771,10 @@ import com.google.gwt.gen2.table.event.client.PageLoadHandler;
 import com.google.gwt.gen2.table.event.client.RowCountChangeEvent;
 import com.google.gwt.gen2.table.event.client.RowCountChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.Anchor;
+=======
+>>>>>>> Change to new mvp framework - first step
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
@@ -795,9 +813,15 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
     private EnableButton markUnSeenButton;
 
     private ListBox pageBox = new ListBox();
+<<<<<<< HEAD
     private Anchor allLink;    
     private Anchor noneLink;
     private Anchor refreshLink;
+=======
+    private Hyperlink allLink;    
+    private Hyperlink noneLink;
+    private Hyperlink refreshLink;
+>>>>>>> Change to new mvp framework - first step
     private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
     private SuggestBox searchBox = new SuggestBox(oracle);
     private Button searchButton;
@@ -813,9 +837,15 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
         deleteAllMailButton = new Button(constants.deleteAll());
         markSeenButton = new EnableButton(constants.markSeen());
         markUnSeenButton = new EnableButton(constants.markUnseen());
+<<<<<<< HEAD
         allLink = new Anchor(constants.all());    
         noneLink = new Anchor(constants.none());
         refreshLink = new Anchor(constants.refresh());
+=======
+        allLink = new Hyperlink(constants.all(),"");    
+        noneLink = new Hyperlink(constants.none(),"");
+        refreshLink = new Hyperlink(constants.refresh(),"");
+>>>>>>> Change to new mvp framework - first step
         searchButton = new Button(constants.searchButton());
         loading = new Loading(constants.loading());
         this.cTableModel = new CachedTableModel<Message>(mTableModel);
@@ -1481,5 +1511,8 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
             loading.hide();
         }
     }
+<<<<<<< HEAD
+>>>>>>> Change to new mvp framework - first step
+=======
 >>>>>>> Change to new mvp framework - first step
 }

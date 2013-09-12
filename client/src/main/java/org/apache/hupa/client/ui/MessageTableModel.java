@@ -23,7 +23,11 @@ import java.util.Iterator;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.evo.HupaEvoCallback;
+=======
+import org.apache.hupa.client.HupaEvoCallback;
+>>>>>>> Change to new mvp framework - first step
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.User;
@@ -36,7 +40,10 @@ import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MessagesReceivedEvent;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+>>>>>>> Change to new mvp framework - first step
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
@@ -55,7 +62,11 @@ public class MessageTableModel extends MutableTableModel<Message> {
     private EventBus eventBus;
     private DispatchAsync dispatcher;
     private User user;
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
+=======
+    private IMAPFolder folder;
+>>>>>>> Change to new mvp framework - first step
     private String searchValue;
 
     @Inject
@@ -85,7 +96,11 @@ public class MessageTableModel extends MutableTableModel<Message> {
             
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
+<<<<<<< HEAD
 //                folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());
+=======
+                folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+>>>>>>> Change to new mvp framework - first step
                 searchValue = null;
             }
         });

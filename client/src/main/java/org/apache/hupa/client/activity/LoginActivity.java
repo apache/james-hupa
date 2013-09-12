@@ -38,6 +38,7 @@ package org.apache.hupa.client.activity;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaConstants;
 <<<<<<< HEAD
 import org.apache.hupa.client.evo.HupaEvoCallback;
@@ -50,10 +51,16 @@ import org.apache.hupa.shared.events.SessionExpireEventHandler;
 import org.apache.hupa.client.HupaEvoCallback;
 import org.apache.hupa.client.place.LoginPlace;
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+import org.apache.hupa.client.HupaEvoCallback;
+import org.apache.hupa.client.mvp.WidgetDisplayable;
+import org.apache.hupa.client.place.MailInboxPlace;
+>>>>>>> Change to new mvp framework - first step
 import org.apache.hupa.shared.rpc.LoginUser;
 import org.apache.hupa.shared.rpc.LoginUserResult;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -67,6 +74,8 @@ import com.google.gwt.core.client.GWT;
 =======
 import com.google.gwt.core.client.GWT;
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+>>>>>>> Change to new mvp framework - first step
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -122,26 +131,27 @@ import com.google.inject.Provider;
 
 public class LoginActivity extends AbstractActivity {
 
-	private HupaConstants constants = GWT.create(HupaConstants.class);
-
-	private LoginPlace place;
-	private final Display display;
+	private final Displayable display;
 	private final EventBus eventBus;
-	// private final HupaEvoCallback loginRpcService;
-	private PlaceController placeController;
-
+	private final PlaceController placeController;
+	private final Provider<MailInboxPlace> mailInboxPlaceProvider;
 	private DispatchAsync dispatcher;
-	private Provider<LoginPlace> oldGoToPlaceProvider;
-	private Provider<LoginPlace> newGoToPlaceProvider;
 
 	@Inject
+<<<<<<< HEAD
 	public LoginActivity(Display display, EventBus eventBus, PlaceController placeController, DispatchAsync dispatcher,
 			Provider<LoginPlace> newGoToPlaceProvider) {
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+	public LoginActivity(Displayable display, EventBus eventBus, PlaceController placeController,
+			Provider<MailInboxPlace> mailInboxPlaceProvider, DispatchAsync dispatcher) {
+>>>>>>> Change to new mvp framework - first step
 		this.display = display;
 		this.eventBus = eventBus;
 		this.placeController = placeController;
+		this.mailInboxPlaceProvider = mailInboxPlaceProvider;
 		this.dispatcher = dispatcher;
+<<<<<<< HEAD
 <<<<<<< HEAD
 	}
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
@@ -152,6 +162,8 @@ public class LoginActivity extends AbstractActivity {
 
 	public void init(LoginPlace place) {
 		this.place = place;
+=======
+>>>>>>> Change to new mvp framework - first step
 	}
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 
@@ -267,6 +279,7 @@ public class LoginActivity extends AbstractActivity {
 			public void callback(LoginUserResult result) {
 				display.setLoading(false);
 <<<<<<< HEAD
+<<<<<<< HEAD
 				// eventBus.fireEvent(new LoginEvent(result.getUser()));
 //				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get().with(result.getUser()));
 				LoginActivity.this.placeController.goTo(new MailFolderPlace().with(result.getUser()));
@@ -275,11 +288,16 @@ public class LoginActivity extends AbstractActivity {
 				// eventBus.fireEvent(new LoginEvent(result.getUser()));
 //				LoginActivity.this.placeController.goTo(newGoToPlaceProvider.get());
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+				// eventBus.fireEvent(new LoginEvent(result.getUser()));
+				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get().with(result.getUser()));
+>>>>>>> Change to new mvp framework - first step
 				doReset();
 			}
 
 			public void callbackError(Throwable caught) {
 				display.setLoading(false);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 				Window.alert("error");
@@ -301,6 +319,10 @@ public class LoginActivity extends AbstractActivity {
 =======
 				Window.alert("failure");
 //				LoginActivity.this.placeController.goTo(newGoToPlaceProvider.get());
+=======
+				Window.alert("error");
+				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get());
+>>>>>>> Change to new mvp framework - first step
 				// eventBus.fireEvent(new FlashEvent(constants.loginInvalid(),
 				// 4000));
 				doReset();
@@ -321,6 +343,7 @@ public class LoginActivity extends AbstractActivity {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject private Displayable display;
 	@Inject private HupaConstants constants;
 
@@ -338,6 +361,9 @@ public class LoginActivity extends AbstractActivity {
 =======
 	public interface Display {
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+	public interface Displayable extends WidgetDisplayable {
+>>>>>>> Change to new mvp framework - first step
 		public HasClickHandlers getLoginClick();
 
 		public HasClickHandlers getResetClick();

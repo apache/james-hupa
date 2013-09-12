@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -52,6 +53,8 @@ public class DefaultPlace extends AbstractPlace {
 		}
 	}
 =======
+=======
+>>>>>>> Change to new mvp framework - first step
 package org.apache.hupa.client.place;
 
 import com.google.gwt.place.shared.Place;
@@ -77,6 +80,9 @@ public class DefaultPlace extends Place {
   public String toString(){
 	  return this.getClass().getName()+"->[home page]";
   }
+<<<<<<< HEAD
+>>>>>>> Change to new mvp framework - first step
+=======
 >>>>>>> Change to new mvp framework - first step
 
 }

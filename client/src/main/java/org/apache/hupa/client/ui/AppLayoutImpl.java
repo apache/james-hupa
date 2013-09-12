@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -26,11 +27,17 @@ package org.apache.hupa.client.ui;
 
 import static com.google.gwt.dom.client.Style.Unit.PCT;
 >>>>>>> Change to new mvp framework - first step
+=======
+package org.apache.hupa.client.ui;
+
+import static com.google.gwt.dom.client.Style.Unit.PCT;
+>>>>>>> Change to new mvp framework - first step
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -40,6 +47,8 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 =======
 import com.google.gwt.user.client.ui.FlowPanel;
 >>>>>>> decorate the theme
+=======
+>>>>>>> Change to new mvp framework - first step
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -48,6 +57,7 @@ import com.google.inject.Inject;
 
 public class AppLayoutImpl implements AppLayout {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	private final DockLayoutPanel appLayoutPanel;
@@ -182,6 +192,8 @@ public class AppLayoutImpl implements AppLayout {
 		appLayoutPanel.setWidgetSize(eastPanel, e);
 	}
 =======
+=======
+>>>>>>> Change to new mvp framework - first step
   private static final int MAINMENU_HEIGHT = 10;
   private static final int VMASTER_WIDTH = 20;
 
@@ -252,6 +264,7 @@ public class AppLayoutImpl implements AppLayout {
     mainLayoutPanel.setWidgetLeftWidth(mainPanel, 0, PCT, 100, PCT);
 //    mainLayoutPanel.animate(500);
   }
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
 		int height = 100 - MAINMENU_HEIGHT;
@@ -271,4 +284,6 @@ public class AppLayoutImpl implements AppLayout {
 		// mainLayoutPanel.animate(500);
 	}
 >>>>>>> decorate the theme
+=======
+>>>>>>> Change to new mvp framework - first step
 }

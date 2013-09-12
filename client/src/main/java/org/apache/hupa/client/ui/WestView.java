@@ -20,6 +20,7 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
@@ -76,6 +77,8 @@ public class WestView extends Composite implements WestActivity.Displayable {
 	public Widget asWidget() {
 		return this;
 =======
+=======
+>>>>>>> Change to new mvp framework - first step
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,7 +101,10 @@ import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+>>>>>>> Change to new mvp framework - first step
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.event.EditHandler;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
@@ -134,7 +140,11 @@ public class WestView extends Composite implements WestActivity.Displayable {
     private DockPanel dockPanel;
     private VerticalPanel north;
     private HupaConstants constants;
+<<<<<<< HEAD
     private VerticalPanel west;
+=======
+    private RndPanel west;
+>>>>>>> Change to new mvp framework - first step
     private IMAPTreeImages tImages = GWT.create(IMAPTreeImages.class);
     private Tree folderTree = new Tree(tImages, true);
   
@@ -164,9 +174,15 @@ public class WestView extends Composite implements WestActivity.Displayable {
         this.controller = controllerProvider;
         this.bus = bus;
         loader = new Loading(constants.loading());
+<<<<<<< HEAD
         newFolderButton = new EnableHyperlink(constants.newFolder(), null);
         renameFolderButton = new EnableHyperlink(constants.renameFolder(), null);
         deleteFolderButton = new EnableHyperlink(constants.deleteFolder(), null);
+=======
+        newFolderButton = new EnableHyperlink(constants.newFolder(), "");
+        renameFolderButton = new EnableHyperlink(constants.renameFolder(), "");
+        deleteFolderButton = new EnableHyperlink(constants.deleteFolder(), "");
+>>>>>>> Change to new mvp framework - first step
         
         dockPanel = new DockPanel();
 
@@ -186,12 +202,19 @@ public class WestView extends Composite implements WestActivity.Displayable {
         dockPanel.add(center, DockPanel.CENTER);
         dockPanel.setCellHorizontalAlignment(center, DockPanel.ALIGN_LEFT);
 
+<<<<<<< HEAD
         west.setWidth("100%");
+=======
+>>>>>>> Change to new mvp framework - first step
         initWidget(west);
     }
 
     private void createWest() {
+<<<<<<< HEAD
         west = new VerticalPanel();
+=======
+        west = new RndPanel();
+>>>>>>> Change to new mvp framework - first step
         west.add(folderTree);
         west.addStyleName(HupaCSS.C_tree_container);
 
@@ -496,11 +519,19 @@ public class WestView extends Composite implements WestActivity.Displayable {
         if (selected.isEdit())
             return null;
         
+<<<<<<< HEAD
         IMAPFolderProxy oldFolder = (IMAPFolderProxy) selected.getUserObject();
 
         // Generate a new folder with a whitespace as name, this is needed as
         // workaround
         IMAPFolderProxy folder = (IMAPFolderProxy)new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
+=======
+        IMAPFolder oldFolder = (IMAPFolder) selected.getUserObject();
+
+        // Generate a new folder with a whitespace as name, this is needed as
+        // workaround
+        IMAPFolder folder = new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
+>>>>>>> Change to new mvp framework - first step
         folder.setDelimiter(oldFolder.getDelimiter());
 
         final IMAPTreeItem newItem = new IMAPTreeItem(folder);
@@ -544,7 +575,11 @@ public class WestView extends Composite implements WestActivity.Displayable {
      * @seeorg.apache.hupa.client.mvp.IMAPFolderPresenter.Display#
      * decreaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
+<<<<<<< HEAD
     public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
+=======
+    public void decreaseUnseenMessageCount(IMAPFolder folder, int amount) {
+>>>>>>> Change to new mvp framework - first step
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -562,7 +597,11 @@ public class WestView extends Composite implements WestActivity.Displayable {
      * @seeorg.apache.hupa.client.mvp.IMAPFolderPresenter.Display#
      * increaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
+<<<<<<< HEAD
     public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
+=======
+    public void increaseUnseenMessageCount(IMAPFolder folder, int amount) {
+>>>>>>> Change to new mvp framework - first step
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -575,7 +614,11 @@ public class WestView extends Composite implements WestActivity.Displayable {
     }
 
     
+<<<<<<< HEAD
     private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolderProxy folder) {
+=======
+    private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolder folder) {
+>>>>>>> Change to new mvp framework - first step
         if (folder.getFullName().equalsIgnoreCase(((IMAPFolder) item.getUserObject()).getFullName())) {
             return item;
         }
@@ -592,7 +635,11 @@ public class WestView extends Composite implements WestActivity.Displayable {
      * (non-Javadoc)
      * @see org.apache.hupa.client.mvp.MainPresenter.Display#updateTreeItem(org.apache.hupa.shared.data.IMAPFolder)
      */
+<<<<<<< HEAD
     public void updateTreeItem(IMAPFolderProxy folder) {
+=======
+    public void updateTreeItem(IMAPFolder folder) {
+>>>>>>> Change to new mvp framework - first step
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -642,6 +689,9 @@ public class WestView extends Composite implements WestActivity.Displayable {
 	public void setUser(User user) {
 		this.user = user;
 		
+<<<<<<< HEAD
+>>>>>>> Change to new mvp framework - first step
+=======
 >>>>>>> Change to new mvp framework - first step
 	}
 }

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -374,12 +375,15 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 		public MessagesCellTable getTable();
 	}
 =======
+=======
+>>>>>>> Change to new mvp framework - first step
 package org.apache.hupa.client.activity;
 
 import java.util.ArrayList;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.HandlerRegistrationAdapter;
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.evo.HupaEvoCallback;
@@ -417,16 +421,34 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+=======
+import org.apache.hupa.client.mvp.WidgetDisplayable;
+import org.apache.hupa.client.place.MailInboxPlace;
+import org.apache.hupa.client.widgets.HasDialog;
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.Message;
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.events.DecreaseUnseenEvent;
+import org.apache.hupa.shared.events.ExpandMessageEvent;
+import org.apache.hupa.shared.events.LogoutEvent;
+import org.apache.hupa.shared.events.LogoutEventHandler;
+import org.apache.hupa.widgets.ui.HasEnable;
+
+import com.google.gwt.activity.shared.AbstractActivity;
+>>>>>>> Change to new mvp framework - first step
 import com.google.gwt.event.dom.client.HasChangeHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.gen2.table.event.client.HasPageChangeHandlers;
 import com.google.gwt.gen2.table.event.client.HasPageLoadHandlers;
 import com.google.gwt.gen2.table.event.client.HasRowSelectionHandlers;
+<<<<<<< HEAD
 import com.google.gwt.gen2.table.event.client.PageChangeEvent;
 import com.google.gwt.gen2.table.event.client.PageChangeHandler;
 import com.google.gwt.gen2.table.event.client.RowSelectionEvent;
 import com.google.gwt.gen2.table.event.client.RowSelectionHandler;
+=======
+>>>>>>> Change to new mvp framework - first step
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasValue;
@@ -439,13 +461,18 @@ public class IMAPMessageListActivity extends AbstractActivity {
 
     private String searchValue;
     private User user;
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
+=======
+    private IMAPFolder folder;
+>>>>>>> Change to new mvp framework - first step
     private ShowMessageTableListener tableListener = new ShowMessageTableListener();
 
 
 	private final Displayable display;
 	private final EventBus eventBus;
 	private final PlaceController placeController;
+<<<<<<< HEAD
 	private DispatchAsync dispatcher;
 	private final Provider<MessageSendPlace> messageSendPlaceProvider;
     
@@ -466,6 +493,22 @@ public class IMAPMessageListActivity extends AbstractActivity {
 	}
 	
 	private void bind(){
+=======
+	private final Provider<MailInboxPlace> mailInboxPlaceProvider;
+	private DispatchAsync dispatcher;
+    
+	@Inject
+    public IMAPMessageListActivity(Displayable display, EventBus eventBus, PlaceController placeController,
+			Provider<MailInboxPlace> mailInboxPlaceProvider, DispatchAsync dispatcher){
+		this.display = display;
+		this.eventBus = eventBus;
+		this.placeController = placeController;
+		this.mailInboxPlaceProvider = mailInboxPlaceProvider;
+		this.dispatcher = dispatcher;
+		
+
+        // add this event on constructor because we don't want to remove it on unbind
+>>>>>>> Change to new mvp framework - first step
         eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
 
             public void onLogout(LogoutEvent logoutEvent) {
@@ -474,6 +517,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
             }
             
         });
+<<<<<<< HEAD
 		eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
 
             public void onMessagesReceived(MessagesReceivedEvent event) {
@@ -693,6 +737,23 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		this.user = place.getUser();
 		this.folder = place.getFolder();
 		this.searchValue = place.getSearchValue();
+=======
+	}
+	@Override
+	public void start(AcceptsOneWidget container, EventBus eventBus) {
+		revealDisplay(user, folder, searchValue);
+		bind();
+		container.setWidget(display.asWidget());
+	}
+	
+	private void bind(){
+		
+	}
+
+	public IMAPMessageListActivity with(User user){
+		this.user = user;
+		this.folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+>>>>>>> Change to new mvp framework - first step
 		return this;
 	}
 
@@ -701,7 +762,11 @@ public class IMAPMessageListActivity extends AbstractActivity {
             display.reloadData();  
         }
     }
+<<<<<<< HEAD
     public void revealDisplay(User user, IMAPFolderProxy folder, String searchValue) {
+=======
+    public void revealDisplay(User user, IMAPFolder folder, String searchValue) {
+>>>>>>> Change to new mvp framework - first step
         this.user = user;
        
         if (this.user == null 
@@ -778,9 +843,16 @@ public class IMAPMessageListActivity extends AbstractActivity {
                 display.redraw();
 
             }
+<<<<<<< HEAD
+=======
+            
+>>>>>>> Change to new mvp framework - first step
             eventBus.fireEvent(new ExpandMessageEvent(user,folder,message));
         }
 
     }
+<<<<<<< HEAD
+>>>>>>> Change to new mvp framework - first step
+=======
 >>>>>>> Change to new mvp framework - first step
 }

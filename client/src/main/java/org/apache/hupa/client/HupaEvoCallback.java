@@ -2,7 +2,7 @@ package org.apache.hupa.client;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import org.apache.hupa.client.activity.LoginActivity.Display;
+import org.apache.hupa.client.mvp.Displayable;
 import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.ServerStatusEvent;
 import org.apache.hupa.shared.events.ServerStatusEvent.ServerStatus;
@@ -22,10 +22,10 @@ public abstract class HupaEvoCallback<T> implements AsyncCallback<T> {
     private ServerStatusEvent unavailable = new ServerStatusEvent(ServerStatus.Unavailable); 
 
     @SuppressWarnings("unused")
-    private Display display = null;
+    private Displayable display = null;
 
     @Inject
-    public HupaEvoCallback(DispatchAsync dispatcher, EventBus bus, Display display) {
+    public HupaEvoCallback(DispatchAsync dispatcher, EventBus bus, Displayable display) {
         this(dispatcher, bus);
         this.display = display;
         

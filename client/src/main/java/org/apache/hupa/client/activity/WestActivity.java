@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -242,6 +243,8 @@ public class WestActivity extends AppBaseActivity {
 	public interface Displayable extends WidgetDisplayable {
 	}
 =======
+=======
+>>>>>>> Change to new mvp framework - first step
 package org.apache.hupa.client.activity;
 
 import java.util.ArrayList;
@@ -251,6 +254,7 @@ import java.util.List;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.IMAPMessagePlace;
@@ -296,6 +300,17 @@ import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.GetMessageDetails;
 import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
+=======
+import org.apache.hupa.client.HupaEvoCallback;
+import org.apache.hupa.client.mvp.WidgetContainerDisplayable;
+import org.apache.hupa.client.widgets.HasDialog;
+import org.apache.hupa.client.widgets.IMAPTreeItem;
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.rpc.FetchFolders;
+import org.apache.hupa.shared.rpc.FetchFoldersResult;
+import org.apache.hupa.shared.rpc.GenericResult;
+>>>>>>> Change to new mvp framework - first step
 import org.apache.hupa.shared.rpc.RenameFolder;
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.event.EditHandler;
@@ -303,6 +318,7 @@ import org.apache.hupa.widgets.ui.HasEditable;
 import org.apache.hupa.widgets.ui.HasEnable;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+<<<<<<< HEAD
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -320,12 +336,22 @@ import com.google.gwt.user.client.ui.TreeItem;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.web.bindery.requestfactory.shared.Receiver;
+=======
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.logical.shared.HasSelectionHandlers;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.place.shared.PlaceController;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.TreeItem;
+import com.google.inject.Inject;
+>>>>>>> Change to new mvp framework - first step
 
 public class WestActivity extends AbstractActivity {
 
 	private final Displayable display;
 	private final EventBus eventBus;
 	private final PlaceController placeController;
+<<<<<<< HEAD
 	private final Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
 	private final Provider<MessageSendPlace> messageSendPlaceProvider;
 	private final Provider<IMAPMessagePlace> messagePlaceProvider;
@@ -346,13 +372,28 @@ public class WestActivity extends AbstractActivity {
     @Inject
     public WestActivity(Displayable display, EventBus eventBus, PlaceController placeController,
 			DispatchAsync dispatcher,Provider<IMAPMessagePlace> IMAPMessagePlaceProvider,Provider<MessageSendPlace> messageSendPlaceProvider,Provider<IMAPMessagePlace> messagePlaceProvider){
+=======
+	
+    private DispatchAsync dispatcher;
+    private User user;
+    private IMAPFolder folder;
+    private IMAPTreeItem tItem;
+    private HasEditable editableTreeItem;
+    
+    @Inject
+    public WestActivity(Displayable display, EventBus eventBus, PlaceController placeController,
+			DispatchAsync dispatcher){
+>>>>>>> Change to new mvp framework - first step
     	this.dispatcher = dispatcher;
     	this.display = display;
     	this.eventBus = eventBus;
     	this.placeController = placeController;
+<<<<<<< HEAD
     	this.IMAPMessagePlaceProvider = IMAPMessagePlaceProvider;
     	this.messageSendPlaceProvider = messageSendPlaceProvider;
     	this.messagePlaceProvider = messagePlaceProvider;
+=======
+>>>>>>> Change to new mvp framework - first step
     	
     }
 
@@ -364,14 +405,20 @@ public class WestActivity extends AbstractActivity {
 		container.setWidget(display.asWidget());
 	}
 	
+<<<<<<< HEAD
     public WestActivity with(MailFolderPlace place){
     	this.currentPlace = place;
     	this.user = place.getUser();
+=======
+    public WestActivity with(User user){
+    	this.user = user;
+>>>>>>> Change to new mvp framework - first step
     	return this;
     }
 
     protected void loadTreeItems() {
         display.setLoadingFolders(true);
+<<<<<<< HEAD
         
         HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
 		rf.initialize(eventBus);
@@ -409,6 +456,18 @@ public class WestActivity extends AbstractActivity {
 //            }
 //        });
         
+=======
+        dispatcher.execute(new FetchFolders(), new HupaEvoCallback<FetchFoldersResult>(dispatcher, eventBus, display) {
+            public void callback(FetchFoldersResult result) {
+                display.bindTreeItems(createTreeNodes(result.getFolders()));
+                // disable
+                display.getDeleteEnable().setEnabled(false);
+                display.getRenameEnable().setEnabled(false);
+                display.setLoadingFolders(false);
+
+            }
+        });
+>>>>>>> Change to new mvp framework - first step
     }
 
     /**
@@ -417,10 +476,17 @@ public class WestActivity extends AbstractActivity {
      * @param list
      * @return
      */
+<<<<<<< HEAD
     private List<IMAPTreeItem> createTreeNodes(List<IMAPFolderProxy> list) {
         List<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
 
         for (IMAPFolderProxy iFolder : list) {
+=======
+    private List<IMAPTreeItem> createTreeNodes(List<IMAPFolder> list) {
+        List<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
+
+        for (IMAPFolder iFolder : list) {
+>>>>>>> Change to new mvp framework - first step
 
             final IMAPTreeItem record = new IMAPTreeItem(iFolder);
             record.addEditHandler(new EditHandler() {
@@ -445,7 +511,11 @@ public class WestActivity extends AbstractActivity {
             });
             record.setUserObject(iFolder);
 
+<<<<<<< HEAD
             List<IMAPFolderProxy> childFolders = iFolder.getChildIMAPFolders();
+=======
+            List<IMAPFolder> childFolders = iFolder.getChildIMAPFolders();
+>>>>>>> Change to new mvp framework - first step
             List<IMAPTreeItem> items = createTreeNodes(childFolders);
             for (IMAPTreeItem item : items) {
                 record.addItem(item);
@@ -471,6 +541,7 @@ public class WestActivity extends AbstractActivity {
         return tList;
     }
 	private void bind(){
+<<<<<<< HEAD
 		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
 
             public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
@@ -737,6 +808,11 @@ public class WestActivity extends AbstractActivity {
     private void showReplyMessage(ReplyMessageEvent event) {
         placeController.goTo(this.messageSendPlaceProvider.get().with(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), event.getReplyAll()?Type.REPLY_ALL:Type.REPLY));
     }
+=======
+		
+	}
+
+>>>>>>> Change to new mvp framework - first step
     public interface Displayable extends WidgetContainerDisplayable {
         
         public HasSelectionHandlers<TreeItem> getTree();
@@ -759,15 +835,25 @@ public class WestActivity extends AbstractActivity {
 
         public HasEnable getNewEnable();
 
+<<<<<<< HEAD
         public void updateTreeItem(IMAPFolderProxy folder);
+=======
+        public void updateTreeItem(IMAPFolder folder);
+>>>>>>> Change to new mvp framework - first step
 
         public void deleteSelectedFolder();
 
         public HasEditable createFolder(EditHandler handler);
 
+<<<<<<< HEAD
         public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
 
         public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
+=======
+        public void increaseUnseenMessageCount(IMAPFolder folder, int amount);
+
+        public void decreaseUnseenMessageCount(IMAPFolder folder, int amount);
+>>>>>>> Change to new mvp framework - first step
         
         public void setLoadingFolders(boolean loading);
         public void setLoadingMessage(boolean loading);
@@ -776,6 +862,9 @@ public class WestActivity extends AbstractActivity {
 
     }		
 
+<<<<<<< HEAD
+>>>>>>> Change to new mvp framework - first step
+=======
 >>>>>>> Change to new mvp framework - first step
 
 }

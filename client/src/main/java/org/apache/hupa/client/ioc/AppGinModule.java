@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -20,10 +21,13 @@
 
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> Change to new mvp framework - first step
 package org.apache.hupa.client.ioc;
 
 import java.util.logging.Logger;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.ComposeActivity;
@@ -95,10 +99,13 @@ import org.apache.hupa.client.ui.TopBarView;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.core.client.GWT;
 =======
+=======
+>>>>>>> Change to new mvp framework - first step
 import net.customware.gwt.dispatch.client.DefaultExceptionHandler;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.client.ExceptionHandler;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.activity.IMAPMessageActivity;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
@@ -112,14 +119,32 @@ import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
 import org.apache.hupa.client.mapper.CachingTopActivityMapper;
 import org.apache.hupa.client.mapper.CachingWestActivityMapper;
 import org.apache.hupa.client.mapper.MainContentActivityMapper;
+=======
+import org.apache.hupa.client.AppController;
+import org.apache.hupa.client.CachingDispatchAsync;
+import org.apache.hupa.client.activity.IMAPMessageListActivity;
+import org.apache.hupa.client.activity.LoginActivity;
+import org.apache.hupa.client.activity.WestActivity;
+import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
+import org.apache.hupa.client.mvp.AppPlaceHistoryMapper;
+import org.apache.hupa.client.mvp.MainContentActivityMapper;
+import org.apache.hupa.client.mvp.WestActivityMapper;
+>>>>>>> Change to new mvp framework - first step
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.ui.AppLayout;
 import org.apache.hupa.client.ui.AppLayoutImpl;
 import org.apache.hupa.client.ui.IMAPMessageListView;
+<<<<<<< HEAD
 import org.apache.hupa.client.ui.IMAPMessageView;
 import org.apache.hupa.client.ui.LoginView;
 import org.apache.hupa.client.ui.MessageSendView;
 import org.apache.hupa.client.ui.TopView;
+import org.apache.hupa.client.ui.WestView;
+
+import com.google.gwt.activity.shared.ActivityManager;
+>>>>>>> Change to new mvp framework - first step
+=======
+import org.apache.hupa.client.ui.LoginView;
 import org.apache.hupa.client.ui.WestView;
 
 import com.google.gwt.activity.shared.ActivityManager;
@@ -131,7 +156,10 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.cellview.client.CellTree;
+=======
+>>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> Change to new mvp framework - first step
 import com.google.inject.Provides;
@@ -139,7 +167,10 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @SuppressWarnings("deprecation")
+=======
+>>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> Change to new mvp framework - first step
 public class AppGinModule extends AbstractGinModule {
@@ -148,6 +179,7 @@ public class AppGinModule extends AbstractGinModule {
 	@Override
 	protected void configure() {
 		// Views
+<<<<<<< HEAD
 <<<<<<< HEAD
 		bind(HupaLayoutable.class).to(HupaLayout.class).in(Singleton.class);
 		bind(LoginLayoutable.class).to(LoginLayout.class).in(Singleton.class);
@@ -305,15 +337,22 @@ public class AppGinModule extends AbstractGinModule {
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 =======
+=======
+>>>>>>> Change to new mvp framework - first step
 		bind(AppLayout.class).to(AppLayoutImpl.class).in(Singleton.class);
 
 		// Activities
 		bind(LoginActivity.Displayable.class).to(LoginView.class);
+<<<<<<< HEAD
 		bind(TopActivity.Displayable.class).to(TopView.class);
 		bind(WestActivity.Displayable.class).to(WestView.class);
 		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
 		bind(MessageSendActivity.Displayable.class).to(MessageSendView.class);
 		bind(IMAPMessageActivity.Displayable.class).to(IMAPMessageView.class);
+=======
+		bind(WestActivity.Displayable.class).to(WestView.class);
+		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
+>>>>>>> Change to new mvp framework - first step
 		
 		
 		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
@@ -328,6 +367,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(AppController.class).in(Singleton.class);
 		
 		bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 	}
 
@@ -358,12 +398,21 @@ public class AppGinModule extends AbstractGinModule {
 =======
 	public ActivityManager getWestRegionActivityMapper(CachingWestActivityMapper activityMapper,
 >>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
+=======
+	}
+
+	@Provides
+	@Singleton
+	@Named("WestRegion")
+	public ActivityManager getVerticalMasterRegionActivityMapper(WestActivityMapper activityMapper,
+>>>>>>> Change to new mvp framework - first step
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Named("StatusRegion")
 	public ActivityManager getStatusActivityMapper(StatusActivityMapper activityMapper, EventBus eventBus) {
@@ -389,6 +438,10 @@ public class AppGinModule extends AbstractGinModule {
 =======
 	public ActivityManager getMainContentRegionActivityMapper(MainContentActivityMapper activityMapper,
 >>>>>>> introduce the top activity
+=======
+	@Named("MainContentRegion")
+	public ActivityManager getVerticalMasterRegionActivityMapper(MainContentActivityMapper activityMapper,
+>>>>>>> Change to new mvp framework - first step
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
@@ -396,10 +449,15 @@ public class AppGinModule extends AbstractGinModule {
 	@Provides
 	@Singleton
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Named("SearchBoxRegion")
 	public ActivityManager getSearchBoxActivityMapper(SearchBoxActivityMapper activityMapper,
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
+=======
+	protected DispatchAsync provideDispatchAsync(ExceptionHandler exceptionHandler) {
+		return new CachingDispatchAsync(exceptionHandler);
+>>>>>>> Change to new mvp framework - first step
 =======
 	protected DispatchAsync provideDispatchAsync(ExceptionHandler exceptionHandler) {
 		return new CachingDispatchAsync(exceptionHandler);
@@ -418,6 +476,7 @@ public class AppGinModule extends AbstractGinModule {
 			EventBus eventBus) {
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		historyHandler.register(placeController, eventBus, new DefaultPlace("@"));
 		return historyHandler;
 	}
@@ -431,9 +490,14 @@ public class AppGinModule extends AbstractGinModule {
 	}
 
 =======
+=======
+>>>>>>> Change to new mvp framework - first step
 		historyHandler.register(placeController, eventBus, new DefaultPlace());
 		return historyHandler;
 	}
 
+<<<<<<< HEAD
+>>>>>>> Change to new mvp framework - first step
+=======
 >>>>>>> Change to new mvp framework - first step
 }
