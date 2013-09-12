@@ -274,6 +274,7 @@ import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
@@ -599,6 +600,7 @@ public class WestActivity extends AppBaseActivity {
 	public WestActivity with(MailFolderPlace place) {
 		this.currentPlace = place;
 		this.user = place.getUser();
+		this.folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
 		return this;
 	}
 
