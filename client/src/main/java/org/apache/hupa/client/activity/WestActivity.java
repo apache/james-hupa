@@ -270,7 +270,6 @@ import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.CreateFolderRequest;
 import org.apache.hupa.client.rf.DeleteFolderRequest;
-import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.rf.ImapFolderRequest;
@@ -398,6 +397,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -1351,7 +1351,6 @@ System.out.println("1111111"+response);
 		// FIXME goto?
 		placeController.goTo(new MailFolderPlace().with(user, folder, searchValue));
 		// placeController.goTo(mailInboxPlaceProvider.get().with(user));
-		// System.out.println("111");
 		// placeController.goTo(new
 		// MailInboxPlace(folder.getName()).with(user));
 	}

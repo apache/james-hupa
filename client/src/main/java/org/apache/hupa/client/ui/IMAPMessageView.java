@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.client.activity.IMAPMessageActivity;
 import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.client.widgets.CommandsBar;
 import org.apache.hupa.client.widgets.MessageHeaders;
@@ -40,11 +41,11 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -52,7 +53,6 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import org.apache.hupa.client.activity.IMAPMessageActivity;
 
 public class IMAPMessageView extends Composite implements IMAPMessageActivity.Displayable{
 
@@ -76,8 +76,8 @@ public class IMAPMessageView extends Composite implements IMAPMessageActivity.Di
     private Button replyMsgButton = new Button();
     private Button replyAllMsgButton = new Button();
     private Button forwardMsgButton = new Button();
-    private Hyperlink showRawButton;
-    private Hyperlink backButton;
+    private Anchor showRawButton;
+    private Anchor backButton;
     private FlowPanel attachments = new FlowPanel();
     
     private Loading loading;
@@ -87,8 +87,8 @@ public class IMAPMessageView extends Composite implements IMAPMessageActivity.Di
         this.imageBundle = imageBundle;
         
         loading = new Loading(constants.loading());
-        showRawButton = new Hyperlink(constants.rawButton(),"");
-        backButton = new Hyperlink(constants.backButton(),"");
+        showRawButton = new Anchor(constants.rawButton());
+        backButton = new Anchor(constants.backButton());
         headers = new MessageHeaders(constants);
         deleteMsgButton.setText(constants.deleteMailButton());
         replyMsgButton.setText(constants.replyMailButton());
@@ -102,7 +102,7 @@ public class IMAPMessageView extends Composite implements IMAPMessageActivity.Di
         buttonsBar.add(deleteMsgButton);
         buttonsBar.add(forwardMsgButton);
         buttonsBar.add(loading);
-        buttonsBar.add(showRawButton);
+//        buttonsBar.add(showRawButton); TODO
         buttonsBar.add(backButton);
         
         ScrollPanel scrollPanel = new ScrollPanel();

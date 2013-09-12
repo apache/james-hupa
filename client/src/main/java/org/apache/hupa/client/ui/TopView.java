@@ -152,11 +152,11 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
 
@@ -218,9 +218,9 @@ public class TopView extends Composite implements TopActivity.Displayable {
 	private HorizontalPanel loginInfoPanel = new HorizontalPanel();
 	private Label loginLabel = new Label();
 	private Label loginUserLabel = new Label();
-	private Hyperlink mainButton = new Hyperlink();
-	private Hyperlink contactsButton = new Hyperlink();
-	private Hyperlink logoutButton = new Hyperlink();
+	private Anchor mainButton;
+	private Anchor contactsButton;
+	private Anchor logoutButton;
 	private Label appnameLabel = new Label();
 
 	private RndPanel flashContainer = new RndPanel();
@@ -230,31 +230,34 @@ public class TopView extends Composite implements TopActivity.Displayable {
 	@Inject
 	@UiConstructor
 	public TopView(HupaConstants constants) {
+		mainButton = new Anchor(constants.mailTab());
+		contactsButton = new Anchor(constants.contactsTab());
+		logoutButton = new Anchor(constants.logoutButton());
 //		panel.addStyleName(HupaCSS.C_top_container + "-wrap");
 		buttonContainer.addStyleName(HupaCSS.C_button_container);
 		infoContainer.addStyleName(HupaCSS.C_info_container);
-		loginInfoPanel.addStyleName(HupaCSS.C_login_info_container);
+//		loginInfoPanel.addStyleName(HupaCSS.C_login_info_container);
 		loginLabel.addStyleName(HupaCSS.C_login_info_label);
-		loginUserLabel.addStyleName(HupaCSS.C_login_info_user);
-		logoutButton.addStyleName(HupaCSS.C_menu_button);
-		contactsButton.addStyleName(HupaCSS.C_menu_button);
-		mainButton.addStyleName(HupaCSS.C_menu_button);
+//		loginUserLabel.addStyleName(HupaCSS.C_login_info_user);
+//		logoutButton.addStyleName(HupaCSS.C_menu_button);
+//		contactsButton.addStyleName(HupaCSS.C_menu_button);
+//		mainButton.addStyleName(HupaCSS.C_menu_button);
 		appnameLabel.addStyleName(HupaCSS.C_header);
 		flashContainer.addStyleName(HupaCSS.C_flash);
 
 		// internationalize elements
-		logoutButton.setText(constants.logoutButton());
+//		logoutButton.setText(constants.logoutButton());
+//		contactsButton.setText(constants.contactsTab());
+//		mainButton.setText(constants.mailTab());
 		loginLabel.setText(constants.loginAs() + ": ");
 		appnameLabel.setText(constants.productName());
-		contactsButton.setText(constants.contactsTab());
-		mainButton.setText(constants.mailTab());
 
 		// Layout containers and panels
 		buttonContainer.add(loginInfoPanel);
 //		loginInfoPanel.add(loginLabel);
 //		loginInfoPanel.add(loginUserLabel);
 		buttonContainer.add(loginUserLabel);
-		buttonContainer.add(contactsButton);
+//		buttonContainer.add(contactsButton);
 		buttonContainer.add(mainButton);
 		buttonContainer.add(logoutButton);
 		buttonContainer.setCellWidth(loginInfoPanel, "100%");

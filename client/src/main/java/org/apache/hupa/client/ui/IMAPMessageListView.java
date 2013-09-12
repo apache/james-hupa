@@ -1837,7 +1837,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		markButtonBar.add(markSeenButton);
 		markButtonBar.add(markUnSeenButton);
 		buttonBar.add(markButtonBar);
-		buttonBar.add(refreshLink);
+//		buttonBar.add(refreshLink); TODO
 
 		HorizontalPanel searchPanel = new HorizontalPanel();
 		searchPanel.addStyleName(HupaCSS.C_buttons);

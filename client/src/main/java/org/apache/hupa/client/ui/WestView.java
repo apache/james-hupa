@@ -238,12 +238,16 @@ public class WestView extends Composite implements WestActivity.Displayable {
 <<<<<<< HEAD
 <<<<<<< HEAD
         west = new VerticalPanel();
+<<<<<<< HEAD
 =======
         west = new RndPanel();
 >>>>>>> Change to new mvp framework - first step
 =======
         west = new VerticalPanel();
 >>>>>>> decorate the theme
+=======
+//        folderTree.clear();
+>>>>>>> fix bugs, including 1)folders appending on west panel; 2)unread email folder's been frozen exception; 3)back, logout, ...buttons wired behavior.
         west.add(folderTree);
         west.addStyleName(HupaCSS.C_tree_container);
 
@@ -354,7 +358,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
     public void setLoadingFolders(boolean load) {
         if (load) {
             loader.show();
-//            panel.clear();
+            westPanel.clear();
             westPanel.add(loader);
         } else {
             westPanel.clear();

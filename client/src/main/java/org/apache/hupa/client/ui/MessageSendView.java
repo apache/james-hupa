@@ -21,6 +21,7 @@ package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
 import eu.maydu.gwt.validation.client.ValidationProcessor;
 import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
@@ -41,15 +42,20 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
+=======
+>>>>>>> fix bugs, including 1)folders appending on west panel; 2)unread email folder's been frozen exception; 3)back, logout, ...buttons wired behavior.
 import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
 import eu.maydu.gwt.validation.client.ValidationProcessor;
 import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
-import gwtupload.client.IFileInput.FileInputType;
 import gwtupload.client.BaseUploadStatus;
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 1. improve the inbox folder place.
 =======
 >>>>>>> 1. improve the inbox folder place.
+=======
+import gwtupload.client.IFileInput.FileInputType;
+>>>>>>> fix bugs, including 1)folders appending on west panel; 2)unread email folder's been frozen exception; 3)back, logout, ...buttons wired behavior.
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
 import gwtupload.client.MultiUploader;
@@ -59,11 +65,15 @@ import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.MessageSendActivity;
 =======
 >>>>>>> 1. improve the inbox folder place.
 =======
 >>>>>>> 1. improve the inbox folder place.
+=======
+import org.apache.hupa.client.activity.MessageSendActivity;
+>>>>>>> fix bugs, including 1)folders appending on west panel; 2)unread email folder's been frozen exception; 3)back, logout, ...buttons wired behavior.
 import org.apache.hupa.client.validation.AddStyleAction;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.client.validation.NotEmptyValidator;
@@ -74,6 +84,7 @@ import org.apache.hupa.client.widgets.MessageHeaders;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.widgets.editor.Editor;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.widgets.ui.HasEnable;
@@ -104,6 +115,24 @@ import org.apache.hupa.client.activity.MessageSendActivity;
 >>>>>>> 1. improve the inbox folder place.
 =======
 >>>>>>> 1. improve the inbox folder place.
+=======
+import org.apache.hupa.widgets.ui.HasEnable;
+import org.apache.hupa.widgets.ui.Loading;
+import org.apache.hupa.widgets.ui.MultiValueSuggestArea;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HasHTML;
+import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
+>>>>>>> fix bugs, including 1)folders appending on west panel; 2)unread email folder's been frozen exception; 3)back, logout, ...buttons wired behavior.
 
 /**
  * View which displays a form which handle sending of mails
@@ -132,6 +161,7 @@ public class MessageSendView extends Composite implements MessageSendActivity.Di
     private EnableButton sendButton;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Anchor backButton;
 =======
     private EnableHyperlink backButton;
@@ -139,6 +169,9 @@ public class MessageSendView extends Composite implements MessageSendActivity.Di
 =======
     private EnableHyperlink backButton;
 >>>>>>> 1. improve the inbox folder place.
+=======
+    private Anchor backButton;
+>>>>>>> fix bugs, including 1)folders appending on west panel; 2)unread email folder's been frozen exception; 3)back, logout, ...buttons wired behavior.
     private Loading loading;
     
     private ValidationProcessor validator;
@@ -149,6 +182,7 @@ public class MessageSendView extends Composite implements MessageSendActivity.Di
         sendButton = new EnableButton(constants.sendButton());
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         backButton = new Anchor(constants.backButton());
 =======
         backButton = new EnableHyperlink(constants.backButton(),"");
@@ -156,6 +190,9 @@ public class MessageSendView extends Composite implements MessageSendActivity.Di
 =======
         backButton = new EnableHyperlink(constants.backButton(),"");
 >>>>>>> 1. improve the inbox folder place.
+=======
+        backButton = new Anchor(constants.backButton());
+>>>>>>> fix bugs, including 1)folders appending on west panel; 2)unread email folder's been frozen exception; 3)back, logout, ...buttons wired behavior.
         headers = new MessageHeaders(constants);
         loading = new Loading(constants.loading());
         editor = new Editor(constants);

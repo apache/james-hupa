@@ -209,7 +209,6 @@ public class LoginActivity extends AbstractActivity {
 	@Inject private Displayable display;
 	@Inject private EventBus eventBus;
 	@Inject private PlaceController placeController;
-	// @Inject private DispatchAsync dispatcher;
 	@Inject private HupaConstants constants;
 <<<<<<< HEAD
 >>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
@@ -221,6 +220,7 @@ public class LoginActivity extends AbstractActivity {
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		bind();
 		container.setWidget(display.asWidget());
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		display.setLoading(false);
@@ -241,6 +241,9 @@ public class LoginActivity extends AbstractActivity {
 =======
 =======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+		display.setLoading(false);
+>>>>>>> fix bugs, including 1)folders appending on west panel; 2)unread email folder's been frozen exception; 3)back, logout, ...buttons wired behavior.
 
 	}
 

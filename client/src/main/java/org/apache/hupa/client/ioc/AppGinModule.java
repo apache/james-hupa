@@ -390,7 +390,7 @@ public class AppGinModule extends AbstractGinModule {
 <<<<<<< HEAD
 <<<<<<< HEAD
 		bind(TopActivity.Displayable.class).to(TopView.class);
-		bind(WestActivity.Displayable.class).to(WestView.class);
+		bind(WestActivity.Displayable.class).to(WestView.class).in(Singleton.class);
 		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
 		bind(MessageSendActivity.Displayable.class).to(MessageSendView.class);
 		bind(IMAPMessageActivity.Displayable.class).to(IMAPMessageView.class);
