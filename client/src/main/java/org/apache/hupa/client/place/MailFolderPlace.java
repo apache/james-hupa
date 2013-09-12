@@ -27,6 +27,7 @@ import com.google.gwt.place.shared.Prefix;
 
 public class MailFolderPlace extends AbstractPlace {
 
+	// this can remove the colon ":"
 	private static final String PREFIX = "";
 	private User user;
 	private String folderName = "";
