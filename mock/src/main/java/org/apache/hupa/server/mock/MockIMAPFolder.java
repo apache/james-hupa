@@ -415,7 +415,7 @@ public class MockIMAPFolder extends IMAPFolder {
 =======
 >>>>>>> first commit
             int mInt = ints[i] - 1;
-            if (mInt > messages.size() || mInt < messages.size()) {
+            if (mInt > messages.size() || mInt < messages.size()) {//TODO will throw an exception when mark as read
                 throw new MessagingException();
             }
             array[i] = messages.get(i);
