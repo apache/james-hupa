@@ -33,6 +33,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Timer;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
@@ -49,12 +50,21 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HasHTML;
+import com.google.gwt.user.client.ui.RichTextArea;
+>>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 
 /**
  * Wysiwyg editor for composing and editing emails in Hupa
  */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 public class Editor extends FlowPanel implements HasHTML, Focusable {
 
 	RichTextArea area = new RichTextArea();
@@ -66,6 +76,7 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 
 	public Editor(ToolbarConstants constants) {
 		area.ensureDebugId("hupa-editor-area");
+<<<<<<< HEAD
 		area.setHeight("100%");
 
 //		Toolbar toolbar = new Toolbar(area, constants);
@@ -82,6 +93,22 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 		 * 
 		 * When body is available, we put the default style for messages:
 		 */
+=======
+		// area.setSize("100%", "234px");
+		area.setHeight("100%");
+
+		Toolbar toolbar = new Toolbar(area, constants);
+		toolbar.ensureDebugId("hupa-editor-toolbar");
+
+		super.add(toolbar);
+		super.add(area);
+		setWidth("100%");
+
+		// Note: rich-area is created in an iframe, so Hupa's style sheets
+		// are not available, unless we inject them to the generated iframe
+		//
+		// When body is available, we put the default style for messages:
+>>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 		area.addInitializeHandler(new InitializeHandler() {
 			public void onInitialize(InitializeEvent event) {
 				setBodyStyleAttribute("fontFamily", "arial");
@@ -89,20 +116,31 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 			}
 		});
 
+<<<<<<< HEAD
 		/*
 		 * When the users writes in-line comments in replies, the text has to be
 		 * leftIdented. Right now, I've implemented this feature only in gecko
 		 * browsers, for other browsers the user has to push the leftIdent
 		 * button.
 		 */
+=======
+		// When the users writes in-line comments in replies, the text has to be
+		// leftIdented.
+		// Right now, I've implemented this feature only in gecko browsers, for
+		// other browsers
+		// the user has to push the leftIdent button.
+>>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 		if (getUA().equals("ff"))
 			addNewlineHandlersForFireFox();
 
 	}
+<<<<<<< HEAD
 	
 	public RichTextArea getArea(){
 		return area;
 	}
+=======
+>>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 
 	@Override
 	public void setSize(String width, String height) {
@@ -111,13 +149,19 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 
 	@Override
 	public void setWidth(String width) {
+<<<<<<< HEAD
 		super.setWidth(width);
+=======
+>>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 		area.setWidth(width);
 	}
 
 	@Override
 	public void setHeight(String height) {
+<<<<<<< HEAD
 		super.setHeight(height);
+=======
+>>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 		area.setHeight(height);
 	}
 
@@ -214,7 +258,12 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 						event.preventDefault();
 					}
 					if (!doNline
+<<<<<<< HEAD
 							&& (event.getCharCode() == KeyCodes.KEY_DOWN || event.getCharCode() == KeyCodes.KEY_UP)) {
+=======
+							&& (event.getCharCode() == KeyCodes.KEY_DOWN || event
+									.getCharCode() == KeyCodes.KEY_UP)) {
+>>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 						doNline = true;
 					}
 				}
@@ -238,6 +287,7 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 									return "other";
 									}-*/;
 
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> first commit
@@ -418,4 +468,6 @@ public class Editor extends VerticalPanel implements HasHTML, Focusable {
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+>>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 }

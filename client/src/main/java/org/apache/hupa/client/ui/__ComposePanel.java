@@ -20,9 +20,6 @@
 package org.apache.hupa.client.ui;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.CssResource;
-import com.google.gwt.resources.client.CssResource.NotStrict;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -38,19 +35,6 @@ public class __ComposePanel extends Composite {
 	@UiField protected SimplePanel composeHeaderContainer;
 	@UiField protected SimpleLayoutPanel composeContentContainer;
 	@UiField protected SimplePanel composeStatusContainer;
-
-
-	public interface Resources extends ClientBundle {
-
-		Resources INSTANCE = GWT.create(Resources.class);
-
-		@NotStrict
-		@Source("res/CssComposePanel.css")
-		public Css stylesheet();
-
-		public interface Css extends CssResource {
-		}
-	}
 
 	public __ComposePanel() {
 		initWidget(binder.createAndBindUi(this));
