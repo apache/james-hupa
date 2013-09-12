@@ -12,9 +12,13 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<g:HTMLPanel>
 =======
 	<g:HTMLPanel>Status
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+	<g:HTMLPanel>
+>>>>>>> change the message content view with scrollbar
 	</g:HTMLPanel>
 </ui:UiBinder>

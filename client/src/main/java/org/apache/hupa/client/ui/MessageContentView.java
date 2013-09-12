@@ -50,12 +50,16 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.SimplePanel;
+=======
+>>>>>>> change the message content view with scrollbar
 import com.google.inject.Inject;
 
 public class MessageContentView extends Composite implements MessageContentActivity.Displayable {
 	@UiField ScrollPanel messageContent;
 	HTML messageContentHTML = new HTML();
+<<<<<<< HEAD
 
 	//TODO should use a scrolled panel which can contain multiple children
 	@UiField FlowPanel attachments;
@@ -267,10 +271,10 @@ public class MessageContentView extends Composite implements
 =======
 public class MessageContentView extends Composite implements MessageContentActivity.Displayable {
 >>>>>>> make message content work as expected partly
+=======
+>>>>>>> change the message content view with scrollbar
 
-	@UiField HTML messageContent;
-
-	@UiField FlowPanel attachments;
+	@UiField ScrollPanel attachments;
 
 <<<<<<< HEAD
 >>>>>>> prepare for message content panel
@@ -383,7 +387,8 @@ public class MessageContentView extends Composite implements MessageContentActiv
 
 	@Override
 	public void fillMessageContent(String messageDetail) {
-		messageContent.setHTML(messageDetail);
+		messageContentHTML.setHTML(messageDetail);
+		messageContent.add(messageContentHTML);
 	}
 
 <<<<<<< HEAD
