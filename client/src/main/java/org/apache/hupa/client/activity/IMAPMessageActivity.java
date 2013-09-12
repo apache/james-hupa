@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hupa.client.CachingDispatchAsync;
-import org.apache.hupa.client.HupaEvoCallback;
-import org.apache.hupa.client.mvp.WidgetDisplayable;
+import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.IMAPMessagePlace;
+import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;

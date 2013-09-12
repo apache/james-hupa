@@ -381,11 +381,11 @@ import java.util.ArrayList;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import org.apache.hupa.client.HandlerRegistrationAdapter;
-import org.apache.hupa.client.HupaEvoCallback;
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
-import org.apache.hupa.client.mvp.WidgetDisplayable;
-import org.apache.hupa.client.place.IMAPMessagePlace;
+import org.apache.hupa.client.evo.HupaEvoCallback;
+import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
+import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -692,10 +692,10 @@ public class IMAPMessageListActivity extends AbstractActivity {
             }
         }); 
     }
-	public IMAPMessageListActivity with(User user, IMAPFolder imapFolder, String string){
-		this.user = user;
-		this.folder = imapFolder;
-		this.searchValue = string;
+	public IMAPMessageListActivity with(MailFolderPlace place){
+		this.user = place.getUser();
+		this.folder = place.getFolder();
+		this.searchValue = place.getSearchValue();
 		return this;
 	}
 

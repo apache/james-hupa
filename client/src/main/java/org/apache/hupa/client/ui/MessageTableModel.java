@@ -23,7 +23,7 @@ import java.util.Iterator;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import org.apache.hupa.client.HupaEvoCallback;
+import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.User;

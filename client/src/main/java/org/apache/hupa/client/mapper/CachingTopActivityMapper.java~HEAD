@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -18,33 +17,36 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.client.ioc;
+package org.apache.hupa.client.mapper;
 
-import org.apache.hupa.client.HupaController;
-=======
-package org.apache.hupa.client.ioc;
+import com.google.gwt.activity.shared.Activity;
+import com.google.gwt.activity.shared.ActivityMapper;
+import com.google.gwt.activity.shared.CachingActivityMapper;
+import com.google.gwt.activity.shared.FilteredActivityMapper;
+import com.google.gwt.place.shared.Place;
+import com.google.inject.Inject;
 
-<<<<<<< HEAD
-import org.apache.hupa.client.AppController;
->>>>>>> Change to new mvp framework - first step
-=======
-import org.apache.hupa.client.evo.AppController;
->>>>>>> Make the evo more clear.
+public class CachingTopActivityMapper implements ActivityMapper {
 
-import com.google.gwt.inject.client.GinModules;
-import com.google.gwt.inject.client.Ginjector;
+	private ActivityMapper filteredActivityMapper;
 
-/**
- * This is the application ginjector.
- * It defines the method our EntryPoint will use to initialize GIN dependecy graph
- * and the GIN module where binding is defined
- */
-@GinModules(AppGinModule.class)
-public interface AppGinjector extends Ginjector {
-<<<<<<< HEAD
-//  AppController getAppController();
-  HupaController getHupaController();
-=======
-  AppController getAppController();
->>>>>>> Change to new mvp framework - first step
+	@Inject
+	public CachingTopActivityMapper(TopActivityMapper topActivityMapper) {
+
+		FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
+			@Override
+			public Place filter(Place place) {
+				return place;
+			}
+		};
+
+		CachingActivityMapper cachingActivityMapper = new CachingActivityMapper(topActivityMapper);
+		filteredActivityMapper = new FilteredActivityMapper(filter, cachingActivityMapper);
+	}
+
+	@Override
+	public Activity getActivity(Place place) {
+		return filteredActivityMapper.getActivity(place);
+	}
+
 }

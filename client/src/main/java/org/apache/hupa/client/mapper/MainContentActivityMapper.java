@@ -1,4 +1,4 @@
-package org.apache.hupa.client.mvp;
+package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.IMAPMessageActivity;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
@@ -33,14 +33,7 @@ public class MainContentActivityMapper implements ActivityMapper {
 
 	public Activity getActivity(Place place) {
 		if (place instanceof MailFolderPlace) {
-//			return messageListActivityProvider.get().with(((MailInboxPlace) place).getUser());
-
-			MailFolderPlace p = ((MailFolderPlace)place);
-	    	if(p.getFolderName().equalsIgnoreCase("inbox")){
-				return messageListActivityProvider.get().with(p.getUser(),p.getFolder(), p.getSearchValue());
-	    	} else if(p.getFolderName().equalsIgnoreCase("trash")){
-				return messageListActivityProvider.get().with(p.getUser(),p.getFolder(), p.getSearchValue());
-	    	}
+			return messageListActivityProvider.get().with((MailFolderPlace)place);
 		} else if (place instanceof DefaultPlace) {
 			return loginActivityProvider.get();
 		} else if(place instanceof MessageSendPlace){

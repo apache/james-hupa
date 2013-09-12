@@ -34,9 +34,9 @@ package org.apache.hupa.client.activity;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import org.apache.hupa.client.HupaConstants;
-import org.apache.hupa.client.HupaEvoCallback;
-import org.apache.hupa.client.mvp.WidgetDisplayable;
+import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.DefaultPlace;
+import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.data.User;
 >>>>>>> introduce the top activity
 import org.apache.hupa.shared.events.FlashEvent;

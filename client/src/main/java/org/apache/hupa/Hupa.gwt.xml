@@ -75,5 +75,5 @@
   <set-property name="user.agent" value="gecko1_8,safari"/>
   
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='org.apache.hupa.client.HupaEvolution'/>
+  <entry-point class='org.apache.hupa.client.evo.HupaEvo'/>
 </module>

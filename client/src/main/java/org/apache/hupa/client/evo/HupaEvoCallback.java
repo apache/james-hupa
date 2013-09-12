@@ -1,8 +1,8 @@
-package org.apache.hupa.client;
+package org.apache.hupa.client.evo;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import org.apache.hupa.client.mvp.Displayable;
+import org.apache.hupa.client.ui.Displayable;
 import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.ServerStatusEvent;
 import org.apache.hupa.shared.events.ServerStatusEvent.ServerStatus;

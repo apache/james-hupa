@@ -54,10 +54,10 @@ import org.apache.hupa.shared.domain.User;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.shared.Action;
 
-import org.apache.hupa.client.HupaEvoCallback;
-import org.apache.hupa.client.mvp.WidgetDisplayable;
+import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.place.MessageSendPlace;
+import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;
