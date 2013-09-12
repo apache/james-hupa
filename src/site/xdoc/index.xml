@@ -27,17 +27,25 @@
 				devloping using GWT good practices (MVP pattern and Unit testing) </p>
 			<p> Hupa is a functional and well designed email client, ready for
 <<<<<<< HEAD
+<<<<<<< HEAD
 				reading, sending and managing messages, but it still lacks of many features
 				email clients nowadays have.</p>
 =======
 				reading, sending and managing messages, but it lacks of many features
 				email clients nowadays have like address book </p>
 >>>>>>> first commit
+=======
+				reading, sending and managing messages, but it still lacks of many features
+				email clients nowadays have.</p>
+>>>>>>> constantly changed by manolo
 		</section>
 
         <section name="Releases">
             <p>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
                 Last release is Hupa 0.0.2:<br/>
                 <a href='http://repo1.maven.org/maven2/org/apache/james/hupa/hupa/0.0.2/hupa-0.0.2.war'> binary </a> : ready to run or to deploy in any servlet container.<br/>
                 <a href='http://repo1.maven.org/maven2/org/apache/james/hupa/hupa-parent/0.0.2/hupa-parent-0.0.2-source-release.zip'> sources </a>.
@@ -46,11 +54,14 @@
                 Current trunk:<br/>
                 <a href='https://builds.apache.org/job/hupa-trunk/lastBuild/org.apache.james.hupa$hupa/artifact/org.apache.james.hupa/hupa/0.0.3-SNAPSHOT/hupa-0.0.3-SNAPSHOT.war'>
                  0.3-SNAPSHOT
+<<<<<<< HEAD
 =======
                 Although there isn't a stable release yet you can download the latest
                 <a href='https://builds.apache.org/job/hupa-trunk/lastBuild/org.apache.hupa$hupa/artifact/org.apache.hupa/hupa/0.0.2-SNAPSHOT/hupa-0.0.2-SNAPSHOT.war'>
                  0.2-SNAPSHOT
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
                 </a>
                 from our continuous integration server.
             </p>
@@ -67,16 +78,22 @@
         <section name="News">
             <subsection name="2012">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
                 <h4>Jun/2012 - Hupa 0.2 released</h4>
                 <p>
                    First stable version.
                 </p>
+<<<<<<< HEAD
                 <h4>Apr/2012 - Hupa evolution accepted</h4>
                 <p>
                     We have got a <a href="http://www.google-melange.com/gsoc/proposal/review/google/gsoc2012/echo/1"
                         target="_blank">GSOC student</a> who will work with Hupa this Summer
                         making it better !.
 =======
+=======
+>>>>>>> constantly changed by manolo
                 <h4>Apr/2012 - Hupa evolution accepted</h4>
                 <p>
 <<<<<<< HEAD
@@ -110,10 +127,14 @@
             </subsection>
             <subsection name="2010">
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <h4>Jun/2010 - Hupa 0.0.1</h4>
 =======
                 <h4>Jun/2010 - Hupa 0.1</h4>
 >>>>>>> first commit
+=======
+                <h4>Jun/2010 - Hupa 0.0.1</h4>
+>>>>>>> constantly changed by manolo
                 <p>First beta release, with an improved interface and fully
                     functional (read, edit, send, secure, attachments, etc)</p>
             </subsection>

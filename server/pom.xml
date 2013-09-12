@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
@@ -70,6 +73,14 @@
             <artifactId>mail</artifactId>
         </dependency>
         <dependency>
+<<<<<<< HEAD
+=======
+            <groupId>net.customware.gwt.dispatch
+        </groupId>
+            <artifactId>gwt-dispatch</artifactId>
+        </dependency>
+        <dependency>
+>>>>>>> constantly changed by manolo
             <groupId>com.googlecode.gwtupload</groupId>
             <artifactId>gwtupload</artifactId>
         </dependency>
@@ -103,14 +114,18 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
+<<<<<<< HEAD
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
         </dependency>
         <dependency>
+=======
+>>>>>>> constantly changed by manolo
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+<<<<<<< HEAD
         <!-- ECS specific stuff
             ECS encryption needs oracle crypto extension to work
                 http://www.oracle.com/technetwork/es/java/javase/downloads/jce-6-download-429243.html
@@ -121,6 +136,8 @@
              <artifactId>bcprov-ext-jdk14</artifactId>
              <version>1.49</version>
         </dependency>
+=======
+>>>>>>> constantly changed by manolo
     </dependencies>
     <build>
         <outputDirectory>war/WEB-INF/classes</outputDirectory>
@@ -144,6 +161,7 @@
         </plugins>
     </build>
 </project>
+<<<<<<< HEAD
 =======
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
@@ -285,3 +303,5 @@
     </build>
 </project>
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo

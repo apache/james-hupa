@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
@@ -36,6 +39,13 @@
             <artifactId>gwt-user</artifactId>
         </dependency>
         <dependency>
+<<<<<<< HEAD
+=======
+            <groupId>net.customware.gwt.dispatch</groupId>
+            <artifactId>gwt-dispatch</artifactId>
+        </dependency>
+        <dependency>
+>>>>>>> constantly changed by manolo
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -56,6 +66,7 @@
             </plugin>
         </plugins>
     </build>
+<<<<<<< HEAD
 =======
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
@@ -122,4 +133,6 @@
         </plugins>
     </build>
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 </project>
