@@ -47,6 +47,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.HasKeyboardPagingPolicy.KeyboardPagingPolicy;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.AsyncDataProvider;
@@ -241,8 +242,9 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
+=======
+>>>>>>> fixed issue#79, using 100 as the assuming page size of labels list rather than CellList's default page size 25
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
@@ -254,12 +256,13 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class FolderListView extends Composite implements FolderListActivity.Displayable {
-	@UiField ScrollPanel thisView;
+	@UiField SimplePanel thisView;
 	@Inject private HupaController controller;
 	@Inject private ToolBarActivity.Displayable toolBar;
 	@Inject private MessageListActivity.Displayable msgListDisplay;
 	@Inject private PlaceController placeController;
 	private CellList<LabelNode> cellList;
+	private ShowMorePagerPanel pagerPanel;
 
 <<<<<<< HEAD
 	@Inject
@@ -317,13 +320,24 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 		@Source("res/CssLabelListView.css")
 		public CellList.Style cellListStyle();
 	}
+	
+	public static final ProvidesKey<LabelNode> KEY_PROVIDER = new ProvidesKey<LabelNode>() {
+	      @Override
+	      public Object getKey(LabelNode item) {
+	        return item == null ? null : item.getPath();
+	      }
+	    };
 
 	@Inject
 	public FolderListView(final HupaRequestFactory rf) {
 		initWidget(binder.createAndBindUi(this));
 
 		data = new ImapLabelListDataProvider(rf);
-		cellList = new CellList<LabelNode>(new FolderCell(), Resources.INSTANCE);
+		pagerPanel = new ShowMorePagerPanel();
+		cellList = new CellList<LabelNode>(new FolderCell(), Resources.INSTANCE, KEY_PROVIDER);
+	    cellList.setKeyboardPagingPolicy(KeyboardPagingPolicy.INCREASE_RANGE);
+	    cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.BOUND_TO_SELECTION);
+	    cellList.setPageSize(100);// ShowMorePagerPanel does not work at present. Therefore, assume one's labels are under one hundred
 		cellList.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			public void onSelectionChange(SelectionChangeEvent event) {
@@ -334,7 +348,8 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 			}
 		});
 		data.addDataDisplay(cellList);
-		thisView.setWidget(cellList);
+		pagerPanel.setDisplay(cellList);
+		thisView.setWidget(pagerPanel);
 	}
 
 	@Override

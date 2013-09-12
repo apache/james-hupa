@@ -16,6 +16,7 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<g:SimplePanel ui:field="thisView" />
 =======
 =======
@@ -44,4 +45,7 @@
 =======
 	<g:ScrollPanel ui:field="thisView" />
 >>>>>>> fixed issue#67; fixed issue#69 (with default select inbox folder); fixed issue#70;
+=======
+	<g:SimplePanel ui:field="thisView" />
+>>>>>>> fixed issue#79, using 100 as the assuming page size of labels list rather than CellList's default page size 25
 </ui:UiBinder>

@@ -243,6 +243,7 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 		initWidget(binder.createAndBindUi(this));
 		data = new ImapLabelListDataProvider(rf);
 		CellList<LabelNode> cellList = new CellList<LabelNode>(new LabelCell(), Resources.INSTANCE);
+		cellList.setPageSize(100);// assume one's labels are under one hundred, otherwise we need a pager
 		cellList.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			public void onSelectionChange(SelectionChangeEvent event) {
