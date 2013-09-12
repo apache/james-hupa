@@ -21,6 +21,7 @@ package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Set;
 =======
@@ -30,6 +31,8 @@ import java.util.List;
 >>>>>>> Change to new mvp framework - first step
 =======
 import java.util.ArrayList;
+=======
+>>>>>>> clean some code. Pager issue remain
 import java.util.Date;
 import java.util.List;
 >>>>>>> Change to new mvp framework - first step
@@ -75,25 +78,39 @@ import com.google.gwt.dom.client.Style.Unit;
 >>>>>>> Change to new mvp framework - first step
 import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
+import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.widgets.CommandsBar;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable;
-import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable.DragHandlerFactory;
 import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.client.widgets.HasDialog;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.MessageImpl;
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+import org.apache.hupa.shared.domain.FetchMessagesAction;
+import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
+import org.apache.hupa.shared.events.FolderSelectionEvent;
+import org.apache.hupa.shared.events.FolderSelectionEventHandler;
+import org.apache.hupa.shared.events.LoadMessagesEvent;
+import org.apache.hupa.shared.events.LoadMessagesEventHandler;
+import org.apache.hupa.shared.events.LoginEvent;
+import org.apache.hupa.shared.events.LoginEventHandler;
+import org.apache.hupa.shared.events.LogoutEvent;
+import org.apache.hupa.shared.events.LogoutEventHandler;
+import org.apache.hupa.shared.events.MessagesReceivedEvent;
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.apache.hupa.widgets.ui.Loading;
 import org.apache.hupa.widgets.ui.PagingOptions;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -111,6 +128,11 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 >>>>>>> use CellTable to deal with MessageTableModel, even a few issues
 =======
 >>>>>>> fix the CellTable display
+=======
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+>>>>>>> clean some code. Pager issue remain
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
@@ -774,17 +796,10 @@ import com.google.gwt.event.shared.EventBus;
 =======
 >>>>>>> fix the CellTable display
 import com.google.gwt.gen2.table.client.AbstractColumnDefinition;
-import com.google.gwt.gen2.table.client.AbstractScrollTable.ColumnResizePolicy;
-import com.google.gwt.gen2.table.client.AbstractScrollTable.ResizePolicy;
-import com.google.gwt.gen2.table.client.AbstractScrollTable.ScrollPolicy;
-import com.google.gwt.gen2.table.client.AbstractScrollTable.SortPolicy;
 import com.google.gwt.gen2.table.client.CachedTableModel;
 import com.google.gwt.gen2.table.client.CellRenderer;
 import com.google.gwt.gen2.table.client.ColumnDefinition;
-import com.google.gwt.gen2.table.client.DefaultTableDefinition;
-import com.google.gwt.gen2.table.client.FixedWidthFlexTable;
 import com.google.gwt.gen2.table.client.FixedWidthGrid;
-import com.google.gwt.gen2.table.client.FixedWidthGridBulkRenderer;
 import com.google.gwt.gen2.table.client.MutableTableModel;
 import com.google.gwt.gen2.table.client.SelectionGrid.SelectionPolicy;
 import com.google.gwt.gen2.table.client.TableDefinition.AbstractCellView;
@@ -795,6 +810,7 @@ import com.google.gwt.gen2.table.event.client.PageLoadEvent;
 import com.google.gwt.gen2.table.event.client.PageLoadHandler;
 import com.google.gwt.gen2.table.event.client.RowCountChangeEvent;
 import com.google.gwt.gen2.table.event.client.RowCountChangeHandler;
+<<<<<<< HEAD
 import com.google.gwt.i18n.client.DateTimeFormat;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -819,22 +835,30 @@ import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 =======
 import com.google.gwt.user.cellview.client.SimplePager;
 >>>>>>> fix the CellTable display
+=======
+import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
+import com.google.gwt.user.cellview.client.SimplePager;
+import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
+>>>>>>> clean some code. Pager issue remain
 import com.google.gwt.user.client.ui.Anchor;
 >>>>>>> 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 @SuppressWarnings("deprecation")
 <<<<<<< HEAD
@@ -1582,9 +1606,9 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	@SuppressWarnings("unused") private HupaMessages messages;
 	private HupaImageBundle imageBundle;
 
-	private PagingOptions pagingBar;
-	private DragRefetchPagingScrollTable<Message> mailTable;
-	private CachedTableModel<Message> cTableModel;
+//	private PagingOptions pagingBar;
+//	private DragRefetchPagingScrollTable<Message> mailTable;
+//	private CachedTableModel<Message> cTableModel;
 
 	private FixedWidthGrid dataTable = createDataTable();
 	private EnableButton deleteMailButton;
@@ -1607,16 +1631,169 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	private SimplePager pager;
 	private EventBus eventBus;
 
+	private User user;
+	private ImapFolder folder;
+	private String searchValue;
+	private HupaRequestFactory requestFactory;
+
+	private final SingleSelectionModel<Message> selectionModel = new SingleSelectionModel<Message>();
+	public void fetch(final int start) {
+		FetchMessagesRequest messagesRequest = requestFactory.messagesRequest();
+		FetchMessagesAction action = messagesRequest.create(FetchMessagesAction.class);
+		final ImapFolder folder1 = messagesRequest.create(ImapFolder.class);
+		folder1.setChildren(this.folder.getChildren());
+		folder1.setDelimiter(this.folder.getDelimiter());
+		folder1.setFullName(this.folder.getFullName());
+		folder1.setMessageCount(this.folder.getMessageCount());
+		folder1.setName(this.folder.getName());
+		folder1.setSubscribed(this.folder.getSubscribed());
+		folder1.setUnseenMessageCount(this.folder.getUnseenMessageCount());
+		// FIXME cannot put setFolder to the first place
+		action.setOffset(table.getPageSize());
+		action.setFolder(folder1);
+		action.setSearchString(searchValue);
+		action.setStart(start);
+		messagesRequest.fetch(action).fire(new Receiver<FetchMessagesResult>() {
+
+			@Override
+			public void onFailure(ServerFailure error) {
+				if (error.isFatal()) {
+					throw new RuntimeException(error.getMessage());
+				}
+			}
+			@Override
+			public void onSuccess(final FetchMessagesResult result) {
+				assert result != null;
+				folder.setMessageCount(result.getRealCount());
+				folder.setUnseenMessageCount(result.getRealUnreadCount());
+				dataProvider.setList(result.getMessages());
+				sortHandler =  new ListHandler<Message>(dataProvider.getList());
+
+//		        sortHandler.setComparator(addressColumn, new Comparator<Contact>() {
+//		          public int compare(Contact o1, Contact o2) {
+//		            return o1.address.compareTo(o2.address);
+//		          }
+//		        });
+				table.addColumnSortHandler(sortHandler);
+				table.setRowCount(result.getRealCount());
+				if (result.getMessages() != null) {
+					table.setRowData(start + table.getPageSize(), result.getMessages());
+				} else {
+					table.setRowData(start + table.getPageSize(), result.getMessages());
+				}
+				
+	            pager.setPageStart(start);
+	            if (start == 0 || !table.isRowCountExact()) {
+	            	table.setRowCount(start + result.getMessages().size(), result.getMessages().size() < table.getPageSize());
+	            }
+//				flush();
+				// Notify presenter to update folder tree view
+				eventBus.fireEvent(new MessagesReceivedEvent(folder1, result.getMessages()));
+			}
+		});
+	}
+
+	private ListDataProvider<Message> dataProvider;
+    ListHandler<Message> sortHandler;
+
+
+	protected void refreshSelection() {
+		Message message = selectionModel.getSelectedObject();
+		if(message == null) return;
+		setExpandLoading(true);
+
+		if (message.getFlags().contains(MessageImpl.IMAPFlag.SEEN) == false) {
+			// add flag, fire event and redraw
+			message.getFlags().add(MessageImpl.IMAPFlag.SEEN);
+			eventBus.fireEvent(new DecreaseUnseenEvent(user, folder, 1));
+
+			redraw();
+
+		}
+		eventBus.fireEvent(new ExpandMessageEvent(user, folder, message));
+	    selectionModel.setSelected(message, false);
+	    
+    }
+	MessagesCellTable table;
+	private boolean pending;
 	@Inject
 	public IMAPMessageListView(final PagingScrollTableRowDragController controller,
 	        final MessageTableModel mTableModel, final HupaConstants constants, final HupaMessages messages,
-	        final HupaImageBundle imageBundle, final EventBus eventBus, final HupaRequestFactory requestFactory,
+	         final EventBus eventBus, final HupaRequestFactory requestFactory,
 	        final MessagesCellTable table) {
+		this.table = table;
+		this.eventBus = eventBus;
+		dataProvider = new ListDataProvider<Message>();
+		dataProvider.addDataDisplay(table);
+
+		table.setSelectionModel(selectionModel);
+	    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+	      @Override
+	      public void onSelectionChange(SelectionChangeEvent event) {
+	    	 refreshSelection();
+	      }
+	    });
+		this.requestFactory = requestFactory;
+		table.addRangeChangeHandler(new RangeChangeEvent.Handler() {
+			@Override
+			public void onRangeChange(RangeChangeEvent event) {
+				fetch(event.getNewRange().getStart());
+			}
+		});
+		// bind some Events
+		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
+
+			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
+				user = loadMessagesEvent.getUser();
+				folder = loadMessagesEvent.getFolder();
+				searchValue = loadMessagesEvent.getSearchValue();
+				fetch(0);
+				
+			}
+		});
+		eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
+
+			public void onFolderSelectionEvent(FolderSelectionEvent event) {
+				user = event.getUser();
+				folder = event.getFolder();
+				searchValue = null;
+			}
+		});
+		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
+
+			public void onLogin(LoginEvent event) {
+				user = event.getUser();
+				folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
+				searchValue = null;
+				if (!pending) {
+					pending = true;
+					Scheduler.get().scheduleFinally(new ScheduledCommand() {
+						@Override
+						public void execute() {
+							pending = false;
+							fetch(0);
+						}
+					});
+				}
+			}
+		});
+		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
+
+			public void onLogout(LogoutEvent logoutEvent) {
+				user = null;
+				folder = null;
+				searchValue = null;
+			}
+		});
+
+		
+		
 		this.messages = messages;
 		this.imageBundle = imageBundle;
 		this.eventBus = eventBus;
-		pager = new SimplePager();
-		pager.setDisplay(table);
+
+	    SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
+	    pager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
 
 		deleteMailButton = new EnableButton(constants.deleteMailButton());
 		newMailButton = new Button(constants.newMailButton());
@@ -1628,44 +1805,10 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		refreshLink = new Anchor(constants.refresh());
 		searchButton = new Button(constants.searchButton());
 		loading = new Loading(constants.loading());
-		this.cTableModel = new CachedTableModel<Message>(mTableModel);
-		cTableModel.setRowCount(MutableTableModel.UNKNOWN_ROW_COUNT);
-		mTableModel.addRowCountChangeHandler(new RowCountChangeHandler() {
-			public void onRowCountChange(RowCountChangeEvent event) {
-				cTableModel.setRowCount(event.getNewRowCount());
-			}
-		});
 
 		VerticalPanel msgListContainer = new VerticalPanel();
 		msgListContainer.addStyleName(HupaCSS.C_msg_list_container);
-		mailTable = new DragRefetchPagingScrollTable<Message>(cTableModel, dataTable, new FixedWidthFlexTable(),
-		        createTableDefinitation(), controller, 1);
-		mailTable.setPageSize(20);
-		mailTable.setDragHandler(0, 30, new DragHandlerFactory() {
-			public Widget createHandler() {
-				return new Image(imageBundle.readyToMoveMailIcon());
-			}
-		});
 
-		HTML emptyTable = new HTML(constants.emptyMailTable());
-		emptyTable.addStyleName(HupaCSS.C_msg_table_empty);
-		mailTable.setEmptyTableWidget(emptyTable);
-		FixedWidthGridBulkRenderer<Message> bulkRenderer = new FixedWidthGridBulkRenderer<Message>(
-		        mailTable.getDataTable(), mailTable);
-		mailTable.setBulkRenderer(bulkRenderer);
-		mailTable.addStyleName(HupaCSS.C_msg_table);
-		mailTable.setCellPadding(0);
-		mailTable.setResizePolicy(ResizePolicy.FILL_WIDTH);
-		mailTable.setColumnResizePolicy(ColumnResizePolicy.MULTI_CELL);
-		mailTable.setScrollPolicy(ScrollPolicy.DISABLED);
-		mailTable.addPageLoadHandler(onMessagePageLoadHandler);
-		mailTable.setPageSize(DEFAULT_MSG_PAGE_SIZE);
-		mailTable.getDataTable().setCellSpacing(0);
-		mailTable.setSortPolicy(SortPolicy.DISABLED);
-
-		mailTable.fillWidth();
-
-		pagingBar = new PagingOptions(mailTable, constants, loading);
 
 		HorizontalPanel buttonBar = new HorizontalPanel();
 		buttonBar.addStyleName(HupaCSS.C_buttons);
@@ -1682,15 +1825,6 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		markButtonBar.add(markUnSeenButton);
 		buttonBar.add(markButtonBar);
 		buttonBar.add(refreshLink);
-		pageBox.addItem("" + DEFAULT_MSG_PAGE_SIZE);
-		pageBox.addItem("" + (DEFAULT_MSG_PAGE_SIZE * 2));
-		pageBox.addItem("" + (DEFAULT_MSG_PAGE_SIZE * 4));
-		pageBox.addChangeHandler(new ChangeHandler() {
-			public void onChange(ChangeEvent event) {
-				if (pageBox.getSelectedIndex() > 0)
-					mailTable.setPageSize(Integer.parseInt(pageBox.getItemText(pageBox.getSelectedIndex())));
-			}
-		});
 
 		HorizontalPanel searchPanel = new HorizontalPanel();
 		searchPanel.addStyleName(HupaCSS.C_buttons);
@@ -1738,36 +1872,6 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		confirmDeleteAllBox.setText(messages.confirmDeleteAllMessages());
 		initWidget(msgListContainer);
 	}
-	PageLoadHandler onMessagePageLoadHandler = new PageLoadHandler() {
-
-		public void onPageLoad(PageLoadEvent event) {
-
-			for (int i = 0; i < mailTable.getDataTable().getRowCount(); i++) {
-				mailTable.getDataTable().getRowFormatter().setStyleName(i, HupaCSS.C_msg_table_row);
-				Message msg = mailTable.getRowValue(i);
-				if (msg != null) {
-					if (msg.getFlags().contains(IMAPFlag.SEEN) == false) {
-						mailTable.getDataTable().getRowFormatter().addStyleName(i, HupaCSS.C_msg_table_unseen);
-					} else {
-						mailTable.getDataTable().getRowFormatter().removeStyleName(i, HupaCSS.C_msg_table_seen);
-					}
-				}
-			}
-
-			String nrows = String.valueOf(mailTable.getPageSize());
-			for (int i = 0; i < pageBox.getItemCount(); i++) {
-				if (nrows.equals(pageBox.getItemText(i)))
-					pageBox.setSelectedIndex(i);
-			}
-		}
-
-	};
-
-	private DefaultTableDefinition<Message> createTableDefinitation() {
-		DefaultTableDefinition<Message> def = new DefaultTableDefinition<Message>(createColumnDefinitionList());
-
-		return def;
-	}
 
 	/**
 	 * @return the newly created data table.
@@ -1778,93 +1882,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		return dataTable;
 	}
 
-	/**
-	 * Create a new List which holds all needed ColumnDefinitions
-	 * 
-	 */
-	private List<ColumnDefinition<Message, ?>> createColumnDefinitionList() {
-		List<ColumnDefinition<Message, ?>> cList = new ArrayList<ColumnDefinition<Message, ?>>();
-
-		FromColumnDefination from = new FromColumnDefination();
-		from.setCellRenderer(new WhiteSpaceCellRenderer<Message>());
-		from.setColumnTruncatable(true);
-		from.setPreferredColumnWidth(250);
-		from.setMinimumColumnWidth(150);
-		from.setMaximumColumnWidth(300);
-		cList.add(from);
-
-		SubjectColumnDefination subject = new SubjectColumnDefination();
-		subject.setCellRenderer(new WhiteSpaceCellRenderer<Message>());
-		subject.setColumnTruncatable(true);
-		subject.setPreferredColumnWidth(800);
-		subject.setMinimumColumnWidth(200);
-		cList.add(subject);
-
-		AttachmentColumnDefination attachment = new AttachmentColumnDefination();
-		attachment.setColumnTruncatable(false);
-		// display an image if the message contains an attachment
-		attachment.setCellRenderer(new CellRenderer<Message, Boolean>() {
-
-			public void renderRowValue(Message rowValue, ColumnDefinition<Message, Boolean> columnDef,
-			        AbstractCellView<Message> view) {
-				if (columnDef.getCellValue(rowValue)) {
-					view.setWidget(new Image(imageBundle.attachmentIcon()));
-				} else {
-					view.setHTML("&nbsp");
-				}
-
-			}
-
-		});
-
-		attachment.setPreferredColumnWidth(20);
-		attachment.setMinimumColumnWidth(15);
-		attachment.setMaximumColumnWidth(25);
-		cList.add(attachment);
-
-		DateColumnDefination date = new DateColumnDefination();
-		date.setColumnTruncatable(true);
-		// set a special renderer for the date
-		date.setCellRenderer(new CellRenderer<Message, Date>() {
-
-			public void renderRowValue(Message rowValue, ColumnDefinition<Message, Date> columnDef,
-			        AbstractCellView<Message> view) {
-				DateTimeFormat dtformat;
-				Date rDate = rowValue.getReceivedDate();
-				int rYear = rDate.getYear();
-				int rMonth = rDate.getMonth();
-				int rDay = rDate.getDate();
-
-				Date now = new Date();
-				int nowYear = now.getYear();
-				int nowMonth = now.getMonth();
-				int nowDay = now.getDate();
-
-				if (rYear < nowYear) {
-					dtformat = DateTimeFormat.getFormat("dd.MMM.yyyy");
-				} else if (rMonth < nowMonth || (rMonth == nowMonth && rDay < nowDay)) {
-					dtformat = DateTimeFormat.getFormat("dd.MMM.");
-				} else if (rDay == nowDay) {
-					dtformat = DateTimeFormat.getFormat("HH:mm");
-				} else {
-
-					dtformat = DateTimeFormat.getFormat("dd.MMM.yyyy HH:mm");
-				}
-
-				view.setHTML(dtformat.format(rDate));
-				view.setHorizontalAlignment(HorizontalPanel.ALIGN_RIGHT);
-			}
-
-		});
-		date.setPreferredColumnWidth(100);
-		date.setMinimumColumnWidth(100);
-		date.setMaximumColumnWidth(150);
-
-		cList.add(date);
-
-		return cList;
-	}
-
+	
 	/**
 	 * ColumnDefination which display if the message contains an attachment
 	 * 
@@ -1946,11 +1964,10 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * getDataTableSelection()
 	 */
 	public HasRowSelectionHandlers getDataTableSelection() {
-		return mailTable.getDataTable();
+		return null;
 	}
 
 	public void reloadData() {
-		mailTable.reloadPage();
 	}
 
 	/*
@@ -1960,9 +1977,6 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 */
 	public void reset() {
 		pageBox.setSelectedIndex(0);
-		cTableModel.clearCache();
-		cTableModel.setRowCount(CachedTableModel.UNKNOWN_ROW_COUNT);
-		mailTable.gotoPage(0, false);
 	}
 
 	/*
@@ -1973,7 +1987,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * ()
 	 */
 	public HasPageLoadHandlers getDataTableLoad() {
-		return mailTable;
+		return null;
 	}
 
 	/*
@@ -2039,7 +2053,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getData(int)
 	 */
 	public Message getData(int rowIndex) {
-		return mailTable.getRowValue(rowIndex);
+		return null;
 	}
 
 	/*
@@ -2090,7 +2104,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * deselectAllMessages()
 	 */
 	public void deselectAllMessages() {
-		mailTable.getDataTable().deselectAllRows();
+//		mailTable.getDataTable().deselectAllRows();
 	}
 
 	/*
@@ -2122,7 +2136,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * ()
 	 */
 	public void selectAllMessages() {
-		mailTable.getDataTable().selectAllRows();
+//		mailTable.getDataTable().selectAllRows();
 	}
 
 	/*
@@ -2132,7 +2146,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * getSelectedMessages()
 	 */
 	public List<Message> getSelectedMessages() {
-		return mailTable.getSelectedRows();
+		return null;
 	}
 
 	/*
@@ -2143,7 +2157,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * (java.util.ArrayList)
 	 */
 	public void removeMessages(List<Message> messages) {
-		mailTable.removeRows(messages);
+//		mailTable.removeRows(messages);
 	}
 
 	/*
@@ -2174,7 +2188,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * setPostFetchMessageCount(int)
 	 */
 	public void setPostFetchMessageCount(int count) {
-		cTableModel.setPostCachedRowCount(count);
+//		cTableModel.setPostCachedRowCount(count);
 	}
 
 	/*
@@ -2183,7 +2197,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#redraw()
 	 */
 	public void redraw() {
-		mailTable.reloadPage();
+//		mailTable.reloadPage();
 	}
 
 	/*
@@ -2268,9 +2282,9 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#goToPage(int)
 	 */
 	public void goToPage(int page) {
-		if (page != mailTable.getCurrentPage()) {
-			mailTable.gotoPage(page, false);
-		}
+//		if (page != mailTable.getCurrentPage()) {
+//			mailTable.gotoPage(page, false);
+//		}
 	}
 
 	/*
@@ -2281,7 +2295,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * ()
 	 */
 	public int getCurrentPage() {
-		return mailTable.getCurrentPage();
+		return 0;
 	}
 
 	/*
@@ -2291,7 +2305,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * getDataTablePageChange()
 	 */
 	public HasPageChangeHandlers getDataTablePageChange() {
-		return mailTable;
+		return null;
 	}
 
 	/*

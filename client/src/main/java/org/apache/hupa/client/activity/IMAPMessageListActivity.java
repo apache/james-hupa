@@ -552,8 +552,11 @@ public class IMAPMessageListActivity extends AbstractActivity {
 	private String searchValue;
 	private User user;
 	private ImapFolder folder;
+<<<<<<< HEAD
 	private ShowMessageTableListener tableListener = new ShowMessageTableListener();
 >>>>>>> delete messages, make WestActivity Singleton
+=======
+>>>>>>> clean some code. Pager issue remain
 
 	@Inject private Displayable display;
 	@Inject private EventBus eventBus;
@@ -808,21 +811,6 @@ public class IMAPMessageListActivity extends AbstractActivity {
 			        }
 
 		        });
-		new HandlerRegistrationAdapter(display.getDataTableSelection().addRowSelectionHandler(
-		        new RowSelectionHandler() {
-			        public void onRowSelection(RowSelectionEvent event) {
-				        if (event.getSelectedRows().size() == 0) {
-					        display.getDeleteEnable().setEnabled(false);
-					        display.getMarkSeenEnable().setEnabled(false);
-					        display.getMarkUnseenEnable().setEnabled(false);
-				        } else {
-					        display.getDeleteEnable().setEnabled(true);
-					        display.getMarkSeenEnable().setEnabled(true);
-					        display.getMarkUnseenEnable().setEnabled(true);
-				        }
-			        }
-
-		        }));
 		display.getRefreshClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
@@ -831,14 +819,6 @@ public class IMAPMessageListActivity extends AbstractActivity {
 			}
 
 		});
-		new HandlerRegistrationAdapter(display.getDataTablePageChange().addPageChangeHandler(new PageChangeHandler() {// TODO
-
-			        public void onPageChange(PageChangeEvent event) {
-				        // firePresenterRevealedEvent(true);
-				        // firePresenterChangedEvent();
-			        }
-
-		        }));
 		display.getRowsPerPageChange().addChangeHandler(new ChangeHandler() {
 
 			public void onChange(ChangeEvent event) {
@@ -847,7 +827,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
 			}
 
 		});
-		display.addTableListener(tableListener);
+//		display.addTableListener(tableListener);
 	}
 
 	private void deleteMessages() {
@@ -1299,6 +1279,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		public void setExpandLoading(boolean expanding);
 
 	}
+<<<<<<< HEAD
 
 	private final class ShowMessageTableListener implements TableListener {
 
@@ -1321,4 +1302,6 @@ public class IMAPMessageListActivity extends AbstractActivity {
 
 	}
 >>>>>>> delete messages, make WestActivity Singleton
+=======
+>>>>>>> clean some code. Pager issue remain
 }
