@@ -27,7 +27,7 @@ import com.google.gwt.place.shared.Prefix;
 
 public class MailFolderPlace extends AbstractPlace {
 
-	private static final String PREFIX = "folder";
+	private static final String PREFIX = "";
 	private User user;
 	private String folderName = "";
 
@@ -83,6 +83,7 @@ public class MailFolderPlace extends AbstractPlace {
 
 		@Override
 		public MailFolderPlace getPlace(String token) {
+			// TODO create place from token rather than with methods such that we can get place we want.
 			return new MailFolderPlace().with(token);
 		}
 
