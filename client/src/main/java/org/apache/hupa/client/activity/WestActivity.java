@@ -921,13 +921,13 @@ System.out.println("1111111"+response);
 =======
 >>>>>>> scrub code
 			public void onExpandMessage(ExpandMessageEvent event) {
-				final boolean decreaseUnseen;
+//				final boolean decreaseUnseen;
 				final Message message = event.getMessage();
 				// check if the message was already seen in the past
 				if (event.getMessage().getFlags().contains(IMAPFlag.SEEN) == false) {
-					decreaseUnseen = true;
+//					decreaseUnseen = true;//TODO 1209
 				} else {
-					decreaseUnseen = false;
+//					decreaseUnseen = false;
 				}
 
 				GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();

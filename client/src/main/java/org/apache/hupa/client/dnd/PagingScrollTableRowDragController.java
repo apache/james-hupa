@@ -43,7 +43,7 @@ public class PagingScrollTableRowDragController extends PickupDragController {
     private HupaMessages messages = GWT.create(HupaMessages.class);
     private HupaImageBundle bundle =GWT.create(HupaImageBundle.class);
     private FixedWidthGrid draggableTable;
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private PagingScrollTable parentTable;
     private int dragRow;
     private RowDragProxy proxyWidget;
@@ -89,7 +89,7 @@ public class PagingScrollTableRowDragController extends PickupDragController {
     }
 
     
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     protected Widget newDragProxy(DragContext context) {
         
         draggableTable = (FixedWidthGrid) context.draggable.getParent();

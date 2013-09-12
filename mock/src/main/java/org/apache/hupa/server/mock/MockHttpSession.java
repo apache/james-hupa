@@ -90,6 +90,7 @@ public class MockHttpSession implements HttpSession{
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @SuppressWarnings("rawtypes")
 	public Enumeration getAttributeNames() {
 =======
@@ -100,6 +101,10 @@ public class MockHttpSession implements HttpSession{
     @SuppressWarnings("unchecked")
     public Enumeration getAttributeNames() {
 >>>>>>> first commit
+=======
+    @SuppressWarnings("rawtypes")
+	public Enumeration getAttributeNames() {
+>>>>>>> remove warnings
         return new Enumeration() {
             Iterator it = attributeMap.keySet().iterator();
             public boolean hasMoreElements() {

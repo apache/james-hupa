@@ -82,9 +82,12 @@ public class StoreBugTest {
     static User user = new User() {
 =======
     static User user = new UserImpl() {
+<<<<<<< HEAD
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
        private static final long serialVersionUID = 1L;
 >>>>>>> first commit
+=======
+>>>>>>> remove warnings
        {setName(imapUser); setPassword(imapPass);}
     };
     

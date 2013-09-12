@@ -75,12 +75,15 @@ import org.apache.hupa.server.mock.MockHttpSessionProvider;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLogProvider;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import org.apache.hupa.server.preferences.InImapUserPreferencesStorage;
+=======
+>>>>>>> remove warnings
 import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 >>>>>>> re-add server unit tests

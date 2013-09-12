@@ -29,10 +29,6 @@ public class SettingsImpl implements Settings{
     public static final String DEFAULT_SENT = "Sent"; 
     public static final String DEFAULT_DRAFT = "Draft"; 
     
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -8051377307421345664L;
     private String trashFolderName = DEFAULT_TRASH;
     private String sentFolderName = DEFAULT_SENT;
     private String inboxFolderName = DEFAULT_INBOX;
