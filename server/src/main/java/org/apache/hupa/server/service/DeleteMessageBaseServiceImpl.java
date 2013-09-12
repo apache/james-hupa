@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,6 +18,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> delete messages, make WestActivity Singleton
 package org.apache.hupa.server.service;
 
 import javax.mail.Flags;
@@ -28,12 +31,19 @@ import org.apache.hupa.shared.domain.DeleteMessageAction;
 import org.apache.hupa.shared.domain.DeleteMessageResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
+=======
+>>>>>>> delete messages, make WestActivity Singleton
 
 import com.sun.mail.imap.IMAPStore;
 
 public abstract class DeleteMessageBaseServiceImpl extends AbstractService{
+<<<<<<< HEAD
 	public DeleteMessageResult delete(DeleteMessageAction action) throws HupaException {
+=======
+	public DeleteMessageResult delete(DeleteMessageAction action) throws Exception {
+>>>>>>> delete messages, make WestActivity Singleton
     	ImapFolder folder = action.getFolder();
         User user = getUser();
         try {
@@ -85,7 +95,11 @@ public abstract class DeleteMessageBaseServiceImpl extends AbstractService{
         } catch (MessagingException e) {
             logger.error("Error while deleting messages for user " + user
                     + " in folder" + action.getFolder(), e);
+<<<<<<< HEAD
             throw new HupaException("Error while deleting messages");
+=======
+            throw new Exception("Error while deleting messages");
+>>>>>>> delete messages, make WestActivity Singleton
         }
     }
 
@@ -96,5 +110,9 @@ public abstract class DeleteMessageBaseServiceImpl extends AbstractService{
      * @param action
      * @return messages
      */
+<<<<<<< HEAD
     protected abstract Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws HupaException;
+=======
+    protected abstract Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws Exception;
+>>>>>>> delete messages, make WestActivity Singleton
 }

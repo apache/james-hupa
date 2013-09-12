@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,6 +18,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> delete messages, make WestActivity Singleton
 package org.apache.hupa.server.service;
 
 import java.util.ArrayList;
@@ -29,14 +32,21 @@ import org.apache.hupa.shared.domain.DeleteMessageAction;
 import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
+=======
+>>>>>>> delete messages, make WestActivity Singleton
 
 import com.sun.mail.imap.IMAPStore;
 
 public class DeleteMessageByUidServiceImpl extends DeleteMessageBaseServiceImpl implements DeleteMessageByUidService{
 
 	@Override
+<<<<<<< HEAD
     protected Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws HupaException {
+=======
+    protected Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws Exception {
+>>>>>>> delete messages, make WestActivity Singleton
 		DeleteMessageByUidAction action = (DeleteMessageByUidAction)actionBase;
     	ImapFolder folder = action.getFolder();
         List<Long> uids = action.getMessageUids();
@@ -63,7 +73,11 @@ public class DeleteMessageByUidServiceImpl extends DeleteMessageBaseServiceImpl 
             logger.error("Error while deleting messages with uids "
                     + action.getMessageUids() + " for user " + user
                     + " in folder" + action.getFolder(), e);
+<<<<<<< HEAD
             throw new HupaException("Error while deleting messages", e);
+=======
+            throw new Exception("Error while deleting messages", e);
+>>>>>>> delete messages, make WestActivity Singleton
         }
 
     }

@@ -285,10 +285,15 @@ public class MessageTableModel extends MutableTableModel<Message> {
 		}
 		FetchMessagesRequest req = requestFactory.messagesRequest();
 		final FetchMessagesAction action = req.create(FetchMessagesAction.class);
-		
+		final ImapFolder input = req.create(ImapFolder.class);
+		input.setChildren(folder.getChildren());
+		input.setDelimiter(folder.getDelimiter());
+		input.setFullName(folder.getFullName());
+		input.setName(folder.getName());
+		input.setUnseenMessageCount(folder.getUnseenMessageCount());
 		// FIXME cannot put setFolder to the first place
+		action.setFolder(input);
 		action.setOffset(request.getNumRows());
-		action.setFolder(folder);
 		action.setSearchString(searchValue);
 		action.setStart(request.getStartRow());
 		req.fetch(action).fire(new Receiver<FetchMessagesResult>() {

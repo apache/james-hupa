@@ -53,8 +53,11 @@ import org.apache.hupa.server.service.DeleteMessageAllService;
 import org.apache.hupa.server.service.DeleteMessageAllServiceImpl;
 import org.apache.hupa.server.service.DeleteMessageByUidService;
 import org.apache.hupa.server.service.DeleteMessageByUidServiceImpl;
+<<<<<<< HEAD
 import org.apache.hupa.server.service.FetchFoldersService;
 import org.apache.hupa.server.service.FetchFoldersServiceImpl;
+=======
+>>>>>>> delete messages, make WestActivity Singleton
 import org.apache.hupa.server.service.FetchMessagesService;
 import org.apache.hupa.server.service.FetchMessagesServiceImpl;
 import org.apache.hupa.server.service.GetMessageDetailsService;
@@ -123,7 +126,12 @@ import org.apache.hupa.server.service.RenameFolderService;
 import org.apache.hupa.server.service.RenameFolderServiceImpl;
 import org.apache.hupa.shared.data.CreateFolderActionImpl;
 import org.apache.hupa.shared.data.DeleteFolderActionImpl;
+<<<<<<< HEAD
 >>>>>>> delete and rename folder
+=======
+import org.apache.hupa.shared.data.DeleteMessageAllActionImpl;
+import org.apache.hupa.shared.data.DeleteMessageByUidActionImpl;
+>>>>>>> delete messages, make WestActivity Singleton
 import org.apache.hupa.shared.data.FetchMessagesActionImpl;
 import org.apache.hupa.shared.data.FetchMessagesResultImpl;
 import org.apache.hupa.shared.data.GenericResultImpl;
@@ -154,10 +162,15 @@ import org.apache.hupa.shared.data.UserImpl;
 import org.apache.hupa.shared.domain.CreateFolderAction;
 import org.apache.hupa.shared.domain.DeleteFolderAction;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.DeleteMessageAllAction;
 import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
 =======
 >>>>>>> delete and rename folder
+=======
+import org.apache.hupa.shared.domain.DeleteMessageAllAction;
+import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
+>>>>>>> delete messages, make WestActivity Singleton
 import org.apache.hupa.shared.domain.FetchMessagesAction;
 import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.GenericResult;
@@ -297,7 +310,12 @@ public class GuiceServerModule extends AbstractModule {
 =======
 		bind(DeleteFolderAction.class).to(DeleteFolderActionImpl.class);
 		bind(RenameFolderAction.class).to(RenameFolderActionImpl.class);
+<<<<<<< HEAD
 >>>>>>> delete and rename folder
+=======
+		bind(DeleteMessageAllAction.class).to(DeleteMessageAllActionImpl.class);
+		bind(DeleteMessageByUidAction.class).to(DeleteMessageByUidActionImpl.class);
+>>>>>>> delete messages, make WestActivity Singleton
 		
 		bind(CheckSessionService.class).to(CheckSessionServiceImpl.class);
 		bind(LoginUserService.class).to(LoginUserServiceImpl.class);
@@ -342,7 +360,12 @@ public class GuiceServerModule extends AbstractModule {
 =======
 		bind(DeleteFolderService.class).to(DeleteFolderServiceImpl.class);
 		bind(RenameFolderService.class).to(RenameFolderServiceImpl.class);
+<<<<<<< HEAD
 >>>>>>> delete and rename folder
+=======
+		bind(DeleteMessageAllService.class).to(DeleteMessageAllServiceImpl.class);
+		bind(DeleteMessageByUidService.class).to(DeleteMessageByUidServiceImpl.class);
+>>>>>>> delete messages, make WestActivity Singleton
 		
 		bind(IMAPStoreCache.class).to(getIMAPStoreCacheClass()).in(Singleton.class);
 

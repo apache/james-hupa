@@ -395,10 +395,16 @@ import org.apache.hupa.client.HandlerRegistrationAdapter;
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
+import org.apache.hupa.client.rf.DeleteMessageAllRequest;
+import org.apache.hupa.client.rf.DeleteMessageByUidRequest;
+import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.MessageImpl;
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+import org.apache.hupa.shared.domain.DeleteMessageAllAction;
+import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
+import org.apache.hupa.shared.domain.DeleteMessageResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
@@ -514,9 +520,12 @@ import com.google.gwt.user.client.ui.SourcesTableEvents;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.web.bindery.requestfactory.shared.Receiver;
+
 @SuppressWarnings("deprecation")
 public class IMAPMessageListActivity extends AbstractActivity {
 
+<<<<<<< HEAD
     private String searchValue;
     private User user;
 <<<<<<< HEAD
@@ -533,8 +542,20 @@ public class IMAPMessageListActivity extends AbstractActivity {
     private ImapFolder folder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
     private ShowMessageTableListener tableListener = new ShowMessageTableListener();
+=======
+	private String searchValue;
+	private User user;
+	private ImapFolder folder;
+	private ShowMessageTableListener tableListener = new ShowMessageTableListener();
+>>>>>>> delete messages, make WestActivity Singleton
 
+	@Inject private Displayable display;
+	@Inject private EventBus eventBus;
+	@Inject private PlaceController placeController;
+	@Inject private Provider<MessageSendPlace> messageSendPlaceProvider;
+	@Inject private HupaRequestFactory requestFactory;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	private final Displayable display;
 	private final EventBus eventBus;
@@ -550,12 +571,15 @@ public class IMAPMessageListActivity extends AbstractActivity {
     @Inject private Provider<MessageSendPlace> messageSendPlaceProvider;
 >>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
     
+=======
+>>>>>>> delete messages, make WestActivity Singleton
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		bind();
 		revealDisplay(user, folder, searchValue);
 		container.setWidget(display.asWidget());
 	}
+<<<<<<< HEAD
 	
 	private void bind(){
 =======
@@ -586,222 +610,258 @@ public class IMAPMessageListActivity extends AbstractActivity {
             
         });
 <<<<<<< HEAD
+=======
+
+	private void bind() {
+		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
+
+			public void onLogout(LogoutEvent logoutEvent) {
+				IMAPMessageListActivity.this.display.reset();
+				IMAPMessageListActivity.this.display.getSearchValue().setValue("");
+			}
+
+		});
+>>>>>>> delete messages, make WestActivity Singleton
 		eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
 
-            public void onMessagesReceived(MessagesReceivedEvent event) {
+			public void onMessagesReceived(MessagesReceivedEvent event) {
 
-                // fill the oracle
-                display.fillSearchOracle(event.getMessages());
-            }
+				// fill the oracle
+				display.fillSearchOracle(event.getMessages());
+			}
 
-        });
+		});
 		display.getSearchClick().addClickHandler(new ClickHandler() {
 
-            public void onClick(ClickEvent event) {
-                String searchValue = null;
-                if (display.getSearchValue().getValue().trim().length() > 0) {
-                    searchValue = display.getSearchValue().getValue().trim();
-                }
-                eventBus.fireEvent(new LoadMessagesEvent(user, folder, searchValue));
-            }
+			public void onClick(ClickEvent event) {
+				String searchValue = null;
+				if (display.getSearchValue().getValue().trim().length() > 0) {
+					searchValue = display.getSearchValue().getValue().trim();
+				}
+				eventBus.fireEvent(new LoadMessagesEvent(user, folder, searchValue));
+			}
 
-        });
+		});
 		eventBus.addHandler(MoveMessageEvent.TYPE, new MoveMessageEventHandler() {
 
-            public void onMoveMessageHandler(MoveMessageEvent event) {
-                final Message message = event.getMessage();
-//                dispatcher.execute(new MoveMessage(event.getOldFolder(), event.getNewFolder(), message.getUid()), new HupaEvoCallback<MoveMessageResult>(dispatcher, eventBus) {
-//                    public void callback(MoveMessageResult result) {
-//                        ArrayList<Message> messageArray = new ArrayList<Message>();
-//                        messageArray.add(message);
-//                        display.removeMessages(messageArray);
-//                    }
-//                }); 
-            }
-            
-        });
+			public void onMoveMessageHandler(MoveMessageEvent event) {
+				final Message message = event.getMessage();
+				// dispatcher.execute(new MoveMessage(event.getOldFolder(),
+				// event.getNewFolder(), message.getUid()), new
+				// HupaEvoCallback<MoveMessageResult>(dispatcher, eventBus) {
+				// public void callback(MoveMessageResult result) {
+				// ArrayList<Message> messageArray = new ArrayList<Message>();
+				// messageArray.add(message);
+				// display.removeMessages(messageArray);
+				// }
+				// });
+			}
+
+		});
 		display.getSelectAllClick().addClickHandler(new ClickHandler() {
 
-            public void onClick(ClickEvent event) {
-                display.deselectAllMessages();
-                display.selectAllMessages();
-            }
-            
-        });
+			public void onClick(ClickEvent event) {
+				display.deselectAllMessages();
+				display.selectAllMessages();
+			}
+
+		});
 		display.getSelectNoneClick().addClickHandler(new ClickHandler() {
 
-            public void onClick(ClickEvent event) {
-                display.deselectAllMessages();
-            }
-            
-        });
+			public void onClick(ClickEvent event) {
+				display.deselectAllMessages();
+			}
+
+		});
 		display.getDeleteClick().addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 
-            public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
-                if (folder.getFullName().equals(user.getSettings().getTrashFolderName())) {
-                    display.getConfirmDeleteDialog().show();
-                } else {
-                    deleteMessages();
-                }
-                
-            }
-            
-        });
+			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
+				if (folder.getFullName().equals(user.getSettings().getTrashFolderName())) {
+					display.getConfirmDeleteDialog().show();
+				} else {
+					deleteMessages();
+				}
+
+			}
+
+		});
 		display.getConfirmDeleteDialogClick().addClickHandler(new ClickHandler() {
 
-            public void onClick(ClickEvent event) {
-                deleteMessages();
-            }
-            
-        });
+			public void onClick(ClickEvent event) {
+				deleteMessages();
+			}
+
+		});
 		display.getNewClick().addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 
-            public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
-//                eventBus.fireEvent(new NewMessageEvent());
-            	placeController.goTo(messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
-            }
-            
-        });
+			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
+				// eventBus.fireEvent(new NewMessageEvent());
+				placeController.goTo(messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
+			}
+
+		});
 		display.getDeleteAllClick().addClickHandler(new ClickHandler() {
 
-            public void onClick(ClickEvent event) {
-                display.getConfirmDeleteAllDialog().center();
-            }
-            
-        });
+			public void onClick(ClickEvent event) {
+				display.getConfirmDeleteAllDialog().center();
+			}
+
+		});
 		display.getConfirmDeleteAllDialogClick().addClickHandler(new ClickHandler() {
 
-            public void onClick(ClickEvent event) {
-//                dispatcher.execute(new DeleteAllMessages(folder), new HupaEvoCallback<DeleteMessageResult>(dispatcher, eventBus) {
-//                    public void callback(DeleteMessageResult result) {
-//                        display.reset();
-//                        display.reloadData();
-////                        eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,result.getCount()));
-//                    }
-//                });
-            }
-            
-        });
-		display.getMarkSeenClick().addClickHandler( new ClickHandler() {
-            public void onClick(ClickEvent event) {
-                final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
-                ArrayList<Long> uids = new ArrayList<Long>();
-                for (Message m : selectedMessages) {
-                    if (m.getFlags().contains(IMAPFlag.SEEN) == false) {
-                        uids.add(m.getUid());
-                    } else {
-                        selectedMessages.remove(m);
-                    }
-                }
-//                dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, true, uids), new HupaEvoCallback<GenericResult>(dispatcher, eventBus) {
-//                    public void callback(GenericResult result) {
-//                        for (Message m : selectedMessages) {
-//                            if (m.getFlags().contains(IMAPFlag.SEEN) == false) {
-//                                m.getFlags().add(IMAPFlag.SEEN);
-//                            }
-//                        }
-//                        display.redraw();
-//                        eventBus.fireEvent(new DecreaseUnseenEvent(user, folder,selectedMessages.size()));
-//                    }
-//                });
-            }
+			public void onClick(ClickEvent event) {
+				DeleteMessageAllRequest req = requestFactory.deleteMessageAllRequest();
+				DeleteMessageAllAction action = req.create(DeleteMessageAllAction.class);
+				action.setFolder(folder);
+				req.delete(action).fire(new Receiver<DeleteMessageResult>() {
+					@Override
+					public void onSuccess(DeleteMessageResult response) {
+						display.reset();
+						display.reloadData();
+						eventBus.fireEvent(new DecreaseUnseenEvent(user, folder, response.getCount()));
+					}
+				});
+			}
 
-        });
+		});
+		display.getMarkSeenClick().addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
+				ArrayList<Long> uids = new ArrayList<Long>();
+				for (Message m : selectedMessages) {
+					if (m.getFlags().contains(IMAPFlag.SEEN) == false) {
+						uids.add(m.getUid());
+					} else {
+						selectedMessages.remove(m);
+					}
+				}
+				// dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, true,
+				// uids), new HupaEvoCallback<GenericResult>(dispatcher,
+				// eventBus) {
+				// public void callback(GenericResult result) {
+				// for (Message m : selectedMessages) {
+				// if (m.getFlags().contains(IMAPFlag.SEEN) == false) {
+				// m.getFlags().add(IMAPFlag.SEEN);
+				// }
+				// }
+				// display.redraw();
+				// eventBus.fireEvent(new DecreaseUnseenEvent(user,
+				// folder,selectedMessages.size()));
+				// }
+				// });
+			}
+
+		});
 		display.getMarkUnseenClick().addClickHandler(new ClickHandler() {
 
-            public void onClick(ClickEvent event) {
-                final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
-                ArrayList<Long> uids = new ArrayList<Long>();
-                for (Message m : selectedMessages) {
-                    if (m.getFlags().contains(IMAPFlag.SEEN)) {
-                        uids.add(m.getUid());
-                    } else {
-                        selectedMessages.remove(m);
-                    }
-                }
-                
-//                dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, false, uids), new HupaEvoCallback<GenericResult>(dispatcher, eventBus) {
-//                    public void callback(GenericResult result) {
-//                        for (Message m : selectedMessages) {
-//                            if (m.getFlags().contains(IMAPFlag.SEEN)) {
-//                                m.getFlags().remove(IMAPFlag.SEEN);
-//                            }
-//                        }
-//                        display.redraw();
-//                        eventBus.fireEvent(new IncreaseUnseenEvent(user, folder,selectedMessages.size()));
-//                    }
-//                });
-            }
-            
-            
-        });
-		eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {//TODO
+			public void onClick(ClickEvent event) {
+				final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
+				ArrayList<Long> uids = new ArrayList<Long>();
+				for (Message m : selectedMessages) {
+					if (m.getFlags().contains(IMAPFlag.SEEN)) {
+						uids.add(m.getUid());
+					} else {
+						selectedMessages.remove(m);
+					}
+				}
 
-            public void onFolderSelectionEvent(FolderSelectionEvent event) {
-                folder = event.getFolder();
-                user = event.getUser();
-            }
-            
-        });
-		new HandlerRegistrationAdapter(display.getDataTableSelection().addRowSelectionHandler(new RowSelectionHandler() {
-            public void onRowSelection(RowSelectionEvent event) {
-                if (event.getSelectedRows().size() == 0) {
-                    display.getDeleteEnable().setEnabled(false);
-                    display.getMarkSeenEnable().setEnabled(false);
-                    display.getMarkUnseenEnable().setEnabled(false);
-                } else {
-                    display.getDeleteEnable().setEnabled(true);
-                    display.getMarkSeenEnable().setEnabled(true);
-                    display.getMarkUnseenEnable().setEnabled(true);
-                }
-            }
-            
-        
-        
-		}));
+				// dispatcher.execute(new SetFlag(folder, IMAPFlag.SEEN, false,
+				// uids), new HupaEvoCallback<GenericResult>(dispatcher,
+				// eventBus) {
+				// public void callback(GenericResult result) {
+				// for (Message m : selectedMessages) {
+				// if (m.getFlags().contains(IMAPFlag.SEEN)) {
+				// m.getFlags().remove(IMAPFlag.SEEN);
+				// }
+				// }
+				// display.redraw();
+				// eventBus.fireEvent(new IncreaseUnseenEvent(user,
+				// folder,selectedMessages.size()));
+				// }
+				// });
+			}
+
+		});
+		eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {// TODO
+
+			        public void onFolderSelectionEvent(FolderSelectionEvent event) {
+				        folder = event.getFolder();
+				        user = event.getUser();
+			        }
+
+		        });
+		new HandlerRegistrationAdapter(display.getDataTableSelection().addRowSelectionHandler(
+		        new RowSelectionHandler() {
+			        public void onRowSelection(RowSelectionEvent event) {
+				        if (event.getSelectedRows().size() == 0) {
+					        display.getDeleteEnable().setEnabled(false);
+					        display.getMarkSeenEnable().setEnabled(false);
+					        display.getMarkUnseenEnable().setEnabled(false);
+				        } else {
+					        display.getDeleteEnable().setEnabled(true);
+					        display.getMarkSeenEnable().setEnabled(true);
+					        display.getMarkUnseenEnable().setEnabled(true);
+				        }
+			        }
+
+		        }));
 		display.getRefreshClick().addClickHandler(new ClickHandler() {
 
-            public void onClick(ClickEvent event) {
-                display.reset();
-                display.reloadData();
-            }
-            
-        });
-		new HandlerRegistrationAdapter(display.getDataTablePageChange().addPageChangeHandler(new PageChangeHandler() {//TODO
+			public void onClick(ClickEvent event) {
+				display.reset();
+				display.reloadData();
+			}
 
-            public void onPageChange(PageChangeEvent event) {
-                //firePresenterRevealedEvent(true);
-//                firePresenterChangedEvent();
-            }
-            
-        }));
+		});
+		new HandlerRegistrationAdapter(display.getDataTablePageChange().addPageChangeHandler(new PageChangeHandler() {// TODO
+
+			        public void onPageChange(PageChangeEvent event) {
+				        // firePresenterRevealedEvent(true);
+				        // firePresenterChangedEvent();
+			        }
+
+		        }));
 		display.getRowsPerPageChange().addChangeHandler(new ChangeHandler() {
 
-            public void onChange(ChangeEvent event) {
-                //firePresenterRevealedEvent(true);
-//                firePresenterChangedEvent();
-            }
-            
-        });
+			public void onChange(ChangeEvent event) {
+				// firePresenterRevealedEvent(true);
+				// firePresenterChangedEvent();
+			}
+
+		});
 		display.addTableListener(tableListener);
 	}
 
-    private void deleteMessages() {
-        final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
-        ArrayList<Long> uids = new ArrayList<Long>();
-        for (Message m : selectedMessages) {
-            uids.add(m.getUid());
-        }
-        // maybe its better to just remove the messages from the table and expect the removal will work
-        display.removeMessages(selectedMessages);
+	private void deleteMessages() {
+		List<Message> ml = display.getSelectedMessages();
+		final List<Message> selectedMessages = new ArrayList<Message>(ml);
+		List<Long> uids = new ArrayList<Long>();
+		for (Message m : selectedMessages) {
+			uids.add(m.getUid());
+		}
+		// maybe its better to just remove the messages from the table and
+		// expect the removal will work
+		display.removeMessages(selectedMessages);
+		DeleteMessageByUidRequest req = requestFactory.deleteMessageByUidRequest();
+		DeleteMessageByUidAction action = req.create(DeleteMessageByUidAction.class);
+		action.setMessageUids(uids);
+		action.setFolder(folder);
+		req.delete(action).fire(new Receiver<DeleteMessageResult>() {
+			@Override
+			public void onSuccess(DeleteMessageResult response) {
+				eventBus.fireEvent(new DecreaseUnseenEvent(user, folder, response.getCount()));
+			}
+		});
 
-//        dispatcher.execute(new DeleteMessageByUid(folder,uids), new HupaEvoCallback<DeleteMessageResult>(dispatcher, eventBus) {
-//            public void callback(DeleteMessageResult result) {
-//                eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,result.getCount()));
-//            }
-//        }); 
-    }
-	public IMAPMessageListActivity with(MailFolderPlace place){
+		// dispatcher.execute(new DeleteMessageByUid(folder,uids), new
+		// HupaEvoCallback<DeleteMessageResult>(dispatcher, eventBus) {
+		// public void callback(DeleteMessageResult result) {
+		// eventBus.fireEvent(new
+		// DecreaseUnseenEvent(user,folder,result.getCount()));
+		// }
+		// });
+	}
+	public IMAPMessageListActivity with(MailFolderPlace place) {
 		this.user = place.getUser();
 		this.folder = place.getFolder();
 		this.searchValue = place.getSearchValue();
@@ -1049,6 +1109,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		return this;
 	}
 
+<<<<<<< HEAD
     protected void onRevealDisplay() {
         if (user != null && folder != null) {
             display.reloadData();  
@@ -1158,4 +1219,89 @@ public class IMAPMessageListActivity extends AbstractActivity {
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+	protected void onRevealDisplay() {
+		if (user != null && folder != null) {
+			display.reloadData();
+		}
+	}
+	public void revealDisplay(User user, ImapFolder folder, String searchValue) {
+		this.user = user;
+
+		if (this.user == null || !this.user.getName().equals(user.getName()) || this.folder == null
+		        || !this.folder.getFullName().equals(folder.getFullName())
+		        || (searchValue == null && this.searchValue != null)
+		        || (searchValue != null && searchValue.equals(this.searchValue) == false)) {
+			display.reset();
+			display.deselectAllMessages();
+		}
+		display.setExpandLoading(false);
+		this.searchValue = searchValue;
+		this.folder = folder;
+
+		onRevealDisplay();
+	}
+
+	public interface Displayable extends WidgetDisplayable {
+		public HasRowSelectionHandlers getDataTableSelection();
+		public HasPageLoadHandlers getDataTableLoad();
+		public void addTableListener(TableListener listener);
+		public void removeTableListener(TableListener listener);
+		public void setPostFetchMessageCount(int count);
+		public HasClickHandlers getNewClick();
+		public Message getData(int rowIndex);
+		public HasClickHandlers getDeleteClick();
+		public HasClickHandlers getDeleteAllClick();
+		public HasEnable getDeleteEnable();
+		public void reloadData();
+		public void removeMessages(List<Message> messages);
+		public List<Message> getSelectedMessages();
+		public void reset();
+		public HasDialog getConfirmDeleteDialog();
+		public HasDialog getConfirmDeleteAllDialog();
+		public HasClickHandlers getConfirmDeleteDialogClick();
+		public HasClickHandlers getConfirmDeleteAllDialogClick();
+		public void selectAllMessages();
+		public void deselectAllMessages();
+		public HasClickHandlers getSelectAllClick();
+		public HasClickHandlers getSelectNoneClick();
+		public HasClickHandlers getMarkSeenClick();
+		public HasClickHandlers getMarkUnseenClick();
+		public HasEnable getMarkSeenEnable();
+		public HasEnable getMarkUnseenEnable();
+		public HasClickHandlers getRefreshClick();
+		public void redraw();
+		public HasPageChangeHandlers getDataTablePageChange();
+		public void goToPage(int page);
+		public int getCurrentPage();
+		public int getRowsPerPageIndex();
+		public HasChangeHandlers getRowsPerPageChange();
+		public HasClickHandlers getSearchClick();
+		public HasValue<String> getSearchValue();
+		public void fillSearchOracle(List<Message> messages);
+		public void setExpandLoading(boolean expanding);
+
+	}
+
+	private final class ShowMessageTableListener implements TableListener {
+
+		public void onCellClicked(SourcesTableEvents sender, int row, int cell) {
+
+			display.setExpandLoading(true);
+			Message message = display.getData(row);
+
+			// mark the message as seen and redraw the table to reflect this
+			if (message.getFlags().contains(MessageImpl.IMAPFlag.SEEN) == false) {
+				// add flag, fire event and redraw
+				message.getFlags().add(MessageImpl.IMAPFlag.SEEN);
+				eventBus.fireEvent(new DecreaseUnseenEvent(user, folder, 1));
+
+				display.redraw();
+
+			}
+			eventBus.fireEvent(new ExpandMessageEvent(user, folder, message));
+		}
+
+	}
+>>>>>>> delete messages, make WestActivity Singleton
 }

@@ -149,9 +149,12 @@ import org.apache.hupa.client.mvp.WestActivityMapper;
 import org.apache.hupa.client.evo.AppController;
 import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
 import org.apache.hupa.client.mapper.CachingTopActivityMapper;
-import org.apache.hupa.client.mapper.CachingWestActivityMapper;
 import org.apache.hupa.client.mapper.MainContentActivityMapper;
+<<<<<<< HEAD
 >>>>>>> Make the evo more clear.
+=======
+import org.apache.hupa.client.mapper.WestActivityMapper;
+>>>>>>> delete messages, make WestActivity Singleton
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.AppLayout;
@@ -404,6 +407,8 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
 
+		bind(WestActivity.class).in(Singleton.class);
+		
 		// Places
 		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
 
@@ -469,6 +474,7 @@ public class AppGinModule extends AbstractGinModule {
 	@Singleton
 	@Named("WestRegion")
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public ActivityManager getVerticalMasterRegionActivityMapper(WestActivityMapper activityMapper,
 >>>>>>> Change to new mvp framework - first step
 =======
@@ -481,6 +487,9 @@ public class AppGinModule extends AbstractGinModule {
 =======
 	public ActivityManager getWestRegionActivityMapper(CachingWestActivityMapper activityMapper, EventBus eventBus) {
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+	public ActivityManager getWestRegionActivityMapper(WestActivityMapper activityMapper, EventBus eventBus) {
+>>>>>>> delete messages, make WestActivity Singleton
 		return new ActivityManager(activityMapper, eventBus);
 	}
 

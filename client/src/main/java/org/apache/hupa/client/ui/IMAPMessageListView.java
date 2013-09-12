@@ -1350,7 +1350,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
      * (non-Javadoc)
      * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#removeMessages(java.util.ArrayList)
      */
-    public void removeMessages(ArrayList<Message> messages) {
+    public void removeMessages(List<Message> messages) {
         mailTable.removeRows(messages);
     }
 

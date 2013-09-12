@@ -99,5 +99,10 @@ public interface HupaRequestFactory extends RequestFactory {
 =======
 	DeleteFolderRequest deleteFolderRequest();
 	RenameFolderRequest renameFolderRequest();
+<<<<<<< HEAD
 >>>>>>> delete and rename folder
+=======
+	DeleteMessageByUidRequest deleteMessageByUidRequest();
+	DeleteMessageAllRequest deleteMessageAllRequest();
+>>>>>>> delete messages, make WestActivity Singleton
 }

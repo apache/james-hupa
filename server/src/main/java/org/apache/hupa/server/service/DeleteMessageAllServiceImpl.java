@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,6 +18,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> delete messages, make WestActivity Singleton
 package org.apache.hupa.server.service;
 
 import javax.mail.Folder;
@@ -26,7 +29,10 @@ import javax.mail.MessagingException;
 import org.apache.hupa.shared.domain.DeleteMessageAction;
 import org.apache.hupa.shared.domain.DeleteMessageAllAction;
 import org.apache.hupa.shared.domain.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
+=======
+>>>>>>> delete messages, make WestActivity Singleton
 
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
@@ -34,7 +40,11 @@ import com.sun.mail.imap.IMAPStore;
 public class DeleteMessageAllServiceImpl extends DeleteMessageBaseServiceImpl implements DeleteMessageAllService {
 
 	@Override
+<<<<<<< HEAD
 	protected Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws HupaException {
+=======
+	protected Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws Exception {
+>>>>>>> delete messages, make WestActivity Singleton
 		DeleteMessageAllAction action = (DeleteMessageAllAction) actionBase;
 		User user = getUser();
 		try {
@@ -48,7 +58,11 @@ public class DeleteMessageAllServiceImpl extends DeleteMessageBaseServiceImpl im
 		} catch (MessagingException e) {
 			String errorMsg = "Error while deleting all messages in folder " + action.getFolder() + " for user " + user;
 			logger.error(errorMsg, e);
+<<<<<<< HEAD
 			throw new HupaException(errorMsg);
+=======
+			throw new Exception(errorMsg);
+>>>>>>> delete messages, make WestActivity Singleton
 
 		}
 
