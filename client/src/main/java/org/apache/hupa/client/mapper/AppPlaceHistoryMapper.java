@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.mapper;
 
+import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.place.MailFolderPlace;
@@ -31,7 +32,8 @@ import com.google.gwt.place.shared.WithTokenizers;
     DefaultPlace.Tokenizer.class,
     MailFolderPlace.Tokenizer.class,
     MessageSendPlace.Tokenizer.class,
-    IMAPMessagePlace.Tokenizer.class
+    IMAPMessagePlace.Tokenizer.class,
+    ComposePlace.Tokenizer.class
 })
 public interface AppPlaceHistoryMapper extends PlaceHistoryMapper {
 }

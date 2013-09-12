@@ -210,7 +210,7 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 =======
 =======
 import org.apache.hupa.client.activity.FolderListActivity;
-import org.apache.hupa.client.place.MailFolderPlace;
+import org.apache.hupa.client.place.ComposePlace;
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
@@ -233,10 +233,11 @@ public class FolderListView extends Composite implements
 	@AssistedInject
 	public FolderListView(final FoldersTreeViewModel viewModel,
 			final EventBus eventBus, @Assisted Place place) {
-		if (place instanceof MailFolderPlace) {
-			cellTree = new CellTree(viewModel, null, Resources.INSTANCE);
-		} else {// TODO this viewModel should be contacts
+		if (place instanceof ComposePlace) {
+			// TODO this viewModel should be contacts
 			cellTree = new CellTree(viewModel, null);
+		} else {
+			cellTree = new CellTree(viewModel, null, Resources.INSTANCE);
 		}
 		cellTree.setAnimationEnabled(true);
 		initWidget(binder.createAndBindUi(this));

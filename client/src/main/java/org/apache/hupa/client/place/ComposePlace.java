@@ -31,8 +31,12 @@ import com.google.gwt.place.shared.Prefix;
 public class ComposePlace extends AbstractPlace {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private String token;
 	private Parameters parameters;
+=======
+	private String token;
+>>>>>>> beautify composing panel
 
 	public ComposePlace(String token) {
 		this.token = token;
@@ -55,6 +59,7 @@ public class ComposePlace extends AbstractPlace {
 			return place.getToken();
 		}
 	}
+<<<<<<< HEAD
 
 	public Place with(Parameters parameters) {
 		this.parameters = parameters;
@@ -79,5 +84,7 @@ public class ComposePlace extends AbstractPlace {
     }
   }
 >>>>>>> composing composing panel
+=======
+>>>>>>> beautify composing panel
 
 }
