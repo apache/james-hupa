@@ -530,18 +530,14 @@ public class MessagesCellTable extends CellTable<Message> {
 	@Inject
 	public MessagesCellTable(
 	        final HupaImageBundle imageBundle) {
-
 		super(PAGE_SIZE);
-
+		this.imageBundle = imageBundle;
 		addColumn(new CheckboxColumn());
 		addColumn(new FromColumn());
 		addColumn(new SubjectColumn());
 		addColumn(new AttachmentColumn());
 		addColumn(new DateColumn());
-
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
-		
-
 	}
 	private class CheckboxColumn extends Column<Message, Boolean> {
 		public CheckboxColumn() {
