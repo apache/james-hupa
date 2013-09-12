@@ -156,7 +156,7 @@
 			<g:DockLayoutPanel unit="PX" ui:field="thisPanel">
 				<g:north size="30">
 					<g:FlowPanel addStyleNames="{style.previewheader} {style.messageheader}">
-						<g:SimplePanel addStyleNames="{style.moreHeaders}">
+						<g:SimplePanel ui:field="rawPanel" addStyleNames="{style.moreHeaders}">
 
 							<g:Anchor ui:field="rawButton" addStyleNames="{style.inner}">Raw
 							</g:Anchor>

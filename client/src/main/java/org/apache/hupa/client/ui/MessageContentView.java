@@ -51,9 +51,13 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.SimplePanel;
 =======
 >>>>>>> change the message content view with scrollbar
+=======
+import com.google.gwt.user.client.ui.SimplePanel;
+>>>>>>> hide the show raw message button when not displaying a message and remove deprecated code
 import com.google.inject.Inject;
 
 public class MessageContentView extends Composite implements MessageContentActivity.Displayable {
@@ -68,6 +72,7 @@ public class MessageContentView extends Composite implements MessageContentActiv
 <<<<<<< HEAD
 	@UiField Anchor rawButton;
 	@UiField SimplePanel rawPanel;
+<<<<<<< HEAD
 =======
 >>>>>>> show/hide attachment's panel according to the attachments size
 =======
@@ -257,6 +262,8 @@ public class MessageContentView extends Composite implements
     public HasClickHandlers getBackButtonClick() {
         return backButton;
     }
+=======
+>>>>>>> hide the show raw message button when not displaying a message and remove deprecated code
 
     public HasClickHandlers getShowRawMessageClick() {
         return showRawButton;
@@ -474,5 +481,13 @@ public class MessageContentView extends Composite implements MessageContentActiv
 	public HasClickHandlers getRaw() {
 		return rawButton;
 	}
+<<<<<<< HEAD
 >>>>>>> fixed issue#86, use opening a new window button to show the raw message in a new window
+=======
+
+	@Override
+	public HasVisibility getRawPanel() {
+		return rawPanel;
+	}
+>>>>>>> hide the show raw message button when not displaying a message and remove deprecated code
 }
