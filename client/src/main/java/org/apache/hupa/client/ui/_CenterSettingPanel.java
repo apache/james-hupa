@@ -21,6 +21,7 @@ package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.core.client.GWT;
@@ -104,13 +105,13 @@ import org.apache.hupa.client.ui.FolderListView.Resources;
 >>>>>>> fixed issue#66 and remove one useless class, make MessageListFooterActivityMapper do not map anything when it comes to setting place
 import com.google.gwt.cell.client.AbstractCell;
 >>>>>>> try to rearrange the places and history managment.
+=======
+>>>>>>> make a skeleton in the setting place, for more setting items
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle.Source;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
-import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -118,25 +119,27 @@ import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.gwt.view.client.SingleSelectionModel;
 
 public class _CenterSettingPanel extends Composite {
+	
 
 	@UiField SplitLayoutPanel thisPanel;
 
-	@UiField SimpleLayoutPanel settingsTab;
+	@UiField SimpleLayoutPanel settingNavContainer;
 
 	@UiField SimpleLayoutPanel labelListContainer;
 	@UiField SimplePanel labelPropertiesContainer;
+	
+	@UiField protected Style style;
 
+	interface Style extends CssResource {
+		
+	}
+	
 	public _CenterSettingPanel() {
 
 		initWidget(binder.createAndBindUi(this));
-		settingsTab.setWidget(createTabList());
 	}
-
-	private static final List<String> TABS = Arrays.asList("Folders");
 
 	public interface Resources extends CellList.Resources {
 
@@ -145,6 +148,7 @@ public class _CenterSettingPanel extends Composite {
 		@Source("res/CssLabelListView.css")
 		public CellList.Style cellListStyle();
 	}
+<<<<<<< HEAD
 	private CellList<String> createTabList() {
 		CellList<String> cellList = new CellList<String>(new SpanCell(), Resources.INSTANCE);
 		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
@@ -186,6 +190,8 @@ public class _CenterSettingPanel extends Composite {
 			sb.appendHtmlConstant("</span>");
 		}
 	}
+=======
+>>>>>>> make a skeleton in the setting place, for more setting items
 
 >>>>>>> try to rearrange the places and history managment.
 	interface _CeterSettingPanelUiBinder extends UiBinder<SplitLayoutPanel, _CenterSettingPanel> {
@@ -246,5 +252,17 @@ public class _CenterSettingPanel extends Composite {
 			}
 		};
 	}
+<<<<<<< HEAD
 >>>>>>> add rename RF to label setting feature
+=======
+
+	public AcceptsOneWidget getSettingNavView() {
+		return new AcceptsOneWidget() {
+			@Override
+			public void setWidget(IsWidget w) {
+				settingNavContainer.setWidget(Widget.asWidgetOrNull(w));
+			}
+		};
+	}
+>>>>>>> make a skeleton in the setting place, for more setting items
 }

@@ -135,7 +135,7 @@ public class HupaLayout implements HupaLayoutable {
 	public AcceptsOneWidget getComposeToolBarView() {
 		return toolPanel.getComposeToolBarView();
 	}
-	
+
 	@Override
 	public AcceptsOneWidget getSearchBoxView() {
 		return toolPanel.getSearchBoxView();
@@ -385,6 +385,11 @@ public class HupaLayout implements HupaLayoutable {
 		return settingPanel.getLabelListView();
 	}
 
+	@Override
+	public AcceptsOneWidget getSettingNavView() {
+		return settingPanel.getSettingNavView();
+	}
+	
 	@Override
 	public AcceptsOneWidget getLabelPropertiesView() {
 		return settingPanel.getLabelPropertiesView();

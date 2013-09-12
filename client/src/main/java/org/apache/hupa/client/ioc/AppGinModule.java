@@ -765,7 +765,14 @@ public class AppGinModule extends AbstractGinModule {
 	public ActivityManager getLabelPropertiesActivityMapper(LabelPropertiesActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
+
 	
+	@Provides
+	@Singleton
+	@Named("SettingNavRegion")
+	public ActivityManager getSettingNavActivityMapper(SettingNavActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
 	
 	@Provides
 	@Singleton

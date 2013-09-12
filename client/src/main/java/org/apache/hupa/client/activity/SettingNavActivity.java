@@ -45,6 +45,7 @@ public class SettingNavActivity extends AppBaseActivity {
 				pc.goTo(new SettingPlace("labels"));
 			}
 		}));
+<<<<<<< HEAD
 		registerHandler(display.getEcsAchor().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -53,13 +54,18 @@ public class SettingNavActivity extends AppBaseActivity {
 			}
 		}));
 		
+=======
+>>>>>>> make a skeleton in the setting place, for more setting items
 	}
 
 	@Inject private Displayable display;
 
 	public interface Displayable extends IsWidget {
+<<<<<<< HEAD
 		HasClickHandlers getEcsAchor();
 
+=======
+>>>>>>> make a skeleton in the setting place, for more setting items
 		HasClickHandlers getLabelsAchor();
 
 		void singleSelect(int i);

@@ -65,6 +65,7 @@ public interface HupaLayoutable extends Layoutable {
 	AcceptsOneWidget getSearchBoxView();
 
 	AcceptsOneWidget getSettingNavView();
+<<<<<<< HEAD
 
 	void arrangeSettingLayout(SettingPlace sp);
 =======
@@ -176,4 +177,6 @@ public interface HupaLayoutable extends Layoutable {
 
 	AcceptsOneWidget getSearchBoxView();
 >>>>>>> prepare to add search feature
+=======
+>>>>>>> make a skeleton in the setting place, for more setting items
 }

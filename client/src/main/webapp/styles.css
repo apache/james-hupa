@@ -2274,6 +2274,9 @@ fieldset.tab {
   height: 0px;
   overflow: hidden;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> make a skeleton in the setting place, for more setting items
 }
 
 
@@ -2500,6 +2503,7 @@ fieldset.tab {
 .webkit #pluginlist td.license,
 .webkit #pluginlist td.source {
     width: 9em;
+<<<<<<< HEAD
 =======
 
 =======
@@ -4670,3 +4674,6 @@ fieldset.tab {
 =======
 }
 >>>>>>> fixed issue#73, using LinkedHashSet in memory to store the contacts list like 'Echo Wang <echowdx@gmail.com>'
+=======
+}
+>>>>>>> make a skeleton in the setting place, for more setting items

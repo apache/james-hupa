@@ -207,7 +207,7 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 		
 		settingOuter.addStyleName(style.selected());
 		setting.addStyleName(style.settingsInnerSelected());
-		placeController.goTo(new SettingPlace("folders"));
+		placeController.goTo(new SettingPlace("labels"));
 	}
 <<<<<<< HEAD
 >>>>>>> try to make switch to setting work

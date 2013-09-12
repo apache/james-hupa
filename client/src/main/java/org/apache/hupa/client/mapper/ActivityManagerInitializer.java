@@ -38,6 +38,7 @@ public class ActivityManagerInitializer {
 	@Named("ContactsListRegion") ActivityManager contactsListActivityManager,
 			@Named("ContactPropertiesRegion") ActivityManager contactPropertiesActivityManager,
 			@Named("LabelListRegion") ActivityManager labelListActivityManager,
+			@Named("SettingNavRegion") ActivityManager settingNavActivityManager,
 			@Named("LabelPropertiesRegion") ActivityManager labelPropertiesActivityManager,
 			@Named("LoginPage") ActivityManager loginActivityManager,
 			@Named("TopBarRegion") ActivityManager topBarActivityManager,
@@ -57,6 +58,7 @@ public class ActivityManagerInitializer {
 		contactPropertiesActivityManager.setDisplay(hupaLayout.getContactPropertiesView());
 		labelPropertiesActivityManager.setDisplay(hupaLayout.getLabelPropertiesView());
 		labelListActivityManager.setDisplay(hupaLayout.getLabelListView());
+		settingNavActivityManager.setDisplay(hupaLayout.getSettingNavView());
 		loginActivityManager.setDisplay(loginLayout.getLoginView());
 		topBarActivityManager.setDisplay(hupaLayout.getTopBarView());
 		logoActivityManager.setDisplay(hupaLayout.getLogoView());
