@@ -90,7 +90,7 @@
 					<g:SimpleLayoutPanel ui:field="messageContentContainer"
 						addStyleNames="{style.messageContentWorkAround}" />
 				</g:center>
-				<g:south size="25">
+				<g:south size="0">
 					<g:SimplePanel ui:field="statusContainer" />
 				</g:south>
 			</g:DockLayoutPanel>
