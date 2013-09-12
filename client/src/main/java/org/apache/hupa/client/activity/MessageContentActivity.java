@@ -219,7 +219,7 @@ public class MessageContentActivity extends AppBaseActivity {
 					if (error.isFatal()) {
 						log.log(Level.SEVERE, error.getMessage());
 						// TODO write the error message to status bar.
-						// throw new RuntimeException(error.getMessage());
+						 throw new RuntimeException(error.getMessage());
 					}
 				}
 			});

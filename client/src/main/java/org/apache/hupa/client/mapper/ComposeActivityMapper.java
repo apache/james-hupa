@@ -20,6 +20,7 @@
 package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.ComposeActivity;
+import org.apache.hupa.client.place.ComposePlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -37,7 +38,7 @@ public class ComposeActivityMapper implements ActivityMapper {
 		this.composeActivityProvider = composeActivityProvider;
 	}
 
-	public Activity getActivity(Place place) {
+	public Activity getActivity(final Place place) {
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
@@ -46,6 +47,8 @@ public class ComposeActivityMapper implements ActivityMapper {
 
 			@Override
 			protected Activity createInstance() {
+				if (place instanceof ComposePlace)
+					return composeActivityProvider.get().with((ComposePlace) place);
 				return composeActivityProvider.get();
 			}
 		};

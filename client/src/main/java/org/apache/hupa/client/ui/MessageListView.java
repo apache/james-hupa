@@ -79,6 +79,7 @@ import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;
@@ -101,12 +102,10 @@ import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
-public class MessageListView extends Composite implements
-		MessageListActivity.Displayable {
+public class MessageListView extends Composite implements MessageListActivity.Displayable {
 
-	private static final Logger log = Logger.getLogger(MessageListView.class
-			.getName());
-	
+	private static final Logger log = Logger.getLogger(MessageListView.class.getName());
+
 	@UiField(provided = true) DataGrid<Message> grid;
 	private HupaRequestFactory requestFactory;
 	private ImapFolder folder;
@@ -115,8 +114,7 @@ public class MessageListView extends Composite implements
 	private boolean pending;
 
 	@Inject
-	public MessageListView(final EventBus eventBus,
-			final HupaRequestFactory requestFactory,
+	public MessageListView(final EventBus eventBus, final HupaRequestFactory requestFactory,
 			final PlaceController placeController, final MessagesCellTable table) {
 		this.requestFactory = requestFactory;
 		grid = table;
@@ -129,47 +127,35 @@ public class MessageListView extends Composite implements
 					for (Message msg : displayedItems) {
 						table.getSelectionModel().setSelected(msg, false);
 					}
-					table.getSelectionModel().setSelected(event.getValue(),
-							true);
-					GetMessageDetailsRequest req = requestFactory
-							.messageDetailsRequest();
-					GetMessageDetailsAction action = req
-							.create(GetMessageDetailsAction.class);
+					table.getSelectionModel().setSelected(event.getValue(), true);
+					GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
+					GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
 					final ImapFolder f = req.create(ImapFolder.class);
 					f.setFullName(folder.getFullName());
 					action.setFolder(f);
 					action.setUid(event.getValue().getUid());
-					req.get(action).fire(
-							new Receiver<GetMessageDetailsResult>() {
-								@Override
-								public void onSuccess(
-										GetMessageDetailsResult response) {
-									placeController.goTo(new MailFolderPlace(f
-											.getFullName()
-											+ "/"
-											+ event.getValue().getUid()));
+					req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
+						@Override
+						public void onSuccess(GetMessageDetailsResult response) {
+							eventBus.fireEvent(new ExpandMessageEvent(user, folder, event.getValue()));
+							placeController.goTo(new MailFolderPlace(f.getFullName() + "/" + event.getValue().getUid()));
+						}
 
-								}
-
-								@Override
-								public void onFailure(ServerFailure error) {
-									if (error.isFatal()) {
-										log.log(Level.SEVERE,
-												error.getMessage());
-										// TODO write the error message to
-										// status bar.
-										throw new RuntimeException(error
-												.getMessage());
-									}
-								}
-							});
+						@Override
+						public void onFailure(ServerFailure error) {
+							if (error.isFatal()) {
+								log.log(Level.SEVERE, error.getMessage());
+								// TODO write the error message to
+								// status bar.
+								throw new RuntimeException(error.getMessage());
+							}
+						}
+					});
 				}
 			}
 
-			private boolean hasClickedButFirstCol(
-					CellPreviewEvent<Message> event) {
-				return "click".equals(event.getNativeEvent().getType())
-						&& 0 != event.getColumn();
+			private boolean hasClickedButFirstCol(CellPreviewEvent<Message> event) {
+				return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
 			}
 
 		});
@@ -179,22 +165,19 @@ public class MessageListView extends Composite implements
 				fetch(event.getNewRange().getStart());
 			}
 		});
-		eventBus.addHandler(LoadMessagesEvent.TYPE,
-				new LoadMessagesEventHandler() {
-					public void onLoadMessagesEvent(
-							LoadMessagesEvent loadMessagesEvent) {
-						user = loadMessagesEvent.getUser();
-						folder = loadMessagesEvent.getFolder();
-						searchValue = loadMessagesEvent.getSearchValue();
-						fetch(0);
+		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
+			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
+				user = loadMessagesEvent.getUser();
+				folder = loadMessagesEvent.getFolder();
+				searchValue = loadMessagesEvent.getSearchValue();
+				fetch(0);
 
-					}
-				});
+			}
+		});
 		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 			public void onLogin(LoginEvent event) {
 				user = event.getUser();
-				folder = new ImapFolderImpl(user.getSettings()
-						.getInboxFolderName());
+				folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
 				searchValue = null;
 				if (!pending) {
 					pending = true;
@@ -212,8 +195,7 @@ public class MessageListView extends Composite implements
 
 	public void fetch(final int start) {
 		FetchMessagesRequest messagesRequest = requestFactory.messagesRequest();
-		FetchMessagesAction action = messagesRequest
-				.create(FetchMessagesAction.class);
+		FetchMessagesAction action = messagesRequest.create(FetchMessagesAction.class);
 		final ImapFolder f = messagesRequest.create(ImapFolder.class);
 		f.setFullName(folder.getFullName());
 		action.setFolder(f);
@@ -232,13 +214,15 @@ public class MessageListView extends Composite implements
 			@Override
 			public void onFailure(ServerFailure error) {
 				if (error.isFatal()) {
-					//FIXME should goto login page regarding the long time session expired.
+					// FIXME should goto login page regarding the long time
+					// session expired.
 					throw new RuntimeException(error.getMessage());
 				}
 			}
 		});
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -262,10 +246,12 @@ public class MessageListView extends Composite implements
 	interface MessageListUiBinder extends
 			UiBinder<DataGrid<Message>, MessageListView> {
 >>>>>>> prepare for place management and history controller
+=======
+	interface MessageListUiBinder extends UiBinder<DataGrid<Message>, MessageListView> {
+>>>>>>> coping with reply and forward sending message
 	}
 
-	private static MessageListUiBinder binder = GWT
-			.create(MessageListUiBinder.class);
+	private static MessageListUiBinder binder = GWT.create(MessageListUiBinder.class);
 
 <<<<<<< HEAD
 <<<<<<< HEAD

@@ -20,11 +20,17 @@
 package org.apache.hupa.client.place;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.ui.ToolBarView.Parameters;
 
 import com.google.gwt.place.shared.Place;
 =======
 >>>>>>> composing composing panel
+=======
+import org.apache.hupa.client.ui.ToolBarView.Parameters;
+
+import com.google.gwt.place.shared.Place;
+>>>>>>> coping with reply and forward sending message
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
@@ -36,7 +42,11 @@ public class ComposePlace extends AbstractPlace {
 	private Parameters parameters;
 =======
 	private String token;
+<<<<<<< HEAD
 >>>>>>> beautify composing panel
+=======
+	private Parameters parameters;
+>>>>>>> coping with reply and forward sending message
 
 	public ComposePlace(String token) {
 		this.token = token;
@@ -86,5 +96,14 @@ public class ComposePlace extends AbstractPlace {
 >>>>>>> composing composing panel
 =======
 >>>>>>> beautify composing panel
+
+	public Place with(Parameters parameters) {
+		this.parameters = parameters;
+		return this;
+	}
+
+	public Parameters getParameters() {
+		return parameters;
+	}
 
 }
