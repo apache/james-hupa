@@ -20,7 +20,7 @@
 package org.apache.hupa.client.evo;
 
 import org.apache.hupa.client.place.DefaultPlace;
-import org.apache.hupa.client.place.MailFolderPlace;
+import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.AppLayout;
@@ -90,7 +90,7 @@ public class AppController {
 		}
 
 		private boolean isAuth(Place newPlace, Place currentPlace) {
-			return (newPlace instanceof MailFolderPlace) && !(currentPlace instanceof MailFolderPlace);
+			return (newPlace instanceof FolderPlace) && !(currentPlace instanceof FolderPlace);
 		}
 	}
 

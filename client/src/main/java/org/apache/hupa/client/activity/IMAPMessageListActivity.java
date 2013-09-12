@@ -34,6 +34,7 @@ import java.util.Set;
 
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.place.FolderPlace;
+<<<<<<< HEAD
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.DeleteMessageAllRequest;
 import org.apache.hupa.client.rf.DeleteMessageByUidRequest;
@@ -403,6 +404,8 @@ import org.apache.hupa.client.HandlerRegistrationAdapter;
 >>>>>>> remove gwt-incubator dependency in Messages List Model; 
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.place.MailFolderPlace;
+=======
+>>>>>>> change place management and make refresh folder and message list more gentle
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.DeleteMessageAllRequest;
 import org.apache.hupa.client.rf.DeleteMessageByUidRequest;
@@ -867,7 +870,7 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 	private void redrawTable() {
         display.getTable().setVisibleRangeAndClearData(display.getTable().getVisibleRange(), true);
     }
-	public IMAPMessageListActivity with(MailFolderPlace place) {
+	public IMAPMessageListActivity with(FolderPlace place) {
 //		this.user = place.getUser();
 //		this.folder = place.getFolder();
 <<<<<<< HEAD

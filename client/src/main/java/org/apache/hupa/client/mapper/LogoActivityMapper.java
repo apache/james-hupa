@@ -43,6 +43,7 @@ import com.google.inject.Provider;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class LogoActivityMapper extends _HupaActivityMapper {
 =======
 public class LogoActivityMapper implements ActivityMapper {
@@ -53,6 +54,9 @@ public class LogoActivityMapper extends AbstractActivityMapper {
 =======
 public class LogoActivityMapper extends MainActivityMapper {
 >>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
+=======
+public class LogoActivityMapper extends _HupaActivityMapper {
+>>>>>>> change place management and make refresh folder and message list more gentle
 	private final Provider<LogoActivity> logoActivityProvider;
 
 	@Inject

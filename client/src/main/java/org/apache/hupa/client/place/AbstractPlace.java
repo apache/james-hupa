@@ -24,10 +24,15 @@ import com.google.gwt.place.shared.Place;
 public class AbstractPlace extends Place {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public static final String SPLITTER = ":";
 
 =======
 >>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
+=======
+	public static final String SPLITTER = ":";
+
+>>>>>>> change place management and make refresh folder and message list more gentle
 	@Override
 	public String toString() {
 		return getClass().getName().substring(

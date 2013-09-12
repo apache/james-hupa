@@ -21,7 +21,7 @@ package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.place.DefaultPlace;
-import org.apache.hupa.client.place.MailFolderPlace;
+import org.apache.hupa.client.place.FolderPlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -38,8 +38,8 @@ public class WestActivityMapper implements ActivityMapper {
 	}
 
 	public Activity getActivity(Place place) {
-		if (place instanceof MailFolderPlace) {
-			return westActivityProvider.get().with(((MailFolderPlace) place));
+		if (place instanceof FolderPlace) {
+			return westActivityProvider.get().with(((FolderPlace) place));
 		} else if (!(place instanceof DefaultPlace)) {
 			return westActivityProvider.get();
 		}

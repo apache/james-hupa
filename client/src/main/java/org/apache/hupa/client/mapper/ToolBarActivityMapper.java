@@ -23,6 +23,7 @@ import org.apache.hupa.client.activity.ToolBarActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.MessagePlace;
 import org.apache.hupa.client.place.SettingPlace;
@@ -43,6 +44,10 @@ import com.google.gwt.activity.shared.ActivityMapper;
 =======
 =======
 import org.apache.hupa.client.place.MailFolderPlace;
+=======
+import org.apache.hupa.client.place.FolderPlace;
+import org.apache.hupa.client.place.MessagePlace;
+>>>>>>> change place management and make refresh folder and message list more gentle
 import org.apache.hupa.client.place.SettingPlace;
 import org.apache.hupa.client.ui.ToolBarView.Parameters;
 
@@ -55,6 +60,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 public class ToolBarActivityMapper extends _HupaActivityMapper {
@@ -99,6 +105,9 @@ public class ToolBarActivityMapper implements ActivityMapper {
 =======
 public class ToolBarActivityMapper extends MainActivityMapper {
 >>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
+=======
+public class ToolBarActivityMapper extends _HupaActivityMapper {
+>>>>>>> change place management and make refresh folder and message list more gentle
 	private final Provider<ToolBarActivity> toolBarActivityProvider;
 
 	@Inject
@@ -138,9 +147,12 @@ public class ToolBarActivityMapper extends MainActivityMapper {
 		if(place instanceof SettingPlace) return null;
 >>>>>>> attempt to add label setting feature
 		final ToolBarActivity tba = toolBarActivityProvider.get();
-		if (place instanceof MailFolderPlace) { // might be from login page
-			MailFolderPlace here = (MailFolderPlace) place;
+		if (place instanceof FolderPlace) { // might be from login page
+			FolderPlace here = (FolderPlace) place;
 			tba.getDisplay().setParameters(new Parameters(null, here.getToken(), null, null));
+		}
+		if(place instanceof MessagePlace){
+			return tba.with(((MessagePlace)place).getTokenWrapper().getFolder());
 		}
 
 >>>>>>> fixed issue#18
@@ -153,8 +165,10 @@ public class ToolBarActivityMapper extends MainActivityMapper {
 			@Override
 			protected Activity createInstance() {
 				String token = null;
-				if (place instanceof MailFolderPlace) {
-					token = ((MailFolderPlace) place).getToken();
+				if (place instanceof FolderPlace) {
+					token = ((FolderPlace) place).getToken();
+				}else if(place instanceof MessagePlace){
+					token = ((MessagePlace)place).getTokenWrapper().getFolder();
 				}
 				return tba.with(token);
 			}

@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.place.MessagePlace.TokenWrapper;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
@@ -174,6 +175,9 @@ import java.util.logging.Logger;
 
 >>>>>>> scrub code
 import org.apache.hupa.client.place.MailFolderPlace;
+=======
+import org.apache.hupa.client.place.MessagePlace.TokenWrapper;
+>>>>>>> change place management and make refresh folder and message list more gentle
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 import org.apache.hupa.client.ui.WidgetDisplayable;
@@ -248,8 +252,9 @@ public class MessageContentActivity extends AppBaseActivity {
 		void fillMessageContent(String messageContent);
 	}
 
-	public Activity with(String token) {
-		uid = token;
+	public Activity with(TokenWrapper tokenWrapper) {
+		fullName= tokenWrapper.getFolder();
+		uid = tokenWrapper.getUid();
 		return this;
 	}
 >>>>>>> make message content work as expected partly

@@ -23,11 +23,15 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 import org.apache.hupa.client.activity.NavigationActivity;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.FolderPlace;
 =======
 import org.apache.hupa.client.place.MailFolderPlace;
 >>>>>>> try to make switch to setting work
+=======
+import org.apache.hupa.client.place.FolderPlace;
+>>>>>>> change place management and make refresh folder and message list more gentle
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.core.client.GWT;
@@ -170,7 +174,7 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 		mail.addStyleName(style.mailInnerSelected());
 		setting.removeStyleName(style.settingsInnerSelected());
 		//FIXME need the default one
-		placeController.goTo(new MailFolderPlace("Mock-Inbox"));
+		placeController.goTo(new FolderPlace("Mock-Inbox"));
 	}
 	
 	@UiHandler("setting")

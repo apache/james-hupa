@@ -20,7 +20,7 @@
 package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.place.DefaultPlace;
-import org.apache.hupa.client.place.MailFolderPlace;
+import org.apache.hupa.client.place.FolderPlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -39,8 +39,8 @@ public class CachingWestActivityMapper implements ActivityMapper {
 		FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
 			@Override
 			public Place filter(Place place) {
-				return (place instanceof DefaultPlace || place instanceof MailFolderPlace) ? place
-						: new MailFolderPlace("");
+				return (place instanceof DefaultPlace || place instanceof FolderPlace) ? place
+						: new FolderPlace("");
 			}
 		};
 

@@ -19,7 +19,10 @@
 
 package org.apache.hupa.client.mapper;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
+=======
+>>>>>>> change place management and make refresh folder and message list more gentle
 import org.apache.hupa.client.place.MessagePlace;
 
 import com.google.gwt.activity.shared.Activity;
@@ -39,6 +42,7 @@ public class CachingMessageListActivityMapper implements ActivityMapper {
 		FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
 			@Override
 			public Place filter(Place place) {
+<<<<<<< HEAD
 				return place instanceof MessagePlace ? new FolderPlace(((MessagePlace) place).getTokenWrapper()
 						.getFolder()) : place;
 			}
@@ -46,6 +50,13 @@ public class CachingMessageListActivityMapper implements ActivityMapper {
 
 		filteredActivityMapper = new FilteredActivityMapper(filter,
 				new CachingActivityMapper(messageListActivityMapper));
+=======
+				return place instanceof MessagePlace ? Place.NOWHERE : place;
+			}
+		};
+
+		filteredActivityMapper = new FilteredActivityMapper(filter, new CachingActivityMapper(messageListActivityMapper));
+>>>>>>> change place management and make refresh folder and message list more gentle
 	}
 
 	@Override

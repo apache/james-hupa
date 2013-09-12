@@ -43,6 +43,7 @@ import org.apache.hupa.client.place.ComposePlace;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.HupaPlace;
@@ -85,6 +86,10 @@ import org.apache.hupa.client.place.MailFolderPlace;
 <<<<<<< HEAD
 >>>>>>> prepare to make composeView's reload work
 =======
+=======
+import org.apache.hupa.client.place.FolderPlace;
+import org.apache.hupa.client.place.HupaPlace;
+>>>>>>> change place management and make refresh folder and message list more gentle
 import org.apache.hupa.client.place.SettingPlace;
 >>>>>>> attempt to add label setting feature
 import org.apache.hupa.client.rf.CheckSessionRequest;
@@ -357,11 +362,11 @@ public class HupaController {
 				hupaLayout.switchTo(HupaLayout.LAYOUT_COMPOSE);
 			} else {
 				//FIXME when gmail mode
-				this.placeController.goTo(new MailFolderPlace("Mock-Inbox"));
+				this.placeController.goTo(new FolderPlace("Mock-Inbox"));
 			}
 		} else if (place instanceof SettingPlace) {
 			hupaLayout.switchTo(HupaLayout.LAYOUT_SETTING);
-		} else {
+		} else if(place instanceof HupaPlace){
 			hupaLayout.switchTo(HupaLayout.LAYOUT_MESSAGE);
 		}
 	}

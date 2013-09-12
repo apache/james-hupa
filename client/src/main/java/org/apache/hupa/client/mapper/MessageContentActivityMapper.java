@@ -24,6 +24,7 @@ import org.apache.hupa.client.activity.MessageContentActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.MessagePlace;
 
 import com.google.gwt.activity.shared.Activity;
@@ -49,14 +50,19 @@ import com.google.gwt.activity.shared.ActivityMapper;
 <<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+import org.apache.hupa.client.place.MessagePlace;
+
+import com.google.gwt.activity.shared.Activity;
+>>>>>>> change place management and make refresh folder and message list more gentle
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 >>>>>>> support code split
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 public class MessageContentActivityMapper extends _MessageActivityMapper {
 	private final Provider<MessageContentActivity> messageContentActivityProvider;
@@ -87,14 +93,17 @@ public class MessageContentActivityMapper implements ActivityMapper {
 
 	@Inject protected PlaceController placeController;
 	@Inject protected HupaRequestFactory requestFactory;
+=======
+public class MessageContentActivityMapper extends _MessageActivityMapper {
+>>>>>>> change place management and make refresh folder and message list more gentle
 	private final Provider<MessageContentActivity> messageContentActivityProvider;
 
 	@Inject
-	public MessageContentActivityMapper(
-			Provider<MessageContentActivity> messageContentActivityProvider) {
+	public MessageContentActivityMapper(Provider<MessageContentActivity> messageContentActivityProvider) {
 		this.messageContentActivityProvider = messageContentActivityProvider;
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public Activity getActivity(Place place) {
 <<<<<<< HEAD
@@ -131,5 +140,23 @@ public class MessageContentActivityMapper implements ActivityMapper {
 		}
 		return null;
 >>>>>>> make message content work as expected partly
+=======
+	@Override
+	protected Activity lazyLoadActivity(final Place place) {
+		return new ActivityAsyncProxy() {
+			@Override
+			protected void doAsync(RunAsyncCallback callback) {
+				GWT.runAsync(callback);
+			}
+
+			@Override
+			protected Activity createInstance() {
+				if (place instanceof MessagePlace) {
+					return messageContentActivityProvider.get().with(((MessagePlace) place).getTokenWrapper());
+				}
+				return messageContentActivityProvider.get();
+			}
+		};
+>>>>>>> change place management and make refresh folder and message list more gentle
 	}
 }

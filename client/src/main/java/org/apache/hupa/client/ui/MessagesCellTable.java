@@ -590,16 +590,12 @@ public class MessagesCellTable extends DataGrid<Message> {
 				List<Message> displayedItems = MessagesCellTable.this.getVisibleItems();
 				for (Message msg : displayedItems) {
 					checkboxCol.getFieldUpdater().update(0, msg, value);
-//					selectionModel.setSelected(msg, value);
 				}
 			}
 		});
 
 		addColumn(checkboxCol, header);
 		setColumnWidth(checkboxCol, 3, Unit.EM);
-		// addColumn(fromCol, new
-		// SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(constants.mailTableFrom())),
-		// fromFooter);
 		addColumn(fromCol, constants.mailTableFrom());
 		setColumnWidth(fromCol, 40, Unit.PCT);
 		addColumn(subjectCol, constants.mailTableSubject());
@@ -631,21 +627,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 		return row.getFlags().contains(IMAPFlag.SEEN);
 	}
 	public void markRead(final Message message, final boolean read) {
-//		setStyleBasedOnSelected(read);
 		flush();
-	}
-
-	private void setStyleBasedOnSelected(final boolean read) {
-		setRowStyles(new RowStyles<Message>() {
-			@Override
-			public String getStyleNames(Message row, int rowIndex) {
-				if (getSelectionModel().isSelected(row)) {
-					return (read ? getReadStyle() : getUnreadStyle());
-				} else {
-					return getMessageStyle(row);// keep original
-				}
-			}
-		});
 	}
 
 	public class CheckboxColumn extends Column<Message, Boolean> {
@@ -726,8 +708,8 @@ public class MessagesCellTable extends DataGrid<Message> {
 	}
 
 	public void refresh() {
-		redraw();
-		flush();
+//		redraw();
+//		flush();
 	}
 
 	public void setStyleBaseOnTag() {

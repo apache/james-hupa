@@ -22,30 +22,49 @@ package org.apache.hupa.client.place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
-public class MailFolderPlace extends AbstractPlace {
+public class FolderPlace extends HupaPlace {
 
 	private String token;
 
-	public MailFolderPlace(String token) {
+	public FolderPlace(String token) {
 		this.token = token;
-	}
-
-	// the main place use empty string such that colon'd disappear
-	@Prefix("folder")
-	public static class Tokenizer implements PlaceTokenizer<MailFolderPlace> {
-
-		@Override
-		public MailFolderPlace getPlace(String token) {
-			return new MailFolderPlace(token);
-		}
-
-		@Override
-		public String getToken(MailFolderPlace place) {
-			return place.getToken();
-		}
 	}
 
 	public String getToken() {
 		return token;
 	}
+
+	@Prefix("folder")
+	public static class Tokenizer implements PlaceTokenizer<FolderPlace> {
+
+		@Override
+		public FolderPlace getPlace(String token) {
+			return new FolderPlace(token);
+		}
+
+		@Override
+		public String getToken(FolderPlace place) {
+			return place.getToken();
+		}
+	}
+//
+//	@Override
+//	public boolean equals(Object o) {
+//		if (o == null)
+//			return false;
+//		if (o == this)
+//			return true;
+//		if (o.getClass() != getClass())
+//			return false;
+//		FolderPlace place = (FolderPlace) o;
+//		return (token == place.token || (token != null && token.equals(place.token)));
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((token == null) ? 0 : token.hashCode());
+//		return result;
+//	}
 }

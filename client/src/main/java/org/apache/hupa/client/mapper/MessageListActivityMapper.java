@@ -23,6 +23,7 @@ import org.apache.hupa.client.activity.MessageListActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.MessagePlace;
 
@@ -45,6 +46,10 @@ import com.google.gwt.activity.shared.ActivityMapper;
 =======
 =======
 import org.apache.hupa.client.place.SettingPlace;
+=======
+import org.apache.hupa.client.place.FolderPlace;
+import org.apache.hupa.client.place.MessagePlace;
+>>>>>>> change place management and make refresh folder and message list more gentle
 
 import com.google.gwt.activity.shared.Activity;
 >>>>>>> try to rearrange the places and history managment.
@@ -57,6 +62,7 @@ import com.google.inject.Provider;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class MessageListActivityMapper extends _MessageActivityMapper {
 =======
 public class MessageListActivityMapper implements ActivityMapper {
@@ -64,6 +70,9 @@ public class MessageListActivityMapper implements ActivityMapper {
 =======
 public class MessageListActivityMapper extends MainActivityMapper {
 >>>>>>> try to rearrange the places and history managment.
+=======
+public class MessageListActivityMapper extends _MessageActivityMapper {
+>>>>>>> change place management and make refresh folder and message list more gentle
 	private final Provider<MessageListActivity> messageListActivityProvider;
 
 	@Inject
@@ -108,10 +117,14 @@ public class MessageListActivityMapper extends MainActivityMapper {
 		if (!(place instanceof MailFolderPlace))
 =======
 	@Override
+<<<<<<< HEAD
 	Activity asyncLoadActivity(final Place place) {
 		if (place instanceof SettingPlace)
 >>>>>>> try to rearrange the places and history managment.
 			return null;
+=======
+	protected Activity lazyLoadActivity(final Place place) {
+>>>>>>> change place management and make refresh folder and message list more gentle
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
@@ -130,6 +143,11 @@ public class MessageListActivityMapper extends MainActivityMapper {
 =======
 			@Override
 			protected Activity createInstance() {
+				if (place instanceof FolderPlace) {
+					return messageListActivityProvider.get().with(((FolderPlace) place).getToken());
+				} else if(place instanceof MessagePlace){
+					return messageListActivityProvider.get().with(((MessagePlace) place).getTokenWrapper().getFolder());
+				}
 				return messageListActivityProvider.get();
 			}
 		};

@@ -28,9 +28,12 @@ import org.apache.hupa.client.place.ComposePlace;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.apache.hupa.client.place.MailFolderPlace;
 >>>>>>> fixed issue#57 - really disable the tools in toolbar
+=======
+>>>>>>> change place management and make refresh folder and message list more gentle
 import org.apache.hupa.client.rf.HupaRequestFactory;
 <<<<<<< HEAD
 import org.apache.hupa.shared.domain.Message;
@@ -592,8 +595,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 
 		@Override
 		public void onClick(ClickEvent event) {		
-			if (!(placeController.getWhere() instanceof MailFolderPlace))
-				return;
 			eventBus.fireEvent(new DeleteClickEvent());
 		}
 	};
@@ -678,10 +679,11 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		forwardGroup.addStyleName(style.disabledButton());
 		replyAllTip.addStyleName(style.disabledButton());
 		forwardTip.addStyleName(style.disabledButton());
-		
-		replyReg.removeHandler();
-		replyAllReg.removeHandler();
-		forwardReg.removeHandler();
+		if(replyReg != null){
+			replyReg.removeHandler();
+			replyAllReg.removeHandler();
+			forwardReg.removeHandler();	
+		}
 	}
 
 	private void removeSendingDisableds() {
@@ -703,8 +705,10 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		delete.addStyleName(style.disabledButton());
 		mark.addStyleName(style.disabledButton());
 		
-		deleteReg.removeHandler();
-		markReg.removeHandler();
+		if(deleteReg != null){
+			deleteReg.removeHandler();
+			markReg.removeHandler();
+		}
 	}
 
 	private void removeDealingDisableds() {

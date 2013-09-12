@@ -104,7 +104,9 @@ public abstract class AppBaseActivity extends AbstractActivity {
 >>>>>>> cope with issue #36, the default place and and the mail folder place, we would always come up with the default place whenever giving a empty string token
 =======
 		for (HandlerRegistration registration : registrations) {
-			registration.removeHandler();
+			if(registration != null){
+				registration.removeHandler();	
+			}
 		}
 		registrations.clear();
 >>>>>>> make send text mail work excellently
