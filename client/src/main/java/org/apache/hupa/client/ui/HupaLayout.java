@@ -277,7 +277,6 @@ public class HupaLayout implements HupaLayoutable {
 	public HupaLayout() {
 		hupaMainPanel = binder.createAndBindUi(this);
 		messageSpace.setWidgetMinSize(folderArea, 144);
-		messageArea.setWidgetMinSize(messageListBox, 72);
 		messageArea.setWidgetHidden(contactBox, true);
 		messageArea.setWidgetMinSize(messageListBox, 130);
 	}
@@ -348,13 +347,7 @@ public class HupaLayout implements HupaLayoutable {
 		return new AcceptsOneWidget() {
 			@Override
 			public void setWidget(IsWidget w) {
-//				Widget widget = Widget.asWidgetOrNull(w);
 				messageListContainer.setWidget(Widget.asWidgetOrNull(w));
-//				messageListContainer.add(Widget.asWidgetOrNull(w));
-//				if (messageListContainer.getWidgetCount() > 0)
-//					messageListContainer.remove(0);
-//				if (widget != null)
-//					messageListContainer.add(widget);
 			}
 		};
 	}

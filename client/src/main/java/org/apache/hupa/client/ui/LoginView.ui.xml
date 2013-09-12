@@ -125,7 +125,8 @@
 	<ui:image field='logo' src='res/hupa-logo-64-transparent.png' />
 	<ui:image field="shadow" src="res/login_shadow.png" />
 	<ui:image field="messages" src="res/messages.png" />
-	<ui:style>
+	<ui:image field="loading" src="res/ajaxloader.gif" />
+	<ui:style type="org.apache.hupa.client.ui.LoginView.Style">
 		@sprite .boxBottom {
 			gwt-image: 'shadow';
 			background-position: top center;
@@ -153,7 +154,12 @@
 			white-space: nowrap;
 			text-align: center;
 			cursor: default;
-            display: none;
+			display: inline-block;
+		}
+		
+		@sprite .loading {
+			gwt-image: 'loading';
+			background-position: 2px 6px;
 		}
 	</ui:style>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
@@ -161,13 +167,13 @@
 		<g:FlowPanel ui:field="innerBox">
 			<g:Image resource='{logo}'></g:Image>
 			<g:FormPanel ui:field="formPanel">
-				<g:FlexTable ui:field="flexTable"/>
+				<g:FlexTable ui:field="flexTable" />
 			</g:FormPanel>
 			<g:Button ui:field="loginButton"></g:Button>
 		</g:FlowPanel>
 		<g:FlowPanel ui:field="boxBottom" styleName="{style.boxBottom}">
 			<g:FlowPanel ui:field="messageBox" addStyleNames="{style.message}">
-				<g:HTMLPanel addStyleNames="{style.notice}">You have successfully
+				<g:HTMLPanel ui:field="message" addStyleNames="{style.notice}">You have successfully
 					terminated the
 					session. Good bye!
 				</g:HTMLPanel>

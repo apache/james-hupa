@@ -75,9 +75,13 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.CssResource.NotStrict;
+=======
+import com.google.gwt.resources.client.CssResource;
+>>>>>>> prepare for places and do something for loading related to issue #18
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 =======
@@ -197,12 +201,16 @@ public class LoginView extends Composite implements KeyUpHandler,
 =======
 =======
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 >>>>>>> Change to new mvp framework - first step
+=======
+import com.google.gwt.user.client.ui.HTMLPanel;
+>>>>>>> prepare for places and do something for loading related to issue #18
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
@@ -256,6 +264,12 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 public class LoginView extends Composite implements KeyUpHandler,
 		LoginActivity.Displayable {
 >>>>>>> refactoring theme 1 - login page
+
+	@UiField Style style;
+
+	interface Style extends CssResource {
+		String loading();
+	}
 
 	@Inject
 	public LoginView() {
@@ -466,11 +480,19 @@ public class LoginView extends Composite implements KeyUpHandler,
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 	@Override
 	public void setLoading(boolean load) {
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+		if (load) {
+			message.addStyleName(style.loading());
+		} else {
+			message.removeStyleName(style.loading());
+		}
+>>>>>>> prepare for places and do something for loading related to issue #18
 	}
 
 	@Override
@@ -521,6 +543,7 @@ public class LoginView extends Composite implements KeyUpHandler,
 			.getElementById("password"));
 	// wrap the form after inputs so as they are in the dom when are wrapped
 	@UiField FormPanel formPanel;
+	@UiField HTMLPanel message;
 
 >>>>>>> replace with uibinder
 }
