@@ -802,11 +802,13 @@ System.out.println("1111111"+response);
 
 				public void onEditEvent(EditEvent event) {
 					if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-						ImapFolder iFolder = new ImapFolderImpl((String) event.getOldValue());
+						String oldFullName = (String) event.getOldValue();
 						final String newName = (String) event.getNewValue();
-						if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
+						if (oldFullName.equalsIgnoreCase(newName) == false) {
 							RenameFolderRequest req = requestFactory.renameFolderRequest();
 							RenameFolderAction action = req.create(RenameFolderAction.class);
+							ImapFolder iFolder = req.create(ImapFolder.class);
+							iFolder.setFullName(oldFullName);
 							action.setNewName(newName);
 							action.setFolder(iFolder);
 							req.rename(action).fire(new Receiver<GenericResult>() {
@@ -816,8 +818,8 @@ System.out.println("1111111"+response);
 								}
 								@Override
 								public void onFailure(ServerFailure error) {
-									record.cancelEdit();
 									GWT.log("Error while renaming" + error.getStackTraceString());
+									record.cancelEdit();
 								}
 							});
 						}
@@ -852,6 +854,16 @@ System.out.println("1111111"+response);
 		});
 		return tList;
 	}
+
+	private void cloneFolder(ImapFolder desc, ImapFolder src) {
+	    desc.setChildren(src.getChildren());
+		desc.setDelimiter(src.getDelimiter());
+		desc.setFullName(src.getFullName());
+		desc.setMessageCount(src.getMessageCount());
+		desc.setName(src.getName());
+		desc.setSubscribed(src.getSubscribed());
+		desc.setUnseenMessageCount(src.getUnseenMessageCount());
+    }
 
 	private void bind() {
 >>>>>>> try to change fetch messages to use RF
@@ -929,7 +941,8 @@ System.out.println("1111111"+response);
 				GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
 				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
 				final ImapFolder f = req.create(ImapFolder.class);
-				event.getFolder().setFolderTo(f);
+//				event.getFolder().setFolderTo(f);
+				cloneFolder(f, event.getFolder());
 				action.setFolder(f);
 				action.setUid(message.getUid());
 				req.get(action).fire(new Receiver<GetMessageDetailsResult>() {

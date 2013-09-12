@@ -842,7 +842,8 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 		DeleteMessageByUidRequest req = requestFactory.deleteMessageByUidRequest();
 		DeleteMessageByUidAction action = req.create(DeleteMessageByUidAction.class);
 		ImapFolder f = req.create(ImapFolder.class);
-		folder.setFolderTo(f);
+//		folder.setFolderTo(f); FIXME cannot use any more, for it's already a requestContext assigned.
+		clone(f, folder);
 		action.setMessageUids(uids);
 		action.setFolder(f);
 		req.delete(action).fire(new Receiver<DeleteMessageResult>() {
@@ -853,6 +854,15 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 			}
 		});
 	}
+	private void clone(ImapFolder f, ImapFolder folder) {
+	    f.setChildren(folder.getChildren());
+		f.setDelimiter(folder.getDelimiter());
+		f.setFullName(folder.getFullName());
+		f.setMessageCount(folder.getMessageCount());
+		f.setName(folder.getName());
+		f.setSubscribed(folder.getSubscribed());
+		f.setUnseenMessageCount(folder.getUnseenMessageCount());
+    }
 
 	private void redrawTable() {
         display.getTable().setVisibleRangeAndClearData(display.getTable().getVisibleRange(), true);
