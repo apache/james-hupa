@@ -39,6 +39,7 @@ package org.apache.hupa.client.activity;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaConstants;
 <<<<<<< HEAD
 import org.apache.hupa.client.evo.HupaEvoCallback;
@@ -56,10 +57,20 @@ import org.apache.hupa.client.HupaEvoCallback;
 import org.apache.hupa.client.mvp.WidgetDisplayable;
 import org.apache.hupa.client.place.MailInboxPlace;
 >>>>>>> Change to new mvp framework - first step
+=======
+import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.client.HupaEvoCallback;
+import org.apache.hupa.client.mvp.WidgetDisplayable;
+import org.apache.hupa.client.place.MailInboxPlace;
+import org.apache.hupa.shared.events.FlashEvent;
+import org.apache.hupa.shared.events.SessionExpireEvent;
+import org.apache.hupa.shared.events.SessionExpireEventHandler;
+>>>>>>> decorate the theme
 import org.apache.hupa.shared.rpc.LoginUser;
 import org.apache.hupa.shared.rpc.LoginUserResult;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -76,6 +87,9 @@ import com.google.gwt.core.client.GWT;
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+import com.google.gwt.core.client.GWT;
+>>>>>>> decorate the theme
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -136,6 +150,7 @@ public class LoginActivity extends AbstractActivity {
 	private final PlaceController placeController;
 	private final Provider<MailInboxPlace> mailInboxPlaceProvider;
 	private DispatchAsync dispatcher;
+    private HupaConstants constants = GWT.create(HupaConstants.class);
 
 	@Inject
 <<<<<<< HEAD
@@ -201,6 +216,7 @@ public class LoginActivity extends AbstractActivity {
 			}
 		});
 <<<<<<< HEAD
+<<<<<<< HEAD
 		display.getResetClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
@@ -213,6 +229,22 @@ public class LoginActivity extends AbstractActivity {
 			public void onSessionExpireEvent(SessionExpireEvent event) {
 				eventBus.fireEvent(new FlashEvent(constants.sessionTimedOut(), 4000));
 			}
+=======
+		display.getResetClick().addClickHandler(new ClickHandler() {
+
+            public void onClick(ClickEvent event) {
+                doReset();
+            }
+            
+        });
+		eventBus.addHandler(SessionExpireEvent.TYPE, new SessionExpireEventHandler() {
+
+            public void onSessionExpireEvent(SessionExpireEvent event) {
+                eventBus.fireEvent(new FlashEvent(constants.sessionTimedOut(), 4000));
+            }
+            
+        });
+>>>>>>> decorate the theme
 
 		});
 
@@ -302,6 +334,7 @@ public class LoginActivity extends AbstractActivity {
 <<<<<<< HEAD
 				Window.alert("error");
 <<<<<<< HEAD
+<<<<<<< HEAD
 				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get());
 				// eventBus.fireEvent(new FlashEvent(constants.loginInvalid(),
 				// 4000));
@@ -312,6 +345,9 @@ public class LoginActivity extends AbstractActivity {
 =======
 				eventBus.fireEvent(new FlashEvent(constants.loginInvalid(), 4000));
 >>>>>>> introduce the top activity
+=======
+				// eventBus.fireEvent(new FlashEvent(constants.loginInvalid(),4000));
+>>>>>>> decorate the theme
 				doReset();
 			}
 		});

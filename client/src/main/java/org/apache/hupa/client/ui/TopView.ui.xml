@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements. See the NOTICE file
@@ -32,6 +33,8 @@
 			<g:Label ui:field="extraLabel"></g:Label>
 		</g:HorizontalPanel>
 =======
+=======
+>>>>>>> decorate the theme
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<ui:style>
@@ -43,10 +46,14 @@
 		}
 	</ui:style>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<g:FlowPanel addStyleNames="{style.round-corner-panel}">
 >>>>>>> decorate the theme
 =======
 	<g:FlowPanel ui:field="topWrapper" addStyleNames="{style.round-corner-panel}">
 >>>>>>> introduce the top activity
+=======
+	<g:FlowPanel addStyleNames="{style.round-corner-panel}">
+>>>>>>> decorate the theme
 	</g:FlowPanel>
 </ui:UiBinder>

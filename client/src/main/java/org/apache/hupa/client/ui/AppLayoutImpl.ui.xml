@@ -43,6 +43,7 @@
 <<<<<<< HEAD
 =======
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:my='urn:import:org.apache.hupa.client.ui'>
@@ -89,6 +90,8 @@
 <<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
+=======
+>>>>>>> decorate the theme
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:my='urn:import:org.apache.hupa.client.ui'>
 	<ui:style>
 		.Hupa {
@@ -112,9 +115,15 @@
 		.topView {
 			height: 64px;
 			background-color: #C5D9FF;
+<<<<<<< HEAD
 			background:  literal("-moz-linear-gradient(#FFFFFF, #C5D9FF)");
 			background: literal("-webkit-linear-gradient(#FFFFFF, #C5D9FF)");
 			background: literal("-o-linear-gradient(#FFFFFF, #C5D9FF)");
+=======
+			background: -moz-linear-gradient(#FFFFFF, #C5D9FF);
+			background: -webkit-linear-gradient(#FFFFFF, #C5D9FF);
+			background: -o-linear-gradient(#FFFFFF, #C5D9FF);
+>>>>>>> decorate the theme
 		}
 		
 		.hupa-logo {
@@ -128,9 +137,15 @@
 			clear: both;
 			margin: 8px 8px 8px 8px;
 			min-height: 500px;
+<<<<<<< HEAD
 			background: literal("-moz-linear-gradient(#eaeaea, #fafafa)");
 			background: literal("-webkit-linear-gradient(#eaeaea, #fafafa)");
 			background: literal("-o-linear-gradient(#eaeaea, #fafafa)");
+=======
+			background: -moz-linear-gradient(#eaeaea, #fafafa);
+			background: -webkit-linear-gradient(#eaeaea, #fafafa);
+			background: -o-linear-gradient(#eaeaea, #fafafa);
+>>>>>>> decorate the theme
 		}
 		
 		.westPanel {
@@ -138,9 +153,15 @@
 			box-shadow: 0 1px 4px grey;
 			border-radius: 5px;
 			overflow: hidden;
+<<<<<<< HEAD
 			background: literal("-moz-linear-gradient(#eaeaea, #fafafa)");
 			background: literal("-webkit-linear-gradient(#eaeaea, #fafafa)");
 			background: literal("-o-linear-gradient(#eaeaea, #fafafa)");
+=======
+			background: -moz-linear-gradient(#eaeaea, #fafafa);
+			background: -webkit-linear-gradient(#eaeaea, #fafafa);
+			background: -o-linear-gradient(#eaeaea, #fafafa);
+>>>>>>> decorate the theme
 			clear: both;
 			margin: 8px 8px 8px 8px;
 		}
@@ -150,9 +171,15 @@
 			box-shadow: 0 1px 4px grey;
 			border-radius: 5px;
 			overflow: hidden;
+<<<<<<< HEAD
 			background: literal("-moz-linear-gradient(#eaeaea, #fafafa)");
 			background: literal("-webkit-linear-gradient(#eaeaea, #fafafa)");
 			background: literal("-o-linear-gradient(#eaeaea, #fafafa)");
+=======
+			background: -moz-linear-gradient(#eaeaea, #fafafa);
+			background: -webkit-linear-gradient(#eaeaea, #fafafa);
+			background: -o-linear-gradient(#eaeaea, #fafafa);
+>>>>>>> decorate the theme
 			clear: both;
 			margin: 8px 8px 8px 8px;
 			min-height: 500px;
@@ -160,8 +187,15 @@
 	</ui:style>
 	<g:LayoutPanel addStyleNames="{style.Hupa}">
 		<g:layer>
+<<<<<<< HEAD
 			<g:SimplePanel ui:field="topPanel" addStyleNames="{style.topPanel}">
 			</g:SimplePanel>
+=======
+			<g:FlowPanel ui:field="topPanel" addStyleNames="{style.topPanel}">
+				<g:HTMLPanel addStyleNames="{style.hupa-logo}" />
+				<my:TopView ui:field="topView" addStyleNames="{style.topView}" />
+			</g:FlowPanel>
+>>>>>>> decorate the theme
 		</g:layer>
 		<g:layer>
 			<g:SimplePanel ui:field="westPanel" addStyleNames="{style.westPanel}" />
@@ -170,7 +204,10 @@
 			<g:SimplePanel ui:field="mainPanel" addStyleNames="{style.mainPanel}" />
 		</g:layer>
 	</g:LayoutPanel>
+<<<<<<< HEAD
 >>>>>>> decorate the theme
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> decorate the theme
 </ui:UiBinder>

@@ -40,6 +40,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 =======
@@ -49,6 +50,9 @@ import com.google.gwt.user.client.ui.FlowPanel;
 >>>>>>> decorate the theme
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+import com.google.gwt.user.client.ui.FlowPanel;
+>>>>>>> decorate the theme
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -60,21 +64,28 @@ public class AppLayoutImpl implements AppLayout {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private final DockLayoutPanel appLayoutPanel;
 
 	interface AppLayoutUiBinder extends UiBinder<DockLayoutPanel, AppLayoutImpl> {
 =======
+=======
+>>>>>>> decorate the theme
 	private static final int MAINMENU_HEIGHT = 10;
 	private static final int VMASTER_WIDTH = 15;
 
 	private final LayoutPanel mainLayoutPanel;
 
 	interface AppLayoutUiBinder extends UiBinder<LayoutPanel, AppLayoutImpl> {
+<<<<<<< HEAD
+>>>>>>> decorate the theme
+=======
 >>>>>>> decorate the theme
 	}
 
 	private static AppLayoutUiBinder binder = GWT.create(AppLayoutUiBinder.class);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@UiField LayoutPanel northPanel;
 	@UiField HTMLPanel southPanel;
@@ -91,6 +102,10 @@ public class AppLayoutImpl implements AppLayout {
 =======
 	@UiField
 	SimplePanel topPanel;
+=======
+	@UiField
+	FlowPanel topPanel;
+>>>>>>> decorate the theme
 
 	@UiField
 	SimplePanel westPanel;
@@ -101,11 +116,15 @@ public class AppLayoutImpl implements AppLayout {
 	@Inject
 	public AppLayoutImpl() {
 		mainLayoutPanel = binder.createAndBindUi(this);
+<<<<<<< HEAD
+>>>>>>> decorate the theme
+=======
 >>>>>>> decorate the theme
 		setLoginLayout();
 	}
 
 	@Override
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public DockLayoutPanel getAppLayoutPanel() {
 		return appLayoutPanel;
@@ -125,10 +144,13 @@ public class AppLayoutImpl implements AppLayout {
 	}
 	@Override
 =======
+=======
+>>>>>>> decorate the theme
 	public LayoutPanel getMainLayoutPanel() {
 		return mainLayoutPanel;
 	}
 
+<<<<<<< HEAD
 
 	@Override
 	public AcceptsOneWidget getTopContainer() {
@@ -140,6 +162,9 @@ public class AppLayoutImpl implements AppLayout {
 			}
 		};
 	}
+	@Override
+>>>>>>> decorate the theme
+=======
 	@Override
 >>>>>>> decorate the theme
 	public AcceptsOneWidget getWestContainer() {
@@ -154,7 +179,11 @@ public class AppLayoutImpl implements AppLayout {
 
 	@Override
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public AcceptsOneWidget getCenterContainer() {
+=======
+	public AcceptsOneWidget getMainContainer() {
+>>>>>>> decorate the theme
 =======
 	public AcceptsOneWidget getMainContainer() {
 >>>>>>> decorate the theme
@@ -162,6 +191,7 @@ public class AppLayoutImpl implements AppLayout {
 			@Override
 			public void setWidget(IsWidget w) {
 				Widget widget = Widget.asWidgetOrNull(w);
+<<<<<<< HEAD
 <<<<<<< HEAD
 				if(centerPanel.getWidgetCount() > 0){
 					centerPanel.remove(0);
@@ -172,11 +202,15 @@ public class AppLayoutImpl implements AppLayout {
 =======
 				mainPanel.setWidget(widget);
 >>>>>>> decorate the theme
+=======
+				mainPanel.setWidget(widget);
+>>>>>>> decorate the theme
 			}
 		};
 	}
 
 	public void setDefaultLayout() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 		arrangeLayoutSize(8, 2, 15, 0);
 	}
@@ -267,6 +301,8 @@ public class AppLayoutImpl implements AppLayout {
 <<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
+=======
+>>>>>>> decorate the theme
 		int height = 100 - MAINMENU_HEIGHT;
 		mainLayoutPanel.setWidgetTopHeight(westPanel, MAINMENU_HEIGHT, PCT, height, PCT);
 		mainLayoutPanel.setWidgetLeftWidth(westPanel, 0, PCT, VMASTER_WIDTH, PCT);
@@ -283,7 +319,10 @@ public class AppLayoutImpl implements AppLayout {
 		mainLayoutPanel.setWidgetLeftWidth(mainPanel, 0, PCT, 100, PCT);
 		// mainLayoutPanel.animate(500);
 	}
+<<<<<<< HEAD
 >>>>>>> decorate the theme
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> decorate the theme
 }

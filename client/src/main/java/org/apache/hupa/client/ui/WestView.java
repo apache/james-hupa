@@ -141,10 +141,14 @@ public class WestView extends Composite implements WestActivity.Displayable {
     private VerticalPanel north;
     private HupaConstants constants;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private VerticalPanel west;
 =======
     private RndPanel west;
 >>>>>>> Change to new mvp framework - first step
+=======
+    private VerticalPanel west;
+>>>>>>> decorate the theme
     private IMAPTreeImages tImages = GWT.create(IMAPTreeImages.class);
     private Tree folderTree = new Tree(tImages, true);
   
@@ -203,18 +207,26 @@ public class WestView extends Composite implements WestActivity.Displayable {
         dockPanel.setCellHorizontalAlignment(center, DockPanel.ALIGN_LEFT);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         west.setWidth("100%");
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+        west.setWidth("100%");
+>>>>>>> decorate the theme
         initWidget(west);
     }
 
     private void createWest() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         west = new VerticalPanel();
 =======
         west = new RndPanel();
 >>>>>>> Change to new mvp framework - first step
+=======
+        west = new VerticalPanel();
+>>>>>>> decorate the theme
         west.add(folderTree);
         west.addStyleName(HupaCSS.C_tree_container);
 
