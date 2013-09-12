@@ -77,9 +77,15 @@ public class SearchBoxView extends Composite implements SearchBoxActivity.Displa
 	private Button searchButton = new Button("Search");
 	@UiField protected HorizontalPanel thisPanel;
 
+	@SuppressWarnings("deprecation")
 	public SearchBoxView() {
 		initWidget(binder.createAndBindUi(this));
 
+//        searchBox.addStyleName(HupaCSS.C_msg_search);
+        
+        searchBox.setAnimationEnabled(true);
+        searchBox.setAutoSelectEnabled(false);
+        searchBox.setLimit(20);
 		searchBox.addKeyUpHandler(new KeyUpHandler() {
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {

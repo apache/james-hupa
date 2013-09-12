@@ -284,6 +284,12 @@ public class MessageListView extends Composite implements MessageListActivity.Di
     public void onResize() {
         grid.onResize();
     }
+    
+    @Override
+    public void setSearchValue(String searchValue){
+    	grid.setSearchValue(searchValue);
+    	
+    }
 
 >>>>>>> Fix grid not resizing since we werent implementing RequiresResize in its container. In fact we could get rid of its container
 }

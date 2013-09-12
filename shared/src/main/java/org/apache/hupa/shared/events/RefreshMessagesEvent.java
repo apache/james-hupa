@@ -22,6 +22,9 @@ package org.apache.hupa.shared.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fixed issue#74, finished to add search feature
 public class RefreshMessagesEvent extends GwtEvent<RefreshMessagesEventHandler> {
 	public final static Type<RefreshMessagesEventHandler> TYPE = new Type<RefreshMessagesEventHandler>();
 
@@ -45,6 +48,7 @@ public class RefreshMessagesEvent extends GwtEvent<RefreshMessagesEventHandler> 
 	public com.google.gwt.event.shared.GwtEvent.Type<RefreshMessagesEventHandler> getAssociatedType() {
 		return TYPE;
 	}
+<<<<<<< HEAD
 =======
 public class RefreshMessagesEvent extends GwtEvent<RefreshMessagesEventHandler>{
     public final static Type<RefreshMessagesEventHandler> TYPE = new Type<RefreshMessagesEventHandler>();
@@ -58,5 +62,7 @@ public class RefreshMessagesEvent extends GwtEvent<RefreshMessagesEventHandler>{
         return TYPE;
     }
 >>>>>>> fixed issue#81, add refresh event handler
+=======
+>>>>>>> fixed issue#74, finished to add search feature
 
 }
