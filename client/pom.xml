@@ -17,12 +17,23 @@
     specific language governing permissions and limitations
     under the License.
 -->
+<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+=======
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+>>>>>>> first commit
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.hupa</groupId>
         <artifactId>hupa-parent</artifactId>
+<<<<<<< HEAD
         <version>0.0.3-SNAPSHOT</version>
+=======
+        <version>0.0.2-SNAPSHOT</version>
+>>>>>>> first commit
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>hupa</artifactId>
@@ -36,10 +47,13 @@
         </dependency>
         <dependency>
             <groupId>org.apache.hupa</groupId>
+<<<<<<< HEAD
             <artifactId>hupa-mock</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.hupa</groupId>
+=======
+>>>>>>> first commit
             <artifactId>hupa-shared</artifactId>
         </dependency>
         <dependency>
@@ -74,10 +88,17 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <exclusions>
+<<<<<<< HEAD
                 <exclusion>
                     <groupId>javax.validation</groupId>
                     <artifactId>validation-api</artifactId>
                 </exclusion>
+=======
+              <exclusion>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+              </exclusion>
+>>>>>>> first commit
             </exclusions>
         </dependency>
         <dependency>
@@ -94,9 +115,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+<<<<<<< HEAD
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>4.2.0.Final</version>
+=======
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>4.2.0.Final</version>
+>>>>>>> first commit
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -114,6 +141,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
+<<<<<<< HEAD
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
@@ -122,6 +150,16 @@
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-webapp</artifactId>
         </dependency>
+=======
+		<dependency>
+		    <groupId>org.eclipse.jetty</groupId>
+		    <artifactId>jetty-server</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.eclipse.jetty</groupId>
+		    <artifactId>jetty-webapp</artifactId>
+		</dependency>        
+>>>>>>> first commit
     </dependencies>
     <build>
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
@@ -132,7 +170,11 @@
                 <configuration>
                     <runTarget>Hupa.html</runTarget>
                     <extraJvmArgs>
+<<<<<<< HEAD
                         -Xmx512M -Xss128M
+=======
+                        -Xmx512M -Xss128M -Dhupa.config.file=${project.parent.basedir}/server/src/main/webapp/WEB-INF/conf/config.properties
+>>>>>>> first commit
                     </extraJvmArgs>
                     <localWorkers>1</localWorkers>
                     <compileReport>true</compileReport>
@@ -184,11 +226,19 @@
                         </resource>
                     </webResources>
                     <warName>${project.artifactId}-${project.version}</warName>
+<<<<<<< HEAD
                     <archive>
                         <manifest>
                             <mainClass>org.apache.hupa.Launcher</mainClass>
                         </manifest>
                     </archive>
+=======
+  			        <archive>
+			           <manifest>
+			              <mainClass>org.apache.hupa.Launcher</mainClass>
+			           </manifest>
+			        </archive>
+>>>>>>> first commit
                 </configuration>
             </plugin>
             <plugin>
@@ -243,7 +293,11 @@
                 </executions>
             </plugin>
             <plugin>
+<<<<<<< HEAD
                 <groupId>org.apache.maven.plugins</groupId>
+=======
+               <groupId>org.apache.maven.plugins</groupId>
+>>>>>>> first commit
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
@@ -272,13 +326,18 @@
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</directory>
+<<<<<<< HEAD
                                     <include>org/apache/hupa/Launcher.class</include>
+=======
+                                     <include>org/apache/hupa/Launcher.class</include>
+>>>>>>> first commit
                                 </resource>
                             </resources>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+<<<<<<< HEAD
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -301,4 +360,43 @@
             </plugin>
         </plugins>
     </build>
+=======
+			<plugin>
+			   <groupId>org.apache.maven.plugins</groupId>
+			   <artifactId>maven-dependency-plugin</artifactId>
+			   <executions>
+			      <execution>
+			         <id>jetty-classpath</id>
+			         <phase>prepare-package</phase>
+			         <goals>
+			            <goal>unpack-dependencies</goal>
+			         </goals>
+			         <configuration>
+			            <includeGroupIds>org.eclipse.jetty,javax.servlet</includeGroupIds>
+			            <excludeArtifactIds>jsp-api,jstl</excludeArtifactIds>
+			            <outputDirectory>
+			               ${project.build.directory}/${project.artifactId}-${project.version}
+			            </outputDirectory>
+			         </configuration>
+			      </execution>
+			   </executions>
+			</plugin>            
+        </plugins>
+    </build>
+    <profiles>
+      <profile>
+        <id>prod</id>
+        <properties>
+          <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
+          <gwt.disableClassMetadata>true</gwt.disableClassMetadata>
+          <gwt.disableCastChecking>true</gwt.disableCastChecking>
+          <gwt.logLevel>TRACE</gwt.logLevel>
+        </properties>
+      </profile>
+    </profiles>
+    <properties>
+      <gwt.moduleSuffix></gwt.moduleSuffix>
+      <gwt.logLevel>ERROR</gwt.logLevel>
+    </properties>
+>>>>>>> first commit
 </project>

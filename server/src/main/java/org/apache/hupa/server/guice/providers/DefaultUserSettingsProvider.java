@@ -20,8 +20,12 @@
 package org.apache.hupa.server.guice.providers;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.SettingsImpl;
 import org.apache.hupa.shared.domain.Settings;
+=======
+import org.apache.hupa.shared.data.Settings;
+>>>>>>> first commit
 =======
 import org.apache.hupa.shared.data.Settings;
 >>>>>>> first commit
@@ -52,7 +56,11 @@ public class DefaultUserSettingsProvider implements Provider<Settings> {
      */
     public Settings get() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         Settings settings = new SettingsImpl();
+=======
+        Settings settings = new Settings();
+>>>>>>> first commit
 =======
         Settings settings = new Settings();
 >>>>>>> first commit

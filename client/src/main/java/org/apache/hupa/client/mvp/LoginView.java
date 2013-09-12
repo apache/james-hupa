@@ -23,11 +23,17 @@ import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.widgets.ui.Loading;
 import org.apache.hupa.widgets.ui.RndPanel;
+<<<<<<< HEAD
+=======
+import org.cobogw.gwt.user.client.ui.Button;
+import org.cobogw.gwt.user.client.ui.ButtonBar;
+>>>>>>> first commit
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+<<<<<<< HEAD
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -40,6 +46,13 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.SubmitButton;
+=======
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+>>>>>>> first commit
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -51,6 +64,7 @@ import com.google.inject.Inject;
  */
 public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.Display{
     
+<<<<<<< HEAD
     private Button loginButton = new Button();
     private SubmitButton submitButton;
     private Button resetButton;
@@ -64,11 +78,19 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
     // wrap the form after inputs so as they are in the dom when are wrapped
     final private FormPanel formPanel = FormPanel.wrap(DOM.getElementById("loginForm"), true);
     
+=======
+    private Button loginButton;
+    private Button resetButton;
+    private TextBox usernameTextBox = new TextBox();
+    private PasswordTextBox passwordTextBox = new PasswordTextBox();
+    private Loading loading;
+>>>>>>> first commit
     @Inject
     public LoginView(HupaConstants constants) {
         
         VerticalPanel mainContainer = new VerticalPanel();
         RndPanel rPanel = new RndPanel();
+<<<<<<< HEAD
         FlexTable flexTable = new FlexTable();
         Panel buttonBar = new FlowPanel();
         submitButton =   new SubmitButton(constants.loginButton());
@@ -95,6 +117,30 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
 
         rPanel.add(formPanel);
         formPanel.add(flexTable);
+=======
+        FlexTable formPanel = new FlexTable();
+        ButtonBar buttonBar = new ButtonBar();
+        loginButton = new Button(constants.loginButton());
+        resetButton = new Button(constants.resetButton());  
+        loading = new Loading(constants.loading());
+        
+        mainContainer.setStyleName(HupaCSS.C_login_container);
+        formPanel.addStyleName(HupaCSS.C_login_form);
+        usernameTextBox.addStyleName(HupaCSS.C_login_box);
+        passwordTextBox.addStyleName(HupaCSS.C_login_box);
+        
+        buttonBar.add(loginButton);
+        buttonBar.add(resetButton);
+
+        formPanel.setText(0, 0, constants.usernameLabel());
+        formPanel.setWidget(0, 1, usernameTextBox);
+        formPanel.setText(1, 0, constants.passwordLabel());
+        formPanel.setWidget(1, 1, passwordTextBox);
+        formPanel.getFlexCellFormatter().setColSpan(2, 0, 2);
+        formPanel.setWidget(2, 0, buttonBar);
+
+        rPanel.add(formPanel);
+>>>>>>> first commit
         mainContainer.add(rPanel);
         mainContainer.add(loading);
         initWidget(mainContainer);
@@ -104,6 +150,7 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
         passwordTextBox.addKeyUpHandler(this);
 
         loading.hide();
+<<<<<<< HEAD
 
         // The user submits the form so as the browser detect it and displays
         // the save password dialog. Then we click on the hidden loginButton which
@@ -119,6 +166,8 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
         // loginButton must be in the document to handle the click() method
         mainContainer.add(loginButton);
         loginButton.setVisible(false);
+=======
+>>>>>>> first commit
     }
     
     /*
@@ -133,8 +182,12 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
             if (event.getSource().equals(usernameTextBox)) {
                 passwordTextBox.setFocus(true);
             }  else if (event.getSource().equals(passwordTextBox)) {
+<<<<<<< HEAD
                 submitButton.click();
 //                formPanel.submit();
+=======
+                loginButton.click();
+>>>>>>> first commit
             }
         }
     }
@@ -144,7 +197,11 @@ public class LoginView extends Composite implements KeyUpHandler,LoginPresenter.
      * @see org.apache.hupa.client.mvp.LoginPresenter.Display#getLoginClick()
      */
     public HasClickHandlers getLoginClick() {
+<<<<<<< HEAD
         return submitButton;
+=======
+        return loginButton;
+>>>>>>> first commit
     }
 
     /*

@@ -20,6 +20,7 @@
 package org.apache.hupa.client.mock;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import gwtupload.client.IUploader;
 
 import org.apache.hupa.client.activity.ComposeActivity.Displayable;
@@ -28,16 +29,21 @@ import org.apache.hupa.widgets.ui.HasEnable;
 
 =======
 >>>>>>> first commit
+=======
+>>>>>>> first commit
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MockMessageSendDisplay implements Displayable {
 =======
+=======
+>>>>>>> first commit
 import com.google.gwt.user.client.ui.Widget;
 
 import gwtupload.client.IUploader;
@@ -47,6 +53,9 @@ import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.widgets.ui.HasEnable;
 
 public class MockMessageSendDisplay implements Display {
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 
     HasClickHandlers backClick = new MockWidget();
@@ -86,11 +95,17 @@ public class MockMessageSendDisplay implements Display {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> first commit
     public HasText getFromText() {
         return fromText;
     }
 
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
     public HasHTML getMessageHTML() {
         return messageHtml;
@@ -150,6 +165,7 @@ public class MockMessageSendDisplay implements Display {
         return true;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Override
 	public void showCc() {
@@ -301,6 +317,8 @@ public class MockMessageSendDisplay implements Display {
 		return null;
 	}
 
+=======
+>>>>>>> first commit
 =======
 >>>>>>> first commit
 }

@@ -32,7 +32,10 @@ public class EmailListValidatorTest extends HupaGwtTestCase {
         assertTrue(EmailListValidator.isValidAddressList("abc@abc.def ; ; MMM <mcm@aa.co>;;;"));
         assertTrue(EmailListValidator.isValidAddressList("abc@abc.def\nMMM <mcm@aa.co>;;;"));
 <<<<<<< HEAD
+<<<<<<< HEAD
         assertTrue(EmailListValidator.isValidAddressList("server-dev-sc.1342023625.aldemmhlhmcipjmoflol-abc=gmail.com@james.apache.org"));
+=======
+>>>>>>> first commit
 =======
 >>>>>>> first commit
     }

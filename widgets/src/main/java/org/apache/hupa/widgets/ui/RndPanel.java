@@ -26,6 +26,10 @@ import com.google.gwt.user.client.ui.Widget;
 
 import org.apache.hupa.widgets.ui.impl.RndPanelGenerator;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import org.apache.hupa.widgets.ui.impl.RndPanelGeneratorImpl;
+>>>>>>> first commit
 =======
 import org.apache.hupa.widgets.ui.impl.RndPanelGeneratorImpl;
 >>>>>>> first commit

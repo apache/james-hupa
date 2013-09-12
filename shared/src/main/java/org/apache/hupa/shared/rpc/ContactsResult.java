@@ -22,6 +22,7 @@ package org.apache.hupa.shared.rpc;
 import java.io.Serializable;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 
@@ -84,11 +85,16 @@ public class ContactsResult{
 		this.contacts = contacts;
 	}
 =======
+=======
+>>>>>>> first commit
 import net.customware.gwt.dispatch.shared.Result;
 
 public class ContactsResult implements Result, Serializable {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> first commit
     public static class Contact implements Result, Serializable {
         private static final long serialVersionUID = -8632580327693416473L;
         public String mail;
@@ -137,6 +143,7 @@ public class ContactsResult implements Result, Serializable {
     public void setContacts(Contact[] contacts) {
         this.contacts = contacts;
     }
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 	public static class Contact implements Result, Serializable {
@@ -196,5 +203,7 @@ public class ContactsResult implements Result, Serializable {
 		this.contacts = contacts;
 	}
 >>>>>>> constant changed by manolo
+=======
+>>>>>>> first commit
 
 }

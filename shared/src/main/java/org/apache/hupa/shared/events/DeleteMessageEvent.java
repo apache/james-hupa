@@ -22,9 +22,15 @@ package org.apache.hupa.shared.events;
 import java.util.ArrayList;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.Message;
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -38,7 +44,11 @@ public class DeleteMessageEvent extends GwtEvent<DeleteMessageEventHandler>{
     public final static Type<DeleteMessageEventHandler> TYPE = new Type<DeleteMessageEventHandler>();
     private User user;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private ImapFolderImpl folder;
+=======
+    private IMAPFolder folder;
+>>>>>>> first commit
 =======
     private IMAPFolder folder;
 >>>>>>> first commit
@@ -54,7 +64,11 @@ public class DeleteMessageEvent extends GwtEvent<DeleteMessageEventHandler>{
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public DeleteMessageEvent(User user, ImapFolderImpl folder, ArrayList<Message> messageList) {
+=======
+    public DeleteMessageEvent(User user, IMAPFolder folder, ArrayList<Message> messageList) {
+>>>>>>> first commit
 =======
     public DeleteMessageEvent(User user, IMAPFolder folder, ArrayList<Message> messageList) {
 >>>>>>> first commit
@@ -63,7 +77,11 @@ public class DeleteMessageEvent extends GwtEvent<DeleteMessageEventHandler>{
         this.messageList = messageList;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     public DeleteMessageEvent(User user, ImapFolderImpl folder, Message message) {
+=======
+    public DeleteMessageEvent(User user, IMAPFolder folder, Message message) {
+>>>>>>> first commit
 =======
     public DeleteMessageEvent(User user, IMAPFolder folder, Message message) {
 >>>>>>> first commit
@@ -79,7 +97,11 @@ public class DeleteMessageEvent extends GwtEvent<DeleteMessageEventHandler>{
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ImapFolderImpl getFolder() {
+=======
+    public IMAPFolder getFolder() {
+>>>>>>> first commit
 =======
     public IMAPFolder getFolder() {
 >>>>>>> first commit

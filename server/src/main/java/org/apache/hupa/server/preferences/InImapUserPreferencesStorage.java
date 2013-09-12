@@ -49,7 +49,11 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.utils.MessageUtils;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 =======
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
@@ -68,12 +72,15 @@ import com.sun.mail.imap.IMAPStore;
 public class InImapUserPreferencesStorage extends UserPreferencesStorage {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 =======
 >>>>>>> first commit
 =======
 	
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit
 
     // User preferences are saved in IMAP but there is a delay between a new
     // contact is added an the save action. It saves number of operations in

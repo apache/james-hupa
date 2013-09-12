@@ -28,6 +28,7 @@
 			<p> Hupa is a functional and well designed email client, ready for
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				reading, sending and managing messages, but it still lacks of many features
 				email clients nowadays have.</p>
 =======
@@ -38,10 +39,15 @@
 				reading, sending and managing messages, but it still lacks of many features
 				email clients nowadays have.</p>
 >>>>>>> constantly changed by manolo
+=======
+				reading, sending and managing messages, but it lacks of many features
+				email clients nowadays have like address book </p>
+>>>>>>> first commit
 		</section>
 
         <section name="Releases">
             <p>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -62,6 +68,11 @@
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
+=======
+                Although there isn't a stable release yet you can download the latest
+                <a href='https://builds.apache.org/job/hupa-trunk/lastBuild/org.apache.hupa$hupa/artifact/org.apache.hupa/hupa/0.0.2-SNAPSHOT/hupa-0.0.2-SNAPSHOT.war'>
+                 0.2-SNAPSHOT
+>>>>>>> first commit
                 </a>
                 from our continuous integration server.
             </p>
@@ -77,6 +88,7 @@
 
         <section name="News">
             <subsection name="2012">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -106,6 +118,13 @@
                         target="_blank">GSOC student</a> who will work with Hupa this Summer
                         making it better !.
 >>>>>>> constantly changed by manolo
+=======
+                <h4>Apr/2012 - Hupa evolution accepted</h4>
+                <p>
+                    Whe have got a GSOC student who will work with Hupa this Summer
+                    <a href="http://www.google-melange.com/gsoc/proposal/review/google/gsoc2012/echo/1"
+                        target="_blank">making it better.</a>
+>>>>>>> first commit
                 </p>
                 <h4>Mar/2012 - removed snapshots</h4>
                 <p>Removed snapshot dependencies, updated to last GWT release,
@@ -128,6 +147,7 @@
             <subsection name="2010">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <h4>Jun/2010 - Hupa 0.0.1</h4>
 =======
                 <h4>Jun/2010 - Hupa 0.1</h4>
@@ -135,6 +155,9 @@
 =======
                 <h4>Jun/2010 - Hupa 0.0.1</h4>
 >>>>>>> constantly changed by manolo
+=======
+                <h4>Jun/2010 - Hupa 0.1</h4>
+>>>>>>> first commit
                 <p>First beta release, with an improved interface and fully
                     functional (read, edit, send, secure, attachments, etc)</p>
             </subsection>

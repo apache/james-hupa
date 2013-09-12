@@ -43,6 +43,7 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.hupa.server.FileItemRegistry;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.service.SendMessageBaseServiceImpl;
 import org.apache.hupa.shared.data.MessageAttachmentImpl;
@@ -50,10 +51,15 @@ import org.apache.hupa.shared.data.SmtpMessageImpl;
 import org.apache.hupa.shared.domain.MessageAttachment;
 import org.apache.hupa.shared.domain.SmtpMessage;
 =======
+=======
+>>>>>>> first commit
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.SMTPMessage;
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 
 import com.sun.mail.imap.IMAPStore;
@@ -167,7 +173,11 @@ public class TestUtils extends TestCase {
         message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients("bcc@dom.com"));
         message.setSubject("Subject");
 <<<<<<< HEAD
+<<<<<<< HEAD
         return SendMessageBaseServiceImpl.composeMessage(message, text, html, items);
+=======
+        return AbstractSendMessageHandler.composeMessage(message, text, html, items);
+>>>>>>> first commit
 =======
         return AbstractSendMessageHandler.composeMessage(message, text, html, items);
 >>>>>>> first commit
@@ -189,7 +199,11 @@ public class TestUtils extends TestCase {
      * @throws IOException
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static SmtpMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
+=======
+    public static SMTPMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
+>>>>>>> first commit
 =======
     public static SMTPMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
 >>>>>>> first commit
@@ -201,7 +215,11 @@ public class TestUtils extends TestCase {
             registry.add(fileItem);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             MessageAttachment msgAttach = new MessageAttachmentImpl();
+=======
+            MessageAttachment msgAttach = new MessageAttachment();
+>>>>>>> first commit
 =======
             MessageAttachment msgAttach = new MessageAttachment();
 >>>>>>> first commit
@@ -213,7 +231,11 @@ public class TestUtils extends TestCase {
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         SmtpMessage smtpMessage = new SmtpMessageImpl();
+=======
+        SMTPMessage smtpMessage = new SMTPMessage();
+>>>>>>> first commit
 =======
         SMTPMessage smtpMessage = new SMTPMessage();
 >>>>>>> first commit

@@ -24,20 +24,33 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+<<<<<<< HEAD
 import net.customware.gwt.dispatch.client.DispatchAsync;
+=======
+>>>>>>> first commit
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
 
+<<<<<<< HEAD
+=======
+import org.apache.hupa.client.CachingDispatchAsync;
+>>>>>>> first commit
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
+=======
+import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.data.Message.IMAPFlag;
+>>>>>>> first commit
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.BackEventHandler;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
@@ -62,7 +75,10 @@ import org.apache.hupa.shared.events.ReplyMessageEvent;
 import org.apache.hupa.shared.events.ReplyMessageEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.SentMessageEventHandler;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+>>>>>>> first commit
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.FetchFolders;
@@ -115,24 +131,40 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
         public HasEnable getNewEnable();
 
+<<<<<<< HEAD
         public void updateTreeItem(IMAPFolderProxy folder);
+=======
+        public void updateTreeItem(IMAPFolder folder);
+>>>>>>> first commit
 
         public void deleteSelectedFolder();
 
         public HasEditable createFolder(EditHandler handler);
 
+<<<<<<< HEAD
         public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
 
         public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
+=======
+        public void increaseUnseenMessageCount(IMAPFolder folder, int amount);
+
+        public void decreaseUnseenMessageCount(IMAPFolder folder, int amount);
+>>>>>>> first commit
         
         public void setLoadingFolders(boolean loading);
         public void setLoadingMessage(boolean loading);
 
     }
 
+<<<<<<< HEAD
     private DispatchAsync dispatcher;
     private User user;
     private IMAPFolderProxy folder;
+=======
+    private CachingDispatchAsync cachingDispatcher;
+    private User user;
+    private IMAPFolder folder;
+>>>>>>> first commit
     private String searchValue;
     private IMAPMessageListPresenter messageListPresenter;
     private IMAPMessagePresenter messagePresenter;
@@ -141,10 +173,17 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     private HasEditable editableTreeItem;
     
     @Inject
+<<<<<<< HEAD
     public MainPresenter(MainPresenter.Display display, EventBus bus, DispatchAsync cachingDispatcher, IMAPMessageListPresenter messageListPresenter, IMAPMessagePresenter messagePresenter,
             MessageSendPresenter sendPresenter) {
         super(display, bus, messageListPresenter, messagePresenter, sendPresenter);
         this.dispatcher = cachingDispatcher;
+=======
+    public MainPresenter(MainPresenter.Display display, EventBus bus, CachingDispatchAsync cachingDispatcher, IMAPMessageListPresenter messageListPresenter, IMAPMessagePresenter messagePresenter,
+            MessageSendPresenter sendPresenter) {
+        super(display, bus, messageListPresenter, messagePresenter, sendPresenter);
+        this.cachingDispatcher = cachingDispatcher;
+>>>>>>> first commit
         this.messageListPresenter = messageListPresenter;
         this.messagePresenter = messagePresenter;
         this.sendPresenter = sendPresenter;
@@ -153,7 +192,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
     protected void loadTreeItems() {
         display.setLoadingFolders(true);
+<<<<<<< HEAD
         dispatcher.execute(new FetchFolders(), new HupaCallback<FetchFoldersResult>(dispatcher, eventBus, display) {
+=======
+        cachingDispatcher.execute(new FetchFolders(), new HupaCallback<FetchFoldersResult>(cachingDispatcher, eventBus, display) {
+>>>>>>> first commit
             public void callback(FetchFoldersResult result) {
                 display.bindTreeItems(createTreeNodes(result.getFolders()));
                 // disable
@@ -171,10 +214,17 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
      * @param list
      * @return
      */
+<<<<<<< HEAD
     private List<IMAPTreeItem> createTreeNodes(List<IMAPFolderProxy> list) {
         List<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
 
         for (IMAPFolderProxy iFolder : list) {
+=======
+    private List<IMAPTreeItem> createTreeNodes(List<IMAPFolder> list) {
+        List<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
+
+        for (IMAPFolder iFolder : list) {
+>>>>>>> first commit
 
             final IMAPTreeItem record = new IMAPTreeItem(iFolder);
             record.addEditHandler(new EditHandler() {
@@ -184,7 +234,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                         IMAPFolder iFolder = new IMAPFolder((String) event.getOldValue());
                         final String newName = (String) event.getNewValue();
                         if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
+<<<<<<< HEAD
                             dispatcher.execute(new RenameFolder(iFolder, newName), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+=======
+                            cachingDispatcher.execute(new RenameFolder(iFolder, newName), new HupaCallback<GenericResult>(cachingDispatcher, eventBus) {
+>>>>>>> first commit
                                 public void callback(GenericResult result) {
                                     folder.setFullName(newName);
                                 }
@@ -199,7 +253,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             });
             record.setUserObject(iFolder);
 
+<<<<<<< HEAD
             List<IMAPFolderProxy> childFolders = iFolder.getChildIMAPFolders();
+=======
+            List<IMAPFolder> childFolders = iFolder.getChildIMAPFolders();
+>>>>>>> first commit
             List<IMAPTreeItem> items = createTreeNodes(childFolders);
             for (IMAPTreeItem item : items) {
                 record.addItem(item);
@@ -225,7 +283,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         return tList;
     }
 
+<<<<<<< HEAD
     private void showMessageTable(User user, IMAPFolderProxy folder, String searchValue) {
+=======
+    private void showMessageTable(User user, IMAPFolder folder, String searchValue) {
+>>>>>>> first commit
         this.user = user;
         this.folder = folder;
         this.searchValue = searchValue;
@@ -234,7 +296,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         messageListPresenter.revealDisplay(user, folder, searchValue);
     }
 
+<<<<<<< HEAD
     private void showMessage(User user, IMAPFolderProxy folder, Message message, MessageDetails details) {
+=======
+    private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {
+>>>>>>> first commit
         messagePresenter.revealDisplay(user, folder, message, details);
     }
 
@@ -256,6 +322,17 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         sendPresenter.revealDisplay();
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Reset the presenter and display
+     */
+    private void reset() {
+        // clear the cache
+        cachingDispatcher.clear();
+    }
+
+>>>>>>> first commit
 
     @Override
     protected void onBind() {
@@ -282,7 +359,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                 }
 
                 display.setLoadingMessage(true);
+<<<<<<< HEAD
                 dispatcher.execute(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaCallback<GetMessageDetailsResult>(dispatcher, eventBus, display) {
+=======
+                cachingDispatcher.executeWithCache(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaCallback<GetMessageDetailsResult>(cachingDispatcher, eventBus, display) {
+>>>>>>> first commit
                     public void callback(GetMessageDetailsResult result) {
                         if (decreaseUnseen) {
                             eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
@@ -380,7 +461,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                 tItem = (IMAPTreeItem) event.getSelectedItem();
                 if (tItem.isEdit()) 
                     return;
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy) tItem.getUserObject();
+=======
+                folder = (IMAPFolder) tItem.getUserObject();
+>>>>>>> first commit
                 eventBus.fireEvent(new LoadMessagesEvent(user, folder));
             }
 
@@ -392,7 +477,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                 tItem = (IMAPTreeItem) event.getSelectedItem();
                 if (tItem.isEdit()) 
                     return;
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy) tItem.getUserObject();
+=======
+                folder = (IMAPFolder) tItem.getUserObject();
+>>>>>>> first commit
                 if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
                     display.getDeleteEnable().setEnabled(false);
                     display.getRenameEnable().setEnabled(false);
@@ -423,7 +512,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         registerHandler(display.getDeleteConfirmClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
+<<<<<<< HEAD
                 dispatcher.execute(new DeleteFolder(folder), new AsyncCallback<GenericResult>() {
+=======
+                cachingDispatcher.execute(new DeleteFolder(folder), new AsyncCallback<GenericResult>() {
+>>>>>>> first commit
 
                     public void onFailure(Throwable caught) {
                         GWT.log("ERROR while deleting", caught);
@@ -447,7 +540,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                         final IMAPTreeItem item = (IMAPTreeItem) event.getSource();
                         final String newValue = (String) event.getNewValue();
                         if (event.getEventType().equals(EditEvent.EventType.Stop)) {
+<<<<<<< HEAD
                             dispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<GenericResult>() {
+=======
+                            cachingDispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<GenericResult>() {
+>>>>>>> first commit
 
                                 public void onFailure(Throwable caught) {
                                     GWT.log("Error while create folder", caught);
@@ -470,7 +567,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         registerHandler(eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
 
             public void onMessagesReceived(MessagesReceivedEvent event) {
+<<<<<<< HEAD
             	IMAPFolderProxy f = event.getFolder();
+=======
+                IMAPFolder f = event.getFolder();
+>>>>>>> first commit
                 display.updateTreeItem(f);
             }
 
@@ -480,9 +581,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());;
                 searchValue = null;
                 showMessageTable(user, folder, searchValue);
+=======
+                folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+                messageListPresenter.revealDisplay(user, folder, null);
+>>>>>>> first commit
             }
             
         }));
@@ -492,6 +598,18 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
     }
 
+<<<<<<< HEAD
+=======
+
+    @Override
+    protected void onUnbind() {
+        reset();
+
+        super.onUnbind();
+    }
+
+    
+>>>>>>> first commit
     public void revealDisplay(User user) {
         this.user = user;
         loadTreeItems();  
@@ -500,8 +618,13 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     
     @Override
     protected void onRevealDisplay() {
+<<<<<<< HEAD
 //        showMessageTable(user, folder, searchValue);
 //        super.onRevealDisplay();
+=======
+        showMessageTable(user, folder, searchValue);
+        super.onRevealDisplay();
+>>>>>>> first commit
     }
     
     public void openLink(String url) {

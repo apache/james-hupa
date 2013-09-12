@@ -16,26 +16,19 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package org.apache.hupa.client.gin;
 
-import net.customware.gwt.dispatch.client.gin.StandardDispatchModule;
-import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.PlaceManager;
+package org.apache.hupa.server.guice;
 
-import org.apache.hupa.client.mvp.AppPresenter;
-import org.apache.hupa.client.rf.HupaRequestFactory;
+import java.util.Properties;
 
-import com.google.gwt.inject.client.GinModules;
-import com.google.gwt.inject.client.Ginjector;
+import javax.mail.Session;
 
-<<<<<<< HEAD
-@GinModules({/*StandardDispatchModule.class,*/ HupaClientModule.class})
-=======
-@GinModules({StandardDispatchModule.class,HupaClientModule.class})
->>>>>>> first commit
-public interface HupaGinjector extends Ginjector {
-    AppPresenter getAppPresenter();
-    PlaceManager getPlaceManager();
-    EventBus getEventBus();
-    HupaRequestFactory getRequestFactory();
+import com.google.inject.Provider;
+
+public class JavaMailSessionProvider implements Provider<Session>{
+
+    public Session get() {
+        Session session = Session.getDefaultInstance(new Properties(), null);
+        return session;
+    }
 }

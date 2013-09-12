@@ -18,28 +18,44 @@
  ****************************************************************/
 package org.apache.hupa.server.handler;
 
+<<<<<<< HEAD
 import java.io.ByteArrayInputStream;
 
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+=======
+import com.google.inject.Module;
+
+import com.sun.mail.imap.IMAPStore;
+>>>>>>> first commit
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.guice.GuiceServerTestModule;
+<<<<<<< HEAD
 import org.apache.hupa.server.guice.providers.LogProvider;
+=======
+>>>>>>> first commit
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.FetchFolders;
 import org.apache.hupa.shared.rpc.FetchFoldersResult;
+<<<<<<< HEAD
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
 import com.google.inject.Module;
 import com.sun.mail.imap.IMAPStore;
+=======
+
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+>>>>>>> first commit
 
 public class HandlersTest extends HupaGuiceTestCase {
 
@@ -53,7 +69,11 @@ public class HandlersTest extends HupaGuiceTestCase {
         public MyModule() {
             // properties = courierProperties;
             // properties = gmailProperties;
+<<<<<<< HEAD
             // logProviderClass = LogProvider.class;
+=======
+            // logClass = LogProvider.class;
+>>>>>>> first commit
         }
     }
     
@@ -62,6 +82,7 @@ public class HandlersTest extends HupaGuiceTestCase {
         return new Module[]{new MyModule()};
     }
 
+<<<<<<< HEAD
     public void testLoginAndFetchFolders() throws Exception {
         org.apache.hupa.shared.rpc.LoginUser l = new org.apache.hupa.shared.rpc.LoginUser(testUser.getName(),testUser.getPassword());
         loginUser.execute(l, null);
@@ -92,6 +113,18 @@ public class HandlersTest extends HupaGuiceTestCase {
         
         result = fetchMessagesHandler.execute(new FetchMessages(sFolder, 0, 100, ""), null);
         assertEquals(1, result.getMessages().size() - nmsgs);
+=======
+    public void testLoginAndFetchFolders() {
+        try {
+            org.apache.hupa.shared.rpc.LoginUser l = new org.apache.hupa.shared.rpc.LoginUser(testUser.getName(),testUser.getPassword());
+            loginUser.execute(l, null);
+            FetchFoldersResult result = fetchFoldersHandler.execute(new FetchFolders(), null);
+            assertNotNull(result);
+        } catch (ActionException e) {
+            e.printStackTrace();
+            fail("Shouldn't throw an exception");
+        }
+>>>>>>> first commit
     }
     
     public void testCreateAndDeleteFolder() throws MessagingException {

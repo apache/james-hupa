@@ -39,7 +39,11 @@ import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.SConsts;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 =======
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
@@ -84,12 +88,17 @@ public class DownloadAttachmentServlet extends HttpServlet {
         String attachmentName = request.getParameter(SConsts.PARAM_NAME);
         String folderName = request.getParameter(SConsts.PARAM_FOLDER);
 <<<<<<< HEAD
+<<<<<<< HEAD
         String mode = request.getParameter(SConsts.PARAM_MODE);
         boolean inline = "inline".equals(mode);
         if (!inline) {
 	    response.setHeader("Content-disposition", "attachment; filename="
 	        + attachmentName + "");
         }
+=======
+        response.setHeader("Content-disposition", "attachment; filename="
+                + attachmentName + "");
+>>>>>>> first commit
 =======
         response.setHeader("Content-disposition", "attachment; filename="
                 + attachmentName + "");
@@ -116,11 +125,15 @@ public class DownloadAttachmentServlet extends HttpServlet {
             in = part.getInputStream();
             if (in != null) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 // FIXME: for some reason Chrome does not display inline images when they have the content-length
                 // it's like the size reported in server is different than the received bytes.
                 if (!inline) {
                     response.setContentLength(part.getSize());
                 }
+=======
+                response.setContentLength(part.getSize());
+>>>>>>> first commit
 =======
                 response.setContentLength(part.getSize());
 >>>>>>> first commit

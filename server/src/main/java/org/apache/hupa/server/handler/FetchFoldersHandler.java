@@ -33,7 +33,10 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+>>>>>>> first commit
 import org.apache.hupa.shared.rpc.FetchFolders;
 import org.apache.hupa.shared.rpc.FetchFoldersResult;
 
@@ -66,11 +69,19 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
             com.sun.mail.imap.IMAPFolder folder = (com.sun.mail.imap.IMAPFolder) store.getDefaultFolder();
             
             // List of mail 'root' imap folders
+<<<<<<< HEAD
             List<IMAPFolderProxy> imapFolders = new ArrayList<IMAPFolderProxy>();
 
             // Create IMAPFolder tree list
             for (Folder f : folder.list()) {
             	IMAPFolderProxy imapFolder = createIMAPFolder(f);
+=======
+            List<IMAPFolder> imapFolders = new ArrayList<IMAPFolder>();
+
+            // Create IMAPFolder tree list
+            for (Folder f : folder.list()) {
+                IMAPFolder imapFolder = createIMAPFolder(f);
+>>>>>>> first commit
                 imapFolders.add(imapFolder);
                 walkFolders(f, imapFolder);
             }
@@ -96,9 +107,15 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
      * @throws ActionException If an error occurs
      * @throws MessagingException If an error occurs
      */
+<<<<<<< HEAD
     private void walkFolders(Folder folder, IMAPFolderProxy imapFolder) throws ActionException, MessagingException{
         for (Folder f : folder.list()) {
         	IMAPFolderProxy iFolder = createIMAPFolder(f);
+=======
+    private void walkFolders(Folder folder, IMAPFolder imapFolder) throws ActionException, MessagingException{
+        for (Folder f : folder.list()) {
+            IMAPFolder iFolder = createIMAPFolder(f);
+>>>>>>> first commit
             imapFolder.getChildIMAPFolders().add(iFolder);
             walkFolders(f, iFolder);
         }
@@ -119,16 +136,28 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
      * @throws ActionException If an error occurs
      * @throws MessagingException If an error occurs
      */
+<<<<<<< HEAD
     private IMAPFolderProxy createIMAPFolder(Folder folder) throws ActionException {
 
         String fullName = folder.getFullName();
         String delimiter;
         IMAPFolderProxy iFolder = null;
+=======
+    private IMAPFolder createIMAPFolder(Folder folder) throws ActionException {
+
+        String fullName = folder.getFullName();
+        String delimiter;
+        IMAPFolder iFolder = null;
+>>>>>>> first commit
         
         try {
             logger.debug("Creating folder: " + fullName + " for user: " + getUser());
             delimiter = String.valueOf(folder.getSeparator());
+<<<<<<< HEAD
             iFolder = (IMAPFolderProxy)new IMAPFolder(fullName);
+=======
+            iFolder = new IMAPFolder(fullName);
+>>>>>>> first commit
             iFolder.setDelimiter(delimiter);
             if("[Gmail]".equals(folder.getFullName()))
                 return iFolder;

@@ -20,7 +20,11 @@
 package org.apache.hupa.shared.events;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 =======
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit

@@ -19,13 +19,21 @@
 
 package org.apache.hupa.shared.rpc;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+>>>>>>> first commit
 
 public class DeleteAllMessages extends DeleteMessage{
 
     private static final long serialVersionUID = -6801849429581798842L;
 
+<<<<<<< HEAD
     public DeleteAllMessages(IMAPFolderProxy folder) {
+=======
+    public DeleteAllMessages(IMAPFolder folder) {
+>>>>>>> first commit
         super(folder);
     }
     

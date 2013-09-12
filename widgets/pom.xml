@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> constantly changed by manolo
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -44,6 +45,8 @@
         </dependency>
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> first commit
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
@@ -87,15 +90,19 @@
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-incubator</artifactId>
         </dependency>
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit
         <dependency>
             <groupId>org.cobogw.gwt</groupId>
             <artifactId>cobogw</artifactId>
         </dependency>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> constantly changed by manolo
     </dependencies>
@@ -118,6 +125,8 @@
     </build>
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> first commit
     </dependencies>
     <build>
         <resources>
@@ -136,7 +145,10 @@
             </resource>
         </resources>
     </build>
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit
 </project>

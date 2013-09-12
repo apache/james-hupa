@@ -28,6 +28,7 @@ import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
@@ -36,6 +37,8 @@ import org.apache.hupa.server.ioc.demo.DemoGuiceServerModule.DemoIMAPStoreCache;
 =======
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit
 import org.apache.hupa.server.guice.demo.DemoGuiceServerModule.DemoIMAPStoreCache;
 import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
@@ -53,6 +56,9 @@ import org.apache.hupa.server.handler.LoginUserHandler;
 import org.apache.hupa.server.handler.LogoutUserHandler;
 import org.apache.hupa.server.handler.ReplyMessageHandler;
 import org.apache.hupa.server.handler.SendMessageHandler;
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 import org.apache.hupa.server.mock.MockConstants;
 import org.apache.hupa.server.mock.MockHttpSessionProvider;
@@ -60,6 +66,7 @@ import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLogProvider;
 import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.server.service.CheckSessionServiceImpl;
 import org.apache.hupa.server.service.CreateFolderServiceImpl;
@@ -118,6 +125,8 @@ import org.apache.hupa.shared.domain.User;
 
 import com.google.inject.Provider;
 =======
+=======
+>>>>>>> first commit
 import org.apache.hupa.server.utils.ConfigurationProperties;
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
@@ -125,14 +134,18 @@ import org.apache.hupa.shared.rpc.Contacts;
 import org.apache.hupa.shared.rpc.SendMessage;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 import com.google.inject.Provider;
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import com.sun.mail.imap.IMAPStore;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 public class GuiceServerTestModule extends AbstractGuiceTestModule {
 
@@ -227,11 +240,14 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
 
 }
 =======
+=======
+>>>>>>> first commit
 /**
  * Guice module used in server tests.
  */
 public class GuiceServerTestModule extends AbstractGuiceTestModule {
 
+<<<<<<< HEAD
     protected Class<? extends UserPreferencesStorage> userPreferencesStorageClass = InSessionUserPreferencesStorage.class;
     protected Class<? extends Provider<Log>> logProviderClass = MockLogProvider.class;
     protected Properties properties = MockConstants.mockProperties;
@@ -280,6 +296,49 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
         bind(User.class).to(TestUser.class).in(Singleton.class);
         bind(Properties.class).toInstance(properties);
     }
+
+}
+>>>>>>> first commit
+=======
+  @Override
+  protected void configureHandlers() {
+      Properties properties = MockConstants.mockProperties;
+      ConfigurationProperties.validateProperties(properties);
+
+      Names.bindProperties(binder(), properties);
+      
+      bind(Session.class).toProvider(JavaMailSessionProvider.class);
+      bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
+      bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(Singleton.class);
+      bind(Log.class).toProvider(MockLogProvider.class).in(Singleton.class);
+
+      bind(IMAPStore.class).to(MockIMAPStore.class);
+      bind(IMAPStoreCache.class).to(DemoIMAPStoreCache.class).in(Singleton.class);
+
+      bind(LoginUserHandler.class);
+      bind(LogoutUserHandler.class);
+      bind(IdleHandler.class);
+      
+      bind(FetchFoldersHandler.class);
+      bind(CreateFolderHandler.class);
+      bind(DeleteFolderHandler.class);
+      bind(FetchMessagesHandler.class);
+      bind(DeleteMessageByUidHandler.class);
+      bind(GetMessageDetailsHandler.class);
+      bind(AbstractSendMessageHandler.class).to(SendMessageHandler.class);
+      bind(SendMessageHandler.class);
+      bind(ReplyMessageHandler.class);
+      bind(ForwardMessageHandler.class);
+      
+      bindHandler(Contacts.class, ContactsHandler.class);
+      bindHandler(SendMessage.class, SendMessageHandler.class);
+      
+      bind(UserPreferencesStorage.class).to(InSessionUserPreferencesStorage.class);
+      
+      bind(User.class).to(TestUser.class).in(Singleton.class);
+      bind(Properties.class).toInstance(properties);
+
+  }
 
 }
 >>>>>>> first commit

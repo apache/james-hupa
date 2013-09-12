@@ -19,21 +19,28 @@
 -->
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 =======
+=======
+>>>>>>> first commit
 <project
     xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.james</groupId>
         <artifactId>james-project</artifactId>
         <version>1.8.1</version>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -45,14 +52,19 @@
     <version>0.0.3-SNAPSHOT</version>
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> first commit
         <relativePath></relativePath>
     </parent>
     <groupId>org.apache.hupa</groupId>
     <artifactId>hupa-parent</artifactId>
     <version>0.0.2-SNAPSHOT</version>
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit
     <packaging>pom</packaging>
     <name>Apache James Hupa Parent</name>
     <description>Hupa is a GWT based Webmail</description>
@@ -60,8 +72,13 @@
     <inceptionYear>2009</inceptionYear>
     <modules>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <module>shared</module>
         <module>mock</module>
+=======
+        <module>mock</module>
+        <module>shared</module>
+>>>>>>> first commit
 =======
         <module>mock</module>
         <module>shared</module>
@@ -86,6 +103,7 @@
         </site>
     </distributionManagement>
     <properties>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <gwtVersion>2.5.1</gwtVersion>
         <gwtMavenVersion>2.5.1</gwtMavenVersion>
@@ -173,13 +191,25 @@
       </profile>
     </profiles>
 
+=======
+        <gwtVersion>2.4.0</gwtVersion>
+        <gwtMavenVersion>2.4.0</gwtMavenVersion>
+        <jettyVersion>7.3.0.v20110203</jettyVersion>
+    </properties>
+>>>>>>> first commit
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.apache.hupa</groupId>
                 <artifactId>hupa-mock</artifactId>
                 <version>${project.version}</version>
+<<<<<<< HEAD
                 <scope>${mock.scope}</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hupa</groupId>
+>>>>>>> first commit
+=======
             </dependency>
             <dependency>
                 <groupId>org.apache.hupa</groupId>
@@ -189,7 +219,11 @@
             </dependency>
             <dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <groupId>${project.groupId}</groupId>
+=======
+                <groupId>org.apache.hupa</groupId>
+>>>>>>> first commit
 =======
                 <groupId>org.apache.hupa</groupId>
 >>>>>>> first commit
@@ -198,7 +232,11 @@
             </dependency>
             <dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <groupId>${project.groupId}</groupId>
+=======
+                <groupId>org.apache.hupa</groupId>
+>>>>>>> first commit
 =======
                 <groupId>org.apache.hupa</groupId>
 >>>>>>> first commit

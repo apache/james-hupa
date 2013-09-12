@@ -130,6 +130,12 @@ public class MessageSendView extends Composite implements MessageSendPresenter.D
                 new EmailListValidator(getToText()).addActionForFailure(sAction).addActionForFailure(fAction),
                 new NotEmptyValidator(getToText()).addActionForFailure(sAction).addActionForFailure(fAction));
 
+<<<<<<< HEAD
+=======
+        try {
+        } catch (Exception e) {
+        }
+>>>>>>> first commit
     }
 
     /*

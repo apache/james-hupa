@@ -17,6 +17,7 @@
   under the License.
 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /************[ Fonts ]***************************/
 body,table td,select,* {
 	font-family: arial, 'comic sans ms', sans-serif, helvetica, verdana;
@@ -41,6 +42,8 @@ body.noscroll { /* also avoids bounce effect in Chrome and Safari */
 }
 
 =======
+=======
+>>>>>>> first commit
 
 /************[ Fonts ]***************************/
 body, table td, select, * {
@@ -52,15 +55,23 @@ body, table td, select, * {
 .hupa-dialog-box td.dialogMiddleCenter  {
 	background: #fae5b0;
 }
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 .hupa-dialog-box .dialogContent .gwt-Label {
 	font-weight: bold;
 	margin: 15px;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 .hupa-dialog-box .Caption {
 	font-size: 14px;
+=======
+.hupa-dialog-box .Caption {
+    font-size: 14px;
+>>>>>>> first commit
 =======
 .hupa-dialog-box .Caption {
     font-size: 14px;
@@ -70,9 +81,15 @@ body, table td, select, * {
 /************[ widget: RndPanel ]****************/
 .hupa-rounded {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	border: 1px solid #7FAAFF;
 	border-radius: 5px;
 	overflow: hidden;
+=======
+   border: 1px solid #7FAAFF; 
+   border-radius: 5px;
+   overflow: hidden;
+>>>>>>> first commit
 =======
    border: 1px solid #7FAAFF; 
    border-radius: 5px;
@@ -87,6 +104,7 @@ div.hupa-loading {
 	width: 100px;
 	height: 14px;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	white-space: nowrap;
 	margin-top: 5px;
 	margin-left: auto;
@@ -94,12 +112,17 @@ div.hupa-loading {
 	text-align: left;
 	vertical-align: top;
 =======
+=======
+>>>>>>> first commit
     white-space: nowrap;
     margin-top: 5px;
     margin-left: auto;
     margin-right: auto;
     text-align: left;
     vertical-align: top;
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 }
 
@@ -110,6 +133,7 @@ div.hupa-loading {
 	cursor: pointer;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 .hupa-hyperlink .gwt-Hyperlink-disabled {
 	color: #8d8d8d;
@@ -117,10 +141,15 @@ div.hupa-loading {
 
 div.gwt-Hyperlink,div.gwt-Anchor {
 =======
+=======
+>>>>>>> first commit
 .hupa-hyperlink .gwt-Hyperlink-disabled {
 	color: #8d8d8d;
 }
 div.gwt-Hyperlink, div.gwt-Anchor {
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 	padding-left: 4px;
 }
@@ -131,6 +160,7 @@ div.Hupa {
 	margin-top: 0px;
 	padding: 0px;
 	width: 100%;
+<<<<<<< HEAD
 <<<<<<< HEAD
 	min-width: 400px;
 }
@@ -154,6 +184,8 @@ div.hupa-top {
 }
 
 =======
+=======
+>>>>>>> first commit
 	min-width: 920px;
 }
 * html div.Hupa {
@@ -173,13 +205,19 @@ div.hupa-top {
 * html div.hupa-top { 
     padding-left: 0px;
 } 
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 div.hupa-top-wrap {
 	height: 64px;
 	background-color: #C5D9FF;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> first commit
 =======
 >>>>>>> first commit
 div.cgb-RPC-hupa-top-wrap {
@@ -187,6 +225,7 @@ div.cgb-RPC-hupa-top-wrap {
 }
 
 table.hupa-top {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	width: 100%;
 	margin-bottom: 0px;
@@ -197,10 +236,16 @@ table.hupa-top {
     margin-bottom: 0px;
 }
 >>>>>>> first commit
+=======
+    width: 100%;    
+    margin-bottom: 0px;
+}
+>>>>>>> first commit
 table.hupa-button-bar td div {
 	padding-top: 12px;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 div.hupa-loginfo-label,div.hupa-loginfo-user {
 	margin-left: 10px;
@@ -212,10 +257,16 @@ div.hupa-loginfo-label, div.hupa-loginfo-user {
 	margin-left: 10px;
 }
 >>>>>>> first commit
+=======
+div.hupa-loginfo-label, div.hupa-loginfo-user {
+	margin-left: 10px;
+}
+>>>>>>> first commit
 .hupa-loginfo-user {
 	font-style: italic;
 	font-weight: bold;
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 .hupa-menu-button {
@@ -225,31 +276,43 @@ div.hupa-loginfo-label, div.hupa-loginfo-user {
 div.hupa-header {
 	display: none;
 =======
+=======
+>>>>>>> first commit
 .hupa-menu-button {
 	margin-right: 15px;
 }
 div.hupa-header {
     color: transparent;
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 	padding-left: 10px;
 	height: 32px;
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .hupa-central {
 	clear: both;
 	margin: 8px 8px 8px 8px;
 	min-height: 200px;
 =======
+=======
+>>>>>>> first commit
 div.hupa-main {
 	clear: both;
 	margin: 8px 8px 8px 8px;
 	min-height: 500px;
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 }
 
 * html div.cgb-RPC-hupa-main {
 	height: 500px;
+<<<<<<< HEAD
 <<<<<<< HEAD
 	text-align: center;
 }
@@ -265,6 +328,8 @@ div.hupa-main {
 }
 
 =======
+=======
+>>>>>>> first commit
     text-align: center;
 }
 
@@ -278,15 +343,23 @@ div.hupa-flash {
     top: 45px;
     left: 25%;
 }
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 * html div.hupa-flash {
 	border: none;
 	background: none;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 * html .hupa-flash div {
 	background-color: #fae5b0;
+=======
+* html .hupa-flash div {
+    background-color: #fae5b0;
+>>>>>>> first commit
 =======
 * html .hupa-flash div {
     background-color: #fae5b0;
@@ -301,6 +374,7 @@ div.hupa-bottom {
 	text-align: center;
 }
 /************[ view: LoginView ]*******************/
+<<<<<<< HEAD
 <<<<<<< HEAD
 .hupa-login {
 	margin: 10pt auto;
@@ -320,6 +394,8 @@ div.hupa-bottom {
 
 .hupa-login-form {
 =======
+=======
+>>>>>>> first commit
 table.hupa-login {
     text-align: right;
 	margin-left: auto;
@@ -332,6 +408,9 @@ table.hupa-login td {
 	padding-top: 6px;
 }
 table.hupa-login-form {
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 	padding: 10px;
 }
@@ -339,7 +418,11 @@ table.hupa-login-form {
 .hupa-login-textbox {
 	width: 230px;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	background-color: #d8ecfd;
+=======
+	background-color:  #d8ecfd;
+>>>>>>> first commit
 =======
 	background-color:  #d8ecfd;
 >>>>>>> first commit
@@ -357,6 +440,7 @@ table.hupa-login-form {
 .hupa-commands-bar {
 	width: 100%;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	background-color: #deeeff;
 }
 
@@ -373,6 +457,8 @@ table.hupa-login-form {
 .hupa-msgtable-row {
 	text-align: left;
 =======
+=======
+>>>>>>> first commit
     padding: 5px 4px 5px 4px;
     background-color: #deeeff;  
 }
@@ -388,11 +474,15 @@ table.hupa-login-form {
 
 .hupa-msgtable-row {
     text-align: left;
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 	vertical-align: top;
 	padding: 0px 10px 0px 10px;
 	cursor: pointer;
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 .hupa-msgtable-unseen {
@@ -406,6 +496,8 @@ table.hupa-login-form {
 }
 
 =======
+=======
+>>>>>>> first commit
 .hupa-msgtable-unseen {
     font-weight: bold;
 }
@@ -415,11 +507,15 @@ table.hupa-login-form {
 	text-align: center;
 	padding: 20px;
 }
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 .hupa-search-box {
 	width: 150px;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 input[type=text],input[type=file],textarea {
 	background-color: #d8ecfd;
@@ -433,6 +529,8 @@ input[type=text],input[type=file],textarea {
 .gwt-SuggestBoxPopup {
 	font-size: 10px;
 =======
+=======
+>>>>>>> first commit
 input[type=text], input[type=file], textarea {
     background-color:  #d8ecfd;
     border: 1px solid #7FAAFF;
@@ -444,13 +542,19 @@ input[type=text], input[type=file], textarea {
 
 .gwt-SuggestBoxPopup {
     font-size: 10px;
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 }
 
 .hupa-buttons .gwt-ListBox {
 	margin-left: 5px;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	padding-left: 3px;
+=======
+>>>>>>> first commit
 =======
 >>>>>>> first commit
 }
@@ -458,17 +562,23 @@ input[type=text], input[type=file], textarea {
 /*************[ buttonbars ]*********************/
 .hupa-buttons {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	white-space: nowrap;
 }
 
 .hupa-buttons td {
 	padding-left: 3px;
 =======
+=======
+>>>>>>> first commit
     white-space: nowrap;
 }
 
 .hupa-buttons td {
   padding-left: 3px;
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 }
 
@@ -477,7 +587,10 @@ input[type=text], input[type=file], textarea {
 	vertical-align: middle;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> first commit
 =======
 >>>>>>> first commit
 .hupa-buttons .gwt-Hyperlink {
@@ -485,17 +598,23 @@ input[type=text], input[type=file], textarea {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /************[ widget: MessageHeaders ]*******************/
 table.hupa-msg-headers {
 	background-color: #C3D9FF;
 }
 
 =======
+=======
+>>>>>>> first commit
 
 /************[ widget: MessageHeaders ]*******************/
 table.hupa-msg-headers {
     background-color: #C3D9FF;
 }
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 .hupa-msg-headers td.label {
 	width: 175px;
@@ -509,7 +628,10 @@ table.hupa-msgview {
 	width: 100%;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> first commit
 =======
 >>>>>>> first commit
 div.hupa-msgview-content {
@@ -525,10 +647,13 @@ div.hupa-msgview-content {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .hupa-attachment-view {
 	margin-left: 10px;
 }
 
+=======
+>>>>>>> first commit
 =======
 >>>>>>> first commit
 /************[ view: MessageSendView ]*******************/
@@ -538,8 +663,13 @@ table.hupa-msgsend {
 
 .hupa-validate-error {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	border: 1pt solid red;
 	background-color: #fae5b0;
+=======
+	border:	1pt solid red;
+    background-color: #fae5b0;
+>>>>>>> first commit
 =======
 	border:	1pt solid red;
     background-color: #fae5b0;
@@ -553,6 +683,10 @@ table.hupa-contacts {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> first commit
 =======
 
 >>>>>>> first commit
@@ -562,6 +696,7 @@ table.hupa-contacts {
 	font-size: 80%;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 .hupa-ErrorLabel,.gwt-PagingOptions .errorMessage {
 	color: #FF0000;
@@ -697,6 +832,8 @@ div.hupa-main {
 	max-height: 8px;
 }
 =======
+=======
+>>>>>>> first commit
 .hupa-ErrorLabel, .gwt-PagingOptions .errorMessage {
     color:           			   #FF0000;
 }
@@ -737,6 +874,10 @@ div.hupa-main {
 }
 
 /**** HTML5 shadows and gradients ****/
+<<<<<<< HEAD
+=======
+
+>>>>>>> first commit
 body {
     background: #eaeaea;
 }
@@ -780,6 +921,7 @@ div.hupa-main {
     filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=1);
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 
@@ -817,3 +959,5 @@ div.hupa-main {
 
 
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit

@@ -30,7 +30,11 @@ import javax.mail.Transport;
 
 import org.apache.commons.logging.Log;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 =======
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
@@ -98,6 +102,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
     public IMAPStore get(User user) throws MessagingException {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> constantly changed by manolo
     	IMAPStore ret =  get(user.getName(),user.getPassword());
@@ -113,6 +118,9 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
+=======
+        return get(user.getName(),user.getPassword());
+>>>>>>> first commit
     }
     
     /*
@@ -147,7 +155,10 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
         if (cstore.getStore().isConnected() == false) {
             try {
                 cstore.getStore().connect(address, port, username, password);
+<<<<<<< HEAD
                 System.out.println(address +"ImMemory"+ port);
+=======
+>>>>>>> first commit
             } catch (MessagingException e) {
                     throw (e);
             }

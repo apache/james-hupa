@@ -23,14 +23,24 @@ import java.io.Serializable;
 
 import net.customware.gwt.dispatch.shared.Action;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+>>>>>>> first commit
 
 public class DeleteMessage implements Action<DeleteMessageResult>, Serializable {
 
     private static final long serialVersionUID = 801294103124082592L;
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
 
     public DeleteMessage(IMAPFolderProxy folder) {
+=======
+    private IMAPFolder folder;
+
+    public DeleteMessage(IMAPFolder folder) {
+>>>>>>> first commit
         this.folder = folder;
     }
     
@@ -38,7 +48,11 @@ public class DeleteMessage implements Action<DeleteMessageResult>, Serializable 
         
     }
     
+<<<<<<< HEAD
     public IMAPFolderProxy getFolder() {
+=======
+    public IMAPFolder getFolder() {
+>>>>>>> first commit
         return folder;
     }
 

@@ -28,7 +28,10 @@ import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.server.ioc.GuiceListener;
+=======
+>>>>>>> first commit
 =======
 >>>>>>> first commit
 import org.apache.hupa.server.mock.MockConstants;
@@ -41,7 +44,11 @@ public class ServerModulTest {
 //    private GuiceServerModule module = new GuiceServerModule(tmpDir);
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     private String configDir = GuiceListener.CONFIG_DIR_IN_WAR;
+=======
+    private String configDir = GuiceServletConfig.CONFIG_DIR_IN_WAR;
+>>>>>>> first commit
 =======
     private String configDir = GuiceServletConfig.CONFIG_DIR_IN_WAR;
 >>>>>>> first commit
@@ -70,7 +77,11 @@ public class ServerModulTest {
     @Test
     public void testLoadPropertiesWithEmptyFile() throws Exception {
 <<<<<<< HEAD
+<<<<<<< HEAD
         GuiceListener sconfig = new GuiceListener();
+=======
+        GuiceServletConfig sconfig = new GuiceServletConfig();
+>>>>>>> first commit
 =======
         GuiceServletConfig sconfig = new GuiceServletConfig();
 >>>>>>> first commit
@@ -87,7 +98,11 @@ public class ServerModulTest {
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.setProperty(GuiceListener.SYS_PROP_CONFIG_FILE, tmp.toString());
+=======
+        System.setProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE, tmp.toString());
+>>>>>>> first commit
 =======
         System.setProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE, tmp.toString());
 >>>>>>> first commit
@@ -99,7 +114,11 @@ public class ServerModulTest {
             Assert.fail("IllegalArgumentException must be thrown because of missing mandatory configuration properties");
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.clearProperty(GuiceListener.SYS_PROP_CONFIG_FILE);
+=======
+        System.clearProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE);
+>>>>>>> first commit
 =======
         System.clearProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE);
 >>>>>>> first commit
@@ -117,8 +136,13 @@ public class ServerModulTest {
         FileUtils.writeLines(tmp, lines);
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.setProperty(GuiceListener.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
         p = new GuiceListener().loadProperties();
+=======
+        System.setProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
+        p = new GuiceServletConfig().loadProperties();
+>>>>>>> first commit
 =======
         System.setProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
         p = new GuiceServletConfig().loadProperties();
@@ -128,7 +152,11 @@ public class ServerModulTest {
         Assert.assertEquals(MockConstants.mockSettings.getTrashFolderName(), p.get("DefaultTrashFolder"));
         Assert.assertEquals(MockConstants.mockSettings.getSentFolderName(), p.get("DefaultSentFolder"));
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.clearProperty(GuiceListener.SYS_PROP_CONFIG_FILE);
+=======
+        System.clearProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE);
+>>>>>>> first commit
 =======
         System.clearProperty(GuiceServletConfig.SYS_PROP_CONFIG_FILE);
 >>>>>>> first commit

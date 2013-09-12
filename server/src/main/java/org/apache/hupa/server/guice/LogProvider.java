@@ -16,26 +16,21 @@
  * specific language governing permissions and limitations      *
  * under the License.                                           *
  ****************************************************************/
-package org.apache.hupa.client.gin;
 
-import net.customware.gwt.dispatch.client.gin.StandardDispatchModule;
-import net.customware.gwt.presenter.client.EventBus;
-import net.customware.gwt.presenter.client.place.PlaceManager;
 
-import org.apache.hupa.client.mvp.AppPresenter;
-import org.apache.hupa.client.rf.HupaRequestFactory;
+package org.apache.hupa.server.guice;
 
-import com.google.gwt.inject.client.GinModules;
-import com.google.gwt.inject.client.Ginjector;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.impl.Log4JLogger;
 
-<<<<<<< HEAD
-@GinModules({/*StandardDispatchModule.class,*/ HupaClientModule.class})
-=======
-@GinModules({StandardDispatchModule.class,HupaClientModule.class})
->>>>>>> first commit
-public interface HupaGinjector extends Ginjector {
-    AppPresenter getAppPresenter();
-    PlaceManager getPlaceManager();
-    EventBus getEventBus();
-    HupaRequestFactory getRequestFactory();
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+
+@Singleton
+public class LogProvider implements Provider<Log>{
+
+    public Log get() {
+        return new Log4JLogger("HupaLogger");
+    }
+
 }

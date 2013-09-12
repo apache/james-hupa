@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -73,6 +74,8 @@ public class MoveMessageEvent extends GwtEvent<MoveMessageEventHandler> {
 
 }
 =======
+=======
+>>>>>>> first commit
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -142,4 +145,7 @@ public class MoveMessageEvent extends GwtEvent<MoveMessageEventHandler> {
     }
 
 }
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit

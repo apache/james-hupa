@@ -34,8 +34,12 @@ import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLog;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.UserImpl;
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 =======
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
@@ -62,7 +66,12 @@ public class StoreBugTest {
     static InMemoryIMAPStoreCache cache = new InMemoryIMAPStoreCache(new MockLog(), imapServer, imapPort, isSSl, 2, 60000, false,
         truststore, truststorePassword, new JavaMailSessionProvider().get());
 <<<<<<< HEAD
+<<<<<<< HEAD
     static User user = new UserImpl() {
+=======
+    static User user = new User() {
+       private static final long serialVersionUID = 1L;
+>>>>>>> first commit
 =======
     static User user = new User() {
        private static final long serialVersionUID = 1L;

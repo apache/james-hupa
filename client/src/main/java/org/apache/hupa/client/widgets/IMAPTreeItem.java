@@ -20,6 +20,7 @@
 package org.apache.hupa.client.widgets;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.ui.EditableTreeItem;
@@ -174,6 +175,9 @@ public class IMAPTreeItem extends EditableTreeItem {
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+>>>>>>> first commit
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.ui.EditableTreeItem;
 
@@ -181,7 +185,11 @@ public class IMAPTreeItem extends EditableTreeItem {
     protected String oldFullName;
     protected String oldName;
 
+<<<<<<< HEAD
     public IMAPTreeItem(IMAPFolderProxy folder) {
+=======
+    public IMAPTreeItem(IMAPFolder folder) {
+>>>>>>> first commit
         setUserObject(folder);
         setFolderText(folder);    
     }
@@ -204,7 +212,11 @@ public class IMAPTreeItem extends EditableTreeItem {
     }
     
     public void setUnseenMessageCount(int cound) {
+<<<<<<< HEAD
     	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+=======
+        IMAPFolder folder = (IMAPFolder) getUserObject();
+>>>>>>> first commit
         int count = folder.getUnseeMessageCount();
         folder.setUnseenMessageCount(count);
         setFolderText(folder);
@@ -216,7 +228,11 @@ public class IMAPTreeItem extends EditableTreeItem {
      * Decrease the unseen messagecount of this folder
      */
     public void descreaseUnseenMessageCount(int decreaseCount) {
+<<<<<<< HEAD
     	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+=======
+        IMAPFolder folder = (IMAPFolder) getUserObject();
+>>>>>>> first commit
         int count = folder.getUnseeMessageCount();
         if (count > 0) { 
             count = count - decreaseCount;
@@ -238,21 +254,35 @@ public class IMAPTreeItem extends EditableTreeItem {
      * Increase the unseen messagecount of this folder
      */
     public void increaseUnseenMessageCount( int increaseCount) {
+<<<<<<< HEAD
     	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+=======
+        IMAPFolder folder = (IMAPFolder) getUserObject();
+>>>>>>> first commit
         int count = folder.getUnseeMessageCount(); 
         count = count+ increaseCount;
         folder.setUnseenMessageCount(count);
         setFolderText(folder);
     }
     
+<<<<<<< HEAD
     private void setFolderText(IMAPFolderProxy folder) {
+=======
+    private void setFolderText(IMAPFolder folder) {
+>>>>>>> first commit
         setText(getFolderName(folder));
         setUnseenMessageCountStyle(folder);
     }
     
+<<<<<<< HEAD
     private void setUnseenMessageCountStyle(IMAPFolderProxy folder) {
         boolean containsUnseen = (folder.getUnseeMessageCount() > 0);
         for (IMAPFolderProxy fold : folder.getChildIMAPFolders()) {
+=======
+    private void setUnseenMessageCountStyle(IMAPFolder folder) {
+        boolean containsUnseen = (folder.getUnseeMessageCount() > 0);
+        for (IMAPFolder fold : folder.getChildIMAPFolders()) {
+>>>>>>> first commit
             if (fold.getUnseeMessageCount() > 0) {
                 containsUnseen = true;
                 break;
@@ -271,7 +301,11 @@ public class IMAPTreeItem extends EditableTreeItem {
      * @param folder
      * @return name
      */
+<<<<<<< HEAD
     private String getFolderName(IMAPFolderProxy folder) {
+=======
+    private String getFolderName(IMAPFolder folder) {
+>>>>>>> first commit
         if (folder.getUnseeMessageCount() > 0) {
             return folder.getName() + " ("+folder.getUnseeMessageCount()+")";
         }
@@ -280,17 +314,28 @@ public class IMAPTreeItem extends EditableTreeItem {
     
     @Override
     public void setUserObject(Object obj) {
+<<<<<<< HEAD
         if ((obj instanceof IMAPFolderProxy) == false) {
             throw new IllegalArgumentException("UserObject needs to be an instance of IMAPFolder");
         }        
         setFolderText((IMAPFolderProxy)obj);
+=======
+        if ((obj instanceof IMAPFolder) == false) {
+            throw new IllegalArgumentException("UserObject needs to be an instance of IMAPFolder");
+        }        
+        setFolderText((IMAPFolder)obj);
+>>>>>>> first commit
 
         super.setUserObject(obj);
     }
 
     @Override
     public void startEdit() {
+<<<<<<< HEAD
     	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+=======
+        IMAPFolder folder = (IMAPFolder) getUserObject();
+>>>>>>> first commit
         oldFullName = folder.getFullName();
         oldName = folder.getName();
         showEditBox(oldName);
@@ -299,7 +344,11 @@ public class IMAPTreeItem extends EditableTreeItem {
     
     @Override
     public void cancelEdit() {
+<<<<<<< HEAD
     	IMAPFolderProxy folder = ((IMAPFolderProxy) getUserObject());
+=======
+        IMAPFolder folder = ((IMAPFolder) getUserObject());
+>>>>>>> first commit
         folder.setFullName(oldFullName);
         showItem(getFolderName(folder));
 
@@ -315,7 +364,11 @@ public class IMAPTreeItem extends EditableTreeItem {
         } else {
             String newFolderName = editBox.getText();
             String newFullFolderName = oldFullName.substring(0, oldFullName.length() - oldName.length())  + newFolderName; 
+<<<<<<< HEAD
             IMAPFolderProxy folder = ((IMAPFolderProxy) getUserObject());
+=======
+            IMAPFolder folder = ((IMAPFolder) getUserObject());
+>>>>>>> first commit
             folder.setFullName(newFullFolderName);
             showItem(getFolderName(folder));
 
@@ -323,5 +376,8 @@ public class IMAPTreeItem extends EditableTreeItem {
         }
 
     }
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 }

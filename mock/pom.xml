@@ -19,6 +19,7 @@
 -->
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -26,23 +27,32 @@
         <artifactId>hupa-parent</artifactId>
         <version>0.0.3-SNAPSHOT</version>
 =======
+=======
+>>>>>>> first commit
 <project
     xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<<<<<<< HEAD
 =======
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.hupa</groupId>
         <artifactId>hupa-parent</artifactId>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <version>0.0.2-SNAPSHOT</version>
 >>>>>>> first commit
 =======
         <version>0.0.3-SNAPSHOT</version>
 >>>>>>> constantly changed by manolo
+=======
+        <version>0.0.2-SNAPSHOT</version>
+>>>>>>> first commit
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>hupa-mock</artifactId>
@@ -52,7 +62,11 @@
     <dependencies>
         <dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <groupId>${project.groupId}</groupId>
+=======
+            <groupId>org.apache.hupa</groupId>
+>>>>>>> first commit
 =======
             <groupId>org.apache.hupa</groupId>
 >>>>>>> first commit
@@ -94,12 +108,18 @@
         </dependency>
         <dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> first commit
             <groupId>net.customware.gwt.dispatch
         </groupId>
             <artifactId>gwt-dispatch</artifactId>
         </dependency>
         <dependency>
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
             <groupId>com.googlecode.gwtupload</groupId>
             <artifactId>gwtupload</artifactId>

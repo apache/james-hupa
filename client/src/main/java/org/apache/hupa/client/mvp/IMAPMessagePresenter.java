@@ -38,7 +38,10 @@ import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.ForwardMessageEvent;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.ReplyMessageEvent;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+>>>>>>> first commit
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 
@@ -68,7 +71,11 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
     private MessageDetails messageDetails;
     private Message message;
     private CachingDispatchAsync dispatcher;
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
+=======
+    private IMAPFolder folder;
+>>>>>>> first commit
     private User user;
 
     @Inject
@@ -78,7 +85,11 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
     }
 
     
+<<<<<<< HEAD
     public void revealDisplay(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails) {
+=======
+    public void revealDisplay(User user, IMAPFolder folder, Message message, MessageDetails messageDetails) {
+>>>>>>> first commit
         this.message = message;
         this.messageDetails = messageDetails;
         this.folder = folder;

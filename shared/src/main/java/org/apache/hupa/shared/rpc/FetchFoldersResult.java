@@ -20,11 +20,20 @@
 package org.apache.hupa.shared.rpc;
 
 import java.io.Serializable;
+<<<<<<< HEAD
 import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Result;
 
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.hupa.shared.data.IMAPFolder;
+
+import net.customware.gwt.dispatch.shared.Result;
+>>>>>>> first commit
 
 public class FetchFoldersResult implements Result, Serializable {
 
@@ -32,9 +41,15 @@ public class FetchFoldersResult implements Result, Serializable {
      * 
      */
     private static final long serialVersionUID = -6215610133650989605L;
+<<<<<<< HEAD
     private List<IMAPFolderProxy> folders;
 
     public FetchFoldersResult(List<IMAPFolderProxy> folders) {
+=======
+    private List<IMAPFolder> folders;
+
+    public FetchFoldersResult(List<IMAPFolder> folders) {
+>>>>>>> first commit
         this.folders=folders;
     }
     
@@ -42,24 +57,40 @@ public class FetchFoldersResult implements Result, Serializable {
     private FetchFoldersResult() {
     }
     
+<<<<<<< HEAD
     public List<IMAPFolderProxy> getFolders() {
+=======
+    public List<IMAPFolder> getFolders() {
+>>>>>>> first commit
         return folders;
     }
 
     public String toString() {
         StringBuffer ret = new StringBuffer("");
+<<<<<<< HEAD
         for (IMAPFolderProxy folder : folders) {
             ret.append(folder.getFullName()).append("\n");
             for (IMAPFolderProxy f : folder.getChildIMAPFolders()) {
+=======
+        for (IMAPFolder folder : folders) {
+            ret.append(folder.getFullName()).append("\n");
+            for (IMAPFolder f : folder.getChildIMAPFolders()) {
+>>>>>>> first commit
                 childFolder(f, ret);
             }
         }
         return ret.toString();
     }
     
+<<<<<<< HEAD
     private void childFolder(IMAPFolderProxy child, StringBuffer ret) {
         ret.append(child.getFullName()).append("\n");
         for (IMAPFolderProxy folder : child.getChildIMAPFolders()) {
+=======
+    private void childFolder(IMAPFolder child, StringBuffer ret) {
+        ret.append(child.getFullName()).append("\n");
+        for (IMAPFolder folder : child.getChildIMAPFolders()) {
+>>>>>>> first commit
             childFolder(folder, ret);
         }
     }

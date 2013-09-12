@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -112,6 +113,8 @@ public class HupaGuiceTestCase{
     }
 }
 =======
+=======
+>>>>>>> first commit
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -228,4 +231,7 @@ public abstract class HupaGuiceTestCase extends TestCase {
     }
 
 }
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit

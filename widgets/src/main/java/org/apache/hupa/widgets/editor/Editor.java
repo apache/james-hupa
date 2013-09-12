@@ -32,21 +32,28 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Timer;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.RichTextArea;
 =======
+=======
+>>>>>>> first commit
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 
 /**
  * Wysiwyg editor for composing and editing emails in Hupa
  */
+<<<<<<< HEAD
 <<<<<<< HEAD
 public class Editor extends FlowPanel implements HasHTML, Focusable {
 
@@ -232,6 +239,8 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 									}-*/;
 
 =======
+=======
+>>>>>>> first commit
 public class Editor extends VerticalPanel implements HasHTML, Focusable {
     
     RichTextArea area = new RichTextArea();
@@ -404,5 +413,8 @@ public class Editor extends VerticalPanel implements HasHTML, Focusable {
     }-*/;
 
     
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 }

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -29,6 +30,8 @@ public class InvalidSessionException extends HupaException{
     }
 }
 =======
+=======
+>>>>>>> first commit
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -66,4 +69,7 @@ public class InvalidSessionException extends ActionException{
         super(msg);
     }
 }
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit

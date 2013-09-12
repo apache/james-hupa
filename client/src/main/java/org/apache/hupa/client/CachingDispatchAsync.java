@@ -20,6 +20,7 @@
 package org.apache.hupa.client;
 
 import java.util.HashMap;
+<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.Map;
 
@@ -103,11 +104,53 @@ public class CachingDispatchAsync extends StandardDispatchAsync {
 
     /**
      * If the Action was executed before it will get fetched from the cache
+=======
+import java.util.Map;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.inject.Inject;
+
+import net.customware.gwt.dispatch.client.DispatchAsync;
+import net.customware.gwt.dispatch.shared.Action;
+import net.customware.gwt.dispatch.shared.Result;
+
+/**
+ * Dispatcher which support caching of data in memory
+ * 
+ */
+public class CachingDispatchAsync implements DispatchAsync {
+
+    private DispatchAsync dispatcher;
+    private Map<Action<Result>, Result> cache = new HashMap<Action<Result>, Result>();
+
+    @Inject
+    public CachingDispatchAsync(DispatchAsync dispatcher) {
+        this.dispatcher = dispatcher;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see net.customware.gwt.dispatch.client.DispatchAsync#execute(A, com.google.gwt.user.client.rpc.AsyncCallback)
+     */
+    public <A extends Action<R>, R extends Result> void execute(final A action,
+            final AsyncCallback<R> callback) {
+        dispatcher.execute(action, callback);
+    }
+
+    /**
+     * Execute the give Action. If the Action was executed before it will get fetched from the cache
+     * 
+     * @param <A> Action implementation
+     * @param <R> Result implementation
+     * @param action the action
+     * @param callback the callback
+>>>>>>> first commit
      */
     @SuppressWarnings("unchecked")
     public <A extends Action<R>, R extends Result> void executeWithCache(
             final A action, final AsyncCallback<R> callback) {
         Result r = cache.get(action);
+<<<<<<< HEAD
 
         final Class<?> clz = action.getClass();
         if (running.contains(clz)) {
@@ -124,14 +167,29 @@ public class CachingDispatchAsync extends StandardDispatchAsync {
             super.execute(action, new AsyncCallback<R>() {
                 public void onFailure(Throwable caught) {
                     running.remove(clz);
+=======
+        if (r != null) {
+            callback.onSuccess((R) r);
+        } else {
+            dispatcher.execute(action, new AsyncCallback<R>() {
+
+                public void onFailure(Throwable caught) {
+>>>>>>> first commit
                     callback.onFailure(caught);
                 }
 
                 public void onSuccess(R result) {
+<<<<<<< HEAD
                     running.remove(clz);
                     cache.put((Action<Result>) action, (Result) result);
                     callback.onSuccess(result);
                 }
+=======
+                    cache.put((Action<Result>) action, (Result) result);
+                    callback.onSuccess(result);
+                }
+
+>>>>>>> first commit
             });
         }
     }

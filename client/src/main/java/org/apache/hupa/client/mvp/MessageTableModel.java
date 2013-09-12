@@ -37,7 +37,10 @@ import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MessagesReceivedEvent;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+>>>>>>> first commit
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
@@ -55,7 +58,11 @@ public class MessageTableModel extends MutableTableModel<Message> {
     private EventBus eventBus;
     private DispatchAsync dispatcher;
     private User user;
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
+=======
+    private IMAPFolder folder;
+>>>>>>> first commit
     private String searchValue;
 
     @Inject
@@ -85,7 +92,11 @@ public class MessageTableModel extends MutableTableModel<Message> {
             
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());
+=======
+                folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+>>>>>>> first commit
                 searchValue = null;
             }
         });
@@ -123,9 +134,15 @@ public class MessageTableModel extends MutableTableModel<Message> {
                 // Update folder information before notifying presenter
                 folder.setMessageCount(result.getRealCount());
                 folder.setUnseenMessageCount(result.getRealUnreadCount());
+<<<<<<< HEAD
                 
                 setRowCount(result.getRealCount());
                 callback.onRowsReady(request, new TableModelHelper.Response<Message>() {
+=======
+                // Notify presenter to update folder tree view
+                eventBus.fireEvent(new MessagesReceivedEvent(folder, result.getMessages()));
+                TableModelHelper.Response<Message> response = new TableModelHelper.Response<Message>() {
+>>>>>>> first commit
                     @Override
                     public Iterator<Message> getRowValues() {
                         if (result != null && result.getMessages() != null) {
@@ -134,10 +151,16 @@ public class MessageTableModel extends MutableTableModel<Message> {
                             return new ArrayList<Message>().iterator();
                         }
                     }
+<<<<<<< HEAD
                 });
                 
                 // Notify presenter to update folder tree view
                 eventBus.fireEvent(new MessagesReceivedEvent(folder, result.getMessages()));
+=======
+                };
+                setRowCount(result.getRealCount());
+                callback.onRowsReady(request,response);
+>>>>>>> first commit
             }
         }); 
     }

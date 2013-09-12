@@ -22,6 +22,10 @@ package org.apache.hupa.server.guice;
 
 import org.apache.hupa.server.servlet.DownloadAttachmentServlet;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import org.apache.hupa.server.servlet.HupaDispatchServlet;
+>>>>>>> first commit
 =======
 import org.apache.hupa.server.servlet.HupaDispatchServlet;
 >>>>>>> first commit
@@ -36,6 +40,10 @@ public class DispatchServletModule extends ServletModule{
      @Override
         public void configureServlets() {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+             serve("/" + SConsts.HUPA + SConsts.SERVLET_DISPATCH).with(HupaDispatchServlet.class );
+>>>>>>> first commit
 =======
              serve("/" + SConsts.HUPA + SConsts.SERVLET_DISPATCH).with(HupaDispatchServlet.class );
 >>>>>>> first commit

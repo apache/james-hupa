@@ -22,6 +22,7 @@ package org.apache.hupa.client;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.ioc.AppGinjector;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -59,10 +60,13 @@ public class Hupa implements EntryPoint {
 =======
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> first commit
 import net.customware.gwt.presenter.client.place.PlaceManager;
 
 import org.apache.hupa.client.gin.HupaGinjector;
 import org.apache.hupa.client.mvp.AppPresenter;
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import org.apache.hupa.client.gin.HupaEvoGinjector;
@@ -72,12 +76,15 @@ import org.apache.hupa.client.place.LoginPlace;
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> first commit
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 
+<<<<<<< HEAD
 public class Hupa implements EntryPoint {
 	 private final HupaGinjector injector = GWT.create(HupaGinjector.class);
 
@@ -115,5 +122,24 @@ public class Hupa implements EntryPoint {
 =======
 	}
 >>>>>>> Change to new mvp framework - first step
+=======
+public class Hupa implements EntryPoint{
+    private final HupaGinjector injector = GWT.create(HupaGinjector.class);
+    
+    public void onModuleLoad() {
+        // remove the loading message from the browser
+        com.google.gwt.user.client.Element loading = DOM.getElementById("loading");
+
+        DOM.removeChild(RootPanel.getBodyElement(), loading);
+
+        AppPresenter aPres = injector.getAppPresenter();
+        aPres.bind();
+       
+        RootPanel.get().add(aPres.getDisplay().asWidget());
+
+        PlaceManager placeManager = injector.getPlaceManager();
+        placeManager.fireCurrentPlace();
+    }
+>>>>>>> first commit
 
 }

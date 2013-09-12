@@ -20,6 +20,7 @@
 package org.apache.hupa.server.utils;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.io.File;
 import java.io.IOException;
 <<<<<<< HEAD
@@ -42,6 +43,12 @@ import java.util.List;
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
+=======
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+>>>>>>> first commit
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -58,6 +65,10 @@ import javax.mail.internet.MimeUtility;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import org.apache.hupa.server.handler.AbstractSendMessageHandler;
+>>>>>>> first commit
 =======
 import org.apache.hupa.server.handler.AbstractSendMessageHandler;
 >>>>>>> first commit
@@ -95,6 +106,7 @@ public class MessageUtils {
         for (int i = 0; i < recipients.size(); i++) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             array[i] = new InternetAddress(encodeEmail(recipients.get(i)));
 =======
             array[i] = new InternetAddress(recipients.get(i));
@@ -102,6 +114,9 @@ public class MessageUtils {
 =======
             array[i] = new InternetAddress(encodeEmail(recipients.get(i)));
 >>>>>>> constantly changed by manolo
+=======
+            array[i] = new InternetAddress(recipients.get(i));
+>>>>>>> first commit
         }
         return array;
     }
@@ -201,7 +216,11 @@ public class MessageUtils {
     public static BodyPart fileitemToBodypart(FileItem item) throws MessagingException {
         MimeBodyPart messageBodyPart = new MimeBodyPart();
 <<<<<<< HEAD
+<<<<<<< HEAD
         DataSource source = new FileItemDataStore(item);
+=======
+        DataSource source = new AbstractSendMessageHandler.FileItemDataStore(item);
+>>>>>>> first commit
 =======
         DataSource source = new AbstractSendMessageHandler.FileItemDataStore(item);
 >>>>>>> first commit
@@ -209,6 +228,7 @@ public class MessageUtils {
         messageBodyPart.setFileName(source.getName());
         return messageBodyPart;
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     /**
@@ -360,4 +380,7 @@ public class MessageUtils {
         return ret;
     }
 >>>>>>> constantly changed by manolo
+=======
+    
+>>>>>>> first commit
 }

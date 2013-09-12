@@ -19,6 +19,7 @@
 package org.apache.hupa.server.utils;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -35,17 +36,25 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
     
     @Test public void extractMessageAttachments() throws Exception {
 =======
+=======
+>>>>>>> first commit
 import org.apache.hupa.server.HupaGuiceTestCase;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import javax.mail.Address;
+=======
+>>>>>>> first commit
 import javax.mail.BodyPart;
 import javax.mail.Message;
 
 public class MessageUtilsTest extends HupaGuiceTestCase {
     
     public void testExtractMessageAttachments() throws Exception {
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
         Message message = TestUtils.createMockMimeMessage(session, 2);
         List<BodyPart> parts = MessageUtils.extractMessageAttachments(logger, message.getContent());
@@ -53,7 +62,11 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Test public void extractInlineAttachments() throws Exception {
+=======
+    public void testExtractInlineAttachments() throws Exception {
+>>>>>>> first commit
 =======
     public void testExtractInlineAttachments() throws Exception {
 >>>>>>> first commit
@@ -80,6 +93,7 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     @Test public void getRecipients () throws Exception  {
 =======
@@ -98,4 +112,6 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit
 }

@@ -19,7 +19,11 @@
 
 package org.apache.hupa.shared.rpc;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+>>>>>>> first commit
 
 public class FetchRecentMessages extends FetchMessages{
 
@@ -28,7 +32,11 @@ public class FetchRecentMessages extends FetchMessages{
     protected FetchRecentMessages() {
     }
     
+<<<<<<< HEAD
     public FetchRecentMessages(IMAPFolderProxy folder, int start,
+=======
+    public FetchRecentMessages(IMAPFolder folder, int start,
+>>>>>>> first commit
             int offset, String searchString) {
         super(folder, start, offset, searchString);
     }

@@ -20,9 +20,12 @@
 package org.apache.hupa.widgets.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+=======
+>>>>>>> first commit
 =======
 >>>>>>> first commit
 import com.google.gwt.user.client.DOM;
@@ -56,6 +59,7 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
             // I've sent a patch to gwt.
             super(oracle, new TextArea() {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 
                 {
                     // Avoid entering a new-line when selecting a suggestion element
@@ -68,6 +72,8 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
                         }
                     });
                 }
+=======
+>>>>>>> first commit
 =======
 >>>>>>> first commit
 
@@ -95,7 +101,11 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
         @Override
         public String getValue() {
 <<<<<<< HEAD
+<<<<<<< HEAD
             return DOM.getElementProperty(getValueBox().getElement(), "value");
+=======
+            return DOM.getElementProperty(getTextBox().getElement(), "value");
+>>>>>>> first commit
 =======
             return DOM.getElementProperty(getTextBox().getElement(), "value");
 >>>>>>> first commit
@@ -104,7 +114,11 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
         @Override
         public void setValue(String text) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             DOM.setElementProperty(getValueBox().getElement(), "value", text);
+=======
+            DOM.setElementProperty(getTextBox().getElement(), "value", text);
+>>>>>>> first commit
 =======
             DOM.setElementProperty(getTextBox().getElement(), "value", text);
 >>>>>>> first commit

@@ -21,8 +21,12 @@ package org.apache.hupa.shared.rpc;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+>>>>>>> first commit
 
 public class DeleteMessageByUid extends DeleteMessage {
 
@@ -30,7 +34,11 @@ public class DeleteMessageByUid extends DeleteMessage {
 
     private ArrayList<Long> messageUids;
 
+<<<<<<< HEAD
     public DeleteMessageByUid(IMAPFolderProxy folder, ArrayList<Long> messageUids) {
+=======
+    public DeleteMessageByUid(IMAPFolder folder, ArrayList<Long> messageUids) {
+>>>>>>> first commit
         super(folder);
         this.messageUids = messageUids;
     }

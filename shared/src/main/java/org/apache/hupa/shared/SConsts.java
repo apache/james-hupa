@@ -22,6 +22,10 @@ package org.apache.hupa.shared;
 public class SConsts {
     public static final String HUPA = "hupa/";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    public static final String SERVLET_DISPATCH = "dispatch";
+>>>>>>> first commit
 =======
     public static final String SERVLET_DISPATCH = "dispatch";
 >>>>>>> first commit
@@ -34,6 +38,7 @@ public class SConsts {
     public static final String PARAM_FOLDER = "folder";
     public static final String PARAM_UID = "uid";
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static final String PARAM_MODE = "mode";
     
     public static final String USER_SESS_ATTR = "user";
@@ -44,6 +49,11 @@ public class SConsts {
     public static final String HEADER_MESSAGE_ID = "Message-ID";
     public static final String HEADER_REFERENCES_SEPARATOR = "\r\n ";
     
+=======
+    
+    public static final String USER_SESS_ATTR = "user";
+    public static final String CONTACTS_SESS_ATTR = "contacts";
+>>>>>>> first commit
 =======
     
     public static final String USER_SESS_ATTR = "user";

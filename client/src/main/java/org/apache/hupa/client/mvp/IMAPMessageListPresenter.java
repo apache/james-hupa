@@ -31,8 +31,13 @@ import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.User;
+=======
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.data.Message.IMAPFlag;
+>>>>>>> first commit
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
@@ -46,7 +51,10 @@ import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
 import org.apache.hupa.shared.events.NewMessageEvent;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+>>>>>>> first commit
 import org.apache.hupa.shared.rpc.DeleteAllMessages;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
@@ -120,7 +128,11 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
     private String searchValue;
     private User user;
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
+=======
+    private IMAPFolder folder;
+>>>>>>> first commit
     private DispatchAsync dispatcher;
     private ShowMessageTableListener tableListener = new ShowMessageTableListener();
     
@@ -405,6 +417,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
 
     @Override
     protected void onRevealDisplay() {
+<<<<<<< HEAD
         if (user != null && folder != null) {
             display.reloadData();  
         }
@@ -419,14 +432,27 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             || !this.folder.getFullName().equals(folder.getFullName()) 
             || (searchValue == null && this.searchValue != null) 
             || (searchValue != null && searchValue.equals(this.searchValue) == false)) {
+=======
+        display.reloadData();  
+    }
+    
+    public void revealDisplay(User user, IMAPFolder folder, String searchValue) {
+        this.user = user;
+       
+        if (this.folder == null || this.folder.getFullName().equals(folder.getFullName()) == false 
+                || (searchValue == null && this.searchValue != null) || (searchValue != null && searchValue.equals(this.searchValue) == false)) {
+>>>>>>> first commit
             display.reset();
             display.deselectAllMessages();
         }
         display.setExpandLoading(false);
         this.searchValue = searchValue;
         this.folder = folder;
+<<<<<<< HEAD
         
 
+=======
+>>>>>>> first commit
         revealDisplay();
     }
 

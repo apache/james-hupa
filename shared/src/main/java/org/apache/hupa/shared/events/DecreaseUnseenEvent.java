@@ -21,6 +21,7 @@ package org.apache.hupa.shared.events;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
 =======
@@ -31,6 +32,10 @@ import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -38,6 +43,7 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 
     public final static Type<DecreaseUnseenEventHandler> TYPE = new Type<DecreaseUnseenEventHandler>();
     private User user;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     private ImapFolder folder;
@@ -65,11 +71,22 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 =======
     public DecreaseUnseenEvent(User user, IMAPFolderProxy folder, int amount) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    private IMAPFolder folder;
+    private int amount;
+    
+    public DecreaseUnseenEvent(User user, IMAPFolder folder) {
+        this(user, folder, 1);
+    }
+    
+    public DecreaseUnseenEvent(User user, IMAPFolder folder, int amount) {
+>>>>>>> first commit
         this.user =user;
         this.folder = folder;
         this.amount = amount;
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public ImapFolder getFolder() {
@@ -79,6 +96,9 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 =======
     public IMAPFolderProxy getFolder() {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public IMAPFolder getFolder() {
+>>>>>>> first commit
         return folder;
     }
     

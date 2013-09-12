@@ -19,6 +19,7 @@
 
 package org.apache.hupa.server.handler;
 
+<<<<<<< HEAD
 import static org.apache.hupa.server.utils.RegexPatterns.regex_badAttrs;
 import static org.apache.hupa.server.utils.RegexPatterns.regex_badTags;
 import static org.apache.hupa.server.utils.RegexPatterns.regex_email;
@@ -44,16 +45,25 @@ import static org.apache.hupa.server.utils.RegexPatterns.repl_unneededTags;
 import static org.apache.hupa.server.utils.RegexPatterns.replaceAll;
 import static org.apache.hupa.server.utils.RegexPatterns.replaceAllRecursive;
 
+=======
+>>>>>>> first commit
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.mail.Flags;
+<<<<<<< HEAD
 import javax.mail.Flags.Flag;
+=======
+>>>>>>> first commit
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
+<<<<<<< HEAD
+=======
+import javax.mail.Flags.Flag;
+>>>>>>> first commit
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpSession;
@@ -63,10 +73,18 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+import static org.apache.hupa.server.utils.RegexPatterns.*;
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.MessageAttachment;
+import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 import org.apache.hupa.shared.rpc.GetMessageDetails;
 import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
 
@@ -105,7 +123,11 @@ public class GetMessageDetailsHandler extends
         return GetMessageDetails.class;
     }
 
+<<<<<<< HEAD
     protected MessageDetails exposeMessage(User user, IMAPFolderProxy folder,
+=======
+    protected MessageDetails exposeMessage(User user, IMAPFolder folder,
+>>>>>>> first commit
             long uid) throws ActionException {
         IMAPStore store = null;
         com.sun.mail.imap.IMAPFolder f = null;
@@ -190,7 +212,11 @@ public class GetMessageDetailsHandler extends
             IOException {
         boolean isHTML = false;
         if (con instanceof String) {
+<<<<<<< HEAD
             if (message.getContentType().toLowerCase().startsWith("text/html")) {
+=======
+            if (message.getContentType().startsWith("text/html")) {
+>>>>>>> first commit
                 isHTML = true;
             } else {
                 isHTML = false;

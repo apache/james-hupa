@@ -33,6 +33,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.User;
@@ -41,6 +42,11 @@ import org.apache.hupa.server.InMemoryIMAPStoreCache;
 =======
 import org.apache.hupa.server.IMAPStoreCache;
 >>>>>>> constantly changed by manolo
+import org.apache.hupa.shared.SConsts;
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
+=======
+import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
@@ -57,17 +63,21 @@ public class MessageSourceServlet extends HttpServlet {
     private static final long serialVersionUID = 1245563204035792963L;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPStoreCache cache;
     private Log logger;
 
     @Inject
     public MessageSourceServlet(IMAPStoreCache cache, Log logger) {
 =======
+=======
+>>>>>>> first commit
     private InMemoryIMAPStoreCache cache;
     private Log logger;
 
     @Inject
     public MessageSourceServlet(InMemoryIMAPStoreCache cache, Log logger) {
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
     private IMAPStoreCache cache;
@@ -76,6 +86,8 @@ public class MessageSourceServlet extends HttpServlet {
     @Inject
     public MessageSourceServlet(IMAPStoreCache cache, Log logger) {
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit
         this.cache = cache;
         this.logger = logger;
     }
@@ -115,6 +127,7 @@ public class MessageSourceServlet extends HttpServlet {
             logger.error(msg, e);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             throw new ServletException(msg, e);
 =======
             throw new ServletException(msg);
@@ -122,6 +135,9 @@ public class MessageSourceServlet extends HttpServlet {
 =======
             throw new ServletException(msg, e);
 >>>>>>> constantly changed by manolo
+=======
+            throw new ServletException(msg);
+>>>>>>> first commit
         } finally {
             IOUtils.closeQuietly(outs);
         }

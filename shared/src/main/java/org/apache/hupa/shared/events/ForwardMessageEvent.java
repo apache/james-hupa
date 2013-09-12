@@ -22,15 +22,19 @@ package org.apache.hupa.shared.events;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.User;
 =======
+=======
+>>>>>>> first commit
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 import org.apache.hupa.shared.data.Message;
@@ -38,6 +42,8 @@ import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+>>>>>>> first commit
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -47,17 +53,21 @@ public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
     private User user;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private ImapFolder folder;
     private Message message;
     private MessageDetails details;
 
     public ForwardMessageEvent(User user, ImapFolder folder, Message message, MessageDetails details) {
 =======
+=======
+>>>>>>> first commit
     private IMAPFolder folder;
     private Message message;
     private MessageDetails details;
 
     public ForwardMessageEvent(User user, IMAPFolder folder, Message message, MessageDetails details) {
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
     private IMAPFolderProxy folder;
@@ -66,6 +76,8 @@ public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
 
     public ForwardMessageEvent(User user, IMAPFolderProxy folder, Message message, MessageDetails details) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+>>>>>>> first commit
         this.user = user;
         this.folder = folder;
         this.message = message;
@@ -78,6 +90,7 @@ public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ImapFolder getFolder() {
 =======
     public IMAPFolder getFolder() {
@@ -85,6 +98,9 @@ public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
 =======
     public IMAPFolderProxy getFolder() {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public IMAPFolder getFolder() {
+>>>>>>> first commit
         return folder;
     }
 

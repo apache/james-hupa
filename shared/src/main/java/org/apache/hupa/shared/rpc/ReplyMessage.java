@@ -20,15 +20,24 @@
 
 package org.apache.hupa.shared.rpc;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.SMTPMessage;
+>>>>>>> first commit
 
 public class ReplyMessage extends ForwardMessage {
 
     private static final long serialVersionUID = -383135476236902779L;
 
     
+<<<<<<< HEAD
     public ReplyMessage(SMTPMessage msg, IMAPFolderProxy folder, long uid) {
+=======
+    public ReplyMessage(SMTPMessage msg, IMAPFolder folder, long uid) {
+>>>>>>> first commit
         super(msg, folder, uid);
     }
 

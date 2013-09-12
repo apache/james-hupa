@@ -25,7 +25,11 @@ import javax.mail.Flags;
 import javax.mail.Flags.Flag;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+=======
+import org.apache.hupa.shared.data.Message.IMAPFlag;
+>>>>>>> first commit
 =======
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 >>>>>>> first commit

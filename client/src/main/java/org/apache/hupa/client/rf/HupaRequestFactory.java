@@ -22,6 +22,7 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
 public interface HupaRequestFactory extends RequestFactory {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	SubjectRequest subjectRequest();
 
 	ImapFolderRequest folderRequest();
@@ -67,4 +68,7 @@ public interface HupaRequestFactory extends RequestFactory {
   UserRequest userRequest();
   IMAPFolderRequestContext folderRequest();
 >>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
+=======
+  SubjectRequest subjectRequest();
+>>>>>>> first commit
 }

@@ -19,6 +19,7 @@
 
 package org.apache.hupa.server.handler;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,6 +32,11 @@ import javax.mail.Part;
 import javax.mail.UIDFolder;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
+=======
+import com.google.inject.Provider;
+
+import com.sun.mail.imap.IMAPStore;
+>>>>>>> first commit
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
 import net.customware.gwt.dispatch.shared.ActionException;
@@ -38,6 +44,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
+<<<<<<< HEAD
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
@@ -49,6 +56,28 @@ import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
 import com.google.inject.Provider;
 import com.sun.mail.imap.IMAPStore;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.Tag;
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.rpc.FetchMessages;
+import org.apache.hupa.shared.rpc.FetchMessagesResult;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+
+import javax.mail.Address;
+import javax.mail.FetchProfile;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.internet.MimeUtility;
+import javax.mail.internet.MimeMessage.RecipientType;
+import javax.servlet.http.HttpSession;
+>>>>>>> first commit
 
 public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> extends AbstractSessionHandler<A, FetchMessagesResult>{
 
@@ -63,9 +92,15 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
     protected FetchMessagesResult executeInternal(A action,
             ExecutionContext context) throws ActionException {
         User user = getUser();
+<<<<<<< HEAD
         IMAPFolderProxy folder = action.getFolder();
         if (folder == null) {
             folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());
+=======
+        IMAPFolder folder = action.getFolder();
+        if (folder == null) {
+            folder = new IMAPFolder(user.getSettings().getInboxFolderName());
+>>>>>>> first commit
         }
         com.sun.mail.imap.IMAPFolder f = null;
         int start = action.getStart();
@@ -118,7 +153,10 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         fp.add(FetchProfile.Item.ENVELOPE);
         fp.add(FetchProfile.Item.FLAGS);
         fp.add(FetchProfile.Item.CONTENT_INFO);
+<<<<<<< HEAD
         fp.add(UIDFolder.FetchProfileItem.UID);
+=======
+>>>>>>> first commit
         folder.fetch(messages, fp);
         
         // loop over the fetched messages
@@ -127,13 +165,33 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             Message m = messages[i];                
             String from = null;
             if (m.getFrom() != null && m.getFrom().length >0 ) {
+<<<<<<< HEAD
                 from = MessageUtils.decodeText(m.getFrom()[0].toString());
+=======
+                from = m.getFrom()[0].toString().trim();
+                try {
+                    from = MimeUtility.decodeText(from);
+                    userPreferences.addContact(from);
+                } catch (UnsupportedEncodingException e) {
+                    logger.debug("Unable to decode from " + from + " " + e.getMessage());
+                }
+>>>>>>> first commit
             }
             msg.setFrom(from);
 
             String replyto = null;
             if (m.getReplyTo() != null && m.getReplyTo().length >0 ) {
+<<<<<<< HEAD
                 replyto = MessageUtils.decodeText(m.getReplyTo()[0].toString());
+=======
+                replyto = m.getReplyTo()[0].toString().trim();
+                try {
+                    replyto = MimeUtility.decodeText(replyto);
+                    userPreferences.addContact(replyto);
+                } catch (UnsupportedEncodingException e) {
+                    logger.debug("Unable to decode replyto " + replyto + " " + e.getMessage());
+                }
+>>>>>>> first commit
             }
             msg.setReplyto(replyto);
             
@@ -142,8 +200,20 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             Address[] toArray = m.getRecipients(RecipientType.TO);
             if (toArray != null) {
                 for (Address addr : toArray) {
+<<<<<<< HEAD
                     String mailTo = MessageUtils.decodeText(addr.toString());
                     to.add(mailTo);
+=======
+                    String mailTo = null;
+                    try {
+                        mailTo = MimeUtility.decodeText(addr.toString());
+                        userPreferences.addContact(mailTo);
+                    } catch (UnsupportedEncodingException e) {
+                        logger.debug("Unable to decode mailTo " + mailTo + " " + e.getMessage());
+                    }
+                    if (mailTo != null)
+                        to.add(mailTo);
+>>>>>>> first commit
                 }
             }
             msg.setTo(to);
@@ -151,7 +221,15 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             // Check if a subject exist and if so decode it
             String subject = m.getSubject();
             if (subject != null) {
+<<<<<<< HEAD
                 subject = MessageUtils.decodeText(subject);
+=======
+                try {
+                    subject = MimeUtility.decodeText(subject);
+                } catch (UnsupportedEncodingException e) {
+                    logger.debug("Unable to decode subject " + subject + " " + e.getMessage());
+                }
+>>>>>>> first commit
             }
             msg.setSubject(subject);
             
@@ -160,17 +238,32 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             ArrayList<String> cc = new ArrayList<String>();
             if (ccArray != null) {
                 for (Address addr : ccArray) {
+<<<<<<< HEAD
                     String mailCc = MessageUtils.decodeText(addr.toString());
                     cc.add(mailCc);
+=======
+                    String mailCc = null;
+                    try {
+                    	mailCc = MimeUtility.decodeText(addr.toString());
+                        userPreferences.addContact(mailCc);
+                    } catch (UnsupportedEncodingException e) {
+                        logger.debug("Unable to decode mailTo " + mailCc + " " + e.getMessage());
+                    }
+                    if (mailCc != null)
+                        cc.add(mailCc);
+>>>>>>> first commit
                 }            	
             }
             msg.setCc(cc);
 
+<<<<<<< HEAD
             userPreferences.addContact(from);
             userPreferences.addContact(to);
             userPreferences.addContact(replyto);
             userPreferences.addContact(cc);
 
+=======
+>>>>>>> first commit
             // Using sentDate since received date is not useful in the view when using fetchmail
             msg.setReceivedDate(m.getSentDate());
 
@@ -245,6 +338,9 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             return messages;
         }
     }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> first commit
 }

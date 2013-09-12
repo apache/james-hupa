@@ -21,14 +21,18 @@ package org.apache.hupa.shared.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.List;
 
 import org.apache.hupa.shared.rf.EntityBase;
+=======
+>>>>>>> first commit
 
 /**
  * IMAPFolder
  * 
  */
+<<<<<<< HEAD
 public class IMAPFolder extends EntityBase implements Serializable {
 	
 	private Long id;
@@ -54,11 +58,20 @@ public class IMAPFolder extends EntityBase implements Serializable {
 	
 
 	/**
+=======
+public class IMAPFolder implements Serializable {
+
+    /**
+>>>>>>> first commit
      * 
      */
     private static final long serialVersionUID = 2084188092060266479L;
 
+<<<<<<< HEAD
     private List<IMAPFolder> childs = new ArrayList<IMAPFolder>();
+=======
+    private ArrayList<IMAPFolder> childs = new ArrayList<IMAPFolder>();
+>>>>>>> first commit
     private String fullName;
     private String delimiter;
     private int msgCount;
@@ -101,7 +114,11 @@ public class IMAPFolder extends EntityBase implements Serializable {
      * 
      * @param childs
      */
+<<<<<<< HEAD
     public void setChildIMAPFolders(List<IMAPFolder> childs) {
+=======
+    public void setChildIMAPFolders(ArrayList<IMAPFolder> childs) {
+>>>>>>> first commit
         this.childs = childs;
     }
 
@@ -110,7 +127,11 @@ public class IMAPFolder extends EntityBase implements Serializable {
      * 
      * @return childs
      */
+<<<<<<< HEAD
     public List<IMAPFolder> getChildIMAPFolders() {
+=======
+    public ArrayList<IMAPFolder> getChildIMAPFolders() {
+>>>>>>> first commit
         return childs;
     }
 
@@ -204,6 +225,9 @@ public class IMAPFolder extends EntityBase implements Serializable {
     public int hashCode() {
         return getFullName().hashCode();
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> first commit
     
 }

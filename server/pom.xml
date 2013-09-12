@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> constantly changed by manolo
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -163,6 +164,8 @@
 </project>
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> first commit
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
@@ -302,6 +305,9 @@
         </plugins>
     </build>
 </project>
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> first commit

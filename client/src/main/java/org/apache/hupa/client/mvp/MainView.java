@@ -34,14 +34,22 @@ import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.User;
+=======
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.data.Message.IMAPFlag;
+>>>>>>> first commit
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+>>>>>>> first commit
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.event.EditHandler;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
@@ -60,7 +68,11 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.Panel;
+=======
+import com.google.gwt.user.client.ui.SimplePanel;
+>>>>>>> first commit
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -86,7 +98,11 @@ public class MainView extends Composite implements MainPresenter.Display {
     private IMAPMessageListView mListView;
     private HupaMessages messages;
     private VerticalPanel folderPanel = new VerticalPanel();
+<<<<<<< HEAD
     private Panel westPanel = new HorizontalPanel();
+=======
+    private SimplePanel panel = new SimplePanel();
+>>>>>>> first commit
     private HorizontalPanel folderButtonBar = new HorizontalPanel();
     private EnableHyperlink newFolderButton;
     private EnableHyperlink renameFolderButton;
@@ -115,6 +131,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         dockPanel.setSpacing(10);
         dockPanel.setWidth("100%");
 
+<<<<<<< HEAD
         // Not used so far
         // createNorth();
         // dockPanel.add(north, DockPanel.NORTH);
@@ -126,6 +143,17 @@ public class MainView extends Composite implements MainPresenter.Display {
 
         createCenter();
         dockPanel.add(center, DockPanel.CENTER);
+=======
+        createNorth();
+        createWest();
+        createCenter();
+
+        dockPanel.add(north, DockPanel.NORTH);
+        dockPanel.add(west, DockPanel.WEST);
+        dockPanel.setCellWidth(west, "160px");
+        dockPanel.add(center, DockPanel.CENTER);
+        dockPanel.setCellHorizontalAlignment(north, DockPanel.ALIGN_RIGHT);
+>>>>>>> first commit
         dockPanel.setCellHorizontalAlignment(center, DockPanel.ALIGN_LEFT);
 
         initWidget(dockPanel);
@@ -145,7 +173,11 @@ public class MainView extends Composite implements MainPresenter.Display {
         folderButtonBar.add(deleteFolderButton);
         folderPanel.add(folderButtonBar);
         folderPanel.add(folderTree);
+<<<<<<< HEAD
         westPanel.add(loader);
+=======
+        panel.add(loader);
+>>>>>>> first commit
         confirmFolderDeleteBox.setText(messages.confirmDeleteFolder());
         bus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 
@@ -161,10 +193,16 @@ public class MainView extends Composite implements MainPresenter.Display {
             }
 
         });
+<<<<<<< HEAD
         west.add(westPanel);
     }
 
     @SuppressWarnings("unused")
+=======
+        west.add(panel);
+    }
+
+>>>>>>> first commit
     private void createNorth() {
         north = new VerticalPanel();
         north.setWidth("100%");
@@ -243,11 +281,19 @@ public class MainView extends Composite implements MainPresenter.Display {
     public void setLoadingFolders(boolean load) {
         if (load) {
             loader.show();
+<<<<<<< HEAD
 //            panel.clear();
             westPanel.add(loader);
         } else {
             westPanel.clear();
             westPanel.add(folderPanel);
+=======
+            panel.clear();
+            panel.add(loader);
+        } else {
+            panel.clear();
+            panel.add(folderPanel);
+>>>>>>> first commit
         }
     }
 
@@ -441,7 +487,11 @@ public class MainView extends Composite implements MainPresenter.Display {
 
         // Generate a new folder with a whitespace as name, this is needed as
         // workaround
+<<<<<<< HEAD
         IMAPFolderProxy folder = (IMAPFolderProxy)new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
+=======
+        IMAPFolder folder = new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
+>>>>>>> first commit
         folder.setDelimiter(oldFolder.getDelimiter());
 
         final IMAPTreeItem newItem = new IMAPTreeItem(folder);
@@ -485,7 +535,11 @@ public class MainView extends Composite implements MainPresenter.Display {
      * @seeorg.apache.hupa.client.mvp.IMAPFolderPresenter.Display#
      * decreaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
+<<<<<<< HEAD
     public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
+=======
+    public void decreaseUnseenMessageCount(IMAPFolder folder, int amount) {
+>>>>>>> first commit
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -503,7 +557,11 @@ public class MainView extends Composite implements MainPresenter.Display {
      * @seeorg.apache.hupa.client.mvp.IMAPFolderPresenter.Display#
      * increaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
+<<<<<<< HEAD
     public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
+=======
+    public void increaseUnseenMessageCount(IMAPFolder folder, int amount) {
+>>>>>>> first commit
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -516,8 +574,13 @@ public class MainView extends Composite implements MainPresenter.Display {
     }
 
     
+<<<<<<< HEAD
     private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolderProxy folder) {
         if (folder.getFullName().equalsIgnoreCase(((IMAPFolderProxy) item.getUserObject()).getFullName())) {
+=======
+    private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolder folder) {
+        if (folder.getFullName().equalsIgnoreCase(((IMAPFolder) item.getUserObject()).getFullName())) {
+>>>>>>> first commit
             return item;
         }
         for (int i = 0; i < item.getChildCount(); i++) {
@@ -533,7 +596,11 @@ public class MainView extends Composite implements MainPresenter.Display {
      * (non-Javadoc)
      * @see org.apache.hupa.client.mvp.MainPresenter.Display#updateTreeItem(org.apache.hupa.shared.data.IMAPFolder)
      */
+<<<<<<< HEAD
     public void updateTreeItem(IMAPFolderProxy folder) {
+=======
+    public void updateTreeItem(IMAPFolder folder) {
+>>>>>>> first commit
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);

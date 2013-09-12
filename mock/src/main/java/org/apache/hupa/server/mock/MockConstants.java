@@ -20,6 +20,7 @@
 package org.apache.hupa.server.mock;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.Properties;
 
 import org.apache.hupa.shared.data.SettingsImpl;
@@ -27,16 +28,22 @@ import org.apache.hupa.shared.data.UserImpl;
 import org.apache.hupa.shared.domain.Settings;
 import org.apache.hupa.shared.domain.User;
 =======
+=======
+>>>>>>> first commit
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
 
 import java.util.Properties;
+<<<<<<< HEAD
+>>>>>>> first commit
+=======
 >>>>>>> first commit
 
 /**
  * Constants and properties used for mock mode
  */
 public class MockConstants {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     
@@ -48,6 +55,11 @@ public class MockConstants {
     
     public static String SESSION_ID = "MockID";
 >>>>>>> constantly changed by manolo
+     
+    public final static Settings mockSettings = new Settings() {
+        private static final long serialVersionUID = 1L;
+>>>>>>> first commit
+=======
      
     public final static Settings mockSettings = new Settings() {
         private static final long serialVersionUID = 1L;
@@ -67,11 +79,15 @@ public class MockConstants {
             put("Password", MockIMAPStore.MOCK_LOGIN);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             put("DefaultUserSessionId", "DEMO_ID");
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
+=======
+            put("DefaultUserSessionId", "DEMO_ID");
+>>>>>>> first commit
 
             put("IMAPServerAddress", MockIMAPStore.MOCK_HOST);
             put("SMTPServerAddress", MockIMAPStore.MOCK_HOST);
@@ -88,7 +104,12 @@ public class MockConstants {
     };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public final static Settings mockUserSettings = new SettingsImpl() {
+=======
+    public final static Settings mockUserSettings = new Settings() {
+        private static final long serialVersionUID = 1L;
+>>>>>>> first commit
 =======
     public final static Settings mockUserSettings = new Settings() {
         private static final long serialVersionUID = 1L;
@@ -102,7 +123,12 @@ public class MockConstants {
     };
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public final static User mockUser = new UserImpl() {
+=======
+    public final static User mockUser = new User() {
+        private static final long serialVersionUID = 1L;
+>>>>>>> first commit
 =======
     public final static User mockUser = new User() {
         private static final long serialVersionUID = 1L;
