@@ -48,6 +48,7 @@ import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
 import org.apache.hupa.server.guice.providers.LogProvider;
 import org.apache.hupa.server.preferences.InImapUserPreferencesStorage;
+import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.service.CheckSessionService;
 import org.apache.hupa.server.service.CheckSessionServiceImpl;
@@ -511,12 +512,17 @@ public class GuiceServerModule extends AbstractModule {
 		bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);
 		bind(Session.class).toProvider(JavaMailSessionProvider.class);
 <<<<<<< HEAD
+<<<<<<< HEAD
 //		bind(HttpSession.class).toProvider(HttpSessionProvider.class);
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		bind(Properties.class).toInstance(properties);
 =======
 >>>>>>> forward and reply message to use RF
         bind(UserPreferencesStorage.class).to(InImapUserPreferencesStorage.class);
+=======
+//        bind(UserPreferencesStorage.class).to(InImapUserPreferencesStorage.class);
+        bind(UserPreferencesStorage.class).to(InSessionUserPreferencesStorage.class);
+>>>>>>> Disable InImapUserPreferencesStorage
 		bind(Properties.class).toInstance(properties);
 	}
 
