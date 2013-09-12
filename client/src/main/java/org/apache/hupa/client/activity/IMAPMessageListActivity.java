@@ -883,6 +883,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		this.user = place.getUser();
 		this.folder = place.getFolder();
 		this.searchValue = place.getSearchValue();
+<<<<<<< HEAD
 =======
 	}
 	@Override
@@ -1124,6 +1125,9 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		this.folder = place.getFolder();
 		this.searchValue = place.getSearchValue();
 >>>>>>> Make the evo more clear.
+=======
+		display.setImapFolder(folder);
+>>>>>>> use CellTable to deal with MessageTableModel, even a few issues
 		return this;
 	}
 
@@ -1298,6 +1302,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		public HasValue<String> getSearchValue();
 		public void fillSearchOracle(List<Message> messages);
 		public void setExpandLoading(boolean expanding);
+		void setImapFolder(ImapFolder folder);
 
 	}
 

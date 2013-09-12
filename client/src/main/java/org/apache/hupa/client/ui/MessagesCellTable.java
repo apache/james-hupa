@@ -502,23 +502,21 @@ import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.cell.client.TextCell;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.user.cellview.client.AbstractPager;
+import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.cellview.client.DataGrid;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
-public class MessagesCellTable extends DataGrid<Message> {
+public class MessagesCellTable extends CellTable<Message> {
 
-	private static final int PAGE_SIZE = 5;
+	private static final int PAGE_SIZE = 25;
 	
 	private User user;
 	private ImapFolder folder;
@@ -533,7 +531,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 	public SimplePager getPager(){
 		return pager;
 	}
-//	@Inject
+	@Inject
 	public MessagesCellTable(final EventBus eventBus, final HupaRequestFactory requestFactory,
 	        final HupaImageBundle imageBundle) {
 
@@ -542,16 +540,16 @@ public class MessagesCellTable extends DataGrid<Message> {
 		this.requestFactory = requestFactory;
 		this.imageBundle = imageBundle;
 
-//		addColumn(new CheckboxColumn());
-		addColumn(new FromColumn(), "from");
-		addColumn(new SubjectColumn(), "subject");
-//		addColumn(new AttachmentColumn());
-//		addColumn(new DateColumn());
+		addColumn(new CheckboxColumn());
+		addColumn(new FromColumn());
+		addColumn(new SubjectColumn());
+		addColumn(new AttachmentColumn());
+		addColumn(new DateColumn());
 
 		pager = new SimplePager();
 		pager.setDisplay(this);
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
-//		setVisible(true);
+		setVisible(true);
 		addRangeChangeHandler(new RangeChangeEvent.Handler() {
 			@Override
 			public void onRangeChange(RangeChangeEvent event) {
@@ -577,7 +575,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 				user = loadMessagesEvent.getUser();
 				folder = loadMessagesEvent.getFolder();
 				searchValue = loadMessagesEvent.getSearchValue();
-				fetch(0);
+//				fetch(0);
 			}
 		});
 		eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
@@ -594,7 +592,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 				user = event.getUser();
 				folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
 				searchValue = null;
-				fetch(0);
+//				fetch(0);
 			}
 		});
 		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
@@ -640,7 +638,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 				MessagesCellTable.this.folder.setMessageCount(result.getRealCount());
 				MessagesCellTable.this.folder.setUnseenMessageCount(result.getRealUnreadCount());
 				setRowCount(result.getRealCount());
-				if (result != null && result.getMessages() != null) {
+				if (result.getMessages() != null) {
 					setRowData(start + getPageSize(), result.getMessages());
 				} else {
 					setRowData(start + getPageSize(), result.getMessages());
@@ -650,7 +648,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 	            if (start == 0 || !isRowCountExact()) {
 	             setRowCount(start + result.getMessages().size(), result.getMessages().size() < getPageSize());
 	            }
-				flush();
+//				flush();
 				// Notify presenter to update folder tree view
 				eventBus.fireEvent(new MessagesReceivedEvent(folder, result.getMessages()));
 			}
