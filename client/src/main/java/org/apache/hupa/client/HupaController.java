@@ -30,6 +30,7 @@ import org.apache.hupa.client.activity.TopBarActivity;
 import org.apache.hupa.client.mapper.ActivityManagerInitializer;
 import org.apache.hupa.client.place.ComposePlace;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.HupaPlace;
@@ -64,6 +65,10 @@ import org.apache.hupa.client.bundles.HupaResources;
 >>>>>>> scrub login view code, use css by a unique way 
 =======
 >>>>>>> could change main panel dynamically currently by clicking the compose button
+=======
+import org.apache.hupa.client.place.DefaultPlace;
+import org.apache.hupa.client.place.MailFolderPlace;
+>>>>>>> prepare to make composeView's reload work
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.HupaLayoutable;
@@ -292,28 +297,39 @@ public class HupaController {
 	private final class PlaceChangHandler implements PlaceChangeEvent.Handler {
 		@Override
 		public void onPlaceChange(PlaceChangeEvent event) {
-			adjustLayout(event);
 			checkSession();
+			adjustLayout(event);
 		}
 	}
 
 	private void adjustLayout(PlaceChangeEvent event) {
 		Place place = event.getNewPlace();
+		
 		if (place instanceof ComposePlace) {
+			if(((ComposePlace)place).getParameters() != null){
 			hupaLayout.switchToCompose();
+			}else{
+				this.placeController.goTo(new DefaultPlace("@"));
+			}
 		} else {
 			hupaLayout.switchToMessage();
 		}
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> move new theme ui from experiment to hupa evo
 =======
+=======
+	private User user;
+	
+>>>>>>> prepare to make composeView's reload work
 	private void checkSession() {
 		CheckSessionRequest checkSession = requestFactory.sessionRequest();
 		checkSession.getUser().fire(new Receiver<User>() {
 			@Override
 			public void onSuccess(User user) {
+				HupaController.this.user = user;
 				if (user == null) {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
