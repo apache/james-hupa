@@ -249,6 +249,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
@@ -265,6 +266,7 @@ import com.google.gwt.user.cellview.client.CellTree;
 >>>>>>> refactoring.
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.name.Named;
 
 <<<<<<< HEAD
@@ -473,12 +475,14 @@ public class AppGinModule extends AbstractGinModule {
 		bind(LogoActivity.Displayable.class).to(LogoView.class);
 		bind(NavigationActivity.Displayable.class).to(NavigationView.class);
 		bind(ToolBarActivity.Displayable.class).to(ToolBarView.class);
-		bind(FolderListActivity.Displayable.class).to(FolderListView.class);
+//		bind(FolderListActivity.Displayable.class).to(FolderListView.class);
 		bind(MessageListActivity.Displayable.class).to(MessageListView.class);
-		bind(MessageListFooterActivity.Displayable.class).to(MessageListFooterView.class);
-		bind(MessageContentActivity.Displayable.class).to(MessageContentView.class);
+		bind(MessageListFooterActivity.Displayable.class).to(
+				MessageListFooterView.class);
+		bind(MessageContentActivity.Displayable.class).to(
+				MessageContentView.class);
 		bind(StatusActivity.Displayable.class).to(StatusView.class);
-		
+
 		bind(LoginActivity.class).in(Singleton.class);
 		bind(TopBarActivity.class).in(Singleton.class);
 		bind(LogoActivity.class).in(Singleton.class);
@@ -486,11 +490,9 @@ public class AppGinModule extends AbstractGinModule {
 		bind(ToolBarActivity.class).in(Singleton.class);
 		bind(FolderListActivity.class).in(Singleton.class);
 		bind(MessageListActivity.class).in(Singleton.class);
-//		bind(MessageListFooterActivity.class).in(Singleton.class);
-//		bind(MessageContentActivity.class).in(Singleton.class);
-//		bind(StatusActivity.class).in(Singleton.class);
-		
-		
+		// bind(MessageListFooterActivity.class).in(Singleton.class);
+		// bind(MessageContentActivity.class).in(Singleton.class);
+		// bind(StatusActivity.class).in(Singleton.class);
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 		bind(TopActivity.Displayable.class).to(TopView.class);
@@ -575,6 +577,9 @@ public class AppGinModule extends AbstractGinModule {
 		bind(HupaController.class).in(Singleton.class);
 >>>>>>> move new theme ui from experiment to hupa evo
 
+		install(new GinFactoryModuleBuilder().implement(
+				FolderListActivity.Displayable.class, FolderListView.class)
+				.build(FolderListFactory.class));
 		// bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
 	}
 <<<<<<< HEAD
@@ -679,6 +684,7 @@ public class AppGinModule extends AbstractGinModule {
 			StatusActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
@@ -828,6 +834,11 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
 	@Provides
 	@Singleton
+=======
+
+	@Provides
+	@Singleton
+>>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
 	public PlaceController getPlaceController(EventBus eventBus) {
 		return new PlaceController(eventBus);
 	}

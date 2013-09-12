@@ -232,6 +232,7 @@ public class MessageListView extends Composite implements
 			@Override
 			public void onFailure(ServerFailure error) {
 				if (error.isFatal()) {
+					//FIXME should goto login page regarding the long time session expired.
 					throw new RuntimeException(error.getMessage());
 				}
 			}

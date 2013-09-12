@@ -30,7 +30,8 @@ public class MailFolderPlace extends AbstractPlace {
 
 	/**
 	 * Folder places look like: #Mock-Inbox, #INBOX,<br>
-	 * while message places: #Mock-Inbox&#47;10, #INBOX&#47;1234, #%5BGmail%5DDrafts&#47;18
+	 * while message places: #Mock-Inbox&#47;10, #INBOX&#47;1234,
+	 * #%5BGmail%5DDrafts&#47;18
 	 * 
 	 * @param token
 	 */
@@ -85,5 +86,30 @@ public class MailFolderPlace extends AbstractPlace {
 			}
 			return token.toString();
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == null)
+			return false;
+		if (o == this)
+			return true;
+		if (o.getClass() != getClass())
+			return false;
+		MailFolderPlace place = (MailFolderPlace) o;
+		return (fullName == place.fullName || (fullName != null && fullName
+				.equals(place.getFullName())))
+				&& (uid == place.uid || (uid != null && uid.equals(place
+						.getUid())));
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((fullName == null) ? 0 : fullName.hashCode());
+		result = prime * result + ((uid == null) ? 0 : uid.hashCode());
+		return result;
 	}
 }

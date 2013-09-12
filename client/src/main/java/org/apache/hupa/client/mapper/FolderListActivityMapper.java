@@ -54,13 +54,14 @@ public class FolderListActivityMapper extends _HupaActivityMapper {
 public class FolderListActivityMapper implements ActivityMapper {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 	private final Provider<FolderListActivity> folderListActivityProvider;
-
+	
 	@Inject
 	public FolderListActivityMapper(
 			Provider<FolderListActivity> folderListActivityProvider) {
 		this.folderListActivityProvider = folderListActivityProvider;
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Override
 	Activity asyncLoadActivity(final Place place) {
@@ -86,6 +87,9 @@ public class FolderListActivityMapper implements ActivityMapper {
 		return folderListActivityProvider.get();
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+	public Activity getActivity(final Place place) {
+>>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
 		if (place instanceof MailFolderPlace) {
 			return new ActivityAsyncProxy() {
 				@Override
@@ -95,7 +99,7 @@ public class FolderListActivityMapper implements ActivityMapper {
 
 				@Override
 				protected Activity createInstance() {
-					return folderListActivityProvider.get();
+					return folderListActivityProvider.get().with(place);
 				}
 			};
 

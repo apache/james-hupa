@@ -23,6 +23,7 @@ package org.apache.hupa.client;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.NotificationActivity;
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.activity.TopBarActivity;
@@ -32,6 +33,9 @@ import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.HupaPlace;
 import org.apache.hupa.client.place.SettingPlace;
+=======
+import org.apache.hupa.client.mapper.ActivityManagerInitializer;
+>>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.rf.IdleRequest;
@@ -117,8 +121,12 @@ public class HupaController {
 >>>>>>> move new theme ui from experiment to hupa evo
 =======
 	public HupaController(EventBus eventBus,
+<<<<<<< HEAD
 			HupaActivityManagerInitializer initializeActivityManagerByGin) {
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+			ActivityManagerInitializer initializeActivityManagerByGin) {
+>>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
 		eventBus.addHandler(PlaceChangeEvent.TYPE, new PlaceChangHandler());
 	}
 

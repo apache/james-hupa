@@ -20,6 +20,7 @@
 package org.apache.hupa.client.activity;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.events.RefreshUnreadEvent;
 import org.apache.hupa.shared.events.RefreshUnreadEventHandler;
 
@@ -27,9 +28,13 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
 =======
+=======
+import org.apache.hupa.client.ioc.FolderListFactory;
+>>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
 import org.apache.hupa.client.ui.WidgetDisplayable;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.inject.Inject;
@@ -38,10 +43,19 @@ public class FolderListActivity extends AppBaseActivity {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject private Displayable display;
+=======
+	@Inject private FolderListFactory folderListFactory;
+	private Place place;
+	private Displayable display;
+>>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
+		if (display == null) {
+			display = folderListFactory.create(place);
+		}
 		container.setWidget(display.asWidget());
 		bindTo(eventBus);
 	}
@@ -56,6 +70,7 @@ public class FolderListActivity extends AppBaseActivity {
 		});
 	}
 
+<<<<<<< HEAD
 	public interface Displayable extends IsWidget {
 		void refresh();
 	}
@@ -75,6 +90,16 @@ public class FolderListActivity extends AppBaseActivity {
 	public interface Displayable extends WidgetDisplayable {}
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+	public FolderListActivity with(Place place) {
+		if (display == null || !place.getClass().equals(this.place.getClass())) {
+			display = folderListFactory.create(place);
+			this.place = place;
+		}
+		return this;
+	}
+
+>>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
 	public interface Displayable extends WidgetDisplayable {
 	}
 >>>>>>> make reload mail folder place work, fixed issue #7
