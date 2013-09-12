@@ -133,11 +133,11 @@
 			</g:HTMLPanel>
 		</g:north>
 		<g:center>
-			<g:DockLayoutPanel unit="PX">
+			<g:DockLayoutPanel unit="PX" ui:field="thisPanel">
 				<g:center>
 					<g:ScrollPanel ui:field="messageContent" addStyleNames="{style.messageContent}" />
 				</g:center>
-				<g:east size="216">
+				<g:east size="0">
 					<g:FlowPanel ui:field="attachments" addStyleNames="{style.attachBox}">
 					</g:FlowPanel>
 				</g:east>

@@ -64,8 +64,11 @@ public class MessageContentView extends Composite implements MessageContentActiv
 	//TODO should use a scrolled panel which can contain multiple children
 	@UiField FlowPanel attachments;
 	@UiField DockLayoutPanel thisPanel;
+<<<<<<< HEAD
 	@UiField Anchor rawButton;
 	@UiField SimplePanel rawPanel;
+=======
+>>>>>>> show/hide attachment's panel according to the attachments size
 
 	@Inject
 =======
@@ -290,6 +293,7 @@ public class MessageContentView extends Composite implements MessageContentActiv
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Override
 	public void fillMessageContent(String messageDetail) {
 		messageContentHTML.setHTML(messageDetail);
@@ -385,10 +389,21 @@ public class MessageContentView extends Composite implements MessageContentActiv
 
 	private static MessageContentUiBinder binder = GWT.create(MessageContentUiBinder.class);
 
+=======
+>>>>>>> show/hide attachment's panel according to the attachments size
 	@Override
 	public void fillMessageContent(String messageDetail) {
 		messageContentHTML.setHTML(messageDetail);
 		messageContent.add(messageContentHTML);
+	}
+	
+	@Override
+	public void showAttachmentPanel(boolean is){
+		if(is){
+			thisPanel.setWidgetSize(attachments, 216);
+		}else{
+			thisPanel.setWidgetSize(attachments, 0);
+		}
 	}
 
 <<<<<<< HEAD
@@ -396,7 +411,6 @@ public class MessageContentView extends Composite implements MessageContentActiv
 =======
 	@Override
 	public void setAttachments(List<MessageAttachment> attachements, final String folder, final long uid) {
-
 		attachments.clear();
 		final Element downloadIframe = RootPanel.get("__download").getElement();
 		if (attachements != null) {
@@ -440,5 +454,13 @@ public class MessageContentView extends Composite implements MessageContentActiv
 		messageContentHTML.setHTML("");
 	}
 
+<<<<<<< HEAD
 >>>>>>> fixed issue#76 with adding delete handler event
+=======
+
+	interface Binder extends UiBinder<DockLayoutPanel, MessageContentView> {
+	}
+
+	private static Binder binder = GWT.create(Binder.class);
+>>>>>>> show/hide attachment's panel according to the attachments size
 }
