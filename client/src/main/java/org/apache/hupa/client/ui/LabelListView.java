@@ -22,7 +22,6 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.hupa.client.activity.LabelListActivity;
@@ -208,7 +207,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ProvidesKey;
@@ -273,10 +271,10 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 			}
 
 			if (value.getFolder().getSubscribed()) {
-				sb.appendHtmlConstant(value.getName());
+				sb.appendHtmlConstant(value.getNameForDisplay());
 			} else {
 				sb.appendHtmlConstant("<span style='color:gray;'>");
-				sb.appendHtmlConstant(value.getName());
+				sb.appendHtmlConstant(value.getNameForDisplay());
 				sb.appendHtmlConstant("</span>");
 			}
 		}
@@ -305,9 +303,10 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 		@Override
 		protected void onRangeChanged(HasData<LabelNode> display) {
 
-            final int start = display.getVisibleRange().getStart();
+			final int start = display.getVisibleRange().getStart();
 
 			rf.fetchFoldersRequest().fetch(null, Boolean.TRUE).fire(new Receiver<List<ImapFolder>>() {
+
 				@Override
 				public void onSuccess(List<ImapFolder> response) {
 					folderNodes.clear();
@@ -315,22 +314,24 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 						updateRowCount(-1, true);
 					} else {
 						for (ImapFolder folder : response) {
-							fillCellList(folderNodes, folder, LabelNode.ROOT);
+							fillCellList(folderNodes, folder, LabelNode.ROOT, "&nbsp;&nbsp;&nbsp;&nbsp;");
 						}
 						updateRowData(start, folderNodes);
 					}
 				}
 
-				private void fillCellList(List<LabelNode> folderNodes, ImapFolder curFolder, LabelNode parent) {
+				private void fillCellList(List<LabelNode> folderNodes, ImapFolder curFolder, LabelNode parent,
+						String intents) {
 					LabelNode labelNode = new LabelNode();
 					labelNode.setFolder(curFolder);
 					labelNode.setName(curFolder.getName());
+					labelNode.setNameForDisplay(intents + curFolder.getName());
 					labelNode.setParent(parent);
 					labelNode.setPath(curFolder.getFullName());
 					folderNodes.add(labelNode);
 					if (curFolder.getHasChildren()) {
 						for (ImapFolder subFolder : curFolder.getChildren()) {
-							fillCellList(folderNodes, subFolder, labelNode);
+							fillCellList(folderNodes, subFolder, labelNode, intents + "&nbsp;&nbsp;&nbsp;&nbsp;");
 						}
 					}
 				}

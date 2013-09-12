@@ -26,6 +26,7 @@ public class LabelNode implements Comparable<LabelNode> {
 	public void setNameForDisplay(String nameForDisplay) {
 		this.nameForDisplay = nameForDisplay;
 	}
+<<<<<<< HEAD
 =======
 	private ImapFolder folder;
 	private String name;
@@ -33,6 +34,8 @@ public class LabelNode implements Comparable<LabelNode> {
 	private LabelNode parent;
 
 >>>>>>> add rename RF to label setting feature
+=======
+>>>>>>> add intents to labels list
 	public ImapFolder getFolder() {
 		return folder;
 	}
