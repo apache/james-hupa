@@ -525,7 +525,6 @@ import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
-import com.google.gwt.view.client.SelectionModel;
 import com.google.inject.Inject;
 
 public class MessagesCellTable extends DataGrid<Message> {
@@ -563,7 +562,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 			return item == null ? null : item.getUid();
 		}
 	};
-	private final SelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(KEY_PROVIDER);
+	private final MultiSelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(KEY_PROVIDER);
 
 	@Inject
 	public MessagesCellTable(final HupaImageBundle imageBundle, final HupaConstants constants) {
@@ -590,7 +589,8 @@ public class MessagesCellTable extends DataGrid<Message> {
 			public void update(Boolean value) {
 				List<Message> displayedItems = MessagesCellTable.this.getVisibleItems();
 				for (Message msg : displayedItems) {
-					selectionModel.setSelected(msg, value);
+					checkboxCol.getFieldUpdater().update(0, msg, value);
+//					selectionModel.setSelected(msg, value);
 				}
 			}
 		});
@@ -615,7 +615,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 				return getMessageStyle(row);
 			}
 		});
-//		redraw();
+		// redraw();
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
 		setAutoHeaderRefreshDisabled(true);
 		setSelectionModel(selectionModel, DefaultSelectionEventManager.<Message> createCheckboxManager(0));
@@ -636,7 +636,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 		return row.getFlags().contains(IMAPFlag.SEEN);
 	}
 	public void markRead(final Message message, final boolean read) {
-		
+
 		setRowStyles(new RowStyles<Message>() {
 			@Override
 			public String getStyleNames(Message row, int rowIndex) {
@@ -658,7 +658,15 @@ public class MessagesCellTable extends DataGrid<Message> {
 				@Override
 				public void update(int index, Message object, Boolean value) {
 					selectionModel.setSelected(object, value);
-					toolBarDisplay.enableMessageTools();
+					int size = selectionModel.getSelectedSet().size();
+					if (size == 1) {
+						toolBarDisplay.enableAllTools(true);
+					} else if (size > 1) {
+						toolBarDisplay.enableDealingTools(true);
+						toolBarDisplay.enableSendingTools(false);
+					} else {
+						toolBarDisplay.enableAllTools(false);
+					}
 				}
 			});
 		}

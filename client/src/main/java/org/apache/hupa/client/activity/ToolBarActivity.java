@@ -169,8 +169,6 @@ import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.SetFlagAction;
-import org.apache.hupa.shared.events.ExpandMessageEvent;
-import org.apache.hupa.shared.events.ExpandMessageEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;
@@ -197,8 +195,8 @@ public class ToolBarActivity extends AppBaseActivity {
 		container.setWidget(display.asWidget());
 		bindTo(eventBus);
 	}
-	
-	public ToolBarActivity with(String folder){
+
+	public ToolBarActivity with(String folder) {
 		this.folderName = folder;
 		return this;
 	}
@@ -216,16 +214,9 @@ public class ToolBarActivity extends AppBaseActivity {
 				display.setParameters(new Parameters(e.getUser(), null, null, null));
 			}
 		});
-		eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
-			public void onExpandMessage(ExpandMessageEvent event) {
-				display.enableMessageTools();
-				display.setParameters(new Parameters(event.getUser(), event.getFolder(), event.getMessage(), event
-						.getMessageDetails()));
-			}
-		});
 		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
 			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
-				display.disableMessageTools();
+				display.enableAllTools(false);
 			}
 		});
 		registerHandler(display.getMark().addClickHandler(new ClickHandler() {
@@ -280,9 +271,10 @@ public class ToolBarActivity extends AppBaseActivity {
 	}
 
 	public interface Displayable extends WidgetDisplayable {
-		void disableMessageTools();
 
-		void enableMessageTools();
+		void enableSendingTools(boolean is);
+		void enableDealingTools(boolean is);
+		void enableAllTools(boolean is);
 
 		HasClickHandlers getReply();
 

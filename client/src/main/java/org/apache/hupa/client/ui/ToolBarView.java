@@ -585,21 +585,47 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		return simplePopup;
 	}
 
-	// TODO realy disabled the click event of the tool bar coupled with graying
 	@Override
-	public void disableMessageTools() {
+	public void enableAllTools(boolean is) {
+		this.enableSendingTools(is);
+		this.enableDealingTools(is);
+	}
+	@Override
+	public void enableSendingTools(boolean is) {
+		if (is) {
+			removeSendingDisableds();
+		} else {
+			addSendingDisableds();
+		}
+	}
+
+	@Override
+	public void enableDealingTools(boolean is) {
+		if (is) {
+			removeDealingDisableds();
+		} else {
+			addDealingDisableds();
+		}
+	}
+
+	private void addSendingDisableds() {
 		reply.addStyleName(style.disabledButton());
 		replyAllGroup.addStyleName(style.disabledButton());
 		forwardGroup.addStyleName(style.disabledButton());
+	}
+
+	private void removeSendingDisableds() {
+		reply.removeStyleName(style.disabledButton());
+		replyAllGroup.removeStyleName(style.disabledButton());
+		forwardGroup.removeStyleName(style.disabledButton());
+	}
+
+	private void addDealingDisableds() {
 		delete.addStyleName(style.disabledButton());
 		mark.addStyleName(style.disabledButton());
 	}
 
-	@Override
-	public void enableMessageTools() {
-		reply.removeStyleName(style.disabledButton());
-		replyAllGroup.removeStyleName(style.disabledButton());
-		forwardGroup.removeStyleName(style.disabledButton());
+	private void removeDealingDisableds() {
 		delete.removeStyleName(style.disabledButton());
 <<<<<<< HEAD
 >>>>>>> add enable tool bar buttons toggling event, with being related to issue #31

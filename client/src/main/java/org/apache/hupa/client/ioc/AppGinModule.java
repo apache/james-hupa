@@ -513,7 +513,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(LogoActivity.Displayable.class).to(LogoView.class).in(Singleton.class);
 >>>>>>> fixed issue#46 and issue#32
 		bind(NavigationActivity.Displayable.class).to(NavigationView.class);
-		bind(ToolBarActivity.Displayable.class).to(ToolBarView.class);
+		bind(ToolBarActivity.Displayable.class).to(ToolBarView.class).in(Singleton.class);
 		// bind(FolderListActivity.Displayable.class).to(FolderListView.class);
 		bind(MessageListActivity.Displayable.class).to(MessageListView.class);
 		bind(MessageListFooterActivity.Displayable.class).to(MessageListFooterView.class);

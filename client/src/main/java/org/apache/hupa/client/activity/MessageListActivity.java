@@ -273,12 +273,9 @@ import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
-import org.apache.hupa.shared.events.LoginEvent;
-import org.apache.hupa.shared.events.LoginEventHandler;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -336,13 +333,6 @@ public class MessageListActivity extends AppBaseActivity {
 							}
 						}
 					});
-				} else if (hasChangedFirstCol(event)) {
-					Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-						@Override
-						public void execute() {
-							toolBarDisplay.enableMessageTools();
-						}
-					});
 				}
 			}
 
@@ -367,11 +357,6 @@ public class MessageListActivity extends AppBaseActivity {
 
 	private boolean hasClickedButFirstCol(CellPreviewEvent<Message> event) {
 		return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
-	}
-	private boolean hasChangedFirstCol(CellPreviewEvent<Message> event) {
-		GWT.log(event.getNativeEvent().getType() + " "
-				+ ("change".equals(event.getNativeEvent().getType()) && 0 == event.getColumn()));
-		return "change".equals(event.getNativeEvent().getType()) && 0 == event.getColumn();
 	}
 	public void fetch(final int start) {
 		FetchMessagesRequest req = requestFactory.messagesRequest();
@@ -413,25 +398,6 @@ public class MessageListActivity extends AppBaseActivity {
 
 			}
 		});
-//		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
-//			public void onLogin(LoginEvent event) {
-//				user = event.getUser();
-//				if (folder == null) {
-//					folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
-//					searchValue = null;
-//					if (!pending) {
-//						pending = true;
-//						Scheduler.get().scheduleFinally(new ScheduledCommand() {
-//							@Override
-//							public void execute() {
-//								pending = false;
-//								fetch(0);
-//							}
-//						});
-//					}
-//				}
-//			}
-//		});
 
 	}
 
