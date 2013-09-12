@@ -228,14 +228,14 @@ public class HupaLayout implements HupaLayoutable {
 =======
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
+<<<<<<< HEAD
 import com.google.gwt.uibinder.client.UiField;
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+>>>>>>> integrate them as a whole one - first: make the default place work
 import com.google.gwt.user.client.ui.LayoutPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 
 public class HupaLayout implements HupaLayoutable {
-
-	@UiField SimplePanel loginView;
 
 	@Override
 	public LayoutPanel get() {
@@ -248,10 +248,6 @@ public class HupaLayout implements HupaLayoutable {
 	private static HupaLayoutUiBinder binder = GWT
 			.create(HupaLayoutUiBinder.class);
 	
-	@Override
-	public SimplePanel getLoginView(){
-		return loginView;
-	}
 
 <<<<<<< HEAD
 public interface HupaLayout {

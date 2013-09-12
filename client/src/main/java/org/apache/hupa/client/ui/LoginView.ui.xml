@@ -161,7 +161,7 @@
 		<g:FlowPanel ui:field="innerBox">
 			<g:Image resource='{logo}'></g:Image>
 			<g:FormPanel ui:field="formPanel">
-				<g:FlexTable ui:field="flexTable"></g:FlexTable>
+				<g:FlexTable ui:field="flexTable"/>
 			</g:FormPanel>
 			<g:Button ui:field="loginButton"></g:Button>
 		</g:FlowPanel>

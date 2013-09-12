@@ -16,11 +16,15 @@
 -->
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> integrate them as a whole one - first: make the default place work
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> first commit
@@ -33,6 +37,8 @@
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+>>>>>>> integrate them as a whole one - first: make the default place work
 
 	<!-- Max size of the upload request (10MB) -->
 	<context-param>
@@ -87,11 +93,15 @@
     <welcome-file-list>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <welcome-file>index.jsp</welcome-file>
 =======
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+        <welcome-file>index.jsp</welcome-file>
+>>>>>>> integrate them as a whole one - first: make the default place work
         <welcome-file>Hupa.html</welcome-file>
     </welcome-file-list>
     

@@ -38,9 +38,12 @@ import java.util.logging.Logger;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.apache.hupa.client.HupaConstants;
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+>>>>>>> integrate them as a whole one - first: make the default place work
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
@@ -182,6 +185,8 @@ import org.apache.hupa.client.ui.IMAPMessageListView;
 =======
 >>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.client.ui.IMAPMessageView;
+import org.apache.hupa.client.ui.LoginLayout;
+import org.apache.hupa.client.ui.LoginLayoutable;
 import org.apache.hupa.client.ui.LoginView;
 import org.apache.hupa.client.ui.MessageSendView;
 import org.apache.hupa.client.ui.MessagesCellTable;
@@ -411,7 +416,11 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> refactoring
 =======
 		bind(HupaLayoutable.class).to(HupaLayout.class).in(Singleton.class);
+<<<<<<< HEAD
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+		bind(LoginLayoutable.class).to(LoginLayout.class).in(Singleton.class);
+>>>>>>> integrate them as a whole one - first: make the default place work
 
 		// Activities
 		bind(LoginActivity.Displayable.class).to(LoginView.class);

@@ -51,6 +51,7 @@ import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.HupaLayoutable;
+import org.apache.hupa.client.ui.LoginLayoutable;
 
 >>>>>>> move new theme ui from experiment to hupa evo
 import com.google.gwt.dom.client.StyleInjector;
@@ -91,6 +92,7 @@ public class HupaController {
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class HupaController {
 
@@ -99,6 +101,8 @@ public class HupaController {
 	@Inject private PlaceController placeController;
 	@Inject private HupaRequestFactory requestFactory;
 	private Place currentPlace;
+	
+	@Inject private LoginLayoutable loginLayout;
 
 	@Inject
 <<<<<<< HEAD
@@ -112,6 +116,7 @@ public class HupaController {
 	}
 
 	public void start() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 		bindCss();
 		placeHistoryHandler.handleCurrentHistory();
@@ -236,12 +241,22 @@ public class HupaController {
 																			// need
 																			// this?
 		RootLayoutPanel.get().add(hupaLayout.get());
+=======
+		bindCss();
+		checkSession();
+>>>>>>> integrate them as a whole one - first: make the default place work
 		placeHistoryHandler.handleCurrentHistory();
+	}
+
+	private void bindCss() {
+		// TODO:replace with a more gentle approach
+		StyleInjector.inject(HupaResources.INSTANCE.stylesheet().getText());
 	}
 
 	private final class PlaceChangHandler implements PlaceChangeEvent.Handler {
 		@Override
 		public void onPlaceChange(PlaceChangeEvent event) {
+			
 			if (placeChange(event)) {
 				checkSession();
 			}
@@ -259,19 +274,21 @@ public class HupaController {
 				currentPlace = newPlace;
 			}
 		}
-
-		private void checkSession() {
-			CheckSessionRequest checkSession = requestFactory.sessionRequest();
-			checkSession.isValid().fire(new Receiver<Boolean>() {
-				@Override
-				public void onSuccess(Boolean sessionValid) {
-					if (!sessionValid) {
-						HupaController.this.placeController
-								.goTo(new DefaultPlace());
-					}
-				}
-			});
-		}
+//
+//		private void checkSession() {
+//			CheckSessionRequest checkSession = requestFactory.sessionRequest();
+//			checkSession.isValid().fire(new Receiver<Boolean>() {
+//				@Override
+//				public void onSuccess(Boolean sessionValid) {
+//					if (!sessionValid) {
+//						RootLayoutPanel.get().add(loginLayout.get());//
+//						HupaController.this.placeController
+//								.goTo(new DefaultPlace());
+//						// this?
+//					}
+//				}
+//			});
+//		}
 
 		private boolean placeChange(PlaceChangeEvent event) {
 			return currentPlace != null
@@ -285,5 +302,31 @@ public class HupaController {
 		}
 	}
 
+<<<<<<< HEAD
 >>>>>>> move new theme ui from experiment to hupa evo
+=======
+	private void checkSession() {
+		CheckSessionRequest checkSession = requestFactory.sessionRequest();
+		checkSession.isValid().fire(new Receiver<Boolean>() {
+			@Override
+			public void onSuccess(Boolean sessionValid) {
+				RootLayoutPanel.get().clear();
+				RootLayoutPanel.get().add(loginLayout.get());//
+				if (!sessionValid) {
+//					RootLayoutPanel.get().clear();
+//					RootLayoutPanel.get().add(loginLayout.get());//
+//					HupaController.this.placeController
+//							.goTo(new DefaultPlace());
+					// this?
+				}
+			}
+			
+			@Override
+			public void onFailure(ServerFailure error){
+				RootLayoutPanel.get().clear();
+				RootLayoutPanel.get().add(loginLayout.get());
+			}
+		});
+	}
+>>>>>>> integrate them as a whole one - first: make the default place work
 }

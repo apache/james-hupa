@@ -92,6 +92,7 @@
 .loginForm .submitButton {
 	background-color: white;
 	font-size: 110%;
+	font-weight: bold;
 	padding: 4px 12px;
 	color: #000;
 	text-decoration: hand;

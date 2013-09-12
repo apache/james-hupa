@@ -20,6 +20,7 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -77,4 +78,8 @@ public interface HupaLayoutable {
 
 	SimplePanel getLoginView();
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+
+public interface HupaLayoutable extends Layoutable{
+>>>>>>> integrate them as a whole one - first: make the default place work
 }

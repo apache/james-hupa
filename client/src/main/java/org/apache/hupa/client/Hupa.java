@@ -46,11 +46,15 @@ public class Hupa implements EntryPoint {
 	private void initApp() {
 		replaceLoading();
 <<<<<<< HEAD
+<<<<<<< HEAD
 		injector.getHupaController().start();
 =======
 		HupaController hupaController = injector.getHupaController();
 		hupaController.start();
 >>>>>>> move new theme ui from experiment to hupa evo
+=======
+		injector.getHupaController().start();
+>>>>>>> integrate them as a whole one - first: make the default place work
 	}
 
 	private void handleExceptionsAsync() {

@@ -79,16 +79,15 @@
 		}
 	</ui:style>
 	<g:LayoutPanel addStyleNames="{style.minWidth}">
-		<g:layer>
-			<g:SimplePanel ui:field="loginView">
-	            <hupa:LoginView/>
-	        </g:SimplePanel>
-		</g:layer> <!--
 		<g:layer left='0' right='0' top='0' height='92px'>
 			<g:DockLayoutPanel unit="PX" ui:field="Header">
 				<g:north size="23">
+<<<<<<< HEAD
 					<hupa:TopBarView />
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+					<hupa:TopBarView ui:field="topBarView"/>
+>>>>>>> integrate them as a whole one - first: make the default place work
 				</g:north>
 				<g:center>
 					<g:LayoutPanel addStyleNames="{style.feature}"
@@ -105,9 +104,10 @@
 							<g:SimpleLayoutPanel ui:field="navigationContainer" />
 =======
 						<g:layer width="177px" left="10px">
-							<hupa:LogoView />
+							<hupa:LogoView ui:field="logoView"/>
 						</g:layer>
 						<g:layer width="301px" right="0">
+<<<<<<< HEAD
 							<hupa:NavigationView />
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 						</g:layer>
@@ -128,6 +128,9 @@
 						</g:layer>
 						<g:layer left="0%" width="0%" top="0%" height="0%">
 							<hupa:_CenterSettingPanel ui:field="settingPanel" />
+=======
+							<hupa:NavigationView ui:field="navigationView"/>
+>>>>>>> integrate them as a whole one - first: make the default place work
 						</g:layer>
                         <g:layer left="0%" width="0%" top="0%" height="0%">
                             <hupa:_CenterContactPanel ui:field="contactPanel" />
@@ -143,7 +146,7 @@
 		<g:layer left='10px' right='10px' top='88px' bottom="20px">
 			<g:DockLayoutPanel ui:field="MainBox">
 				<g:north size="40">
-					<hupa:ToolBarView />
+					<hupa:ToolBarView ui:field="toolBarView"/>
 				</g:north>
 				<g:center>
 					<g:SplitLayoutPanel ui:field="MessageSpace">
@@ -151,7 +154,7 @@
 							<g:LayoutPanel ui:field="LeftBox"
 								addStyleNames="{style.folderList}  {style.box}  {style.listBox}">
 								<g:layer top="0" height="100%">
-									<hupa:FolderListView />
+									<hupa:FolderListView ui:field="folderListView"/>
 								</g:layer>
 								<g:layer bottom="0" height="41px">
 									<g:SimplePanel styleName="{style.boxFooter}">
@@ -169,10 +172,10 @@
 											<g:LayoutPanel addStyleNames="{style.box}"
 												ui:field="MessageListBox">
 												<g:layer>
-													<hupa:MessageListView />
+													<hupa:MessageListView ui:field="messageView"/>
 												</g:layer>
 												<g:layer bottom="0" height="25px">
-													<hupa:MessageListFooterView />
+													<hupa:MessageListFooterView ui:field="messageListFooterView"/>
 												</g:layer>
 											</g:LayoutPanel>
 										</g:north>
@@ -180,10 +183,10 @@
 											<g:LayoutPanel addStyleNames="{style.box}"
 												ui:field="MessageContentBox">
 												<g:layer>
-													<hupa:MessageContentView />
+													<hupa:MessageContentView ui:field="messageContentView"/>
 												</g:layer>
 												<g:layer bottom="0" height="25px">
-													<hupa:StatusView />
+													<hupa:StatusView ui:field="statusView"/>
 												</g:layer>
 											</g:LayoutPanel>
 										</g:center>
@@ -212,7 +215,11 @@
 					</g:SplitLayoutPanel>
 				</g:center>
 			</g:DockLayoutPanel>
+<<<<<<< HEAD
 		</g:layer> -->
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+		</g:layer>
+>>>>>>> integrate them as a whole one - first: make the default place work
 	</g:LayoutPanel>
 </ui:UiBinder>

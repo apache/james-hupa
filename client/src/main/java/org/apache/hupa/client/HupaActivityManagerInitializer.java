@@ -19,7 +19,7 @@
 
 package org.apache.hupa.client;
 
-import org.apache.hupa.client.ui.HupaLayoutable;
+import org.apache.hupa.client.ui.LoginLayoutable;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.inject.Inject;
@@ -32,8 +32,9 @@ import com.google.inject.name.Named;
 public class HupaActivityManagerInitializer {
 
 	@Inject
-	public HupaActivityManagerInitializer(HupaLayoutable layout,
-			@Named("LoginPage") ActivityManager loginActivityManager) {
+	public HupaActivityManagerInitializer(LoginLayoutable layout
+			,@Named("LoginPage") ActivityManager loginActivityManager
+			) {
 		loginActivityManager.setDisplay(layout.getLoginView());
 	}
 

@@ -503,21 +503,14 @@ public class LoginView extends Composite implements KeyUpHandler,
 			.create(LoginViewUiBinder.class);
 
 	Css css = HupaResources.INSTANCE.stylesheet();
-	@UiField
-	FlowPanel mainContainer;
-	@UiField
-	FlowPanel innerBox;
-	@UiField
-	Button loginButton;
+	@UiField FlowPanel mainContainer;
+	@UiField FlowPanel innerBox;
+	@UiField Button loginButton;
 	private SubmitButton submitButton;
-	@UiField
-	FlexTable flexTable;
-	@UiField
-	FlowPanel boxBottom;
-	@UiField
-	FlowPanel messageBox;
-	@UiField
-	FlowPanel bottomLine;
+	@UiField FlexTable flexTable;
+	@UiField FlowPanel boxBottom;
+	@UiField FlowPanel messageBox;
+	@UiField FlowPanel bottomLine;
 	PPanel buttonBar = new PPanel();
 	// We wrap login/password boxes with a form which must be in the html
 	// document,
@@ -527,8 +520,7 @@ public class LoginView extends Composite implements KeyUpHandler,
 	private PasswordTextBox passwordTextBox = PasswordTextBox.wrap(DOM
 			.getElementById("password"));
 	// wrap the form after inputs so as they are in the dom when are wrapped
-	@UiField
-	FormPanel formPanel;
+	@UiField FormPanel formPanel;
 
 >>>>>>> replace with uibinder
 }

@@ -31,6 +31,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class LoginLayout implements LoginLayoutable {
 
 	@UiField SimplePanel loginContainer;
+<<<<<<< HEAD
 
 	private LayoutPanel loginMainPanel;
 
@@ -48,6 +49,29 @@ public class LoginLayout implements LoginLayoutable {
 		};
 	}
 
+=======
+	
+	private LayoutPanel loginMainPanel;
+	
+	public LoginLayout(){
+		this.loginMainPanel = binder.createAndBindUi(this);
+	}
+	
+	@Override
+	public AcceptsOneWidget getLoginView(){
+		return new AcceptsOneWidget() {
+			@Override
+			public void setWidget(IsWidget w) {
+				Widget widget = Widget.asWidgetOrNull(w);
+				if(widget != null){
+					loginContainer.add(widget);
+				}
+			}
+		};
+	
+	}
+	
+>>>>>>> integrate them as a whole one - first: make the default place work
 	@Override
 	public LayoutPanel get() {
 		return loginMainPanel;
