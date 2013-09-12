@@ -19,13 +19,12 @@
 
 package org.apache.hupa.client;
 
-import com.google.gwt.i18n.client.Constants;
-
-import eu.maydu.gwt.validation.client.i18n.StandardValidationMessagesImpl;
 import gwtupload.client.IUploader.UploaderConstants;
 
 import org.apache.hupa.widgets.PagingOptionsConstants;
 import org.apache.hupa.widgets.editor.ToolbarConstants;
+
+import com.google.gwt.i18n.client.Constants;
 
 public interface HupaConstants extends Constants, UploaderConstants, PagingOptionsConstants, ToolbarConstants {
 

@@ -33,11 +33,11 @@ public interface AppLayout {
 =======
 package org.apache.hupa.client.ui;
 
-
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
 
 public interface AppLayout {
+<<<<<<< HEAD
 
   LayoutPanel getMainLayoutPanel();
 
@@ -50,4 +50,12 @@ public interface AppLayout {
   void setDefaultLayout();
 
 >>>>>>> Change to new mvp framework - first step
+=======
+	LayoutPanel getMainLayoutPanel();
+	AcceptsOneWidget getTopContainer();
+	AcceptsOneWidget getWestContainer();
+	AcceptsOneWidget getMainContainer();
+	void setLoginLayout();
+	void setDefaultLayout();
+>>>>>>> introduce the top activity
 }

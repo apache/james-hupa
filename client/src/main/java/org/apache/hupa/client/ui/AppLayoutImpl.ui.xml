@@ -155,10 +155,8 @@
 	</ui:style>
 	<g:LayoutPanel addStyleNames="{style.Hupa}">
 		<g:layer>
-			<g:FlowPanel ui:field="topPanel" addStyleNames="{style.topPanel}">
-				<g:HTMLPanel addStyleNames="{style.hupa-logo}" />
-				<my:TopView ui:field="topView" addStyleNames="{style.topView}" />
-			</g:FlowPanel>
+			<g:SimplePanel ui:field="topPanel" addStyleNames="{style.topPanel}">
+			</g:SimplePanel>
 		</g:layer>
 		<g:layer>
 			<g:SimplePanel ui:field="westPanel" addStyleNames="{style.westPanel}" />

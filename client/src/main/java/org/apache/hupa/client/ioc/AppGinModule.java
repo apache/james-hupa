@@ -103,16 +103,19 @@ import org.apache.hupa.client.AppController;
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
 import org.apache.hupa.client.activity.LoginActivity;
+import org.apache.hupa.client.activity.TopActivity;
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
 import org.apache.hupa.client.mvp.AppPlaceHistoryMapper;
 import org.apache.hupa.client.mvp.MainContentActivityMapper;
+import org.apache.hupa.client.mvp.TopActivityMapper;
 import org.apache.hupa.client.mvp.WestActivityMapper;
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.ui.AppLayout;
 import org.apache.hupa.client.ui.AppLayoutImpl;
 import org.apache.hupa.client.ui.IMAPMessageListView;
 import org.apache.hupa.client.ui.LoginView;
+import org.apache.hupa.client.ui.TopView;
 import org.apache.hupa.client.ui.WestView;
 
 import com.google.gwt.activity.shared.ActivityManager;
@@ -302,6 +305,7 @@ public class AppGinModule extends AbstractGinModule {
 
 		// Activities
 		bind(LoginActivity.Displayable.class).to(LoginView.class);
+		bind(TopActivity.Displayable.class).to(TopView.class);
 		bind(WestActivity.Displayable.class).to(WestView.class);
 		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
 		
@@ -321,6 +325,16 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> Change to new mvp framework - first step
 	}
 
+
+
+	@Provides
+	@Singleton
+	@Named("TopRegion")
+	public ActivityManager getTopRegionActivityMapper(TopActivityMapper activityMapper,
+			EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+	
 	@Provides
 	@Singleton
 <<<<<<< HEAD
@@ -328,8 +342,12 @@ public class AppGinModule extends AbstractGinModule {
 	public ActivityManager getMessageContentActivityMapper(MessageContentActivityMapper activityMapper,
 =======
 	@Named("WestRegion")
+<<<<<<< HEAD
 	public ActivityManager getVerticalMasterRegionActivityMapper(WestActivityMapper activityMapper,
 >>>>>>> Change to new mvp framework - first step
+=======
+	public ActivityManager getWestRegionActivityMapper(WestActivityMapper activityMapper,
+>>>>>>> introduce the top activity
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
@@ -355,8 +373,12 @@ public class AppGinModule extends AbstractGinModule {
 	public ActivityManager getComposeToolBarActivityMapper(ComposeToolBarActivityMapper activityMapper,
 =======
 	@Named("MainContentRegion")
+<<<<<<< HEAD
 	public ActivityManager getVerticalMasterRegionActivityMapper(MainContentActivityMapper activityMapper,
 >>>>>>> Change to new mvp framework - first step
+=======
+	public ActivityManager getMainContentRegionActivityMapper(MainContentActivityMapper activityMapper,
+>>>>>>> introduce the top activity
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}

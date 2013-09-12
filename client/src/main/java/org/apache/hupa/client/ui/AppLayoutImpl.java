@@ -80,7 +80,7 @@ public class AppLayoutImpl implements AppLayout {
 		logoContainer.addStyleName(HupaCSS.C_logo_container);
 =======
 	@UiField
-	FlowPanel topPanel;
+	SimplePanel topPanel;
 
 	@UiField
 	SimplePanel westPanel;
@@ -119,6 +119,17 @@ public class AppLayoutImpl implements AppLayout {
 		return mainLayoutPanel;
 	}
 
+
+	@Override
+	public AcceptsOneWidget getTopContainer() {
+		return new AcceptsOneWidget() {
+			@Override
+			public void setWidget(IsWidget w) {
+				Widget widget = Widget.asWidgetOrNull(w);
+				topPanel.setWidget(widget);
+			}
+		};
+	}
 	@Override
 >>>>>>> decorate the theme
 	public AcceptsOneWidget getWestContainer() {
