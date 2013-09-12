@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -20,6 +21,8 @@
 
 =======
 >>>>>>> 1. improve the inbox folder place.
+=======
+>>>>>>> 1. improve the inbox folder place.
 package org.apache.hupa.client.activity;
 
 import gwtupload.client.IUploadStatus.Status;
@@ -31,6 +34,7 @@ import gwtupload.client.IUploader.OnStatusChangedHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
@@ -57,6 +61,15 @@ import net.customware.gwt.dispatch.shared.Action;
 import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
+=======
+import net.customware.gwt.dispatch.client.DispatchAsync;
+import net.customware.gwt.dispatch.shared.Action;
+
+import org.apache.hupa.client.HupaEvoCallback;
+import org.apache.hupa.client.mvp.WidgetDisplayable;
+import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
+import org.apache.hupa.client.place.MessageSendPlace;
+>>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -65,6 +78,9 @@ import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.User;
+<<<<<<< HEAD
+>>>>>>> 1. improve the inbox folder place.
+=======
 >>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.ContactsUpdatedEvent;
@@ -75,12 +91,16 @@ import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 <<<<<<< HEAD
 import org.apache.hupa.widgets.ui.HasEnable;
 
 =======
+=======
+import org.apache.hupa.shared.rpc.ContactsResult.Contact;
+>>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.shared.rpc.ForwardMessage;
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.ReplyMessage;
@@ -88,12 +108,19 @@ import org.apache.hupa.shared.rpc.SendMessage;
 import org.apache.hupa.widgets.ui.HasEnable;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+<<<<<<< HEAD
+>>>>>>> 1. improve the inbox folder place.
+=======
 >>>>>>> 1. improve the inbox folder place.
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import com.google.gwt.place.shared.PlaceController;
+>>>>>>> 1. improve the inbox folder place.
 =======
 import com.google.gwt.place.shared.PlaceController;
 >>>>>>> 1. improve the inbox folder place.
@@ -103,17 +130,24 @@ import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class MessageSendActivity extends AppBaseActivity {
 =======
+=======
+>>>>>>> 1. improve the inbox folder place.
 
 public class MessageSendActivity extends AbstractActivity {
 
     private DispatchAsync dispatcher;
     private ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
     private Type type = Type.NEW;
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
+=======
+    private IMAPFolder folder;
+>>>>>>> 1. improve the inbox folder place.
     private Message oldmessage;
     
     protected SMTPMessage message = null;
@@ -126,6 +160,9 @@ public class MessageSendActivity extends AbstractActivity {
 	private MessageSendPlace place;
 	
 	private User user;
+<<<<<<< HEAD
+>>>>>>> 1. improve the inbox folder place.
+=======
 >>>>>>> 1. improve the inbox folder place.
 
 	@Override
@@ -135,9 +172,12 @@ public class MessageSendActivity extends AbstractActivity {
 		container.setWidget(display.asWidget());
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	public MessageSendActivity with(MessageSendPlace place) {
 =======
+=======
+>>>>>>> 1. improve the inbox folder place.
 	@Inject
 	public MessageSendActivity(Displayable display, EventBus eventBus, PlaceController placeController,
 			 DispatchAsync dispatcher){
@@ -150,6 +190,9 @@ public class MessageSendActivity extends AbstractActivity {
 	
 	public MessageSendActivity with(MessageSendPlace place){
 		this.place = place;
+<<<<<<< HEAD
+>>>>>>> 1. improve the inbox folder place.
+=======
 >>>>>>> 1. improve the inbox folder place.
 		this.user = place.getUser();
 		this.folder = place.getFolder();
@@ -159,6 +202,7 @@ public class MessageSendActivity extends AbstractActivity {
 		return this;
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	private void bind() {
 		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
@@ -453,6 +497,8 @@ public class MessageSendActivity extends AbstractActivity {
 	private SendMessageRequest sendReq;
 	
 =======
+=======
+>>>>>>> 1. improve the inbox folder place.
 	private void bind(){
 		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
             public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
@@ -544,7 +590,11 @@ public class MessageSendActivity extends AbstractActivity {
         });
     }
     
+<<<<<<< HEAD
     public void revealDisplay(User user, IMAPFolderProxy folder, Message oldmessage, MessageDetails oldDetails, String mailto, Type type) {
+=======
+    public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, String mailto, Type type) {
+>>>>>>> 1. improve the inbox folder place.
         this.reset();
         this.oldmessage = oldmessage;
         this.oldDetails = oldDetails;
@@ -594,7 +644,11 @@ public class MessageSendActivity extends AbstractActivity {
         display.getEditorFocus().setFocus(true);
     }
 
+<<<<<<< HEAD
     public void revealDisplay(User user, IMAPFolderProxy folder, Message oldmessage, MessageDetails oldDetails, Type type) {
+=======
+    public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
+>>>>>>> 1. improve the inbox folder place.
         this.revealDisplay(user, folder, oldmessage, oldDetails, null, type);
     }
 
@@ -706,6 +760,9 @@ public class MessageSendActivity extends AbstractActivity {
             }
         }
     };
+<<<<<<< HEAD
+>>>>>>> 1. improve the inbox folder place.
+=======
 >>>>>>> 1. improve the inbox folder place.
 	public interface Displayable extends WidgetDisplayable {
 		public HasText getFromText();

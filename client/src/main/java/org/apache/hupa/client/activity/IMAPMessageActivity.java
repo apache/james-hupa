@@ -4,10 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hupa.client.CachingDispatchAsync;
+<<<<<<< HEAD
 import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.SConsts;
+=======
+import org.apache.hupa.client.HupaEvoCallback;
+import org.apache.hupa.client.mvp.WidgetDisplayable;
+import org.apache.hupa.client.place.IMAPMessagePlace;
+import org.apache.hupa.shared.SConsts;
+import org.apache.hupa.shared.data.IMAPFolder;
+>>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
@@ -16,7 +24,10 @@ import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.ForwardMessageEvent;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.ReplyMessageEvent;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+>>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 
@@ -122,7 +133,11 @@ public class IMAPMessageActivity  extends AbstractActivity {
     private MessageDetails messageDetails;
     private Message message;
     private CachingDispatchAsync dispatcher;
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
+=======
+    private IMAPFolder folder;
+>>>>>>> 1. improve the inbox folder place.
     private User user;
 	private final Displayable display;
 	private final EventBus eventBus;

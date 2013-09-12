@@ -31,13 +31,17 @@ import org.apache.hupa.shared.domain.User;
 package org.apache.hupa.client.place;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 
 =======
+=======
+>>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
 >>>>>>> 1. improve the inbox folder place.
@@ -45,6 +49,9 @@ import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 package org.apache.hupa.client.place;
 
 >>>>>>> 
+=======
+
+>>>>>>> 1. improve the inbox folder place.
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
@@ -177,23 +184,67 @@ public class MessageSendPlace extends Place {
 =======
 public class MessageSendPlace extends Place {
 
-  @Prefix("MessageSend")
-  public static class Tokenizer implements PlaceTokenizer<MessageSendPlace> {
+	
+	private User user ;
+	private IMAPFolder folder;
+	private Message message;
+	private MessageDetails messageDetails;
+	private Type forward;
+	
+	
+	@Prefix("send")
+	public static class Tokenizer implements PlaceTokenizer<MessageSendPlace> {
 
-    @Override
-    public MessageSendPlace getPlace(String token) {
-      return new MessageSendPlace();
-    }
+		@Override
+		public MessageSendPlace getPlace(String token) {
+			return new MessageSendPlace();
+		}
 
-    @Override
-    public String getToken(MessageSendPlace place) {
-      return "MessageSend";
-    }
-  }
-  
-  public String toString(){
-	  return this.getClass().getName()+"->[MessageSend]";
-  }
+		@Override
+		public String getToken(MessageSendPlace place) {
+			return place.getForward().toString();
+		}
+	}
 
+	public String toString() {
+		return this.getClass().getName() + "->[MessageSend]";
+	}
+
+	public Place with(User user, IMAPFolder folder, Message message, MessageDetails messageDetails, Type forward) {
+		this.forward = forward;
+		this.user = user;
+		this.folder = folder;
+		this.message = message;
+		this.messageDetails = messageDetails;
+		return this;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public IMAPFolder getFolder() {
+		return folder;
+	}
+
+	public Message getMessage() {
+		return message;
+	}
+
+	public MessageDetails getMessageDetails() {
+		return messageDetails;
+	}
+
+	public Type getForward() {
+		return forward;
+	}
+	
+	
+
+<<<<<<< HEAD
 >>>>>>> 
+=======
+	
+	
+>>>>>>> 1. improve the inbox folder place.
 }

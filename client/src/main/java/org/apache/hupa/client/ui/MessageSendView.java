@@ -20,12 +20,15 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
 import eu.maydu.gwt.validation.client.ValidationProcessor;
 import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
 import gwtupload.client.BaseUploadStatus;
 import gwtupload.client.IFileInput.FileInputType;
 =======
+=======
+>>>>>>> 1. improve the inbox folder place.
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Composite;
@@ -43,6 +46,9 @@ import eu.maydu.gwt.validation.client.ValidationProcessor;
 import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
 import gwtupload.client.IFileInput.FileInputType;
 import gwtupload.client.BaseUploadStatus;
+<<<<<<< HEAD
+>>>>>>> 1. improve the inbox folder place.
+=======
 >>>>>>> 1. improve the inbox folder place.
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploader;
@@ -52,7 +58,10 @@ import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.MessageSendActivity;
+=======
+>>>>>>> 1. improve the inbox folder place.
 =======
 >>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.client.validation.AddStyleAction;
@@ -65,6 +74,7 @@ import org.apache.hupa.client.widgets.MessageHeaders;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.widgets.editor.Editor;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.apache.hupa.widgets.ui.Loading;
@@ -83,11 +93,16 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 =======
+=======
+>>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.widgets.ui.EnableHyperlink;
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.apache.hupa.widgets.ui.Loading;
 import org.apache.hupa.widgets.ui.MultiValueSuggestArea;
 import org.apache.hupa.client.activity.MessageSendActivity;
+<<<<<<< HEAD
+>>>>>>> 1. improve the inbox folder place.
+=======
 >>>>>>> 1. improve the inbox folder place.
 
 /**
@@ -116,7 +131,11 @@ public class MessageSendView extends Composite implements MessageSendActivity.Di
     
     private EnableButton sendButton;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Anchor backButton;
+=======
+    private EnableHyperlink backButton;
+>>>>>>> 1. improve the inbox folder place.
 =======
     private EnableHyperlink backButton;
 >>>>>>> 1. improve the inbox folder place.
@@ -129,7 +148,11 @@ public class MessageSendView extends Composite implements MessageSendActivity.Di
         
         sendButton = new EnableButton(constants.sendButton());
 <<<<<<< HEAD
+<<<<<<< HEAD
         backButton = new Anchor(constants.backButton());
+=======
+        backButton = new EnableHyperlink(constants.backButton(),"");
+>>>>>>> 1. improve the inbox folder place.
 =======
         backButton = new EnableHyperlink(constants.backButton(),"");
 >>>>>>> 1. improve the inbox folder place.

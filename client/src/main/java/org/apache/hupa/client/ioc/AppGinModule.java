@@ -122,8 +122,10 @@ import org.apache.hupa.client.mapper.MainContentActivityMapper;
 =======
 import org.apache.hupa.client.AppController;
 import org.apache.hupa.client.CachingDispatchAsync;
+import org.apache.hupa.client.activity.IMAPMessageActivity;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
 import org.apache.hupa.client.activity.LoginActivity;
+import org.apache.hupa.client.activity.MessageSendActivity;
 import org.apache.hupa.client.activity.TopActivity;
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
@@ -141,6 +143,9 @@ import org.apache.hupa.client.ui.AppLayout;
 import org.apache.hupa.client.ui.AppLayoutImpl;
 import org.apache.hupa.client.ui.IMAPMessageListView;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.client.ui.IMAPMessageView;
 import org.apache.hupa.client.ui.LoginView;
 import org.apache.hupa.client.ui.MessageSendView;
@@ -357,6 +362,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
 		bind(MessageSendActivity.Displayable.class).to(MessageSendView.class);
 		bind(IMAPMessageActivity.Displayable.class).to(IMAPMessageView.class);
+<<<<<<< HEAD
 =======
 =======
 		bind(TopActivity.Displayable.class).to(TopView.class);
@@ -364,6 +370,8 @@ public class AppGinModule extends AbstractGinModule {
 		bind(WestActivity.Displayable.class).to(WestView.class);
 		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> 1. improve the inbox folder place.
 		
 		
 		bind(PagingScrollTableRowDragController.class).in(Singleton.class);

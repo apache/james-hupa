@@ -1,7 +1,7 @@
 package org.apache.hupa.client.place;
 
-import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
@@ -66,16 +66,16 @@ public class MailFolderPlace extends Place {
 			return place.getFolderName();
 		}
 	}
-	private IMAPFolder folder;
+	private IMAPFolderProxy folder;
 	private String searchValue;
 	
-	public IMAPFolder getFolder() {
+	public IMAPFolderProxy getFolder() {
 		return folder;
 	}
 	public String getSearchValue() {
 		return searchValue;
 	}
-	public MailFolderPlace with(User user, IMAPFolder folder, String searchValue) {
+	public MailFolderPlace with(User user, IMAPFolderProxy folder, String searchValue) {
 		this.folder = folder;
 		this.searchValue = searchValue;
 		this.user = user;

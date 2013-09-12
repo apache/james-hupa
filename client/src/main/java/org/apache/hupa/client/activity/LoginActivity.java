@@ -61,7 +61,7 @@ import org.apache.hupa.client.place.MailInboxPlace;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaEvoCallback;
 import org.apache.hupa.client.mvp.WidgetDisplayable;
-import org.apache.hupa.client.place.MailInboxPlace;
+import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.SessionExpireEvent;
 import org.apache.hupa.shared.events.SessionExpireEventHandler;
@@ -322,6 +322,7 @@ public class LoginActivity extends AbstractActivity {
 				// eventBus.fireEvent(new LoginEvent(result.getUser()));
 //				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get().with(result.getUser()));
 				LoginActivity.this.placeController.goTo(new MailFolderPlace().with(result.getUser()));
+<<<<<<< HEAD
 =======
 				Window.alert("success");
 				// eventBus.fireEvent(new LoginEvent(result.getUser()));
@@ -336,6 +337,8 @@ public class LoginActivity extends AbstractActivity {
 //				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get().with(result.getUser()));
 				LoginActivity.this.placeController.goTo(new MailInboxPlace("!").with(result.getUser()));
 >>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
+=======
+>>>>>>> 1. improve the inbox folder place.
 				doReset();
 			}
 

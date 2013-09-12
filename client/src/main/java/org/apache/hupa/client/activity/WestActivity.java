@@ -302,11 +302,10 @@ import org.apache.hupa.shared.rpc.GetMessageDetails;
 import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
 =======
 import org.apache.hupa.client.HupaEvoCallback;
-import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
-import org.apache.hupa.client.mvp.MainPresenter;
+import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.mvp.WidgetContainerDisplayable;
 import org.apache.hupa.client.place.IMAPMessagePlace;
-import org.apache.hupa.client.place.MailInboxPlace;
+import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
@@ -402,6 +401,7 @@ public class WestActivity extends AbstractActivity {
 	private final Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
 	private final Provider<MessageSendPlace> messageSendPlaceProvider;
 	private final Provider<IMAPMessagePlace> messagePlaceProvider;
+<<<<<<< HEAD
 	
     private DispatchAsync dispatcher;
     private User user;
@@ -427,6 +427,8 @@ public class WestActivity extends AbstractActivity {
 	private final Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
 	private final Provider<MessageSendPlace> messageSendPlaceProvider;
 >>>>>>> 
+=======
+>>>>>>> 1. improve the inbox folder place.
 	
     private DispatchAsync dispatcher;
     private User user;
@@ -435,8 +437,15 @@ public class WestActivity extends AbstractActivity {
     private HasEditable editableTreeItem;
     private String searchValue;
     
+    private Place currentPlace;
+    
+    public void setCurrentPlace(Place place){
+    	this.currentPlace = place;
+    }
+    
     @Inject
     public WestActivity(Displayable display, EventBus eventBus, PlaceController placeController,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			DispatchAsync dispatcher){
@@ -447,6 +456,9 @@ public class WestActivity extends AbstractActivity {
 =======
 			DispatchAsync dispatcher,Provider<IMAPMessagePlace> IMAPMessagePlaceProvider,Provider<MessageSendPlace> messageSendPlaceProvider){
 >>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
+=======
+			DispatchAsync dispatcher,Provider<IMAPMessagePlace> IMAPMessagePlaceProvider,Provider<MessageSendPlace> messageSendPlaceProvider,Provider<IMAPMessagePlace> messagePlaceProvider){
+>>>>>>> 1. improve the inbox folder place.
     	this.dispatcher = dispatcher;
     	this.display = display;
     	this.eventBus = eventBus;
@@ -457,6 +469,7 @@ public class WestActivity extends AbstractActivity {
     	this.IMAPMessagePlaceProvider = IMAPMessagePlaceProvider;
     	this.messageSendPlaceProvider = messageSendPlaceProvider;
     	this.messagePlaceProvider = messagePlaceProvider;
+<<<<<<< HEAD
 =======
 >>>>>>> Change to new mvp framework - first step
 =======
@@ -466,6 +479,8 @@ public class WestActivity extends AbstractActivity {
     	this.IMAPMessagePlaceProvider = IMAPMessagePlaceProvider;
     	this.messageSendPlaceProvider = messageSendPlaceProvider;
 >>>>>>> 
+=======
+>>>>>>> 1. improve the inbox folder place.
     	
     }
 
@@ -478,6 +493,7 @@ public class WestActivity extends AbstractActivity {
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
     public WestActivity with(MailFolderPlace place){
     	this.currentPlace = place;
     	this.user = place.getUser();
@@ -485,6 +501,11 @@ public class WestActivity extends AbstractActivity {
     public WestActivity with(User user){
     	this.user = user;
 >>>>>>> Change to new mvp framework - first step
+=======
+    public WestActivity with(MailFolderPlace place){
+    	this.currentPlace = place;
+    	this.user = place.getUser();
+>>>>>>> 1. improve the inbox folder place.
     	return this;
     }
 
@@ -644,12 +665,18 @@ public class WestActivity extends AbstractActivity {
                         }
                         display.setLoadingMessage(false);
 <<<<<<< HEAD
+<<<<<<< HEAD
 //                        showMessage(user, folder, message, result.getMessageDetails());
 
                         placeController.goTo(messagePlaceProvider.get().with(user,folder, message,result.getMessageDetails()));
 =======
                         showMessage(user, folder, message, result.getMessageDetails());
 >>>>>>> 
+=======
+//                        showMessage(user, folder, message, result.getMessageDetails());
+
+                        placeController.goTo(messagePlaceProvider.get().with(user,folder, message,result.getMessageDetails()));
+>>>>>>> 1. improve the inbox folder place.
                     }
                 });
             }
@@ -944,7 +971,7 @@ public class WestActivity extends AbstractActivity {
         this.user = user;
         this.folder = folder;
         this.searchValue = searchValue;
-        placeController.goTo(new MailInboxPlace().with(user,folder, searchValue));
+        placeController.goTo(new MailFolderPlace().with(user,folder, searchValue));
 //        placeController.goTo(mailInboxPlaceProvider.get().with(user));
 //        System.out.println("111");
 //        placeController.goTo(new MailInboxPlace(folder.getName()).with(user));
@@ -955,26 +982,15 @@ public class WestActivity extends AbstractActivity {
     }
 
     private void showNewMessage() {
-    	placeController.goTo(this.messageSendPlaceProvider.get());
-//        sendPresenter.revealDisplay(user);
+    	placeController.goTo(this.messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
     }
 
     private void showForwardMessage(ForwardMessageEvent event) {
-    	placeController.goTo(this.messageSendPlaceProvider.get());
-//        sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD);
+    	placeController.goTo(this.messageSendPlaceProvider.get().with(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD));
     }
 
     private void showReplyMessage(ReplyMessageEvent event) {
-        if (event.getReplyAll()) {
-        	placeController.goTo(this.messageSendPlaceProvider.get());
-//            sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY_ALL);
-        } else {
-        	placeController.goTo(this.messageSendPlaceProvider.get());
-//            sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY);
-
-        }
-    	placeController.goTo(this.messageSendPlaceProvider.get());
-//        sendPresenter.revealDisplay();
+        placeController.goTo(this.messageSendPlaceProvider.get().with(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), event.getReplyAll()?Type.REPLY_ALL:Type.REPLY));
     }
 >>>>>>> 
     public interface Displayable extends WidgetContainerDisplayable {
