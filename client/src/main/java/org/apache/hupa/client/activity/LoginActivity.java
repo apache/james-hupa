@@ -92,17 +92,15 @@ public class LoginActivity extends AbstractActivity {
 	private final Displayable display;
 	private final EventBus eventBus;
 	private final PlaceController placeController;
-	private final Provider<MailInboxPlace> mailInboxPlaceProvider;
 	private DispatchAsync dispatcher;
 	private HupaConstants constants = GWT.create(HupaConstants.class);
 
 	@Inject
 	public LoginActivity(Displayable display, EventBus eventBus, PlaceController placeController,
-			Provider<MailInboxPlace> mailInboxPlaceProvider, DispatchAsync dispatcher) {
+			DispatchAsync dispatcher) {
 		this.display = display;
 		this.eventBus = eventBus;
 		this.placeController = placeController;
-		this.mailInboxPlaceProvider = mailInboxPlaceProvider;
 		this.dispatcher = dispatcher;
 	}
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
@@ -187,7 +185,8 @@ public class LoginActivity extends AbstractActivity {
 			public void callback(LoginUserResult result) {
 				display.setLoading(false);
 				// eventBus.fireEvent(new LoginEvent(result.getUser()));
-				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get().with(result.getUser()));
+//				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get().with(result.getUser()));
+				LoginActivity.this.placeController.goTo(new MailInboxPlace("!").with(result.getUser()));
 				doReset();
 			}
 

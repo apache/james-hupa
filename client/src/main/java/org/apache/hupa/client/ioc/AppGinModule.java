@@ -108,8 +108,8 @@ import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
 import org.apache.hupa.client.mvp.AppPlaceHistoryMapper;
 import org.apache.hupa.client.mvp.CachingTopActivityMapper;
+import org.apache.hupa.client.mvp.CachingWestActivityMapper;
 import org.apache.hupa.client.mvp.MainContentActivityMapper;
-import org.apache.hupa.client.mvp.WestActivityMapper;
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.ui.AppLayout;
 import org.apache.hupa.client.ui.AppLayoutImpl;
@@ -343,11 +343,15 @@ public class AppGinModule extends AbstractGinModule {
 =======
 	@Named("WestRegion")
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public ActivityManager getVerticalMasterRegionActivityMapper(WestActivityMapper activityMapper,
 >>>>>>> Change to new mvp framework - first step
 =======
 	public ActivityManager getWestRegionActivityMapper(WestActivityMapper activityMapper,
 >>>>>>> introduce the top activity
+=======
+	public ActivityManager getWestRegionActivityMapper(CachingWestActivityMapper activityMapper,
+>>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}

@@ -324,7 +324,6 @@ public class WestActivity extends AbstractActivity {
 	private final Displayable display;
 	private final EventBus eventBus;
 	private final PlaceController placeController;
-	private final Provider<MailInboxPlace> mailInboxPlaceProvider;
 	private final Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
 	private final Provider<MessageSendPlace> messageSendPlaceProvider;
 	
@@ -337,12 +336,11 @@ public class WestActivity extends AbstractActivity {
     
     @Inject
     public WestActivity(Displayable display, EventBus eventBus, PlaceController placeController,
-			DispatchAsync dispatcher,Provider<MailInboxPlace> mailInboxPlaceProvider,Provider<IMAPMessagePlace> IMAPMessagePlaceProvider,Provider<MessageSendPlace> messageSendPlaceProvider){
+			DispatchAsync dispatcher,Provider<IMAPMessagePlace> IMAPMessagePlaceProvider,Provider<MessageSendPlace> messageSendPlaceProvider){
     	this.dispatcher = dispatcher;
     	this.display = display;
     	this.eventBus = eventBus;
     	this.placeController = placeController;
-    	this.mailInboxPlaceProvider = mailInboxPlaceProvider;
     	this.IMAPMessagePlaceProvider = IMAPMessagePlaceProvider;
     	this.messageSendPlaceProvider = messageSendPlaceProvider;
     	
@@ -644,7 +642,7 @@ public class WestActivity extends AbstractActivity {
                 user = event.getUser();
                 folder = new IMAPFolder(user.getSettings().getInboxFolderName());;
                 searchValue = null;
-                showMessageTable(user, folder, searchValue);
+//                showMessageTable(user, folder, searchValue);
             }
             
         });
@@ -678,7 +676,10 @@ public class WestActivity extends AbstractActivity {
         this.user = user;
         this.folder = folder;
         this.searchValue = searchValue;
-        placeController.goTo(mailInboxPlaceProvider.get().with(user));
+        placeController.goTo(new MailInboxPlace().with(user,folder, searchValue));
+//        placeController.goTo(mailInboxPlaceProvider.get().with(user));
+//        System.out.println("111");
+//        placeController.goTo(new MailInboxPlace(folder.getName()).with(user));
     }
 
     private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {

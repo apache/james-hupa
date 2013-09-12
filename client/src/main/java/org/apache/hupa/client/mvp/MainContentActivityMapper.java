@@ -25,7 +25,14 @@ public class MainContentActivityMapper implements ActivityMapper {
 
 	public Activity getActivity(Place place) {
 		if (place instanceof MailInboxPlace) {
-			return messageListActivityProvider.get().with(((MailInboxPlace) place).getUser());
+//			return messageListActivityProvider.get().with(((MailInboxPlace) place).getUser());
+
+			MailInboxPlace p = ((MailInboxPlace)place);
+	    	if(p.getMailId().equalsIgnoreCase("inbox")){
+				return messageListActivityProvider.get().with(p.getUser(),p.getFolder(), p.getSearchValue());
+	    	} else if(p.getMailId().equalsIgnoreCase("trash")){
+				return messageListActivityProvider.get().with(p.getUser(),p.getFolder(), p.getSearchValue());
+	    	}
 		} else if (place instanceof DefaultPlace) {
 			return loginActivityProvider.get();
 		}
