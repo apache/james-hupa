@@ -476,12 +476,16 @@ public class IMAPMessageListView extends Composite implements Display{
         cTableModel.setRowCount(CachedTableModel.UNKNOWN_ROW_COUNT);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         mailTable.gotoPage(0, false);
 =======
         mailTable.gotoFirstPage();
 >>>>>>> first commit
 =======
 //        mailTable.gotoFirstPage();
+>>>>>>> constantly changed by manolo
+=======
+        mailTable.gotoPage(0, false);
 >>>>>>> constantly changed by manolo
     }
 

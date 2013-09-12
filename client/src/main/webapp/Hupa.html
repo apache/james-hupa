@@ -75,7 +75,13 @@
 		    top: 50%;
 		    left: 50%;
 		}
+<<<<<<< HEAD
 >>>>>>> first commit
+=======
+		#login {
+		    display: none;
+		}
+>>>>>>> constantly changed by manolo
     </style>
   </head>
 
@@ -116,6 +122,14 @@
 	  </form>
 =======
 >>>>>>> first commit
+    </div>
+    
+    <!-- We need this because passwords in forms rendered by js are not saved in browsers -->
+    <div id="login">
+	  <form id="loginForm" action="hupa/hupa.nocache.js" method="post">
+	    <input id="email" name="email" type="text">
+	    <input id="password" name="password" type="password">
+	  </form>
     </div>
     
     <!-- Necessary for history support -->
