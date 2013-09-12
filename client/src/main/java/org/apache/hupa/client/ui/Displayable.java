@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -18,6 +19,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> Make the evo more clear.
 =======
 >>>>>>> Make the evo more clear.
 package org.apache.hupa.client.ui;

@@ -425,6 +425,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 =======
 =======
 import org.apache.hupa.client.HandlerRegistrationAdapter;
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaEvoCallback;
 <<<<<<< HEAD
 >>>>>>> 
@@ -433,7 +434,13 @@ import org.apache.hupa.client.activity.MessageSendActivity.Type;
 >>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.client.mvp.WidgetDisplayable;
 import org.apache.hupa.client.place.IMAPMessagePlace;
+=======
+import org.apache.hupa.client.activity.MessageSendActivity.Type;
+import org.apache.hupa.client.evo.HupaEvoCallback;
+import org.apache.hupa.client.place.MailFolderPlace;
+>>>>>>> Make the evo more clear.
 import org.apache.hupa.client.place.MessageSendPlace;
+import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
@@ -1005,6 +1012,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
             }
         }); 
     }
+<<<<<<< HEAD
 	public IMAPMessageListActivity with(User user, IMAPFolder imapFolder, String string){
 		this.user = user;
 <<<<<<< HEAD
@@ -1014,6 +1022,12 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		this.folder = imapFolder;
 		this.searchValue = string;
 >>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
+=======
+	public IMAPMessageListActivity with(MailFolderPlace place){
+		this.user = place.getUser();
+		this.folder = place.getFolder();
+		this.searchValue = place.getSearchValue();
+>>>>>>> Make the evo more clear.
 		return this;
 	}
 

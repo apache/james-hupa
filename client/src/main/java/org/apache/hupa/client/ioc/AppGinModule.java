@@ -106,6 +106,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.client.ExceptionHandler;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.activity.IMAPMessageActivity;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
@@ -121,6 +122,8 @@ import org.apache.hupa.client.mapper.CachingWestActivityMapper;
 import org.apache.hupa.client.mapper.MainContentActivityMapper;
 =======
 import org.apache.hupa.client.AppController;
+=======
+>>>>>>> Make the evo more clear.
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.activity.IMAPMessageActivity;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
@@ -129,6 +132,7 @@ import org.apache.hupa.client.activity.MessageSendActivity;
 import org.apache.hupa.client.activity.TopActivity;
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
+<<<<<<< HEAD
 import org.apache.hupa.client.mvp.AppPlaceHistoryMapper;
 import org.apache.hupa.client.mvp.CachingTopActivityMapper;
 import org.apache.hupa.client.mvp.CachingWestActivityMapper;
@@ -138,6 +142,13 @@ import org.apache.hupa.client.mvp.WestActivityMapper;
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> At first make the inbox work, but only when click the refresh button. The page also be working, the other folder will be like the same.
+=======
+import org.apache.hupa.client.evo.AppController;
+import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
+import org.apache.hupa.client.mapper.CachingTopActivityMapper;
+import org.apache.hupa.client.mapper.CachingWestActivityMapper;
+import org.apache.hupa.client.mapper.MainContentActivityMapper;
+>>>>>>> Make the evo more clear.
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.ui.AppLayout;
 import org.apache.hupa.client.ui.AppLayoutImpl;

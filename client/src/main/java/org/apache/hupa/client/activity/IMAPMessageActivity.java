@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.hupa.client.CachingDispatchAsync;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
@@ -12,7 +13,11 @@ import org.apache.hupa.shared.SConsts;
 =======
 import org.apache.hupa.client.HupaEvoCallback;
 import org.apache.hupa.client.mvp.WidgetDisplayable;
+=======
+import org.apache.hupa.client.evo.HupaEvoCallback;
+>>>>>>> Make the evo more clear.
 import org.apache.hupa.client.place.IMAPMessagePlace;
+import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.IMAPFolder;
 >>>>>>> 1. improve the inbox folder place.

@@ -24,10 +24,14 @@ import java.util.Iterator;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.evo.HupaEvoCallback;
 =======
 import org.apache.hupa.client.HupaEvoCallback;
 >>>>>>> Change to new mvp framework - first step
+=======
+import org.apache.hupa.client.evo.HupaEvoCallback;
+>>>>>>> Make the evo more clear.
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.User;

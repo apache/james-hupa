@@ -38,6 +38,7 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import org.apache.hupa.client.HupaConstants;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
@@ -46,7 +47,11 @@ import org.apache.hupa.shared.data.User;
 =======
 import org.apache.hupa.client.HupaEvoCallback;
 import org.apache.hupa.client.mvp.WidgetDisplayable;
+=======
+import org.apache.hupa.client.evo.HupaEvoCallback;
+>>>>>>> Make the evo more clear.
 import org.apache.hupa.client.place.DefaultPlace;
+import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.data.User;
 >>>>>>> introduce the top activity
 import org.apache.hupa.shared.events.FlashEvent;

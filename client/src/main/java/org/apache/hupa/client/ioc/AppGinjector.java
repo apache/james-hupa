@@ -26,6 +26,7 @@ import org.apache.hupa.client.HupaController;
 package org.apache.hupa.client.ioc;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.AppController;
 >>>>>>> Change to new mvp framework - first step
 =======
@@ -36,6 +37,9 @@ package org.apache.hupa.client.ioc;
 
 import org.apache.hupa.client.AppController;
 >>>>>>> Change to new mvp framework - first step
+=======
+import org.apache.hupa.client.evo.AppController;
+>>>>>>> Make the evo more clear.
 
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;

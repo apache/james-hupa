@@ -101,6 +101,7 @@
   <!-- Specify the app entry point class.                         -->
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   <entry-point class='org.apache.hupa.client.evo.HupaEvo'/>
 =======
   <entry-point class='org.apache.hupa.client.Hupa'/>
@@ -108,4 +109,7 @@
 =======
   <entry-point class='org.apache.hupa.client.HupaEvolution'/>
 >>>>>>> Change to new mvp framework - first step
+=======
+  <entry-point class='org.apache.hupa.client.evo.HupaEvo'/>
+>>>>>>> Make the evo more clear.
 </module>

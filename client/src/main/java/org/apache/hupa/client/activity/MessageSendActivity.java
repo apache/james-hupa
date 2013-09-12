@@ -65,11 +65,14 @@ import org.apache.hupa.client.ui.WidgetDisplayable;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.shared.Action;
 
-import org.apache.hupa.client.HupaEvoCallback;
-import org.apache.hupa.client.mvp.WidgetDisplayable;
+import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.place.MessageSendPlace;
+<<<<<<< HEAD
 >>>>>>> 1. improve the inbox folder place.
+=======
+import org.apache.hupa.client.ui.WidgetDisplayable;
+>>>>>>> Make the evo more clear.
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.IMAPFolder;

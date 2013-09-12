@@ -255,6 +255,7 @@ import java.util.List;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.IMAPMessagePlace;
@@ -302,11 +303,14 @@ import org.apache.hupa.shared.rpc.GetMessageDetails;
 import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
 =======
 import org.apache.hupa.client.HupaEvoCallback;
+=======
+>>>>>>> Make the evo more clear.
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
-import org.apache.hupa.client.mvp.WidgetContainerDisplayable;
+import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
+import org.apache.hupa.client.ui.WidgetContainerDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
