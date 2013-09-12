@@ -253,7 +253,7 @@ public class HupaLayout implements HupaLayoutable {
 												
 	@UiField SimplePanel toolBarContainer;
 	@UiField SimplePanel folderListContainer;
-	@UiField SimplePanel messageListContainer;
+	@UiField LayoutPanel messageListContainer;
 	@UiField SimplePanel messageListFooterContainer;
 	@UiField SimplePanel messageContentContainer;
 	@UiField SimplePanel statusContainer;
@@ -334,7 +334,11 @@ public class HupaLayout implements HupaLayoutable {
 		return new AcceptsOneWidget() {
 			@Override
 			public void setWidget(IsWidget w) {
-				messageListContainer.setWidget(Widget.asWidgetOrNull(w));
+				Widget widget = Widget.asWidgetOrNull(w);
+				if (messageListContainer.getWidgetCount() > 0)
+					messageListContainer.remove(0);
+				if (widget != null)
+					messageListContainer.add(widget);
 			}
 		};
 	}

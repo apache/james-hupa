@@ -145,6 +145,7 @@ import org.apache.hupa.client.activity.TopActivity;
 import org.apache.hupa.client.activity.TopBarActivity;
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
+<<<<<<< HEAD
 import org.apache.hupa.client.mapper.CachingTopActivityMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -186,10 +187,11 @@ import org.apache.hupa.client.mapper.MainContentActivityMapper;
 >>>>>>> Make the evo more clear.
 =======
 =======
+=======
+>>>>>>> make message list view panel work as expected partly
 import org.apache.hupa.client.mapper.FolderListActivityMapper;
 import org.apache.hupa.client.mapper.LoginActivityMapper;
 import org.apache.hupa.client.mapper.LogoActivityMapper;
-import org.apache.hupa.client.mapper.MainContentActivityMapper;
 import org.apache.hupa.client.mapper.MessageContentActivityMapper;
 import org.apache.hupa.client.mapper.MessageListActivityMapper;
 import org.apache.hupa.client.mapper.MessageListFooterActivityMapper;
@@ -197,9 +199,12 @@ import org.apache.hupa.client.mapper.NavigationActivityMapper;
 import org.apache.hupa.client.mapper.StatusActivityMapper;
 import org.apache.hupa.client.mapper.ToolBarActivityMapper;
 import org.apache.hupa.client.mapper.TopBarActivityMapper;
+<<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import org.apache.hupa.client.mapper.WestActivityMapper;
 >>>>>>> delete messages, make WestActivity Singleton
+=======
+>>>>>>> make message list view panel work as expected partly
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.FolderListView;

@@ -38,7 +38,7 @@
 			top: 0;
 			left: 0;
 			width: 100%;
-            min-width: 144px;
+			min-width: 144px;
 			bottom: 0;
 			overflow-x: hidden;
 			overflow-y: auto;
@@ -86,6 +86,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 					<hupa:TopBarView />
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
@@ -99,6 +100,9 @@
 =======
 					<g:SimplePanel ui:field="topBarContainer"/>
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+					<g:SimplePanel ui:field="topBarContainer" />
+>>>>>>> make message list view panel work as expected partly
 				</g:north>
 				<g:center>
 					<g:LayoutPanel addStyleNames="{style.feature}"
@@ -115,7 +119,7 @@
 							<g:SimpleLayoutPanel ui:field="navigationContainer" />
 =======
 						<g:layer width="177px" left="10px">
-							<g:SimplePanel ui:field="logoContainer"/>
+							<g:SimplePanel ui:field="logoContainer" />
 						</g:layer>
 <<<<<<< HEAD
 						<g:layer width="301px" right="0">
@@ -153,9 +157,14 @@
 =======
 =======
 						<g:layer width="287px" right="0">
+<<<<<<< HEAD
 >>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
 							<g:LayoutPanel ui:field="navigationContainer"/><!-- why can not be SimplePanel here -->
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+							<g:LayoutPanel ui:field="navigationContainer" /><!-- 
+								why can not be SimplePanel here -->
+>>>>>>> make message list view panel work as expected partly
 						</g:layer>
                         <g:layer left="0%" width="0%" top="0%" height="0%">
                             <hupa:_CenterContactPanel ui:field="contactPanel" />
@@ -171,7 +180,7 @@
 		<g:layer left='10px' right='10px' top='88px' bottom="20px">
 			<g:DockLayoutPanel ui:field="MainBox">
 				<g:north size="40">
-					<g:SimplePanel ui:field="toolBarContainer"/>
+					<g:SimplePanel ui:field="toolBarContainer" />
 				</g:north>
 				<g:center>
 					<g:SplitLayoutPanel ui:field="MessageSpace">
@@ -179,7 +188,7 @@
 							<g:LayoutPanel ui:field="LeftBox"
 								addStyleNames="{style.folderList}  {style.box}  {style.listBox}">
 								<g:layer top="0" height="100%">
-									<g:SimplePanel ui:field="folderListContainer"/>
+									<g:SimplePanel ui:field="folderListContainer" />
 								</g:layer>
 								<g:layer bottom="0" height="41px">
 									<g:SimplePanel styleName="{style.boxFooter}">
@@ -197,10 +206,10 @@
 											<g:LayoutPanel addStyleNames="{style.box}"
 												ui:field="MessageListBox">
 												<g:layer>
-													<g:SimplePanel ui:field="messageListContainer"/>
+													<g:LayoutPanel ui:field="messageListContainer"/>
 												</g:layer>
 												<g:layer bottom="0" height="25px">
-													<g:SimplePanel ui:field="messageListFooterContainer"/>
+													<g:SimplePanel ui:field="messageListFooterContainer" />
 												</g:layer>
 											</g:LayoutPanel>
 										</g:north>

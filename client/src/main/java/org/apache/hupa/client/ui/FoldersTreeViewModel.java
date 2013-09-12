@@ -30,13 +30,7 @@ import org.apache.hupa.shared.events.LoadMessagesEvent;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.resources.client.ClientBundle.Source;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.impl.ClippedImagePrototype;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ProvidesKey;
@@ -87,7 +81,7 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
 		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(
-				(ImapFolder) value), new AbstractCell<ImapFolder>() {
+				(ImapFolder) value), new AbstractCell<ImapFolder>() {//TODO subfolders style and different image for each folder
 			@Override
 			public void render(Context context, ImapFolder value,
 					SafeHtmlBuilder sb) {
@@ -96,36 +90,6 @@ public class FoldersTreeViewModel implements TreeViewModel {
 				}
 			}
 		}, selectionModel, null);
-	}
-//	@Override
-//	public <T> NodeInfo<?> getNodeInfo(T value) {
-//		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(
-//				(ImapFolder) value), new ImapFolderCell(images.listicons()),
-//				selectionModel, null);
-//	}
-
-	/**
-	 * The cell used to render categories.
-	 */
-	private static class ImapFolderCell extends AbstractCell<ImapFolder> {
-		private final ImageResource image;
-
-		public ImapFolderCell(ImageResource image) {
-			this.image = image;
-		}
-
-		@Override
-		public void render(com.google.gwt.cell.client.Cell.Context context,
-				ImapFolder value, SafeHtmlBuilder sb) {
-			if (value != null) {
-				AbstractImagePrototype imagePrototype = new ClippedImagePrototype(
-						image.getSafeUri(), -6, 213, 24, 24);
-				sb.appendHtmlConstant(imagePrototype.getHTML()).appendEscaped(
-						" ");
-				sb.appendEscaped(value.getName());
-			}
-
-		}
 	}
 
 	private class ImapFolderListDataProvider extends
@@ -148,7 +112,6 @@ public class FoldersTreeViewModel implements TreeViewModel {
 					.fire(new Receiver<List<ImapFolder>>() {
 						@Override
 						public void onSuccess(List<ImapFolder> response) {
-							System.out.println("list of folders-" + response);
 							if (response == null || response.size() == 0) {
 								updateRowCount(-1, true);
 							} else {

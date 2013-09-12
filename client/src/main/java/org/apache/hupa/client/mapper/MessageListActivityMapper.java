@@ -21,6 +21,7 @@ package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.MessageListActivity;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.MessagePlace;
 
@@ -28,6 +29,10 @@ import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 =======
+=======
+import org.apache.hupa.client.place.DefaultPlace;
+import org.apache.hupa.client.place.MailFolderPlace;
+>>>>>>> make message list view panel work as expected partly
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -74,6 +79,8 @@ public class MessageListActivityMapper implements ActivityMapper {
 		};
 =======
 	public Activity getActivity(Place place) {
+		if(place instanceof DefaultPlace)return null;
+		else if (place instanceof MailFolderPlace) messageListActivityProvider.get();
 		return messageListActivityProvider.get();
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 	}
