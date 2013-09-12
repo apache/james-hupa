@@ -3,7 +3,7 @@ Hupa use maven2 as build tool. To build hupa download maven2 (http://maven.apach
 After that change to hupa directory and execute the following cmd:
 $ mvn clean package
 
-###### Configuring server side  ################
+###### Configuring server side  ########
 Hupa uses a properties file to know the IMAP and SMTP servers configuration.
 There is an example configuration file in 'server/src/main/webapp/WEB-INF/conf/config.properties'
 
