@@ -88,8 +88,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
@@ -99,11 +99,18 @@ public class __ComposePanel extends Composite {
 
 	@UiField FlexTable headerTable;
 	@UiField Style style;
+
 	interface Style extends CssResource {
 		String hiddenInput();
+
 		String add();
+
 		String iconlink();
+
 		String formlinks();
+		String left();
+		String right();
+		String operation();
 	}
 
 	public interface Resources extends ClientBundle {
@@ -117,8 +124,6 @@ public class __ComposePanel extends Composite {
 		public interface Css extends CssResource {
 		}
 	}
-	
-	
 
 	public __ComposePanel() {
 		initWidget(binder.createAndBindUi(this));
@@ -126,9 +131,9 @@ public class __ComposePanel extends Composite {
 		RowFormatter rowFormatter = headerTable.getRowFormatter();
 
 		// Add some text
-//		cellFormatter.setHorizontalAlignment(0, 1,
-//				HasHorizontalAlignment.ALIGN_RIGHT);
-		
+		// cellFormatter.setHorizontalAlignment(0, 1,
+		// HasHorizontalAlignment.ALIGN_RIGHT);
+
 		headerTable.setWidget(0, 0, new Label("From"));
 
 		headerTable.setWidget(1, 0, new Label("To"));
@@ -142,27 +147,34 @@ public class __ComposePanel extends Composite {
 
 		// Add a button that will add more rows to the table
 		ListBox lb = new ListBox();
-		lb.addItem("foo");
+		lb.addItem("echowdx#googlemail.com");
 		lb.addItem("bar");
 		Button addRowButton = new Button("Send message");
 		Button removeRowButton = new Button("Save as draft");
 		Button cancel = new Button("Cancel");
-		HorizontalPanel buttonPanel = new HorizontalPanel();
-		buttonPanel.add(lb);
-//		buttonPanel.add(new Anchor("Edit identities"));
+		FlowPanel operationPanel = new FlowPanel();
+		FlowPanel contactPanel = new FlowPanel();
+		FlowPanel buttonPanel = new FlowPanel();
+		
+		contactPanel.add(lb);
+		contactPanel.addStyleName(style.left());
+		// buttonPanel.add(new Anchor("Edit identities"));
 		buttonPanel.add(addRowButton);
 		buttonPanel.add(removeRowButton);
 		buttonPanel.add(cancel);
-		headerTable.setWidget(0, 1, buttonPanel);
+		buttonPanel.addStyleName(style.right());
+		operationPanel.add(contactPanel);
+		operationPanel.add(buttonPanel);
+		operationPanel.addStyleName(style.operation());
+		headerTable.setWidget(0, 1, operationPanel);
 		headerTable.setWidget(1, 1, create());
-		
+
 		headerTable.setWidget(2, 1, create());
 		headerTable.setWidget(3, 1, create());
 		headerTable.setWidget(4, 1, create());
 		headerTable.setWidget(5, 1, create());
-		
 
-		HorizontalPanel linkPanel = new HorizontalPanel();
+		FlowPanel linkPanel = new FlowPanel();
 		Anchor cc = new Anchor("Add Cc");
 		cc.addStyleName(style.iconlink());
 		cc.addStyleName(style.add());
@@ -182,7 +194,7 @@ public class __ComposePanel extends Composite {
 		headerTable.setWidget(6, 1, linkPanel);
 		cellFormatter.addStyleName(6, 1, style.formlinks());
 		headerTable.setWidget(7, 1, create());
-		
+
 		rowFormatter.addStyleName(2, style.hiddenInput());
 		rowFormatter.addStyleName(3, style.hiddenInput());
 		rowFormatter.addStyleName(4, style.hiddenInput());

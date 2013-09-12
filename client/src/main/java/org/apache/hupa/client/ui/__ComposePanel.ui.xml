@@ -32,8 +32,21 @@
 			padding: 2px 8px 2px 20px;
 		}
 		
+		.left {
+			float: left;
+		}
+		
+		.right {
+			float: right;
+		}
+		
+		.operation {
+			margin: 0 -1px;
+		}
+		
 		.add {
 			background-position: -7px -357px;
+			margin-right: 6px;
 		}
 		
 		.formlinks {
@@ -108,7 +121,7 @@
 		}
 		
 		.composeHeader td {
-			padding: 1px 8px;
+			padding: 3px 8px;
 		}
 		
 		.headerTable td {
@@ -118,6 +131,7 @@
 	</ui:style>
 	<g:DockLayoutPanel ui:field="thisPanel" unit="PX"
 		addStyleNames="{style.box}">
+<<<<<<< HEAD
 <<<<<<< HEAD
 		<g:north size="135">
 <<<<<<< HEAD
@@ -136,6 +150,9 @@
 =======
 		<g:north size="143">
 >>>>>>> beautify composing panel
+=======
+		<g:north size="135">
+>>>>>>> fine tuning the pixel of composing panel, while issue #35 should be fixed later
 			<g:SimplePanel ui:field="composeHeader" addStyleNames="{style.composeHeader}">
 				<g:FlexTable ui:field="headerTable" addStyleNames="{style.headerTable}" />
 			</g:SimplePanel>
