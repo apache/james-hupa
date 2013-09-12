@@ -21,8 +21,6 @@ package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.place.ComposePlace;
-import org.apache.hupa.client.place.DefaultPlace;
-import org.apache.hupa.client.place.MailFolderPlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -47,7 +45,7 @@ public class ComposeActivityMapper implements ActivityMapper {
 		if (!(place instanceof ComposePlace))
 			return null;
 		final ComposePlace composePlace = (ComposePlace)place;
-		if(composePlace.getParameters() == null) return null;
+//		if(composePlace.getParameters() == null) return null;
 //		if(composePlace.getParameters() == null){
 //			placeController.goTo(new MailFolderPlace("Mock-Inbox"));
 //		}

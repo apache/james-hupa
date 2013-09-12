@@ -150,6 +150,7 @@ public class MockUploader implements IUploader {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void setValidExtensions(String... ext) {
 =======
     public void setValidExtensions(String[] ext) {
@@ -157,6 +158,9 @@ public class MockUploader implements IUploader {
 =======
     public void setValidExtensions(String[] ext) {
 >>>>>>> first commit
+=======
+    public void setValidExtensions(String... ext) {
+>>>>>>> upgrade maven-processor-plugin to the latest 2.2.4; change the middle-man in MessageListActivityMapper to string instead of the whole MessageFolderPlace
         // TODO Auto-generated method stub
     }
 

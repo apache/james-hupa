@@ -103,10 +103,10 @@ public class IMAPMessagePlace extends AbstractPlace {
 	private ImapFolder folder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 	private User user;
-	private String messageId;
+//	private String messageId;
 
 	public IMAPMessagePlace(String token) {
-		this.messageId = token;
+//		this.messageId = token;
 	}
 	
 	public IMAPMessagePlace(MessageDetails messageDetails){

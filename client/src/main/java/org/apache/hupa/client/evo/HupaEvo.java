@@ -19,8 +19,6 @@
 
 package org.apache.hupa.client.evo;
 
-import org.apache.hupa.client.ioc.AppGinjector;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
@@ -32,8 +30,8 @@ public class HupaEvo implements EntryPoint {
 	public void onModuleLoad() {
 		handleExceptionsAsync();
 		replaceLoading();
-	    AppController appController = null;//injector.getAppController();
-	    appController.start();
+//	    AppController appController = null;//injector.getAppController();
+//	    appController.start();
 	}
 	
 	private void handleExceptionsAsync(){
@@ -48,6 +46,6 @@ public class HupaEvo implements EntryPoint {
 		DOM.removeChild(RootPanel.getBodyElement(), DOM.getElementById("loading"));
 	}
 
-	private final AppGinjector injector = GWT.create(AppGinjector.class);
+//	private final AppGinjector injector = GWT.create(AppGinjector.class);
 
 }

@@ -57,8 +57,7 @@ public class MessageListActivityMapper implements ActivityMapper {
 	private final Provider<MessageListActivity> messageListActivityProvider;
 
 	@Inject
-	public MessageListActivityMapper(
-			Provider<MessageListActivity> messageListActivityProvider) {
+	public MessageListActivityMapper(Provider<MessageListActivity> messageListActivityProvider) {
 		this.messageListActivityProvider = messageListActivityProvider;
 	}
 
@@ -104,8 +103,7 @@ public class MessageListActivityMapper implements ActivityMapper {
 
 				@Override
 				protected Activity createInstance() {
-					return messageListActivityProvider.get().with(
-							(MailFolderPlace) place);
+					return messageListActivityProvider.get().with(((MailFolderPlace) place).getFullName());
 				}
 			};
 		}

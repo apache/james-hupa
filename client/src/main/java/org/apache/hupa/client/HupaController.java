@@ -334,11 +334,11 @@ public class HupaController {
 		Place place = event.getNewPlace();
 
 		if (place instanceof ComposePlace) {
-			if (((ComposePlace) place).getParameters() != null) {
+//			if (((ComposePlace) place).getParameters() != null) {
 				hupaLayout.switchToCompose();
-			} else {
-				this.placeController.goTo(new MailFolderPlace("Mock-Inbox"));
-			}
+//			} else {
+//				this.placeController.goTo(new MailFolderPlace("Mock-Inbox"));
+//			}
 		} else {
 			hupaLayout.switchToMessage();
 		}

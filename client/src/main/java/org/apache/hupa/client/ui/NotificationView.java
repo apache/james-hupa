@@ -25,12 +25,15 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.CssResource;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.google.gwt.safehtml.shared.SafeHtml;
 >>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 =======
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 >>>>>>> make the notification be able to cope with link
+=======
+>>>>>>> upgrade maven-processor-plugin to the latest 2.2.4; change the middle-man in MessageListActivityMapper to string instead of the whole MessageFolderPlace
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;

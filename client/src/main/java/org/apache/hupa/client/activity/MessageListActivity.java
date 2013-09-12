@@ -301,7 +301,7 @@ public class MessageListActivity extends AppBaseActivity {
 	@Inject private PlaceController placeController;
 	@Inject private ToolBarActivity.Displayable toolBar;
 	@Inject private TopBarActivity.Displayable topBar;
-	private ImapFolder folder;
+	private String folderName;
 	private String searchValue;
 	private User user;
 	private boolean pending;
@@ -318,13 +318,13 @@ public class MessageListActivity extends AppBaseActivity {
 					GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
 					GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
 					final ImapFolder f = req.create(ImapFolder.class);
-					f.setFullName(folder.getFullName());
+					f.setFullName(folderName);
 					action.setFolder(f);
 					action.setUid(event.getValue().getUid());
 					req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
 						@Override
 						public void onSuccess(GetMessageDetailsResult response) {
-							eventBus.fireEvent(new ExpandMessageEvent(user, folder, event.getValue(), response
+							eventBus.fireEvent(new ExpandMessageEvent(user, new ImapFolderImpl(folderName), event.getValue(), response
 									.getMessageDetails()));
 							placeController.goTo(new MailFolderPlace(f.getFullName() + "/" + event.getValue().getUid()));
 						}
@@ -368,7 +368,7 @@ public class MessageListActivity extends AppBaseActivity {
 		FetchMessagesRequest req = requestFactory.messagesRequest();
 		FetchMessagesAction action = req.create(FetchMessagesAction.class);
 		final ImapFolder f = req.create(ImapFolder.class);
-		f.setFullName(folder.getFullName());
+		f.setFullName(folderName);
 		action.setFolder(f);
 		action.setOffset(display.getGrid().getPageSize());
 		action.setSearchString(searchValue);
@@ -404,7 +404,7 @@ public class MessageListActivity extends AppBaseActivity {
 		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
 			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
 				user = loadMessagesEvent.getUser();
-				folder = loadMessagesEvent.getFolder();
+				folderName = loadMessagesEvent.getFolder().getFullName();
 				searchValue = loadMessagesEvent.getSearchValue();
 				fetch(0);
 
@@ -413,8 +413,8 @@ public class MessageListActivity extends AppBaseActivity {
 
 	}
 
-	public MessageListActivity with(MailFolderPlace place) {
-		setFolder(new ImapFolderImpl(place.getFullName()));
+	public MessageListActivity with(String folderName) {
+		this.folderName = folderName;
 		return this;
 	}
 
@@ -441,10 +441,6 @@ public class MessageListActivity extends AppBaseActivity {
 		void refresh();
 
 		Set<Message> getSelectedMessages();
-	}
-
-	public void setFolder(ImapFolder folder) {
-		this.folder = folder;
 	}
 
 	private void antiSelectMessages(Collection<Message> c) {
