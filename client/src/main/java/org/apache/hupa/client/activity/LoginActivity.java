@@ -35,15 +35,18 @@ package org.apache.hupa.client.activity;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
-import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaEvoCallback;
-import org.apache.hupa.client.place.LoginPlace;
+import org.apache.hupa.client.mvp.WidgetDisplayable;
+import org.apache.hupa.client.place.MailInboxPlace;
 import org.apache.hupa.shared.rpc.LoginUser;
 import org.apache.hupa.shared.rpc.LoginUserResult;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+<<<<<<< HEAD
 import com.google.gwt.core.client.GWT;
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+>>>>>>> Change to new mvp framework - first step
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -75,31 +78,20 @@ import com.google.inject.Provider;
 
 public class LoginActivity extends AbstractActivity {
 
-	private HupaConstants constants = GWT.create(HupaConstants.class);
-
-	private LoginPlace place;
-	private final Display display;
+	private final Displayable display;
 	private final EventBus eventBus;
-	// private final HupaEvoCallback loginRpcService;
-	private PlaceController placeController;
-
+	private final PlaceController placeController;
+	private final Provider<MailInboxPlace> mailInboxPlaceProvider;
 	private DispatchAsync dispatcher;
-	private Provider<LoginPlace> oldGoToPlaceProvider;
-	private Provider<LoginPlace> newGoToPlaceProvider;
 
 	@Inject
-	public LoginActivity(Display display, EventBus eventBus, PlaceController placeController, DispatchAsync dispatcher,
-			Provider<LoginPlace> newGoToPlaceProvider) {
+	public LoginActivity(Displayable display, EventBus eventBus, PlaceController placeController,
+			Provider<MailInboxPlace> mailInboxPlaceProvider, DispatchAsync dispatcher) {
 		this.display = display;
 		this.eventBus = eventBus;
 		this.placeController = placeController;
+		this.mailInboxPlaceProvider = mailInboxPlaceProvider;
 		this.dispatcher = dispatcher;
-		this.newGoToPlaceProvider = newGoToPlaceProvider;
-		// this.loginRpcService = loginRpcService;
-	}
-
-	public void init(LoginPlace place) {
-		this.place = place;
 	}
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 
@@ -168,16 +160,15 @@ public class LoginActivity extends AbstractActivity {
 				display) {
 			public void callback(LoginUserResult result) {
 				display.setLoading(false);
-				Window.alert("success");
 				// eventBus.fireEvent(new LoginEvent(result.getUser()));
-//				LoginActivity.this.placeController.goTo(newGoToPlaceProvider.get());
+				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get().with(result.getUser()));
 				doReset();
 			}
 
 			public void callbackError(Throwable caught) {
 				display.setLoading(false);
-				Window.alert("failure");
-//				LoginActivity.this.placeController.goTo(newGoToPlaceProvider.get());
+				Window.alert("error");
+				LoginActivity.this.placeController.goTo(mailInboxPlaceProvider.get());
 				// eventBus.fireEvent(new FlashEvent(constants.loginInvalid(),
 				// 4000));
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
@@ -196,6 +187,7 @@ public class LoginActivity extends AbstractActivity {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject private Displayable display;
 	@Inject private HupaConstants constants;
 
@@ -207,6 +199,9 @@ public class LoginActivity extends AbstractActivity {
 		public void setLoading(boolean loading);
 =======
 	public interface Display {
+=======
+	public interface Displayable extends WidgetDisplayable {
+>>>>>>> Change to new mvp framework - first step
 		public HasClickHandlers getLoginClick();
 
 		public HasClickHandlers getResetClick();

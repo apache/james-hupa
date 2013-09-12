@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
 	license agreements. See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership. The ASF licenses this file to 
@@ -36,4 +37,49 @@
 			<g:LayoutPanel ui:field="centerPanel"/>
 		</g:center>
 	</g:DockLayoutPanel>
+=======
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:my='urn:import:org.apache.hupa.client.ui'>
+  <ui:image field="maincontent"/>
+  <ui:image field="masterv"/>
+  <ui:image field="mainmenu"/> 
+  <ui:style>
+    @sprite .menuPanel {
+      gwt-image: 'mainmenu';
+      background-position: center center;
+      height: 100%;
+      width: 100%;
+      border: 1px solid gray;
+    }
+
+    @sprite .mvPanel {
+      gwt-image: 'masterv';
+      background-position: center center;
+      height: 100%;
+      width: 100%;
+      border: 1px solid gray;
+    }
+
+    @sprite .mainPanel {
+      gwt-image: 'maincontent';
+      background-position: center center;
+      height: 100%;
+      width: 100%;
+      border: 1px solid gray;
+    }
+  </ui:style>
+  <g:LayoutPanel>
+    <g:layer>
+      <g:SimplePanel ui:field="menuPanel" addStyleNames="{style.menuPanel}">
+      </g:SimplePanel>
+    </g:layer>
+    <g:layer>
+      <g:SimplePanel ui:field="mvPanel" addStyleNames="{style.mvPanel}"/>
+    </g:layer>
+    <g:layer>
+      <g:SimplePanel ui:field="mainPanel" addStyleNames="{style.mainPanel}"/>
+    </g:layer>
+  </g:LayoutPanel>
+>>>>>>> Change to new mvp framework - first step
 </ui:UiBinder>

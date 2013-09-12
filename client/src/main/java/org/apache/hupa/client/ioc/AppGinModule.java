@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,10 +18,13 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> Change to new mvp framework - first step
 package org.apache.hupa.client.ioc;
 
 import java.util.logging.Logger;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
@@ -90,24 +94,54 @@ import org.apache.hupa.client.ui.TopBarView;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.core.client.GWT;
+=======
+import net.customware.gwt.dispatch.client.DefaultExceptionHandler;
+import net.customware.gwt.dispatch.client.DispatchAsync;
+import net.customware.gwt.dispatch.client.ExceptionHandler;
+
+import org.apache.hupa.client.AppController;
+import org.apache.hupa.client.CachingDispatchAsync;
+import org.apache.hupa.client.activity.IMAPMessageListActivity;
+import org.apache.hupa.client.activity.LoginActivity;
+import org.apache.hupa.client.activity.WestActivity;
+import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
+import org.apache.hupa.client.mvp.AppPlaceHistoryMapper;
+import org.apache.hupa.client.mvp.MainContentActivityMapper;
+import org.apache.hupa.client.mvp.WestActivityMapper;
+import org.apache.hupa.client.place.DefaultPlace;
+import org.apache.hupa.client.ui.AppLayout;
+import org.apache.hupa.client.ui.AppLayoutImpl;
+import org.apache.hupa.client.ui.IMAPMessageListView;
+import org.apache.hupa.client.ui.LoginView;
+import org.apache.hupa.client.ui.WestView;
+
+import com.google.gwt.activity.shared.ActivityManager;
+>>>>>>> Change to new mvp framework - first step
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
+<<<<<<< HEAD
 import com.google.gwt.user.cellview.client.CellTree;
+=======
+>>>>>>> Change to new mvp framework - first step
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
+<<<<<<< HEAD
 @SuppressWarnings("deprecation")
+=======
+>>>>>>> Change to new mvp framework - first step
 public class AppGinModule extends AbstractGinModule {
 	public static Logger logger = Logger.getLogger(AppGinModule.class.getName());
 
 	@Override
 	protected void configure() {
 		// Views
+<<<<<<< HEAD
 		bind(HupaLayoutable.class).to(HupaLayout.class).in(Singleton.class);
 		bind(LoginLayoutable.class).to(LoginLayout.class).in(Singleton.class);
 
@@ -263,18 +297,46 @@ public class AppGinModule extends AbstractGinModule {
 	public ActivityManager getMessageListFooterActivityMapper(MessageListFooterActivityMapper activityMapper,
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
+=======
+		bind(AppLayout.class).to(AppLayoutImpl.class).in(Singleton.class);
+
+		// Activities
+		bind(LoginActivity.Displayable.class).to(LoginView.class);
+		bind(WestActivity.Displayable.class).to(WestView.class);
+		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
+		
+		
+		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
+
+		// Places
+		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
+
+		// Application EventBus
+		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
+
+		// Application Controller
+		bind(AppController.class).in(Singleton.class);
+		
+		bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
+>>>>>>> Change to new mvp framework - first step
 	}
 
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 	@Named("MessageContentRegion")
 	public ActivityManager getMessageContentActivityMapper(MessageContentActivityMapper activityMapper,
+=======
+	@Named("WestRegion")
+	public ActivityManager getVerticalMasterRegionActivityMapper(WestActivityMapper activityMapper,
+>>>>>>> Change to new mvp framework - first step
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 	@Named("StatusRegion")
 	public ActivityManager getStatusActivityMapper(StatusActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
@@ -291,16 +353,25 @@ public class AppGinModule extends AbstractGinModule {
 	@Singleton
 	@Named("ComposeToolBarRegion")
 	public ActivityManager getComposeToolBarActivityMapper(ComposeToolBarActivityMapper activityMapper,
+=======
+	@Named("MainContentRegion")
+	public ActivityManager getVerticalMasterRegionActivityMapper(MainContentActivityMapper activityMapper,
+>>>>>>> Change to new mvp framework - first step
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 	@Named("SearchBoxRegion")
 	public ActivityManager getSearchBoxActivityMapper(SearchBoxActivityMapper activityMapper,
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
+=======
+	protected DispatchAsync provideDispatchAsync(ExceptionHandler exceptionHandler) {
+		return new CachingDispatchAsync(exceptionHandler);
+>>>>>>> Change to new mvp framework - first step
 	}
 
 	@Provides
@@ -314,6 +385,7 @@ public class AppGinModule extends AbstractGinModule {
 	public PlaceHistoryHandler getHistoryHandler(PlaceController placeController, PlaceHistoryMapper historyMapper,
 			EventBus eventBus) {
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
+<<<<<<< HEAD
 		historyHandler.register(placeController, eventBus, new DefaultPlace("@"));
 		return historyHandler;
 	}
@@ -326,4 +398,10 @@ public class AppGinModule extends AbstractGinModule {
 		return rf;
 	}
 
+=======
+		historyHandler.register(placeController, eventBus, new DefaultPlace());
+		return historyHandler;
+	}
+
+>>>>>>> Change to new mvp framework - first step
 }

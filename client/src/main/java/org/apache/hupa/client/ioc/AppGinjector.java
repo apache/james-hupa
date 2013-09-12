@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -20,6 +21,11 @@
 package org.apache.hupa.client.ioc;
 
 import org.apache.hupa.client.HupaController;
+=======
+package org.apache.hupa.client.ioc;
+
+import org.apache.hupa.client.AppController;
+>>>>>>> Change to new mvp framework - first step
 
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
@@ -31,6 +37,10 @@ import com.google.gwt.inject.client.Ginjector;
  */
 @GinModules(AppGinModule.class)
 public interface AppGinjector extends Ginjector {
+<<<<<<< HEAD
 //  AppController getAppController();
   HupaController getHupaController();
+=======
+  AppController getAppController();
+>>>>>>> Change to new mvp framework - first step
 }

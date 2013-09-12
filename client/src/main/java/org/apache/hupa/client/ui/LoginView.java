@@ -27,7 +27,16 @@ import com.google.gwt.dom.client.Document;
 =======
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+import org.apache.hupa.client.HupaCSS;
+import org.apache.hupa.client.HupaConstants;
+import org.apache.hupa.client.activity.LoginActivity;
+import org.apache.hupa.widgets.ui.Loading;
+import org.apache.hupa.widgets.ui.RndPanel;
+
+>>>>>>> Change to new mvp framework - first step
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
@@ -47,6 +56,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.FormPanel;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -144,6 +154,9 @@ public class LoginView extends Composite implements KeyUpHandler,
 		formPanel.add(flexTable);
 		innerBox.add(formPanel);
 =======
+=======
+import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
+>>>>>>> Change to new mvp framework - first step
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.PasswordTextBox;
@@ -151,16 +164,9 @@ import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.inject.Inject;
 
-import org.apache.hupa.client.HupaCSS;
-import org.apache.hupa.client.HupaConstants;
-import org.apache.hupa.client.activity.LoginActivity;
-import org.apache.hupa.widgets.ui.Loading;
-import org.apache.hupa.widgets.ui.RndPanel;
-
-public class LoginView extends Composite implements KeyUpHandler, LoginActivity.Display {
+public class LoginView extends Composite implements KeyUpHandler, LoginActivity.Displayable {
 	private Button loginButton = new Button();
 	private SubmitButton submitButton;
 	private Button resetButton;
