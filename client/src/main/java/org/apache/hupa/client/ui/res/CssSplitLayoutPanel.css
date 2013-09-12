@@ -27,6 +27,7 @@
 	cursor: row-resize;
 	background-position: center 0;
 }
+<<<<<<< HEAD
 
 @external .gwt-SplitLayoutPanel-HDragger;
 @external .gwt-SplitLayoutPanel-VDragger;
@@ -50,3 +51,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+=======
+@external .gwt-SplitLayoutPanel-HDragger;
+@external .gwt-SplitLayoutPanel-VDragger;
+>>>>>>> add splitter
