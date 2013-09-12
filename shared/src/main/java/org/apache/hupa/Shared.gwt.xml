@@ -18,12 +18,15 @@
 <module>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   <inherits name='net.customware.gwt.dispatch.Dispatch' />
 >>>>>>> first commit
 =======
   <inherits name='net.customware.gwt.dispatch.Dispatch' />
 >>>>>>> first commit
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
   <inherits name='com.google.gwt.user.User'/>
   <source path="shared"/>
 </module>
