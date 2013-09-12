@@ -22,6 +22,7 @@ package org.apache.hupa.client.mapper;
 import org.apache.hupa.client.activity.ToolBarActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.MessagePlace;
 import org.apache.hupa.client.place.SettingPlace;
@@ -40,6 +41,11 @@ import com.google.gwt.activity.shared.ActivityMapper;
 <<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+import org.apache.hupa.client.place.MailFolderPlace;
+
+import com.google.gwt.activity.shared.Activity;
+>>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 >>>>>>> support code split
@@ -47,6 +53,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 public class ToolBarActivityMapper extends _HupaActivityMapper {
 	private final Provider<ToolBarActivity> toolBarActivityProvider;
@@ -87,12 +94,16 @@ public class ToolBarActivityMapper extends _HupaActivityMapper {
 		};
 =======
 public class ToolBarActivityMapper implements ActivityMapper {
+=======
+public class ToolBarActivityMapper extends MainActivityMapper {
+>>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
 	private final Provider<ToolBarActivity> toolBarActivityProvider;
 
 	@Inject
 	public ToolBarActivityMapper(Provider<ToolBarActivity> toolActivityProvider) {
 		this.toolBarActivityProvider = toolActivityProvider;
 	}
+<<<<<<< HEAD
 
 	public Activity getActivity(Place place) {
 <<<<<<< HEAD
@@ -103,6 +114,12 @@ public class ToolBarActivityMapper implements ActivityMapper {
 =======
 		if(place instanceof DefaultPlace) return null;
 >>>>>>> try to fix some issues by reorganize the activity mapper and place controller
+=======
+	
+	@Override
+	Activity asyncLoadActivity(Place place) {
+		final String token = ((MailFolderPlace)place).getFullName();
+>>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
@@ -111,7 +128,7 @@ public class ToolBarActivityMapper implements ActivityMapper {
 
 			@Override
 			protected Activity createInstance() {
-				return toolBarActivityProvider.get();
+				return toolBarActivityProvider.get().with(token);
 			}
 		};
 >>>>>>> support code split

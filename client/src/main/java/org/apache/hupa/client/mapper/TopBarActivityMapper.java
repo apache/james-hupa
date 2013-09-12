@@ -42,6 +42,7 @@ import com.google.inject.Provider;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class TopBarActivityMapper extends _HupaActivityMapper {
 =======
 public class TopBarActivityMapper implements ActivityMapper {
@@ -49,6 +50,9 @@ public class TopBarActivityMapper implements ActivityMapper {
 =======
 public class TopBarActivityMapper extends AbstractActivityMapper {
 >>>>>>> try to fix some issues by reorganize the activity mapper and place controller
+=======
+public class TopBarActivityMapper extends MainActivityMapper {
+>>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
 	private final Provider<TopBarActivity> topBarActivityProvider;
 
 	@Inject
@@ -80,11 +84,15 @@ public class TopBarActivityMapper extends AbstractActivityMapper {
 =======
 	@Override
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Activity getAppActivity(Place place) {
 >>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 =======
 	Activity getAppActivity(final Place place) {
 >>>>>>> fixed issue#46 and issue#32
+=======
+	Activity asyncLoadActivity(final Place place) {
+>>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {

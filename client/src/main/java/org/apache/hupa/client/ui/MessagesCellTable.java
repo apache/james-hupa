@@ -636,6 +636,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 		return row.getFlags().contains(IMAPFlag.SEEN);
 	}
 	public void markRead(final Message message, final boolean read) {
+		
 		setRowStyles(new RowStyles<Message>() {
 			@Override
 			public String getStyleNames(Message row, int rowIndex) {
@@ -646,7 +647,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 				}
 			}
 		});
-		redraw();
+		flush();
 	}
 
 	public class CheckboxColumn extends Column<Message, Boolean> {
@@ -712,6 +713,12 @@ public class MessagesCellTable extends DataGrid<Message> {
 		public Date getValue(Message object) {
 			return object.getReceivedDate();
 		}
+	}
+
+	public void refresh() {
+		redraw();
+		onResize();
+		flush();
 	}
 
 }

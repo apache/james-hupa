@@ -42,6 +42,7 @@ import com.google.inject.Provider;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class LogoActivityMapper extends _HupaActivityMapper {
 =======
 public class LogoActivityMapper implements ActivityMapper {
@@ -49,6 +50,9 @@ public class LogoActivityMapper implements ActivityMapper {
 =======
 public class LogoActivityMapper extends AbstractActivityMapper {
 >>>>>>> try to fix some issues by reorganize the activity mapper and place controller
+=======
+public class LogoActivityMapper extends MainActivityMapper {
+>>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
 	private final Provider<LogoActivity> logoActivityProvider;
 
 	@Inject
@@ -79,8 +83,12 @@ public class LogoActivityMapper extends AbstractActivityMapper {
 =======
 =======
 	@Override
+<<<<<<< HEAD
 	public Activity getAppActivity(Place place) {
 >>>>>>> try to fix some issues by reorganize the activity mapper and place controller
+=======
+	public Activity asyncLoadActivity(Place place) {
+>>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {

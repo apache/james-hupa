@@ -171,8 +171,6 @@ import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.SetFlagAction;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.ExpandMessageEventHandler;
-import org.apache.hupa.shared.events.LoadMessagesEvent;
-import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 
@@ -190,12 +188,17 @@ public class ToolBarActivity extends AppBaseActivity {
 
 	@Inject private Displayable display;
 	@Inject private MessagesCellTable table;
-	protected ImapFolder folder;
+	private String folderName;
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
 		bindTo(eventBus);
+	}
+	
+	public ToolBarActivity with(String folder){
+		this.folderName = folder;
+		return this;
 	}
 
 <<<<<<< HEAD
@@ -209,13 +212,6 @@ public class ToolBarActivity extends AppBaseActivity {
 			@Override
 			public void onLogin(LoginEvent e) {
 				display.setParameters(new Parameters(e.getUser(), null, null, null));
-			}
-		});
-		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
-			public void onLoadMessagesEvent(LoadMessagesEvent e) {
-				display.disableMessageTools();
-				display.setParameters(new Parameters(e.getUser(), e.getFolder(), null, null));
-				folder = e.getFolder();
 			}
 		});
 		eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
@@ -257,12 +253,13 @@ public class ToolBarActivity extends AppBaseActivity {
 		for (Message msg : table.getVisibleItems()) {
 			if (table.getSelectionModel().isSelected(msg)) {
 				uids.add(msg.getUid());
+				table.markRead(msg, read);
 			}
 		}
 		SetFlagRequest req = this.requestFactory.setFlagRequest();
 		SetFlagAction action = req.create(SetFlagAction.class);
 		ImapFolder f = req.create(ImapFolder.class);
-		f.setFullName(folder.getFullName());
+		f.setFullName(folderName);
 		action.setFolder(f);
 		action.setFlag(IMAPFlag.SEEN);
 		action.setValue(read);
@@ -270,8 +267,7 @@ public class ToolBarActivity extends AppBaseActivity {
 		req.set(action).fire(new Receiver<GenericResult>() {
 			@Override
 			public void onSuccess(GenericResult response) {
-				table.redraw();
-				table.onResize();
+				table.refresh();
 			}
 		});
 	}

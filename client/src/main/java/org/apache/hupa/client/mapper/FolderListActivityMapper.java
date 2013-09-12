@@ -59,6 +59,7 @@ import com.google.inject.Provider;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class FolderListActivityMapper extends _HupaActivityMapper {
 =======
 public class FolderListActivityMapper implements ActivityMapper {
@@ -66,6 +67,9 @@ public class FolderListActivityMapper implements ActivityMapper {
 =======
 public class FolderListActivityMapper extends AbstractActivityMapper {
 >>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
+=======
+public class FolderListActivityMapper extends MainActivityMapper {
+>>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
 	private final Provider<FolderListActivity> folderListActivityProvider;
 	
 	@Inject
@@ -83,8 +87,12 @@ public class FolderListActivityMapper extends AbstractActivityMapper {
 			return null;
 =======
 	@Override
+<<<<<<< HEAD
 	Activity getAppActivity(final Place place) {
 >>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
+=======
+	Activity asyncLoadActivity(final Place place) {
+>>>>>>> fixed issue#11, write a subclass of SplitLayoutPanel to override its onResize but failed, use the native one, and then refactor some names
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
