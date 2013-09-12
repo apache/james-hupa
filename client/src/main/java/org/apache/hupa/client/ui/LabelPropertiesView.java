@@ -46,6 +46,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.event.shared.EventBus;
 =======
 import org.apache.hupa.client.activity.LabelListActivity;
@@ -61,6 +62,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 >>>>>>> add rename RF to label setting feature
 =======
 >>>>>>> make add of label setting work in backend
+=======
+import com.google.gwt.event.shared.EventBus;
+>>>>>>> refresh labels list when create/remove label in the setting place, while remove label can not refresh now
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -101,7 +105,11 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 <<<<<<< HEAD
 	@Inject HupaController hc;
 	@Inject EventBus eventBus;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> refresh labels list when create/remove label in the setting place, while remove label can not refresh now
 	@UiField TextBox name;
 	private String path;
 
@@ -213,6 +221,7 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 				@Override
 				public void onSuccess(GenericResult response) {
 					hc.hideTopLoading();
+					eventBus.fireEvent(new RefreshLabelListEvent());
 					hc.showNotice("The label \"" + f.getFullName() + "\" has been renamed to "+name.getText(), 10000);
 				}
 				@Override
@@ -231,6 +240,7 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 				@Override
 				public void onSuccess(GenericResult response) {
 					hc.hideTopLoading();
+					eventBus.fireEvent(new RefreshLabelListEvent());
 					hc.showNotice("The label \"" + f.getFullName() + "\" was created.", 10000);
 				}
 				@Override

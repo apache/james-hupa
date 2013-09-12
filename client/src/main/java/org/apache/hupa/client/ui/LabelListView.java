@@ -218,7 +218,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class LabelListView extends Composite implements LabelListActivity.Displayable {
-	
+
 	@Inject LabelPropertiesActivity.Displayable labelProperties;
 	@UiField SimplePanel thisView;
 
@@ -281,10 +281,11 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 		}
 	}
 
-	public class ImapLabelListDataProvider extends AsyncDataProvider<LabelNode> {
+	public class ImapLabelListDataProvider extends AsyncDataProvider<LabelNode> implements HasRefresh {
 
 		private HupaRequestFactory rf;
 		private List<LabelNode> folderNodes = new ArrayList<LabelNode>();
+		HasData<LabelNode> display;
 
 		public List<LabelNode> getDataList() {
 			return Collections.unmodifiableList(folderNodes);
@@ -297,13 +298,16 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 		@Override
 		public void addDataDisplay(HasData<LabelNode> display) {
 			super.addDataDisplay(display);
+			this.display = display;
 		}
 
 		@Override
 		protected void onRangeChanged(HasData<LabelNode> display) {
+
 			rf.fetchFoldersRequest().fetch(null, Boolean.TRUE).fire(new Receiver<List<ImapFolder>>() {
 				@Override
 				public void onSuccess(List<ImapFolder> response) {
+					folderNodes.clear();
 					if (response == null || response.size() == 0) {
 						updateRowCount(-1, true);
 					} else {
@@ -337,6 +341,11 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 
 			});
 		}
+
+		@Override
+		public void refresh() {
+			this.onRangeChanged(display);
+		}
 	}
 
 <<<<<<< HEAD
@@ -364,13 +373,19 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> refresh labels list when create/remove label in the setting place, while remove label can not refresh now
 	@Override
 	public void refresh() {
 		data.refresh();
 	}
 
+<<<<<<< HEAD
 =======
 >>>>>>> make label settings prototype
 =======
 >>>>>>> make delete label in label setting work(backend now)
+=======
+>>>>>>> refresh labels list when create/remove label in the setting place, while remove label can not refresh now
 }
