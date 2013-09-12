@@ -280,15 +280,22 @@ public class MessageTableModel extends MutableTableModel<Message> {
 				public Iterator<Message> getRowValues() {
 					return new ArrayList<Message>().iterator();
 				}
-
 			});
 			return;
 		}
 		FetchMessagesRequest messagesRequest = requestFactory.messagesRequest();
 		final FetchMessagesAction action = messagesRequest.create(FetchMessagesAction.class);
+		final ImapFolder folder1 = messagesRequest.create(ImapFolder.class);
 		// FIXME cannot put setFolder to the first place
+		folder1.setChildren(this.folder.getChildren());
+		folder1.setDelimiter(this.folder.getDelimiter());
+		folder1.setFullName(this.folder.getFullName());
+		folder1.setMessageCount(this.folder.getMessageCount());
+		folder1.setName(this.folder.getName());
+		folder1.setSubscribed(this.folder.getSubscribed());
+		folder1.setUnseenMessageCount(this.folder.getUnseenMessageCount());
 		action.setOffset(request.getNumRows());
-		action.setFolder(folder);
+		action.setFolder(folder1);
 		action.setSearchString(searchValue);
 		action.setStart(request.getStartRow());
 		messagesRequest.fetch(action).fire(new Receiver<FetchMessagesResult>() {
@@ -302,7 +309,6 @@ public class MessageTableModel extends MutableTableModel<Message> {
 			@Override
 			public void onSuccess(final FetchMessagesResult result) {
 				assert result != null;
-				System.out.println(result.getOffset());
 				folder.setMessageCount(result.getRealCount());
 				folder.setUnseenMessageCount(result.getRealUnreadCount());
 				setRowCount(result.getRealCount());

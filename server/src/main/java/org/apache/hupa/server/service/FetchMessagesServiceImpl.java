@@ -32,6 +32,7 @@ import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.UIDFolder;
 import javax.mail.internet.MimeMessage.RecipientType;
+<<<<<<< HEAD
 =======
 package org.apache.hupa.server.service;
 
@@ -41,6 +42,8 @@ import java.util.List;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
+=======
+>>>>>>> fix some bugs related to RF, and try to use new CellView to replace gwt-incubator 
 import javax.mail.search.BodyTerm;
 import javax.mail.search.FromStringTerm;
 import javax.mail.search.OrTerm;
@@ -48,10 +51,14 @@ import javax.mail.search.SearchTerm;
 import javax.mail.search.SubjectTerm;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fix some bugs related to RF, and try to use new CellView to replace gwt-incubator 
 import org.apache.hupa.server.handler.JavamailUtil;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.FetchMessagesResultImpl;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.data.TagImpl;
 import org.apache.hupa.shared.domain.FetchMessagesAction;
@@ -115,13 +122,70 @@ public class FetchMessagesServiceImpl extends AbstractService implements FetchMe
 
     protected MessageConvertArray getMessagesToConvert(IMAPFolder f, FetchMessagesAction action) throws MessagingException, HupaException {
 =======
+=======
+import org.apache.hupa.shared.data.ImapFolderImpl;
+import org.apache.hupa.shared.data.TagImpl;
+import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+>>>>>>> fix some bugs related to RF, and try to use new CellView to replace gwt-incubator 
 import org.apache.hupa.shared.domain.FetchMessagesAction;
+import org.apache.hupa.shared.domain.FetchMessagesResult;
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Tag;
+import org.apache.hupa.shared.domain.User;
 
+import com.google.inject.Inject;
 import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPStore;
 
-public class FetchMessagesServiceImpl extends FetchMessagesBaseServiceImpl implements FetchMessagesService{
+public class FetchMessagesServiceImpl extends AbstractService implements FetchMessagesService{
 
-	@Override
+
+    @Inject protected UserPreferencesStorage userPreferences;
+    
+    public FetchMessagesResult fetch(FetchMessagesAction action){
+        User user = getUser();
+//        ImapFolder folder = action.getFolder();
+        if (action.getFolder() == null) {
+//            folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
+        	throw new IllegalArgumentException("why you want to ask us for messages in a null folder");
+        }
+        com.sun.mail.imap.IMAPFolder f = null;
+        int start = action.getStart();
+        int offset = action.getOffset();
+        try {
+            IMAPStore store = cache.get(user);
+            
+            f =  (com.sun.mail.imap.IMAPFolder)store.getFolder(action.getFolder().getFullName());
+
+             // check if the folder is open, if not open it read only
+            if (f.isOpen() == false) {
+                f.open(com.sun.mail.imap.IMAPFolder.READ_ONLY);
+            }
+
+            // if the folder is empty we have no need to process 
+            int exists = f.getMessageCount();
+            if (exists == 0) {
+                 return new FetchMessagesResultImpl(new ArrayList<org.apache.hupa.shared.domain.Message>(), start, offset, 0, 0);
+            }        
+            
+            MessageConvertArray convArray = getMessagesToConvert(f,action);
+            return new FetchMessagesResultImpl(convert(offset, f, convArray.getMesssages()),start, offset,convArray.getRealCount(),f.getUnreadMessageCount());
+        } catch (MessagingException e) {
+            logger.info("Error fetching messages in folder: " + action.getFolder().getFullName() + " " + e.getMessage());
+            // Folder can not contain messages
+            return new FetchMessagesResultImpl(new ArrayList<org.apache.hupa.shared.domain.Message>(), start, offset, 0, 0);
+        } finally {
+            if (f != null && f.isOpen()) {
+                try {
+                    f.close(false);
+                } catch (MessagingException e) {
+                    // we don't care to much about an exception on close here...
+                }
+            }
+        }
+    }
+
+
     protected MessageConvertArray getMessagesToConvert(IMAPFolder f, FetchMessagesAction action) throws MessagingException {
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
         
@@ -178,7 +242,11 @@ public class FetchMessagesServiceImpl extends FetchMessagesBaseServiceImpl imple
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
+=======
+    protected List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
+>>>>>>> fix some bugs related to RF, and try to use new CellView to replace gwt-incubator 
         List<org.apache.hupa.shared.domain.Message> mList = new ArrayList<org.apache.hupa.shared.domain.Message>();
         // Setup fetchprofile to limit the stuff which is fetched 
         FetchProfile fp = new FetchProfile();
@@ -310,6 +378,9 @@ public class FetchMessagesServiceImpl extends FetchMessagesBaseServiceImpl imple
             return messages;
         }
     }
+<<<<<<< HEAD
 =======
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
+=======
+>>>>>>> fix some bugs related to RF, and try to use new CellView to replace gwt-incubator 
 }

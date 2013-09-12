@@ -168,6 +168,7 @@ import org.apache.hupa.client.ui.IMAPMessageView;
 import org.apache.hupa.client.ui.LoginView;
 import org.apache.hupa.client.ui.MessageSendView;
 import org.apache.hupa.client.ui.MessageTableModel;
+import org.apache.hupa.client.ui.MessagesCellTable;
 import org.apache.hupa.client.ui.TopView;
 import org.apache.hupa.client.ui.WestView;
 
@@ -415,6 +416,7 @@ public class AppGinModule extends AbstractGinModule {
 
 		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
 		bind(MessageTableModel.class).in(Singleton.class);
+//		bind(MessagesCellTable.class).in(Singleton.class);
 		// Places
 		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
 

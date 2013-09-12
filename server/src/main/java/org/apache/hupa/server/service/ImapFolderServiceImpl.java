@@ -228,7 +228,7 @@ public class ImapFolderServiceImpl extends AbstractService implements ImapFolder
 		try {
 			System.out.println("Creating folder: " + fullName + " for user: ");
 			delimiter = String.valueOf(folder.getSeparator());
-			iFolder = (ImapFolder) new ImapFolderImpl(fullName);
+			iFolder = new ImapFolderImpl(fullName);
 			iFolder.setDelimiter(delimiter);
 			if ("[Gmail]".equals(folder.getFullName()))
 				return iFolder;
