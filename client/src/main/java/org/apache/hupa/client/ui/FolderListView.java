@@ -224,7 +224,6 @@ import org.apache.hupa.client.place.ComposePlace;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTree;
@@ -237,7 +236,7 @@ import com.google.inject.assistedinject.AssistedInject;
 public class FolderListView extends Composite implements
 		FolderListActivity.Displayable {
 	@UiField SimplePanel thisView;
-	private FolderCellTree cellTree;
+	private RightCellTree cellTree;
 	// FIXME here we can not support another cell tree, since both of their
 	// style
 	// would not be cleared.
@@ -255,7 +254,7 @@ public class FolderListView extends Composite implements
 			}
 			thisView.add(contactPanel);
 		} else {
-			cellTree = new FolderCellTree(viewModel, null, Resources.INSTANCE);
+			cellTree = new RightCellTree(viewModel);
 			cellTree.setAnimationEnabled(true);
 			if (thisView.getWidget() != null
 					&& thisView.getWidget() instanceof HTMLPanel) {
@@ -269,17 +268,6 @@ public class FolderListView extends Composite implements
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
 >>>>>>> make compose panel left another widget rather than cell tree
-	}
-
-	public interface Resources extends CellTree.Resources {
-
-		Resources INSTANCE = GWT.create(Resources.class);
-
-		@Source("res/CssFolderListView.css")
-		public CellTree.Style cellTreeStyle();
-
-		@Source("res/listicons.png")
-		public ImageResource listicons();
 	}
 
 	interface FolderListUiBinder extends UiBinder<SimplePanel, FolderListView> {
