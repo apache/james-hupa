@@ -2162,6 +2162,11 @@ fieldset.tab {
     color: #0d0eb0;
     text-decoration: underline;
     cursor: pointer;
+}.hupa-attachment .hupa-hyperlink {
+    padding-left: 5px;
+    color: #0d0eb0;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 

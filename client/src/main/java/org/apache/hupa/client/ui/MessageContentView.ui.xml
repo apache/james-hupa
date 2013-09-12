@@ -51,6 +51,7 @@
 		}
 		
 		.attachBox {
+	       cursor:pointer;
 			float: right;
 			width: 230px;
 			margin: 8px;
