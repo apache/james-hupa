@@ -166,7 +166,6 @@
 		
 		@sprite .loading {
 			gwt-image: 'loading';
-			background-position: 2px 6px;
 		}
 	</ui:style>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one

@@ -385,12 +385,16 @@ public class LoginView extends Composite implements KeyUpHandler,
 		// loginButton must be in the document to handle the click() method
 		innerBox.add(loginButton);
 		loginButton.setVisible(false);
+<<<<<<< HEAD
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 		initWidget(mainContainer);
 >>>>>>> make login form available
 =======
 >>>>>>> replace with uibinder
+=======
+		setLoading(false);
+>>>>>>> dealing with login panel's loading progress ajax loader
 	}
 
 	private void createLoginPrompt() {
@@ -475,6 +479,7 @@ public class LoginView extends Composite implements KeyUpHandler,
 		} else {
 			message.removeStyleName(style.loading());
 <<<<<<< HEAD
+<<<<<<< HEAD
 			message.removeStyleName(style.display());
 			message.addStyleName(style.hidden());
 =======
@@ -497,6 +502,10 @@ public class LoginView extends Composite implements KeyUpHandler,
 			message.addStyleName(style.loading());
 		} else {
 			message.removeStyleName(style.loading());
+=======
+			message.removeStyleName(style.display());
+			message.addStyleName(style.hidden());
+>>>>>>> dealing with login panel's loading progress ajax loader
 		}
 >>>>>>> prepare for places and do something for loading related to issue #18
 	}
