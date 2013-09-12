@@ -147,14 +147,15 @@ public class FoldersTreeViewModel implements TreeViewModel {
 		}
 
 		@Override
-		protected void onRangeChanged(HasData<ImapFolder> display) {
+		protected void onRangeChanged(final HasData<ImapFolder> display) {
 			rf.fetchFoldersRequest().fetch(folder, Boolean.FALSE).fire(new Receiver<List<ImapFolder>>() {
 				@Override
 				public void onSuccess(List<ImapFolder> response) {
 					if (response == null || response.size() == 0) {
 						updateRowCount(-1, true);
 					} else {
-						updateRowData(0, response);
+						int start = display.getVisibleRange().getStart();
+						updateRowData(start, response);
 					}
 				}
 
