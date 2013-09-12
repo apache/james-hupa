@@ -142,7 +142,7 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 		SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
 		simplePager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
 		simplePager.setDisplay(table);
-		simplePager.startLoading();
+//		simplePager.setRangeLimited(false);
 		initWidget(binder.createAndBindUi(this));
 	}
 

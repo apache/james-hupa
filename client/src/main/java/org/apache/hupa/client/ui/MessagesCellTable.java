@@ -603,18 +603,20 @@ public class MessagesCellTable extends DataGrid<Message> {
 			FetchMessagesRequest req = rf.messagesRequest();
 			FetchMessagesAction action = req.create(FetchMessagesAction.class);
 			final ImapFolder f = req.create(ImapFolder.class);
+            final int start = display.getVisibleRange().getStart();
 			f.setFullName(parseFolderName(pc));
 			action.setFolder(f);
 			action.setOffset(display.getVisibleRange().getLength());
 			action.setSearchString(searchValue);
-			action.setStart(display.getVisibleRange().getStart());
+			action.setStart(start);
 			req.fetch(action).fire(new Receiver<FetchMessagesResult>() {
 				@Override
 				public void onSuccess(final FetchMessagesResult response) {
 					if (response == null || response.getRealCount() == 0) {
 						updateRowCount(-1, true);
 					} else {
-						updateRowData(0, response.getMessages());
+						updateRowCount(response.getRealCount(), true);
+						updateRowData(start, response.getMessages());
 					}
 					hc.hideTopLoading();
 				}
