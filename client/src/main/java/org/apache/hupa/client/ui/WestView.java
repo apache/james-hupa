@@ -96,6 +96,7 @@ import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
@@ -144,6 +145,7 @@ import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 import com.google.inject.Inject;
@@ -189,12 +191,22 @@ public class WestView extends Composite implements WestActivity.Displayable {
     private TreeViewModel viewModel;
     
     @Inject
-    public WestView(FolderTreeViewModel viewModel, EventBus bus, PagingScrollTableRowDragController controllerProvider, HupaConstants constants, HupaMessages messages) {
+    public WestView(FolderTreeViewModel viewModel, final EventBus eventBus, PagingScrollTableRowDragController controllerProvider, HupaConstants constants, HupaMessages messages) {
     	this.viewModel = viewModel;
+    	selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+
+			@Override
+            public void onSelectionChange(SelectionChangeEvent event) {
+	            @SuppressWarnings("unchecked")
+                SingleSelectionModel<ImapFolder> selectionModel =(SingleSelectionModel<ImapFolder>) event.getSource();
+				eventBus.fireEvent(new LoadMessagesEvent(user, selectionModel.getSelectedObject()));
+	            
+            }});
+    	viewModel.setSelectionModel(selectionModel);
         this.constants = constants;
         this.messages = messages;
         this.controller = controllerProvider;
-        this.bus = bus;
+        this.bus = eventBus;
         loader = new Loading(constants.loading());
 <<<<<<< HEAD
 <<<<<<< HEAD

@@ -1355,10 +1355,16 @@ System.out.println("1111111"+response);
 		// MailInboxPlace(folder.getName()).with(user));
 	}
 
+<<<<<<< HEAD
 	private void showMessage(User user, ImapFolder folder, Message message, MessageDetails details) {
 		placeController.goTo(IMAPMessagePlaceProvider.get());
 >>>>>>> try to change fetch messages to use RF
 	}
+=======
+//	private void showMessage(User user, ImapFolder folder, Message message, MessageDetails details) {
+//		placeController.goTo(IMAPMessagePlaceProvider.get());
+//	}
+>>>>>>> fixed issue #16
 
 	private void showNewMessage() {
 		placeController.goTo(this.messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
@@ -1375,7 +1381,7 @@ System.out.println("1111111"+response);
 	}
 
 	@Inject private Displayable display;
-	@Inject private Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
+//	@Inject private Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
 	@Inject private Provider<MessageSendPlace> messageSendPlaceProvider;
 	@Inject private Provider<IMAPMessagePlace> messagePlaceProvider;
 	private User user;

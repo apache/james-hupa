@@ -21,17 +21,18 @@ package org.apache.hupa.client.ui;
 
 import java.util.List;
 
-import org.apache.hupa.client.rf.FetchFoldersRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.events.LoadMessagesEvent;
 
 import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.cell.client.Cell;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
-import com.google.gwt.view.client.ListDataProvider;
-import com.google.gwt.view.client.Range;
+import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -39,12 +40,37 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 public class FolderTreeViewModel implements TreeViewModel {
 
 	@Inject protected HupaRequestFactory rf;
+	@Inject protected EventBus eventBus;
+	
+	protected SingleSelectionModel<ImapFolder> selectionModel;
+	
+	protected void setSelectionModel(SingleSelectionModel<ImapFolder> selectionModel){
+		this.selectionModel = selectionModel;
+	}
 
 	/**
 	 * Get the {@link NodeInfo} that provides the children of the specified
 	 * value.
 	 */
+	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
+
+//		final ProvidesKey<ImapFolder> KEY_PROVIDER = new ProvidesKey<ImapFolder>() {
+//			@Override
+//			public Object getKey(ImapFolder item) {
+//				return item == null ? null : item.getFullName();
+//			}
+//		};
+//		final SingleSelectionModel<ImapFolder> selectionModel = new SingleSelectionModel<ImapFolder>(KEY_PROVIDER);
+//		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+//
+//			@Override
+//            public void onSelectionChange(SelectionChangeEvent event) {
+//	            ImapFolder folder = (ImapFolder)event.getSource();
+//
+//				eventBus.fireEvent(new LoadMessagesEvent(user, folder));
+//	            
+//            }});
 		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider((ImapFolder) value),
 		        new AbstractCell<ImapFolder>() {
 			        @Override
@@ -53,7 +79,7 @@ public class FolderTreeViewModel implements TreeViewModel {
 					        sb.appendEscaped(value.getName());
 				        }
 			        }
-		        });
+		        }, selectionModel, null);
 	}
 
 	private class ImapFolderListDataProvider extends AsyncDataProvider<ImapFolder> {
@@ -67,7 +93,6 @@ public class FolderTreeViewModel implements TreeViewModel {
 		@Override
 		public void addDataDisplay(HasData<ImapFolder> display) {
 			super.addDataDisplay(display);
-
 		}
 
 		@Override
@@ -90,6 +115,7 @@ public class FolderTreeViewModel implements TreeViewModel {
 	 * Check if the specified value represents a leaf node. Leaf nodes cannot be
 	 * opened.
 	 */
+	@Override
 	public boolean isLeaf(Object value) {
 		if (value == null)
 			return false;

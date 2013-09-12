@@ -570,15 +570,15 @@ public class MessagesCellTable extends DataGrid<Message> {
 		});
 
 		addColumn(checkboxCol, header);
-		this.setColumnWidth(checkboxCol, 3, Unit.EM);
+		setColumnWidth(checkboxCol, 3, Unit.EM);
 		addColumn(fromCol, constants.mailTableFrom());
-		this.setColumnWidth(fromCol, 40, Unit.PCT);
+		setColumnWidth(fromCol, 40, Unit.PCT);
 		addColumn(subjectCol, constants.mailTableSubject());
-		this.setColumnWidth(subjectCol, 60, Unit.PCT);
+		setColumnWidth(subjectCol, 60, Unit.PCT);
 		addColumn(attachedCol, "Attached");// TODO i18n
-		this.setColumnWidth(attachedCol, 7, Unit.EM);
+		setColumnWidth(attachedCol, 7, Unit.EM);
 		addColumn(dateCol, constants.mailTableDate());
-		this.setColumnWidth(dateCol, 10, Unit.EM);
+		setColumnWidth(dateCol, 10, Unit.EM);
 		setRowCount(PAGE_SIZE, false);
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
 		setSelectionModel(selectionModel, DefaultSelectionEventManager.<Message> createCheckboxManager(0));
