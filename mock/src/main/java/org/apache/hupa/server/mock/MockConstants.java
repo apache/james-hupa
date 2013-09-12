@@ -38,11 +38,16 @@ import java.util.Properties;
  */
 public class MockConstants {
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     public static String SESSION_ID = "MockID";
      
     public final static Settings mockSettings = new SettingsImpl() {
 =======
+=======
+    
+    public static String SESSION_ID = "MockID";
+>>>>>>> constantly changed by manolo
      
     public final static Settings mockSettings = new Settings() {
         private static final long serialVersionUID = 1L;
@@ -61,9 +66,12 @@ public class MockConstants {
             put("Username", MockIMAPStore.MOCK_LOGIN);
             put("Password", MockIMAPStore.MOCK_LOGIN);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             put("DefaultUserSessionId", "DEMO_ID");
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 
             put("IMAPServerAddress", MockIMAPStore.MOCK_HOST);
             put("SMTPServerAddress", MockIMAPStore.MOCK_HOST);

@@ -54,11 +54,15 @@ public enum ConfigurationProperties {
     // Used only in demo mode
     USERNAME("Username", false, null),
 <<<<<<< HEAD
+<<<<<<< HEAD
     PASSWORD("Password", false, null);
 =======
     PASSWORD("Password", false, null),
     SESSIONID("DefaultUserSessionId", false, null);
 >>>>>>> first commit
+=======
+    PASSWORD("Password", false, null);
+>>>>>>> constantly changed by manolo
     
     private String property;
     private boolean mandatory;

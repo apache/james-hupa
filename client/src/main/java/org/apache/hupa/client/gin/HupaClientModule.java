@@ -19,6 +19,9 @@
 
 package org.apache.hupa.client.gin;
 
+import net.customware.gwt.dispatch.client.DefaultExceptionHandler;
+import net.customware.gwt.dispatch.client.DispatchAsync;
+import net.customware.gwt.dispatch.client.ExceptionHandler;
 import net.customware.gwt.presenter.client.DefaultEventBus;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.gin.AbstractPresenterModule;
@@ -53,6 +56,7 @@ import org.apache.hupa.client.rf.HupaRequestFactory;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.inject.Provider;
+import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
 public class HupaClientModule extends AbstractPresenterModule {
@@ -69,22 +73,35 @@ public class HupaClientModule extends AbstractPresenterModule {
         bindPresenter(MessageSendPresenter.class, MessageSendPresenter.Display.class, MessageSendView.class);
         bindPresenter(AppPresenter.class, AppPresenter.Display.class, AppView.class);
         bindPresenter(ContactsPresenter.class, ContactsPresenter.Display.class, ContactsView.class);
-        bind(CachingDispatchAsync.class);
         bind(PagingScrollTableRowDragController.class).in(Singleton.class);
         bind(MessageTableModel.class).in(Singleton.class);
         bind(LoginPresenterPlace.class).in(Singleton.class);
         bind(IMAPMessageListPresenterPlace.class).in(Singleton.class);
         bind(MessageSendPresenterPlace.class).in(Singleton.class);
         bind(ContactsPresenterPlace.class).in(Singleton.class);
+
+        // Used by dispatch. Note that GWT 2.4 has its own ExceptionHandler etc in other namespace
+        bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
         
+        // RF Stuff, Eventbus has a different namespace than gwt-dispatch
         bind(com.google.gwt.event.shared.EventBus.class)
             .to(SimpleEventBus.class)
             .in(Singleton.class);
         bind(HupaRequestFactory.class)
             .toProvider(HupaClientModule.RequestFactoryProvider.class)
             .in(Singleton.class);
+
     }
     
+    @Provides
+    @Singleton
+    protected DispatchAsync provideDispatchAsync(ExceptionHandler exceptionHandler) {
+        return new CachingDispatchAsync( exceptionHandler );
+    }
+    
+    /**
+     * RF Stuff 
+     */
     public static class RequestFactoryProvider implements Provider<HupaRequestFactory> {
         private static final com.google.gwt.event.shared.EventBus eventBus = new SimpleEventBus();
         public HupaRequestFactory get() {

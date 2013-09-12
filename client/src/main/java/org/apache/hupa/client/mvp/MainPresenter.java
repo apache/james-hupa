@@ -24,20 +24,20 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
 
-import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
+import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.BackEventHandler;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
@@ -129,7 +129,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
     }
 
-    private CachingDispatchAsync cachingDispatcher;
+    private DispatchAsync dispatcher;
     private User user;
     private IMAPFolder folder;
     private String searchValue;
@@ -140,10 +140,10 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     private HasEditable editableTreeItem;
     
     @Inject
-    public MainPresenter(MainPresenter.Display display, EventBus bus, CachingDispatchAsync cachingDispatcher, IMAPMessageListPresenter messageListPresenter, IMAPMessagePresenter messagePresenter,
+    public MainPresenter(MainPresenter.Display display, EventBus bus, DispatchAsync cachingDispatcher, IMAPMessageListPresenter messageListPresenter, IMAPMessagePresenter messagePresenter,
             MessageSendPresenter sendPresenter) {
         super(display, bus, messageListPresenter, messagePresenter, sendPresenter);
-        this.cachingDispatcher = cachingDispatcher;
+        this.dispatcher = cachingDispatcher;
         this.messageListPresenter = messageListPresenter;
         this.messagePresenter = messagePresenter;
         this.sendPresenter = sendPresenter;
@@ -152,7 +152,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
     protected void loadTreeItems() {
         display.setLoadingFolders(true);
-        cachingDispatcher.execute(new FetchFolders(), new HupaCallback<FetchFoldersResult>(cachingDispatcher, eventBus, display) {
+        dispatcher.execute(new FetchFolders(), new HupaCallback<FetchFoldersResult>(dispatcher, eventBus, display) {
             public void callback(FetchFoldersResult result) {
                 display.bindTreeItems(createTreeNodes(result.getFolders()));
                 // disable
@@ -183,7 +183,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                         IMAPFolder iFolder = new IMAPFolder((String) event.getOldValue());
                         final String newName = (String) event.getNewValue();
                         if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
-                            cachingDispatcher.execute(new RenameFolder(iFolder, newName), new HupaCallback<GenericResult>(cachingDispatcher, eventBus) {
+                            dispatcher.execute(new RenameFolder(iFolder, newName), new HupaCallback<GenericResult>(dispatcher, eventBus) {
                                 public void callback(GenericResult result) {
                                     folder.setFullName(newName);
                                 }
@@ -255,14 +255,6 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         sendPresenter.revealDisplay();
     }
 
-    /**
-     * Reset the presenter and display
-     */
-    private void reset() {
-        // clear the cache
-        cachingDispatcher.clear();
-    }
-
 
     @Override
     protected void onBind() {
@@ -289,7 +281,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                 }
 
                 display.setLoadingMessage(true);
-                cachingDispatcher.executeWithCache(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaCallback<GetMessageDetailsResult>(cachingDispatcher, eventBus, display) {
+                dispatcher.execute(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaCallback<GetMessageDetailsResult>(dispatcher, eventBus, display) {
                     public void callback(GetMessageDetailsResult result) {
                         if (decreaseUnseen) {
                             eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
@@ -430,7 +422,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         registerHandler(display.getDeleteConfirmClick().addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
-                cachingDispatcher.execute(new DeleteFolder(folder), new AsyncCallback<GenericResult>() {
+                dispatcher.execute(new DeleteFolder(folder), new AsyncCallback<GenericResult>() {
 
                     public void onFailure(Throwable caught) {
                         GWT.log("ERROR while deleting", caught);
@@ -454,7 +446,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                         final IMAPTreeItem item = (IMAPTreeItem) event.getSource();
                         final String newValue = (String) event.getNewValue();
                         if (event.getEventType().equals(EditEvent.EventType.Stop)) {
-                            cachingDispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<GenericResult>() {
+                            dispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<GenericResult>() {
 
                                 public void onFailure(Throwable caught) {
                                     GWT.log("Error while create folder", caught);
@@ -487,8 +479,9 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
-                folder = new IMAPFolder(user.getSettings().getInboxFolderName());
-                messageListPresenter.revealDisplay(user, folder, null);
+                folder = new IMAPFolder(user.getSettings().getInboxFolderName());;
+                searchValue = null;
+                showMessageTable(user, folder, searchValue);
             }
             
         }));
@@ -498,15 +491,6 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
     }
 
-
-    @Override
-    protected void onUnbind() {
-        reset();
-
-        super.onUnbind();
-    }
-
-    
     public void revealDisplay(User user) {
         this.user = user;
         loadTreeItems();  
@@ -515,8 +499,8 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     
     @Override
     protected void onRevealDisplay() {
-        showMessageTable(user, folder, searchValue);
-        super.onRevealDisplay();
+//        showMessageTable(user, folder, searchValue);
+//        super.onRevealDisplay();
     }
     
     public void openLink(String url) {

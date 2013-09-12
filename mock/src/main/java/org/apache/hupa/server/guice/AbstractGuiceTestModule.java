@@ -135,6 +135,7 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             put("IMAPS", "false");
             
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             put("TrustStore", "my-truststore");
             put("TrustStorePassword", "my-truststore-password");
@@ -143,21 +144,27 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             put("IMAPConnectionPoolTimeout", "300000");
             
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
             put("DefaultInboxFolder", "INBOX");
             put("DefaultTrashFolder", "Trash");
             put("DefaultSentFolder", "Sent");
             put("DefaultDraftsFolder", "Drafts");
             
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             put("PostFetchMessageCount", "0");
 
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
             put("SMTPServerAddress", "localhost");
             put("SMTPServerPort", "25");
             put("SMTPS", "false");
             put("SMTPAuth", "true");
             
+<<<<<<< HEAD
 <<<<<<< HEAD
             put("SessionDebug", "true");
 =======
@@ -165,6 +172,9 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             
             put("DefaultUserSessionId", "just_an_id");
 >>>>>>> first commit
+=======
+            put("SessionDebug", "true");
+>>>>>>> constantly changed by manolo
         }
     };
     
@@ -185,6 +195,7 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             put("IMAPS", "false");
             
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             put("TrustStore", "my-truststore");
             put("TrustStorePassword", "my-truststore-password");
@@ -193,21 +204,27 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             put("IMAPConnectionPoolTimeout", "300000");
             
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
             put("DefaultInboxFolder", "INBOX");
             put("DefaultTrashFolder", "INBOX.Trash");
             put("DefaultSentFolder", "INBOX.Sent");
             put("DefaultDraftsFolder", "INBOX.Drafts");
             
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             put("PostFetchMessageCount", "0");
 
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
             put("SMTPServerAddress", "mail.hotelsearch.com");
             put("SMTPServerPort", "25");
             put("SMTPS", "false");
             put("SMTPAuth", "true");
             
+<<<<<<< HEAD
 <<<<<<< HEAD
             put("SessionDebug", "true");
 =======
@@ -215,6 +232,9 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             
             put("DefaultUserSessionId", "just_an_id");
 >>>>>>> first commit
+=======
+            put("SessionDebug", "true");
+>>>>>>> constantly changed by manolo
         }
     };
     
@@ -234,11 +254,14 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             put("IMAPS", "true");
             
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             put("TrustStore", "my-truststore");
             put("TrustStorePassword", "my-truststore-password");
             
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
             put("IMAPConnectionPoolSize", "4");
             put("IMAPConnectionPoolTimeout", "300000");
             
@@ -248,15 +271,19 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             put("DefaultDraftsFolder", "[Gmail]/Drafts");
             
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             put("PostFetchMessageCount", "0");
 
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
             put("SMTPServerAddress", "smtp.gmail.com");
             put("SMTPServerPort", "465");
             put("SMTPS", "true");
             put("SMTPAuth", "true");
             
+<<<<<<< HEAD
 <<<<<<< HEAD
             put("SessionDebug", "true");
 =======
@@ -264,6 +291,9 @@ public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
             
             put("DefaultUserSessionId", "just_an_id");
 >>>>>>> first commit
+=======
+            put("SessionDebug", "true");
+>>>>>>> constantly changed by manolo
         }
     };
 

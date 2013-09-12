@@ -46,6 +46,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
+import javax.mail.UIDFolder;
 import javax.mail.internet.MimeUtility;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
@@ -118,6 +119,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         fp.add(FetchProfile.Item.ENVELOPE);
         fp.add(FetchProfile.Item.FLAGS);
         fp.add(FetchProfile.Item.CONTENT_INFO);
+        fp.add(UIDFolder.FetchProfileItem.UID);
         folder.fetch(messages, fp);
         
         // loop over the fetched messages
@@ -146,7 +148,6 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                 }
             }
             msg.setTo(to);
-
             
             // Check if a subject exist and if so decode it
             String subject = m.getSubject();

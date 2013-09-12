@@ -34,8 +34,8 @@ import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
-import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
@@ -59,6 +59,7 @@ import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
@@ -85,7 +86,7 @@ public class MainView extends Composite implements MainPresenter.Display {
     private IMAPMessageListView mListView;
     private HupaMessages messages;
     private VerticalPanel folderPanel = new VerticalPanel();
-    private SimplePanel panel = new SimplePanel();
+    private Panel westPanel = new HorizontalPanel();
     private HorizontalPanel folderButtonBar = new HorizontalPanel();
     private EnableHyperlink newFolderButton;
     private EnableHyperlink renameFolderButton;
@@ -144,7 +145,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         folderButtonBar.add(deleteFolderButton);
         folderPanel.add(folderButtonBar);
         folderPanel.add(folderTree);
-        panel.add(loader);
+        westPanel.add(loader);
         confirmFolderDeleteBox.setText(messages.confirmDeleteFolder());
         bus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 
@@ -160,7 +161,7 @@ public class MainView extends Composite implements MainPresenter.Display {
             }
 
         });
-        west.add(panel);
+        west.add(westPanel);
     }
 
     @SuppressWarnings("unused")
@@ -242,11 +243,11 @@ public class MainView extends Composite implements MainPresenter.Display {
     public void setLoadingFolders(boolean load) {
         if (load) {
             loader.show();
-            panel.clear();
-            panel.add(loader);
+//            panel.clear();
+            westPanel.add(loader);
         } else {
-            panel.clear();
-            panel.add(folderPanel);
+            westPanel.clear();
+            westPanel.add(folderPanel);
         }
     }
 

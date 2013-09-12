@@ -18,23 +18,28 @@
  ****************************************************************/
 package org.apache.hupa.server.handler;
 
-import com.google.inject.Module;
+import java.io.ByteArrayInputStream;
 
-import com.sun.mail.imap.IMAPStore;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.guice.GuiceServerTestModule;
+import org.apache.hupa.server.guice.providers.LogProvider;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.FetchFolders;
 import org.apache.hupa.shared.rpc.FetchFoldersResult;
+import org.apache.hupa.shared.rpc.FetchMessages;
+import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.MessagingException;
+import com.google.inject.Module;
+import com.sun.mail.imap.IMAPStore;
 
 public class HandlersTest extends HupaGuiceTestCase {
 
@@ -48,7 +53,7 @@ public class HandlersTest extends HupaGuiceTestCase {
         public MyModule() {
             // properties = courierProperties;
             // properties = gmailProperties;
-            // logClass = LogProvider.class;
+            // logProviderClass = LogProvider.class;
         }
     }
     
@@ -57,16 +62,36 @@ public class HandlersTest extends HupaGuiceTestCase {
         return new Module[]{new MyModule()};
     }
 
-    public void testLoginAndFetchFolders() {
-        try {
-            org.apache.hupa.shared.rpc.LoginUser l = new org.apache.hupa.shared.rpc.LoginUser(testUser.getName(),testUser.getPassword());
-            loginUser.execute(l, null);
-            FetchFoldersResult result = fetchFoldersHandler.execute(new FetchFolders(), null);
-            assertNotNull(result);
-        } catch (ActionException e) {
-            e.printStackTrace();
-            fail("Shouldn't throw an exception");
+    public void testLoginAndFetchFolders() throws Exception {
+        org.apache.hupa.shared.rpc.LoginUser l = new org.apache.hupa.shared.rpc.LoginUser(testUser.getName(),testUser.getPassword());
+        loginUser.execute(l, null);
+        FetchFoldersResult result = fetchFoldersHandler.execute(new FetchFolders(), null);
+        assertNotNull(result);
+    }
+    
+    
+    public void testFetchMessages() throws Exception {
+        IMAPStore store = storeCache.get(testUser);
+        
+        String folderName = testUser.getSettings().getInboxFolderName();
+        IMAPFolder sFolder = new IMAPFolder();
+        sFolder.setFullName(folderName);
+        
+        com.sun.mail.imap.IMAPFolder f1 = (com.sun.mail.imap.IMAPFolder)store.getFolder(sFolder.getFullName());
+        assertTrue(f1.exists());
+        
+        FetchMessagesResult result = fetchMessagesHandler.execute(new FetchMessages(sFolder, 0, 100, ""), null);
+        int nmsgs = result.getMessages().size();
+
+        ByteArrayInputStream is = new ByteArrayInputStream("From: a@foo.com\nTo: b@foo.com\nSubject: something\n\ndata".getBytes());
+        MimeMessage msg = new MimeMessage(session, is);
+        if (!f1.isOpen()) {
+            f1.open(Folder.READ_WRITE);
         }
+        f1.addMessages(new Message[]{msg});
+        
+        result = fetchMessagesHandler.execute(new FetchMessages(sFolder, 0, 100, ""), null);
+        assertEquals(1, result.getMessages().size() - nmsgs);
     }
     
     public void testCreateAndDeleteFolder() throws MessagingException {
