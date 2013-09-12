@@ -60,6 +60,7 @@
     <listener>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <listener-class>org.apache.hupa.server.ioc.GuiceListener</listener-class>
 =======
         <listener-class>org.apache.hupa.server.guice.GuiceServletConfig</listener-class>
@@ -67,6 +68,9 @@
 =======
         <listener-class>org.apache.hupa.server.guice.GuiceServletConfig</listener-class>
 >>>>>>> first commit
+=======
+        <listener-class>org.apache.hupa.server.ioc.GuiceListener</listener-class>
+>>>>>>> config guice server module's listener
     </listener>
 
     <!-- Gwt remote logging -->
