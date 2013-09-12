@@ -341,8 +341,6 @@ public class MessageListActivity extends AppBaseActivity {
 						public void onSuccess(GetMessageDetailsResult response) {
 							eventBus.fireEvent(new ExpandMessageEvent(user, new ImapFolderImpl(folderName), event
 									.getValue(), response.getMessageDetails()));
-							// display.getGrid().getSelectionModel().setSelected(event.getValue(),
-							// true);
 							display.getGrid().getSelectionModel().setSelected(event.getValue(), true);
 							toolBar.enableAllTools(true);
 							ToolBarView.Parameters p = new ToolBarView.Parameters(user, folderName, event.getValue(),

@@ -432,5 +432,13 @@ public class MessageContentView extends Composite implements MessageContentActiv
 				+ "=" + uid + (inline ? "&" + SConsts.PARAM_MODE + "=inline" : "");
 	}
 
+<<<<<<< HEAD
 >>>>>>> fixed issue#64, add attachments region in message content view
+=======
+	@Override
+	public void clearContent() {
+		messageContentHTML.setHTML("");
+	}
+
+>>>>>>> fixed issue#76 with adding delete handler event
 }

@@ -191,6 +191,8 @@ import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.MessageAttachment;
+import org.apache.hupa.shared.events.DeleteClickEvent;
+import org.apache.hupa.shared.events.DeleteClickEventHandler;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
@@ -210,6 +212,7 @@ public class MessageContentActivity extends AppBaseActivity {
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
+		bindTo(eventBus);
 		if (isUidSet()) {
 			GetMessageDetailsRequest req = rf.messageDetailsRequest();
 			GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
@@ -238,6 +241,7 @@ public class MessageContentActivity extends AppBaseActivity {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject private Displayable display;
 <<<<<<< HEAD
 	
@@ -247,6 +251,17 @@ public class MessageContentActivity extends AppBaseActivity {
 =======
 =======
 =======
+=======
+	private void bindTo(EventBus eventBus) {
+		eventBus.addHandler(DeleteClickEvent.TYPE, new DeleteClickEventHandler() {
+			@Override
+			public void onDeleteClickEvent(DeleteClickEvent event) {
+				display.clearContent();
+			}
+		});
+	}
+
+>>>>>>> fixed issue#76 with adding delete handler event
 	private boolean isUidSet() {
 		return uid != null && uid.matches("\\d+");
 	}
@@ -259,6 +274,7 @@ public class MessageContentActivity extends AppBaseActivity {
 	public interface Displayable extends IsWidget {
 >>>>>>> replace with IsWidget
 		void fillMessageContent(String messageContent);
+		void clearContent();
 		void setAttachments(List<MessageAttachment> attachements, String folder, long uid);
 	}
 
