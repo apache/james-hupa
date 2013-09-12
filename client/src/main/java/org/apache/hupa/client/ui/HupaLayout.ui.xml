@@ -224,17 +224,17 @@
 				<g:center>
 					<g:SplitLayoutPanel ui:field="messageSpace">
 						<g:west size="373">
-							<g:LayoutPanel ui:field="folderArea"
+							<g:DockLayoutPanel ui:field="folderArea"
 								addStyleNames="{style.folderList}  {style.box}  {style.listBox}">
-								<g:layer top="0" height="100%">
-									<g:SimplePanel ui:field="folderListContainer" />
-								</g:layer>
-								<g:layer bottom="0" height="41px">
+								<g:center>
+									<g:ScrollPanel ui:field="folderListContainer" />
+								</g:center>
+								<g:south size="41">
 									<g:SimplePanel styleName="{style.boxFooter}">
 										<g:HTMLPanel tag="span"></g:HTMLPanel>
 									</g:SimplePanel>
-								</g:layer>
-							</g:LayoutPanel>
+								</g:south>
+							</g:DockLayoutPanel>
 						</g:west>
 						<g:center>
 							<g:SplitLayoutPanel ui:field="messageArea">
@@ -245,7 +245,8 @@
 											<g:SimpleLayoutPanel ui:field="messageListContainer" />
 										</g:center>
 										<g:south size="31">
-											<g:SimplePanel ui:field="messageListFooterContainer" addStyleNames="{style.messageListFooter}"/>
+											<g:SimplePanel ui:field="messageListFooterContainer"
+												addStyleNames="{style.messageListFooter}" />
 										</g:south>
 									</g:DockLayoutPanel>
 								</g:north>
@@ -255,17 +256,15 @@
 									</g:HTMLPanel>
 								</g:west>
 								<g:center>
-									<g:LayoutPanel addStyleNames="{style.box}"
+									<g:DockLayoutPanel unit="PX" addStyleNames="{style.box}"
 										ui:field="MessageContentBox">
-										<g:layer>
-											<g:SimplePanel ui:field="messageContentContainer">
-											</g:SimplePanel>
-										</g:layer>
-										<g:layer bottom="0" height="25px">
-											<g:SimplePanel ui:field="statusContainer">
-											</g:SimplePanel>
-										</g:layer>
-									</g:LayoutPanel>
+										<g:center>
+											<g:ScrollPanel ui:field="messageContentContainer" />
+										</g:center>
+										<g:south size="25">
+											<g:SimplePanel ui:field="statusContainer" />
+										</g:south>
+									</g:DockLayoutPanel>
 								</g:center>
 							</g:SplitLayoutPanel>
 						</g:center>

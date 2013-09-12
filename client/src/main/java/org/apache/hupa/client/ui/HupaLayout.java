@@ -32,6 +32,7 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 <<<<<<< HEAD
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -259,14 +260,14 @@ public class HupaLayout implements HupaLayoutable {
 	@UiField SimplePanel toolBarContainer;
 
 	@UiField SplitLayoutPanel messageSpace;
-	@UiField LayoutPanel folderArea;
+	@UiField DockLayoutPanel folderArea;
 
 	@UiField SplitLayoutPanel messageArea;
-	@UiField SimplePanel folderListContainer;
+	@UiField ScrollPanel folderListContainer;
 	@UiField DockLayoutPanel messageListBox;
 	@UiField SimpleLayoutPanel messageListContainer;
 	@UiField SimplePanel messageListFooterContainer;
-	@UiField SimplePanel messageContentContainer;
+	@UiField ScrollPanel messageContentContainer;
 	@UiField SimplePanel statusContainer;
 
 	@UiField HTMLPanel contactBox;
