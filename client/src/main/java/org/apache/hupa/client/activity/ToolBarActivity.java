@@ -282,7 +282,13 @@ public class ToolBarActivity extends AppBaseActivity {
 		});
 	}
 
-	public interface Displayable extends WidgetDisplayable {
+
+	// FIXME: for some reason if we extend WidgetDisplayable we get the error
+	// ToolBarActivity.java:[124,38] error: cannot find symbol
+	public interface Displayable /*extends WidgetDisplayable*/ {
+	    // FIXME: added this method until we fix the problem with inheritance
+	    com.google.gwt.user.client.ui.Widget asWidget();
+
 		void enableSendingTools(boolean is);
 		HandlerRegistration getForwardReg();
 		HandlerRegistration getReplyAllReg();
