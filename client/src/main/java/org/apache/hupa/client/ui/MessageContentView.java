@@ -65,10 +65,14 @@ public class MessageContentView extends Composite implements MessageContentActiv
 	@UiField FlowPanel attachments;
 	@UiField DockLayoutPanel thisPanel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@UiField Anchor rawButton;
 	@UiField SimplePanel rawPanel;
 =======
 >>>>>>> show/hide attachment's panel according to the attachments size
+=======
+	@UiField Anchor rawButton;
+>>>>>>> fixed issue#86, use opening a new window button to show the raw message in a new window
 
 	@Inject
 =======
@@ -462,5 +466,13 @@ public class MessageContentView extends Composite implements MessageContentActiv
 	}
 
 	private static Binder binder = GWT.create(Binder.class);
+<<<<<<< HEAD
 >>>>>>> show/hide attachment's panel according to the attachments size
+=======
+
+	@Override
+	public HasClickHandlers getRaw() {
+		return rawButton;
+	}
+>>>>>>> fixed issue#86, use opening a new window button to show the raw message in a new window
 }

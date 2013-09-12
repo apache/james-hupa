@@ -124,6 +124,7 @@ public class MessageContentActivity extends AppBaseActivity {
 			}
 
 		}));
+<<<<<<< HEAD
 	}
 
 	private boolean isUidSet() {
@@ -276,6 +277,8 @@ public class MessageContentActivity extends AppBaseActivity {
 				display.clearContent();
 			}
 		});
+=======
+>>>>>>> fixed issue#86, use opening a new window button to show the raw message in a new window
 	}
 
 >>>>>>> fixed issue#76 with adding delete handler event
@@ -294,6 +297,7 @@ public class MessageContentActivity extends AppBaseActivity {
 		void clearContent();
 		void setAttachments(List<MessageAttachment> attachements, String folder, long uid);
 		void showAttachmentPanel(boolean is);
+		HasClickHandlers getRaw();
 	}
 
 	public Activity with(TokenWrapper tokenWrapper) {
