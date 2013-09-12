@@ -11,6 +11,7 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+<<<<<<< HEAD
 	<g:DockLayoutPanel>
 		<g:center>
 			<g:ScrollPanel ui:field="thisView" />
@@ -22,4 +23,7 @@
 			</g:FlowPanel>
 		</g:south>
 	</g:DockLayoutPanel>
+=======
+	<g:SimplePanel ui:field="thisView" />
+>>>>>>> make label settings prototype
 </ui:UiBinder>

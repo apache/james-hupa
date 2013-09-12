@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -178,10 +179,63 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 	}
 
 	interface LabelListUiBinder extends UiBinder<DockLayoutPanel, LabelListView> {
+=======
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.hupa.client.activity.LabelListActivity;
+
+import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
+
+public class LabelListView extends Composite implements LabelListActivity.Displayable {
+
+	@UiField SimplePanel thisView;
+
+	public LabelListView() {
+		initWidget(binder.createAndBindUi(this));
+		thisView.setWidget(createTabList());
+	}
+
+	private static final List<String> TABS = Arrays.asList("Mock-Inbox", "Mock-Junk", "Mock-Draft", "Mock-Delete");
+
+	private CellList<String> createTabList() {
+		TextCell textCell = new TextCell();
+		CellList<String> cellList = new CellList<String>(textCell);
+		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
+		final SingleSelectionModel<String> selectionModel = new SingleSelectionModel<String>();
+		cellList.setSelectionModel(selectionModel);
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			public void onSelectionChange(SelectionChangeEvent event) {
+				String selected = selectionModel.getSelectedObject();
+				if (selected != null) {
+					// Window.alert("You selected: " + selected);
+				}
+			}
+		});
+		cellList.setRowCount(TABS.size(), true);
+
+		// Push the data into the widget.
+		cellList.setRowData(0, TABS);
+		return cellList;
+	}
+
+	interface LabelListUiBinder extends UiBinder<SimplePanel, LabelListView> {
+>>>>>>> make label settings prototype
 	}
 
 	private static LabelListUiBinder binder = GWT.create(LabelListUiBinder.class);
 
+<<<<<<< HEAD
 	@Override
 	public HasClickHandlers getAdd() {
 		return add;
@@ -197,4 +251,6 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 		data.refresh();
 	}
 
+=======
+>>>>>>> make label settings prototype
 }

@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.activity;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.rf.DeleteFolderRequest;
 import org.apache.hupa.client.ui.LabelNode;
@@ -110,4 +111,22 @@ public class LabelListActivity extends AppBaseActivity {
 			}
 		});
 	}
+=======
+import org.apache.hupa.client.ui.WidgetDisplayable;
+
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.inject.Inject;
+
+public class LabelListActivity extends AppBaseActivity {
+
+	@Override
+	public void start(AcceptsOneWidget container, EventBus eventBus) {
+		container.setWidget(display.asWidget());
+	}
+
+	@Inject private Displayable display;
+	
+	public interface Displayable extends WidgetDisplayable {}
+>>>>>>> make label settings prototype
 }

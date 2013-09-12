@@ -402,6 +402,11 @@ public class HupaLayout implements HupaLayoutable {
 	public AcceptsOneWidget getStatusView() {
 		return centerPanel.getStatusView();
 	}
+	
+	@Override
+	public AcceptsOneWidget getLabelListView() {
+		return settingPanel.getLabelListView();
+	}
 
 <<<<<<< HEAD
 	@Override

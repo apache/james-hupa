@@ -136,6 +136,10 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
 
 	<ui:style src="res/CssSplitLayoutPanel.css">
+		.scroller {
+			overflow: auto;
+		}
+		
 		.uibox {
 			border: 1px solid #a3a3a3;
 			border-radius: 4px;
@@ -150,6 +154,24 @@
 		.listbox {
 			background: #d9ecf4;
 			overflow: hidden;
+		}
+		
+		.listbox .scroller {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			bottom: 0;
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+		
+		.listbox .scroller.withfooter {
+			bottom: 42px;
+		}
+		
+		.listbox .boxtitle+.scroller {
+			top: 34px;
 		}
 		
 		.boxtitle,.uibox .listing thead td {
@@ -181,6 +203,15 @@
 			border-bottom: 1px solid #ccc;
 		}
 		
+		.contentbox .scroller {
+			position: absolute;
+			top: 34px;
+			left: 0;
+			right: 0;
+			bottom: 28px;
+			overflow: auto;
+		}
+		
 		body.iframe .boxtitle {
 			position: fixed;
 			top: 0;
@@ -200,20 +231,30 @@
 					</g:HTML>
 				</g:north>
 				<g:center>
-					<g:HTML>
-						center
-					</g:HTML>
+					<g:SimpleLayoutPanel ui:field="settingsTab"
+						addStyleNames="{style.scroller}" />
 				</g:center>
 			</g:DockLayoutPanel>
 		</g:west>
 		<g:center>
 			<g:SplitLayoutPanel>
 				<g:west size="260">
-					<g:SimpleLayoutPanel addStyleNames="{style.listbox} {style.uibox}">
-						<g:HTML>
-							<h2 class="{style.boxtitle}">Section</h2>
-						</g:HTML>
-					</g:SimpleLayoutPanel>
+					<g:DockLayoutPanel addStyleNames="{style.listbox} {style.uibox}">
+						<g:north size="34">
+							<g:HTML>
+								<h2 class="{style.boxtitle}">Folders</h2>
+							</g:HTML>
+						</g:north>
+						<g:center>
+							<g:ScrollPanel ui:field="labelListContainer" />
+						</g:center>
+						<g:south size="43">
+							<g:FlowPanel ui:field="folderOpButtons">
+								<g:Button ui:field="add">Add</g:Button>
+								<g:Button ui:field="delete">Delete</g:Button>
+							</g:FlowPanel>
+						</g:south>
+					</g:DockLayoutPanel>
 				</g:west>
 				<g:center>
 					<g:SimpleLayoutPanel addStyleNames="{style.uibox} {style.contentbox}">

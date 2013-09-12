@@ -141,5 +141,10 @@ public interface HupaLayoutable extends Layoutable {
 =======
 
 	void switchToSetting();
+<<<<<<< HEAD
 >>>>>>> attempt to add label setting feature
+=======
+
+	AcceptsOneWidget getLabelListView();
+>>>>>>> make label settings prototype
 }

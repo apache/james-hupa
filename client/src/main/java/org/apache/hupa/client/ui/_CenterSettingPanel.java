@@ -20,6 +20,7 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.core.client.GWT;
@@ -88,18 +89,62 @@ public class _CenterSettingPanel extends Composite {
 
 	interface _CeterSettingPanelUiBinder extends UiBinder<SplitLayoutPanel, _CenterSettingPanel> {
 =======
+=======
+import java.util.Arrays;
+import java.util.List;
+
+import com.google.gwt.cell.client.TextCell;
+>>>>>>> make label settings prototype
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 public class _CenterSettingPanel extends Composite {
-	
+
 	@UiField SplitLayoutPanel thisPanel;
 
+	@UiField SimpleLayoutPanel settingsTab;
+	
+	@UiField ScrollPanel labelListContainer;
+
 	public _CenterSettingPanel() {
+		
 		initWidget(binder.createAndBindUi(this));
+		settingsTab.setWidget(createTabList());
+	}
+	private static final List<String> TABS = Arrays.asList("Folders");
+
+	private CellList<String> createTabList() {
+		TextCell textCell = new TextCell();
+		CellList<String> cellList = new CellList<String>(textCell);
+		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
+		final SingleSelectionModel<String> selectionModel = new SingleSelectionModel<String>();
+		cellList.setSelectionModel(selectionModel);
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			public void onSelectionChange(SelectionChangeEvent event) {
+				String selected = selectionModel.getSelectedObject();
+				if (selected != null) {
+//					Window.alert("You selected: " + selected);
+				}
+			}
+		});
+		cellList.setRowCount(TABS.size(), true);
+
+		// Push the data into the widget.
+		cellList.setRowData(0, TABS);
+		return cellList;
 	}
 
 <<<<<<< HEAD
@@ -112,6 +157,7 @@ public class _CenterSettingPanel extends Composite {
 
 	private static _CeterSettingPanelUiBinder binder = GWT.create(_CeterSettingPanelUiBinder.class);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public AcceptsOneWidget getLabelListView() {
 		return settingLabelPanel.getLabelListView();
@@ -126,10 +172,18 @@ public class _CenterSettingPanel extends Composite {
 			@Override
 			public void setWidget(IsWidget w) {
 				settingNavContainer.setWidget(Widget.asWidgetOrNull(w));
+=======
+	public AcceptsOneWidget getLabelListView() {
+		return new AcceptsOneWidget() {
+			@Override
+			public void setWidget(IsWidget w) {
+				labelListContainer.setWidget(Widget.asWidgetOrNull(w));
+>>>>>>> make label settings prototype
 			}
 		};
 	}
 
+<<<<<<< HEAD
 	public void swithTo(SettingPlace sp) {
 		int lyt;
 		if ("ecs".equals(sp.getToken())) {
@@ -143,4 +197,6 @@ public class _CenterSettingPanel extends Composite {
 	}
 =======
 >>>>>>> attempt to add label setting feature
+=======
+>>>>>>> make label settings prototype
 }
