@@ -146,5 +146,10 @@ public interface HupaLayoutable extends Layoutable {
 =======
 
 	AcceptsOneWidget getLabelListView();
+<<<<<<< HEAD
 >>>>>>> make label settings prototype
+=======
+
+	AcceptsOneWidget getLabelPropertiesView();
+>>>>>>> add rename RF to label setting feature
 }

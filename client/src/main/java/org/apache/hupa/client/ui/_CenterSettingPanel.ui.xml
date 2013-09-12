@@ -268,8 +268,7 @@
 						<g:HTMLPanel>
 							<h2 class="{style.boxtitle}">Folder properties</h2>
 							<g:FlowPanel addStyleNames="{style.boxcontent}">
-								<hupa:SettingFolderActionView />
-								<g:Button>Save</g:Button>
+								<g:SimplePanel ui:field="labelPropertiesContainer"></g:SimplePanel>
 							</g:FlowPanel>
 							<div class="{style.statusbar}" />
 						</g:HTMLPanel>

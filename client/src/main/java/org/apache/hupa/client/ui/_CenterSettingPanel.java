@@ -105,6 +105,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -117,6 +118,7 @@ public class _CenterSettingPanel extends Composite {
 	@UiField SimpleLayoutPanel settingsTab;
 	
 	@UiField ScrollPanel labelListContainer;
+	@UiField SimplePanel labelPropertiesContainer;
 
 	public _CenterSettingPanel() {
 		
@@ -183,6 +185,7 @@ public class _CenterSettingPanel extends Composite {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public void swithTo(SettingPlace sp) {
 		int lyt;
 		if ("ecs".equals(sp.getToken())) {
@@ -198,4 +201,14 @@ public class _CenterSettingPanel extends Composite {
 >>>>>>> attempt to add label setting feature
 =======
 >>>>>>> make label settings prototype
+=======
+	public AcceptsOneWidget getLabelPropertiesView() {
+		return new AcceptsOneWidget() {
+			@Override
+			public void setWidget(IsWidget w) {
+				labelPropertiesContainer.setWidget(Widget.asWidgetOrNull(w));
+			}
+		};
+	}
+>>>>>>> add rename RF to label setting feature
 }

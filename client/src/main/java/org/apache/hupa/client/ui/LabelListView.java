@@ -22,10 +22,12 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.hupa.client.activity.LabelListActivity;
 import org.apache.hupa.client.activity.LabelPropertiesActivity;
+<<<<<<< HEAD
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.ImapFolder;
 
@@ -188,11 +190,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hupa.client.activity.LabelListActivity;
+=======
+>>>>>>> add rename RF to label setting feature
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.ImapFolder;
 
-import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
@@ -200,6 +205,9 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
+import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -209,48 +217,92 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 	@UiField SimplePanel thisView;
 
 	@Inject
-	public LabelListView(HupaRequestFactory rf) {
+	public LabelListView(HupaRequestFactory rf, final LabelPropertiesActivity.Displayable labelProperties) {
 		initWidget(binder.createAndBindUi(this));
-		ImapLabelListDataProvider data = new ImapLabelListDataProvider(rf);
-		CellList<String> cellList = new CellList<String>(new TextCell());
+		final ImapLabelListDataProvider data = new ImapLabelListDataProvider(rf);
+		CellList<LabelNode> cellList = new CellList<LabelNode>(new LabelCell());
+		cellList.setSelectionModel(selectionModel);
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			public void onSelectionChange(SelectionChangeEvent event) {
+				labelProperties.cascade(selectionModel.getSelectedObject(), data.getDataList());
+			}
+		});
 		data.addDataDisplay(cellList);
 		thisView.setWidget(cellList);
 	}
 
-	public class ImapLabelListDataProvider extends AsyncDataProvider<String> {
+	public final SingleSelectionModel<LabelNode> selectionModel = new SingleSelectionModel<LabelNode>(
+			new ProvidesKey<LabelNode>() {
+				@Override
+				public Object getKey(LabelNode item) {
+					return item == null ? null : item.getPath();
+				}
+			});
+
+	static class LabelCell extends AbstractCell<LabelNode> {
+
+		public LabelCell() {
+		}
+
+		@Override
+		public void render(com.google.gwt.cell.client.Cell.Context context, LabelNode value, SafeHtmlBuilder sb) {
+			if (value == null) {
+				return;
+			}
+
+			if (value.getFolder().getSubscribed()) {
+				sb.appendHtmlConstant(value.getName());
+			} else {
+				sb.appendHtmlConstant("<span style='color:gray;'>");
+				sb.appendHtmlConstant(value.getName());
+				sb.appendHtmlConstant("</span>");
+			}
+		}
+	}
+
+	public class ImapLabelListDataProvider extends AsyncDataProvider<LabelNode> {
 
 		private HupaRequestFactory rf;
+		private List<LabelNode> folderNodes = new ArrayList<LabelNode>();
+
+		public List<LabelNode> getDataList() {
+			return Collections.unmodifiableList(folderNodes);
+		}
 
 		public ImapLabelListDataProvider(HupaRequestFactory rf) {
 			this.rf = rf;
 		}
 
 		@Override
-		public void addDataDisplay(HasData<String> display) {
+		public void addDataDisplay(HasData<LabelNode> display) {
 			super.addDataDisplay(display);
 		}
 
 		@Override
-		protected void onRangeChanged(HasData<String> display) {
+		protected void onRangeChanged(HasData<LabelNode> display) {
 			rf.fetchFoldersRequest().fetch(null, Boolean.TRUE).fire(new Receiver<List<ImapFolder>>() {
 				@Override
 				public void onSuccess(List<ImapFolder> response) {
 					if (response == null || response.size() == 0) {
 						updateRowCount(-1, true);
 					} else {
-						List<String> fn = new ArrayList<String>();
-						for (ImapFolder a : response) {
-							fillCellList(fn, a);
+						for (ImapFolder folder : response) {
+							fillCellList(folderNodes, folder, null);
 						}
-						updateRowData(0, fn);
+						updateRowData(0, folderNodes);
 					}
 				}
 
-				private void fillCellList(List<String> fn, ImapFolder a) {
-					fn.add(a.getFullName());
-					if(a.getHasChildren()){
-						for(ImapFolder subFolder : a.getChildren()){
-							fillCellList(fn, subFolder);
+				private void fillCellList(List<LabelNode> folderNodes, ImapFolder curFolder, LabelNode parent) {
+					LabelNode labelNode = new LabelNode();
+					labelNode.setFolder(curFolder);
+					labelNode.setName(curFolder.getName());
+					labelNode.setParent(parent);
+					labelNode.setPath(curFolder.getFullName());
+					folderNodes.add(labelNode);
+					if (curFolder.getHasChildren()) {
+						for (ImapFolder subFolder : curFolder.getChildren()) {
+							fillCellList(folderNodes, subFolder, labelNode);
 						}
 					}
 				}

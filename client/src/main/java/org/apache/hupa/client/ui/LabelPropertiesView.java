@@ -21,6 +21,7 @@ package org.apache.hupa.client.ui;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.LabelListActivity;
 import org.apache.hupa.client.activity.LabelPropertiesActivity;
@@ -37,23 +38,44 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+=======
+import org.apache.hupa.client.activity.LabelListActivity;
+import org.apache.hupa.client.activity.LabelPropertiesActivity;
+import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.rf.RenameFolderRequest;
+import org.apache.hupa.shared.domain.GenericResult;
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.RenameFolderAction;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+>>>>>>> add rename RF to label setting feature
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.CaptionPanel;
+=======
+>>>>>>> add rename RF to label setting feature
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
+=======
+import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
+>>>>>>> add rename RF to label setting feature
 
 public class LabelPropertiesView extends Composite implements LabelPropertiesActivity.Displayable {
 
 	@Inject HupaRequestFactory rf;
+<<<<<<< HEAD
 	@Inject HupaController hc;
 	@Inject EventBus eventBus;
 
@@ -120,6 +142,28 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 			});
 
 		}
+=======
+	
+	@UiField TextBox _name;
+	@UiField ListBox _parent;
+	@UiField Button save;
+	
+	ImapFolder folder;
+
+	@UiHandler("save")
+	void handleCompose(ClickEvent e){
+		RenameFolderRequest req = rf.renameFolderRequest();
+		RenameFolderAction action = req.create(RenameFolderAction.class);
+		action.setFolder(folder);
+		action.setNewName(_name.getText());
+		req.rename(action).fire(new Receiver<GenericResult>() {
+			@Override
+			public void onSuccess(GenericResult response) {
+//				afterSend(response);
+				System.out.println("success to rename");
+			}
+		});
+>>>>>>> add rename RF to label setting feature
 	}
 	public LabelPropertiesView() {
 		initWidget(binder.createAndBindUi(this));
@@ -131,6 +175,7 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 	private static Binder binder = GWT.create(Binder.class);
 
 	@Override
+<<<<<<< HEAD
 	public void cascade(LabelNode labelNode, List<LabelNode> wholeList, int type) {
 		state = type;
 		switch (type) {
@@ -187,6 +232,21 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 	@Override
 	public HasClickHandlers getSave() {
 		return save;
+=======
+	public void cascade(LabelNode labelNode, List<LabelNode> list) {
+		_name.setText(labelNode.getName());
+		folder = labelNode.getFolder();
+		if (!(labelNode.getFolder().getSubscribed())) {
+			_name.setEnabled(false);
+		} else {
+			_name.setEnabled(true);
+		}
+		_parent.clear();
+		for (LabelNode folderNode : list) {
+			_parent.addItem(folderNode.getName(), folderNode.getPath());
+		}
+		_parent.setSelectedIndex(list.indexOf(labelNode.getParent()));
+>>>>>>> add rename RF to label setting feature
 	}
 
 }

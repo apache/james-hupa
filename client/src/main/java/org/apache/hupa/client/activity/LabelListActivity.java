@@ -20,6 +20,7 @@
 package org.apache.hupa.client.activity;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.rf.DeleteFolderRequest;
 import org.apache.hupa.client.ui.LabelNode;
@@ -112,6 +113,9 @@ public class LabelListActivity extends AppBaseActivity {
 		});
 	}
 =======
+=======
+import org.apache.hupa.client.ui.LabelNode;
+>>>>>>> add rename RF to label setting feature
 import org.apache.hupa.client.ui.WidgetDisplayable;
 
 import com.google.gwt.event.shared.EventBus;
@@ -126,7 +130,13 @@ public class LabelListActivity extends AppBaseActivity {
 	}
 
 	@Inject private Displayable display;
+<<<<<<< HEAD
 	
 	public interface Displayable extends WidgetDisplayable {}
 >>>>>>> make label settings prototype
+=======
+
+	public interface Displayable extends WidgetDisplayable {
+	}
+>>>>>>> add rename RF to label setting feature
 }
