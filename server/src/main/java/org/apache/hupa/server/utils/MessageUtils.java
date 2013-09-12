@@ -67,6 +67,7 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.Address;
 import javax.mail.BodyPart;
+import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
@@ -199,7 +200,7 @@ public class MessageUtils {
      * @throws MessagingException
      * @throws IOException
      */
-    public static boolean handleParts(MimeMessage message, Object content, StringBuffer sbPlain,
+    public static boolean handleParts(Message message, Object content, StringBuffer sbPlain,
             ArrayList<MessageAttachment> attachmentList) throws UnsupportedEncodingException, MessagingException,
             IOException {
         boolean isHTML = false;
