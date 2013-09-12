@@ -53,6 +53,8 @@ import org.apache.hupa.shared.domain.SendMessageAction;
 import org.apache.hupa.shared.domain.SendReplyMessageAction;
 import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.events.ContactsUpdatedEvent;
+import org.apache.hupa.shared.events.ContactsUpdatedEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.MailToEvent;
@@ -98,6 +100,9 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fixed issue#73, using LinkedHashSet in memory to store the contacts list like 'Echo Wang <echowdx@gmail.com>'
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.History;
 <<<<<<< HEAD
@@ -620,6 +625,18 @@ public class ComposeActivity extends AppBaseActivity {
 				display.getTo().setText(event.getMailto());
 			}});
 		
+		fillSuggestList();
+		
+	}
+
+	private void fillSuggestList() {
+		Storage contactStore = Storage.getLocalStorageIfSupported();
+		if(contactStore != null){
+			String contactsString = contactStore.getItem(MessagesCellTable.CONTACTS_STORE);
+			if(contactsString != null){
+				display.fillContactList(contactsString.replace("[", "").replace("]", "").trim().split(","));	
+			}	
+		}
 	}
 
 <<<<<<< HEAD
@@ -995,6 +1012,7 @@ public class ComposeActivity extends AppBaseActivity {
 		ListBox getFromList();
 		IUploader getUploader();
 		void fillContactList(String[] contacts);
+<<<<<<< HEAD
 =======
 		Window.alert("//TODO send result is: " + response.isSuccess());
 =======
@@ -1046,5 +1064,7 @@ public class ComposeActivity extends AppBaseActivity {
 >>>>>>> make add operation buttons work according to the click events
 		IUploader getUploader();
 >>>>>>> make attachments sending work as expected
+=======
+>>>>>>> fixed issue#73, using LinkedHashSet in memory to store the contacts list like 'Echo Wang <echowdx@gmail.com>'
 	}
 }

@@ -500,7 +500,9 @@ public class MessagesCellTable extends DataGrid<Message> {
 package org.apache.hupa.client.ui;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaController;
@@ -524,6 +526,8 @@ import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.NativeEvent;
@@ -533,6 +537,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
@@ -592,6 +597,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 	HupaRequestFactory rf;
 
 	private MessageListDataProvider dataProvider;
+	public static final String CONTACTS_STORE = "hupa-contacts";
 
 	public class MessageListDataProvider extends AsyncDataProvider<Message> implements HasRefresh {
 
@@ -608,12 +614,48 @@ public class MessagesCellTable extends DataGrid<Message> {
 			this.onRangeChanged(display);
 		}
 
+		Set<String> contacts = new LinkedHashSet<String>();
+		private Storage contactsStore = null;
+
+		private void cacheContacts(List<Message> messages) {
+			for (Message message : messages) {
+				message.getFrom();
+				message.getTo();
+				message.getCc();
+				message.getReplyto();
+
+				contacts.add(message.getFrom());
+				contacts.add(message.getReplyto());
+
+				for (String to : message.getTo()) {
+					contacts.add(to);
+				}
+				for (String cc : message.getCc()) {
+					contacts.add(cc);
+				}
+			}
+			saveToLocalStorage(contacts);
+		}
+		private void saveToLocalStorage(Set<String> contacts) {
+			contactsStore = Storage.getLocalStorageIfSupported();
+			if (contactsStore != null) {
+				String contactsString = contactsStore.getItem(CONTACTS_STORE);
+				if (null != contactsString) {
+					for (String contact : contactsString.split(",")) {
+						contacts.add(contact.replace("[", "").replace("]", "").trim());
+
+					}
+				}
+				contactsStore.setItem(CONTACTS_STORE, contacts.toString());
+			}
+		}
+
 		@Override
 		protected void onRangeChanged(HasData<Message> display) {
 			FetchMessagesRequest req = rf.messagesRequest();
 			FetchMessagesAction action = req.create(FetchMessagesAction.class);
 			final ImapFolder f = req.create(ImapFolder.class);
-            final int start = display.getVisibleRange().getStart();
+			final int start = display.getVisibleRange().getStart();
 			f.setFullName(parseFolderName(pc));
 			action.setFolder(f);
 			action.setOffset(display.getVisibleRange().getLength());
@@ -629,6 +671,11 @@ public class MessagesCellTable extends DataGrid<Message> {
 						updateRowData(start, response.getMessages());
 					}
 					hc.hideTopLoading();
+					Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+						public void execute() {
+							cacheContacts(response.getMessages());
+						}
+					});
 				}
 
 				@Override
@@ -643,14 +690,13 @@ public class MessagesCellTable extends DataGrid<Message> {
 		}
 
 	}
-	
+
 	public final class CheckboxHeader extends Header<Boolean> {
 
 		private final MultiSelectionModel<? super Message> selectionModel;
 		private final AsyncDataProvider<Message> provider;
 
-		public CheckboxHeader(MultiSelectionModel<? super Message> selectionModel,
-				AsyncDataProvider<Message> provider) {
+		public CheckboxHeader(MultiSelectionModel<? super Message> selectionModel, AsyncDataProvider<Message> provider) {
 			super(new CheckboxCell());
 			this.selectionModel = selectionModel;
 			this.provider = provider;
@@ -658,10 +704,10 @@ public class MessagesCellTable extends DataGrid<Message> {
 
 		@Override
 		public Boolean getValue() {
-			if(selectionModel == null || provider==null){
+			if (selectionModel == null || provider == null) {
 				return false;
 			}
-			if(selectionModel.getSelectedSet().size() == 0 || provider.getDataDisplays().size() == 0){
+			if (selectionModel.getSelectedSet().size() == 0 || provider.getDataDisplays().size() == 0) {
 				return false;
 			}
 			boolean allItemsSelected = selectionModel.getSelectedSet().size() == provider.getDataDisplays().size();

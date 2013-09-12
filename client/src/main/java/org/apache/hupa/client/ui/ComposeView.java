@@ -466,6 +466,12 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 		hideRow(ROW_FOLLOWUP);
 		// show(addFollowupButton);
 	}
+	
+
+	@Override
+    public void fillContactList(String[] contacts){
+        toSuggest.fillOracle(contacts);
+    }
 
 	private void showRow(int row) {
 		if (isShowing(row)) {
