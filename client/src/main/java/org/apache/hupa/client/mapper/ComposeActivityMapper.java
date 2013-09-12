@@ -45,7 +45,7 @@ public class ComposeActivityMapper implements ActivityMapper {
 		if (!(place instanceof ComposePlace))
 			return null;
 		final ComposePlace composePlace = (ComposePlace)place;
-//		if(composePlace.getParameters() == null) return null;
+		if(composePlace.getParameters() == null) return null;
 //		if(composePlace.getParameters() == null){
 //			placeController.goTo(new MailFolderPlace("Mock-Inbox"));
 //		}

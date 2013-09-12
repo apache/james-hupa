@@ -136,8 +136,8 @@
 		</g:west>
 		<g:center>
 			<g:SimplePanel addStyleNames="{style.hideLoading} {style.loadingPosition} {style.textCenter}" ui:field="loading">
-				<g:HTMLPanel addStyleNames="{style.fontFeel}">Loading...
-				</g:HTMLPanel>
+				<g:HTML ui:field="loadingRegion" addStyleNames="{style.fontFeel}">Loading...
+				</g:HTML>
 			</g:SimplePanel>
 		</g:center>
 		<g:east size="300">

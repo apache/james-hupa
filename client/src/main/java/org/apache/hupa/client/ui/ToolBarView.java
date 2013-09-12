@@ -28,6 +28,7 @@ import org.apache.hupa.client.place.ComposePlace;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.client.rf.HupaRequestFactory;
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.User;
@@ -48,6 +49,8 @@ import org.apache.hupa.shared.domain.DeleteMessageResult;
 =======
 >>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
 import org.apache.hupa.shared.domain.ImapFolder;
+=======
+>>>>>>> fixed issue#61; add loading to mark, unmark.
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
 <<<<<<< HEAD
@@ -427,13 +430,13 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 
 	public static class Parameters {
 		private User user;
-		private ImapFolder folder;
+		private String folderName;
 		private Message oldmessage;
 		private MessageDetails oldDetails;
 
-		public Parameters(User user, ImapFolder folder, Message oldmessage, MessageDetails oldDetails) {
+		public Parameters(User user, String folderName, Message oldmessage, MessageDetails oldDetails) {
 			this.user = user;
-			this.folder = folder;
+			this.folderName = folderName;
 			this.oldmessage = oldmessage;
 			this.oldDetails = oldDetails;
 		}
@@ -446,12 +449,12 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 			this.user = user;
 		}
 
-		public ImapFolder getFolder() {
-			return folder;
+		public String getFolderName() {
+			return folderName;
 		}
 
-		public void setFolder(ImapFolder folder) {
-			this.folder = folder;
+		public void setFolderName(String folderName) {
+			this.folderName = folderName;
 		}
 
 		public Message getOldmessage() {

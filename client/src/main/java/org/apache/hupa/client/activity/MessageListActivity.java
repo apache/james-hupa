@@ -266,7 +266,11 @@ import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.MessagesCellTable;
+<<<<<<< HEAD
 >>>>>>> let messages list activity make use of mvp
+=======
+import org.apache.hupa.client.ui.ToolBarView;
+>>>>>>> fixed issue#61; add loading to mark, unmark.
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
@@ -324,9 +328,16 @@ public class MessageListActivity extends AppBaseActivity {
 					req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
 						@Override
 						public void onSuccess(GetMessageDetailsResult response) {
-							eventBus.fireEvent(new ExpandMessageEvent(user, new ImapFolderImpl(folderName), event.getValue(), response
-									.getMessageDetails()));
-							placeController.goTo(new MailFolderPlace(f.getFullName() + "/" + event.getValue().getUid()));
+							eventBus.fireEvent(new ExpandMessageEvent(user, new ImapFolderImpl(folderName), event
+									.getValue(), response.getMessageDetails()));
+							display.getGrid().getSelectionModel().setSelected(event.getValue(), true);
+							toolBar.enableAllTools(true);
+							ToolBarView.Parameters p = new ToolBarView.Parameters(user, folderName, event.getValue(),
+									response.getMessageDetails());
+							toolBar.setParameters(p);
+							MailFolderPlace place = new MailFolderPlace(f.getFullName() + "/"
+									+ event.getValue().getUid());
+							placeController.goTo(place);
 						}
 
 						@Override
@@ -335,6 +346,7 @@ public class MessageListActivity extends AppBaseActivity {
 								// log.log(Level.SEVERE, error.getMessage());
 								// TODO write the error message to
 								// status bar.
+								toolBar.enableAllTools(false);
 								throw new RuntimeException(error.getMessage());
 							}
 						}
@@ -381,10 +393,10 @@ public class MessageListActivity extends AppBaseActivity {
 				display.getGrid().setRowCount(result.getRealCount());
 				display.getGrid().setRowData(start, result.getMessages());
 				Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-				    @Override
-				    public void execute() {
-				    	topBar.hideLoading();
-				    }
+					@Override
+					public void execute() {
+						topBar.hideLoading();
+					}
 				});
 			}
 
@@ -444,9 +456,11 @@ public class MessageListActivity extends AppBaseActivity {
 	}
 
 	private void antiSelectMessages(Collection<Message> c) {
+		toolBar.enableAllTools(false);
 		for (Message msg : c) {
+			if (!display.getGrid().getSelectionModel().isSelected(msg))
+				continue;
 			display.getGrid().getSelectionModel().setSelected(msg, false);
-			toolBar.enableAllTools(false);
 		}
 	}
 	public void deleteSelectedMessages() {

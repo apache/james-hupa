@@ -347,6 +347,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(MessageContentActivity.Displayable.class).to(MessageContentView.class);
 		bind(StatusActivity.Displayable.class).to(StatusView.class);
 		bind(ComposeToolBarActivity.Displayable.class).to(ComposeToolBarView.class);
+<<<<<<< HEAD
 		bind(ComposeActivity.Displayable.class).to(ComposeView.class);
 		bind(SearchBoxActivity.Displayable.class).to(SearchBoxView.class);
 		
@@ -355,6 +356,9 @@ public class AppGinModule extends AbstractGinModule {
 		bind(LabelPropertiesActivity.Displayable.class).to(LabelPropertiesView.class).in(Singleton.class);
 		bind(ContactsListActivity.Displayable.class).to(ContactsListView.class).in(Singleton.class);
 		bind(ContactPropertiesActivity.Displayable.class).to(ContactPropertiesView.class).in(Singleton.class);
+=======
+		bind(ComposeActivity.Displayable.class).to(ComposeView.class).in(Singleton.class);
+>>>>>>> fixed issue#61; add loading to mark, unmark.
 
 		bind(LoginActivity.class).in(Singleton.class);
 		bind(TopBarActivity.class).in(Singleton.class);
@@ -541,10 +545,14 @@ public class AppGinModule extends AbstractGinModule {
 =======
 		bind(TopActivity.Displayable.class).to(TopView.class).in(Singleton.class);
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 =======
 		bind(FolderListActivity.Displayable.class).to(FolderListView.class);
 >>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
+=======
+		bind(FolderListActivity.Displayable.class).to(FolderListView.class).in(Singleton.class);
+>>>>>>> fixed issue#61; add loading to mark, unmark.
 		bind(WestActivity.Displayable.class).to(WestView.class).in(Singleton.class);
 		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
 		bind(MessageSendActivity.Displayable.class).to(MessageSendView.class);

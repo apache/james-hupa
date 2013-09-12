@@ -609,19 +609,14 @@ public class MessagesCellTable extends DataGrid<Message> {
 		addColumn(dateCol, constants.mailTableDate());
 		setColumnWidth(dateCol, 10, Unit.EM);
 		setRowCount(PAGE_SIZE, false);
-		setRowStyles(new RowStyles<Message>() {
-			@Override
-			public String getStyleNames(Message row, int rowIndex) {
-				return getMessageStyle(row);
-			}
-		});
+		this.setStyleBaseOnTag();
 		// redraw();
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
 		setAutoHeaderRefreshDisabled(true);
 		setSelectionModel(selectionModel, DefaultSelectionEventManager.<Message> createCheckboxManager(0));
 	}
 
-	private String getMessageStyle(Message row) {
+	public String getMessageStyle(Message row) {
 		return haveRead(row) ? getReadStyle() : getUnreadStyle();
 	}
 	private String getUnreadStyle() {
@@ -636,18 +631,21 @@ public class MessagesCellTable extends DataGrid<Message> {
 		return row.getFlags().contains(IMAPFlag.SEEN);
 	}
 	public void markRead(final Message message, final boolean read) {
+		setStyleBasedOnSelected(read);
+		flush();
+	}
 
+	private void setStyleBasedOnSelected(final boolean read) {
 		setRowStyles(new RowStyles<Message>() {
 			@Override
 			public String getStyleNames(Message row, int rowIndex) {
-				if (message.equals(row)) {
+				if (getSelectionModel().isSelected(row)) {
 					return (read ? getReadStyle() : getUnreadStyle());
 				} else {
 					return getMessageStyle(row);// keep original
 				}
 			}
 		});
-		flush();
 	}
 
 	public class CheckboxColumn extends Column<Message, Boolean> {
@@ -659,9 +657,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 				public void update(int index, Message object, Boolean value) {
 					selectionModel.setSelected(object, value);
 					int size = selectionModel.getSelectedSet().size();
-					if (size == 1) {
-						toolBarDisplay.enableAllTools(true);
-					} else if (size > 1) {
+					if (size >= 1) {
 						toolBarDisplay.enableDealingTools(true);
 						toolBarDisplay.enableSendingTools(false);
 					} else {
@@ -727,6 +723,15 @@ public class MessagesCellTable extends DataGrid<Message> {
 		redraw();
 		onResize();
 		flush();
+	}
+
+	public void setStyleBaseOnTag() {
+		setRowStyles(new RowStyles<Message>() {
+			@Override
+			public String getStyleNames(Message row, int rowIndex) {
+				return getMessageStyle(row);
+			}
+		});
 	}
 
 }

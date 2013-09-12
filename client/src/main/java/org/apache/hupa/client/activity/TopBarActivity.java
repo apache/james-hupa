@@ -244,7 +244,7 @@ public class TopBarActivity extends AppBaseActivity {
 		HasClickHandlers getLogoutClick();
 		void showUserName(String userName);
 		HTMLPanel getUserLabel();
-		void showLoading();
+		void showLoading(String message);
 		void hideLoading();
 	}
 >>>>>>> add logout support

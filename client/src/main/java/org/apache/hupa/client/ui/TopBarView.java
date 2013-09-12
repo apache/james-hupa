@@ -49,9 +49,13 @@ public class TopBarView extends Composite implements TopBarActivity.Displayable 
 	@UiField HTMLPanel userLabel;
 	@UiField SimplePanel loading;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@UiField HTML loadingRegion;
 =======
 >>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
+=======
+	@UiField HTML loadingRegion;
+>>>>>>> fixed issue#61; add loading to mark, unmark.
 	
 	@UiField Style style;
 
@@ -139,12 +143,14 @@ public class TopBarView extends Composite implements TopBarActivity.Displayable 
 >>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
 
 	@Override
-	public void showLoading(){
+	public void showLoading(String message){
+		loadingRegion.setHTML(message);
 		loading.removeStyleName(style.hideLoading());
 	}
 	
 	@Override
 	public void hideLoading(){
+		loadingRegion.setHTML("");
 		loading.addStyleName(style.hideLoading());
 	}
 	

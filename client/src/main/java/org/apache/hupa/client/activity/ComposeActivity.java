@@ -66,6 +66,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
 import org.apache.hupa.client.rf.SendMessageRequest;
@@ -83,6 +84,9 @@ import org.apache.hupa.shared.domain.SendForwardMessageAction;
 import org.apache.hupa.shared.domain.SendMessageAction;
 import org.apache.hupa.shared.domain.SendReplyMessageAction;
 import org.apache.hupa.shared.domain.SmtpMessage;
+import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.events.LoginEvent;
+import org.apache.hupa.shared.events.LoginEventHandler;
 
 <<<<<<< HEAD
 >>>>>>> make send text mail work excellently
@@ -97,6 +101,7 @@ import com.google.gwt.event.shared.EventBus;
 <<<<<<< HEAD
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.History;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
@@ -123,6 +128,8 @@ public class ComposeActivity extends AppBaseActivity {
 import com.google.gwt.user.client.History;
 >>>>>>> fixed issue#54 just using History.back()
 import com.google.gwt.user.client.Window;
+=======
+>>>>>>> fixed issue#61; add loading to mark, unmark.
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
@@ -133,6 +140,7 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
 
 public class ComposeActivity extends AppBaseActivity {
 	@Inject private Displayable display;
+	@Inject private HupaController hupaController;
 	private List<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -155,7 +163,11 @@ public class ComposeActivity extends AppBaseActivity {
 =======
 >>>>>>> prepare to make composeView's reload work
 	private ComposePlace place;
+<<<<<<< HEAD
 >>>>>>> coping with reply and forward sending message
+=======
+	private User user;
+>>>>>>> fixed issue#61; add loading to mark, unmark.
 
 	public Activity with(ComposePlace place) {
 		this.place = place;
@@ -420,36 +432,37 @@ public class ComposeActivity extends AppBaseActivity {
 		bindTo(eventBus);
 		fillHeader();
 	}
-	
+
 	@Override
-	public String mayStop(){
+	public String mayStop() {
 		super.mayStop();
-		if(noContent()){
+		if (noContent()) {
 			return null;
 		}
-		return "Do you want to leave this page?";
+		return null;
+//		return "Do you want to leave this page?"; TODO
 	}
-	
+
 	@Override
-	public void onStop(){
+	public void onStop() {
 		super.onStop();
 	}
 
 	private boolean noContent() {
 		return "".equals(display.getMessage().getText()) && "".equals(display.getSubject().getText());
 	}
-	
+
 	@Override
-	public void onCancel(){
-		
+	public void onCancel() {
+
 	}
 
 	private void fillHeader() {
 		if (place == null)
 			return;
 		Message oldMessage = place.getParameters().getOldmessage();
-		if (place.getParameters().getUser() != null)
-			display.getFromList().addItem(place.getParameters().getUser().getName());
+		if (user != null)
+			display.getFromList().addItem(user.getName());
 		display.getMessageHTML().setHTML(
 				wrapMessage(oldMessage, place.getParameters().getOldDetails(), place.getToken()));
 		if ("forward".equals(place.getToken())) {
@@ -479,10 +492,10 @@ public class ComposeActivity extends AppBaseActivity {
 					list.addAll(oldMessage.getTo());
 				if (oldMessage.getCc() != null)
 					list.addAll(oldMessage.getCc());
-				list = removeEmailFromList(list, place.getParameters().getUser().getName());
+				list = removeEmailFromList(list, user.getName());
 				display.getCc().setText(Util.listToString(list));
 				if (oldMessage.getTo() != null) {
-					oldMessage.getTo().remove(place.getParameters().getUser().getName());
+					oldMessage.getTo().remove(user.getName());
 				}
 				display.getTo().setText(oldMessage.getFrom());
 			}
@@ -532,10 +545,13 @@ public class ComposeActivity extends AppBaseActivity {
 		return ret;
 	}
 	private void bindTo(EventBus eventBus) {
-
+		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
+			public void onLogin(LoginEvent event) {
+				user = event.getUser();
+			}
+		});
 		registerHandler(display.getSendClick().addClickHandler(sendClickHandler));
 		registerHandler(display.getCancelClick().addClickHandler(cancelClickHandler));
-		
 
 		registerHandler(display.getCcClick().addClickHandler(new ClickHandler() {
 			@Override
@@ -653,13 +669,13 @@ public class ComposeActivity extends AppBaseActivity {
 			}
 		}
 	};
-	
-	private ClickHandler cancelClickHandler = new ClickHandler(){
+
+	private ClickHandler cancelClickHandler = new ClickHandler() {
 		@Override
 		public void onClick(ClickEvent event) {
 			History.back();
 		}
-		
+
 	};
 
 >>>>>>> coping with reply and forward sending message
@@ -667,6 +683,7 @@ public class ComposeActivity extends AppBaseActivity {
 		public void onClick(ClickEvent event) {
 			if (!validate())
 				return;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			hupaController.showTopLoading("Sending...");
@@ -695,6 +712,9 @@ public class ComposeActivity extends AppBaseActivity {
 			message.setBcc(emailTextToArray(display.getBccText().getText()));
 =======
 >>>>>>> coping with java.lang.IllegalArgumentException: uid
+=======
+			hupaController.showTopLoading("Sending...");
+>>>>>>> fixed issue#61; add loading to mark, unmark.
 
 			if ("new".equals(place.getToken())) {
 				SendMessageRequest sendReq = requestFactory.sendMessageRequest();
@@ -757,7 +777,7 @@ public class ComposeActivity extends AppBaseActivity {
 				SendForwardMessageAction action = req.create(SendForwardMessageAction.class);
 				action.setMessage(parseMessage(req));
 				ImapFolder f = req.create(ImapFolder.class);
-				f.setFullName(place.getParameters().getFolder().getFullName());
+				f.setFullName(place.getParameters().getFolderName());
 				action.setFolder(f);
 				action.setUid(place.getParameters().getOldmessage().getUid());
 				req.send(action).fire(new Receiver<GenericResult>() {
@@ -824,7 +844,7 @@ public class ComposeActivity extends AppBaseActivity {
 				SendReplyMessageAction action = replyReq.create(SendReplyMessageAction.class);
 				action.setMessage(parseMessage(replyReq));
 				ImapFolder folder = replyReq.create(ImapFolder.class);
-				folder.setFullName(place.getParameters().getFolder().getFullName());
+				folder.setFullName(place.getParameters().getFolderName());
 				action.setFolder(folder);
 				action.setUid(place.getParameters().getOldmessage().getUid());
 				replyReq.send(action).fire(new Receiver<GenericResult>() {
@@ -916,6 +936,7 @@ public class ComposeActivity extends AppBaseActivity {
 
 	private void afterSend(GenericResult response) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		hupaController.hideTopLoading();
 		hupaController.showNotice("Your mail has been sent.", 10000);
 		History.back();
@@ -953,6 +974,11 @@ public class ComposeActivity extends AppBaseActivity {
 		void fillContactList(String[] contacts);
 =======
 		Window.alert("//TODO send result is: " + response.isSuccess());
+=======
+		hupaController.hideTopLoading();
+		hupaController.showNotice("Your mail has been sent.", 10000);
+		History.back();
+>>>>>>> fixed issue#61; add loading to mark, unmark.
 	}
 
 	public interface Displayable extends WidgetDisplayable {
