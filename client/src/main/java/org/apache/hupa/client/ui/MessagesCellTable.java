@@ -504,6 +504,7 @@ import java.util.List;
 
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.bundles.HupaImageBundle;
+import org.apache.hupa.client.ui.res.DataGridResources;
 import org.apache.hupa.shared.domain.Message;
 
 import com.google.gwt.cell.client.CheckboxCell;
@@ -512,12 +513,15 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.cell.client.ValueUpdater;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
+import com.google.gwt.user.cellview.client.SafeHtmlHeader;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
@@ -548,10 +552,12 @@ public class MessagesCellTable extends DataGrid<Message> {
 	private final SelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(
 			KEY_PROVIDER);
 
+	static DataGrid.Resources res = GWT.create(DataGridResources.class);
 	@Inject
 	public MessagesCellTable(final HupaImageBundle imageBundle,
 			final HupaConstants constants) {
-		super(PAGE_SIZE);
+		super(PAGE_SIZE, res);
+
 		this.imageBundle = imageBundle;
 
 		CheckboxCell headerCheckbox = new CheckboxCell();
@@ -574,7 +580,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 
 		addColumn(checkboxCol, header);
 		setColumnWidth(checkboxCol, 3, Unit.EM);
-		addColumn(fromCol, constants.mailTableFrom());
+		addColumn(fromCol, new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(constants.mailTableFrom())), fromFooter);
 		setColumnWidth(fromCol, 40, Unit.PCT);
 		addColumn(subjectCol, constants.mailTableSubject());
 		setColumnWidth(subjectCol, 60, Unit.PCT);
@@ -617,7 +623,6 @@ public class MessagesCellTable extends DataGrid<Message> {
 			return object.getFrom();
 		}
 	}
-
 	private class SubjectColumn extends Column<Message, String> {
 		public SubjectColumn() {
 			super(new TextCell());
@@ -650,5 +655,11 @@ public class MessagesCellTable extends DataGrid<Message> {
 			return object.getReceivedDate();
 		}
 	}
+	Header<String> fromFooter = new Header<String>(new TextCell()) {
+	      @Override
+	      public String getValue() {
+	        return "From Footer";
+	    };
+	};
 }
 >>>>>>> fix some bugs related to RF, and try to use new CellView to replace gwt-incubator 

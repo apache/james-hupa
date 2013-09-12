@@ -159,6 +159,7 @@
 						<g:layer width="287px" right="0">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
 							<g:LayoutPanel ui:field="navigationContainer"/><!-- why can not be SimplePanel here -->
 >>>>>>> integrate all of the views to their corresponding activities and mappers
@@ -169,6 +170,9 @@
 =======
 							<g:LayoutPanel ui:field="navigationContainer" />
 >>>>>>> DataGrid requires to be put in a LayoutPanel or Panel that implements the ProvidesResize interface to be visible
+=======
+							<g:SimpleLayoutPanel ui:field="navigationContainer" />
+>>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
 						</g:layer>
                         <g:layer left="0%" width="0%" top="0%" height="0%">
                             <hupa:_CenterContactPanel ui:field="contactPanel" />
@@ -217,15 +221,15 @@
 						<g:center>
 							<g:SplitLayoutPanel ui:field="messageArea">
 								<g:north size="200">
-									<g:LayoutPanel addStyleNames="{style.box}"
+									<g:DockLayoutPanel unit="PX" addStyleNames="{style.box}"
 										ui:field="messageListBox">
-										<g:layer top="0" height="175px">
-											<g:LayoutPanel ui:field="messageListContainer" />
-										</g:layer>
-										<g:layer bottom="0" height="25px">
+										<g:center>
+											<g:SimpleLayoutPanel ui:field="messageListContainer" />
+										</g:center>
+										<g:south size="25">
 											<g:SimplePanel ui:field="messageListFooterContainer" />
-										</g:layer>
-									</g:LayoutPanel>
+										</g:south>
+									</g:DockLayoutPanel>
 								</g:north>
 								<g:west size="200">
 									<g:HTMLPanel ui:field="contactBox" addStyleNames="{style.box}">

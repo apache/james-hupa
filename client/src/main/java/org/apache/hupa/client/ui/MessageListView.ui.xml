@@ -13,6 +13,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<g:SimpleLayoutPanel ui:field="thisView" />
 =======
@@ -39,4 +40,8 @@
 	xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
 	<hupa:MessagesCellTable ui:field="table" />
 >>>>>>> adjust to the ui of folder list panel
+=======
+	xmlns:hupa='urn:import:org.apache.hupa.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
+	<c:DataGrid ui:field="table" />
+>>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
 </ui:UiBinder>

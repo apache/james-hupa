@@ -28,10 +28,12 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -241,6 +243,8 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.user.client.ui.LayoutPanel;
+=======
+>>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -250,7 +254,7 @@ public class HupaLayout implements HupaLayoutable {
 	@UiField SimplePanel topBarContainer;
 
 	@UiField SimplePanel logoContainer;
-	@UiField LayoutPanel navigationContainer;
+	@UiField SimpleLayoutPanel navigationContainer;
 
 	@UiField SimplePanel toolBarContainer;
 
@@ -259,8 +263,8 @@ public class HupaLayout implements HupaLayoutable {
 
 	@UiField SplitLayoutPanel messageArea;
 	@UiField SimplePanel folderListContainer;
-	@UiField LayoutPanel messageListBox;
-	@UiField LayoutPanel messageListContainer;
+	@UiField DockLayoutPanel messageListBox;
+	@UiField SimpleLayoutPanel messageListContainer;
 	@UiField SimplePanel messageListFooterContainer;
 	@UiField SimplePanel messageContentContainer;
 	@UiField SimplePanel statusContainer;
@@ -312,11 +316,7 @@ public class HupaLayout implements HupaLayoutable {
 		return new AcceptsOneWidget() {
 			@Override
 			public void setWidget(IsWidget w) {
-				Widget widget = Widget.asWidgetOrNull(w);
-				if (navigationContainer.getWidgetCount() > 0)
-					navigationContainer.remove(0);
-				if (widget != null)
-					navigationContainer.add(widget);
+				navigationContainer.setWidget(Widget.asWidgetOrNull(w));
 			}
 		};
 	}
@@ -346,11 +346,13 @@ public class HupaLayout implements HupaLayoutable {
 		return new AcceptsOneWidget() {
 			@Override
 			public void setWidget(IsWidget w) {
-				Widget widget = Widget.asWidgetOrNull(w);
-				if (messageListContainer.getWidgetCount() > 0)
-					messageListContainer.remove(0);
-				if (widget != null)
-					messageListContainer.add(widget);
+//				Widget widget = Widget.asWidgetOrNull(w);
+				messageListContainer.setWidget(Widget.asWidgetOrNull(w));
+//				messageListContainer.add(Widget.asWidgetOrNull(w));
+//				if (messageListContainer.getWidgetCount() > 0)
+//					messageListContainer.remove(0);
+//				if (widget != null)
+//					messageListContainer.add(widget);
 			}
 		};
 	}
