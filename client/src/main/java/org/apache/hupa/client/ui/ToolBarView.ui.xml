@@ -291,15 +291,15 @@
 			-o-box-shadow: 0 2px 6px 0 #333;
 		}
 		
-		.popupMenu td {
-			border-top: 1px solid #5a5a5a;
-			border-bottom: 1px solid #333;
-		}
-		
 		.toolBarMenu {
 			margin: 0;
 			padding: 0;
 		}
+		
+		.toolBarMenu td {
+            border-top: 1px solid #5a5a5a;
+            border-bottom: 1px solid #333;
+        }
 		
 		.activeIcon {
 			display: block;
