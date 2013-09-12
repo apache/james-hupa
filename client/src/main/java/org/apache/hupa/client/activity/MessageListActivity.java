@@ -308,6 +308,7 @@ public class MessageListActivity extends AppBaseActivity {
 					List<Message> displayedItems = display.getGrid().getVisibleItems();
 					for (Message msg : displayedItems) {
 						display.getGrid().getSelectionModel().setSelected(msg, false);
+						toolBarDisplay.enableAllTools(false);
 					}
 					GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
 					GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
