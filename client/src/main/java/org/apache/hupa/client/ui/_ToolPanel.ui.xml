@@ -18,7 +18,7 @@
 		<g:center>
 			<g:SimplePanel ui:field="composeToolBarContainer" />
 		</g:center>
-		<g:east size="200">
+		<g:east size="210">
 			<g:SimplePanel ui:field="searchBoxContainer">
 			</g:SimplePanel>
 		</g:east>
