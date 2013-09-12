@@ -134,20 +134,100 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
-	<g:DockLayoutPanel ui:field="thisPanel">
-		<g:west size="373">
-			<g:HTMLPanel>Settings</g:HTMLPanel>
+
+	<ui:style src="res/CssSplitLayoutPanel.css">
+		.uibox {
+			border: 1px solid #a3a3a3;
+			border-radius: 4px;
+			overflow: hidden;
+			box-shadow: 0 0 2px #999;
+			-o-box-shadow: 0 0 2px #999;
+			-webkit-box-shadow: 0 0 2px #999;
+			-moz-box-shadow: 0 0 2px #999;
+			background: #fff;
+		}
+		
+		.listbox {
+			background: #d9ecf4;
+			overflow: hidden;
+		}
+		
+		.boxtitle,.uibox .listing thead td {
+			font-size: 12px;
+			font-weight: bold;
+			padding: 10px 8px 3px 8px;
+			height: 20px; /* doesn't affect table-cells in FF */
+			margin: 0;
+			text-shadow: 0px 1px 1px #fff;
+			border-bottom: 1px solid #bbd3da;
+			white-space: nowrap;
+		}
+		
+		.uibox .boxtitle,.uibox .listing thead td {
+			background: #b0ccd7;
+			color: #004458;
+			border-radius: 4px 4px 0 0;
+		}
+		
+		.contentbox .boxtitle,body.iframe .boxtitle {
+			color: #777;
+			background: #eee;
+			background: -moz-linear-gradient(top, #eee 0%, #dfdfdf 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eee),
+				color-stop(100%, #dfdfdf) );
+			background: -o-linear-gradient(top, #eee 0%, #dfdfdf 100%);
+			background: -ms-linear-gradient(top, #eee 0%, #dfdfdf 100%);
+			background: linear-gradient(top, #eee 0%, #dfdfdf 100%);
+			border-bottom: 1px solid #ccc;
+		}
+		
+		body.iframe .boxtitle {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			z-index: 100;
+		}
+	</ui:style>
+
+	<g:SplitLayoutPanel ui:field="thisPanel"
+		addStyleNames="{style.splitLayoutPanel}">
+		<g:west size="220">
+			<g:DockLayoutPanel addStyleNames="{style.listbox} {style.uibox}">
+				<g:north size="34">
+					<g:HTML>
+						<h2 class="{style.boxtitle}">Settings</h2>
+					</g:HTML>
+				</g:north>
+				<g:center>
+					<g:HTML>
+						center
+					</g:HTML>
+				</g:center>
+			</g:DockLayoutPanel>
 		</g:west>
 		<g:center>
 			<g:SplitLayoutPanel>
-				<g:west size="373">
-					<g:HTMLPanel>Section</g:HTMLPanel>
+				<g:west size="260">
+					<g:SimpleLayoutPanel addStyleNames="{style.listbox} {style.uibox}">
+						<g:HTML>
+							<h2 class="{style.boxtitle}">Section</h2>
+						</g:HTML>
+					</g:SimpleLayoutPanel>
 				</g:west>
 				<g:center>
-					<g:HTMLPanel>PlayGround</g:HTMLPanel>
+					<g:SimpleLayoutPanel>
+						<g:HTML>
+							<h2 class="{style.boxtitle}">PlayGround</h2>
+						</g:HTML>
+					</g:SimpleLayoutPanel>
 				</g:center>
 			</g:SplitLayoutPanel>
 		</g:center>
+<<<<<<< HEAD
 	</g:DockLayoutPanel>
 >>>>>>> attempt to add label setting feature
+=======
+	</g:SplitLayoutPanel>
+>>>>>>> add layout styles to three part
 </ui:UiBinder>
