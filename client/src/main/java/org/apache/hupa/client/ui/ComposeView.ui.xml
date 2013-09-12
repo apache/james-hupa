@@ -11,6 +11,7 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 <<<<<<< HEAD
+<<<<<<< HEAD
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 =======
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
@@ -58,6 +59,11 @@
 		}
 		
 >>>>>>> beautify composing panel
+=======
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:image field="buttons" src="res/buttons.png" />
+	<ui:style type="org.apache.hupa.client.ui.ComposeView.Style">
+>>>>>>> make send text mail work excellently
 		.box {
 			border: 1px solid #A3A3A3;
 			border-radius: 4px;
@@ -88,6 +94,9 @@
 		}
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> make send text mail work excellently
 		.composeHeader td {
 			padding: 3px 8px;
 		}
@@ -106,12 +115,55 @@
 			bottom: 0;
 			width: 100%;
 			height: 26px;
+<<<<<<< HEAD
 =======
+=======
+		}
+		
+		@sprite .iconlink {
+			gwt-image: 'buttons';
+			background-position: -1000px 0;
+			width: auto;
+			height: auto;
+			display: inline-block;
+			color: #888;
+			text-decoration: none;
+			white-space: nowrap;
+			padding: 2px 8px 2px 20px;
+		}
+		
+		.left {
+			float: left;
+		}
+		
+		.right {
+			float: right;
+		}
+		
+		.operation {
+			margin: 0 -1px;
+		}
+		
+		.add {
+			background-position: -7px -357px;
+			margin-right: 6px;
+		}
+		
+		.formlinks {
+			padding: 0 4px;
+		}
+		
+		.hiddenInput {
+			display: none
+		}
+		
+>>>>>>> make send text mail work excellently
 		.headerTable {
 			display: table;
 			border-collapse: separate;
 			border-spacing: 2px;
 			border-color: gray;
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> preparing for composing panel
 =======
@@ -122,6 +174,10 @@
 		
 		.composeHeader td {
 			padding: 3px 8px;
+=======
+			width: 99%;
+			margin: 4px 0;
+>>>>>>> make send text mail work excellently
 		}
 		
 		.headerTable td {
@@ -139,6 +195,7 @@
 			white-space: nowrap;
 		}
 		
+<<<<<<< HEAD
 		.composebodycontainer {
 			position: absolute;
 			top: 0;
@@ -147,6 +204,8 @@
 			bottom: 0;
 		}
 		
+=======
+>>>>>>> make send text mail work excellently
 		.composeattachments {
 			position: absolute;
 			right: 0;
@@ -159,12 +218,21 @@
 			overflow: auto;
 		}
 		
+<<<<<<< HEAD
 		.mailviewbottom {
 			position: absolute;
 			left: 0;
 			bottom: 0;
 			width: 100%;
 			height: 26px;
+=======
+		.composebodycontainer {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 260px;
+			bottom: 0;
+>>>>>>> make send text mail work excellently
 		}
 		
 		.statusbar {
@@ -192,18 +260,42 @@
 		addStyleNames="{style.box}">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<g:north size="135">
 <<<<<<< HEAD
 			<g:SimplePanel ui:field="composeHeaderContainer"
 				addStyleNames="{style.composeHeader}">
+=======
+		<g:north size="135">
+			<g:SimplePanel ui:field="composeHeaderContainer"
+				addStyleNames="{style.composeHeader}">
+				<g:FlexTable ui:field="headerTable" addStyleNames="{style.headerTable}" />
+>>>>>>> make send text mail work excellently
 			</g:SimplePanel>
 		</g:north>
 		<g:center>
 			<g:SimpleLayoutPanel ui:field="composeContentContainer">
+<<<<<<< HEAD
+=======
+				<g:DockLayoutPanel unit="PX">
+					<g:north size="23">
+						<g:HTMLPanel addStyleNames="{style.composeoptionsbox}">composeOption</g:HTMLPanel>
+					</g:north>
+					<g:east size="257">
+						<g:HTMLPanel addStyleNames="{style.composeattachments}">composeAttachment
+						</g:HTMLPanel>
+					</g:east>
+					<g:center>
+						<g:SimplePanel ui:field="composeEditor"
+							addStyleNames="{style.composebodycontainer}" />
+					</g:center>
+				</g:DockLayoutPanel>
+>>>>>>> make send text mail work excellently
 			</g:SimpleLayoutPanel>
 		</g:center>
 		<g:south size="28">
 			<g:SimplePanel ui:field="composeStatusContainer"
+<<<<<<< HEAD
 				addStyleNames="{style.mailviewbottom}{style.box}" />
 =======
 =======
@@ -236,6 +328,11 @@
 				<g:HTMLPanel addStyleNames="{style.statusbar}">composeStatus</g:HTMLPanel>
 			</g:SimplePanel>
 >>>>>>> preparing for composing panel
+=======
+				addStyleNames="{style.mailviewbottom}{style.box}">
+				<g:HTMLPanel addStyleNames="{style.statusbar}">composeStatus</g:HTMLPanel>
+			</g:SimplePanel>
+>>>>>>> make send text mail work excellently
 		</g:south>
 	</g:DockLayoutPanel>
 </ui:UiBinder>

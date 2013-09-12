@@ -33,9 +33,7 @@ import com.google.inject.name.Named;
 public class ActivityManagerInitializer {
 
 	@Inject
-	public ActivityManagerInitializer(
-			LoginLayoutable loginLayout,
-			HupaLayoutable hupaLayout,
+	public ActivityManagerInitializer(LoginLayoutable loginLayout, HupaLayoutable hupaLayout,
 			@Named("LoginPage") ActivityManager loginActivityManager,
 			@Named("TopBarRegion") ActivityManager topBarActivityManager,
 			@Named("LogoRegion") ActivityManager logoActivityManager,
@@ -47,9 +45,7 @@ public class ActivityManagerInitializer {
 			@Named("MessageContentRegion") ActivityManager messageContentActivityManager,
 			@Named("StatusRegion") ActivityManager statusActivityManager,
 			@Named("ComposeToolBarRegion") ActivityManager composeToolBarActivityManager,
-			@Named("ComposeHeaderRegion") ActivityManager composeHeaderActivityManager,
-			@Named("ComposeContentRegion") ActivityManager composeContentActivityManager,
-			@Named("ComposeStatusRegion") ActivityManager composeStatusActivityManager) {
+			@Named("ComposeRegion") ActivityManager composeActivityManager) {
 		loginActivityManager.setDisplay(loginLayout.getLoginView());
 		topBarActivityManager.setDisplay(hupaLayout.getTopBarView());
 		logoActivityManager.setDisplay(hupaLayout.getLogoView());
@@ -57,17 +53,11 @@ public class ActivityManagerInitializer {
 		toolBarActivityManager.setDisplay(hupaLayout.getToolBarView());
 		folderListActivityManager.setDisplay(hupaLayout.getFolderListView());
 		messageListActivityManager.setDisplay(hupaLayout.getMessageListView());
-		messageListFooterActivityManager.setDisplay(hupaLayout
-				.getMessageListFooterView());
-		messageContentActivityManager.setDisplay(hupaLayout
-				.getMessageContentView());
+		messageListFooterActivityManager.setDisplay(hupaLayout.getMessageListFooterView());
+		messageContentActivityManager.setDisplay(hupaLayout.getMessageContentView());
 		statusActivityManager.setDisplay(hupaLayout.getStatusView());
-		composeToolBarActivityManager.setDisplay(hupaLayout
-				.getComposeToolBarView());
-		composeHeaderActivityManager.setDisplay(hupaLayout.getComposeHeader());
-		composeContentActivityManager
-				.setDisplay(hupaLayout.getComposeContent());
-		composeStatusActivityManager.setDisplay(hupaLayout.getComposeStatus());
+		composeToolBarActivityManager.setDisplay(hupaLayout.getComposeToolBarView());
+		composeActivityManager.setDisplay(hupaLayout.getComposeView());
 	}
 
 }

@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.activity;
 
+<<<<<<< HEAD
 import gwtupload.client.IUploadStatus.Status;
 import gwtupload.client.IUploader;
 import gwtupload.client.IUploader.OnCancelUploaderHandler;
@@ -54,10 +55,25 @@ import org.apache.hupa.shared.events.MailToEvent;
 import org.apache.hupa.shared.events.MailToEventHandler;
 
 import com.google.gwt.activity.shared.Activity;
+=======
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.hupa.client.activity.MessageSendActivity.Type;
+import org.apache.hupa.client.rf.SendMessageRequest;
+import org.apache.hupa.client.ui.WidgetDisplayable;
+import org.apache.hupa.client.validation.EmailListValidator;
+import org.apache.hupa.shared.domain.GenericResult;
+import org.apache.hupa.shared.domain.MessageAttachment;
+import org.apache.hupa.shared.domain.SendMessageAction;
+import org.apache.hupa.shared.domain.SmtpMessage;
+
+>>>>>>> make send text mail work excellently
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+<<<<<<< HEAD
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -81,10 +97,26 @@ public class ComposeActivity extends AppBaseActivity {
 		this.place = place;
 		return this;
 	}
+=======
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.HasHTML;
+import com.google.gwt.user.client.ui.HasText;
+import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
+
+public class ComposeActivity extends AppBaseActivity {
+	@Inject private Displayable display;
+	private SendMessageRequest sendReq;
+	private SmtpMessage message;
+	private List<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
+	private Type type = Type.NEW;
+>>>>>>> make send text mail work excellently
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
+<<<<<<< HEAD
 		bindTo(eventBus);
 		fillHeader();
 	}
@@ -331,22 +363,62 @@ public class ComposeActivity extends AppBaseActivity {
 
 	};
 
+=======
+
+		bindTo(eventBus);
+	}
+
+	private void bindTo(EventBus eventBus) {
+		registerHandler(display.getSendClick().addClickHandler(sendClickHandler));
+	}
+
+>>>>>>> make send text mail work excellently
 	protected ClickHandler sendClickHandler = new ClickHandler() {
 		public void onClick(ClickEvent event) {
 			if (!validate())
 				return;
+<<<<<<< HEAD
 			hupaController.showTopLoading("Sending...");
 
 			if ("new".equals(place.getToken())) {
 				SendMessageRequest sendReq = rf.sendMessageRequest();
 				SendMessageAction sendAction = sendReq.create(SendMessageAction.class);
 				sendAction.setMessage(parseMessage(sendReq));
+=======
+			sendReq = requestFactory.sendMessageRequest();
+			message = sendReq.create(SmtpMessage.class);
+			List<MessageAttachment> attaches = new ArrayList<MessageAttachment>();
+			for (MessageAttachment attach : attachments) {// we must use
+															// this, else
+															// console will
+															// complain a
+															// NullPointerException
+				MessageAttachment attachMent = sendReq.create(MessageAttachment.class);
+				attachMent.setName(attach.getName());
+				attachMent.setSize(attach.getSize());
+				attachMent.setContentType(attach.getContentType());
+				attaches.add(attachMent);
+			}
+			message.setFrom(display.getFromText());
+			message.setSubject(display.getSubjectText().getText());
+			message.setText(display.getMessageHTML().getHTML());
+			message.setMessageAttachments(attaches);
+			message.setTo(emailTextToArray(display.getToText().getText()));
+			message.setCc(emailTextToArray(display.getCcText().getText()));
+			message.setBcc(emailTextToArray(display.getBccText().getText()));
+
+			if (type == Type.NEW) {
+				SendMessageAction sendAction = sendReq.create(SendMessageAction.class);
+				// SmtpMessage sm = sendReq.edit(message);
+				sendAction.setMessage(message);
+>>>>>>> make send text mail work excellently
 				sendReq.send(sendAction).fire(new Receiver<GenericResult>() {
 					@Override
 					public void onSuccess(GenericResult response) {
 						afterSend(response);
 					}
 				});
+<<<<<<< HEAD
 			} else if ("forward".equals(place.getToken())) {
 				// FIXME will get a NullPointerException given accessing
 				// directly from some URL like #/compose:forward
@@ -377,12 +449,45 @@ public class ComposeActivity extends AppBaseActivity {
 						afterSend(response);
 					}
 				});
+=======
+			} else if (type == Type.FORWARD) {
+				// SendForwardMessageRequest forwardReq =
+				// requestFactory.sendForwardMessageRequest();
+				// SendForwardMessageAction forwardAction =
+				// forwardReq.create(SendForwardMessageAction.class);
+				// forwardAction.setMessage(message);
+				// forwardAction.setFolder(folder);
+				// forwardAction.setUid(oldmessage.getUid());
+				// forwardReq.send(forwardAction).fire(new
+				// Receiver<GenericResult>() {
+				// @Override
+				// public void onSuccess(GenericResult response) {
+				// afterSend(response);
+				// }
+				// });
+			} else {
+				// SendReplyMessageRequest replyReq =
+				// requestFactory.sendReplyMessageRequest();
+				// SendReplyMessageAction replyAction =
+				// replyReq.create(SendReplyMessageAction.class);
+				// replyAction.setMessage(message);
+				// replyAction.setFolder(folder);
+				// replyAction.setUid(oldmessage.getUid());
+				// replyReq.send(replyAction).fire(new
+				// Receiver<GenericResult>() {
+				// @Override
+				// public void onSuccess(GenericResult response) {
+				// afterSend(response);
+				// }
+				// });
+>>>>>>> make send text mail work excellently
 			}
 		}
 	};
 
 	private boolean validate() {
 		// Don't trust only in view validation
+<<<<<<< HEAD
 		return display.validate() && display.getTo().getText().trim().length() > 0
 				&& EmailListValidator.isValidAddressList(display.getTo().getText())
 				&& EmailListValidator.isValidAddressList(display.getCc().getText())
@@ -407,6 +512,12 @@ public class ComposeActivity extends AppBaseActivity {
 		message.setCc(emailTextToArray(display.getCc().getText()));
 		message.setBcc(emailTextToArray(display.getBcc().getText()));
 		return message;
+=======
+		return display.validate() && display.getToText().getText().trim().length() > 0
+				&& EmailListValidator.isValidAddressList(display.getToText().getText())
+				&& EmailListValidator.isValidAddressList(display.getCcText().getText())
+				&& EmailListValidator.isValidAddressList(display.getBccText().getText());
+>>>>>>> make send text mail work excellently
 	}
 
 	private List<String> emailTextToArray(String emails) {
@@ -421,6 +532,7 @@ public class ComposeActivity extends AppBaseActivity {
 	}
 
 	private void afterSend(GenericResult response) {
+<<<<<<< HEAD
 		hupaController.hideTopLoading();
 		hupaController.showNotice("Your mail has been sent.", 10000);
 		History.back();
@@ -456,5 +568,28 @@ public class ComposeActivity extends AppBaseActivity {
 		ListBox getFromList();
 		IUploader getUploader();
 		void fillContactList(String[] contacts);
+=======
+		Window.alert("//TODO send result is: " + response.isSuccess());
+	}
+
+	public interface Displayable extends WidgetDisplayable {
+		String getFromText();
+
+		HasText getToText();
+
+		HasText getCcText();
+
+		HasText getBccText();
+
+		HasText getSubjectText();
+
+		HasClickHandlers getSendClick();
+
+		boolean validate();
+
+		HasText getMessageText();
+
+		HasHTML getMessageHTML();
+>>>>>>> make send text mail work excellently
 	}
 }

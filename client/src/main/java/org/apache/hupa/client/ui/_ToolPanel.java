@@ -39,6 +39,7 @@ public class _ToolPanel extends Composite {
 
 	public _ToolPanel() {
 		initWidget(binder.createAndBindUi(this));
+		toggleToCompose(false);
 	}
 	
 	protected void toggleToCompose(boolean visible){

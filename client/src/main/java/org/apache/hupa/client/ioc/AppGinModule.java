@@ -47,6 +47,7 @@ import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaController;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
 import org.apache.hupa.client.activity.ContactPropertiesActivity;
@@ -58,6 +59,9 @@ import org.apache.hupa.client.activity.ComposeStatusActivity;
 <<<<<<< HEAD
 >>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 =======
+=======
+import org.apache.hupa.client.activity.ComposeActivity;
+>>>>>>> make send text mail work excellently
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 import org.apache.hupa.client.activity.FolderListActivity;
@@ -157,6 +161,7 @@ import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.mapper.CachingTopActivityMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -207,6 +212,9 @@ import org.apache.hupa.client.mapper.ComposeStatusActivityMapper;
 <<<<<<< HEAD
 >>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 =======
+=======
+import org.apache.hupa.client.mapper.ComposeActivityMapper;
+>>>>>>> make send text mail work excellently
 import org.apache.hupa.client.mapper.ComposeToolBarActivityMapper;
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 import org.apache.hupa.client.mapper.FolderListActivityMapper;
@@ -227,10 +235,8 @@ import org.apache.hupa.client.mapper.WestActivityMapper;
 >>>>>>> make message list view panel work as expected partly
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
-import org.apache.hupa.client.ui.ComposeContentView;
-import org.apache.hupa.client.ui.ComposeHeaderView;
-import org.apache.hupa.client.ui.ComposeStatusView;
 import org.apache.hupa.client.ui.ComposeToolBarView;
+import org.apache.hupa.client.ui.ComposeView;
 import org.apache.hupa.client.ui.FolderListView;
 import org.apache.hupa.client.ui.FoldersTreeViewModel;
 import org.apache.hupa.client.ui.HupaLayout;
@@ -304,8 +310,7 @@ import com.google.inject.name.Named;
 @SuppressWarnings("deprecation")
 >>>>>>> add SuppressWarnings("depraction")
 public class AppGinModule extends AbstractGinModule {
-	public static Logger logger = Logger
-			.getLogger(AppGinModule.class.getName());
+	public static Logger logger = Logger.getLogger(AppGinModule.class.getName());
 
 	@Override
 	protected void configure() {
@@ -500,15 +505,11 @@ public class AppGinModule extends AbstractGinModule {
 		bind(ToolBarActivity.Displayable.class).to(ToolBarView.class);
 		// bind(FolderListActivity.Displayable.class).to(FolderListView.class);
 		bind(MessageListActivity.Displayable.class).to(MessageListView.class);
-		bind(MessageListFooterActivity.Displayable.class).to(
-				MessageListFooterView.class);
-		bind(MessageContentActivity.Displayable.class).to(
-				MessageContentView.class);
+		bind(MessageListFooterActivity.Displayable.class).to(MessageListFooterView.class);
+		bind(MessageContentActivity.Displayable.class).to(MessageContentView.class);
 		bind(StatusActivity.Displayable.class).to(StatusView.class);
 		bind(ComposeToolBarActivity.Displayable.class).to(ComposeToolBarView.class);
-		bind(ComposeStatusActivity.Displayable.class).to(ComposeStatusView.class);
-		bind(ComposeHeaderActivity.Displayable.class).to(ComposeHeaderView.class);
-		bind(ComposeContentActivity.Displayable.class).to(ComposeContentView.class);
+		bind(ComposeActivity.Displayable.class).to(ComposeView.class);
 
 		bind(LoginActivity.class).in(Singleton.class);
 		bind(TopBarActivity.class).in(Singleton.class);
@@ -521,16 +522,12 @@ public class AppGinModule extends AbstractGinModule {
 		// bind(MessageContentActivity.class).in(Singleton.class);
 		// bind(StatusActivity.class).in(Singleton.class);
 		bind(ComposeToolBarActivity.class).in(Singleton.class);
-		bind(ComposeHeaderActivity.class).in(Singleton.class);
-		bind(ComposeContentActivity.class).in(Singleton.class);
-		bind(ComposeStatusActivity.class).in(Singleton.class);
+		bind(ComposeActivity.class).in(Singleton.class);
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 		bind(TopActivity.Displayable.class).to(TopView.class);
-		bind(WestActivity.Displayable.class).to(WestView.class).in(
-				Singleton.class);
-		bind(IMAPMessageListActivity.Displayable.class).to(
-				IMAPMessageListView.class);
+		bind(WestActivity.Displayable.class).to(WestView.class).in(Singleton.class);
+		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
 		bind(MessageSendActivity.Displayable.class).to(MessageSendView.class);
 		bind(IMAPMessageActivity.Displayable.class).to(IMAPMessageView.class);
 <<<<<<< HEAD
@@ -581,8 +578,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(FoldersTreeViewModel.class).in(Singleton.class);
 		bind(CellTree.Resources.class).to(CellTree.BasicResources.class);
 		// Places
-		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(
-				Singleton.class);
+		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
 
 		// Application EventBus
 		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
@@ -608,8 +604,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(HupaController.class).in(Singleton.class);
 >>>>>>> move new theme ui from experiment to hupa evo
 
-		install(new GinFactoryModuleBuilder().implement(
-				FolderListActivity.Displayable.class, FolderListView.class)
+		install(new GinFactoryModuleBuilder().implement(FolderListActivity.Displayable.class, FolderListView.class)
 				.build(FolderListFactory.class));
 		// bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
 	}
@@ -635,24 +630,21 @@ public class AppGinModule extends AbstractGinModule {
 	@Provides
 	@Singleton
 	@Named("LoginPage")
-	public ActivityManager getLoginActivityMapper(
-			LoginActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getLoginActivityMapper(LoginActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
 	@Named("TopBarRegion")
-	public ActivityManager getTopBarActivityMapper(
-			TopBarActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getTopBarActivityMapper(TopBarActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
 	@Named("LogoRegion")
-	public ActivityManager getLogoActivityMapper(
-			LogoActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getLogoActivityMapper(LogoActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 <<<<<<< HEAD
@@ -663,54 +655,51 @@ public class AppGinModule extends AbstractGinModule {
 	@Provides
 	@Singleton
 	@Named("NavigationRegion")
-	public ActivityManager getNavigationActivityMapper(
-			NavigationActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getNavigationActivityMapper(NavigationActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
 	@Named("ToolBarRegion")
-	public ActivityManager getToolBarActivityMapper(
-			ToolBarActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getToolBarActivityMapper(ToolBarActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
 	@Named("FolderListRegion")
-	public ActivityManager getFolderListActivityMapper(
-			FolderListActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getFolderListActivityMapper(FolderListActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
 	@Named("MessageListRegion")
-	public ActivityManager getMessageListActivityMapper(
-			MessageListActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getMessageListActivityMapper(MessageListActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
 	@Named("MessageListFooterRegion")
-	public ActivityManager getMessageListFooterActivityMapper(
-			MessageListFooterActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getMessageListFooterActivityMapper(MessageListFooterActivityMapper activityMapper,
+			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
 	@Named("MessageContentRegion")
-	public ActivityManager getMessageContentActivityMapper(
-			MessageContentActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getMessageContentActivityMapper(MessageContentActivityMapper activityMapper,
+			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
 	@Named("StatusRegion")
+<<<<<<< HEAD
 	public ActivityManager getStatusActivityMapper(
 			StatusActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
@@ -734,21 +723,30 @@ public class AppGinModule extends AbstractGinModule {
 	@Named("ComposeToolBarRegion")
 	public ActivityManager getComposeToolBarActivityMapper(
 			ComposeToolBarActivityMapper activityMapper, EventBus eventBus) {
+=======
+	public ActivityManager getStatusActivityMapper(StatusActivityMapper activityMapper, EventBus eventBus) {
+>>>>>>> make send text mail work excellently
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 	@Named("ComposeHeaderRegion")
 	public ActivityManager getComposeHeaderActivityMapper(
 			ComposeHeaderActivityMapper activityMapper, EventBus eventBus) {
 >>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
+=======
+	@Named("ComposeRegion")
+	public ActivityManager getComposeActivityMapper(ComposeActivityMapper activityMapper, EventBus eventBus) {
+>>>>>>> make send text mail work excellently
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	@Named("MessageContentRegion")
@@ -875,6 +873,11 @@ public class AppGinModule extends AbstractGinModule {
 	public ActivityManager getMainContentRegionActivityMapper(
 			MainContentActivityMapper activityMapper, EventBus eventBus) {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+	@Named("ComposeToolBarRegion")
+	public ActivityManager getComposeToolBarActivityMapper(ComposeToolBarActivityMapper activityMapper,
+			EventBus eventBus) {
+>>>>>>> make send text mail work excellently
 		return new ActivityManager(activityMapper, eventBus);
 	}
 <<<<<<< HEAD
@@ -908,6 +911,7 @@ public class AppGinModule extends AbstractGinModule {
 
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public PlaceHistoryHandler getHistoryHandler(PlaceController placeController, PlaceHistoryMapper historyMapper,
 	        EventBus eventBus) {
@@ -946,6 +950,12 @@ public class AppGinModule extends AbstractGinModule {
 		historyHandler.register(placeController, eventBus,
 				new DefaultPlace("@"));
 >>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
+=======
+	public PlaceHistoryHandler getHistoryHandler(PlaceController placeController, PlaceHistoryMapper historyMapper,
+			EventBus eventBus) {
+		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
+		historyHandler.register(placeController, eventBus, new DefaultPlace("@"));
+>>>>>>> make send text mail work excellently
 		return historyHandler;
 	}
 

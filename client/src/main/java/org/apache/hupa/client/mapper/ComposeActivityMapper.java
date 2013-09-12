@@ -20,33 +20,24 @@
 package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.ComposeActivity;
-import org.apache.hupa.client.place.ComposePlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class ComposeActivityMapper implements ActivityMapper {
 	private final Provider<ComposeActivity> composeActivityProvider;
 
-	@Inject protected PlaceController placeController;
-
 	@Inject
 	public ComposeActivityMapper(Provider<ComposeActivity> composeActivityProvider) {
 		this.composeActivityProvider = composeActivityProvider;
 	}
 
-	public Activity getActivity(final Place place) {
-		if (!(place instanceof ComposePlace))
-			return null;
-		final ComposePlace here = (ComposePlace) place;
-		if (!"new".equals(here.getToken()) && here.getParameters() == null)
-			return null;
+	public Activity getActivity(Place place) {
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
@@ -55,7 +46,7 @@ public class ComposeActivityMapper implements ActivityMapper {
 
 			@Override
 			protected Activity createInstance() {
-				return composeActivityProvider.get().with(here);
+				return composeActivityProvider.get();
 			}
 		};
 	}

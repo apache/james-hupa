@@ -77,6 +77,7 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 	public Editor(ToolbarConstants constants) {
 		area.ensureDebugId("hupa-editor-area");
 <<<<<<< HEAD
+<<<<<<< HEAD
 		area.setHeight("100%");
 
 //		Toolbar toolbar = new Toolbar(area, constants);
@@ -95,6 +96,8 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 		 */
 =======
 		// area.setSize("100%", "234px");
+=======
+>>>>>>> make send text mail work excellently
 		area.setHeight("100%");
 
 		Toolbar toolbar = new Toolbar(area, constants);
@@ -104,11 +107,20 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 		super.add(area);
 		setWidth("100%");
 
+<<<<<<< HEAD
 		// Note: rich-area is created in an iframe, so Hupa's style sheets
 		// are not available, unless we inject them to the generated iframe
 		//
 		// When body is available, we put the default style for messages:
 >>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
+=======
+		/*
+		 * Note: rich-area is created in an iframe, so Hupa's style sheets are
+		 * not available, unless we inject them to the generated iframe
+		 * 
+		 * When body is available, we put the default style for messages:
+		 */
+>>>>>>> make send text mail work excellently
 		area.addInitializeHandler(new InitializeHandler() {
 			public void onInitialize(InitializeEvent event) {
 				setBodyStyleAttribute("fontFamily", "arial");
@@ -117,12 +129,16 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 		});
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> make send text mail work excellently
 		/*
 		 * When the users writes in-line comments in replies, the text has to be
 		 * leftIdented. Right now, I've implemented this feature only in gecko
 		 * browsers, for other browsers the user has to push the leftIdent
 		 * button.
 		 */
+<<<<<<< HEAD
 =======
 		// When the users writes in-line comments in replies, the text has to be
 		// leftIdented.
@@ -130,6 +146,8 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 		// other browsers
 		// the user has to push the leftIdent button.
 >>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
+=======
+>>>>>>> make send text mail work excellently
 		if (getUA().equals("ff"))
 			addNewlineHandlersForFireFox();
 
@@ -259,11 +277,15 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 					}
 					if (!doNline
 <<<<<<< HEAD
+<<<<<<< HEAD
 							&& (event.getCharCode() == KeyCodes.KEY_DOWN || event.getCharCode() == KeyCodes.KEY_UP)) {
 =======
 							&& (event.getCharCode() == KeyCodes.KEY_DOWN || event
 									.getCharCode() == KeyCodes.KEY_UP)) {
 >>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
+=======
+							&& (event.getCharCode() == KeyCodes.KEY_DOWN || event.getCharCode() == KeyCodes.KEY_UP)) {
+>>>>>>> make send text mail work excellently
 						doNline = true;
 					}
 				}

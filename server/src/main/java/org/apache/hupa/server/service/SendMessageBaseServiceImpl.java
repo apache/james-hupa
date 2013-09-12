@@ -173,11 +173,16 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         message.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
         message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
 <<<<<<< HEAD
+<<<<<<< HEAD
 //        message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
         message.setSubject(m.getSubject(), "utf-8");
 =======
         message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
 >>>>>>> forward and reply message to use RF
+=======
+//        message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
+        message.setSubject(m.getSubject(), "utf-8");
+>>>>>>> make send text mail work excellently
         updateHeaders(message, action);
         message.saveChanges();
         return message;

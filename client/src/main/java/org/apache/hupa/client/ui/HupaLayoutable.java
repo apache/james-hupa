@@ -115,6 +115,7 @@ public interface HupaLayoutable extends Layoutable {
 >>>>>>> could change main panel dynamically currently by clicking the compose button
 =======
 
+<<<<<<< HEAD
 	AcceptsOneWidget getComposeHeader();
 
 	AcceptsOneWidget getComposeContent();
@@ -126,4 +127,9 @@ public interface HupaLayoutable extends Layoutable {
 
 	AcceptsOneWidget getComposeToolBarView();
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
+=======
+	AcceptsOneWidget getComposeToolBarView();
+
+	AcceptsOneWidget getComposeView();
+>>>>>>> make send text mail work excellently
 }

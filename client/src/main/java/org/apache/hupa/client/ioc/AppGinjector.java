@@ -27,6 +27,7 @@ package org.apache.hupa.client.ioc;
 
 import org.apache.hupa.client.HupaController;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
@@ -49,6 +50,8 @@ import org.apache.hupa.client.AppController;
 >>>>>>> move new theme ui from experiment to hupa evo
 import org.apache.hupa.client.evo.AppController;
 >>>>>>> Make the evo more clear.
+=======
+>>>>>>> make send text mail work excellently
 
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
