@@ -25,6 +25,7 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 import java.util.List;
 import java.util.Set;
+<<<<<<< HEAD
 =======
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,11 +40,14 @@ import java.util.Date;
 >>>>>>> remove gwt-incubator dependency in Messages List Model; 
 import java.util.List;
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> fix the main part of issue 11 - delete selected messages.
 
 import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -87,6 +91,8 @@ import org.apache.hupa.client.bundles.HupaImageBundle;
 =======
 import org.apache.hupa.client.bundles.HupaImageBundle;
 >>>>>>> fix issue 5,6,8:
+=======
+>>>>>>> fix the main part of issue 11 - delete selected messages.
 import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
@@ -213,9 +219,14 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 =======
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.CellPreviewEvent.Handler;
+import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.RangeChangeEvent;
+<<<<<<< HEAD
 >>>>>>> make the messages list can be selected without bothering the checkbox column's behavior of it.
+=======
+import com.google.gwt.view.client.SelectionChangeEvent;
+>>>>>>> fix the main part of issue 11 - delete selected messages.
 import com.google.gwt.view.client.SelectionModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -224,6 +235,7 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 @SuppressWarnings("deprecation")
 public class IMAPMessageListView extends Composite implements IMAPMessageListActivity.Displayable {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@SuppressWarnings("unused") private HupaMessages messages;
 
@@ -1664,6 +1676,9 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	@SuppressWarnings("unused")
 	private HupaMessages messages;
 >>>>>>> make the messages list can be selected without bothering the checkbox column's behavior of it.
+=======
+	@SuppressWarnings("unused") private HupaMessages messages;
+>>>>>>> fix the main part of issue 11 - delete selected messages.
 
 	private EnableButton deleteMailButton;
 	private Button newMailButton;
@@ -1753,20 +1768,43 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 					setExpandLoading(true);
 					eventBus.fireEvent(new ExpandMessageEvent(user, folder, event.getValue()));
 				}
-
 			}
-
 			private boolean hasClickedButFirstCol(CellPreviewEvent<Message> event) {
 				return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
 			}
 
 		});
-		table.getCheckboxCol().setFieldUpdater(new FieldUpdater<Message, Boolean>() {
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
-			public void update(int index, Message object, Boolean value) {
-				selectionModel.setSelected(object, value);
+			public void onSelectionChange(SelectionChangeEvent event) {
+				if (selectedCount() == 0) {
+					toggleButtons(false);
+				} else {
+					toggleButtons(true);
+				}
 			}
 		});
+//		table.getCheckboxCol().setFieldUpdater(new FieldUpdater<Message, Boolean>() {
+//			@Override
+//			public void update(int index, Message object, Boolean value) {
+//				selectionModel.setSelected(object, value);
+//				if (selectedCount() == 0) {
+//					toggleButtons(false);
+//				} else {
+//					toggleButtons(true);
+//				}
+//			}
+//
+//			private int selectedCount() {
+//				return getSelectedMessages().size();
+//			}
+//
+//			private void toggleButtons(boolean b) {
+//				getDeleteEnable().setEnabled(b);
+//				getMarkSeenEnable().setEnabled(b);
+//				getMarkUnseenEnable().setEnabled(b);
+//			}
+//		});
 
 		table.addRangeChangeHandler(new RangeChangeEvent.Handler() {
 			@Override
@@ -1852,18 +1890,17 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		markButtonBar.add(markUnSeenButton);
 		buttonBar.add(markButtonBar);
 		// buttonBar.add(refreshLink); TODO
-		
 
-        pageBox.addItem("" + MessagesCellTable.PAGE_SIZE);
-        pageBox.addItem("" + (MessagesCellTable.PAGE_SIZE * 2));
-        pageBox.addItem("" + (MessagesCellTable.PAGE_SIZE * 4));
-        pageBox.addChangeHandler(new ChangeHandler() {
-            public void onChange(ChangeEvent event) {
-//                if (pageBox.getSelectedIndex() > 0)
-                	table.setVisibleRange(0, Integer.parseInt(pageBox.getItemText(pageBox.getSelectedIndex())));
-//                    mailTable.setPageSize(Integer.parseInt(pageBox.getItemText(pageBox.getSelectedIndex())));
-            }
-        });
+		pageBox.addItem("" + MessagesCellTable.PAGE_SIZE);
+		pageBox.addItem("" + (MessagesCellTable.PAGE_SIZE * 2));
+		pageBox.addItem("" + (MessagesCellTable.PAGE_SIZE * 4));
+		pageBox.addChangeHandler(new ChangeHandler() {
+			public void onChange(ChangeEvent event) {
+				// if (pageBox.getSelectedIndex() > 0)
+				table.setVisibleRange(0, Integer.parseInt(pageBox.getItemText(pageBox.getSelectedIndex())));
+				// mailTable.setPageSize(Integer.parseInt(pageBox.getItemText(pageBox.getSelectedIndex())));
+			}
+		});
 
 		HorizontalPanel searchPanel = new HorizontalPanel();
 		searchPanel.addStyleName(HupaCSS.C_buttons);
@@ -1888,7 +1925,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		hPanel.add(searchPanel);
 		hPanel.setCellHorizontalAlignment(searchPanel, HorizontalPanel.ALIGN_RIGHT);
 
-	    HorizontalPanel pagerBar = new HorizontalPanel();
+		HorizontalPanel pagerBar = new HorizontalPanel();
 
 		pagerBar.add(pager);
 		pagerBar.add(pageBox);
@@ -1904,6 +1941,15 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		initWidget(solidCenterPanel);
 	}
 
+	private int selectedCount() {
+		return getSelectedMessages().size();
+	}
+
+	private void toggleButtons(boolean b) {
+		getDeleteEnable().setEnabled(b);
+		getMarkSeenEnable().setEnabled(b);
+		getMarkUnseenEnable().setEnabled(b);
+	}
 	public void reloadData() {
 	}
 
@@ -2045,8 +2091,9 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#
 	 * getSelectedMessages()
 	 */
-	public List<Message> getSelectedMessages() {
-		return null;
+	@SuppressWarnings("unchecked")
+	public Set<Message> getSelectedMessages() {
+		return ((MultiSelectionModel<Message>) (table.getSelectionModel())).getSelectedSet();
 	}
 
 	/*
@@ -2243,5 +2290,13 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 			loading.hide();
 		}
 	}
+<<<<<<< HEAD
 >>>>>>> fix some bugs related to RF, and try to use new CellView to replace gwt-incubator 
+=======
+
+	@Override
+	public MessagesCellTable getTable() {
+		return table;
+	}
+>>>>>>> fix the main part of issue 11 - delete selected messages.
 }
