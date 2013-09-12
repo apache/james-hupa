@@ -36,6 +36,7 @@
 			<g:Label ui:field="appnameLabel"></g:Label>
 			<g:Label ui:field="extraLabel"></g:Label>
 		</g:HorizontalPanel>
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> decorate the theme
@@ -69,5 +70,7 @@
 =======
 	<g:FlowPanel ui:field="topWrapper">
 >>>>>>> make it look more beautiful
+=======
+>>>>>>> replace with uibinder
 	</g:FlowPanel>
 </ui:UiBinder>

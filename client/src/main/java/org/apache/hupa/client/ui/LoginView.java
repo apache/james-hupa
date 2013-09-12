@@ -44,8 +44,8 @@ import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.activity.LoginActivity;
 import org.apache.hupa.widgets.ui.Loading;
-import org.apache.hupa.widgets.ui.RndPanel;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
@@ -54,10 +54,14 @@ package org.apache.hupa.client.ui;
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+import com.google.gwt.core.client.GWT;
+>>>>>>> replace with uibinder
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.resources.client.ClientBundle;
@@ -69,6 +73,10 @@ import com.google.gwt.uibinder.client.UiField;
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+>>>>>>> replace with uibinder
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -212,11 +220,18 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 import com.google.inject.Inject;
 
 public class LoginView extends Composite implements KeyUpHandler, LoginActivity.Displayable {
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
+=======
+	@UiField VerticalPanel mainContainer;
+>>>>>>> replace with uibinder
 	private Button loginButton = new Button();
 	private SubmitButton submitButton;
 	private Button resetButton;
 	private Loading loading;
+//	FlowPanel rPanel = new FlowPanel();
+	@UiField FlexTable flexTable;
+	Panel buttonBar = new FlowPanel();
 	// We wrap login/password boxes with a form which must be in the html
 	// document,
 	// in this way, the browser knows that we are sending a login form and
@@ -224,15 +239,12 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 	private TextBox usernameTextBox = TextBox.wrap(DOM.getElementById("email"));
 	private PasswordTextBox passwordTextBox = PasswordTextBox.wrap(DOM.getElementById("password"));
 	// wrap the form after inputs so as they are in the dom when are wrapped
-	final private FormPanel formPanel = FormPanel.wrap(DOM.getElementById("loginForm"), true);
+	@UiField FormPanel formPanel;
 
 	@Inject
 	public LoginView(HupaConstants constants) {
-
-		VerticalPanel mainContainer = new VerticalPanel();
-		RndPanel rPanel = new RndPanel();
-		FlexTable flexTable = new FlexTable();
-		Panel buttonBar = new FlowPanel();
+		initWidget(binder.createAndBindUi(this));
+		formPanel = FormPanel.wrap(DOM.getElementById("loginForm"), true);
 		submitButton = new SubmitButton(constants.loginButton());
 		resetButton = new Button(constants.resetButton());
 		submitButton.getElement().setClassName(HupaCSS.C_button);
@@ -241,7 +253,7 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 		loading = new Loading(constants.loading());
 
 		mainContainer.setStyleName(HupaCSS.C_login_container);
-		flexTable.addStyleName(HupaCSS.C_login_form);
+//		flexTable.addStyleName(HupaCSS.C_login_form);
 		usernameTextBox.addStyleName(HupaCSS.C_login_box);
 		passwordTextBox.addStyleName(HupaCSS.C_login_box);
 
@@ -255,7 +267,7 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 		flexTable.getFlexCellFormatter().setColSpan(2, 0, 2);
 		flexTable.setWidget(2, 0, buttonBar);
 
-		rPanel.add(formPanel);
+//		rPanel.add(formPanel);
 		formPanel.add(flexTable);
 		mainContainer.add(formPanel);
 		mainContainer.add(loading);
@@ -335,6 +347,7 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 		mainContainer.add(loginButton);
 		loginButton.setVisible(false);
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 		// loginButton must be in the document to handle the click() method
@@ -344,6 +357,8 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 =======
 		initWidget(mainContainer);
 >>>>>>> make login form available
+=======
+>>>>>>> replace with uibinder
 	}
 
 	@Override
@@ -430,6 +445,7 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	interface LoginViewUiBinder extends UiBinder<FlowPanel, LoginView> {
 	}
 
@@ -440,4 +456,11 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
+=======
+	interface LoginViewUiBinder extends UiBinder<VerticalPanel, LoginView> {
+	}
+
+	private static LoginViewUiBinder binder = GWT.create(LoginViewUiBinder.class);
+
+>>>>>>> replace with uibinder
 }
