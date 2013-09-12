@@ -251,8 +251,9 @@ public class TopView extends Composite implements TopActivity.Displayable {
 
 		// Layout containers and panels
 		buttonContainer.add(loginInfoPanel);
-		loginInfoPanel.add(loginLabel);
-		loginInfoPanel.add(loginUserLabel);
+//		loginInfoPanel.add(loginLabel);
+//		loginInfoPanel.add(loginUserLabel);
+		buttonContainer.add(loginUserLabel);
 		buttonContainer.add(contactsButton);
 		buttonContainer.add(mainButton);
 		buttonContainer.add(logoutButton);

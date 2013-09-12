@@ -57,6 +57,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 <<<<<<< HEAD
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.HTMLPanel;
 =======
 >>>>>>> Change to new mvp framework - first step
@@ -73,6 +74,9 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 >>>>>>> use DockLayoutPanel as the App Layout
 =======
 import com.google.gwt.user.client.ui.HorizontalPanel;
+>>>>>>> make it look more beautiful
+=======
+import com.google.gwt.user.client.ui.HTMLPanel;
 >>>>>>> make it look more beautiful
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
@@ -120,6 +124,7 @@ public class AppLayoutImpl implements AppLayout {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@UiField LayoutPanel northPanel;
 	@UiField HTMLPanel southPanel;
 	@UiField SimplePanel westPanel;
@@ -151,6 +156,10 @@ public class AppLayoutImpl implements AppLayout {
 =======
 	@UiField HorizontalPanel northPanel;
 	@UiField SimplePanel southPanel;
+>>>>>>> make it look more beautiful
+=======
+	@UiField LayoutPanel northPanel;
+	@UiField HTMLPanel southPanel;
 >>>>>>> make it look more beautiful
 	@UiField SimplePanel westPanel;
 	@UiField SimplePanel eastPanel;
