@@ -506,6 +506,7 @@ import org.apache.hupa.shared.domain.Message;
 
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.DateCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.dom.client.Style.Unit;
@@ -513,6 +514,10 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
+import com.google.gwt.view.client.DefaultSelectionEventManager;
+import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.SelectionModel;
 import com.google.inject.Inject;
 
 public class MessagesCellTable extends DataGrid<Message> {
@@ -520,18 +525,29 @@ public class MessagesCellTable extends DataGrid<Message> {
 	private static final int PAGE_SIZE = 25;
 	
 	private HupaImageBundle imageBundle;
+	CheckboxColumn checkboxCol = new CheckboxColumn();
+	Column<Message, ?> fromCol = new FromColumn();
+	Column<Message, ?> subjectCol = new SubjectColumn();
+	Column<Message, ?> attachedCol = new AttachmentColumn();
+	Column<Message, ?> dateCol = new DateColumn();
+	public CheckboxColumn getCheckboxCol(){
+		return checkboxCol;
+	}
+	public final ProvidesKey<Message> KEY_PROVIDER = new ProvidesKey<Message>() {
+		@Override
+	      public Object getKey(Message item) {
+	        return item == null ? null : item.getUid();
+	      }
+	};
+	private final SelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(KEY_PROVIDER);
 
+	
 	@Inject
 	public MessagesCellTable(
 	        final HupaImageBundle imageBundle) {
 		super(PAGE_SIZE);
 		this.imageBundle = imageBundle;
 		
-		Column<Message, ?> checkboxCol = new CheckboxColumn();
-		Column<Message, ?> fromCol = new FromColumn();
-		Column<Message, ?> subjectCol = new SubjectColumn();
-		Column<Message, ?> attachedCol = new AttachmentColumn();
-		Column<Message, ?> dateCol = new DateColumn();
 		
 		addColumn(checkboxCol);
 		this.setColumnWidth(checkboxCol, 3, Unit.EM);
@@ -545,14 +561,16 @@ public class MessagesCellTable extends DataGrid<Message> {
 		this.setColumnWidth(dateCol, 10, Unit.EM);
 		setRowCount(PAGE_SIZE, false);
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
+		setSelectionModel(selectionModel, DefaultSelectionEventManager.<Message> createCheckboxManager(0));
 	}
-	private class CheckboxColumn extends Column<Message, Boolean> {
+	public class CheckboxColumn extends Column<Message, Boolean> {
+		
 		public CheckboxColumn() {
-			super(new CheckboxCell());
+			super(new CheckboxCell(false, false));
 		}
 		@Override
 		public Boolean getValue(Message object) {
-			return true;
+			return selectionModel.isSelected(object);
 		}
 	}
 

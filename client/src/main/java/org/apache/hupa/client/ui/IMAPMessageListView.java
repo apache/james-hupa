@@ -46,6 +46,7 @@ import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
@@ -80,6 +81,8 @@ import com.google.gwt.dom.client.Style.Unit;
 =======
 >>>>>>> Change to new mvp framework - first step
 import org.apache.hupa.client.bundles.HupaImageBundle;
+=======
+>>>>>>> make the messages list can be selected without bothering the checkbox column's behavior of it.
 import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.widgets.CommandsBar;
@@ -111,6 +114,7 @@ import org.cobogw.gwt.user.client.ui.ButtonBar;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> Change to new mvp framework - first step
@@ -119,6 +123,9 @@ import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.cell.client.TextCell;
+=======
+import com.google.gwt.cell.client.FieldUpdater;
+>>>>>>> make the messages list can be selected without bothering the checkbox column's behavior of it.
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -179,6 +186,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 >>>>>>> use DataGrid instead of CellTable to list messages.
 import com.google.gwt.user.client.ui.Widget;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.CellPreviewEvent.Handler;
 import com.google.gwt.view.client.MultiSelectionModel;
@@ -187,14 +195,22 @@ import com.google.gwt.view.client.ProvidesKey;
 >>>>>>> decorate columns of messages list and related panels above and below.
 import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent;
+=======
+import com.google.gwt.view.client.CellPreviewEvent;
+import com.google.gwt.view.client.CellPreviewEvent.Handler;
+import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.RangeChangeEvent;
+>>>>>>> make the messages list can be selected without bothering the checkbox column's behavior of it.
 import com.google.gwt.view.client.SelectionModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 @SuppressWarnings("deprecation")
-public class IMAPMessageListView extends Composite implements IMAPMessageListActivity.Displayable {
+public class IMAPMessageListView extends Composite implements
+		IMAPMessageListActivity.Displayable {
 
+<<<<<<< HEAD
 	@SuppressWarnings("unused") private HupaMessages messages;
 
 	private EnableButton deleteMailButton;
@@ -1630,6 +1646,10 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 
 	@SuppressWarnings("unused") private HupaMessages messages;
 	private HupaImageBundle imageBundle;
+=======
+	@SuppressWarnings("unused")
+	private HupaMessages messages;
+>>>>>>> make the messages list can be selected without bothering the checkbox column's behavior of it.
 
 	private EnableButton deleteMailButton;
 	private Button newMailButton;
@@ -1655,11 +1675,18 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	private ImapFolder folder;
 	private String searchValue;
 	private HupaRequestFactory requestFactory;
+	public final ProvidesKey<Message> KEY_PROVIDER = new ProvidesKey<Message>() {
+		@Override
+		public Object getKey(Message item) {
+			return item == null ? null : item.getUid();
+		}
+	};
+	private SelectionModel<? super Message> selectionModel;
 
-	private final SingleSelectionModel<Message> selectionModel = new SingleSelectionModel<Message>();
 	public void fetch(final int start) {
 		FetchMessagesRequest messagesRequest = requestFactory.messagesRequest();
-		FetchMessagesAction action = messagesRequest.create(FetchMessagesAction.class);
+		FetchMessagesAction action = messagesRequest
+				.create(FetchMessagesAction.class);
 		final ImapFolder folder1 = messagesRequest.create(ImapFolder.class);
 		folder1.setChildren(folder.getChildren());
 		folder1.setDelimiter(folder.getDelimiter());
@@ -1668,9 +1695,8 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		folder1.setName(folder.getName());
 		folder1.setSubscribed(folder.getSubscribed());
 		folder1.setUnseenMessageCount(folder.getUnseenMessageCount());
-		// FIXME cannot put setFolder to the first place
-		action.setOffset(table.getPageSize());
 		action.setFolder(folder1);
+		action.setOffset(table.getPageSize());
 		action.setSearchString(searchValue);
 		action.setStart(start);
 		messagesRequest.fetch(action).fire(new Receiver<FetchMessagesResult>() {
@@ -1681,79 +1707,61 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 					throw new RuntimeException(error.getMessage());
 				}
 			}
+
 			@Override
 			public void onSuccess(final FetchMessagesResult result) {
 				assert result != null;
-//				folder.setMessageCount(result.getRealCount());// TODO if do this, there will be auto bean has been frozen.
-//				folder.setUnseenMessageCount(result.getRealUnreadCount());
-//				dataProvider.setList(result.getMessages());
-//				sortHandler =  new ListHandler<Message>(dataProvider.getList());
-
-//		        sortHandler.setComparator(addressColumn, new Comparator<Contact>() {
-//		          public int compare(Contact o1, Contact o2) {
-//		            return o1.address.compareTo(o2.address);
-//		          }
-//		        });
-//				table.addColumnSortHandler(sortHandler);
+				// folder.setMessageCount(result.getRealCount());// TODO if do
+				// this, there will be auto bean has been frozen.
+				// folder.setUnseenMessageCount(result.getRealUnreadCount());
 				table.setRowCount(result.getRealCount());
-				if (result.getMessages() != null) {
-					table.setRowData(start, result.getMessages());
-				} else {
-					table.setRowData(start, result.getMessages());
-				}
-				
-	            pager.setPageStart(start);
-//	            if (start == 0 || !table.isRowCountExact()) {
-//	            	table.setRowCount(start + result.getMessages().size(), result.getMessages().size() < table.getPageSize());
-//	            }
-//				flush();
-				// Notify presenter to update folder tree view
-				eventBus.fireEvent(new MessagesReceivedEvent(folder1, result.getMessages()));
+				table.setRowData(start, result.getMessages());
+
+				pager.setPageStart(start);
+				eventBus.fireEvent(new MessagesReceivedEvent(folder1, result
+						.getMessages()));
 			}
 		});
 	}
 
-//	private ListDataProvider<Message> dataProvider;
-//    ListHandler<Message> sortHandler;
-
-
-	protected void refreshSelection() {
-		Message message = selectionModel.getSelectedObject();
-		if(message == null) return;
-		setExpandLoading(true);
-
-		/* TODO
-		if (message.getFlags().contains(MessageImpl.IMAPFlag.SEEN) == false) {
-			// add flag, fire event and redraw
-			message.getFlags().add(MessageImpl.IMAPFlag.SEEN);
-			eventBus.fireEvent(new DecreaseUnseenEvent(user, folder, 1));
-
-			redraw();
-
-		}*/
-		eventBus.fireEvent(new ExpandMessageEvent(user, folder, message));
-	    selectionModel.setSelected(message, false);
-	    
-    }
-	MessagesCellTable table;
+	private MessagesCellTable table;
 	private boolean pending;
+
 	@Inject
-	public IMAPMessageListView(final HupaConstants constants, final HupaMessages messages,
-	         final EventBus eventBus, final HupaRequestFactory requestFactory,
-	        final MessagesCellTable table) {
+	public IMAPMessageListView(final HupaConstants constants,
+			final HupaMessages messages, final EventBus eventBus,
+			final HupaRequestFactory requestFactory,
+			final MessagesCellTable table) {
 		this.table = table;
 		this.eventBus = eventBus;
-//		dataProvider = new ListDataProvider<Message>();
-//		dataProvider.addDataDisplay(table);
-
-		table.setSelectionModel(selectionModel);
-	    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-	      @Override
-	      public void onSelectionChange(SelectionChangeEvent event) {
-	    	 refreshSelection();
-	      }
-	    });
 		this.requestFactory = requestFactory;
+		selectionModel = table.getSelectionModel();
+		table.addCellPreviewHandler(new Handler<Message>() {
+			@Override
+			public void onCellPreview(CellPreviewEvent<Message> event) {
+				if (hasClickedButFirstCol(event)) {
+					setExpandLoading(true);
+					eventBus.fireEvent(new ExpandMessageEvent(user, folder,
+							event.getValue()));
+				}
+
+			}
+
+			private boolean hasClickedButFirstCol(
+					CellPreviewEvent<Message> event) {
+				return "click".equals(event.getNativeEvent().getType())
+						&& 0 != event.getColumn();
+			}
+
+		});
+		table.getCheckboxCol().setFieldUpdater(
+				new FieldUpdater<Message, Boolean>() {
+					@Override
+					public void update(int index, Message object, Boolean value) {
+						selectionModel.setSelected(object, value);
+					}
+				});
+
 		table.addRangeChangeHandler(new RangeChangeEvent.Handler() {
 			@Override
 			public void onRangeChange(RangeChangeEvent event) {
@@ -1761,29 +1769,31 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 			}
 		});
 		// bind some Events
-		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
+		eventBus.addHandler(LoadMessagesEvent.TYPE,
+				new LoadMessagesEventHandler() {
+					public void onLoadMessagesEvent(
+							LoadMessagesEvent loadMessagesEvent) {
+						user = loadMessagesEvent.getUser();
+						folder = loadMessagesEvent.getFolder();
+						searchValue = loadMessagesEvent.getSearchValue();
+						fetch(0);
 
-			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
-				user = loadMessagesEvent.getUser();
-				folder = loadMessagesEvent.getFolder();
-				searchValue = loadMessagesEvent.getSearchValue();
-				fetch(0);
-				
-			}
-		});
-		eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
-
-			public void onFolderSelectionEvent(FolderSelectionEvent event) {
-				user = event.getUser();
-				folder = event.getFolder();
-				searchValue = null;
-			}
-		});
+					}
+				});
+		eventBus.addHandler(FolderSelectionEvent.TYPE,
+				new FolderSelectionEventHandler() {
+					public void onFolderSelectionEvent(
+							FolderSelectionEvent event) {
+						user = event.getUser();
+						folder = event.getFolder();
+						searchValue = null;
+					}
+				});
 		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
-
 			public void onLogin(LoginEvent event) {
 				user = event.getUser();
-				folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
+				folder = new ImapFolderImpl(user.getSettings()
+						.getInboxFolderName());
 				searchValue = null;
 				if (!pending) {
 					pending = true;
@@ -1798,7 +1808,6 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 			}
 		});
 		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
-
 			public void onLogout(LogoutEvent logoutEvent) {
 				user = null;
 				folder = null;
@@ -1806,15 +1815,14 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 			}
 		});
 
-		
-		
 		this.messages = messages;
-		this.imageBundle = imageBundle;
 		this.eventBus = eventBus;
 
-	    SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
-	    pager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
-	    pager.setDisplay(table);
+		SimplePager.Resources pagerResources = GWT
+				.create(SimplePager.Resources.class);
+		pager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0,
+				true);
+		pager.setDisplay(table);
 
 		deleteMailButton = new EnableButton(constants.deleteMailButton());
 		newMailButton = new Button(constants.newMailButton());
@@ -1828,8 +1836,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		loading = new Loading(constants.loading());
 
 		DockLayoutPanel solidCenterPanel = new DockLayoutPanel(Unit.EM);
-//		solidCenterPanel.addStyleName(HupaCSS.C_msg_list_container);
-
+		// solidCenterPanel.addStyleName(HupaCSS.C_msg_list_container);
 
 		HorizontalPanel buttonBar = new HorizontalPanel();
 		buttonBar.addStyleName(HupaCSS.C_buttons);
@@ -1845,7 +1852,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		markButtonBar.add(markSeenButton);
 		markButtonBar.add(markUnSeenButton);
 		buttonBar.add(markButtonBar);
-//		buttonBar.add(refreshLink); TODO
+		// buttonBar.add(refreshLink); TODO
 
 		HorizontalPanel searchPanel = new HorizontalPanel();
 		searchPanel.addStyleName(HupaCSS.C_buttons);
@@ -1855,13 +1862,11 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		searchBox.setAutoSelectEnabled(false);
 		searchBox.setLimit(20);
 		searchBox.addKeyUpHandler(new KeyUpHandler() {
-
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 					searchButton.click();
 				}
 			}
-
 		});
 		searchPanel.add(searchBox);
 		searchPanel.add(searchButton);
@@ -1871,14 +1876,14 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		hPanel.addStyleName(HupaCSS.C_msg_top_bar);
 		hPanel.add(buttonBar);
 		hPanel.add(searchPanel);
-		hPanel.setCellHorizontalAlignment(searchPanel, HorizontalPanel.ALIGN_RIGHT);
-
+		hPanel.setCellHorizontalAlignment(searchPanel,
+				HorizontalPanel.ALIGN_RIGHT);
 
 		CommandsBar commandsBar = new CommandsBar();
 		commandsBar.addLeft(new HTML(constants.select() + ":"));
 		commandsBar.addLeft(allLink);
 		commandsBar.addLeft(noneLink);
-//		commandsBar.add(loading);
+		// commandsBar.add(loading);
 		// commandsBar.addRight(pagingBar);
 
 		commandsBar.addRight(pager);
@@ -1994,7 +1999,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * deselectAllMessages()
 	 */
 	public void deselectAllMessages() {
-//		mailTable.getDataTable().deselectAllRows();
+		// mailTable.getDataTable().deselectAllRows();
 	}
 
 	/*
@@ -2026,7 +2031,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * ()
 	 */
 	public void selectAllMessages() {
-//		mailTable.getDataTable().selectAllRows();
+		// mailTable.getDataTable().selectAllRows();
 	}
 
 	/*
@@ -2047,7 +2052,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * (java.util.ArrayList)
 	 */
 	public void removeMessages(List<Message> messages) {
-//		mailTable.removeRows(messages);
+		// mailTable.removeRows(messages);
 	}
 
 	/*
@@ -2057,7 +2062,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * setPostFetchMessageCount(int)
 	 */
 	public void setPostFetchMessageCount(int count) {
-//		cTableModel.setPostCachedRowCount(count);
+		// cTableModel.setPostCachedRowCount(count);
 	}
 
 	/*
@@ -2066,7 +2071,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#redraw()
 	 */
 	public void redraw() {
-//		mailTable.reloadPage();
+		// mailTable.reloadPage();
 	}
 
 	/*
@@ -2151,9 +2156,9 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	 * org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#goToPage(int)
 	 */
 	public void goToPage(int page) {
-//		if (page != mailTable.getCurrentPage()) {
-//			mailTable.gotoPage(page, false);
-//		}
+		// if (page != mailTable.getCurrentPage()) {
+		// mailTable.gotoPage(page, false);
+		// }
 	}
 
 	/*
