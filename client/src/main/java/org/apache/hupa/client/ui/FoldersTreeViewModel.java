@@ -23,12 +23,16 @@ import java.util.List;
 
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.events.LoadMessagesEvent;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
+import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 import com.google.inject.Inject;
@@ -36,14 +40,31 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class FoldersTreeViewModel implements TreeViewModel {
 
+	protected User user;
 	@Inject protected HupaRequestFactory rf;
 	@Inject protected EventBus eventBus;
 	
-	protected SingleSelectionModel<ImapFolder> selectionModel;
 	
-	public void setSelectionModel(SingleSelectionModel<ImapFolder> selectionModel){
-		this.selectionModel = selectionModel;
+	public FoldersTreeViewModel(){
+
+		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event.getSource();
+				eventBus.fireEvent(new LoadMessagesEvent(user, selectionModel.getSelectedObject()));
+			}
+		});
 	}
+
+
+	private final SingleSelectionModel<ImapFolder> selectionModel = new SingleSelectionModel<ImapFolder>(
+	        new ProvidesKey<ImapFolder>() {
+		        @Override
+		        public Object getKey(ImapFolder item) {
+			        return item == null ? null : item.getFullName();
+		        }
+	        });
 
 	/**
 	 * Get the {@link NodeInfo} that provides the children of the specified
@@ -77,13 +98,15 @@ public class FoldersTreeViewModel implements TreeViewModel {
 
 		@Override
 		protected void onRangeChanged(HasData<ImapFolder> display) {
+			System.out.print(rf == null);
 			rf.fetchFoldersRequest().fetch(folder).fire(new Receiver<List<ImapFolder>>() {
 				@Override
 				public void onSuccess(List<ImapFolder> response) {
 					if (response == null || response.size() == 0) {
 						updateRowCount(-1, true);
-					} else
+					} else{
 						updateRowData(0, response);
+					}
 				}
 			});
 

@@ -10,12 +10,17 @@
 	language governing permissions and limitations under the License. -->
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+<<<<<<< HEAD
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 <<<<<<< HEAD
 	<g:SimplePanel ui:field="thisView" />
 =======
+=======
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
+>>>>>>> make folder list in west panel partly work
 	<g:SimplePanel ui:field="FolderListView">
-		<g:HTMLPanel></g:HTMLPanel>
+		<hupa:FoldersCellTree ui:field="cellTree"/>
 	</g:SimplePanel>
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 </ui:UiBinder>

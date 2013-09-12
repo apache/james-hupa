@@ -213,14 +213,24 @@ import org.apache.hupa.client.activity.FolderListActivity;
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.inject.Inject;
 
-public class FolderListView extends Composite implements
-		FolderListActivity.Displayable {
+public class FolderListView extends Composite implements FolderListActivity.Displayable {
 
-	public FolderListView() {
+	@UiField(provided = true)
+	FoldersCellTree cellTree;
+
+	@Inject
+	public FolderListView(final FoldersTreeViewModel viewModel, final EventBus eventBus) {
+		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
+		cellTree = new FoldersCellTree(viewModel, res);
+		cellTree.setAnimationEnabled(true);
 		initWidget(binder.createAndBindUi(this));
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 	}
@@ -228,7 +238,6 @@ public class FolderListView extends Composite implements
 	interface FolderListUiBinder extends UiBinder<SimplePanel, FolderListView> {
 	}
 
-	private static FolderListUiBinder binder = GWT
-			.create(FolderListUiBinder.class);
+	private static FolderListUiBinder binder = GWT.create(FolderListUiBinder.class);
 
 }

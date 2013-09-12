@@ -23,7 +23,6 @@ import com.google.gwt.user.cellview.client.CellTree;
 import com.google.inject.Inject;
 
 public class FoldersCellTree extends CellTree {
-
 	@Inject
 	public FoldersCellTree(final FoldersTreeViewModel viewModel, Resources resources) {
 		super(viewModel, null, resources);

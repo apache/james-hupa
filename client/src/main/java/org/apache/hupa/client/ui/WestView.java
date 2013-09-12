@@ -778,10 +778,10 @@ public class WestView extends Composite implements WestActivity.Displayable {
 =======
 			}
 		});
-		viewModel.setSelectionModel(selectionModel);
+//		viewModel.setSelectionModel(selectionModel);
 
 		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
-		cellTree = new FoldersCellTree(viewModel, res);
+//		cellTree = new FoldersCellTree(viewModel, res);
 		cellTree.setAnimationEnabled(true);
 		initWidget(cellTree);
 >>>>>>> refactoring.
