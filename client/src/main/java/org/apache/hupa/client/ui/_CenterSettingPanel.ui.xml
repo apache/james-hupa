@@ -169,7 +169,7 @@
 			border-radius: 4px 4px 0 0;
 		}
 		
-		.contentbox .boxtitle,body.iframe .boxtitle {
+		.contentbox .boxtitle {
 			color: #777;
 			background: #eee;
 			background: -moz-linear-gradient(top, #eee 0%, #dfdfdf 100%);
@@ -216,7 +216,7 @@
 					</g:SimpleLayoutPanel>
 				</g:west>
 				<g:center>
-					<g:SimpleLayoutPanel>
+					<g:SimpleLayoutPanel addStyleNames="{style.uibox} {style.contentbox}">
 						<g:HTML>
 							<h2 class="{style.boxtitle}">PlayGround</h2>
 						</g:HTML>
