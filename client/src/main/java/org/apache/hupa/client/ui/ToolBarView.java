@@ -23,6 +23,7 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.place.ComposePlace;
+<<<<<<< HEAD
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
@@ -35,11 +36,17 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+=======
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+>>>>>>> composing composing panel
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedPopupPanel;
@@ -328,14 +335,19 @@ import com.google.gwt.resources.client.CssResource;
 >>>>>>> dynamical style tool bar
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+=======
+>>>>>>> composing composing panel
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.inject.Inject;
 
 public class ToolBarView extends Composite implements
 		ToolBarActivity.Displayable {
 
+	@Inject PlaceController placeController;
+	
 	@UiField Style style;
 
 	@UiField Anchor refresh;
@@ -348,6 +360,11 @@ public class ToolBarView extends Composite implements
 	@UiField Anchor delete;
 	@UiField Anchor mark;
 	@UiField Anchor more;
+
+	@UiHandler("compose")
+	void handleClick(ClickEvent e) {
+		placeController.goTo(new ComposePlace());
+	}
 
 	public ToolBarView() {
 		initWidget(binder.createAndBindUi(this));

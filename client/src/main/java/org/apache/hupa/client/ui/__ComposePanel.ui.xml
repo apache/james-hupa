@@ -70,7 +70,12 @@
 			border-collapse: separate;
 			border-spacing: 2px;
 			border-color: gray;
+<<<<<<< HEAD
 >>>>>>> preparing for composing panel
+=======
+			width: 99%;
+			margin: 4px 0;
+>>>>>>> composing composing panel
 		}
 	</ui:style>
 	<g:DockLayoutPanel ui:field="thisPanel" unit="PX"
@@ -90,7 +95,7 @@
 				addStyleNames="{style.mailviewbottom}{style.box}" />
 =======
 			<g:SimplePanel ui:field="composeHeader" addStyleNames="{style.composeHeader}">
-				<g:FlexTable ui:field="headerTable" addStyleNames="{style.headerTable}"></g:FlexTable>
+				<g:FlexTable ui:field="headerTable" addStyleNames="{style.headerTable}" />
 			</g:SimplePanel>
 		</g:north>
 		<g:center>

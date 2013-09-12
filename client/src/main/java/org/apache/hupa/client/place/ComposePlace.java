@@ -19,14 +19,18 @@
 
 package org.apache.hupa.client.place;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.ui.ToolBarView.Parameters;
 
 import com.google.gwt.place.shared.Place;
+=======
+>>>>>>> composing composing panel
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class ComposePlace extends AbstractPlace {
 
+<<<<<<< HEAD
 	private String token;
 	private Parameters parameters;
 
@@ -60,5 +64,20 @@ public class ComposePlace extends AbstractPlace {
 	public Parameters getParameters() {
 		return parameters;
 	}
+=======
+  @Prefix("compose")
+  public static class Tokenizer implements PlaceTokenizer<ComposePlace> {
+
+    @Override
+    public ComposePlace getPlace(String token) {
+      return new ComposePlace();
+    }
+
+    @Override
+    public String getToken(ComposePlace place) {
+      return "compose";
+    }
+  }
+>>>>>>> composing composing panel
 
 }

@@ -23,6 +23,7 @@ import org.apache.hupa.client.activity.FolderListActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.activity.shared.Activity;
@@ -33,6 +34,9 @@ import com.google.gwt.core.client.RunAsyncCallback;
 import org.apache.hupa.client.place.DefaultPlace;
 =======
 >>>>>>> support code split
+=======
+import org.apache.hupa.client.place.ComposePlace;
+>>>>>>> composing composing panel
 import org.apache.hupa.client.place.MailFolderPlace;
 >>>>>>> make folder list panel work as expected
 
@@ -89,8 +93,12 @@ public class FolderListActivityMapper implements ActivityMapper {
 =======
 =======
 	public Activity getActivity(final Place place) {
+<<<<<<< HEAD
 >>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
 		if (place instanceof MailFolderPlace) {
+=======
+		if (place instanceof MailFolderPlace || place instanceof ComposePlace) {
+>>>>>>> composing composing panel
 			return new ActivityAsyncProxy() {
 				@Override
 				protected void doAsync(RunAsyncCallback callback) {
