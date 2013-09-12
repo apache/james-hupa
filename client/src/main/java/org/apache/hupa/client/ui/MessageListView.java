@@ -96,12 +96,10 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.MultiSelectionModel;
-import com.google.gwt.view.client.NoSelectionModel;
 import com.google.inject.Inject;
 
 public class MessageListView extends Composite implements MessageListActivity.Displayable {
@@ -261,8 +259,6 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 		List<Long> selecteds = new ArrayList<Long>();
 		MultiSelectionModel<? super Message> selectionModel = (MultiSelectionModel<? super Message>) grid
 				.getSelectionModel();
-//		NoSelectionModel<? super Message> noSelectionModel = (NoSelectionModel<? super Message>)grid.getSelectionModel();
-		
 		selectionModel.getSelectedSet();
 		for (Message msg : getSelectedMessages()) {
 			selecteds.add(msg.getUid());
