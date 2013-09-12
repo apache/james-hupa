@@ -13,10 +13,14 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<ui:image field="buttons" src="res/buttons.png" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<ui:style>
 =======
 	<ui:style type="org.apache.hupa.client.ui.ToolBarView.Style">
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
+=======
+	<ui:style>
+>>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
 		.bar {
 			position: absolute;
 			display: block;

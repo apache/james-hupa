@@ -62,8 +62,12 @@ import org.apache.hupa.shared.domain.User;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+<<<<<<< HEAD
 >>>>>>> composing composing panel
 =======
+=======
+import com.google.gwt.event.dom.client.ClickHandler;
+>>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
 import com.google.gwt.event.dom.client.HasClickHandlers;
 >>>>>>> coping with reply and forward sending message
 import com.google.gwt.place.shared.PlaceController;
@@ -364,8 +368,11 @@ import com.google.gwt.uibinder.client.UiField;
 >>>>>>> composing composing panel
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
@@ -386,6 +393,20 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	@UiField Anchor more;
 
 	@UiField Style style;
+
+	interface Style extends CssResource {
+		String disabledButton();
+		String popupMenu();
+		String activeIcon();
+		String toolBarMenu();
+		String listicon();
+		String read();
+		String unread();
+	}
+
+	private VerticalPanel popup;
+	private Anchor markRead;
+	private Anchor markUnread;
 
 	private Parameters parameters;
 
@@ -444,10 +465,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		}
 	}
 
-	interface Style extends CssResource {
-		String disabledButton();
-	}
-
 	@UiHandler("compose")
 	void handleClick(ClickEvent e) {
 		placeController.goTo(new ComposePlace("new").with(parameters));
@@ -493,11 +510,40 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		initWidget(binder.createAndBindUi(this));
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
 		reply.addStyleName(style.disabledButton());
 >>>>>>> dynamical style tool bar
 =======
+=======
+		final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
+		simplePopup.addStyleName(style.popupMenu());
+		mark.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				// Reposition the popup relative to the button
+				Widget source = (Widget) event.getSource();
+				int left = source.getAbsoluteLeft();
+				int top = source.getAbsoluteTop() + source.getOffsetHeight();
+				simplePopup.setPopupPosition(left, top);
+				// Show the popup
+				simplePopup.show();
+			}
+		});
+		popup = new VerticalPanel();
+		markRead = new Anchor("As Unread");
+		markUnread = new Anchor("As Read");
+		popup.addStyleName(style.toolBarMenu());
+		markRead.addStyleName(style.activeIcon());
+		markRead.addStyleName(style.listicon());
+		markRead.addStyleName(style.read());
+		markUnread.addStyleName(style.activeIcon());
+		markUnread.addStyleName(style.listicon());
+		markUnread.addStyleName(style.unread());
+		popup.add(markRead);
+		popup.add(markUnread);
+		simplePopup.setWidget(popup);
+>>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
 	}
 
 	@Override
@@ -522,6 +568,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		replyAllGroup.addStyleName(style.disabledButton());
 		forwardGroup.addStyleName(style.disabledButton());
 		delete.addStyleName(style.disabledButton());
+		mark.addStyleName(style.disabledButton());
 	}
 
 	@Override
@@ -530,7 +577,11 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		replyAllGroup.removeStyleName(style.disabledButton());
 		forwardGroup.removeStyleName(style.disabledButton());
 		delete.removeStyleName(style.disabledButton());
+<<<<<<< HEAD
 >>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
+=======
+		mark.removeStyleName(style.disabledButton());
+>>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
 	}
 
 	interface ToolBarUiBinder extends UiBinder<FlowPanel, ToolBarView> {
