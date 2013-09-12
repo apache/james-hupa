@@ -26,6 +26,7 @@ package org.apache.hupa.client.ui;
 
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+<<<<<<< HEAD
 
 public interface AppLayout {
 	DockLayoutPanel getAppLayoutPanel();
@@ -70,6 +71,11 @@ public interface AppLayout {
 =======
 >>>>>>> introduce the top activity
 	LayoutPanel getMainLayoutPanel();
+=======
+
+public interface AppLayout {
+	DockLayoutPanel getMainLayoutPanel();
+>>>>>>> use DockLayoutPanel as the App Layout
 	AcceptsOneWidget getTopContainer();
 	AcceptsOneWidget getWestContainer();
 	AcceptsOneWidget getMainContainer();

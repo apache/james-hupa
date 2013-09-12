@@ -31,6 +31,7 @@ import org.apache.hupa.client.HupaCSS;
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
 import static com.google.gwt.dom.client.Style.Unit.PCT;
 >>>>>>> Change to new mvp framework - first step
 =======
@@ -39,10 +40,13 @@ package org.apache.hupa.client.ui;
 import static com.google.gwt.dom.client.Style.Unit.PCT;
 >>>>>>> Change to new mvp framework - first step
 
+=======
+>>>>>>> use DockLayoutPanel as the App Layout
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -59,14 +63,17 @@ import com.google.gwt.user.client.ui.FlowPanel;
 =======
 import com.google.gwt.user.client.ui.FlowPanel;
 >>>>>>> decorate the theme
+=======
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+>>>>>>> use DockLayoutPanel as the App Layout
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class AppLayoutImpl implements AppLayout {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -87,10 +94,16 @@ public class AppLayoutImpl implements AppLayout {
 >>>>>>> decorate the theme
 =======
 >>>>>>> decorate the theme
+=======
+	private final DockLayoutPanel mainLayoutPanel;
+
+	interface AppLayoutUiBinder extends UiBinder<DockLayoutPanel, AppLayoutImpl> {
+>>>>>>> use DockLayoutPanel as the App Layout
 	}
 
 	private static AppLayoutUiBinder binder = GWT.create(AppLayoutUiBinder.class);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	@UiField LayoutPanel northPanel;
@@ -116,12 +129,15 @@ public class AppLayoutImpl implements AppLayout {
 =======
 	SimplePanel topPanel;
 >>>>>>> introduce the top activity
+=======
+	@UiField SimplePanel northPanel;
+	@UiField SimplePanel southPanel;
+>>>>>>> use DockLayoutPanel as the App Layout
 
-	@UiField
-	SimplePanel westPanel;
+	@UiField SimplePanel westPanel;
+	@UiField SimplePanel eastPanel;
 
-	@UiField
-	SimplePanel mainPanel;
+	@UiField SimplePanel centerPanel;
 
 	@Inject
 	public AppLayoutImpl() {
@@ -134,6 +150,7 @@ public class AppLayoutImpl implements AppLayout {
 	}
 
 	@Override
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	public DockLayoutPanel getAppLayoutPanel() {
@@ -165,13 +182,19 @@ public class AppLayoutImpl implements AppLayout {
 
 =======
 
+=======
+	public DockLayoutPanel getMainLayoutPanel() {
+		return mainLayoutPanel;
+	}
+
+>>>>>>> use DockLayoutPanel as the App Layout
 	@Override
 	public AcceptsOneWidget getTopContainer() {
 		return new AcceptsOneWidget() {
 			@Override
 			public void setWidget(IsWidget w) {
 				Widget widget = Widget.asWidgetOrNull(w);
-				topPanel.setWidget(widget);
+				northPanel.setWidget(widget);
 			}
 		};
 	}
@@ -217,6 +240,7 @@ public class AppLayoutImpl implements AppLayout {
 				Widget widget = Widget.asWidgetOrNull(w);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				if(centerPanel.getWidgetCount() > 0){
 					centerPanel.remove(0);
 				}
@@ -229,11 +253,15 @@ public class AppLayoutImpl implements AppLayout {
 =======
 				mainPanel.setWidget(widget);
 >>>>>>> decorate the theme
+=======
+				centerPanel.setWidget(widget);
+>>>>>>> use DockLayoutPanel as the App Layout
 			}
 		};
 	}
 
 	public void setDefaultLayout() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		arrangeLayoutSize(8, 2, 15, 0);
@@ -333,15 +361,19 @@ public class AppLayoutImpl implements AppLayout {
 		mainLayoutPanel.setWidgetTopHeight(mainPanel, MAINMENU_HEIGHT, PCT, height, PCT);
 		mainLayoutPanel.setWidgetLeftWidth(mainPanel, VMASTER_WIDTH, PCT, 100 - VMASTER_WIDTH, PCT);
 		// mainLayoutPanel.animate(500);
+=======
+		mainLayoutPanel.setWidgetSize(westPanel, 18);
+		mainLayoutPanel.setWidgetSize(northPanel, 8);
+		mainLayoutPanel.setWidgetSize(southPanel, 2);
+		mainLayoutPanel.setWidgetSize(eastPanel, 0);
+>>>>>>> use DockLayoutPanel as the App Layout
 	}
 
 	public void setLoginLayout() {
-		int height = 100 - MAINMENU_HEIGHT;
-		mainLayoutPanel.setWidgetTopHeight(topPanel, 0, PCT, MAINMENU_HEIGHT, PCT);
-		mainLayoutPanel.setWidgetTopHeight(westPanel, 0, PCT, 0, PCT);
-		mainLayoutPanel.setWidgetTopHeight(mainPanel, MAINMENU_HEIGHT, PCT, height, PCT);
-		mainLayoutPanel.setWidgetLeftWidth(mainPanel, 0, PCT, 100, PCT);
-		// mainLayoutPanel.animate(500);
+		mainLayoutPanel.setWidgetSize(westPanel, 0);
+		mainLayoutPanel.setWidgetSize(northPanel, 8);
+		mainLayoutPanel.setWidgetSize(southPanel, 2);
+		mainLayoutPanel.setWidgetSize(eastPanel, 0);
 	}
 <<<<<<< HEAD
 >>>>>>> decorate the theme

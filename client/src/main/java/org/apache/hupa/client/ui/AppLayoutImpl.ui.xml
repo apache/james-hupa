@@ -1,6 +1,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> use DockLayoutPanel as the App Layout
 <!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
 	license agreements. See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership. The ASF licenses this file to 
@@ -11,6 +14,7 @@
 	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
 	OF ANY KIND, either express or implied. See the License for the specific 
 	language governing permissions and limitations under the License. -->
+<<<<<<< HEAD
 =======
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
@@ -31,6 +35,8 @@
     under the License.
 -->
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
+=======
+>>>>>>> use DockLayoutPanel as the App Layout
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
@@ -128,7 +134,7 @@
 			margin-top: 15px;
 		}
 		
-		.topPanel {
+		.northPanel {
 			padding-left: 80px;
 			padding-right: 8px;
 		}
@@ -137,7 +143,11 @@
 			height: 64px;
 			background-color: #C5D9FF;
 <<<<<<< HEAD
+<<<<<<< HEAD
 			background:  literal("-moz-linear-gradient(#FFFFFF, #C5D9FF)");
+=======
+			background: literal("-moz-linear-gradient(#FFFFFF, #C5D9FF)");
+>>>>>>> use DockLayoutPanel as the App Layout
 			background: literal("-webkit-linear-gradient(#FFFFFF, #C5D9FF)");
 			background: literal("-o-linear-gradient(#FFFFFF, #C5D9FF)");
 =======
@@ -187,7 +197,7 @@
 			margin: 8px 8px 8px 8px;
 		}
 		
-		.mainPanel {
+		.centerPanel {
 			border: 1px solid #7FAAFF;
 			box-shadow: 0 1px 4px grey;
 			border-radius: 5px;
@@ -206,6 +216,7 @@
 			min-height: 500px;
 		}
 	</ui:style>
+<<<<<<< HEAD
 	<g:LayoutPanel addStyleNames="{style.Hupa}">
 		<g:layer>
 <<<<<<< HEAD
@@ -236,4 +247,23 @@
 >>>>>>> Change to new mvp framework - first step
 =======
 >>>>>>> decorate the theme
+=======
+	<g:DockLayoutPanel unit='EM' addStyleNames="{style.Hupa}">
+		<g:north size='8'>
+			<g:SimplePanel ui:field="northPanel" addStyleNames="{style.northPanel}" />
+		</g:north>
+		<g:south size='2'>
+			<g:SimplePanel ui:field="southPanel" />
+		</g:south>
+		<g:west size='18'>
+			<g:SimplePanel ui:field="westPanel" addStyleNames="{style.westPanel}" />
+		</g:west>
+		<g:east size='0'>
+			<g:SimplePanel ui:field="eastPanel" />
+		</g:east>
+		<g:center>
+			<g:SimplePanel ui:field="centerPanel" addStyleNames="{style.centerPanel}" />
+		</g:center>
+	</g:DockLayoutPanel>
+>>>>>>> use DockLayoutPanel as the App Layout
 </ui:UiBinder>
