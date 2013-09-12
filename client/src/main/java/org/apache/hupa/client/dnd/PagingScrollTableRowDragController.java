@@ -22,7 +22,6 @@ package org.apache.hupa.client.dnd;
 import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.widgets.ui.RndPanel;
-import org.cobogw.gwt.user.client.ui.RoundedPanel;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.PickupDragController;

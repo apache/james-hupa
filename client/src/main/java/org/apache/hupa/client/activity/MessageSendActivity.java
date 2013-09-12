@@ -1,5 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -19,10 +22,13 @@
  * under the License.                                           *
  ****************************************************************/
 
+<<<<<<< HEAD
 =======
 >>>>>>> 1. improve the inbox folder place.
 =======
 >>>>>>> 1. improve the inbox folder place.
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.client.activity;
 
 import gwtupload.client.IUploadStatus.Status;
@@ -89,6 +95,7 @@ import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.MessageAttachmentImpl;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.SMTPMessage;
 <<<<<<< HEAD
 import org.apache.hupa.shared.data.User;
@@ -103,6 +110,8 @@ import org.apache.hupa.shared.domain.ImapFolder;
 =======
 =======
 import org.apache.hupa.shared.data.SmtpMessageImpl;
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 import org.apache.hupa.shared.domain.GenericResult;
 >>>>>>> forward and reply message to use RF
 import org.apache.hupa.shared.domain.ImapFolder;

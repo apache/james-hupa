@@ -1,5 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -19,6 +22,7 @@
  * under the License.                                           *
  ****************************************************************/
 
+<<<<<<< HEAD
 package org.apache.hupa.client.place;
 
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
@@ -28,6 +32,8 @@ import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.User;
 
 =======
+=======
+>>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.client.place;
 
 <<<<<<< HEAD
