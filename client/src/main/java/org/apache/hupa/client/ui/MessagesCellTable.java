@@ -504,6 +504,7 @@ import java.util.List;
 
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.bundles.HupaImageBundle;
+import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.domain.Message;
 
 import com.google.gwt.cell.client.CheckboxCell;
@@ -519,6 +520,7 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
+import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
@@ -538,10 +540,15 @@ public class MessagesCellTable extends DataGrid<Message> {
 
 	public interface Resources extends DataGrid.Resources {
 
-		DataGrid.Resources INSTANCE = GWT.create(Resources.class);
+		Resources INSTANCE = GWT.create(Resources.class);
 
 		@Source("res/CssMessagesCellTable.css")
-		Style dataGridStyle();
+		CustomStyle dataGridStyle();
+	}
+
+	public interface CustomStyle extends Style {
+		String fontBold();
+		String fontNormal();
 	}
 
 	public CheckboxColumn getCheckboxCol() {
@@ -554,12 +561,10 @@ public class MessagesCellTable extends DataGrid<Message> {
 			return item == null ? null : item.getUid();
 		}
 	};
-	private final SelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(
-			KEY_PROVIDER);
+	private final SelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(KEY_PROVIDER);
 
 	@Inject
-	public MessagesCellTable(final HupaImageBundle imageBundle,
-			final HupaConstants constants) {
+	public MessagesCellTable(final HupaImageBundle imageBundle, final HupaConstants constants) {
 		super(PAGE_SIZE, Resources.INSTANCE);
 
 		this.imageBundle = imageBundle;
@@ -572,8 +577,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 				return false;
 			}
 		};
-		Header<ImageResource> attachedPin = new Header<ImageResource>(
-				headerAttached) {
+		Header<ImageResource> attachedPin = new Header<ImageResource>(headerAttached) {
 			@Override
 			public ImageResource getValue() {
 				return imageBundle.attachmentIcon();
@@ -582,8 +586,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 		header.setUpdater(new ValueUpdater<Boolean>() {
 			@Override
 			public void update(Boolean value) {
-				List<Message> displayedItems = MessagesCellTable.this
-						.getVisibleItems();
+				List<Message> displayedItems = MessagesCellTable.this.getVisibleItems();
 				for (Message msg : displayedItems) {
 					selectionModel.setSelected(msg, value);
 				}
@@ -604,10 +607,27 @@ public class MessagesCellTable extends DataGrid<Message> {
 		addColumn(dateCol, constants.mailTableDate());
 		setColumnWidth(dateCol, 10, Unit.EM);
 		setRowCount(PAGE_SIZE, false);
+		setRowStyles(new RowStyles<Message>() {
+			@Override
+			public String getStyleNames(Message row, int rowIndex) {
+				return haveRead(row) ? markAsRead() : markAsUnread();
+			}
+
+			private String markAsUnread() {
+				return Resources.INSTANCE.dataGridStyle().fontBold();
+			}
+
+			private String markAsRead() {
+				return Resources.INSTANCE.dataGridStyle().fontNormal();
+			}
+
+			private boolean haveRead(Message row) {
+				return row.getFlags().contains(IMAPFlag.SEEN);
+			}
+		});
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
 		setAutoHeaderRefreshDisabled(true);
-		setSelectionModel(selectionModel,
-				DefaultSelectionEventManager.<Message> createCheckboxManager(0));
+		setSelectionModel(selectionModel, DefaultSelectionEventManager.<Message> createCheckboxManager(0));
 	}
 
 	public class CheckboxColumn extends Column<Message, Boolean> {
@@ -662,8 +682,10 @@ public class MessagesCellTable extends DataGrid<Message> {
 	}
 
 	private class DateColumn extends Column<Message, Date> {
+		private static final String DATE_FORMAT = "dd.MMM.yyyy";
+
 		public DateColumn() {
-			super(new DateCell(DateTimeFormat.getFormat("dd.MMM.yyyy")));
+			super(new DateCell(DateTimeFormat.getFormat(DATE_FORMAT)));
 		}
 
 		@Override

@@ -41,7 +41,7 @@
 }
 
 .dataGridCell {
-    cursor: pointer;
+	cursor: pointer;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -90,8 +90,8 @@
 }
 
 .dataGridEvenRowCell {
-    border-left: 1px dotted #bbd3da;
-    border-bottom: 0px solid #bbd3da;
+	border-left: 1px dotted #bbd3da;
+	border-bottom: 0px solid #bbd3da;
 }
 
 .dataGridOddRow {
@@ -99,8 +99,8 @@
 }
 
 .dataGridOddRowCell {
-    border-left: 1px dotted #bbd3da;
-    border-bottom: 0px solid #bbd3da;
+	border-left: 1px dotted #bbd3da;
+	border-bottom: 0px solid #bbd3da;
 }
 
 .dataGridHoveredRow {
@@ -108,8 +108,8 @@
 }
 
 .dataGridHoveredRowCell {
-    border-left: 1px dotted #eee;
-    border-bottom: 0px solid #eee;
+	border-left: 1px dotted #eee;
+	border-bottom: 0px solid #eee;
 }
 
 .dataGridKeyboardSelectedRow {
@@ -134,8 +134,8 @@
 }
 
 .dataGridSelectedRowCell {
-    border-left: 1px dotted #628cd5;
-    border-bottom: 0px solid #628cd5;
+	border-left: 1px dotted #628cd5;
+	border-bottom: 0px solid #628cd5;
 }
 
 /**
@@ -143,4 +143,12 @@
  */
 .dataGridKeyboardSelectedCell {
 	border: selectionBorderWidth solid #d7dde8;
+}
+
+.fontBold {
+	font-weight: bold;
+}
+
+.fontNormal {
+	font-weight: normal;
 }
