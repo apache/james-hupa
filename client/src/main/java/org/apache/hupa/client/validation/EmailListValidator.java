@@ -19,7 +19,6 @@
 
 package org.apache.hupa.client.validation;
 
-import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.ui.HasText;
 
 import eu.maydu.gwt.validation.client.ValidationAction;

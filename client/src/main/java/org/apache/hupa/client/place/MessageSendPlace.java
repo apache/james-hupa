@@ -26,6 +26,7 @@
 package org.apache.hupa.client.place;
 
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
@@ -72,6 +73,8 @@ import org.apache.hupa.shared.domain.ImapFolder;
 =======
 =======
 >>>>>>> try to get message details, problem is:
+=======
+>>>>>>> commit frequently based on (http://t.cn/zjxJ71X), there should be more robust and user-friendly features to develop.
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
