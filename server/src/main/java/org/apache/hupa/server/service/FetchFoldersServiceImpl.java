@@ -27,18 +27,25 @@ import javax.mail.MessagingException;
 
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.ImapFolder;
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.exception.HupaException;
+=======
+>>>>>>> Fix issue #15.
 
 import com.sun.mail.imap.IMAPStore;
 
 public class FetchFoldersServiceImpl extends AbstractService implements FetchFoldersService {
 
 	@Override
+<<<<<<< HEAD
 	public List<ImapFolder> fetch(ImapFolder imapFolder, Boolean recursive) throws MessagingException, HupaException {
 		if(recursive){
 			return this.pullAll();
 		}
+=======
+	public List<ImapFolder> fetch(ImapFolder imapFolder) throws MessagingException {
+>>>>>>> Fix issue #15.
 		try {
 			Folder folder = null;
 			IMAPStore store = cache.get(getUser());
@@ -58,6 +65,7 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 			throw new MessagingException();
 		}
 	}
+<<<<<<< HEAD
 	
 	public List<ImapFolder> pullAll() throws MessagingException, HupaException {
 		User user = getUser();
@@ -131,10 +139,13 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 
 		return iFolder;
 	}
+=======
+>>>>>>> Fix issue #15.
 
 	/**
 	 * Create a new IMAPFolder from the given Folder
 	 * 
+<<<<<<< HEAD
 	 * @param folder
 	 *            Current folder
 	 * @return imapFolder Created IMAPFolder
@@ -145,11 +156,23 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 	 *             If an error occurs
 	 */
 	private ImapFolder createImapFolder(Folder folder) throws HupaException {
+=======
+	 * @param folder Current folder
+	 * @return imapFolder Created IMAPFolder
+	 * @throws Exception If an error occurs
+	 * @throws MessagingException If an error occurs
+	 */
+	private ImapFolder createImapFolder(Folder folder) {
+>>>>>>> Fix issue #15.
 		String fullName = folder.getFullName();
 		String delimiter;
 		ImapFolder iFolder = null;
 		try {
+<<<<<<< HEAD
 			System.out.println("Creating folder2: " + fullName + " for user: " + this.getUser());
+=======
+			System.out.println("Creating folder: " + fullName + " for user: ");
+>>>>>>> Fix issue #15.
 			delimiter = String.valueOf(folder.getSeparator());
 			iFolder = new ImapFolderImpl(fullName);
 			iFolder.setDelimiter(delimiter);
@@ -158,7 +181,11 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 			iFolder.setMessageCount(folder.getMessageCount());
 			iFolder.setSubscribed(folder.isSubscribed());
 			iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());
+<<<<<<< HEAD
 			if (folder.list().length != 0) {
+=======
+			if(folder.list().length != 0){
+>>>>>>> Fix issue #15.
 				iFolder.setHasChildren(true);
 			}
 		} catch (MessagingException e) {

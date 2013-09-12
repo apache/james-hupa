@@ -133,8 +133,8 @@ public class ImapFolderServiceImpl extends AbstractService implements ImapFolder
 		try {
 			IMAPStore store = cache.get(user);
 			com.sun.mail.imap.IMAPFolder folder = (com.sun.mail.imap.IMAPFolder) store.getDefaultFolder();
-
-			// List of mail 'root' imap folders TODO can not make this as a field of the class, or the client will get more and more appended folders.
+			
+			// List of mail 'root' imap folders 
 			List<ImapFolder> imapFolders = new ArrayList<ImapFolder>();
 			// Create IMAPFolder tree list
 			for (Folder f : folder.list()) {

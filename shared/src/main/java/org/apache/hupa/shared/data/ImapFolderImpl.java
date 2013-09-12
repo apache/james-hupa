@@ -158,6 +158,7 @@ public class ImapFolderImpl implements ImapFolder {
     private int messageCount;
     private int unseenMessageCount;
     private boolean subscribed = false;
+    private boolean hasChildren = false;
 
     public ImapFolderImpl() {
     }
@@ -374,6 +375,19 @@ public class ImapFolderImpl implements ImapFolder {
 		folder.setUnseenMessageCount(this.unseenMessageCount);
     }
 
+<<<<<<< HEAD
 >>>>>>> fix AllDelete feature in issue 11. and scrub some code
+=======
+	@Override
+    public boolean getHasChildren() {
+	    return hasChildren;
+    }
+	
+	@Override
+	public void setHasChildren(boolean hasChildren){
+		this.hasChildren = hasChildren;
+	}
+
+>>>>>>> Fix issue #15.
     
 }

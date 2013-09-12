@@ -132,14 +132,20 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.HasSelectionHandlers;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.cellview.client.TreeNode;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.gwt.view.client.TreeViewModel;
 import com.google.inject.Inject;
 /**
  * MainView acts like a container of other widgets which will get displayed after the user successfully logged in
@@ -180,10 +186,11 @@ public class WestView extends Composite implements WestActivity.Displayable {
     private EventBus bus;
     private PagingScrollTableRowDragController controller;
     protected User user;
-
+    private TreeViewModel viewModel;
     
     @Inject
-    public WestView(EventBus bus, PagingScrollTableRowDragController controllerProvider, HupaConstants constants, HupaMessages messages) {
+    public WestView(FolderTreeViewModel viewModel, EventBus bus, PagingScrollTableRowDragController controllerProvider, HupaConstants constants, HupaMessages messages) {
+    	this.viewModel = viewModel;
         this.constants = constants;
         this.messages = messages;
         this.controller = controllerProvider;
@@ -230,6 +237,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
 >>>>>>> Change to new mvp framework - first step
 =======
         west.setWidth("100%");
+<<<<<<< HEAD
 >>>>>>> decorate the theme
         initWidget(west);
     }
@@ -237,6 +245,36 @@ public class WestView extends Composite implements WestActivity.Displayable {
     private void createWest() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+//        initWidget(west);
+        cellTree = new FolderTree(viewModel, null, res);
+        putCellTree();
+        
+    }
+
+	public final ProvidesKey<ImapFolder> KEY_PROVIDER = new ProvidesKey<ImapFolder>() {
+		@Override
+		public Object getKey(ImapFolder item) {
+			return item == null ? null : item.getFullName();
+		}
+	};
+    CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
+    final SingleSelectionModel<ImapFolder> selectionModel =
+    	      new SingleSelectionModel<ImapFolder>(KEY_PROVIDER);
+    CellTree cellTree;
+    FlowPanel panel = new FlowPanel();
+    private void putCellTree() {
+
+//        TreeNode rootNode = cellTree.getRootTreeNode();
+//        TreeNode firstPlaylist = rootNode.setChildOpen(0, true);
+//        firstPlaylist.setChildOpen(0, true);
+    	initWidget(cellTree);
+    	cellTree.setAnimationEnabled(true);
+    	
+    }
+
+	private void createWest() {
+>>>>>>> Fix issue #15.
         west = new VerticalPanel();
 <<<<<<< HEAD
 =======

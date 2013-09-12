@@ -17,23 +17,16 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.client.rf;
+package org.apache.hupa.client.ui;
 
-import java.util.List;
+import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.view.client.TreeViewModel;
 
-import org.apache.hupa.server.ioc.IocRfServiceLocator;
-import org.apache.hupa.server.service.FetchFoldersService;
-import org.apache.hupa.shared.domain.ImapFolder;
+public class FolderTree extends CellTree {
 
-import com.google.web.bindery.requestfactory.shared.Request;
-import com.google.web.bindery.requestfactory.shared.RequestContext;
-import com.google.web.bindery.requestfactory.shared.Service;
+	public <T> FolderTree(TreeViewModel viewModel, T rootValue, Resources resources) {
+	    super(viewModel, rootValue, resources);
+	    // TODO Auto-generated constructor stub
+    }
 
-@Service(value = FetchFoldersService.class, locator = IocRfServiceLocator.class)
-public interface FetchFoldersRequest extends RequestContext {
-<<<<<<< HEAD
-	Request<List<ImapFolder>> fetch(ImapFolder imapFolder, Boolean recursive);
-=======
-	Request<List<ImapFolder>> fetch(ImapFolder imapFolder);
->>>>>>> Fix issue #15.
 }

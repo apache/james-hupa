@@ -96,6 +96,7 @@ public interface HupaRequestFactory extends RequestFactory {
 =======
 =======
 	LogoutUserRequest logoutRequest();
+	FetchFoldersRequest fetchFoldersRequest();
 	FetchMessagesRequest messagesRequest();
 	MoveMessageRequest moveMessageRequest();
 >>>>>>> other RFs

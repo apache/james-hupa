@@ -60,10 +60,15 @@ import org.apache.hupa.server.service.DeleteMessageAllServiceImpl;
 import org.apache.hupa.server.service.DeleteMessageByUidService;
 import org.apache.hupa.server.service.DeleteMessageByUidServiceImpl;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.server.service.FetchFoldersService;
 import org.apache.hupa.server.service.FetchFoldersServiceImpl;
 =======
 >>>>>>> delete messages, make WestActivity Singleton
+=======
+import org.apache.hupa.server.service.FetchFoldersService;
+import org.apache.hupa.server.service.FetchFoldersServiceImpl;
+>>>>>>> Fix issue #15.
 import org.apache.hupa.server.service.FetchMessagesService;
 import org.apache.hupa.server.service.FetchMessagesServiceImpl;
 import org.apache.hupa.server.service.GetMessageDetailsService;
@@ -430,6 +435,7 @@ public class GuiceServerModule extends AbstractModule {
 		bind(ImapFolderService.class).to(ImapFolderServiceImpl.class);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		bind(FetchFoldersService.class).to(FetchFoldersServiceImpl.class);
 		bind(FetchMessagesService.class).to(FetchMessagesServiceImpl.class);
 		bind(CreateFolderService.class).to(CreateFolderServiceImpl.class);
@@ -458,6 +464,9 @@ public class GuiceServerModule extends AbstractModule {
         bind(UserPreferencesStorage.class).to(InImapUserPreferencesStorage.class);
 =======
 =======
+=======
+		bind(FetchFoldersService.class).to(FetchFoldersServiceImpl.class);
+>>>>>>> Fix issue #15.
 		bind(FetchMessagesService.class).to(FetchMessagesServiceImpl.class);
 <<<<<<< HEAD
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
