@@ -19,25 +19,7 @@
 
 package org.apache.hupa.server.handler;
 
-import com.google.inject.Provider;
-
-import com.sun.mail.imap.IMAPStore;
-
-import net.customware.gwt.dispatch.server.ExecutionContext;
-import net.customware.gwt.dispatch.shared.ActionException;
-
-import org.apache.commons.logging.Log;
-import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.server.preferences.UserPreferencesStorage;
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.Tag;
-import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.data.Message.IMAPFlag;
-import org.apache.hupa.shared.rpc.FetchMessages;
-import org.apache.hupa.shared.rpc.FetchMessagesResult;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.mail.Address;
@@ -47,9 +29,25 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.UIDFolder;
-import javax.mail.internet.MimeUtility;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpSession;
+
+import net.customware.gwt.dispatch.server.ExecutionContext;
+import net.customware.gwt.dispatch.shared.ActionException;
+
+import org.apache.commons.logging.Log;
+import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
+import org.apache.hupa.server.utils.MessageUtils;
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.data.Tag;
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.rpc.FetchMessages;
+import org.apache.hupa.shared.rpc.FetchMessagesResult;
+
+import com.google.inject.Provider;
+import com.sun.mail.imap.IMAPStore;
 
 public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> extends AbstractSessionHandler<A, FetchMessagesResult>{
 
@@ -128,13 +126,13 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             Message m = messages[i];                
             String from = null;
             if (m.getFrom() != null && m.getFrom().length >0 ) {
-                from = decodeText(m.getFrom()[0].toString());
+                from = MessageUtils.decodeText(m.getFrom()[0].toString());
             }
             msg.setFrom(from);
 
             String replyto = null;
             if (m.getReplyTo() != null && m.getReplyTo().length >0 ) {
-                replyto = decodeText(m.getReplyTo()[0].toString());
+                replyto = MessageUtils.decodeText(m.getReplyTo()[0].toString());
             }
             msg.setReplyto(replyto);
             
@@ -143,7 +141,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             Address[] toArray = m.getRecipients(RecipientType.TO);
             if (toArray != null) {
                 for (Address addr : toArray) {
-                    String mailTo = decodeText(addr.toString());
+                    String mailTo = MessageUtils.decodeText(addr.toString());
                     to.add(mailTo);
                 }
             }
@@ -152,7 +150,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             // Check if a subject exist and if so decode it
             String subject = m.getSubject();
             if (subject != null) {
-                subject = decodeText(subject);
+                subject = MessageUtils.decodeText(subject);
             }
             msg.setSubject(subject);
             
@@ -161,7 +159,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             ArrayList<String> cc = new ArrayList<String>();
             if (ccArray != null) {
                 for (Address addr : ccArray) {
-                    String mailCc = decodeText(addr.toString());
+                    String mailCc = MessageUtils.decodeText(addr.toString());
                     cc.add(mailCc);
                 }            	
             }
@@ -247,20 +245,5 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         }
     }
 
-    /**
-     * Decode iso-xxxx strings present in subjects and emails like:
-     * 
-     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
-     */
-    private String decodeText(String s) {
-    	String ret = s;
-    	try {
-    		ret = MimeUtility.decodeText(s);
-        } catch (UnsupportedEncodingException e) {
-            logger.debug("Unable to decode text " + s + " " + e.getMessage());
-        }
-        // Remove quotes around names in email addresses
-        ret =  ret.replaceFirst("^[\"' ]+([^\"]*)[\"' ]+<", "$1 <");
-        return ret;
-    }
+
 }

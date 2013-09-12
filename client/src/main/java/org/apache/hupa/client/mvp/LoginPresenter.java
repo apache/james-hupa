@@ -49,8 +49,6 @@ import com.google.inject.Inject;
 public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
     
     private HupaConstants constants = GWT.create(HupaConstants.class);
-    private int minUsernameLength = 1;
-    private int minPasswordLength = 1;
 
     public interface Display extends WidgetDisplay{
         public HasClickHandlers getLoginClick();
@@ -73,10 +71,10 @@ public class LoginPresenter extends WidgetPresenter<LoginPresenter.Display>{
      * Try to login the user
      */
     private void doLogin() {
-        String user = display.getUserNameValue().getValue();
-        String pass = display.getPasswordValue().getValue();
+        String user = display.getUserNameValue().getValue().trim();
+        String pass = display.getPasswordValue().getValue().trim();
         
-        if (user.length() < minUsernameLength || pass.length() < minPasswordLength)
+        if (user.isEmpty() || pass.isEmpty())
             return;
         
         display.setLoading(true);

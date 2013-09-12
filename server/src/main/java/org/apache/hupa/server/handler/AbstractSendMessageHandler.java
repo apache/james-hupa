@@ -147,7 +147,7 @@ public abstract class AbstractSendMessageHandler<A extends SendMessage> extends 
         message.setRecipients(RecipientType.TO, MessageUtils.getRecipients(m.getTo()));
         message.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
         message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
-        message.setSubject(m.getSubject());
+        message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
         message.saveChanges();
         return message;
     }

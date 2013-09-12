@@ -22,20 +22,26 @@ package org.apache.hupa.server.utils;
 <<<<<<< HEAD
 import java.io.File;
 import java.io.IOException;
+<<<<<<< HEAD
 import java.io.InputStream;
 import java.io.OutputStream;
+=======
+>>>>>>> constantly changed by manolo
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+<<<<<<< HEAD
 =======
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -88,10 +94,14 @@ public class MessageUtils {
         Address[] array = new Address[recipients.size()];
         for (int i = 0; i < recipients.size(); i++) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             array[i] = new InternetAddress(encodeEmail(recipients.get(i)));
 =======
             array[i] = new InternetAddress(recipients.get(i));
 >>>>>>> first commit
+=======
+            array[i] = new InternetAddress(encodeEmail(recipients.get(i)));
+>>>>>>> constantly changed by manolo
         }
         return array;
     }
@@ -301,5 +311,53 @@ public class MessageUtils {
     }
 =======
     
+<<<<<<< HEAD
 >>>>>>> first commit
+=======
+    /**
+     * Decode iso-xxxx strings present in subjects and emails like:
+     * 
+     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
+     */
+    public static String decodeText(String s) {
+        String ret = s;
+        try {
+            ret = MimeUtility.decodeText(s);
+        } catch (UnsupportedEncodingException e) {
+            System.out.println(e.getMessage());
+        }
+        ret =  ret
+          // Remove quotes around names in email addresses
+          .replaceFirst("^[<\"' ]+([^\"<>]*)[>\"' ]+<", "$1 <");
+        return ret;
+    }
+    
+    /**
+     * Encode non ascii characters present in emails like:
+     * 
+     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
+     */
+    public static String encodeEmail(String s) {
+        if (s == null) {
+            return s;
+        }
+        Pattern p = Pattern.compile("^\\s*(.*?)\\s*(<[^>]+>)\\s*");
+        Matcher m = p.matcher(s);
+        return m.matches() ? encodeTexts(m.group(1)) + " " + m.group(2) : s;
+    }
+    
+    /**
+     * Encode non ascii characters present in email headers
+     */
+    public static String encodeTexts(String s) {
+        String ret = s;
+        if (s != null) {
+            try {
+                ret = MimeUtility.encodeText(s, "ISO-8859-1", null);
+            } catch (UnsupportedEncodingException e) {
+            }
+        }
+        return ret;
+    }
+>>>>>>> constantly changed by manolo
 }

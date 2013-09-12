@@ -40,6 +40,7 @@ public class ContactsHandlerTest extends HupaGuiceTestCase {
         userPreferences.addContact("<somebody@foo.com>");
         userPreferences.addContact("somebody@foo.com");
         userPreferences.addContact("\"somebody@foo.com\" <somebody@foo.com>");
+        userPreferences.addContact("<somebody@foo.com> <somebody@foo.com>");
         Assert.assertEquals(2, getContacts().length);
     }
     
