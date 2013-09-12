@@ -213,10 +213,14 @@ public class GetMessageDetailsHandler extends
         boolean isHTML = false;
         if (con instanceof String) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (message.getContentType().toLowerCase().startsWith("text/html")) {
 =======
             if (message.getContentType().startsWith("text/html")) {
 >>>>>>> first commit
+=======
+            if (message.getContentType().toLowerCase().startsWith("text/html")) {
+>>>>>>> constantly changed by manolo
                 isHTML = true;
             } else {
                 isHTML = false;

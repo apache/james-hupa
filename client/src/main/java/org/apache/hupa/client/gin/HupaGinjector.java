@@ -29,10 +29,14 @@ import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @GinModules({/*StandardDispatchModule.class,*/ HupaClientModule.class})
 =======
 @GinModules({StandardDispatchModule.class,HupaClientModule.class})
 >>>>>>> first commit
+=======
+@GinModules({/*StandardDispatchModule.class,*/ HupaClientModule.class})
+>>>>>>> constantly changed by manolo
 public interface HupaGinjector extends Ginjector {
     AppPresenter getAppPresenter();
     PlaceManager getPlaceManager();

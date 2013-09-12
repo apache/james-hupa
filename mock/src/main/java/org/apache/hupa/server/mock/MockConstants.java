@@ -46,11 +46,16 @@ public class MockConstants {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     public static String SESSION_ID = "MockID";
      
     public final static Settings mockSettings = new SettingsImpl() {
 =======
+=======
+    
+    public static String SESSION_ID = "MockID";
+>>>>>>> constantly changed by manolo
 =======
     
     public static String SESSION_ID = "MockID";
@@ -80,6 +85,7 @@ public class MockConstants {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             put("DefaultUserSessionId", "DEMO_ID");
 >>>>>>> first commit
@@ -88,6 +94,8 @@ public class MockConstants {
 =======
             put("DefaultUserSessionId", "DEMO_ID");
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 
             put("IMAPServerAddress", MockIMAPStore.MOCK_HOST);
             put("SMTPServerAddress", MockIMAPStore.MOCK_HOST);

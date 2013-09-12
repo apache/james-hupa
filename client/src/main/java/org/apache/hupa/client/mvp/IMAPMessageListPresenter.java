@@ -418,6 +418,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
     @Override
     protected void onRevealDisplay() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (user != null && folder != null) {
             display.reloadData();  
         }
@@ -434,14 +435,28 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             || (searchValue != null && searchValue.equals(this.searchValue) == false)) {
 =======
         display.reloadData();  
+=======
+        if (user != null && folder != null) {
+            display.reloadData();  
+        }
+>>>>>>> constantly changed by manolo
     }
     
     public void revealDisplay(User user, IMAPFolder folder, String searchValue) {
         this.user = user;
        
+<<<<<<< HEAD
         if (this.folder == null || this.folder.getFullName().equals(folder.getFullName()) == false 
                 || (searchValue == null && this.searchValue != null) || (searchValue != null && searchValue.equals(this.searchValue) == false)) {
 >>>>>>> first commit
+=======
+        if (this.user == null 
+            || !this.user.getName().equals(user.getName()) 
+            || this.folder == null 
+            || !this.folder.getFullName().equals(folder.getFullName()) 
+            || (searchValue == null && this.searchValue != null) 
+            || (searchValue != null && searchValue.equals(this.searchValue) == false)) {
+>>>>>>> constantly changed by manolo
             display.reset();
             display.deselectAllMessages();
         }
@@ -449,10 +464,15 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
         this.searchValue = searchValue;
         this.folder = folder;
 <<<<<<< HEAD
+<<<<<<< HEAD
         
 
 =======
 >>>>>>> first commit
+=======
+        
+
+>>>>>>> constantly changed by manolo
         revealDisplay();
     }
 

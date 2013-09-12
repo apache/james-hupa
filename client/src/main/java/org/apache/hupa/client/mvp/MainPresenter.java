@@ -25,17 +25,24 @@ import java.util.Comparator;
 import java.util.List;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import net.customware.gwt.dispatch.client.DispatchAsync;
 =======
 >>>>>>> first commit
+=======
+import net.customware.gwt.dispatch.client.DispatchAsync;
+>>>>>>> constantly changed by manolo
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetContainerDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetContainerPresenter;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.apache.hupa.client.CachingDispatchAsync;
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.widgets.HasDialog;
@@ -43,6 +50,7 @@ import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
@@ -51,6 +59,11 @@ import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.User;
+>>>>>>> constantly changed by manolo
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.BackEventHandler;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
@@ -157,11 +170,15 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private DispatchAsync dispatcher;
     private User user;
     private IMAPFolderProxy folder;
 =======
     private CachingDispatchAsync cachingDispatcher;
+=======
+    private DispatchAsync dispatcher;
+>>>>>>> constantly changed by manolo
     private User user;
     private IMAPFolder folder;
 >>>>>>> first commit
@@ -174,6 +191,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     
     @Inject
 <<<<<<< HEAD
+<<<<<<< HEAD
     public MainPresenter(MainPresenter.Display display, EventBus bus, DispatchAsync cachingDispatcher, IMAPMessageListPresenter messageListPresenter, IMAPMessagePresenter messagePresenter,
             MessageSendPresenter sendPresenter) {
         super(display, bus, messageListPresenter, messagePresenter, sendPresenter);
@@ -184,6 +202,12 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         super(display, bus, messageListPresenter, messagePresenter, sendPresenter);
         this.cachingDispatcher = cachingDispatcher;
 >>>>>>> first commit
+=======
+    public MainPresenter(MainPresenter.Display display, EventBus bus, DispatchAsync cachingDispatcher, IMAPMessageListPresenter messageListPresenter, IMAPMessagePresenter messagePresenter,
+            MessageSendPresenter sendPresenter) {
+        super(display, bus, messageListPresenter, messagePresenter, sendPresenter);
+        this.dispatcher = cachingDispatcher;
+>>>>>>> constantly changed by manolo
         this.messageListPresenter = messageListPresenter;
         this.messagePresenter = messagePresenter;
         this.sendPresenter = sendPresenter;
@@ -193,10 +217,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     protected void loadTreeItems() {
         display.setLoadingFolders(true);
 <<<<<<< HEAD
+<<<<<<< HEAD
         dispatcher.execute(new FetchFolders(), new HupaCallback<FetchFoldersResult>(dispatcher, eventBus, display) {
 =======
         cachingDispatcher.execute(new FetchFolders(), new HupaCallback<FetchFoldersResult>(cachingDispatcher, eventBus, display) {
 >>>>>>> first commit
+=======
+        dispatcher.execute(new FetchFolders(), new HupaCallback<FetchFoldersResult>(dispatcher, eventBus, display) {
+>>>>>>> constantly changed by manolo
             public void callback(FetchFoldersResult result) {
                 display.bindTreeItems(createTreeNodes(result.getFolders()));
                 // disable
@@ -235,10 +263,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                         final String newName = (String) event.getNewValue();
                         if (iFolder.getFullName().equalsIgnoreCase(newName) == false) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                             dispatcher.execute(new RenameFolder(iFolder, newName), new HupaCallback<GenericResult>(dispatcher, eventBus) {
 =======
                             cachingDispatcher.execute(new RenameFolder(iFolder, newName), new HupaCallback<GenericResult>(cachingDispatcher, eventBus) {
 >>>>>>> first commit
+=======
+                            dispatcher.execute(new RenameFolder(iFolder, newName), new HupaCallback<GenericResult>(dispatcher, eventBus) {
+>>>>>>> constantly changed by manolo
                                 public void callback(GenericResult result) {
                                     folder.setFullName(newName);
                                 }
@@ -323,6 +355,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     /**
      * Reset the presenter and display
@@ -333,6 +366,8 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     }
 
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 
     @Override
     protected void onBind() {
@@ -360,10 +395,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
                 display.setLoadingMessage(true);
 <<<<<<< HEAD
+<<<<<<< HEAD
                 dispatcher.execute(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaCallback<GetMessageDetailsResult>(dispatcher, eventBus, display) {
 =======
                 cachingDispatcher.executeWithCache(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaCallback<GetMessageDetailsResult>(cachingDispatcher, eventBus, display) {
 >>>>>>> first commit
+=======
+                dispatcher.execute(new GetMessageDetails(event.getFolder(), message.getUid()), new HupaCallback<GetMessageDetailsResult>(dispatcher, eventBus, display) {
+>>>>>>> constantly changed by manolo
                     public void callback(GetMessageDetailsResult result) {
                         if (decreaseUnseen) {
                             eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
@@ -513,10 +552,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
             public void onClick(ClickEvent event) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 dispatcher.execute(new DeleteFolder(folder), new AsyncCallback<GenericResult>() {
 =======
                 cachingDispatcher.execute(new DeleteFolder(folder), new AsyncCallback<GenericResult>() {
 >>>>>>> first commit
+=======
+                dispatcher.execute(new DeleteFolder(folder), new AsyncCallback<GenericResult>() {
+>>>>>>> constantly changed by manolo
 
                     public void onFailure(Throwable caught) {
                         GWT.log("ERROR while deleting", caught);
@@ -541,10 +584,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                         final String newValue = (String) event.getNewValue();
                         if (event.getEventType().equals(EditEvent.EventType.Stop)) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                             dispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<GenericResult>() {
 =======
                             cachingDispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<GenericResult>() {
 >>>>>>> first commit
+=======
+                            dispatcher.execute(new CreateFolder(new IMAPFolder(newValue.trim())), new AsyncCallback<GenericResult>() {
+>>>>>>> constantly changed by manolo
 
                                 public void onFailure(Throwable caught) {
                                     GWT.log("Error while create folder", caught);
@@ -582,6 +629,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
 <<<<<<< HEAD
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());;
                 searchValue = null;
                 showMessageTable(user, folder, searchValue);
@@ -589,6 +637,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                 folder = new IMAPFolder(user.getSettings().getInboxFolderName());
                 messageListPresenter.revealDisplay(user, folder, null);
 >>>>>>> first commit
+=======
+                folder = new IMAPFolder(user.getSettings().getInboxFolderName());;
+                searchValue = null;
+                showMessageTable(user, folder, searchValue);
+>>>>>>> constantly changed by manolo
             }
             
         }));
@@ -598,6 +651,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -610,6 +664,8 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
     
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
     public void revealDisplay(User user) {
         this.user = user;
         loadTreeItems();  
@@ -619,12 +675,17 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     @Override
     protected void onRevealDisplay() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 //        showMessageTable(user, folder, searchValue);
 //        super.onRevealDisplay();
 =======
         showMessageTable(user, folder, searchValue);
         super.onRevealDisplay();
 >>>>>>> first commit
+=======
+//        showMessageTable(user, folder, searchValue);
+//        super.onRevealDisplay();
+>>>>>>> constantly changed by manolo
     }
     
     public void openLink(String url) {

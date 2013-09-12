@@ -21,6 +21,7 @@ package org.apache.hupa.client;
 
 import java.util.HashMap;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.Map;
 
@@ -105,39 +106,85 @@ public class CachingDispatchAsync extends StandardDispatchAsync {
     /**
      * If the Action was executed before it will get fetched from the cache
 =======
+=======
+import java.util.HashSet;
+>>>>>>> constantly changed by manolo
 import java.util.Map;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.inject.Inject;
+import org.apache.hupa.shared.rpc.GetMessageDetails;
 
-import net.customware.gwt.dispatch.client.DispatchAsync;
+import net.customware.gwt.dispatch.client.ExceptionHandler;
+import net.customware.gwt.dispatch.client.standard.StandardDispatchAsync;
 import net.customware.gwt.dispatch.shared.Action;
 import net.customware.gwt.dispatch.shared.Result;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.inject.Inject;
+
 /**
- * Dispatcher which support caching of data in memory
+ * Dispatcher which support caching of data in memory.
+ * 
+ * It also avoids simultaneous executions of the same action, which 
+ * is very useful in development.
  * 
  */
-public class CachingDispatchAsync implements DispatchAsync {
+public class CachingDispatchAsync extends StandardDispatchAsync {
 
-    private DispatchAsync dispatcher;
-    private Map<Action<Result>, Result> cache = new HashMap<Action<Result>, Result>();
-
+    
     @Inject
-    public CachingDispatchAsync(DispatchAsync dispatcher) {
-        this.dispatcher = dispatcher;
+    public CachingDispatchAsync(ExceptionHandler exceptionHandler) {
+        super(exceptionHandler);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.customware.gwt.dispatch.client.DispatchAsync#execute(A, com.google.gwt.user.client.rpc.AsyncCallback)
-     */
+    private Map<Action<Result>, Result> cache = new HashMap<Action<Result>, Result>();
+    
+    private HashSet<Class<?>> running = new HashSet<Class<?>>();
+
+    @Override
     public <A extends Action<R>, R extends Result> void execute(final A action,
             final AsyncCallback<R> callback) {
-        dispatcher.execute(action, callback);
+        
+        if (action instanceof GetMessageDetails) {
+            executeWithCache(action, callback);
+        } else {
+            if (GWT.isProdMode()) {
+                super.execute(action, callback);
+            } else {
+                executeOneRequestPerAction(action, callback);
+            }
+        }
+    }
+    
+    /**
+     * Avoid parallel executions of the same action
+     */
+    public <A extends Action<R>, R extends Result> void executeOneRequestPerAction (
+            final A action, final AsyncCallback<R> callback) {
+
+        final Class<?> clz = action.getClass();
+        if (running.contains(clz)) {
+            System.err.println("ATTENTION: avoiding a parallel execution of the action: " + action.getClass().getName());
+            new RuntimeException().printStackTrace();
+            
+            return;
+        } else {
+            running.add(clz);
+            super.execute(action, new AsyncCallback<R>() {
+                public void onFailure(Throwable caught) {
+                    running.remove(clz);
+                    callback.onFailure(caught);
+                }
+                public void onSuccess(final R result) {
+                    running.remove(clz);
+                    callback.onSuccess(result);
+                }
+            });
+         }
     }
 
     /**
+<<<<<<< HEAD
      * Execute the give Action. If the Action was executed before it will get fetched from the cache
      * 
      * @param <A> Action implementation
@@ -145,12 +192,18 @@ public class CachingDispatchAsync implements DispatchAsync {
      * @param action the action
      * @param callback the callback
 >>>>>>> first commit
+=======
+     * If the Action was executed before it will get fetched from the cache
+>>>>>>> constantly changed by manolo
      */
     @SuppressWarnings("unchecked")
     public <A extends Action<R>, R extends Result> void executeWithCache(
             final A action, final AsyncCallback<R> callback) {
         Result r = cache.get(action);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
 
         final Class<?> clz = action.getClass();
         if (running.contains(clz)) {
@@ -161,6 +214,7 @@ public class CachingDispatchAsync implements DispatchAsync {
             running.add(clz);
         }
         
+<<<<<<< HEAD
         if (r != null) {
             callback.onSuccess((R) r);
         } else {
@@ -168,17 +222,23 @@ public class CachingDispatchAsync implements DispatchAsync {
                 public void onFailure(Throwable caught) {
                     running.remove(clz);
 =======
+=======
+>>>>>>> constantly changed by manolo
         if (r != null) {
             callback.onSuccess((R) r);
         } else {
-            dispatcher.execute(action, new AsyncCallback<R>() {
-
+            super.execute(action, new AsyncCallback<R>() {
                 public void onFailure(Throwable caught) {
+<<<<<<< HEAD
 >>>>>>> first commit
+=======
+                    running.remove(clz);
+>>>>>>> constantly changed by manolo
                     callback.onFailure(caught);
                 }
 
                 public void onSuccess(R result) {
+<<<<<<< HEAD
 <<<<<<< HEAD
                     running.remove(clz);
                     cache.put((Action<Result>) action, (Result) result);
@@ -190,6 +250,12 @@ public class CachingDispatchAsync implements DispatchAsync {
                 }
 
 >>>>>>> first commit
+=======
+                    running.remove(clz);
+                    cache.put((Action<Result>) action, (Result) result);
+                    callback.onSuccess(result);
+                }
+>>>>>>> constantly changed by manolo
             });
         }
     }

@@ -73,6 +73,7 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 =======
 >>>>>>> first commit
@@ -81,6 +82,9 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> first commit
+=======
+	
+>>>>>>> constantly changed by manolo
 
     // User preferences are saved in IMAP but there is a delay between a new
     // contact is added an the save action. It saves number of operations in

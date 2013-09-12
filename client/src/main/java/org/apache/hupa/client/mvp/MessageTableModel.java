@@ -135,6 +135,7 @@ public class MessageTableModel extends MutableTableModel<Message> {
                 folder.setMessageCount(result.getRealCount());
                 folder.setUnseenMessageCount(result.getRealUnreadCount());
 <<<<<<< HEAD
+<<<<<<< HEAD
                 
                 setRowCount(result.getRealCount());
                 callback.onRowsReady(request, new TableModelHelper.Response<Message>() {
@@ -143,6 +144,11 @@ public class MessageTableModel extends MutableTableModel<Message> {
                 eventBus.fireEvent(new MessagesReceivedEvent(folder, result.getMessages()));
                 TableModelHelper.Response<Message> response = new TableModelHelper.Response<Message>() {
 >>>>>>> first commit
+=======
+                
+                setRowCount(result.getRealCount());
+                callback.onRowsReady(request, new TableModelHelper.Response<Message>() {
+>>>>>>> constantly changed by manolo
                     @Override
                     public Iterator<Message> getRowValues() {
                         if (result != null && result.getMessages() != null) {
@@ -152,15 +158,21 @@ public class MessageTableModel extends MutableTableModel<Message> {
                         }
                     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
                 });
                 
                 // Notify presenter to update folder tree view
                 eventBus.fireEvent(new MessagesReceivedEvent(folder, result.getMessages()));
+<<<<<<< HEAD
 =======
                 };
                 setRowCount(result.getRealCount());
                 callback.onRowsReady(request,response);
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
             }
         }); 
     }

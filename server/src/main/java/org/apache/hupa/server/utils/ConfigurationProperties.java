@@ -56,6 +56,7 @@ public enum ConfigurationProperties {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     PASSWORD("Password", false, null);
 =======
     PASSWORD("Password", false, null),
@@ -68,6 +69,9 @@ public enum ConfigurationProperties {
     PASSWORD("Password", false, null),
     SESSIONID("DefaultUserSessionId", false, null);
 >>>>>>> first commit
+=======
+    PASSWORD("Password", false, null);
+>>>>>>> constantly changed by manolo
     
     private String property;
     private boolean mandatory;

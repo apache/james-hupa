@@ -20,11 +20,17 @@
 package org.apache.hupa.client.gin;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import net.customware.gwt.dispatch.client.DefaultExceptionHandler;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.client.ExceptionHandler;
 =======
 >>>>>>> first commit
+=======
+import net.customware.gwt.dispatch.client.DefaultExceptionHandler;
+import net.customware.gwt.dispatch.client.DispatchAsync;
+import net.customware.gwt.dispatch.client.ExceptionHandler;
+>>>>>>> constantly changed by manolo
 import net.customware.gwt.presenter.client.DefaultEventBus;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.gin.AbstractPresenterModule;
@@ -60,9 +66,13 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.inject.Provider;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.inject.Provides;
 =======
 >>>>>>> first commit
+=======
+import com.google.inject.Provides;
+>>>>>>> constantly changed by manolo
 import com.google.inject.Singleton;
 
 public class HupaClientModule extends AbstractPresenterModule {
@@ -80,15 +90,19 @@ public class HupaClientModule extends AbstractPresenterModule {
         bindPresenter(AppPresenter.class, AppPresenter.Display.class, AppView.class);
         bindPresenter(ContactsPresenter.class, ContactsPresenter.Display.class, ContactsView.class);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         bind(CachingDispatchAsync.class);
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
         bind(PagingScrollTableRowDragController.class).in(Singleton.class);
         bind(MessageTableModel.class).in(Singleton.class);
         bind(LoginPresenterPlace.class).in(Singleton.class);
         bind(IMAPMessageListPresenterPlace.class).in(Singleton.class);
         bind(MessageSendPresenterPlace.class).in(Singleton.class);
         bind(ContactsPresenterPlace.class).in(Singleton.class);
+<<<<<<< HEAD
 <<<<<<< HEAD
 
         // Used by dispatch. Note that GWT 2.4 has its own ExceptionHandler etc in other namespace
@@ -98,6 +112,13 @@ public class HupaClientModule extends AbstractPresenterModule {
 =======
         
 >>>>>>> first commit
+=======
+
+        // Used by dispatch. Note that GWT 2.4 has its own ExceptionHandler etc in other namespace
+        bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
+        
+        // RF Stuff, Eventbus has a different namespace than gwt-dispatch
+>>>>>>> constantly changed by manolo
         bind(com.google.gwt.event.shared.EventBus.class)
             .to(SimpleEventBus.class)
             .in(Singleton.class);
@@ -105,6 +126,9 @@ public class HupaClientModule extends AbstractPresenterModule {
             .toProvider(HupaClientModule.RequestFactoryProvider.class)
             .in(Singleton.class);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
 
     }
     
@@ -112,6 +136,7 @@ public class HupaClientModule extends AbstractPresenterModule {
     @Singleton
     protected DispatchAsync provideDispatchAsync(ExceptionHandler exceptionHandler) {
         return new CachingDispatchAsync( exceptionHandler );
+<<<<<<< HEAD
     }
     
     /**
@@ -121,6 +146,13 @@ public class HupaClientModule extends AbstractPresenterModule {
     }
     
 >>>>>>> first commit
+=======
+    }
+    
+    /**
+     * RF Stuff 
+     */
+>>>>>>> constantly changed by manolo
     public static class RequestFactoryProvider implements Provider<HupaRequestFactory> {
         private static final com.google.gwt.event.shared.EventBus eventBus = new SimpleEventBus();
         public HupaRequestFactory get() {

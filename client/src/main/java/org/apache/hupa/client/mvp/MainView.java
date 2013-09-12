@@ -35,12 +35,17 @@ import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.User;
 =======
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.data.User;
+>>>>>>> constantly changed by manolo
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
@@ -69,8 +74,12 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.Panel;
 =======
+=======
+import com.google.gwt.user.client.ui.Panel;
+>>>>>>> constantly changed by manolo
 import com.google.gwt.user.client.ui.SimplePanel;
 >>>>>>> first commit
 import com.google.gwt.user.client.ui.Tree;
@@ -99,10 +108,14 @@ public class MainView extends Composite implements MainPresenter.Display {
     private HupaMessages messages;
     private VerticalPanel folderPanel = new VerticalPanel();
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Panel westPanel = new HorizontalPanel();
 =======
     private SimplePanel panel = new SimplePanel();
 >>>>>>> first commit
+=======
+    private Panel westPanel = new HorizontalPanel();
+>>>>>>> constantly changed by manolo
     private HorizontalPanel folderButtonBar = new HorizontalPanel();
     private EnableHyperlink newFolderButton;
     private EnableHyperlink renameFolderButton;
@@ -184,10 +197,14 @@ public class MainView extends Composite implements MainPresenter.Display {
         folderPanel.add(folderButtonBar);
         folderPanel.add(folderTree);
 <<<<<<< HEAD
+<<<<<<< HEAD
         westPanel.add(loader);
 =======
         panel.add(loader);
 >>>>>>> first commit
+=======
+        westPanel.add(loader);
+>>>>>>> constantly changed by manolo
         confirmFolderDeleteBox.setText(messages.confirmDeleteFolder());
         bus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 
@@ -204,12 +221,16 @@ public class MainView extends Composite implements MainPresenter.Display {
 
         });
 <<<<<<< HEAD
+<<<<<<< HEAD
         west.add(westPanel);
     }
 
     @SuppressWarnings("unused")
 =======
         west.add(panel);
+=======
+        west.add(westPanel);
+>>>>>>> constantly changed by manolo
     }
 
 <<<<<<< HEAD
@@ -296,6 +317,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         if (load) {
             loader.show();
 <<<<<<< HEAD
+<<<<<<< HEAD
 //            panel.clear();
             westPanel.add(loader);
         } else {
@@ -308,6 +330,13 @@ public class MainView extends Composite implements MainPresenter.Display {
             panel.clear();
             panel.add(folderPanel);
 >>>>>>> first commit
+=======
+//            panel.clear();
+            westPanel.add(loader);
+        } else {
+            westPanel.clear();
+            westPanel.add(folderPanel);
+>>>>>>> constantly changed by manolo
         }
     }
 

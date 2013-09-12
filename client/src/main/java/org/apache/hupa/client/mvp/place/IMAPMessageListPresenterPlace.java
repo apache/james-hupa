@@ -56,9 +56,12 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
             // ignore
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         presenter.getDisplay().goToPage(page);
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
         
         int rowsPerPageIndex = 0;
         try {
@@ -74,6 +77,7 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
         presenter.getDisplay().getSearchValue().setValue(searchValue);
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         presenter.getDisplay().goToPage(page);
         
         GWT.log("PRES="+request.toString(),null);
@@ -81,6 +85,11 @@ public class IMAPMessageListPresenterPlace extends ProvidedPresenterPlace<IMAPMe
         GWT.log("PRES="+request.toString(),null);
 
 >>>>>>> first commit
+=======
+        presenter.getDisplay().goToPage(page);
+        
+        GWT.log("PRES="+request.toString(),null);
+>>>>>>> constantly changed by manolo
     }
 
     @Override

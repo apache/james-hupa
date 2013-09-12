@@ -29,6 +29,7 @@ import org.apache.hupa.server.IMAPStoreCache;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
@@ -39,6 +40,9 @@ import org.apache.hupa.server.InMemoryIMAPStoreCache;
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> first commit
+=======
+import org.apache.hupa.server.InMemoryIMAPStoreCache;
+>>>>>>> constantly changed by manolo
 import org.apache.hupa.server.guice.demo.DemoGuiceServerModule.DemoIMAPStoreCache;
 import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
@@ -135,12 +139,16 @@ import org.apache.hupa.shared.rpc.SendMessage;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 import com.google.inject.Provider;
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> first commit
+=======
+import com.google.inject.Provider;
+>>>>>>> constantly changed by manolo
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import com.sun.mail.imap.IMAPStore;
@@ -248,6 +256,9 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
 public class GuiceServerTestModule extends AbstractGuiceTestModule {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
     protected Class<? extends UserPreferencesStorage> userPreferencesStorageClass = InSessionUserPreferencesStorage.class;
     protected Class<? extends Provider<Log>> logProviderClass = MockLogProvider.class;
     protected Properties properties = MockConstants.mockProperties;
@@ -296,6 +307,7 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
         bind(User.class).to(TestUser.class).in(Singleton.class);
         bind(Properties.class).toInstance(properties);
     }
+<<<<<<< HEAD
 
 }
 >>>>>>> first commit
@@ -339,6 +351,8 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
       bind(Properties.class).toInstance(properties);
 
   }
+=======
+>>>>>>> constantly changed by manolo
 
 }
 >>>>>>> first commit

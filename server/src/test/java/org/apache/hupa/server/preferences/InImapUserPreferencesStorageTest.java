@@ -22,6 +22,7 @@ package org.apache.hupa.server.preferences;
 import java.util.ArrayList;
 import java.util.Arrays;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import javax.mail.Flags;
 import javax.mail.Folder;
@@ -31,16 +32,15 @@ import org.apache.hupa.server.guice.GuiceServerTestModule;
 import org.apache.hupa.server.guice.providers.LogProvider;
 =======
 import java.util.Properties;
+=======
+>>>>>>> constantly changed by manolo
 
 import javax.mail.Flags;
 import javax.mail.Folder;
-import javax.mail.Session;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
 import org.apache.hupa.server.HupaGuiceTestCase;
-import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.guice.GuiceServerTestModule;
+<<<<<<< HEAD
 import org.apache.hupa.server.guice.demo.DemoGuiceServerModule.DemoIMAPStoreCache;
 import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
@@ -64,26 +64,35 @@ import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLogProvider;
 import org.apache.hupa.server.utils.ConfigurationProperties;
 >>>>>>> first commit
+=======
+import org.apache.hupa.server.guice.providers.LogProvider;
+>>>>>>> constantly changed by manolo
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.SMTPMessage;
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import org.apache.hupa.shared.data.Settings;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.Contacts;
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
 import org.apache.hupa.shared.rpc.SendMessage;
 
 import com.google.inject.Module;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 >>>>>>> first commit
+=======
+>>>>>>> constantly changed by manolo
 import com.sun.mail.imap.IMAPStore;
 
 public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
@@ -96,6 +105,7 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
          - Comment the delay
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     static class InImapUserPreferencesGuiceModule extends GuiceServerTestModule {
     	public InImapUserPreferencesGuiceModule() {
     		
@@ -103,10 +113,16 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
     static class MyModule extends GuiceServerTestModule {
         public MyModule() {
 >>>>>>> first commit
+=======
+    static class InImapUserPreferencesGuiceModule extends GuiceServerTestModule {
+    	public InImapUserPreferencesGuiceModule() {
+    		
+>>>>>>> constantly changed by manolo
             // Select a valid imap provider, comment all to use Mock
             // properties = courierProperties;
             // properties = gmailProperties;
             // properties = jamesProperties;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     	    // Uncomment to use production logger
@@ -126,53 +142,35 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
             // Change the default delay to run test faster
             InImapUserPreferencesStorage.IMAP_SAVE_DELAY = 400;
         }
+=======
+>>>>>>> constantly changed by manolo
 
-        @Override
-        protected void configureHandlers() {
-            Properties p = MockConstants.mockProperties;
-            ConfigurationProperties.validateProperties(p);
-            Names.bindProperties(binder(), p);
+    	    // Uncomment to use production logger
+            logProviderClass = LogProvider.class;
+    		
+            userPreferencesStorageClass = InImapUserPreferencesStorage.class;
             
-            bind(Session.class).toProvider(JavaMailSessionProvider.class);
-            bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
-            bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(Singleton.class);
-            bind(Log.class).toProvider(MockLogProvider.class).in(Singleton.class);
-
-            bind(IMAPStore.class).to(MockIMAPStore.class);
-            bind(IMAPStoreCache.class).to(DemoIMAPStoreCache.class).in(Singleton.class);
-
-            bind(LoginUserHandler.class);
-            bind(LogoutUserHandler.class);
-            bind(IdleHandler.class);
-            
-            bind(FetchFoldersHandler.class);
-            bind(CreateFolderHandler.class);
-            bind(DeleteFolderHandler.class);
-            bind(FetchMessagesHandler.class);
-            bind(DeleteMessageByUidHandler.class);
-            bind(GetMessageDetailsHandler.class);
-            bind(AbstractSendMessageHandler.class).to(SendMessageHandler.class);
-            bind(SendMessageHandler.class);
-            bind(ReplyMessageHandler.class);
-            bind(ForwardMessageHandler.class);
-            
-            bindHandler(Contacts.class, ContactsHandler.class);
-            bindHandler(SendMessage.class, SendMessageHandler.class);
-            
-            bind(UserPreferencesStorage.class).to(InImapUserPreferencesStorage.class);
-            
-            bind(User.class).to(TestUser.class).in(Singleton.class);
+            // to run test faster
+            InImapUserPreferencesStorage.IMAP_SAVE_DELAY = 400;
         }
+<<<<<<< HEAD
 >>>>>>> first commit
+=======
+        
+>>>>>>> constantly changed by manolo
     }
     
     @Override
     protected Module[] getModules() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         return new Module[]{new InImapUserPreferencesGuiceModule()};
 =======
         return new Module[]{new MyModule()};
 >>>>>>> first commit
+=======
+        return new Module[]{new InImapUserPreferencesGuiceModule()};
+>>>>>>> constantly changed by manolo
     }
     
     /**
@@ -274,6 +272,7 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
         smtpmsg.setBcc(new ArrayList<String>());
         SendMessage action = new SendMessage(smtpmsg);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         String folderName = testUser.getSettings().getDraftsFolderName();
         
@@ -292,15 +291,25 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
 
         // The email has to be added to the contact list 
         assertEquals(1, userPreferences.getContacts().length);
+=======
+>>>>>>> constantly changed by manolo
 
-        // The imap is saved asynchronously after a delay, so the folder exists after a while
         String folderName = testUser.getSettings().getDraftsFolderName();
+        
         Folder folder = store.getFolder(folderName);
         folder = store.getFolder(folderName);
         if (folder.exists())
-            assertTrue(folder.getMessageCount() == 0);
+            assertEquals("Folder " + folderName + " has messages" , 0, folder.getMessageCount());
         
+<<<<<<< HEAD
 >>>>>>> first commit
+=======
+        // When sending a new email new addresses should be added to the contact list 
+        sendMessageHandler.execute(action, null);
+        assertEquals(1, userPreferences.getContacts().length);
+
+        // The imap is saved asynchronously after a delay, so the folder exists after a while
+>>>>>>> constantly changed by manolo
         Thread.sleep(InImapUserPreferencesStorage.IMAP_SAVE_DELAY + 500);
         folder = store.getFolder(folderName);
         assertNotNull(folder);

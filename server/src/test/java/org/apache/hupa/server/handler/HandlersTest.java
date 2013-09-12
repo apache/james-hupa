@@ -19,6 +19,7 @@
 package org.apache.hupa.server.handler;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.io.ByteArrayInputStream;
 
 import javax.mail.Folder;
@@ -30,20 +31,33 @@ import com.google.inject.Module;
 
 import com.sun.mail.imap.IMAPStore;
 >>>>>>> first commit
+=======
+import java.io.ByteArrayInputStream;
+
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+>>>>>>> constantly changed by manolo
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.guice.GuiceServerTestModule;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.server.guice.providers.LogProvider;
 =======
 >>>>>>> first commit
+=======
+import org.apache.hupa.server.guice.providers.LogProvider;
+>>>>>>> constantly changed by manolo
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.FetchFolders;
 import org.apache.hupa.shared.rpc.FetchFoldersResult;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
@@ -56,6 +70,13 @@ import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.rpc.FetchMessages;
+import org.apache.hupa.shared.rpc.FetchMessagesResult;
+
+import com.google.inject.Module;
+import com.sun.mail.imap.IMAPStore;
+>>>>>>> constantly changed by manolo
 
 public class HandlersTest extends HupaGuiceTestCase {
 
@@ -70,10 +91,14 @@ public class HandlersTest extends HupaGuiceTestCase {
             // properties = courierProperties;
             // properties = gmailProperties;
 <<<<<<< HEAD
+<<<<<<< HEAD
             // logProviderClass = LogProvider.class;
 =======
             // logClass = LogProvider.class;
 >>>>>>> first commit
+=======
+            // logProviderClass = LogProvider.class;
+>>>>>>> constantly changed by manolo
         }
     }
     
@@ -83,6 +108,9 @@ public class HandlersTest extends HupaGuiceTestCase {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constantly changed by manolo
     public void testLoginAndFetchFolders() throws Exception {
         org.apache.hupa.shared.rpc.LoginUser l = new org.apache.hupa.shared.rpc.LoginUser(testUser.getName(),testUser.getPassword());
         loginUser.execute(l, null);
@@ -108,6 +136,7 @@ public class HandlersTest extends HupaGuiceTestCase {
         MimeMessage msg = new MimeMessage(session, is);
         if (!f1.isOpen()) {
             f1.open(Folder.READ_WRITE);
+<<<<<<< HEAD
         }
         f1.addMessages(new Message[]{msg});
         
@@ -125,6 +154,13 @@ public class HandlersTest extends HupaGuiceTestCase {
             fail("Shouldn't throw an exception");
         }
 >>>>>>> first commit
+=======
+        }
+        f1.addMessages(new Message[]{msg});
+        
+        result = fetchMessagesHandler.execute(new FetchMessages(sFolder, 0, 100, ""), null);
+        assertEquals(1, result.getMessages().size() - nmsgs);
+>>>>>>> constantly changed by manolo
     }
     
     public void testCreateAndDeleteFolder() throws MessagingException {
