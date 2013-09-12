@@ -135,7 +135,6 @@ public class LoginActivity extends AbstractActivity {
 			DispatchAsync dispatcher) {
 =======
 import com.google.gwt.place.shared.PlaceController;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasValue;
@@ -150,7 +149,7 @@ public class LoginActivity extends AbstractActivity {
 	private final PlaceController placeController;
 	private final Provider<MailInboxPlace> mailInboxPlaceProvider;
 	private DispatchAsync dispatcher;
-    private HupaConstants constants = GWT.create(HupaConstants.class);
+	private HupaConstants constants = GWT.create(HupaConstants.class);
 
 	@Inject
 <<<<<<< HEAD
@@ -232,19 +231,25 @@ public class LoginActivity extends AbstractActivity {
 =======
 		display.getResetClick().addClickHandler(new ClickHandler() {
 
-            public void onClick(ClickEvent event) {
-                doReset();
-            }
-            
-        });
+			public void onClick(ClickEvent event) {
+				doReset();
+			}
+
+		});
 		eventBus.addHandler(SessionExpireEvent.TYPE, new SessionExpireEventHandler() {
 
+<<<<<<< HEAD
             public void onSessionExpireEvent(SessionExpireEvent event) {
                 eventBus.fireEvent(new FlashEvent(constants.sessionTimedOut(), 4000));
             }
             
         });
 >>>>>>> decorate the theme
+=======
+			public void onSessionExpireEvent(SessionExpireEvent event) {
+				eventBus.fireEvent(new FlashEvent(constants.sessionTimedOut(), 4000));
+			}
+>>>>>>> introduce the top activity
 
 		});
 
@@ -332,6 +337,7 @@ public class LoginActivity extends AbstractActivity {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				Window.alert("error");
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -348,6 +354,9 @@ public class LoginActivity extends AbstractActivity {
 =======
 				// eventBus.fireEvent(new FlashEvent(constants.loginInvalid(),4000));
 >>>>>>> decorate the theme
+=======
+				eventBus.fireEvent(new FlashEvent(constants.loginInvalid(), 4000));
+>>>>>>> introduce the top activity
 				doReset();
 			}
 		});

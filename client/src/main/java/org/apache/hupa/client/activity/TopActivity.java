@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -29,14 +30,22 @@ import org.apache.hupa.shared.domain.IdleResult;
 import org.apache.hupa.shared.domain.LogoutUserResult;
 import org.apache.hupa.shared.domain.User;
 =======
+=======
+>>>>>>> introduce the top activity
 package org.apache.hupa.client.activity;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import org.apache.hupa.client.HupaConstants;
+<<<<<<< HEAD
 import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
+import org.apache.hupa.shared.data.User;
+>>>>>>> introduce the top activity
+=======
+import org.apache.hupa.client.HupaEvoCallback;
+import org.apache.hupa.client.mvp.WidgetDisplayable;
 import org.apache.hupa.shared.data.User;
 >>>>>>> introduce the top activity
 import org.apache.hupa.shared.events.FlashEvent;
@@ -49,8 +58,11 @@ import org.apache.hupa.shared.events.ServerStatusEvent;
 import org.apache.hupa.shared.events.ServerStatusEvent.ServerStatus;
 import org.apache.hupa.shared.events.ServerStatusEventHandler;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> introduce the top activity
 import org.apache.hupa.shared.rpc.CheckSession;
 import org.apache.hupa.shared.rpc.CheckSessionResult;
 import org.apache.hupa.shared.rpc.Idle;
@@ -59,12 +71,16 @@ import org.apache.hupa.shared.rpc.LogoutUser;
 import org.apache.hupa.shared.rpc.LogoutUserResult;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+<<<<<<< HEAD
+>>>>>>> introduce the top activity
+=======
 >>>>>>> introduce the top activity
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -77,24 +93,36 @@ public class TopActivity extends AppBaseActivity {
 	private static final int IDLE_INTERVAL = 150000;
 
 =======
+=======
+>>>>>>> introduce the top activity
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
+<<<<<<< HEAD
 import com.google.inject.Provider;
+=======
+>>>>>>> introduce the top activity
 
 public class TopActivity extends AbstractActivity {
 
 	private static final int IDLE_INTERVAL = 150000;
 	HupaConstants constants;
+<<<<<<< HEAD
+>>>>>>> introduce the top activity
+=======
 >>>>>>> introduce the top activity
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
 		bind();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+		checkSession();
+>>>>>>> introduce the top activity
 =======
 		checkSession();
 >>>>>>> introduce the top activity
@@ -110,13 +138,19 @@ public class TopActivity extends AbstractActivity {
 				display.showMessage(constants.welcome(), 3000);
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
 		});
 		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
 =======
+=======
+>>>>>>> introduce the top activity
 
 		});
 		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
 
+<<<<<<< HEAD
+>>>>>>> introduce the top activity
+=======
 >>>>>>> introduce the top activity
 			public void onLogout(LogoutEvent event) {
 				User u = event.getUser();
@@ -126,6 +160,7 @@ public class TopActivity extends AbstractActivity {
 				}
 				showLogin(username);
 				noopTimer.cancel();
+<<<<<<< HEAD
 				TopActivity.this.placeController.goTo(defaultPlaceProvider.get());
 			}
 <<<<<<< HEAD
@@ -147,6 +182,9 @@ public class TopActivity extends AbstractActivity {
 		}));
 		eventBus.addHandler(ServerStatusEvent.TYPE, new ServerStatusEventHandler() {
 =======
+=======
+			}
+>>>>>>> introduce the top activity
 
 		});
 		display.getLogoutClick().addClickHandler(new ClickHandler() {
@@ -172,6 +210,9 @@ public class TopActivity extends AbstractActivity {
 		});
 		eventBus.addHandler(ServerStatusEvent.TYPE, new ServerStatusEventHandler() {
 
+<<<<<<< HEAD
+>>>>>>> introduce the top activity
+=======
 >>>>>>> introduce the top activity
 			public void onServerStatusChange(ServerStatusEvent event) {
 				if (event.getStatus() != serverStatus) {
@@ -180,6 +221,7 @@ public class TopActivity extends AbstractActivity {
 					display.setServerStatus(serverStatus);
 				}
 			}
+<<<<<<< HEAD
 <<<<<<< HEAD
 		});
 		eventBus.addHandler(FlashEvent.TYPE, new FlashEventHandler() {
@@ -197,6 +239,8 @@ public class TopActivity extends AbstractActivity {
 				public void onSuccess(LogoutUserResult response) {
 					eventBus.fireEvent(new LogoutEvent(response.getUser()));
 =======
+=======
+>>>>>>> introduce the top activity
 
 		});
 		eventBus.addHandler(FlashEvent.TYPE, new FlashEventHandler() {
@@ -231,6 +275,9 @@ public class TopActivity extends AbstractActivity {
 			dispatcher.execute(new LogoutUser(), new HupaEvoCallback<LogoutUserResult>(dispatcher, eventBus) {
 				public void callback(LogoutUserResult result) {
 					eventBus.fireEvent(new LogoutEvent(result.getUser()));
+<<<<<<< HEAD
+>>>>>>> introduce the top activity
+=======
 >>>>>>> introduce the top activity
 				}
 			});
@@ -245,7 +292,10 @@ public class TopActivity extends AbstractActivity {
 	private void showLogin(String username) {
 		display.showTopNavigation(false);
 <<<<<<< HEAD
+<<<<<<< HEAD
 //		placeController.goTo(new DefaultPlace());
+=======
+>>>>>>> introduce the top activity
 =======
 >>>>>>> introduce the top activity
 	}
@@ -254,6 +304,7 @@ public class TopActivity extends AbstractActivity {
 		display.showTopNavigation(true);
 		display.showMainButton();
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 	private Timer noopTimer = new IdleTimer();
@@ -269,15 +320,27 @@ public class TopActivity extends AbstractActivity {
 
 	@Inject
 	public TopActivity(Displayable display, EventBus eventBus, PlaceController placeController, Provider<DefaultPlace> defaultPlaceProvider,
+=======
+	private Timer noopTimer = new IdleTimer();
+
+	@Inject
+	public TopActivity(Displayable display, EventBus eventBus, PlaceController placeController,
+>>>>>>> introduce the top activity
 			HupaConstants constants, DispatchAsync dispatcher) {
 		this.dispatcher = dispatcher;
 		this.display = display;
 		this.eventBus = eventBus;
+<<<<<<< HEAD
 		this.defaultPlaceProvider = defaultPlaceProvider;
+=======
+>>>>>>> introduce the top activity
 		this.constants = constants;
 		this.placeController = placeController;
 
 	}
+<<<<<<< HEAD
+>>>>>>> introduce the top activity
+=======
 >>>>>>> introduce the top activity
 	public interface Displayable extends WidgetDisplayable {
 		public HasClickHandlers getLogoutClick();
@@ -292,6 +355,7 @@ public class TopActivity extends AbstractActivity {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private class IdleTimer extends Timer {
 		boolean running = false;
 
@@ -305,11 +369,16 @@ public class TopActivity extends AbstractActivity {
 					@Override
 					public void onSuccess(IdleResult response) {
 =======
+=======
+>>>>>>> introduce the top activity
 	private final Displayable display;
 	private final EventBus eventBus;
 	private final PlaceController placeController;
 	private final DispatchAsync dispatcher;
+<<<<<<< HEAD
 	private final Provider<DefaultPlace> defaultPlaceProvider;
+=======
+>>>>>>> introduce the top activity
 
 	private User user;
 	private ServerStatus serverStatus = ServerStatus.Available;
@@ -321,13 +390,20 @@ public class TopActivity extends AbstractActivity {
 				running = true;
 				dispatcher.execute(new Idle(), new HupaEvoCallback<IdleResult>(dispatcher, eventBus) {
 					public void callback(IdleResult result) {
+<<<<<<< HEAD
+>>>>>>> introduce the top activity
+=======
 >>>>>>> introduce the top activity
 						running = false;
 						// check if the server is not supporting the Idle
 						// command.
 						// if so cancel this Timer
 <<<<<<< HEAD
+<<<<<<< HEAD
 						if (response.isSupported() == false) {
+=======
+						if (result.isSupported() == false) {
+>>>>>>> introduce the top activity
 =======
 						if (result.isSupported() == false) {
 >>>>>>> introduce the top activity
@@ -337,7 +413,10 @@ public class TopActivity extends AbstractActivity {
 						// TODO: put code here to read new events from server
 						// (new messages ...)
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> introduce the top activity
 =======
 >>>>>>> introduce the top activity
 					}

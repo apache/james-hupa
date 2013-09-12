@@ -36,12 +36,16 @@ package org.apache.hupa.client.ui;
 =======
 package org.apache.hupa.client.ui;
 
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 
+=======
+>>>>>>> introduce the top activity
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
 
 public interface AppLayout {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -60,13 +64,18 @@ public interface AppLayout {
 <<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
+=======
+>>>>>>> introduce the top activity
 	LayoutPanel getMainLayoutPanel();
 	AcceptsOneWidget getTopContainer();
 	AcceptsOneWidget getWestContainer();
 	AcceptsOneWidget getMainContainer();
 	void setLoginLayout();
 	void setDefaultLayout();
+<<<<<<< HEAD
 >>>>>>> introduce the top activity
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> introduce the top activity
 }

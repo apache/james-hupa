@@ -188,6 +188,7 @@
 	<g:LayoutPanel addStyleNames="{style.Hupa}">
 		<g:layer>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<g:SimplePanel ui:field="topPanel" addStyleNames="{style.topPanel}">
 			</g:SimplePanel>
 =======
@@ -196,6 +197,10 @@
 				<my:TopView ui:field="topView" addStyleNames="{style.topView}" />
 			</g:FlowPanel>
 >>>>>>> decorate the theme
+=======
+			<g:SimplePanel ui:field="topPanel" addStyleNames="{style.topPanel}">
+			</g:SimplePanel>
+>>>>>>> introduce the top activity
 		</g:layer>
 		<g:layer>
 			<g:SimplePanel ui:field="westPanel" addStyleNames="{style.westPanel}" />

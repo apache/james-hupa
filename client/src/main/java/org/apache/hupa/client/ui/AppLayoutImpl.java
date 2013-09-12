@@ -104,8 +104,12 @@ public class AppLayoutImpl implements AppLayout {
 	SimplePanel topPanel;
 =======
 	@UiField
+<<<<<<< HEAD
 	FlowPanel topPanel;
 >>>>>>> decorate the theme
+=======
+	SimplePanel topPanel;
+>>>>>>> introduce the top activity
 
 	@UiField
 	SimplePanel westPanel;
@@ -151,7 +155,21 @@ public class AppLayoutImpl implements AppLayout {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+
+	@Override
+	public AcceptsOneWidget getTopContainer() {
+		return new AcceptsOneWidget() {
+			@Override
+			public void setWidget(IsWidget w) {
+				Widget widget = Widget.asWidgetOrNull(w);
+				topPanel.setWidget(widget);
+			}
+		};
+	}
+>>>>>>> introduce the top activity
 	@Override
 	public AcceptsOneWidget getTopContainer() {
 		return new AcceptsOneWidget() {

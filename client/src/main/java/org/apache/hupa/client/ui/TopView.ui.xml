@@ -47,6 +47,7 @@
 	</ui:style>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<g:FlowPanel addStyleNames="{style.round-corner-panel}">
 >>>>>>> decorate the theme
 =======
@@ -55,5 +56,8 @@
 =======
 	<g:FlowPanel addStyleNames="{style.round-corner-panel}">
 >>>>>>> decorate the theme
+=======
+	<g:FlowPanel ui:field="topWrapper" addStyleNames="{style.round-corner-panel}">
+>>>>>>> introduce the top activity
 	</g:FlowPanel>
 </ui:UiBinder>

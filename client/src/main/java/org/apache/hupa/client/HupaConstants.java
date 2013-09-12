@@ -20,21 +20,29 @@
 package org.apache.hupa.client;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.google.gwt.i18n.client.Constants;
 
 import eu.maydu.gwt.validation.client.i18n.StandardValidationMessagesImpl;
 >>>>>>> first commit
+=======
+>>>>>>> introduce the top activity
 import gwtupload.client.IUploader.UploaderConstants;
 
 import org.apache.hupa.widgets.PagingOptionsConstants;
 import org.apache.hupa.widgets.editor.ToolbarConstants;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.i18n.client.Constants;
 
 =======
 >>>>>>> first commit
+=======
+import com.google.gwt.i18n.client.Constants;
+
+>>>>>>> introduce the top activity
 public interface HupaConstants extends Constants, UploaderConstants, PagingOptionsConstants, ToolbarConstants {
 
     public String usernameLabel();
