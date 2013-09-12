@@ -30,10 +30,15 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 =======
 >>>>>>> prepare to add search feature
+=======
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+>>>>>>> add searching... loading progress; add some attribute to searchbox, say magnifying glass and placeholder and so on
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
@@ -85,20 +90,28 @@ public class SearchBoxView extends Composite implements SearchBoxActivity.Displa
 	private Button searchButton = new Button("Search");
 	@UiField protected HorizontalPanel thisPanel;
 
-//	@SuppressWarnings("deprecation")
+	// @SuppressWarnings("deprecation")
 	public SearchBoxView() {
 		initWidget(binder.createAndBindUi(this));
 
-//        searchBox.addStyleName(HupaCSS.C_msg_search);
-        
-//        searchBox.setAnimationEnabled(true);
-//        searchBox.setAutoSelectEnabled(false);
-//        searchBox.setLimit(20);
+		// searchBox.addStyleName(HupaCSS.C_msg_search);
+
+		// searchBox.setAnimationEnabled(true);
+		// searchBox.setAutoSelectEnabled(false);
+		// searchBox.setLimit(20);
 		searchBox.getElement().setAttribute("type", "search");
+		searchBox.getElement().setAttribute("placeholder", "Search...");
+		searchBox.getElement().setAttribute("results", "10");
+		searchBox.getElement().setAttribute("incremental", "incremental");
+		searchBox.getElement().setAttribute("name", "s");
 		searchBox.addKeyUpHandler(new KeyUpHandler() {
 			public void onKeyUp(KeyUpEvent event) {
+<<<<<<< HEAD
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 >>>>>>> prepare to add search feature
+=======
+				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER || (event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE && searchBox.getText().trim().equals(""))) {
+>>>>>>> add searching... loading progress; add some attribute to searchbox, say magnifying glass and placeholder and so on
 					searchButton.click();
 				}
 			}
