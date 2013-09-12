@@ -21,6 +21,7 @@ package org.apache.hupa.client.mock;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import gwtupload.client.IUploader;
 
 import org.apache.hupa.client.activity.ComposeActivity.Displayable;
@@ -31,6 +32,14 @@ import org.apache.hupa.widgets.ui.HasEnable;
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+import gwtupload.client.IUploader;
+
+import org.apache.hupa.client.activity.MessageSendActivity.Displayable;
+import org.apache.hupa.shared.rpc.ContactsResult.Contact;
+import org.apache.hupa.widgets.ui.HasEnable;
+
+>>>>>>> delete some deprecated code
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
@@ -46,6 +55,7 @@ public class MockMessageSendDisplay implements Displayable {
 >>>>>>> first commit
 import com.google.gwt.user.client.ui.Widget;
 
+<<<<<<< HEAD
 import gwtupload.client.IUploader;
 
 import org.apache.hupa.client.mvp.MessageSendPresenter.Display;
@@ -57,6 +67,9 @@ public class MockMessageSendDisplay implements Display {
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+public class MockMessageSendDisplay implements Displayable {
+>>>>>>> delete some deprecated code
 
     HasClickHandlers backClick = new MockWidget();
     HasText bccText = new MockWidget();

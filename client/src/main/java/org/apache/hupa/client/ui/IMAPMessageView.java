@@ -24,7 +24,6 @@ import java.util.List;
 import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.bundles.HupaImageBundle;
-import org.apache.hupa.client.mvp.IMAPMessagePresenter.Display;
 import org.apache.hupa.client.widgets.CommandsBar;
 import org.apache.hupa.client.widgets.MessageHeaders;
 import org.apache.hupa.shared.SConsts;

@@ -30,10 +30,9 @@ import net.customware.gwt.presenter.client.Display;
 import net.customware.gwt.presenter.client.EventBus;
 
 import org.apache.hupa.client.HupaMessages;
-import org.apache.hupa.client.mock.MockMessageSendDisplay;
-import org.apache.hupa.client.mvp.ContactsPresenter;
-import org.apache.hupa.client.mvp.MessageSendPresenter;
+import org.apache.hupa.client.activity.MessageSendActivity;
 import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.ui.MessageSendView;
 import org.easymock.EasyMock;
 
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -74,8 +73,8 @@ public class GuiceMvpTestModule extends AbstractModule {
         HupaMessages messages = EasyMock.createNiceMock(HupaMessages.class);
         bind(HupaMessages.class).toInstance(messages);
 
-        bindDisplay(ContactsPresenter.Display.class);
-        bind(MessageSendPresenter.Display.class).to(MockMessageSendDisplay.class);
+//        bindDisplay(ContactsPresenter.Display.class);
+        bind(MessageSendActivity.Displayable.class).to(MessageSendView.class);
         
         bind(com.google.gwt.event.shared.EventBus.class)
             .to(SimpleEventBus.class)

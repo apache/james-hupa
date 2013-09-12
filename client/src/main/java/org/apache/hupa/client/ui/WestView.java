@@ -88,7 +88,6 @@ import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.bundles.IMAPTreeImages;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
-import org.apache.hupa.client.mvp.IMAPMessageListView;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
