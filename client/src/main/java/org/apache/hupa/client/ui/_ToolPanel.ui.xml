@@ -15,14 +15,12 @@
 		<g:west size="518">
 			<g:SimplePanel ui:field="toolBarContainer" />
 		</g:west>
-		<g:east size="180">
-			<g:HTMLPanel ui:field="searchFilterContainer">
-				Search
-				<input style='color: gray;' value='//TODO' />
-			</g:HTMLPanel>
-		</g:east>
 		<g:center>
-            <g:SimplePanel ui:field="composeToolBarContainer" />
+			<g:SimplePanel ui:field="composeToolBarContainer" />
 		</g:center>
+		<g:east size="200">
+			<g:SimplePanel ui:field="searchBoxContainer">
+			</g:SimplePanel>
+		</g:east>
 	</g:DockLayoutPanel>
 </ui:UiBinder>

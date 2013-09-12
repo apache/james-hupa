@@ -51,6 +51,7 @@ public class ActivityManagerInitializer {
 			@Named("MessageContentRegion") ActivityManager messageContentActivityManager,
 			@Named("StatusRegion") ActivityManager statusActivityManager,
 			@Named("ComposeToolBarRegion") ActivityManager composeToolBarActivityManager,
+			@Named("SearchBoxRegion") ActivityManager searchBoxActivityManager,
 			@Named("ComposeRegion") ActivityManager composeActivityManager) {
 		contactsListActivityManager.setDisplay(hupaLayout.getContactsListView());
 		contactPropertiesActivityManager.setDisplay(hupaLayout.getContactPropertiesView());
@@ -68,6 +69,7 @@ public class ActivityManagerInitializer {
 		messageContentActivityManager.setDisplay(hupaLayout.getMessageContentView());
 		statusActivityManager.setDisplay(hupaLayout.getStatusView());
 		composeToolBarActivityManager.setDisplay(hupaLayout.getComposeToolBarView());
+		searchBoxActivityManager.setDisplay(hupaLayout.getSearchBoxView());
 		composeActivityManager.setDisplay(hupaLayout.getComposeView());
 	}
 

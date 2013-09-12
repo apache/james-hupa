@@ -135,7 +135,11 @@ public class HupaLayout implements HupaLayoutable {
 	public AcceptsOneWidget getComposeToolBarView() {
 		return toolPanel.getComposeToolBarView();
 	}
-
+	
+	@Override
+	public AcceptsOneWidget getSearchBoxView() {
+		return toolPanel.getSearchBoxView();
+	}
 	@Override
 	public AcceptsOneWidget getSearchBoxView() {
 		return toolPanel.getSearchBoxView();

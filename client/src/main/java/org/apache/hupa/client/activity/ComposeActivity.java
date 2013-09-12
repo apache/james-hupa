@@ -53,8 +53,6 @@ import org.apache.hupa.shared.domain.SendMessageAction;
 import org.apache.hupa.shared.domain.SendReplyMessageAction;
 import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.domain.User;
-import org.apache.hupa.shared.events.ContactsUpdatedEvent;
-import org.apache.hupa.shared.events.ContactsUpdatedEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.MailToEvent;

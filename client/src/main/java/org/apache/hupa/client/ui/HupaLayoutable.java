@@ -170,5 +170,10 @@ public interface HupaLayoutable extends Layoutable {
 	AcceptsOneWidget getContactPropertiesView();
 
 	AcceptsOneWidget getContactsListView();
+<<<<<<< HEAD
 >>>>>>> prepared for issue#73, established the UI layout
+=======
+
+	AcceptsOneWidget getSearchBoxView();
+>>>>>>> prepare to add search feature
 }

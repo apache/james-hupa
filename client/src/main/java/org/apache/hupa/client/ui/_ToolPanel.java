@@ -25,7 +25,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -35,7 +34,7 @@ public class _ToolPanel extends Composite {
 	@UiField protected DockLayoutPanel thisPanel;
 	@UiField protected SimplePanel toolBarContainer;
 	@UiField protected SimplePanel composeToolBarContainer;
-	@UiField protected HTMLPanel searchFilterContainer;
+	@UiField protected SimplePanel searchBoxContainer;
 
 	public _ToolPanel() {
 		initWidget(binder.createAndBindUi(this));
@@ -55,13 +54,13 @@ public class _ToolPanel extends Composite {
 
 	private void hideAll() {
 		toolBarContainer.setVisible(false);
-		searchFilterContainer.setVisible(false);
+		searchBoxContainer.setVisible(false);
 		composeToolBarContainer.setVisible(false);
 	}
 
 	protected void toggleToCompose(boolean visible) {
 		toolBarContainer.setVisible(!visible);
-		searchFilterContainer.setVisible(!visible);
+		searchBoxContainer.setVisible(!visible);
 		composeToolBarContainer.setVisible(visible);
 	}
 
@@ -79,6 +78,15 @@ public class _ToolPanel extends Composite {
 			@Override
 			public void setWidget(IsWidget w) {
 				composeToolBarContainer.setWidget(Widget.asWidgetOrNull(w));
+			}
+		};
+	}
+
+	public AcceptsOneWidget getSearchBoxView() {
+		return new AcceptsOneWidget() {
+			@Override
+			public void setWidget(IsWidget w) {
+				searchBoxContainer.setWidget(Widget.asWidgetOrNull(w));
 			}
 		};
 	}
