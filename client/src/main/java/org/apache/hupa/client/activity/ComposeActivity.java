@@ -72,10 +72,13 @@ import org.apache.hupa.client.rf.SendMessageRequest;
 import org.apache.hupa.client.rf.SendReplyMessageRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.validation.EmailListValidator;
+import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.MessageAttachmentImpl;
 import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageAttachment;
+import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.SendForwardMessageAction;
 import org.apache.hupa.shared.domain.SendMessageAction;
 import org.apache.hupa.shared.domain.SendReplyMessageAction;
@@ -407,10 +410,96 @@ public class ComposeActivity extends AppBaseActivity {
 =======
 >>>>>>> add user label, yet issue46 occur
 		bindTo(eventBus);
-		if (user != null)
-			display.getFromList().addItem(user.getName());
+		fillHeader();
 	}
 
+	private void fillHeader() {
+		if (place == null)
+			return;
+		Message oldMessage = place.getParameters().getOldmessage();
+		if (user != null)
+			display.getFromList().addItem(user.getName());
+		display.getMessageHTML().setHTML(
+				wrapMessage(oldMessage, place.getParameters().getOldDetails(), place.getToken()));
+		if ("forward".equals(place.getToken())) {
+			String subject = oldMessage.getSubject() != null ? oldMessage.getSubject().trim() : "";
+			if (!subject.toLowerCase().startsWith("fwd:")) {
+				subject = "Fwd: " + subject;
+			}
+			display.getSubject().setText(subject);
+		} else if ("reply".equals(place.getToken()) || "replyAll".equals(place.getToken())) {
+
+			String subject = oldMessage.getSubject() != null ? oldMessage.getSubject().trim() : "";
+			if (!subject.toLowerCase().startsWith("re:")) {
+				subject = "Re: " + subject;
+			}
+			if ("reply".equals(place.getToken())) {
+				display.getSubject().setText(subject);
+				if (oldMessage.getReplyto() != null && !oldMessage.getFrom().contains(oldMessage.getReplyto())) {
+					display.getTo().setText(oldMessage.getReplyto());
+				} else {
+					display.getTo().setText(oldMessage.getFrom());
+				}
+			} else if ("replyAll".equals(place.getToken())) {
+				ArrayList<String> list = new ArrayList<String>();
+				if (oldMessage.getReplyto() != null && !oldMessage.getFrom().contains(oldMessage.getReplyto()))
+					list.add(oldMessage.getReplyto());
+				if (oldMessage.getTo() != null)
+					list.addAll(oldMessage.getTo());
+				if (oldMessage.getCc() != null)
+					list.addAll(oldMessage.getCc());
+				list = removeEmailFromList(list, user.getName());
+				display.getCc().setText(Util.listToString(list));
+				if (oldMessage.getTo() != null) {
+					oldMessage.getTo().remove(user.getName());
+				}
+				display.getTo().setText(oldMessage.getFrom());
+			}
+		}
+	}
+
+	protected ArrayList<String> removeEmailFromList(List<String> list, String email) {
+		ArrayList<String> ret = new ArrayList<String>();
+		String regex = ".*<?\\s*" + email.trim() + "\\s*>?\\s*";
+		for (String e : list) {
+			if (!e.matches(regex)) {
+				ret.add(e);
+			}
+		}
+		return ret;
+	}
+	private static String generateHeader(Message message, String type) {
+		String ret = "<br>";
+		if (message != null) {
+			if (type.equals("forward")) {
+				ret += "--------- Forwarded message --------- <br>";
+				ret += "From: " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>";
+				ret += "Date: " + message.getReceivedDate() + "<br>";
+				ret += "Subject: " + message.getSubject() + "<br>";
+				ArrayList<String> to = new ArrayList<String>();
+				to.addAll(message.getTo());
+				to.addAll(message.getCc());
+				ret += "To: " + Util.listToString(to).replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<br>";
+			} else if (type.equals("reply") || type.equals("replyAll")) {
+				ret += "On " + message.getReceivedDate();
+				ret += ", " + message.getFrom().replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+				ret += ". wrote:<br>";
+			}
+		}
+		return ret + "<br>";
+	}
+	public static String wrapMessage(Message message, MessageDetails details, String type) {
+		String ret = "";
+		if (message != null) {
+			ret += generateHeader(message, type);
+		}
+		if (details != null && details.getText() != null && details.getText().length() > 0) {
+			ret += "<blockquote style='border-left: 1px solid rgb(204, 204, 204); margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;'>";
+			ret += details.getText();
+			ret += "</blockquote>";
+		}
+		return ret;
+	}
 	private void bindTo(EventBus eventBus) {
 		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 			@Override

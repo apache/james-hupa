@@ -137,7 +137,7 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 					req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
 						@Override
 						public void onSuccess(GetMessageDetailsResult response) {
-							eventBus.fireEvent(new ExpandMessageEvent(user, folder, event.getValue()));
+							eventBus.fireEvent(new ExpandMessageEvent(user, folder, event.getValue(), response.getMessageDetails()));
 							placeController.goTo(new MailFolderPlace(f.getFullName() + "/" + event.getValue().getUid()));
 						}
 

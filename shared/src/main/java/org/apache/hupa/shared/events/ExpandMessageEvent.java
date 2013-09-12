@@ -113,6 +113,9 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
     public ExpandMessageEvent(User user, ImapFolder folder, Message message, MessageDetails messageDetails) {
         this.message = message;
         this.folder = folder;
@@ -121,12 +124,15 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
 	}
 
 	public Message getMessage() {
+<<<<<<< HEAD
 =======
     public Message getMessage() {
 >>>>>>> first commit
 =======
     public Message getMessage() {
 >>>>>>> first commit
+=======
+>>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
         return message;
     }
     
@@ -167,7 +173,14 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
         return folder;
     }
     
+<<<<<<< HEAD
 >>>>>>> first commit
+=======
+    public MessageDetails getMessageDetails(){
+    	return messageDetails;
+    }
+    
+>>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
     
     @Override
     protected void dispatch(ExpandMessageEventHandler handler) {

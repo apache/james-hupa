@@ -197,7 +197,7 @@ public class ToolBarActivity extends AppBaseActivity {
 		eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
 			public void onExpandMessage(ExpandMessageEvent event) {
 				display.enableMessageTools();
-				display.setParameters(new Parameters(event.getUser(), event.getFolder(), event.getMessage(), null));
+				display.setParameters(new Parameters(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails()));
 			}
 		});
 	}

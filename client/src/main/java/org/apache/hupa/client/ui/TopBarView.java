@@ -25,6 +25,9 @@ import org.apache.hupa.client.activity.TopBarActivity;
 
 import com.google.gwt.core.client.GWT;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.CssResource;
@@ -87,11 +90,15 @@ public class TopBarView extends Composite implements TopBarActivity.Displayable 
 		initWidget(binder.createAndBindUi(this));
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
 	
 	@UiHandler("about")
 	void handleAboutClick(ClickEvent e){
 		Window.alert("// TODO show about model view");
 	}
+<<<<<<< HEAD
 
 	@Override
 	public void showLoading(String message){
@@ -122,6 +129,8 @@ public class TopBarView extends Composite implements TopBarActivity.Displayable 
 	}
 =======
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+>>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
 
 	@Override
 	public HasClickHandlers getLogoutClick() {

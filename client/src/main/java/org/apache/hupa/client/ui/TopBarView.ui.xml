@@ -119,7 +119,7 @@
 		addStyleNames="{style.self}">
 		<g:west size="60">
 			<g:SimplePanel addStyleNames="{style.left}">
-				<g:Anchor styleName="{style.about}">About</g:Anchor>
+				<g:Anchor ui:field="about" styleName="{style.about}">About</g:Anchor>
 			</g:SimplePanel>
 		</g:west>
 		<g:center>
