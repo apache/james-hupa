@@ -73,6 +73,7 @@ import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.shared.data.MessageAttachmentImpl;
 import org.apache.hupa.shared.domain.GenericResult;
+import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.MessageAttachment;
 import org.apache.hupa.shared.domain.SendForwardMessageAction;
 import org.apache.hupa.shared.domain.SendMessageAction;
@@ -123,11 +124,10 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.RequestContext;
 
 public class ComposeActivity extends AppBaseActivity {
 	@Inject private Displayable display;
-	private SendMessageRequest sendReq;
-	private SmtpMessage message;
 	private List<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
 <<<<<<< HEAD
 	private Type type = Type.NEW;
@@ -477,6 +477,7 @@ public class ComposeActivity extends AppBaseActivity {
 			if (!validate())
 				return;
 <<<<<<< HEAD
+<<<<<<< HEAD
 			hupaController.showTopLoading("Sending...");
 
 			if ("new".equals(place.getToken())) {
@@ -501,9 +502,14 @@ public class ComposeActivity extends AppBaseActivity {
 			message.setTo(emailTextToArray(display.getToText().getText()));
 			message.setCc(emailTextToArray(display.getCcText().getText()));
 			message.setBcc(emailTextToArray(display.getBccText().getText()));
+=======
+>>>>>>> coping with java.lang.IllegalArgumentException: uid
 
 			if ("new".equals(place.getToken())) {
+				System.out.println("new: " + place.getParameters().getOldmessage().getUid());
+				SendMessageRequest sendReq = requestFactory.sendMessageRequest();
 				SendMessageAction sendAction = sendReq.create(SendMessageAction.class);
+<<<<<<< HEAD
 <<<<<<< HEAD
 				// SmtpMessage sm = sendReq.edit(message);
 				sendAction.setMessage(message);
@@ -512,12 +518,16 @@ public class ComposeActivity extends AppBaseActivity {
 				SmtpMessage sm = sendReq.edit(message);
 				sendAction.setMessage(sm);
 >>>>>>> coping with reply and forward sending message
+=======
+				sendAction.setMessage(parseMessage(sendReq));
+>>>>>>> coping with java.lang.IllegalArgumentException: uid
 				sendReq.send(sendAction).fire(new Receiver<GenericResult>() {
 					@Override
 					public void onSuccess(GenericResult response) {
 						afterSend(response);
 					}
 				});
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 			} else if ("forward".equals(place.getToken())) {
@@ -534,10 +544,16 @@ public class ComposeActivity extends AppBaseActivity {
 =======
 				System.out.println("new: " + place.getParameters().getOldmessage().getUid());
 			} else if ("reply".equals(place.getToken())) {
+=======
+			} else if ("forward".equals(place.getToken())) {
+				System.out.println("reply: " + place.getParameters().getOldmessage().getUid());
+>>>>>>> coping with java.lang.IllegalArgumentException: uid
 				SendForwardMessageRequest forwardReq = requestFactory.sendForwardMessageRequest();
 				SendForwardMessageAction forwardAction = forwardReq.create(SendForwardMessageAction.class);
-				forwardAction.setMessage(message);
-				forwardAction.setFolder(place.getParameters().getFolder());
+				forwardAction.setMessage(parseMessage(forwardReq));
+				ImapFolder folder = forwardReq.create(ImapFolder.class);
+				folder.setFullName(place.getParameters().getFolder().getFullName());
+				forwardAction.setFolder(folder);
 				forwardAction.setUid(place.getParameters().getOldmessage().getUid());
 				forwardReq.send(forwardAction).fire(new Receiver<GenericResult>() {
 >>>>>>> coping with reply and forward sending message
@@ -546,6 +562,7 @@ public class ComposeActivity extends AppBaseActivity {
 						afterSend(response);
 					}
 				});
+<<<<<<< HEAD
 <<<<<<< HEAD
 			} else {
 				SendReplyMessageRequest replyReq = rf.sendReplyMessageRequest();
@@ -595,12 +612,15 @@ public class ComposeActivity extends AppBaseActivity {
 >>>>>>> make send text mail work excellently
 =======
 				System.out.println("reply: " + place.getParameters().getOldmessage().getUid());
+=======
+>>>>>>> coping with java.lang.IllegalArgumentException: uid
 			} else {
 				SendReplyMessageRequest replyReq = requestFactory.sendReplyMessageRequest();
 				SendReplyMessageAction replyAction = replyReq.create(SendReplyMessageAction.class);
-				message = replyReq.create(SmtpMessage.class);
-				replyAction.setMessage(message);
-				replyAction.setFolder(place.getParameters().getFolder());
+				replyAction.setMessage(parseMessage(replyReq));
+				ImapFolder folder = replyReq.create(ImapFolder.class);
+				folder.setFullName(place.getParameters().getFolder().getFullName());
+				replyAction.setFolder(folder);
 				replyAction.setUid(place.getParameters().getOldmessage().getUid());
 				replyReq.send(replyAction).fire(new Receiver<GenericResult>() {
 					@Override
@@ -608,8 +628,11 @@ public class ComposeActivity extends AppBaseActivity {
 						afterSend(response);
 					}
 				});
+<<<<<<< HEAD
 				System.out.println("other forward: " + place.getParameters().getOldmessage().getUid());
 >>>>>>> coping with reply and forward sending message
+=======
+>>>>>>> coping with java.lang.IllegalArgumentException: uid
 			}
 		}
 	};
@@ -647,6 +670,26 @@ public class ComposeActivity extends AppBaseActivity {
 				&& EmailListValidator.isValidAddressList(display.getCcText().getText())
 				&& EmailListValidator.isValidAddressList(display.getBccText().getText());
 >>>>>>> make send text mail work excellently
+	}
+
+	private SmtpMessage parseMessage(RequestContext rc) {
+		SmtpMessage message = rc.create(SmtpMessage.class);
+		List<MessageAttachment> attaches = new ArrayList<MessageAttachment>();
+		for (MessageAttachment attach : attachments) {
+			MessageAttachment attachMent = rc.create(MessageAttachment.class);
+			attachMent.setName(attach.getName());
+			attachMent.setSize(attach.getSize());
+			attachMent.setContentType(attach.getContentType());
+			attaches.add(attachMent);
+		}
+		message.setFrom(display.getFromText());
+		message.setSubject(display.getSubjectText().getText());
+		message.setText(display.getMessageHTML().getHTML());
+		message.setMessageAttachments(attaches);
+		message.setTo(emailTextToArray(display.getToText().getText()));
+		message.setCc(emailTextToArray(display.getCcText().getText()));
+		message.setBcc(emailTextToArray(display.getBccText().getText()));
+		return message;
 	}
 
 	private List<String> emailTextToArray(String emails) {
