@@ -584,9 +584,12 @@ public class WestActivity extends AbstractActivity {
 >>>>>>> Solved the "java.lang.IllegalArgumentException: Attempting to edit an EntityProxy  previously edited by another RequestContext" and make GetMessageDetails work. Thanks to http://fascynacja.wordpress.com/tag/java-lang-illegalargumentexception-attempting-to-edit-an-entityproxy-previously-edited-by-another-requestcontext/
 =======
 
+<<<<<<< HEAD
 	private FetchMessagesRequest messagesRequest;
 >>>>>>> forward and reply message to use RF
 
+=======
+>>>>>>> fixed unread mail bug with just not dealing with it, for the west view should be replaced by Cell Tree in the future.
 	private User user;
 	private ImapFolder folder;
 	private IMAPTreeItem tItem;
@@ -918,10 +921,7 @@ System.out.println("1111111"+response);
 				}
 
 				display.setLoadingMessage(true);
-				if (messagesRequest == null) {
-					messagesRequest = requestFactory.messagesRequest();
-				}
-				GetMessageDetailsRequest req = messagesRequest.append(requestFactory.messageDetailsRequest());
+				GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
 				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
 				final ImapFolder folder = req.create(ImapFolder.class);
 				folder.setChildren(event.getFolder().getChildren());
@@ -939,9 +939,10 @@ System.out.println("1111111"+response);
 					@Override
 					public void onSuccess(GetMessageDetailsResult response) {
 
+						/*TODO
 						if (decreaseUnseen) {
 							eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
-						}
+						}*/
 						display.setLoadingMessage(false);
 						placeController.goTo(messagePlaceProvider.get().with(user, folder, message,
 						        response.getMessageDetails()));
