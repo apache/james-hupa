@@ -282,8 +282,8 @@
 						<g:HTMLPanel addStyleNames="{style.composeoptionsbox}">composeOption</g:HTMLPanel>
 					</g:north>
 					<g:east size="257">
-						<g:HTMLPanel addStyleNames="{style.composeattachments}">composeAttachment
-						</g:HTMLPanel>
+						<g:FlowPanel ui:field="attach" addStyleNames="{style.composeattachments}">
+						</g:FlowPanel>
 					</g:east>
 					<g:center>
 						<g:SimplePanel ui:field="composeEditor"

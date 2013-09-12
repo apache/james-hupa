@@ -20,12 +20,14 @@
 package org.apache.hupa.client.ui;
 
 import org.apache.hupa.client.HupaCSS;
+import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.HupaMessages;
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.validation.AddStyleAction;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.client.validation.NotEmptyValidator;
 import org.apache.hupa.client.validation.SetFocusAction;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.widgets.editor.Editor;
 import org.apache.hupa.widgets.ui.MultiValueSuggestArea;
 
@@ -96,7 +98,9 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
@@ -104,19 +108,22 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
-import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
 import com.google.inject.Inject;
 
 import eu.maydu.gwt.validation.client.DefaultValidationProcessor;
 import eu.maydu.gwt.validation.client.ValidationProcessor;
 import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
+import gwtupload.client.BaseUploadStatus;
+import gwtupload.client.IFileInput.FileInputType;
+import gwtupload.client.IUploadStatus;
+import gwtupload.client.IUploader;
+import gwtupload.client.MultiUploader;
 
 public class ComposeView extends Composite implements ComposeActivity.Displayable {
 
-
 	@UiField protected FlexTable headerTable;
 	@UiField protected SimplePanel composeEditor;
+	@UiField protected FlowPanel attach;
 	@UiField protected Style style;
 	private ListBox selectFrom;
 	// we only need one instance for all suggestion-boxes
@@ -132,6 +139,7 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	private Editor editor;
 
 	private ValidationProcessor validator;
+	private MultiUploader uploader = null;
 
 	private static final int ROW_FROM = 0;
 	private static final int ROW_TO = 1;
@@ -159,7 +167,7 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	}
 
 	@Inject
-	public ComposeView(HupaMessages messages) {
+	public ComposeView(HupaConstants constants, HupaMessages messages) {
 		initWidget(binder.createAndBindUi(this));
 		FlexCellFormatter cellFormatter = headerTable.getFlexCellFormatter();
 		RowFormatter rowFormatter = headerTable.getRowFormatter();
@@ -238,6 +246,14 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 				.addActionForFailure(fAction), new NotEmptyValidator(getToText()).addActionForFailure(sAction)
 				.addActionForFailure(fAction));
 		editor = new Editor();
+
+		BaseUploadStatus uploadStatus = new BaseUploadStatus();
+		uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
+		uploader = new MultiUploader(FileInputType.ANCHOR, uploadStatus);
+		uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
+		uploader.avoidRepeatFiles(true);
+		uploader.setI18Constants(constants);
+		attach.add(uploader);
 		composeEditor.add(editor);
 	}
 
@@ -276,12 +292,11 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 		// TODO hardcode to the first identifier
 		return selectFrom.getItemText(0);
 	}
-	
+
 	@Override
-	public ListBox getFromList(){
+	public ListBox getFromList() {
 		return selectFrom;
 	}
-
 
 	@Override
 	public HasText getMessageText() {
@@ -293,11 +308,17 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 		return editor;
 	}
 
+	@Override
+	public IUploader getUploader() {
+		return uploader;
+	}
+
 	// TODO
 	private TextArea create() {
 		TextArea t = new TextArea();
 		return t;
 	}
+
 	interface ComposeUiBinder extends UiBinder<DockLayoutPanel, ComposeView> {
 	}
 

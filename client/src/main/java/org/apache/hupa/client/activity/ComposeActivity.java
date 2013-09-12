@@ -20,12 +20,16 @@
 package org.apache.hupa.client.activity;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> make attachments sending work as expected
 import gwtupload.client.IUploadStatus.Status;
 import gwtupload.client.IUploader;
 import gwtupload.client.IUploader.OnCancelUploaderHandler;
 import gwtupload.client.IUploader.OnFinishUploaderHandler;
 import gwtupload.client.IUploader.OnStatusChangedHandler;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -56,6 +60,8 @@ import org.apache.hupa.shared.events.MailToEventHandler;
 
 import com.google.gwt.activity.shared.Activity;
 =======
+=======
+>>>>>>> make attachments sending work as expected
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +69,7 @@ import org.apache.hupa.client.activity.MessageSendActivity.Type;
 import org.apache.hupa.client.rf.SendMessageRequest;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.validation.EmailListValidator;
+import org.apache.hupa.shared.data.MessageAttachmentImpl;
 import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.MessageAttachment;
 import org.apache.hupa.shared.domain.SendMessageAction;
@@ -388,9 +395,40 @@ public class ComposeActivity extends AppBaseActivity {
 			}
 		});
 		registerHandler(display.getSendClick().addClickHandler(sendClickHandler));
+        display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler);
+        display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler);
+        display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler);
 	}
 
+<<<<<<< HEAD
 >>>>>>> make send text mail work excellently
+=======
+    private OnFinishUploaderHandler onFinishUploadHandler = new OnFinishUploaderHandler() {
+        public void onFinish(IUploader uploader) {
+            if (uploader.getStatus() == Status.SUCCESS) {
+                String name = uploader.getInputName();
+                MessageAttachment attachment = new MessageAttachmentImpl();
+                attachment.setName(name);
+                attachments.add(attachment);
+            }
+        }
+    };
+
+    private OnStatusChangedHandler onStatusChangedHandler = new OnStatusChangedHandler() {
+        public void onStatusChanged(IUploader uploader) {
+            Status stat = display.getUploader().getStatus();
+        }
+    };
+
+    private OnCancelUploaderHandler onCancelUploadHandler = new OnCancelUploaderHandler() {
+        public void onCancel(IUploader uploader) {
+            for (MessageAttachment attachment : attachments) {
+                if (attachment.getName().equals(uploader.getInputName()))
+                    attachments.remove(attachment);
+            }
+        }
+    };
+>>>>>>> make attachments sending work as expected
 	protected ClickHandler sendClickHandler = new ClickHandler() {
 		public void onClick(ClickEvent event) {
 			if (!validate())
@@ -416,6 +454,7 @@ public class ComposeActivity extends AppBaseActivity {
 				attachMent.setSize(attach.getSize());
 				attachMent.setContentType(attach.getContentType());
 				attaches.add(attachMent);
+				System.out.println("++++++-----");
 			}
 			message.setFrom(display.getFromText());
 			message.setSubject(display.getSubjectText().getText());
@@ -613,6 +652,11 @@ public class ComposeActivity extends AppBaseActivity {
 =======
 
 		ListBox getFromList();
+<<<<<<< HEAD
 >>>>>>> add user label, yet issue46 occur
+=======
+
+		IUploader getUploader();
+>>>>>>> make attachments sending work as expected
 	}
 }
