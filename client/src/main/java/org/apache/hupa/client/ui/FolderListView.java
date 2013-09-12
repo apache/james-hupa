@@ -237,7 +237,7 @@ import com.google.inject.assistedinject.AssistedInject;
 public class FolderListView extends Composite implements
 		FolderListActivity.Displayable {
 	@UiField SimplePanel thisView;
-	private CellTree cellTree;
+	private FolderCellTree cellTree;
 	// FIXME here we can not support another cell tree, since both of their
 	// style
 	// would not be cleared.
@@ -255,7 +255,7 @@ public class FolderListView extends Composite implements
 			}
 			thisView.add(contactPanel);
 		} else {
-			cellTree = new CellTree(viewModel, null, Resources.INSTANCE);
+			cellTree = new FolderCellTree(viewModel, null, Resources.INSTANCE);
 			cellTree.setAnimationEnabled(true);
 			if (thisView.getWidget() != null
 					&& thisView.getWidget() instanceof HTMLPanel) {
