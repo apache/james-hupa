@@ -190,13 +190,14 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 
 	@UiField TextBox name;
 	private String path;
-	
+
 	@UiField ListBox parent;
 	@UiField Button save;
 
 >>>>>>> fixed issue#77, the reason is that the arguement passed to server was not the selected value in the list box
 	@UiField VerticalPanel propContainer;
 	@UiField CaptionPanel information;
+	private static final String ROOT_PATH = "imap_root";
 
 	private int state;
 
@@ -226,7 +227,12 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 			final ImapFolder f = req.create(ImapFolder.class);
 			f.setFullName(folder.getFullName());
 			action.setFolder(f);
-			action.setNewName(parent.getValue(parent.getSelectedIndex()) + "/" + name.getText());
+
+			if (ROOT_PATH.equals(parent.getValue(parent.getSelectedIndex()))) {
+				action.setNewName(name.getText());
+			} else {
+				action.setNewName(parent.getValue(parent.getSelectedIndex()) + "/" + name.getText());
+			}
 			req.rename(action).fire(new Receiver<GenericResult>() {
 				@Override
 				public void onSuccess(GenericResult response) {
@@ -362,7 +368,7 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 	}
 	private void makeParentList(LabelNode labelNode, boolean isParent, List<LabelNode> wholeList) {
 		parent.clear();
-		parent.addItem("---", "root");
+		parent.addItem("---", ROOT_PATH);
 		for (LabelNode folderNode : wholeList) {
 			if (isItself(labelNode, isParent, folderNode) || isItsDecendant(labelNode, isParent, folderNode)) {
 				continue;
@@ -388,7 +394,7 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 	}
 
 	private boolean isKinship(LabelNode labelNode, LabelNode folderNode) {
-		if(folderNode == null){
+		if (folderNode == null) {
 			return false;
 		}
 		if (labelNode.compareTo(folderNode.getParent()) == 0)
