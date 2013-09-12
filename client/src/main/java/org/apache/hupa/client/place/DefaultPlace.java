@@ -44,6 +44,7 @@ public class DefaultPlace extends AbstractPlace {
 	}
 
 	@Prefix("")
+<<<<<<< HEAD
 	public static class Tokenizer implements PlaceTokenizer<DefaultPlace> {
 
 		@Override
@@ -105,6 +106,8 @@ public class DefaultPlace extends AbstractPlace {
 	}
 
 	@Prefix("!")
+=======
+>>>>>>> scrub code, remove deprecated code
 	public static class Tokenizer implements PlaceTokenizer<DefaultPlace> {
 
 		@Override

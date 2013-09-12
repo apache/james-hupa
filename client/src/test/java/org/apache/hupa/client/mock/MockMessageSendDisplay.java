@@ -35,7 +35,7 @@ import org.apache.hupa.widgets.ui.HasEnable;
 =======
 import gwtupload.client.IUploader;
 
-import org.apache.hupa.client.activity.MessageSendActivity.Displayable;
+import org.apache.hupa.client.activity.ComposeActivity.Displayable;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.widgets.ui.HasEnable;
 
@@ -46,6 +46,9 @@ import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> scrub code, remove deprecated code
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -109,6 +112,7 @@ public class MockMessageSendDisplay implements Displayable {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> first commit
@@ -120,6 +124,8 @@ public class MockMessageSendDisplay implements Displayable {
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+>>>>>>> scrub code, remove deprecated code
     public HasHTML getMessageHTML() {
         return messageHtml;
     }
@@ -180,6 +186,9 @@ public class MockMessageSendDisplay implements Displayable {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> scrub code, remove deprecated code
 	@Override
 	public void showCc() {
 		// TODO Auto-generated method stub
@@ -330,8 +339,11 @@ public class MockMessageSendDisplay implements Displayable {
 		return null;
 	}
 
+<<<<<<< HEAD
 =======
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+>>>>>>> scrub code, remove deprecated code
 }
