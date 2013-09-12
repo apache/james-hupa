@@ -31,6 +31,7 @@ package org.apache.hupa.server.service;
 import org.apache.hupa.shared.domain.DeleteMessageAction;
 import org.apache.hupa.shared.domain.DeleteMessageResult;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
 
 public interface DeleteMessageByUidService {
@@ -40,4 +41,10 @@ public interface DeleteMessageByUidService {
 public interface DeleteMessageByUidService {
 	public DeleteMessageResult delete(DeleteMessageAction action) throws Exception;
 >>>>>>> delete messages, make WestActivity Singleton
+=======
+import org.apache.hupa.shared.exception.HupaException;
+
+public interface DeleteMessageByUidService {
+	public DeleteMessageResult delete(DeleteMessageAction action) throws HupaException;
+>>>>>>> re-add server unit tests
 }

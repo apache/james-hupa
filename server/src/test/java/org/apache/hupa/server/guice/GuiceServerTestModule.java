@@ -30,10 +30,14 @@ import org.apache.hupa.server.IMAPStoreCache;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> re-add server unit tests
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
 import org.apache.hupa.server.ioc.demo.DemoGuiceServerModule.DemoIMAPStoreCache;
+<<<<<<< HEAD
 =======
 =======
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
@@ -64,14 +68,22 @@ import org.apache.hupa.server.handler.SendMessageHandler;
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+>>>>>>> re-add server unit tests
 import org.apache.hupa.server.mock.MockConstants;
 import org.apache.hupa.server.mock.MockHttpSessionProvider;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.server.mock.MockLogProvider;
+<<<<<<< HEAD
 import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+import org.apache.hupa.server.preferences.InImapUserPreferencesStorage;
+import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
+>>>>>>> re-add server unit tests
 import org.apache.hupa.server.service.CheckSessionServiceImpl;
 import org.apache.hupa.server.service.CreateFolderServiceImpl;
 import org.apache.hupa.server.service.DeleteFolderServiceImpl;
@@ -128,6 +140,7 @@ import org.apache.hupa.shared.domain.Settings;
 import org.apache.hupa.shared.domain.User;
 
 import com.google.inject.Provider;
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> first commit
@@ -149,12 +162,17 @@ import com.google.inject.Provider;
 =======
 import com.google.inject.Provider;
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> re-add server unit tests
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import com.sun.mail.imap.IMAPStore;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> re-add server unit tests
 public class GuiceServerTestModule extends AbstractGuiceTestModule {
 
     protected Class<? extends UserPreferencesStorage> userPreferencesStorageClass = InSessionUserPreferencesStorage.class;
@@ -247,6 +265,7 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
 	}
 
 }
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> first commit
@@ -356,3 +375,5 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
 
 }
 >>>>>>> first commit
+=======
+>>>>>>> re-add server unit tests

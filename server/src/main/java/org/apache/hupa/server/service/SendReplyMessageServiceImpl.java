@@ -42,9 +42,13 @@ import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.domain.SendMessageAction;
 import org.apache.hupa.shared.domain.SendReplyMessageAction;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
 =======
 >>>>>>> forward and reply message to use RF
+=======
+import org.apache.hupa.shared.exception.HupaException;
+>>>>>>> re-add server unit tests
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -62,10 +66,14 @@ public class SendReplyMessageServiceImpl extends SendMessageBaseServiceImpl impl
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
 <<<<<<< HEAD
+<<<<<<< HEAD
     protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
 =======
     protected List getAttachments(SendMessageAction action) throws MessagingException {
 >>>>>>> forward and reply message to use RF
+=======
+    protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
+>>>>>>> re-add server unit tests
     	SendReplyMessageAction replyAction = (SendReplyMessageAction)action;
         List<?> items = new ArrayList();
         IMAPStore store = cache.get(getUser());

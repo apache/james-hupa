@@ -28,6 +28,7 @@ import org.apache.hupa.shared.data.SettingsImpl;
 import org.apache.hupa.shared.data.UserImpl;
 
 import com.google.inject.AbstractModule;
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> first commit
@@ -42,6 +43,8 @@ import org.apache.hupa.shared.data.UserImpl;
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+>>>>>>> re-add server unit tests
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -93,6 +96,7 @@ import com.google.inject.name.Named;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 public abstract class AbstractGuiceTestModule extends AbstractModule{
 
     protected static class TestUser extends UserImpl {
@@ -111,6 +115,12 @@ public abstract class AbstractGuiceTestModule {
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+public abstract class AbstractGuiceTestModule extends AbstractModule{
+
+    protected static class TestUser extends UserImpl {
+    	
+>>>>>>> re-add server unit tests
         @Inject
         public TestUser(@Named("Username") String username, 
                         @Named("Password") String password, 

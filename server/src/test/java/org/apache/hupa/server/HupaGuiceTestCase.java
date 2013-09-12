@@ -1,5 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> re-add server unit tests
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -112,6 +115,7 @@ public class HupaGuiceTestCase{
         }
     }
 }
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> first commit
@@ -235,3 +239,5 @@ public abstract class HupaGuiceTestCase extends TestCase {
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+>>>>>>> re-add server unit tests

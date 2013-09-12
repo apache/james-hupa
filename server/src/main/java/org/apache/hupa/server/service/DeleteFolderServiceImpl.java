@@ -26,6 +26,7 @@ package org.apache.hupa.server.service;
 
 import javax.mail.Folder;
 import javax.mail.MessagingException;
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
@@ -33,6 +34,8 @@ package org.apache.hupa.server.service;
 
 import javax.mail.Folder;
 >>>>>>> delete and rename folder
+=======
+>>>>>>> re-add server unit tests
 
 import org.apache.hupa.shared.data.GenericResultImpl;
 import org.apache.hupa.shared.domain.DeleteFolderAction;
@@ -40,9 +43,13 @@ import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
 =======
 >>>>>>> delete and rename folder
+=======
+import org.apache.hupa.shared.exception.HupaException;
+>>>>>>> re-add server unit tests
 
 import com.sun.mail.imap.IMAPStore;
 
@@ -50,10 +57,14 @@ public class DeleteFolderServiceImpl extends AbstractService implements DeleteFo
 
 	@Override
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public GenericResult delete(DeleteFolderAction action) throws HupaException, MessagingException {
 =======
 	public GenericResult delete(DeleteFolderAction action) throws Exception {
 >>>>>>> delete and rename folder
+=======
+	public GenericResult delete(DeleteFolderAction action) throws HupaException, MessagingException {
+>>>>>>> re-add server unit tests
 		User user = getUser();
 		ImapFolder folder = action.getFolder();
 		IMAPStore store = cache.get(user);
@@ -71,10 +82,14 @@ public class DeleteFolderServiceImpl extends AbstractService implements DeleteFo
 			return new GenericResultImpl();
 		} else {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			throw new HupaException("Unable to delete folder " + folder + " for user " + user);
 =======
 			throw new Exception("Unable to delete folder " + folder + " for user " + user);
 >>>>>>> delete and rename folder
+=======
+			throw new HupaException("Unable to delete folder " + folder + " for user " + user);
+>>>>>>> re-add server unit tests
 		}
 	}
 

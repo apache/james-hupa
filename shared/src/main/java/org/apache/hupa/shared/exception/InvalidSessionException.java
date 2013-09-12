@@ -1,5 +1,8 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> re-add server unit tests
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -29,6 +32,7 @@ public class InvalidSessionException extends HupaException{
         super(message);
     }
 }
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> first commit
@@ -73,3 +77,5 @@ public class InvalidSessionException extends ActionException{
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+>>>>>>> re-add server unit tests

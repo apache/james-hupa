@@ -44,12 +44,16 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.hupa.server.FileItemRegistry;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> re-add server unit tests
 import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.service.SendMessageBaseServiceImpl;
 import org.apache.hupa.shared.data.MessageAttachmentImpl;
 import org.apache.hupa.shared.data.SmtpMessageImpl;
 import org.apache.hupa.shared.domain.MessageAttachment;
 import org.apache.hupa.shared.domain.SmtpMessage;
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> first commit
@@ -71,6 +75,8 @@ import org.apache.hupa.shared.data.SmtpMessageImpl;
 import org.apache.hupa.shared.domain.MessageAttachment;
 import org.apache.hupa.shared.domain.SmtpMessage;
 >>>>>>> forward and reply message to use RF
+=======
+>>>>>>> re-add server unit tests
 
 import com.sun.mail.imap.IMAPStore;
 
@@ -184,6 +190,7 @@ public class TestUtils extends TestCase {
         message.setSubject("Subject");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         return SendMessageBaseServiceImpl.composeMessage(message, text, html, items);
 =======
         return AbstractSendMessageHandler.composeMessage(message, text, html, items);
@@ -191,6 +198,9 @@ public class TestUtils extends TestCase {
 =======
         return AbstractSendMessageHandler.composeMessage(message, text, html, items);
 >>>>>>> first commit
+=======
+        return SendMessageBaseServiceImpl.composeMessage(message, text, html, items);
+>>>>>>> re-add server unit tests
     }
     
     public static Message createMockMimeMessage(Session session, int nfiles) throws MessagingException, IOException {
@@ -211,6 +221,7 @@ public class TestUtils extends TestCase {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static SmtpMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
 =======
     public static SMTPMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
@@ -221,6 +232,9 @@ public class TestUtils extends TestCase {
 =======
     public static SmtpMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
 >>>>>>> forward and reply message to use RF
+=======
+    public static SmtpMessage createMockSMTPMessage(FileItemRegistry registry, int nfiles) throws AddressException, MessagingException, IOException {
+>>>>>>> re-add server unit tests
         ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
 
         for (int i = 1; i <= nfiles; i++) {
@@ -228,6 +242,7 @@ public class TestUtils extends TestCase {
             fileItem = TestUtils.createMockFileItem("uploadedFile_" + i + ".bin");
             registry.add(fileItem);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -241,6 +256,9 @@ public class TestUtils extends TestCase {
 =======
             MessageAttachment msgAttach = new MessageAttachmentImpl();
 >>>>>>> try to get message details, problem is:
+=======
+            MessageAttachment msgAttach = new MessageAttachmentImpl();
+>>>>>>> re-add server unit tests
             msgAttach.setName(fileItem.getFieldName());
             msgAttach.setContentType(fileItem.getContentType());
             msgAttach.setSize((int) fileItem.getSize());
@@ -248,6 +266,7 @@ public class TestUtils extends TestCase {
             attachments.add(msgAttach);
         }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -261,6 +280,9 @@ public class TestUtils extends TestCase {
 =======
         SmtpMessage smtpMessage = new SmtpMessageImpl();
 >>>>>>> forward and reply message to use RF
+=======
+        SmtpMessage smtpMessage = new SmtpMessageImpl();
+>>>>>>> re-add server unit tests
         smtpMessage.setFrom("Test user <from@dom.com>");
         smtpMessage.setTo(new ArrayList<String>(Arrays.asList("to@dom.com")));
         smtpMessage.setCc(new ArrayList<String>(Arrays.asList("cc@dom.com")));

@@ -28,16 +28,21 @@ import javax.mail.MessagingException;
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.ImapFolder;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.exception.HupaException;
 =======
 >>>>>>> Fix issue #15.
+=======
+import org.apache.hupa.shared.exception.HupaException;
+>>>>>>> re-add server unit tests
 
 import com.sun.mail.imap.IMAPStore;
 
 public class FetchFoldersServiceImpl extends AbstractService implements FetchFoldersService {
 
 	@Override
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public List<ImapFolder> fetch(ImapFolder imapFolder, Boolean recursive) throws MessagingException, HupaException {
 		if(recursive){
@@ -46,6 +51,9 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 =======
 	public List<ImapFolder> fetch(ImapFolder imapFolder) throws MessagingException {
 >>>>>>> Fix issue #15.
+=======
+	public List<ImapFolder> fetch(ImapFolder imapFolder) throws MessagingException, HupaException{
+>>>>>>> re-add server unit tests
 		try {
 			Folder folder = null;
 			IMAPStore store = cache.get(getUser());

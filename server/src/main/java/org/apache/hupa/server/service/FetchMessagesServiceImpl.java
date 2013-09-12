@@ -139,6 +139,7 @@ import org.apache.hupa.shared.domain.FetchMessagesAction;
 import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.Tag;
 import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.exception.HupaException;
 
 import com.google.inject.Inject;
 import com.sun.mail.imap.IMAPFolder;
@@ -149,7 +150,7 @@ public class FetchMessagesServiceImpl extends AbstractService implements FetchMe
 
     @Inject protected UserPreferencesStorage userPreferences;
     
-    public FetchMessagesResult fetch(FetchMessagesAction action){
+    public FetchMessagesResult fetch(FetchMessagesAction action) throws HupaException{
         User user = getUser();
 //        ImapFolder folder = action.getFolder();
         if (action.getFolder() == null) {
@@ -193,8 +194,12 @@ public class FetchMessagesServiceImpl extends AbstractService implements FetchMe
     }
 
 
+<<<<<<< HEAD
     protected MessageConvertArray getMessagesToConvert(IMAPFolder f, FetchMessagesAction action) throws MessagingException {
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
+=======
+    protected MessageConvertArray getMessagesToConvert(IMAPFolder f, FetchMessagesAction action) throws MessagingException, HupaException {
+>>>>>>> re-add server unit tests
         
         String searchString = action.getSearchString();
         int start = action.getStart();
@@ -250,10 +255,14 @@ public class FetchMessagesServiceImpl extends AbstractService implements FetchMe
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
 =======
     protected List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
 >>>>>>> fix some bugs related to RF, and try to use new CellView to replace gwt-incubator 
+=======
+    public List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
+>>>>>>> re-add server unit tests
         List<org.apache.hupa.shared.domain.Message> mList = new ArrayList<org.apache.hupa.shared.domain.Message>();
         // Setup fetchprofile to limit the stuff which is fetched 
         FetchProfile fp = new FetchProfile();

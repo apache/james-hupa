@@ -35,20 +35,30 @@ import org.apache.hupa.shared.exception.HupaException;
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
+import javax.mail.MessagingException;
+
 import org.apache.hupa.shared.data.IdleResultImpl;
 import org.apache.hupa.shared.domain.IdleAction;
 import org.apache.hupa.shared.domain.IdleResult;
+<<<<<<< HEAD
 >>>>>>> other RFs
+=======
+import org.apache.hupa.shared.exception.HupaException;
+>>>>>>> re-add server unit tests
 
 import com.sun.mail.imap.IMAPStore;
 
 public class IdleServiceImpl extends AbstractService implements IdleService {
 	@Override
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public IdleResult idle(IdleAction action) throws HupaException, MessagingException {
 =======
 	public IdleResult idle(IdleAction action) throws Exception {
 >>>>>>> other RFs
+=======
+	public IdleResult idle(IdleAction action) throws HupaException, MessagingException {
+>>>>>>> re-add server unit tests
 		try {
 			IMAPStore store = cache.get(getUser());
 
@@ -63,12 +73,17 @@ public class IdleServiceImpl extends AbstractService implements IdleService {
 			}
 			return new IdleResultImpl(true);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		} catch (HupaException e) {
 			throw new HupaException("Unable to send NOOP " + e.getMessage());
 =======
 		} catch (Exception e) {
 			throw new Exception("Unable to send NOOP " + e.getMessage());
 >>>>>>> other RFs
+=======
+		} catch (HupaException e) {
+			throw new HupaException("Unable to send NOOP " + e.getMessage());
+>>>>>>> re-add server unit tests
 		}
 	}
 }

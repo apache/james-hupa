@@ -36,13 +36,20 @@ public interface LoginUserService {
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
+import javax.mail.MessagingException;
+
 import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.exception.HupaException;
 
 public interface LoginUserService {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public User login(String username, String password);
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 =======
 	public User login(String username, String password) throws Exception;
 >>>>>>> alert people "invilid login" for the wrong username and/or password, which should be improved with a gentle way
+=======
+	public User login(String username, String password) throws HupaException, MessagingException;
+>>>>>>> re-add server unit tests
 }

@@ -54,9 +54,13 @@ import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Tag;
 import org.apache.hupa.shared.domain.User;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
 =======
 >>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
+=======
+import org.apache.hupa.shared.exception.HupaException;
+>>>>>>> re-add server unit tests
 
 import com.google.inject.Inject;
 import com.sun.mail.imap.IMAPStore;
@@ -66,6 +70,7 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
     @Inject protected UserPreferencesStorage userPreferences;
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public FetchMessagesResult fetch(FetchMessagesAction action) throws HupaException{
         User user = getUser();
         ImapFolder folder = action.getFolder();
@@ -73,6 +78,9 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
             folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
 =======
     public FetchMessagesResult fetch(FetchMessagesAction action){
+=======
+    public FetchMessagesResult fetch(FetchMessagesAction action) throws HupaException{
+>>>>>>> re-add server unit tests
         User user = getUser();
         ImapFolder folder = action.getFolder();
         if (folder == null) {

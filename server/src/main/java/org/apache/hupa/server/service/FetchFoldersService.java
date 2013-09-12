@@ -25,6 +25,7 @@ import javax.mail.MessagingException;
 
 import org.apache.hupa.shared.domain.ImapFolder;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
 
 public interface FetchFoldersService {
@@ -34,4 +35,10 @@ public interface FetchFoldersService {
 public interface FetchFoldersService {
 	List<ImapFolder> fetch(ImapFolder folder) throws MessagingException;
 >>>>>>> Fix issue #15.
+=======
+import org.apache.hupa.shared.exception.HupaException;
+
+public interface FetchFoldersService {
+	List<ImapFolder> fetch(ImapFolder folder) throws MessagingException, HupaException;
+>>>>>>> re-add server unit tests
 }

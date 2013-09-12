@@ -135,10 +135,13 @@ public class GetMessageDetailsServiceImpl extends AbstractService implements Get
 		boolean isHTML = handleParts(message, con, sbPlain, attachmentList);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		System.out.println(isHTML);
 
 >>>>>>> try to get message details, problem is:
+=======
+>>>>>>> re-add server unit tests
 		if (isHTML) {
 			mDetails.setText(filterHtmlDocument(sbPlain.toString(), folderName, uid));
 		} else {

@@ -76,9 +76,13 @@ import org.apache.hupa.shared.domain.SendMessageAction;
 import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.domain.User;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
 =======
 >>>>>>> forward and reply message to use RF
+=======
+import org.apache.hupa.shared.exception.HupaException;
+>>>>>>> re-add server unit tests
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -214,9 +218,14 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
 =======
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
      * @throws IOException 
+	 * @throws HupaException 
      */
+<<<<<<< HEAD
     protected Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException {
 >>>>>>> forward and reply message to use RF
+=======
+    protected Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException, HupaException {
+>>>>>>> re-add server unit tests
 
         String html = restoreInlineLinks(action.getMessage().getText());
         
@@ -252,6 +261,7 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * @param action
      * @return A list of stored attachments
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @throws HupaException 
      */
     @SuppressWarnings("rawtypes")
@@ -265,6 +275,12 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSession);
 >>>>>>> forward and reply message to use RF
 =======
+=======
+     * @throws HupaException 
+     */
+    @SuppressWarnings("rawtypes")
+    protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
+>>>>>>> re-add server unit tests
         FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSessionProvider.get());
 >>>>>>> fix issue 5,6,8:
         List<MessageAttachment> attachments = action.getMessage().getMessageAttachments();

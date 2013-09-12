@@ -42,15 +42,20 @@ public class CheckSessionServiceImpl extends AbstractService implements CheckSes
 package org.apache.hupa.server.service;
 
 import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.exception.HupaException;
 
 public class CheckSessionServiceImpl extends AbstractService implements CheckSessionService {
 	
-	public User getUser(){
+	public User getUser() throws HupaException{
 		return super.getUser();
 	}
 	
+<<<<<<< HEAD
 	public Boolean isValid() {
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+	public Boolean isValid()  throws HupaException{
+>>>>>>> re-add server unit tests
 		return getUser() != null && getUser().getAuthenticated();
 	}
 }

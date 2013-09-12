@@ -38,12 +38,19 @@ public interface IdleService {
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
+import javax.mail.MessagingException;
+
 import org.apache.hupa.shared.domain.IdleAction;
 import org.apache.hupa.shared.domain.IdleResult;
+import org.apache.hupa.shared.exception.HupaException;
 
 public interface IdleService {
 
+<<<<<<< HEAD
 	IdleResult idle(IdleAction action) throws Exception;
 >>>>>>> other RFs
+=======
+	IdleResult idle(IdleAction action) throws HupaException, MessagingException;
+>>>>>>> re-add server unit tests
 
 }

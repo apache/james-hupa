@@ -37,10 +37,17 @@ public interface DeleteFolderService {
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
+import javax.mail.MessagingException;
+
 import org.apache.hupa.shared.domain.DeleteFolderAction;
 import org.apache.hupa.shared.domain.GenericResult;
+import org.apache.hupa.shared.exception.HupaException;
 
 public interface DeleteFolderService {
+<<<<<<< HEAD
 	GenericResult delete(DeleteFolderAction action) throws Exception;
 >>>>>>> delete and rename folder
+=======
+	GenericResult delete(DeleteFolderAction action) throws HupaException, MessagingException;
+>>>>>>> re-add server unit tests
 }

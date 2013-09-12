@@ -35,6 +35,9 @@ import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.User;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> re-add server unit tests
 import org.apache.hupa.shared.exception.HupaException;
 import org.apache.hupa.shared.exception.InvalidSessionException;
 
@@ -71,7 +74,7 @@ public abstract class AbstractService {
 >>>>>>> fix issue 5,6,8:
     @Inject protected Log logger;
 
-	protected User getUser() {
+	protected User getUser() throws HupaException{
 
 <<<<<<< HEAD
 	protected HttpSession getHttpSession() {
@@ -79,6 +82,7 @@ public abstract class AbstractService {
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 =======
         User user = (User) httpSessionProvider.get().getAttribute(SConsts.USER_SESS_ATTR);
+<<<<<<< HEAD
 //        if (user == null) { TODO exception
 //            throw new Exception("User not found in session with id " + httpSessionProvider.get().getId());
 //        } else {
@@ -86,5 +90,12 @@ public abstract class AbstractService {
 //        }
         return user;
 >>>>>>> fix issue 5,6,8:
+=======
+        if (user == null) {
+            throw new InvalidSessionException("User not found in session with id " + httpSessionProvider.get().getId());
+        } else {
+            return user;
+        }
+>>>>>>> re-add server unit tests
 	}
 }

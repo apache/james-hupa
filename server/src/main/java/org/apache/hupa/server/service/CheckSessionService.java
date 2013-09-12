@@ -36,9 +36,15 @@ public interface CheckSessionService {
 package org.apache.hupa.server.service;
 
 import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.exception.HupaException;
 
 public interface CheckSessionService {
+<<<<<<< HEAD
 	public User getUser();
 	public Boolean isValid();
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+	public User getUser() throws HupaException;
+	public Boolean isValid() throws HupaException;
+>>>>>>> re-add server unit tests
 }

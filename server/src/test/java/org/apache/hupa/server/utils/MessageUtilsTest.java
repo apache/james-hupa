@@ -20,6 +20,9 @@ package org.apache.hupa.server.utils;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> re-add server unit tests
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -35,6 +38,7 @@ import org.junit.Test;
 public class MessageUtilsTest extends HupaGuiceTestCase {
     
     @Test public void extractMessageAttachments() throws Exception {
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> first commit
@@ -60,11 +64,14 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+>>>>>>> re-add server unit tests
         Message message = TestUtils.createMockMimeMessage(session, 2);
         List<BodyPart> parts = MessageUtils.extractMessageAttachments(logger, message.getContent());
         assertEquals(2, parts.size());
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     @Test public void extractInlineAttachments() throws Exception {
@@ -74,6 +81,9 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
 =======
     public void testExtractInlineAttachments() throws Exception {
 >>>>>>> first commit
+=======
+    @Test public void extractInlineAttachments() throws Exception {
+>>>>>>> re-add server unit tests
         Message message = TestUtils.createMockMimeMessage(session, 1);
         
         List<BodyPart> attachments = MessageUtils.extractMessageAttachments(logger, message.getContent());
@@ -99,6 +109,7 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     @Test public void getRecipients () throws Exception  {
 =======
@@ -109,6 +120,10 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
     
     public void testGetRecipients () throws Exception  {
 >>>>>>> constantly changed by manolo
+=======
+    
+    @Test public void getRecipients () throws Exception  {
+>>>>>>> re-add server unit tests
         String encodedEmail = "=?ISO-8859-1?Q?Manolo_Pe=F1a?= <hello@hupa.org>";
         String decodedEmail = MessageUtils.decodeText(encodedEmail);
         assertFalse(encodedEmail.equals(decodedEmail));
@@ -118,6 +133,7 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> first commit
 =======
@@ -126,4 +142,6 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> re-add server unit tests
 }

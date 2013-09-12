@@ -33,6 +33,7 @@ import org.apache.hupa.shared.data.LogoutUserResultImpl;
 import org.apache.hupa.shared.domain.LogoutUserResult;
 import org.apache.hupa.shared.domain.User;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
 
 public class LogoutUserServiceImpl extends AbstractService implements LogoutUserService {
@@ -44,6 +45,13 @@ public class LogoutUserServiceImpl extends AbstractService implements LogoutUser
 	@Override
 	public LogoutUserResult logout() {
 >>>>>>> other RFs
+=======
+import org.apache.hupa.shared.exception.HupaException;
+
+public class LogoutUserServiceImpl extends AbstractService implements LogoutUserService {
+	@Override
+	public LogoutUserResult logout() throws HupaException {
+>>>>>>> re-add server unit tests
 
 		User user = getUser();
 		user.setAuthenticated(false);
