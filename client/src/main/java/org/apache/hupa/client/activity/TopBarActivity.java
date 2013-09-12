@@ -105,6 +105,7 @@ public class TopBarActivity extends AppBaseActivity {
 					RootLayoutPanel.get().add(loginLayout.get());
 					pc.goTo(new DefaultPlace(""));
 					Window.Location.reload();
+<<<<<<< HEAD
 				}
 
 				@Override
@@ -228,13 +229,16 @@ public class TopBarActivity extends AppBaseActivity {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
 					TopBarActivity.this.pc.goTo(new DefaultPlace("@"));
+=======
+>>>>>>> fixed issue#87, and remove deprecated west view related codes
 				}
 
 				@Override
 				public void onFailure(ServerFailure error) {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
-					TopBarActivity.this.pc.goTo(new DefaultPlace("@"));
+					pc.goTo(new DefaultPlace(""));
+					Window.Location.reload();
 				}
 			});
 		}
