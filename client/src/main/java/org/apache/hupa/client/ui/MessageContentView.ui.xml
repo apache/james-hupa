@@ -134,7 +134,6 @@
 		.moreHeaders {
 			position: absolute;
 			top: 8px;
-            cursor: pointer;
 			right: 18px;
 			width: 18em;
 			text-align: right;
@@ -149,6 +148,7 @@
 			height: 13px;
 			text-indent: 1000px;
 			overflow: hidden;
+      cursor: pointer;
 		}
 	</ui:style>
 	<g:DockLayoutPanel unit="PX">
@@ -174,5 +174,9 @@
 			</g:DockLayoutPanel>
 		</g:center>
 	</g:DockLayoutPanel>
+<<<<<<< HEAD
 >>>>>>> fixed issue#64, add attachments region in message content view
 </ui:UiBinder>
+=======
+</ui:UiBinder>
+>>>>>>> make cursor pointer to the right place
