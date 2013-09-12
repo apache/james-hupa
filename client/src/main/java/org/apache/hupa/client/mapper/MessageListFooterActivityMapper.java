@@ -27,7 +27,12 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 =======
 import com.google.gwt.activity.shared.ActivityMapper;
+<<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
+>>>>>>> support code split
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -60,7 +65,17 @@ public class MessageListFooterActivityMapper implements ActivityMapper {
 	};}
 =======
 	public Activity getActivity(Place place) {
-		return messageListFooterActivityProvider.get();
+		return new ActivityAsyncProxy() {
+			@Override
+			protected void doAsync(RunAsyncCallback callback) {
+				GWT.runAsync(callback);
+			}
+
+			@Override
+			protected Activity createInstance() {
+				return messageListFooterActivityProvider.get();
+			}
+		};
 	}
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 }

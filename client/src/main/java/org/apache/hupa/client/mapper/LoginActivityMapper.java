@@ -24,10 +24,15 @@ import org.apache.hupa.client.activity.LoginActivity;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 =======
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.RunAsyncCallback;
+>>>>>>> support code split
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -43,6 +48,9 @@ public class LoginActivityMapper implements ActivityMapper {
 	@Override
 	public Activity getActivity(Place place) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> support code split
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
@@ -54,8 +62,11 @@ public class LoginActivityMapper implements ActivityMapper {
 				return loginActivityProvider.get();
 			}
 		};
+<<<<<<< HEAD
 =======
 		return loginActivityProvider.get();
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+>>>>>>> support code split
 	}
 }
