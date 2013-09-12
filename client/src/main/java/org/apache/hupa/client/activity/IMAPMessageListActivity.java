@@ -495,10 +495,13 @@ import org.apache.hupa.shared.rpc.SetFlag;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.widgets.ui.HasEnable;
 
+<<<<<<< HEAD
 import com.google.gwt.activity.shared.AbstractActivity;
 <<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
 =======
+=======
+>>>>>>> fix issue 10
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -533,7 +536,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
-public class IMAPMessageListActivity extends AbstractActivity {
+public class IMAPMessageListActivity extends AppBaseActivity {
 
 <<<<<<< HEAD
     private String searchValue;
@@ -593,6 +596,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		container.setWidget(display.asWidget());
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	private void bind(){
 =======
@@ -625,6 +629,8 @@ public class IMAPMessageListActivity extends AbstractActivity {
 <<<<<<< HEAD
 =======
 
+=======
+>>>>>>> fix issue 10
 	private void bind() {
 		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
 
@@ -644,7 +650,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
 			}
 
 		});
-		display.getSearchClick().addClickHandler(new ClickHandler() {
+		registrations.add(display.getSearchClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				String searchValue = null;
@@ -654,7 +660,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
 				eventBus.fireEvent(new LoadMessagesEvent(user, folder, searchValue));
 			}
 
-		});
+		}));
 		eventBus.addHandler(MoveMessageEvent.TYPE, new MoveMessageEventHandler() {
 			public void onMoveMessageHandler(MoveMessageEvent event) {
 				final Message message = event.getMessage();
@@ -674,22 +680,22 @@ public class IMAPMessageListActivity extends AbstractActivity {
 			}
 
 		});
-		display.getSelectAllClick().addClickHandler(new ClickHandler() {
+		registrations.add(display.getSelectAllClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				display.deselectAllMessages();
 				display.selectAllMessages();
 			}
 
-		});
-		display.getSelectNoneClick().addClickHandler(new ClickHandler() {
+		}));
+		registrations.add(display.getSelectNoneClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				display.deselectAllMessages();
 			}
 
-		});
-		display.getDeleteClick().addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
+		}));
+		registrations.add(display.getDeleteClick().addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 
 			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
 				if (folder.getFullName().equals(user.getSettings().getTrashFolderName())) {
@@ -700,30 +706,30 @@ public class IMAPMessageListActivity extends AbstractActivity {
 
 			}
 
-		});
-		display.getConfirmDeleteDialogClick().addClickHandler(new ClickHandler() {
+		}));
+		registrations.add(display.getConfirmDeleteDialogClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				deleteMessages();
 			}
 
-		});
-		display.getNewClick().addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
+		}));
+		registrations.add(display.getNewClick().addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
 
 			public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
 				// eventBus.fireEvent(new NewMessageEvent());
 				placeController.goTo(messageSendPlaceProvider.get().with(user, null, null, null, Type.NEW));
 			}
 
-		});
-		display.getDeleteAllClick().addClickHandler(new ClickHandler() {
+		}));
+		registrations.add(display.getDeleteAllClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				display.getConfirmDeleteAllDialog().center();
 			}
 
-		});
-		display.getConfirmDeleteAllDialogClick().addClickHandler(new ClickHandler() {
+		}));
+		registrations.add(display.getConfirmDeleteAllDialogClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				DeleteMessageAllRequest req = requestFactory.deleteMessageAllRequest();
@@ -739,8 +745,8 @@ public class IMAPMessageListActivity extends AbstractActivity {
 				});
 			}
 
-		});
-		display.getMarkSeenClick().addClickHandler(new ClickHandler() {
+		}));
+		registrations.add(display.getMarkSeenClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
 				ArrayList<Long> uids = new ArrayList<Long>();
@@ -772,8 +778,8 @@ public class IMAPMessageListActivity extends AbstractActivity {
 				});
 			}
 
-		});
-		display.getMarkUnseenClick().addClickHandler(new ClickHandler() {
+		}));
+		registrations.add(display.getMarkUnseenClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				final ArrayList<Message> selectedMessages = new ArrayList<Message>(display.getSelectedMessages());
@@ -806,7 +812,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
 				});
 			}
 
-		});
+		}));
 		eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {// TODO
 
 			        public void onFolderSelectionEvent(FolderSelectionEvent event) {
@@ -815,22 +821,22 @@ public class IMAPMessageListActivity extends AbstractActivity {
 			        }
 
 		        });
-		display.getRefreshClick().addClickHandler(new ClickHandler() {
+		registrations.add(display.getRefreshClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				display.reset();
 				display.reloadData();
 			}
 
-		});
-		display.getRowsPerPageChange().addChangeHandler(new ChangeHandler() {
+		}));
+		registrations.add(display.getRowsPerPageChange().addChangeHandler(new ChangeHandler() {
 
 			public void onChange(ChangeEvent event) {
 				// firePresenterRevealedEvent(true);
 				// firePresenterChangedEvent();
 			}
 
-		});
+		}));
 //		display.addTableListener(tableListener);
 	}
 

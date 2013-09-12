@@ -89,7 +89,6 @@ import org.apache.hupa.client.bundles.HupaImageBundle;
 >>>>>>> fix issue 5,6,8:
 import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
-import org.apache.hupa.client.widgets.CommandsBar;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.client.widgets.HasDialog;
@@ -179,12 +178,15 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 import com.google.gwt.user.client.ui.Grid;
 >>>>>>> fix issue 5,6,8:
 import com.google.gwt.user.client.ui.HTML;
 >>>>>>> decorate columns of messages list and related panels above and below.
+=======
+>>>>>>> fix issue 10
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;

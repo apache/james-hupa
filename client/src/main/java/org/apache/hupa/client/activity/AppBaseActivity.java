@@ -22,6 +22,7 @@ package org.apache.hupa.client.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 
@@ -38,11 +39,19 @@ public abstract class AppBaseActivity extends AbstractActivity {
 	@Inject protected PlaceController pc;
 	@Inject protected HupaRequestFactory rf;
 
+=======
+import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.event.shared.HandlerRegistration;
+
+public abstract class AppBaseActivity extends AbstractActivity {
+
+>>>>>>> fix issue 10
 	protected List<HandlerRegistration> registrations = new ArrayList<HandlerRegistration>();
 
 	@Override
 	public void onStop() {
 		for (HandlerRegistration registration : registrations) {
+<<<<<<< HEAD
 			if(registration != null){
 				registration.removeHandler();	
 			}
@@ -60,4 +69,10 @@ public abstract class AppBaseActivity extends AbstractActivity {
 
 	public void onCancel() {
 	}
+=======
+			registration.removeHandler();
+		}
+		registrations.clear();
+	}
+>>>>>>> fix issue 10
 }

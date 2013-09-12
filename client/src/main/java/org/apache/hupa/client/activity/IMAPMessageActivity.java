@@ -92,7 +92,6 @@ import org.apache.hupa.shared.rpc.DeleteMessageResult;
 =======
 >>>>>>> other RFs
 
-import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -104,7 +103,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
-public class IMAPMessageActivity extends AbstractActivity {
+public class IMAPMessageActivity extends AppBaseActivity {
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
@@ -226,7 +225,7 @@ public class IMAPMessageActivity extends AbstractActivity {
         public HasClickHandlers getBackButtonClick();
 =======
 	protected void bind() {
-		display.getDeleteButtonClick().addClickHandler(new ClickHandler() {
+		registrations.add(display.getDeleteButtonClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				ArrayList<Long> uidList = new ArrayList<Long>();
 				uidList.add(message.getUid());
@@ -242,36 +241,36 @@ public class IMAPMessageActivity extends AbstractActivity {
 				});
 			}
 
-		});
-		display.getForwardButtonClick().addClickHandler(new ClickHandler() {
+		}));
+		registrations.add(display.getForwardButtonClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				eventBus.fireEvent(new ForwardMessageEvent(user, folder, message, messageDetails));
 			}
 
-		});
-		display.getReplyButtonClick().addClickHandler(new ClickHandler() {
+		}));
+		registrations.add(display.getReplyButtonClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				eventBus.fireEvent(new ReplyMessageEvent(user, folder, message, messageDetails, false));
 			}
 
-		});
-		display.getReplyAllButtonClick().addClickHandler(new ClickHandler() {
+		}));
+		registrations.add(display.getReplyAllButtonClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				eventBus.fireEvent(new ReplyMessageEvent(user, folder, message, messageDetails, true));
 			}
 
-		});
-		display.getBackButtonClick().addClickHandler(new ClickHandler() {
+		}));
+		registrations.add(display.getBackButtonClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				eventBus.fireEvent(new BackEvent());
 			}
 
-		});
-		display.getShowRawMessageClick().addClickHandler(new ClickHandler() {
+		}));
+		registrations.add(display.getShowRawMessageClick().addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
 				String message_url = GWT.getModuleBaseURL() + SConsts.SERVLET_SOURCE + "?" + SConsts.PARAM_UID + "="
@@ -279,7 +278,7 @@ public class IMAPMessageActivity extends AbstractActivity {
 				Window.open(message_url, "_blank", "");
 			}
 
-		});
+		}));
 
 	}
 
