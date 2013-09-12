@@ -207,6 +207,7 @@ import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
@@ -220,7 +221,7 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 public class LabelListView extends Composite implements LabelListActivity.Displayable {
 
 	@Inject LabelPropertiesActivity.Displayable labelProperties;
-	@UiField SimplePanel thisView;
+	@UiField ScrollPanel thisView;
 
 	@UiField Button add;
 	@UiField Button delete;
@@ -304,6 +305,8 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 		@Override
 		protected void onRangeChanged(HasData<LabelNode> display) {
 
+            final int start = display.getVisibleRange().getStart();
+
 			rf.fetchFoldersRequest().fetch(null, Boolean.TRUE).fire(new Receiver<List<ImapFolder>>() {
 				@Override
 				public void onSuccess(List<ImapFolder> response) {
@@ -314,7 +317,7 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 						for (ImapFolder folder : response) {
 							fillCellList(folderNodes, folder, LabelNode.ROOT);
 						}
-						updateRowData(0, folderNodes);
+						updateRowData(start, folderNodes);
 					}
 				}
 

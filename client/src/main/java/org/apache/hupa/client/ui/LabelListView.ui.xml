@@ -19,8 +19,12 @@
 =======
 	<g:DockLayoutPanel>
 		<g:center>
+<<<<<<< HEAD
 			<g:SimplePanel ui:field="thisView" />
 >>>>>>> make delete label in label setting work(backend now)
+=======
+			<g:ScrollPanel ui:field="thisView" />
+>>>>>>> replace Label List View in setting place to use ScrollPanel
 		</g:center>
 		<g:south size="43">
 			<g:FlowPanel ui:field="folderOpButtons">
