@@ -265,7 +265,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class MessageListActivity extends AppBaseActivity {
 
-//	@Inject private Provider<IMAPMessagePlace> messagePlaceProvider;
+	// @Inject private Provider<IMAPMessagePlace> messagePlaceProvider;
 	private User user;
 	private String searchValue;
 
@@ -282,46 +282,38 @@ public class MessageListActivity extends AppBaseActivity {
 				searchValue = null;
 			}
 		});
-		eventBus.addHandler(ExpandMessageEvent.TYPE,
-				new ExpandMessageEventHandler() {
-					public void onExpandMessage(ExpandMessageEvent event) {
-						// final boolean decreaseUnseen;
-						final Message message = event.getMessage();
-						// check if the message was already seen in the past
-						if (event.getMessage().getFlags()
-								.contains(IMAPFlag.SEEN) == false) {
-							// decreaseUnseen = true;//TODO 1209
-						} else {
-							// decreaseUnseen = false;
-						}
+		eventBus.addHandler(ExpandMessageEvent.TYPE, new ExpandMessageEventHandler() {
+			public void onExpandMessage(ExpandMessageEvent event) {
+				// final boolean decreaseUnseen;
+				final Message message = event.getMessage();
+				// check if the message was already seen in the past
+				if (event.getMessage().getFlags().contains(IMAPFlag.SEEN) == false) {
+					// decreaseUnseen = true;//TODO 1209
+				} else {
+					// decreaseUnseen = false;
+				}
 
-						GetMessageDetailsRequest req = requestFactory
-								.messageDetailsRequest();
-						GetMessageDetailsAction action = req
-								.create(GetMessageDetailsAction.class);
-						final ImapFolder f = req.create(ImapFolder.class);
-						// event.getFolder().setFolderTo(f);
-						cloneFolder(f, event.getFolder());
-						action.setFolder(f);
-						action.setUid(message.getUid());
-						req.get(action).fire(
-								new Receiver<GetMessageDetailsResult>() {
-									@Override
-									public void onSuccess(
-											GetMessageDetailsResult response) {
-										/*
-										 * TODO if (decreaseUnseen) {
-										 * eventBus.fireEvent(new
-										 * DecreaseUnseenEvent(user, folder)); }
-										 */
-										placeController
-												.goTo(new IMAPMessagePlace(
-														String.valueOf(message
-																.getUid())));
-									}
-								});
+				GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
+				GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
+				final ImapFolder f = req.create(ImapFolder.class);
+				// event.getFolder().setFolderTo(f);
+				cloneFolder(f, event.getFolder());
+				action.setFolder(f);
+				action.setUid(message.getUid());
+				req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
+					@Override
+					public void onSuccess(GetMessageDetailsResult response) {
+						/*
+						 * TODO if (decreaseUnseen) { eventBus.fireEvent(new
+						 * DecreaseUnseenEvent(user, folder)); }
+						 */
+						placeController.goTo(new IMAPMessagePlace(String.valueOf(message.getUid())).with(user, f,
+								message, response.getMessageDetails()));
+
 					}
 				});
+			}
+		});
 	}
 
 	private void cloneFolder(ImapFolder desc, ImapFolder src) {
@@ -334,12 +326,17 @@ public class MessageListActivity extends AppBaseActivity {
 		desc.setUnseenMessageCount(src.getUnseenMessageCount());
 	}
 
+<<<<<<< HEAD
 	@Inject private Displayable display;
 <<<<<<< HEAD
 	
 	public interface Displayable extends WidgetDisplayable {}
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+	@Inject
+	private Displayable display;
+>>>>>>> make message content work as expected partly
 
 	public interface Displayable extends WidgetDisplayable {
 	}

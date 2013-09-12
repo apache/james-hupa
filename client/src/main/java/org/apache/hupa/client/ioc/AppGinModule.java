@@ -486,9 +486,9 @@ public class AppGinModule extends AbstractGinModule {
 		bind(ToolBarActivity.class).in(Singleton.class);
 		bind(FolderListActivity.class).in(Singleton.class);
 		bind(MessageListActivity.class).in(Singleton.class);
-		bind(MessageListFooterActivity.class).in(Singleton.class);
-		bind(MessageContentActivity.class).in(Singleton.class);
-		bind(StatusActivity.class).in(Singleton.class);
+//		bind(MessageListFooterActivity.class).in(Singleton.class);
+//		bind(MessageContentActivity.class).in(Singleton.class);
+//		bind(StatusActivity.class).in(Singleton.class);
 		
 		
 

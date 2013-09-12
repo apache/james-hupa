@@ -20,6 +20,7 @@
 package org.apache.hupa.client.activity;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -161,21 +162,40 @@ public class MessageContentActivity extends AppBaseActivity {
        };
        }-*/;
 =======
+=======
+import org.apache.hupa.client.place.IMAPMessagePlace;
+>>>>>>> make message content work as expected partly
 import org.apache.hupa.client.ui.WidgetDisplayable;
+import org.apache.hupa.shared.domain.MessageDetails;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 
 public class MessageContentActivity extends AppBaseActivity {
+	
+	MessageDetails messageDetails;
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
+		display.fillMessageContent(messageDetails.getText());
+		System.out.println("+++"+messageDetails.getText());
 		container.setWidget(display.asWidget());
 	}
 
 	@Inject private Displayable display;
 	
+<<<<<<< HEAD
 	public interface Displayable extends WidgetDisplayable {}
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+	public interface Displayable extends WidgetDisplayable {
+		void fillMessageContent(String messageContent);
+	}
+	
+	public MessageContentActivity with(IMAPMessagePlace messageContentPlace){
+		messageDetails = messageContentPlace.getMessageDetails();
+		return this;
+	}
+>>>>>>> make message content work as expected partly
 }

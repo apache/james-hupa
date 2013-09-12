@@ -22,6 +22,7 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 
 import org.apache.hupa.client.HupaCSS;
@@ -73,40 +74,26 @@ import java.util.List;
 
 import org.apache.hupa.client.HupaCSS;
 import org.apache.hupa.client.HupaConstants;
+=======
+>>>>>>> make message content work as expected partly
 import org.apache.hupa.client.activity.MessageContentActivity;
-import org.apache.hupa.client.bundles.HupaImageBundle;
-import org.apache.hupa.client.widgets.CommandsBar;
-import org.apache.hupa.client.widgets.MessageHeaders;
-import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.Util;
-import org.apache.hupa.shared.domain.Message;
-import org.apache.hupa.shared.domain.MessageAttachment;
-import org.apache.hupa.widgets.ui.Loading;
-import org.cobogw.gwt.user.client.ui.Button;
 
 import com.google.gwt.core.client.GWT;
+<<<<<<< HEAD
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 >>>>>>> prepare for message content panel
+=======
+>>>>>>> make message content work as expected partly
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
+<<<<<<< HEAD
 public class MessageContentView extends Composite implements
 		MessageContentActivity.Displayable {
 
@@ -256,13 +243,23 @@ public class MessageContentView extends Composite implements
         msgArea.setHTML(content);
     }
     
+=======
+public class MessageContentView extends Composite implements MessageContentActivity.Displayable {
+>>>>>>> make message content work as expected partly
 
+	@UiField
+	HTML messageContent;
 
+<<<<<<< HEAD
 >>>>>>> prepare for message content panel
+=======
+	@Inject
+>>>>>>> make message content work as expected partly
 	public MessageContentView() {
 		initWidget(binder.createAndBindUi(this));
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	@Override
@@ -347,10 +344,17 @@ public class MessageContentView extends Composite implements
 =======
 			UiBinder<VerticalPanel, MessageContentView> {
 >>>>>>> prepare for message content panel
+=======
+	interface MessageContentUiBinder extends UiBinder<ScrollPanel, MessageContentView> {
+>>>>>>> make message content work as expected partly
 	}
 
-	private static MessageContentUiBinder binder = GWT
-			.create(MessageContentUiBinder.class);
+	private static MessageContentUiBinder binder = GWT.create(MessageContentUiBinder.class);
+
+	@Override
+	public void fillMessageContent(String messageDetail) {
+		messageContent.setHTML(messageDetail);
+	}
 
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 }

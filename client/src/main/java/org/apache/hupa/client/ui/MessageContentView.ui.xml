@@ -13,6 +13,7 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<ui:image field="buttons" src="res/buttons.png" />
 	<ui:style>
 		.messageContent {
@@ -101,4 +102,9 @@
 =======
 	<g:VerticalPanel ui:field="messageContainer" />
 >>>>>>> prepare for message content panel
+=======
+	<g:ScrollPanel>
+		<g:HTML ui:field="messageContent" />
+	</g:ScrollPanel>
+>>>>>>> make message content work as expected partly
 </ui:UiBinder>
