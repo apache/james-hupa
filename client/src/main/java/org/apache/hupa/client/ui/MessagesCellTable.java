@@ -718,10 +718,15 @@ public class MessagesCellTable extends DataGrid<Message> {
 			return object.getReceivedDate();
 		}
 	}
+	
+	@Override
+	public void onResize(){
+		super.onResize();
+		refresh();
+	}
 
 	public void refresh() {
 		redraw();
-		onResize();
 		flush();
 	}
 

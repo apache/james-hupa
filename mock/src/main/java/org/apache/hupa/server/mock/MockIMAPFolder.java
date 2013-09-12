@@ -406,6 +406,7 @@ public class MockIMAPFolder extends IMAPFolder {
         for (int i = 0; i < ints.length; i++) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             int mInt = ints[i];
             if (mInt > messages.size() || mInt < 0) {
                 throw new MessagingException();
@@ -423,6 +424,13 @@ public class MockIMAPFolder extends IMAPFolder {
 >>>>>>> first commit
 =======
 >>>>>>> first commit
+=======
+            int mInt = ints[i];
+            if (mInt > messages.size() || mInt < 0) {
+                throw new MessagingException();
+            }
+            array[i] = messages.get(ints[i]);
+>>>>>>> fixed issue#55 ; relative the mark as (un)read
         }
         return array;
     }
