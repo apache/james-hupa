@@ -551,6 +551,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 			KEY_PROVIDER);
 
 	static DataGrid.Resources res = GWT.create(DataGridResources.class);
+
 	@Inject
 	public MessagesCellTable(final HupaImageBundle imageBundle,
 			final HupaConstants constants) {
@@ -566,7 +567,8 @@ public class MessagesCellTable extends DataGrid<Message> {
 				return false;
 			}
 		};
-		Header<ImageResource> attachedPin = new Header<ImageResource>(headerAttached) {
+		Header<ImageResource> attachedPin = new Header<ImageResource>(
+				headerAttached) {
 			@Override
 			public ImageResource getValue() {
 				return imageBundle.attachmentIcon();
@@ -585,8 +587,10 @@ public class MessagesCellTable extends DataGrid<Message> {
 
 		addColumn(checkboxCol, header);
 		setColumnWidth(checkboxCol, 3, Unit.EM);
-//		addColumn(fromCol, new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(constants.mailTableFrom())), fromFooter);
-		addColumn(fromCol,constants.mailTableFrom());
+		// addColumn(fromCol, new
+		// SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(constants.mailTableFrom())),
+		// fromFooter);
+		addColumn(fromCol, constants.mailTableFrom());
 		setColumnWidth(fromCol, 40, Unit.PCT);
 		addColumn(subjectCol, constants.mailTableSubject());
 		setColumnWidth(subjectCol, 60, Unit.PCT);
@@ -629,6 +633,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 			return object.getFrom();
 		}
 	}
+
 	private class SubjectColumn extends Column<Message, String> {
 		public SubjectColumn() {
 			super(new TextCell());
@@ -661,11 +666,6 @@ public class MessagesCellTable extends DataGrid<Message> {
 			return object.getReceivedDate();
 		}
 	}
-	Header<String> fromFooter = new Header<String>(new TextCell()) {
-	      @Override
-	      public String getValue() {
-	        return "From Footer";
-	    };
-	};
+
 }
 >>>>>>> fix some bugs related to RF, and try to use new CellView to replace gwt-incubator 

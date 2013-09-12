@@ -116,7 +116,8 @@
 		}
 		
 		@sprite .messageContentWorkAround {
-			margin: 8px;
+			margin: 8px 0 8px 8px;
+			padding-right: 8px;
             gwt-image: 'originLogo';
             background-position: center center;
             width: auto;
