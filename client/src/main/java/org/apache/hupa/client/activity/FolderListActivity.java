@@ -21,6 +21,7 @@ package org.apache.hupa.client.activity;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.events.RefreshUnreadEvent;
 import org.apache.hupa.shared.events.RefreshUnreadEventHandler;
 
@@ -31,10 +32,11 @@ import com.google.gwt.user.client.ui.IsWidget;
 =======
 import org.apache.hupa.client.ioc.FolderListFactory;
 >>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
+=======
+>>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 import org.apache.hupa.client.ui.WidgetDisplayable;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.inject.Inject;
@@ -44,18 +46,19 @@ public class FolderListActivity extends AppBaseActivity {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject private Displayable display;
 =======
 	@Inject private FolderListFactory folderListFactory;
 	private Place place;
 	private Displayable display;
 >>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
+=======
+	@Inject private Displayable display;
+>>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		if (display == null) {
-			display = folderListFactory.create(place);
-		}
 		container.setWidget(display.asWidget());
 		bindTo(eventBus);
 	}
@@ -85,6 +88,7 @@ public class FolderListActivity extends AppBaseActivity {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Inject private Displayable display;
 	
 	public interface Displayable extends WidgetDisplayable {}
@@ -100,6 +104,8 @@ public class FolderListActivity extends AppBaseActivity {
 	}
 
 >>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
+=======
+>>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 	public interface Displayable extends WidgetDisplayable {
 	}
 >>>>>>> make reload mail folder place work, fixed issue #7

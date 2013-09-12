@@ -24,6 +24,7 @@ import org.apache.hupa.client.activity.FolderListActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.activity.shared.Activity;
@@ -45,6 +46,10 @@ import com.google.gwt.activity.shared.ActivityMapper;
 <<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+
+import com.google.gwt.activity.shared.Activity;
+>>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 >>>>>>> support code split
@@ -53,10 +58,14 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class FolderListActivityMapper extends _HupaActivityMapper {
 =======
 public class FolderListActivityMapper implements ActivityMapper {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+public class FolderListActivityMapper extends AbstractActivityMapper {
+>>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 	private final Provider<FolderListActivity> folderListActivityProvider;
 	
 	@Inject
@@ -67,15 +76,21 @@ public class FolderListActivityMapper implements ActivityMapper {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Override
 	Activity asyncLoadActivity(final Place place) {
 		if (place instanceof SettingPlace)
 			return null;
+=======
+	@Override
+	Activity getAppActivity(final Place place) {
+>>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
 				GWT.runAsync(callback);
 			}
+<<<<<<< HEAD
 
 			@Override
 			protected Activity createInstance() {
@@ -104,15 +119,20 @@ public class FolderListActivityMapper implements ActivityMapper {
 				protected void doAsync(RunAsyncCallback callback) {
 					GWT.runAsync(callback);
 				}
+=======
+>>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 
-				@Override
-				protected Activity createInstance() {
-					return folderListActivityProvider.get().with(place);
-				}
-			};
+			@Override
+			protected Activity createInstance() {
+				return folderListActivityProvider.get();
+			}
+		};
 
+<<<<<<< HEAD
 		}
 		return null;
 >>>>>>> support code split
+=======
+>>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 	}
 }

@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 
 import org.apache.hupa.client.activity.MessageListActivity;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.Message;
 
 import com.google.gwt.core.client.GWT;
@@ -66,6 +67,9 @@ import java.util.List;
 >>>>>>> add click handler to every message row
 import org.apache.hupa.client.activity.MessageListActivity;
 =======
+=======
+import org.apache.hupa.client.place.DefaultPlace;
+>>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 import org.apache.hupa.client.place.MailFolderPlace;
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 import org.apache.hupa.client.rf.FetchMessagesRequest;
@@ -108,6 +112,7 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 
 	@UiField(provided = true) MessagesCellTable grid;
 	private HupaRequestFactory requestFactory;
+	private PlaceController placeController;
 	private ImapFolder folder;
 	private String searchValue;
 	private User user;
@@ -117,6 +122,7 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 	public MessageListView(final EventBus eventBus, final HupaRequestFactory requestFactory,
 			final PlaceController placeController, final MessagesCellTable table) {
 		this.requestFactory = requestFactory;
+		this.placeController = placeController;
 		grid = table;
 		initWidget(binder.createAndBindUi(this));
 		grid.addCellPreviewHandler(new Handler<Message>() {
@@ -212,6 +218,7 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 
 			@Override
 			public void onFailure(ServerFailure error) {
+				placeController.goTo(new DefaultPlace("@"));
 				if (error.isFatal()) {
 					// FIXME should goto login page regarding the long time
 					// session expired.

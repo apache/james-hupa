@@ -14,6 +14,6 @@ abstract class AbstractActivityMapper implements ActivityMapper{
 		return getAppActivity(place);
 	}
 	
-	abstract Activity getAppActivity(Place place);
+	abstract Activity getAppActivity(final Place place);
 
 }
