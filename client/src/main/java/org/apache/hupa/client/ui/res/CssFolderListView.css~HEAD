@@ -83,3 +83,12 @@ div:focus { outline: none; }
 
 .cellTreeShowMoreButton {
 }
+
+.popup{
+	border:1px solid black;
+	background-color:rgba(250, 250, 250, 0.5);
+}
+
+.menuItem{
+	cursor: pointer;
+}

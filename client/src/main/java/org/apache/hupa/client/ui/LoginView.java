@@ -49,8 +49,6 @@ import org.apache.hupa.client.HupaConstants;
 =======
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 import org.apache.hupa.client.activity.LoginActivity;
-import org.apache.hupa.client.bundles.HupaResources;
-import org.apache.hupa.client.bundles.HupaResources.Css;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -76,12 +74,18 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.CssResource.NotStrict;
 =======
 import com.google.gwt.resources.client.CssResource;
 >>>>>>> prepare for places and do something for loading related to issue #18
+=======
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.resources.client.CssResource.NotStrict;
+>>>>>>> scrub login view code, use css by a unique way 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 =======
@@ -122,6 +126,7 @@ public class LoginView extends Composite implements KeyUpHandler,
 	 * define by ourselves
 	 */
 	public interface Style extends CssResource {
+<<<<<<< HEAD
 		String loading();
 
 		String hidden();
@@ -268,9 +273,65 @@ public class LoginView extends Composite implements KeyUpHandler,
 	@UiField Style style;
 
 	interface Style extends CssResource {
+=======
+>>>>>>> scrub login view code, use css by a unique way 
 		String loading();
+
 		String hidden();
+
 		String display();
+	}
+
+	@UiField Style style;
+	@UiField FlowPanel mainContainer;
+	@UiField FlowPanel innerBox;
+	@UiField Button loginButton;
+	@UiField FlexTable flexTable;
+	@UiField FlowPanel boxBottom;
+	@UiField FlowPanel messageBox;
+	@UiField FlowPanel bottomLine;
+	@UiField FormPanel formPanel;
+	@UiField HTMLPanel message;
+	Resources.Css css = Resources.INSTANCE.stylesheet();
+	private SubmitButton submitButton;
+	PPanel buttonBar = new PPanel();
+
+	/*
+	 * We wrap login/password boxes with a form which must be in the html
+	 * document, in this way, the browser knows that we are sending a login form
+	 * and offers the save password dialog to the user
+	 */
+	private TextBox usernameTextBox = TextBox.wrap(DOM.getElementById("email"));
+	private PasswordTextBox passwordTextBox = PasswordTextBox.wrap(DOM
+			.getElementById("password"));
+
+	public interface Resources extends ClientBundle {
+
+		Resources INSTANCE = GWT.create(Resources.class);
+
+		@NotStrict
+		@Source("res/CssLoginView.css")
+		public Css stylesheet();
+
+		public interface Css extends CssResource {
+			String loginForm();
+
+			String boxInner();
+
+			String tdTitle();
+
+			String tdInput();
+
+			String pFormbuttons();
+
+			String submitButton();
+
+			String boxBottom();
+
+			String messageBox();
+
+			String bottomLine();
+		}
 	}
 
 	@Inject
@@ -311,11 +372,15 @@ public class LoginView extends Composite implements KeyUpHandler,
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> scrub login view code, use css by a unique way 
 		/*
 		 * The user submits the form so as the browser detect it and displays
 		 * the save password dialog. Then we click on the hidden loginButton
 		 * which stores the presenter clickHandler.
 		 */
+<<<<<<< HEAD
 		formPanel.addSubmitHandler(new FormPanel.SubmitHandler() {
 			public void onSubmit(SubmitEvent event) {
 				if (!usernameTextBox.getValue().trim().isEmpty()
@@ -331,6 +396,8 @@ public class LoginView extends Composite implements KeyUpHandler,
 		// the save password dialog. Then we click on the hidden loginButton
 		// which
 		// stores the presenter clickHandler.
+=======
+>>>>>>> scrub login view code, use css by a unique way 
 		formPanel.addSubmitHandler(new FormPanel.SubmitHandler() {
 			public void onSubmit(SubmitEvent event) {
 <<<<<<< HEAD
@@ -348,6 +415,7 @@ public class LoginView extends Composite implements KeyUpHandler,
 				// event.cancel();
 			}
 		});
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		innerBox.add(loginButton);
@@ -383,6 +451,8 @@ public class LoginView extends Composite implements KeyUpHandler,
 >>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
 =======
 		// loginButton must be in the document to handle the click() method
+=======
+>>>>>>> scrub login view code, use css by a unique way 
 		innerBox.add(loginButton);
 		loginButton.setVisible(false);
 <<<<<<< HEAD
@@ -470,6 +540,9 @@ public class LoginView extends Composite implements KeyUpHandler,
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> scrub login view code, use css by a unique way 
 	// FIXME the ajax loader will not hidden after normal logout
 	@Override
 	public void setLoading(boolean load) {
@@ -539,6 +612,7 @@ public class LoginView extends Composite implements KeyUpHandler,
 	private static LoginViewUiBinder binder = GWT
 			.create(LoginViewUiBinder.class);
 
+<<<<<<< HEAD
 	Css css = HupaResources.INSTANCE.stylesheet();
 	@UiField FlowPanel mainContainer;
 	@UiField FlowPanel innerBox;
@@ -561,4 +635,6 @@ public class LoginView extends Composite implements KeyUpHandler,
 	@UiField HTMLPanel message;
 
 >>>>>>> replace with uibinder
+=======
+>>>>>>> scrub login view code, use css by a unique way 
 }

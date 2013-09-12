@@ -22,6 +22,7 @@ package org.apache.hupa.client;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.NotificationActivity;
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.activity.TopBarActivity;
@@ -54,10 +55,13 @@ import java.util.logging.Logger;
 =======
 >>>>>>> scrub code
 import org.apache.hupa.client.bundles.HupaResources;
+=======
+>>>>>>> scrub login view code, use css by a unique way 
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.HupaLayoutable;
 import org.apache.hupa.client.ui.LoginLayoutable;
+import org.apache.hupa.client.ui.LoginView;
 
 >>>>>>> move new theme ui from experiment to hupa evo
 import com.google.gwt.dom.client.StyleInjector;
@@ -253,7 +257,7 @@ public class HupaController {
 
 	private void bindCss() {
 		// TODO:replace with a more gentle approach
-		StyleInjector.inject(HupaResources.INSTANCE.stylesheet().getText());
+		StyleInjector.inject(LoginView.Resources.INSTANCE.stylesheet().getText());
 	}
 
 	private final class PlaceChangHandler implements PlaceChangeEvent.Handler {

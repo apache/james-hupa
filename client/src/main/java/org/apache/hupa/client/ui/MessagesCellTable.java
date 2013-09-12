@@ -504,7 +504,6 @@ import java.util.List;
 
 import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.bundles.HupaImageBundle;
-import org.apache.hupa.client.ui.res.DataGridResources;
 import org.apache.hupa.shared.domain.Message;
 
 import com.google.gwt.cell.client.CheckboxCell;
@@ -537,6 +536,14 @@ public class MessagesCellTable extends DataGrid<Message> {
 	Column<Message, ?> attachedCol = new AttachmentColumn();
 	Column<Message, ?> dateCol = new DateColumn();
 
+	public interface Resources extends DataGrid.Resources {
+
+		DataGrid.Resources INSTANCE = GWT.create(Resources.class);
+
+		@Source("res/CssMessagesCellTable.css")
+		Style dataGridStyle();
+	}
+
 	public CheckboxColumn getCheckboxCol() {
 		return checkboxCol;
 	}
@@ -550,12 +557,10 @@ public class MessagesCellTable extends DataGrid<Message> {
 	private final SelectionModel<? super Message> selectionModel = new MultiSelectionModel<Message>(
 			KEY_PROVIDER);
 
-	static DataGrid.Resources res = GWT.create(DataGridResources.class);
-
 	@Inject
 	public MessagesCellTable(final HupaImageBundle imageBundle,
 			final HupaConstants constants) {
-		super(PAGE_SIZE, res);
+		super(PAGE_SIZE, Resources.INSTANCE);
 
 		this.imageBundle = imageBundle;
 

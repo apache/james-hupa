@@ -210,11 +210,11 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 =======
 =======
 import org.apache.hupa.client.activity.FolderListActivity;
-import org.apache.hupa.client.ui.res.TreeResources;
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTree;
@@ -222,23 +222,35 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.inject.Inject;
 
-public class FolderListView extends Composite implements FolderListActivity.Displayable {
+public class FolderListView extends Composite implements
+		FolderListActivity.Displayable {
 
-	@UiField(provided = true)
-	CellTree cellTree;
+	@UiField(provided = true) CellTree cellTree;
 
 	@Inject
-	public FolderListView(final FoldersTreeViewModel viewModel, final EventBus eventBus) {
-		CellTree.Resources res = GWT.create(TreeResources.class);
-		cellTree = new CellTree(viewModel, null, res);
+	public FolderListView(final FoldersTreeViewModel viewModel,
+			final EventBus eventBus) {
+		cellTree = new CellTree(viewModel, null, Resources.INSTANCE);
 		cellTree.setAnimationEnabled(true);
 		initWidget(binder.createAndBindUi(this));
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 	}
 
+	public interface Resources extends CellTree.Resources {
+
+		Resources INSTANCE = GWT.create(Resources.class);
+
+		@Source("res/CssFolderListView.css")
+		public CellTree.Style cellTreeStyle();
+
+		@Source("res/listicons.png")
+		public ImageResource listicons();
+	}
+
 	interface FolderListUiBinder extends UiBinder<SimplePanel, FolderListView> {
 	}
 
-	private static FolderListUiBinder binder = GWT.create(FolderListUiBinder.class);
+	private static FolderListUiBinder binder = GWT
+			.create(FolderListUiBinder.class);
 
 }

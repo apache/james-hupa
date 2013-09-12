@@ -123,7 +123,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<ui:image field='logo' src='res/hupa-logo-64-transparent.png' />
-	<ui:image field="shadow" src="res/login_shadow.png" />
+	<ui:image field="shadow" src="res/loginShadow.png" />
 	<ui:image field="messages" src="res/messages.png" />
 	<ui:image field="loading" src="res/ajaxloader.gif" />
 	<ui:style type="org.apache.hupa.client.ui.LoginView.Style">

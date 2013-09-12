@@ -19,14 +19,12 @@
 
 package org.apache.hupa.client.evo;
 
-import org.apache.hupa.client.bundles.HupaResources;
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.AppLayout;
 
-import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceChangeEvent;
@@ -50,7 +48,6 @@ public class AppController {
 	}
 
 	public void start() {
-	    StyleInjector.inject(HupaResources.INSTANCE.stylesheet().getText());
 		RootLayoutPanel.get().add(appPanelView.getAppLayoutPanel());
 		placeHistoryHandler.handleCurrentHistory();
 	}
