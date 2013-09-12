@@ -222,6 +222,7 @@
                 <artifactId>gwt-maven-plugin</artifactId>
                 <configuration>
                     <runTarget>Hupa.html</runTarget>
+<<<<<<< HEAD
                     <extraJvmArgs>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -233,12 +234,17 @@
                         -Xmx512M -Xss128M
 >>>>>>> constantly changed by manolo
                     </extraJvmArgs>
+=======
+>>>>>>> Compiler optimizations and profiles
                     <localWorkers>1</localWorkers>
-                    <compileReport>true</compileReport>
+                    <compileReport>${gwt.compileReport}</compileReport>
                     <disableClassMetadata>${gwt.disableClassMetadata}</disableClassMetadata>
                     <disableCastChecking>${gwt.disableCastChecking}</disableCastChecking>
                     <logLevel>${gwt.logLevel}</logLevel>
                     <style>${gwt.style}</style>
+                    <fragmentCount>10</fragmentCount>
+                    <enableClosureCompiler>${gwt.enableClosureCompiler}</enableClosureCompiler>
+                    <disableRunAsync>${gwt.disableRunAsync}</disableRunAsync>
                     <modules>
                         <module>org.apache.hupa.Hupa${gwt.moduleSuffix}</module>
                     </modules>
