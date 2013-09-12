@@ -27,6 +27,7 @@ import org.apache.hupa.shared.domain.Message;
 =======
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.Message;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -50,6 +51,10 @@ import org.apache.hupa.shared.proxy.ImapFolder;
 =======
 import org.apache.hupa.shared.domain.ImapFolder;
 >>>>>>> Allow client can use the domain entity interface.
+=======
+import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
+>>>>>>> try to change fetch messages to use RF
 
 import com.google.gwt.event.shared.GwtEvent;
 

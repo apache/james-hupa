@@ -36,9 +36,13 @@ import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.shared.data.IMAPFolder;
 =======
 import org.apache.hupa.shared.data.ImapFolderImpl;
+<<<<<<< HEAD
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 import org.apache.hupa.shared.data.Message;
+=======
+>>>>>>> try to change fetch messages to use RF
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
 import org.apache.hupa.shared.events.FolderSelectionEventHandler;
@@ -80,7 +84,6 @@ import com.google.inject.Inject;
 public class MessageTableModel extends MutableTableModel<Message> {
 
     private EventBus eventBus;
-//    private DispatchAsync dispatcher;
     private User user;
 <<<<<<< HEAD
 <<<<<<< HEAD

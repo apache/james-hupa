@@ -26,6 +26,7 @@ import java.util.ArrayList;
 <<<<<<< HEAD
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.Message;
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -42,6 +43,8 @@ import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
 =======
+=======
+>>>>>>> try to change fetch messages to use RF
 import org.apache.hupa.shared.domain.User;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 

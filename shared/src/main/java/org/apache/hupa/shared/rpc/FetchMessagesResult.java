@@ -22,7 +22,7 @@ package org.apache.hupa.shared.rpc;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import org.apache.hupa.shared.data.Message;
+import org.apache.hupa.shared.domain.Message;
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *

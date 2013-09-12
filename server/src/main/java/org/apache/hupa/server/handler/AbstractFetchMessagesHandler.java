@@ -63,7 +63,7 @@ import org.apache.hupa.server.preferences.UserPreferencesStorage;
 <<<<<<< HEAD
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.data.Tag;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
@@ -155,7 +155,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             // if the folder is empty we have no need to process 
             int exists = f.getMessageCount();
             if (exists == 0) {
-                 return new FetchMessagesResult(new ArrayList<org.apache.hupa.shared.data.Message>(), start, offset, 0, 0);
+                 return new FetchMessagesResult(new ArrayList<org.apache.hupa.shared.domain.Message>(), start, offset, 0, 0);
             }        
             
             MessageConvertArray convArray = getMessagesToConvert(f,action);
@@ -163,7 +163,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         } catch (MessagingException e) {
             logger.info("Error fetching messages in folder: " + folder.getFullName() + " " + e.getMessage());
             // Folder can not contain messages
-            return new FetchMessagesResult(new ArrayList<org.apache.hupa.shared.data.Message>(), start, offset, 0, 0);
+            return new FetchMessagesResult(new ArrayList<org.apache.hupa.shared.domain.Message>(), start, offset, 0, 0);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("Error while fetching headers for user " + user.getName() + " in folder " + folder,e);
@@ -183,8 +183,8 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
     
     protected abstract MessageConvertArray getMessagesToConvert(com.sun.mail.imap.IMAPFolder f, A action) throws MessagingException, ActionException;
     
-    protected ArrayList<org.apache.hupa.shared.data.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
-        ArrayList<org.apache.hupa.shared.data.Message> mList = new ArrayList<org.apache.hupa.shared.data.Message>();
+    protected ArrayList<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
+        ArrayList<org.apache.hupa.shared.domain.Message> mList = new ArrayList<org.apache.hupa.shared.domain.Message>();
         // Setup fetchprofile to limit the stuff which is fetched 
         FetchProfile fp = new FetchProfile();
         fp.add(FetchProfile.Item.ENVELOPE);
@@ -202,7 +202,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         
         // loop over the fetched messages
         for (int i = 0; i < messages.length && i < offset; i++) {
-            org.apache.hupa.shared.data.Message msg = new org.apache.hupa.shared.data.Message();
+            org.apache.hupa.shared.domain.Message msg = new org.apache.hupa.shared.data.MessageImpl();
             Message m = messages[i];                
             String from = null;
             if (m.getFrom() != null && m.getFrom().length >0 ) {

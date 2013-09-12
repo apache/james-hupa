@@ -97,8 +97,8 @@ public class MoveMessageEvent extends GwtEvent<MoveMessageEventHandler> {
 
 package org.apache.hupa.shared.events;
 
-import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
 
 import com.google.gwt.event.shared.GwtEvent;

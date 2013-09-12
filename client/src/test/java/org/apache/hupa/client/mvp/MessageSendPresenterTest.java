@@ -18,7 +18,8 @@
  ****************************************************************/
 package org.apache.hupa.client.mvp;
 
-import com.google.inject.Module;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.shared.Action;
@@ -26,14 +27,15 @@ import net.customware.gwt.presenter.client.EventBus;
 
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.HupaMvpTestCase;
+import org.apache.hupa.client.guice.GuiceClientTestModule;
 import org.apache.hupa.client.guice.GuiceMvpTestModule;
 import org.apache.hupa.client.guice.GuiceMvpTestModule.DispatchTestAsync;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
-import org.apache.hupa.client.guice.GuiceClientTestModule;
 import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.MessageImpl;
 import org.apache.hupa.shared.data.SMTPMessage;
+import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.events.FlashEvent;
 import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.ServerStatusEvent;
@@ -43,8 +45,7 @@ import org.apache.hupa.shared.rpc.ReplyMessage;
 import org.apache.hupa.shared.rpc.SendMessage;
 import org.easymock.EasyMock;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.google.inject.Module;
 
 public class MessageSendPresenterTest extends HupaMvpTestCase {
 
@@ -208,7 +209,7 @@ public class MessageSendPresenterTest extends HupaMvpTestCase {
     }
     
     private void createMockMessageAndRevealDisplay(Type type) {
-        Message oldmessage = new Message();
+        Message oldmessage = new MessageImpl();
         oldmessage.setFrom("from@dom.com");
         ArrayList<String> to = new ArrayList<String>(Arrays.asList(new String[]{"to1@dom.com", "to2@dom.com"}));
         oldmessage.setTo(to);

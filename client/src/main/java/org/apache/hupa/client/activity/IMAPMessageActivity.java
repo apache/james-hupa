@@ -11,6 +11,7 @@ import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.SConsts;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.apache.hupa.client.HupaEvoCallback;
 import org.apache.hupa.client.mvp.WidgetDisplayable;
@@ -25,9 +26,12 @@ import org.apache.hupa.shared.data.IMAPFolder;
 =======
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.data.Message;
+=======
+>>>>>>> try to change fetch messages to use RF
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.BackEvent;
 import org.apache.hupa.shared.events.ForwardMessageEvent;

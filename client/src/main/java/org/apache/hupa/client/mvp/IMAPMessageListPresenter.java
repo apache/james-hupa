@@ -29,6 +29,7 @@ import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 import org.apache.hupa.client.HandlerRegistrationAdapter;
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.client.widgets.HasDialog;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.Message;
 <<<<<<< HEAD
@@ -49,7 +50,12 @@ import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.domain.ImapFolder;
 >>>>>>> Allow client can use the domain entity interface.
 =======
+=======
+import org.apache.hupa.shared.data.MessageImpl;
+import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+>>>>>>> try to change fetch messages to use RF
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
@@ -434,9 +440,9 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
             Message message = display.getData(row);
             
             // mark the message as seen and redraw the table to reflect this
-            if (message.getFlags().contains(Message.IMAPFlag.SEEN) == false) {
+            if (message.getFlags().contains(MessageImpl.IMAPFlag.SEEN) == false) {
                 // add flag, fire event and redraw
-                message.getFlags().add(Message.IMAPFlag.SEEN);
+                message.getFlags().add(MessageImpl.IMAPFlag.SEEN);
                 eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,1));
                 
                 display.redraw();

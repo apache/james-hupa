@@ -33,6 +33,7 @@ import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.ImapFolderImpl;
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.Message;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -52,7 +53,11 @@ import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.domain.ImapFolder;
 >>>>>>> Allow client can use the domain entity interface.
 =======
+=======
+import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+>>>>>>> try to change fetch messages to use RF
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 import org.apache.hupa.shared.events.LoginEvent;

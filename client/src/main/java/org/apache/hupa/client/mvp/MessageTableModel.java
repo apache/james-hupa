@@ -26,8 +26,8 @@ import net.customware.gwt.presenter.client.EventBus;
 
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
 import org.apache.hupa.shared.events.FolderSelectionEventHandler;

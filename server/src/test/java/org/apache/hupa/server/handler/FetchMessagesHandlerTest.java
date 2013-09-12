@@ -66,7 +66,7 @@ public class FetchMessagesHandlerTest extends HupaGuiceTestCase {
 >>>>>>> constantly changed by manolo
         MimeMessage m3 = new MimeMessage(session, is);
         
-        ArrayList<org.apache.hupa.shared.data.Message> msgs = fetchMessagesHandler.convert(2, f, new Message[]{m1, m2, m3});
+        ArrayList<org.apache.hupa.shared.domain.Message> msgs = fetchMessagesHandler.convert(2, f, new Message[]{m1, m2, m3});
         assertEquals(2, msgs.size());
         
         msgs = fetchMessagesHandler.convert(10, f, new Message[]{m1, m2, m3});

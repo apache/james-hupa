@@ -26,6 +26,7 @@ import net.customware.gwt.dispatch.shared.Action;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -42,6 +43,9 @@ import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.proxy.ImapFolder;
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 =======
+=======
+import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+>>>>>>> try to change fetch messages to use RF
 import org.apache.hupa.shared.domain.ImapFolder;
 >>>>>>> Allow client can use the domain entity interface.
 

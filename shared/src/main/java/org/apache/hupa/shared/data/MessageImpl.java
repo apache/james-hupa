@@ -19,21 +19,24 @@
 
 package org.apache.hupa.shared.data;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.hupa.shared.domain.Message;
-import org.apache.hupa.shared.domain.Tag;
 
 /**
  * 
  *
  */
-public class MessageImpl extends AbstractMessageImpl implements Message{
+public class MessageImpl extends AbstractMessage implements Message{
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -101492974974136423L;
     private long uid;
-    private List<IMAPFlag> flags;
-    private List<Tag> tags;
+    private ArrayList<IMAPFlag> flags;
+    private ArrayList<Tag> tags;
     private Date rDate;
     
     public enum IMAPFlag {
@@ -42,19 +45,19 @@ public class MessageImpl extends AbstractMessageImpl implements Message{
 
     
 
-    public void setFlags(List<IMAPFlag> flags) {
+    public void setFlags(ArrayList<IMAPFlag> flags) {
         this.flags = flags;
     }
 
-    public List<IMAPFlag> getFlags() {
+    public ArrayList<IMAPFlag> getFlags() {
         return flags;
     }
     
-    public void setTags(List<Tag> tags) {
+    public void setTags(ArrayList<Tag> tags) {
         this.tags = tags;
     }
     
-    public List<Tag> getTags() {
+    public ArrayList<Tag> getTags() {
         return tags;
     }
     

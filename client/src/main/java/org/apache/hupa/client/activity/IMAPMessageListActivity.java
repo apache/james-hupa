@@ -394,9 +394,10 @@ import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
-import org.apache.hupa.shared.data.Message;
-import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.data.MessageImpl;
+import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
@@ -543,7 +544,6 @@ public class IMAPMessageListActivity extends AbstractActivity {
     @Inject private Displayable display;
     @Inject private EventBus eventBus;
     @Inject private PlaceController placeController;
-//    @Inject private DispatchAsync dispatcher;
     @Inject private Provider<MessageSendPlace> messageSendPlaceProvider;
 >>>>>>> fix issue 2&3. 	Handle exceptions thrown in async blocks & Simply injection code
     
@@ -1132,9 +1132,9 @@ public class IMAPMessageListActivity extends AbstractActivity {
             Message message = display.getData(row);
             
             // mark the message as seen and redraw the table to reflect this
-            if (message.getFlags().contains(Message.IMAPFlag.SEEN) == false) {
+            if (message.getFlags().contains(MessageImpl.IMAPFlag.SEEN) == false) {
                 // add flag, fire event and redraw
-                message.getFlags().add(Message.IMAPFlag.SEEN);
+                message.getFlags().add(MessageImpl.IMAPFlag.SEEN);
                 eventBus.fireEvent(new DecreaseUnseenEvent(user,folder,1));
                 
                 display.redraw();

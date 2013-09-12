@@ -29,8 +29,8 @@ import org.apache.hupa.client.widgets.CommandsBar;
 import org.apache.hupa.client.widgets.MessageHeaders;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.Util;
-import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageAttachment;
+import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.widgets.ui.Loading;
 import org.cobogw.gwt.user.client.ui.Button;
 

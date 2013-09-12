@@ -47,6 +47,7 @@
   <inherits name='com.google.gwt.widgetideas.WidgetIdeas'/>
   <inherits name='com.google.gwt.gen2.commonwidget.CommonWidget' />
   <inherits name='com.google.gwt.gen2.table.override.Override'/>
+<<<<<<< HEAD
   <inherits name='com.google.gwt.gen2.table.ScrollTable'/>
   <inherits name='net.customware.gwt.dispatch.Dispatch' />
 <<<<<<< HEAD
@@ -59,6 +60,11 @@
 =======
   <inherits name='net.customware.gwt.presenter.Presenter' />
 >>>>>>> Change to new mvp framework - first step
+=======
+  <inherits name='com.google.gwt.gen2.table.ScrollTable'/><!-- 
+  <inherits name='net.customware.gwt.dispatch.Dispatch' />-->
+  <inherits name='net.customware.gwt.presenter.Presenter' /> 
+>>>>>>> try to change fetch messages to use RF
   <inherits name="com.google.gwt.activity.Activity"/>
   <inherits name="com.google.gwt.place.Place"/>
   <inherits name="com.google.gwt.inject.Inject"/>

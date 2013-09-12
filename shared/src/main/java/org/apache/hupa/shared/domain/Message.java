@@ -19,10 +19,18 @@
 
 package org.apache.hupa.shared.domain;
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+>>>>>>> try to change fetch messages to use RF
 import java.util.Date;
 import java.util.List;
 
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
+<<<<<<< HEAD
+=======
+import org.apache.hupa.shared.data.Tag;
+>>>>>>> try to change fetch messages to use RF
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
@@ -30,7 +38,11 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(Message.class)
 public interface Message extends ValueProxy {
 
+<<<<<<< HEAD
 	List<IMAPFlag> getFlags();
+=======
+	ArrayList<IMAPFlag> getFlags();
+>>>>>>> try to change fetch messages to use RF
 
 	Date getReceivedDate();
 
@@ -50,17 +62,29 @@ public interface Message extends ValueProxy {
 
 	List<String> getTo();
 
+<<<<<<< HEAD
 	void setTo(List<String> to);
 
 	void setCc(List<String> cc);
+=======
+	void setTo(ArrayList<String> to);
+
+	void setCc(ArrayList<String> cc);
+>>>>>>> try to change fetch messages to use RF
 
 	void setReplyto(String string);
 
 	void setUid(long uid);
 
+<<<<<<< HEAD
 	void setFlags(List<IMAPFlag> iFlags);
 
 	void setTags(List<Tag> tags);
+=======
+	void setFlags(ArrayList<IMAPFlag> iFlags);
+
+	void setTags(ArrayList<Tag> tags);
+>>>>>>> try to change fetch messages to use RF
 
 	void setHasAttachments(boolean hasAttachment);
 
