@@ -115,7 +115,6 @@ import org.apache.hupa.client.activity.LoginActivity;
 import org.apache.hupa.client.activity.MessageSendActivity;
 import org.apache.hupa.client.activity.TopActivity;
 import org.apache.hupa.client.activity.WestActivity;
-import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
 import org.apache.hupa.client.evo.AppController;
 import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
 import org.apache.hupa.client.mapper.CachingTopActivityMapper;
@@ -167,7 +166,6 @@ import org.apache.hupa.client.ui.IMAPMessageListView;
 import org.apache.hupa.client.ui.IMAPMessageView;
 import org.apache.hupa.client.ui.LoginView;
 import org.apache.hupa.client.ui.MessageSendView;
-import org.apache.hupa.client.ui.MessageTableModel;
 import org.apache.hupa.client.ui.MessagesCellTable;
 import org.apache.hupa.client.ui.TopView;
 import org.apache.hupa.client.ui.WestView;
@@ -427,9 +425,6 @@ public class AppGinModule extends AbstractGinModule {
 		bind(MessageSendActivity.class).in(Singleton.class);
 		bind(IMAPMessageActivity.class).in(Singleton.class);
 
-
-		bind(PagingScrollTableRowDragController.class).in(Singleton.class);
-		bind(MessageTableModel.class).in(Singleton.class);
 		bind(MessagesCellTable.class).in(Singleton.class);
 		// Places
 		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
