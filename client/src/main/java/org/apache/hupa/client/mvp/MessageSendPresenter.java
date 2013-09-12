@@ -294,13 +294,17 @@ public class MessageSendPresenter extends WidgetPresenter<MessageSendPresenter.D
         if (type.equals(Type.NEW) && mailto != null) {
                 display.getToText().setText(mailto);
         } else if (type.equals(Type.FORWARD)) {
-            if (oldmessage.getSubject() != null && !oldmessage.getSubject().toLowerCase().startsWith("fwd:")) {
-                display.getSubjectText().setText("Fwd: " + oldmessage.getSubject());
-            }
+        	String subject = oldmessage.getSubject() != null ? oldmessage.getSubject().trim() : "";
+        	if (!subject.toLowerCase().startsWith("fwd:")){
+        		subject = "Fwd: " + subject;
+        	}
+        	display.getSubjectText().setText(subject);
         } else if (type.equals(Type.REPLY) || type.equals(Type.REPLY_ALL)) {
-            if (oldmessage.getSubject() != null && !oldmessage.getSubject().toLowerCase().startsWith("re:")) {
-                display.getSubjectText().setText("Re: " + oldmessage.getSubject());
-            }
+        	String subject = oldmessage.getSubject() != null ? oldmessage.getSubject().trim() : "";
+        	if (!subject.toLowerCase().startsWith("re:")){
+        		subject = "Re: " + subject;
+        	}
+        	display.getSubjectText().setText(subject);
             if (type.equals(Type.REPLY)) { 
                 if (oldmessage.getReplyto() != null && !oldmessage.getFrom().contains(oldmessage.getReplyto())) {
                     display.getToText().setText(oldmessage.getReplyto());

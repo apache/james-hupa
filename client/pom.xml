@@ -39,6 +39,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.hupa</groupId>
+            <artifactId>hupa-mock</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hupa</groupId>
             <artifactId>hupa-shared</artifactId>
         </dependency>
         <dependency>
@@ -300,19 +304,4 @@
 			</plugin>            
         </plugins>
     </build>
-    <profiles>
-      <profile>
-        <id>prod</id>
-        <properties>
-          <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
-          <gwt.disableClassMetadata>true</gwt.disableClassMetadata>
-          <gwt.disableCastChecking>true</gwt.disableCastChecking>
-          <gwt.logLevel>TRACE</gwt.logLevel>
-        </properties>
-      </profile>
-    </profiles>
-    <properties>
-      <gwt.moduleSuffix></gwt.moduleSuffix>
-      <gwt.logLevel>ERROR</gwt.logLevel>
-    </properties>
 </project>
