@@ -93,6 +93,7 @@ public class ContactsResult implements Result, Serializable {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> first commit
     public static class Contact implements Result, Serializable {
@@ -146,6 +147,8 @@ public class ContactsResult implements Result, Serializable {
 <<<<<<< HEAD
 >>>>>>> first commit
 =======
+=======
+>>>>>>> constant changed by manolo
 	public static class Contact implements Result, Serializable {
 		private static final long serialVersionUID = -8632580327693416473L;
 		public String mail;
@@ -155,6 +158,7 @@ public class ContactsResult implements Result, Serializable {
 		}
 
 		public Contact(String address) {
+<<<<<<< HEAD
 			mail = address.replaceAll("^.*<([^>]+)>\\s*$", "$1");
 
 			realname = mail.equals(address) ? mail : address
@@ -165,6 +169,14 @@ public class ContactsResult implements Result, Serializable {
 			        // remove end symbols in the name
 			        .replaceAll("[\\s\"'>]+$", "")
 			        ;
+=======
+			mail = address.replaceAll("^.*<([^>]+)>", "$1");
+
+			realname = mail.equals(address) ? mail : address
+			        .replaceAll("<.+$", "")
+			        .replaceAll("^[\\s\"']+", "")
+			        .replaceAll("[\\s\"']+$", "");
+>>>>>>> constant changed by manolo
 
 			if (realname.isEmpty())
 				realname = mail;
@@ -202,8 +214,11 @@ public class ContactsResult implements Result, Serializable {
 	public void setContacts(Contact[] contacts) {
 		this.contacts = contacts;
 	}
+<<<<<<< HEAD
 >>>>>>> constant changed by manolo
 =======
 >>>>>>> first commit
+=======
+>>>>>>> constant changed by manolo
 
 }

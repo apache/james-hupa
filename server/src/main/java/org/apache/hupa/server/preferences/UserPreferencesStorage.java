@@ -26,6 +26,7 @@ import java.util.List;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import java.util.regex.Pattern;
 >>>>>>> first commit
@@ -34,6 +35,8 @@ import java.util.regex.Pattern;
 =======
 import java.util.regex.Pattern;
 >>>>>>> first commit
+=======
+>>>>>>> constant changed by manolo
 
 /**
  *
@@ -71,10 +74,14 @@ public abstract class UserPreferencesStorage {
         if (mails != null) {
             for (String mail: mails) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             	if (mail != null && !mail.matches(REGEX_OMITTED_EMAILS)) {
 =======
             	if (!mail.matches(REGEX_OMITTED_EMAILS)) {
 >>>>>>> first commit
+=======
+            	if (mail != null && !mail.matches(REGEX_OMITTED_EMAILS)) {
+>>>>>>> constant changed by manolo
                     Contact contact = new Contact(mail);
                     addContact(contact);
             	}

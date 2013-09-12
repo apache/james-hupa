@@ -166,6 +166,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             String from = null;
             if (m.getFrom() != null && m.getFrom().length >0 ) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 from = MessageUtils.decodeText(m.getFrom()[0].toString());
 =======
                 from = m.getFrom()[0].toString().trim();
@@ -176,11 +177,15 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                     logger.debug("Unable to decode from " + from + " " + e.getMessage());
                 }
 >>>>>>> first commit
+=======
+                from = decodeText(m.getFrom()[0].toString());
+>>>>>>> constant changed by manolo
             }
             msg.setFrom(from);
 
             String replyto = null;
             if (m.getReplyTo() != null && m.getReplyTo().length >0 ) {
+<<<<<<< HEAD
 <<<<<<< HEAD
                 replyto = MessageUtils.decodeText(m.getReplyTo()[0].toString());
 =======
@@ -192,6 +197,9 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                     logger.debug("Unable to decode replyto " + replyto + " " + e.getMessage());
                 }
 >>>>>>> first commit
+=======
+                replyto = decodeText(m.getReplyTo()[0].toString());
+>>>>>>> constant changed by manolo
             }
             msg.setReplyto(replyto);
             
@@ -200,6 +208,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             Address[] toArray = m.getRecipients(RecipientType.TO);
             if (toArray != null) {
                 for (Address addr : toArray) {
+<<<<<<< HEAD
 <<<<<<< HEAD
                     String mailTo = MessageUtils.decodeText(addr.toString());
                     to.add(mailTo);
@@ -214,13 +223,19 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                     if (mailTo != null)
                         to.add(mailTo);
 >>>>>>> first commit
+=======
+                    String mailTo = decodeText(addr.toString());
+                    to.add(mailTo);
+>>>>>>> constant changed by manolo
                 }
             }
             msg.setTo(to);
+
             
             // Check if a subject exist and if so decode it
             String subject = m.getSubject();
             if (subject != null) {
+<<<<<<< HEAD
 <<<<<<< HEAD
                 subject = MessageUtils.decodeText(subject);
 =======
@@ -230,6 +245,9 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                     logger.debug("Unable to decode subject " + subject + " " + e.getMessage());
                 }
 >>>>>>> first commit
+=======
+                subject = decodeText(subject);
+>>>>>>> constant changed by manolo
             }
             msg.setSubject(subject);
             
@@ -238,6 +256,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             ArrayList<String> cc = new ArrayList<String>();
             if (ccArray != null) {
                 for (Address addr : ccArray) {
+<<<<<<< HEAD
 <<<<<<< HEAD
                     String mailCc = MessageUtils.decodeText(addr.toString());
                     cc.add(mailCc);
@@ -252,18 +271,28 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
                     if (mailCc != null)
                         cc.add(mailCc);
 >>>>>>> first commit
+=======
+                    String mailCc = decodeText(addr.toString());
+                    cc.add(mailCc);
+>>>>>>> constant changed by manolo
                 }            	
             }
             msg.setCc(cc);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> constant changed by manolo
             userPreferences.addContact(from);
             userPreferences.addContact(to);
             userPreferences.addContact(replyto);
             userPreferences.addContact(cc);
 
+<<<<<<< HEAD
 =======
 >>>>>>> first commit
+=======
+>>>>>>> constant changed by manolo
             // Using sentDate since received date is not useful in the view when using fetchmail
             msg.setReceivedDate(m.getSentDate());
 
@@ -339,8 +368,28 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 =======
 >>>>>>> first commit
+=======
+
+    /**
+     * Decode iso-xxxx strings present in subjects and emails like:
+     * 
+     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
+     */
+    private String decodeText(String s) {
+    	String ret = s;
+    	try {
+    		ret = MimeUtility.decodeText(s);
+        } catch (UnsupportedEncodingException e) {
+            logger.debug("Unable to decode text " + s + " " + e.getMessage());
+        }
+        // Remove quotes around names in email addresses
+        ret =  ret.replaceFirst("^[\"' ]+(.*?)[\"' ]+<", "$1 <");
+        return ret;
+    }
+>>>>>>> constant changed by manolo
 }

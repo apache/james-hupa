@@ -132,6 +132,7 @@ public class MainView extends Composite implements MainPresenter.Display {
         dockPanel.setWidth("100%");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Not used so far
         // createNorth();
         // dockPanel.add(north, DockPanel.NORTH);
@@ -145,12 +146,17 @@ public class MainView extends Composite implements MainPresenter.Display {
         dockPanel.add(center, DockPanel.CENTER);
 =======
         createNorth();
+=======
+        // Not used so far
+        // createNorth();
+        // dockPanel.add(north, DockPanel.NORTH);
+        
+>>>>>>> constant changed by manolo
         createWest();
-        createCenter();
-
-        dockPanel.add(north, DockPanel.NORTH);
         dockPanel.add(west, DockPanel.WEST);
         dockPanel.setCellWidth(west, "160px");
+
+        createCenter();
         dockPanel.add(center, DockPanel.CENTER);
         dockPanel.setCellHorizontalAlignment(north, DockPanel.ALIGN_RIGHT);
 >>>>>>> first commit
@@ -202,7 +208,11 @@ public class MainView extends Composite implements MainPresenter.Display {
         west.add(panel);
     }
 
+<<<<<<< HEAD
 >>>>>>> first commit
+=======
+    @SuppressWarnings("unused")
+>>>>>>> constant changed by manolo
     private void createNorth() {
         north = new VerticalPanel();
         north.setWidth("100%");
