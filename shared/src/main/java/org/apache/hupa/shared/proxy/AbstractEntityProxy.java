@@ -1,8 +1,6 @@
 package org.apache.hupa.shared.proxy;
 
-import com.google.web.bindery.requestfactory.shared.EntityProxy;
+import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
-public interface AbstractEntityProxy extends EntityProxy{
-	Long getId();
-	Long getVersion();
+public interface AbstractEntityProxy extends ValueProxy{
 }

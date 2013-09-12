@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.apache.hupa.shared.data.IMAPFolder;
 
+import com.google.web.bindery.requestfactory.shared.EntityProxyId;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
-@ProxyFor(value=IMAPFolder.class, locator = IMAPFolderLocator.class)
+@ProxyFor(value=IMAPFolder.class)
 public interface IMAPFolderProxy extends AbstractEntityProxy {
 
-	int getUnseeMessageCount();
+	int getUnseenMessageCount();
 
 	String getName();
 
@@ -17,8 +18,8 @@ public interface IMAPFolderProxy extends AbstractEntityProxy {
 
 	void setFullName(String oldFullName);
 
-	List<IMAPFolderProxy> getChildIMAPFolders();
-	void setChildIMAPFolders(List<IMAPFolderProxy> childs);
+	List<IMAPFolderProxy> getChildren();
+	void setChildren(List<IMAPFolderProxy> children);
 
 	void setUnseenMessageCount(int count);
 

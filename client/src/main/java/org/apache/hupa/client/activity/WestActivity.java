@@ -637,6 +637,7 @@ System.out.println("1111111"+response);
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             List<IMAPFolderProxy> childFolders = iFolder.getChildIMAPFolders();
 =======
             List<IMAPFolder> childFolders = iFolder.getChildIMAPFolders();
@@ -644,6 +645,9 @@ System.out.println("1111111"+response);
 =======
             List<IMAPFolderProxy> childFolders = iFolder.getChildIMAPFolders();
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+            List<IMAPFolderProxy> childFolders = iFolder.getChildren();
+>>>>>>> 
             List<IMAPTreeItem> items = createTreeNodes(childFolders);
             for (IMAPTreeItem item : items) {
                 record.addItem(item);

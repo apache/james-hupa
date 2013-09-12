@@ -46,6 +46,7 @@ import org.apache.hupa.shared.rf.EntityBase;
  */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class IMAPFolder extends EntityBase implements Serializable {
 	
 	private Long id;
@@ -69,6 +70,9 @@ public class IMAPFolder extends EntityBase implements Serializable {
 	}
 	
 	
+=======
+public class IMAPFolder implements Serializable {
+>>>>>>> 
 
 	/**
 =======
@@ -112,6 +116,7 @@ public class IMAPFolder extends EntityBase implements Serializable {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private List<IMAPFolder> childs = new ArrayList<IMAPFolder>();
 =======
     private ArrayList<IMAPFolder> childs = new ArrayList<IMAPFolder>();
@@ -119,10 +124,13 @@ public class IMAPFolder extends EntityBase implements Serializable {
 =======
     private List<IMAPFolder> childs = new ArrayList<IMAPFolder>();
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    private List<IMAPFolder> children = new ArrayList<IMAPFolder>();
+>>>>>>> 
     private String fullName;
     private String delimiter;
-    private int msgCount;
-    private int unseenMsgCount;
+    private int messageCount;
+    private int unseenMessageCount;
     private boolean subscribed = false;
 
     public IMAPFolder() {
@@ -159,8 +167,9 @@ public class IMAPFolder extends EntityBase implements Serializable {
     /**
      * Set the child folders 
      * 
-     * @param childs
+     * @param children
      */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public void setChildIMAPFolders(List<IMAPFolder> childs) {
@@ -171,6 +180,10 @@ public class IMAPFolder extends EntityBase implements Serializable {
     public void setChildIMAPFolders(List<IMAPFolder> childs) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.childs = childs;
+=======
+    public void setChildren(List<IMAPFolder> children) {
+        this.children = children;
+>>>>>>> 
     }
 
     /**
@@ -178,6 +191,7 @@ public class IMAPFolder extends EntityBase implements Serializable {
      * 
      * @return childs
      */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public List<IMAPFolder> getChildIMAPFolders() {
@@ -188,6 +202,10 @@ public class IMAPFolder extends EntityBase implements Serializable {
     public List<IMAPFolder> getChildIMAPFolders() {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         return childs;
+=======
+    public List<IMAPFolder> getChildren() {
+        return children;
+>>>>>>> 
     }
 
     /**
@@ -231,7 +249,7 @@ public class IMAPFolder extends EntityBase implements Serializable {
      * @return msgCount
      */
     public int getMessageCount() {
-        return msgCount;
+        return messageCount;
     }
 
     /**
@@ -240,7 +258,7 @@ public class IMAPFolder extends EntityBase implements Serializable {
      * @param msgCount
      */
     public void setMessageCount(int msgCount) {
-        this.msgCount = msgCount;
+        this.messageCount = msgCount;
     }
 
     /**
@@ -249,7 +267,7 @@ public class IMAPFolder extends EntityBase implements Serializable {
      * @param unseenMsgCount
      */
     public void setUnseenMessageCount(int unseenMsgCount) {
-        this.unseenMsgCount = unseenMsgCount;
+        this.unseenMessageCount = unseenMsgCount;
     }
 
     /**
@@ -257,8 +275,8 @@ public class IMAPFolder extends EntityBase implements Serializable {
      * 
      * @return unseenMsgCount
      */
-    public int getUnseeMessageCount() {
-        return unseenMsgCount;
+    public int getUnseenMessageCount() {
+        return unseenMessageCount;
     }
 
     @Override

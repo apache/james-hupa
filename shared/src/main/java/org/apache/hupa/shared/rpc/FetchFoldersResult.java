@@ -93,8 +93,12 @@ public class FetchFoldersResult implements Result, Serializable {
 =======
         for (IMAPFolderProxy folder : folders) {
             ret.append(folder.getFullName()).append("\n");
+<<<<<<< HEAD
             for (IMAPFolderProxy f : folder.getChildIMAPFolders()) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+            for (IMAPFolderProxy f : folder.getChildren()) {
+>>>>>>> 
                 childFolder(f, ret);
             }
         }
@@ -114,8 +118,12 @@ public class FetchFoldersResult implements Result, Serializable {
 =======
     private void childFolder(IMAPFolderProxy child, StringBuffer ret) {
         ret.append(child.getFullName()).append("\n");
+<<<<<<< HEAD
         for (IMAPFolderProxy folder : child.getChildIMAPFolders()) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+        for (IMAPFolderProxy folder : child.getChildren()) {
+>>>>>>> 
             childFolder(folder, ret);
         }
     }

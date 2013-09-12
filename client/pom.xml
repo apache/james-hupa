@@ -224,6 +224,7 @@
                     <modules>
                         <module>org.apache.hupa.Hupa${gwt.moduleSuffix}</module>
                     </modules>
+                    <extraJvmArgs>-XX:MaxPermSize=512M -Xmx1024M</extraJvmArgs>
                 </configuration>
                 <executions>
                     <execution>

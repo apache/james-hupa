@@ -225,7 +225,7 @@ public class MessageSendPresenterTest extends HupaMvpTestCase {
         folder.setFullName("FOLDER");
         
         presenter.bind();
-        presenter.revealDisplay(testUser, folder, oldmessage, oldDetails, type);
+//        presenter.revealDisplay(testUser, folder, oldmessage, oldDetails, type);
     }
 
     @SuppressWarnings("unchecked")

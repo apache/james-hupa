@@ -133,8 +133,12 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
     private void walkFolders(Folder folder, IMAPFolderProxy imapFolder) throws ActionException, MessagingException{
         for (Folder f : folder.list()) {
         	IMAPFolderProxy iFolder = createIMAPFolder(f);
+<<<<<<< HEAD
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
             imapFolder.getChildIMAPFolders().add(iFolder);
+=======
+            imapFolder.getChildren().add(iFolder);
+>>>>>>> 
             walkFolders(f, iFolder);
         }
     }
