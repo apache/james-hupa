@@ -630,7 +630,7 @@ public class MessageSendActivity extends AppBaseActivity {
 				display.fillContactList(event.getContacts());
 			}
 		});
-		this.registrations.add(display.getSendClick().addClickHandler(sendClickHandler));
+		registrations.add(display.getSendClick().addClickHandler(sendClickHandler));
 		registrations.add(display.getBackButtonClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				eventBus.fireEvent(new BackEvent());
