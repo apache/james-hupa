@@ -46,6 +46,7 @@ import org.apache.hupa.shared.proxy.ImapFolder;
 =======
 import org.apache.hupa.shared.domain.ImapFolder;
 
+<<<<<<< HEAD
 >>>>>>> Allow client can use the domain entity interface.
 
 /**
@@ -117,9 +118,12 @@ public class IMAPFolder extends EntityBase implements Serializable {
 	
 	
 =======
+=======
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 public class ImapFolderImpl implements ImapFolder {
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
 
+<<<<<<< HEAD
 	/**
 >>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
      * 
@@ -141,6 +145,8 @@ public class ImapFolderImpl implements ImapFolder {
     private List<IMAPFolder> children = new ArrayList<IMAPFolder>();
 >>>>>>> 
 =======
+=======
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
     private List<ImapFolder> children = new ArrayList<ImapFolder>();
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
     private String fullName;

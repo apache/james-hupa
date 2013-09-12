@@ -126,7 +126,7 @@ public class ImapFolderServiceImpl extends AbstractService implements ImapFolder
 	// List of mail 'root' imap folders
 	List<ImapFolder> imapFolders = new ArrayList<ImapFolder>();
 
-	public List<ImapFolder> requestFolders() throws ActionException {
+	public List<ImapFolder> requestFolders() throws Exception {
 		User user = getUser();
 		try {
 			IMAPStore store = cache.get(user);
@@ -141,7 +141,7 @@ public class ImapFolderServiceImpl extends AbstractService implements ImapFolder
 			return imapFolders;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ActionException("Unable to get folders for User " + user);
+			throw new Exception("Unable to get folders for User " + user);
 		}
 	}
 

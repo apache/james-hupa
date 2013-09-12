@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import net.customware.gwt.dispatch.shared.Action;
 
 import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.Tag;
+import org.apache.hupa.shared.domain.Tag;
 
 public class TagMessage implements Action<GenericResult>, Serializable {
 

@@ -26,14 +26,18 @@ import java.util.Properties;
 
 import javax.mail.Session;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import javax.servlet.http.HttpSession;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
 import org.apache.hupa.server.guice.providers.LogProvider;
@@ -61,15 +65,25 @@ import org.apache.hupa.server.service.IdleService;
 import org.apache.hupa.server.service.IdleServiceImpl;
 =======
 import org.apache.hupa.server.guice.providers.HttpSessionProvider;
+=======
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
 import org.apache.hupa.server.guice.providers.LogProvider;
+import org.apache.hupa.server.preferences.InImapUserPreferencesStorage;
+import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.service.CheckSessionService;
 import org.apache.hupa.server.service.CheckSessionServiceImpl;
+<<<<<<< HEAD
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+import org.apache.hupa.server.service.FetchMessagesService;
+import org.apache.hupa.server.service.FetchMessagesServiceImpl;
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 import org.apache.hupa.server.service.ImapFolderService;
 import org.apache.hupa.server.service.ImapFolderServiceImpl;
 import org.apache.hupa.server.service.LoginUserService;
 import org.apache.hupa.server.service.LoginUserServiceImpl;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.server.service.LogoutUserService;
 import org.apache.hupa.server.service.LogoutUserServiceImpl;
@@ -143,12 +157,22 @@ import org.apache.hupa.shared.domain.Settings;
 import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.domain.Tag;
 =======
+=======
+import org.apache.hupa.shared.data.FetchMessagesActionImpl;
+import org.apache.hupa.shared.data.FetchMessagesResultImpl;
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 import org.apache.hupa.shared.data.ImapFolderImpl;
-import org.apache.hupa.shared.data.SettingsImpl;
+import org.apache.hupa.shared.data.TagImpl;
 import org.apache.hupa.shared.data.UserImpl;
+import org.apache.hupa.shared.domain.FetchMessagesAction;
+import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Settings;
+<<<<<<< HEAD
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+import org.apache.hupa.shared.domain.Tag;
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 import org.apache.hupa.shared.domain.User;
 
 import com.google.inject.AbstractModule;
@@ -189,6 +213,7 @@ public class GuiceServerModule extends AbstractModule {
 		bind(User.class).to(UserImpl.class);
 		bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(Singleton.class);
 		bind(ImapFolder.class).to(ImapFolderImpl.class);
+<<<<<<< HEAD
 		bind(Tag.class).to(TagImpl.class);
 		bind(MessageDetails.class).to(MessageDetailsImpl.class);
 		bind(MessageAttachment.class).to(MessageAttachmentImpl.class);
@@ -221,10 +246,16 @@ public class GuiceServerModule extends AbstractModule {
 		bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(Singleton.class);
 		bind(ImapFolder.class).to(ImapFolderImpl.class);
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+		bind(FetchMessagesAction.class).to(FetchMessagesActionImpl.class);
+		bind(FetchMessagesResult.class).to(FetchMessagesResultImpl.class);
+		bind(Tag.class).to(TagImpl.class);
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 		
 		bind(CheckSessionService.class).to(CheckSessionServiceImpl.class);
 		bind(LoginUserService.class).to(LoginUserServiceImpl.class);
 		bind(ImapFolderService.class).to(ImapFolderServiceImpl.class);
+<<<<<<< HEAD
 <<<<<<< HEAD
 		bind(FetchFoldersService.class).to(FetchFoldersServiceImpl.class);
 		bind(FetchMessagesService.class).to(FetchMessagesServiceImpl.class);
@@ -253,6 +284,9 @@ public class GuiceServerModule extends AbstractModule {
 		bind(Session.class).toProvider(JavaMailSessionProvider.class);
         bind(UserPreferencesStorage.class).to(InImapUserPreferencesStorage.class);
 =======
+=======
+		bind(FetchMessagesService.class).to(FetchMessagesServiceImpl.class);
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 		
 		bind(IMAPStoreCache.class).to(getIMAPStoreCacheClass()).in(Singleton.class);
 
@@ -261,6 +295,7 @@ public class GuiceServerModule extends AbstractModule {
 //		bind(HttpSession.class).toProvider(HttpSessionProvider.class);
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		bind(Properties.class).toInstance(properties);
+        bind(UserPreferencesStorage.class).to(InImapUserPreferencesStorage.class);
 	}
 
 	protected Class<? extends IMAPStoreCache> getIMAPStoreCacheClass() {

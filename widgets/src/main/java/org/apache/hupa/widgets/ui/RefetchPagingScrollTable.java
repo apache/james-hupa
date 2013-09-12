@@ -22,6 +22,7 @@ package org.apache.hupa.widgets.ui;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 import com.google.gwt.gen2.table.client.FixedWidthFlexTable;
 import com.google.gwt.gen2.table.client.FixedWidthGrid;
@@ -77,7 +78,7 @@ public class RefetchPagingScrollTable<RowType> extends PagingScrollTable<RowType
      * 
      * @return rows
      */
-    public ArrayList<RowType> getSelectedRows() {
+    public List<RowType> getSelectedRows() {
         return selectedRows;
     }
 
@@ -86,7 +87,7 @@ public class RefetchPagingScrollTable<RowType> extends PagingScrollTable<RowType
      * 
      * @param rows
      */
-    public void removeRows(ArrayList<RowType> rows) {
+    public void removeRows(List<RowType> rows) {
         ArrayList<Integer> rowsIndex = new ArrayList<Integer>();
         for (RowType rowType : rows) {
             int rowIndex = getRowValues().indexOf(rowType);

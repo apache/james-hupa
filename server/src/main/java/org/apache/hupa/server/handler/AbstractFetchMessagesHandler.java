@@ -64,8 +64,9 @@ import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
-import org.apache.hupa.shared.data.Tag;
+import org.apache.hupa.shared.data.TagImpl;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.Tag;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
@@ -361,8 +362,8 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
           
             ArrayList<Tag> tags = new ArrayList<Tag>();
             for (String flag : m.getFlags().getUserFlags()) {
-                if (flag.startsWith(Tag.PREFIX)) {
-                    tags.add(new Tag(flag.substring(Tag.PREFIX.length())));
+                if (flag.startsWith(TagImpl.PREFIX)) {
+                    tags.add(new TagImpl(flag.substring(TagImpl.PREFIX.length())));
                 }
             }
             

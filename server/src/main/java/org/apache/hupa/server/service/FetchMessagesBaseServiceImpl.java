@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -17,6 +18,8 @@
  * under the License.                                           *
  ****************************************************************/
 
+=======
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 package org.apache.hupa.server.service;
 
 import java.io.IOException;
@@ -44,7 +47,10 @@ import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Tag;
 import org.apache.hupa.shared.domain.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
+=======
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 
 import com.google.inject.Inject;
 import com.sun.mail.imap.IMAPStore;
@@ -53,11 +59,19 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
 
     @Inject protected UserPreferencesStorage userPreferences;
     
+<<<<<<< HEAD
     public FetchMessagesResult fetch(FetchMessagesAction action) throws HupaException{
         User user = getUser();
         ImapFolder folder = action.getFolder();
         if (folder == null) {
             folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
+=======
+    public FetchMessagesResult fetch(FetchMessagesAction action){
+        User user = getUser();
+        ImapFolder folder = action.getFolder();
+        if (folder == null) {
+            folder = (ImapFolder)new ImapFolderImpl(user.getSettings().getInboxFolderName());
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
         }
         com.sun.mail.imap.IMAPFolder f = null;
         int start = action.getStart();

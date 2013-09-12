@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -31,12 +32,22 @@ import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.UIDFolder;
 import javax.mail.internet.MimeMessage.RecipientType;
+=======
+package org.apache.hupa.server.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 import javax.mail.search.BodyTerm;
 import javax.mail.search.FromStringTerm;
 import javax.mail.search.OrTerm;
 import javax.mail.search.SearchTerm;
 import javax.mail.search.SubjectTerm;
 
+<<<<<<< HEAD
 import org.apache.hupa.server.handler.JavamailUtil;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
@@ -103,6 +114,16 @@ public class FetchMessagesServiceImpl extends AbstractService implements FetchMe
 
 
     protected MessageConvertArray getMessagesToConvert(IMAPFolder f, FetchMessagesAction action) throws MessagingException, HupaException {
+=======
+import org.apache.hupa.shared.domain.FetchMessagesAction;
+
+import com.sun.mail.imap.IMAPFolder;
+
+public class FetchMessagesServiceImpl extends FetchMessagesBaseServiceImpl implements FetchMessagesService{
+
+	@Override
+    protected MessageConvertArray getMessagesToConvert(IMAPFolder f, FetchMessagesAction action) throws MessagingException {
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
         
         String searchString = action.getSearchString();
         int start = action.getStart();
@@ -156,6 +177,7 @@ public class FetchMessagesServiceImpl extends AbstractService implements FetchMe
         return new MessageConvertArray(exists, messages);
     }
 
+<<<<<<< HEAD
     public List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
         List<org.apache.hupa.shared.domain.Message> mList = new ArrayList<org.apache.hupa.shared.domain.Message>();
         // Setup fetchprofile to limit the stuff which is fetched 
@@ -288,4 +310,6 @@ public class FetchMessagesServiceImpl extends AbstractService implements FetchMe
             return messages;
         }
     }
+=======
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 }

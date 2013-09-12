@@ -28,9 +28,12 @@ import java.util.List;
 
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.apache.hupa.shared.data.Tag;
 >>>>>>> try to change fetch messages to use RF
+=======
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
@@ -39,10 +42,14 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 public interface Message extends ValueProxy {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	List<IMAPFlag> getFlags();
 =======
 	ArrayList<IMAPFlag> getFlags();
 >>>>>>> try to change fetch messages to use RF
+=======
+	List<IMAPFlag> getFlags();
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 
 	Date getReceivedDate();
 
@@ -63,6 +70,7 @@ public interface Message extends ValueProxy {
 	List<String> getTo();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	void setTo(List<String> to);
 
 	void setCc(List<String> cc);
@@ -71,11 +79,17 @@ public interface Message extends ValueProxy {
 
 	void setCc(ArrayList<String> cc);
 >>>>>>> try to change fetch messages to use RF
+=======
+	void setTo(List<String> to);
+
+	void setCc(List<String> cc);
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 
 	void setReplyto(String string);
 
 	void setUid(long uid);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	void setFlags(List<IMAPFlag> iFlags);
 
@@ -85,6 +99,11 @@ public interface Message extends ValueProxy {
 
 	void setTags(ArrayList<Tag> tags);
 >>>>>>> try to change fetch messages to use RF
+=======
+	void setFlags(List<IMAPFlag> iFlags);
+
+	void setTags(List<Tag> tags);
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 
 	void setHasAttachments(boolean hasAttachment);
 

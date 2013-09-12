@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -31,4 +32,13 @@ import org.apache.hupa.shared.exception.HupaException;
 public interface FetchMessagesService {
 	FetchMessagesResult fetch(FetchMessagesAction action) throws HupaException;
 	List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException;
+=======
+package org.apache.hupa.server.service;
+
+import org.apache.hupa.shared.domain.FetchMessagesAction;
+import org.apache.hupa.shared.domain.FetchMessagesResult;
+
+public interface FetchMessagesService {
+	public FetchMessagesResult fetch(FetchMessagesAction action);
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 }

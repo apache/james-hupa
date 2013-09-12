@@ -31,7 +31,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.shared.data.Tag;
+import org.apache.hupa.shared.domain.Tag;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.TagMessage;

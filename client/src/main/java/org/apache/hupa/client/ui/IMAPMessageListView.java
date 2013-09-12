@@ -1342,7 +1342,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
      * (non-Javadoc)
      * @see org.apache.hupa.client.mvp.IMAPMessageListPresenter.Display#getSelectedMessages()
      */
-    public ArrayList<Message> getSelectedMessages() {
+    public List<Message> getSelectedMessages() {
         return mailTable.getSelectedRows();
     }
 
@@ -1505,7 +1505,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
      * (non-Javadoc)
      * @see org.apache.hupa.client.mvp.MainPresenter.Display#fillSearchOracle(java.util.ArrayList)
      */
-    public void fillSearchOracle(ArrayList<Message> messages) {
+    public void fillSearchOracle(List<Message> messages) {
         for (Message m : messages) {
             String subject = m.getSubject();
             String from = m.getFrom();

@@ -20,12 +20,16 @@ package org.apache.hupa.shared.events;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 =======
 import java.util.ArrayList;
+=======
+import java.util.List;
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 
 <<<<<<< HEAD
 import org.apache.hupa.shared.data.Message;
@@ -62,6 +66,7 @@ public class MessagesReceivedEvent extends GwtEvent<MessagesReceivedEventHandler
     public final static Type<MessagesReceivedEventHandler> TYPE = new Type<MessagesReceivedEventHandler>();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private List<Message> messages;
     private ImapFolder folder;
     
@@ -90,10 +95,17 @@ public class MessagesReceivedEvent extends GwtEvent<MessagesReceivedEventHandler
 =======
     public MessagesReceivedEvent(ImapFolder folder, ArrayList<Message> messages) {
 >>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
+=======
+    private List<Message> messages;
+    private ImapFolder folder;
+    
+    public MessagesReceivedEvent(ImapFolder folder, List<Message> messages) {
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
         this.messages = messages;
         this.folder = folder;
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public List<Message> getMessages() {
@@ -105,6 +117,9 @@ public class MessagesReceivedEvent extends GwtEvent<MessagesReceivedEventHandler
 =======
 >>>>>>> first commit
     public ArrayList<Message> getMessages() {
+=======
+    public List<Message> getMessages() {
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
         return messages;
     }
     

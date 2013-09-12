@@ -23,6 +23,7 @@ package org.apache.hupa.client.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Set;
 
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
@@ -378,6 +379,8 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 =======
 >>>>>>> Change to new mvp framework - first step
 package org.apache.hupa.client.activity;
+=======
+>>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 
 import java.util.ArrayList;
 
@@ -1094,7 +1097,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
         public HasEnable getDeleteEnable();
         public void reloadData();
         public void removeMessages(ArrayList<Message> messages);
-        public ArrayList<Message> getSelectedMessages();
+        public List<Message> getSelectedMessages();
         public void reset();
         public HasDialog getConfirmDeleteDialog();
         public HasDialog getConfirmDeleteAllDialog();
@@ -1117,7 +1120,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
         public HasChangeHandlers getRowsPerPageChange();     
         public HasClickHandlers getSearchClick();
         public HasValue<String> getSearchValue();
-        public void fillSearchOracle(ArrayList<Message> messages);
+        public void fillSearchOracle(List<Message> messages);
         public void setExpandLoading(boolean expanding);
 
     }
