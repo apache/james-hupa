@@ -333,6 +333,21 @@ public class HupaLayout implements HupaLayoutable {
 	public AcceptsOneWidget getStatusView() {
 		return centerPanel.getStatusView();
 	}
+	
+	@Override
+	public AcceptsOneWidget getComposeHeader(){
+		return centerPanel.getComposeHeader();
+	}
+	
+	@Override
+	public AcceptsOneWidget getComposeContent(){
+		return centerPanel.getComposeContent();
+	}
+	
+	@Override
+	public AcceptsOneWidget getComposeStatus(){
+		return centerPanel.getComposeStatus();
+	}
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -351,7 +366,7 @@ public interface HupaLayout {
 
 	private void changeToCompose() {
 		centerPanel.thisPanel.remove(centerPanel.contentPanel);
-		centerPanel.thisPanel.add(centerPanel.composeView);
+		centerPanel.thisPanel.add(centerPanel.composePanel);
 	}
 
 	private boolean isMessageOccupied() {
@@ -371,12 +386,12 @@ public interface HupaLayout {
 >>>>>>> could change main panel dynamically currently by clicking the compose button
 =======
 	private void changeToMessage() {
-		centerPanel.thisPanel.remove(centerPanel.composeView);
+		centerPanel.thisPanel.remove(centerPanel.composePanel);
 		centerPanel.thisPanel.add(centerPanel.contentPanel);
 	}
 
 	private boolean isComposeOccupied() {
-		return centerPanel.thisPanel.getWidgetIndex(centerPanel.composeView) >= 0;
+		return centerPanel.thisPanel.getWidgetIndex(centerPanel.composePanel) >= 0;
 	}
 
 >>>>>>> scrub code

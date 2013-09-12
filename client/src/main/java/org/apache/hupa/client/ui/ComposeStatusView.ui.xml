@@ -10,23 +10,28 @@
 	language governing permissions and limitations under the License. -->
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
-<<<<<<< HEAD
-	<ui:style src="res/CssSplitLayoutPanel.css" />
-	<g:SplitLayoutPanel ui:field="thisPanel"
-		addStyleNames="{style.splitLayoutPanel}">
-		<g:west size="220">
-=======
-	<g:SplitLayoutPanel ui:field="thisPanel">
-		<g:west size="373">
->>>>>>> split the layout panel to more small ones
-			<hupa:__OutlinePanel ui:field="outlinePanel" />
-		</g:west>
-		<g:center>
-			<hupa:__ContentPanel ui:field="contentPanel" />
-		</g:center>
-		<g:south size="0">
-			<hupa:__ComposePanel ui:field="composePanel" />
-		</g:south>
-	</g:SplitLayoutPanel>
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:style>
+		.statusbar {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 27px;
+			padding-left: 8px;
+			border-top: 1px solid #ddd;
+			border-radius: 0 0 4px 4px;
+			background: #eaeaea;
+			background: -moz-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eaeaea),
+				color-stop(100%, #c8c8c8) );
+			background: -o-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+			background: -ms-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+			background: linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	</ui:style>
+	<g:HTMLPanel addStyleNames="{style.statusbar}">composeStatus</g:HTMLPanel>
 </ui:UiBinder>

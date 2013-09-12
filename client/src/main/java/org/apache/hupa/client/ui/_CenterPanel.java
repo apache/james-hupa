@@ -29,6 +29,7 @@ import com.google.gwt.user.client.ui.SplitLayoutPanel;
 public class _CenterPanel extends Composite {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@UiField protected SplitLayoutPanel thisPanel;
 	@UiField protected __OutlinePanel outlinePanel;
 	@UiField protected __ContentPanel contentPanel;
@@ -45,13 +46,23 @@ public class _CenterPanel extends Composite {
 =======
 	@UiField ComposeView composeView;
 >>>>>>> scrub code
+=======
+	@UiField protected SplitLayoutPanel thisPanel;
+	@UiField protected __OutlinePanel outlinePanel;
+	@UiField protected __ContentPanel contentPanel;
+	@UiField protected __ComposePanel composePanel;
+>>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 
 	public _CenterPanel() {
 		initWidget(binder.createAndBindUi(this));
 		thisPanel.setWidgetMinSize(outlinePanel, 144);
-		thisPanel.setWidgetHidden(composeView, true);
-		// thisPanel.remove(contentPanel);
-		// thisPanel.add(composePanel);
+		temporarilyHiddenTheUnimplementedContactPanel();
+		thisPanel.setWidgetHidden(composePanel, true);
+	}
+
+	// TODO make it display
+	private void temporarilyHiddenTheUnimplementedContactPanel() {
+		thisPanel.setWidgetHidden(outlinePanel, true);
 	}
 
 	public AcceptsOneWidget getFolderListView() {
@@ -80,5 +91,17 @@ public class _CenterPanel extends Composite {
 
 	private static _CenterPanelUiBinder binder = GWT
 			.create(_CenterPanelUiBinder.class);
+
+	public AcceptsOneWidget getComposeHeader() {
+		return composePanel.getComposeHeaderContainer();
+	}
+
+	public AcceptsOneWidget getComposeContent() {
+		return composePanel.getComposeContentContainer();
+	}
+
+	public AcceptsOneWidget getComposeStatus() {
+		return composePanel.getComposeStatusContainer();
+	}
 
 }

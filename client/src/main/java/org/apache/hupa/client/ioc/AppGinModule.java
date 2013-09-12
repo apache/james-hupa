@@ -46,10 +46,16 @@ import org.apache.hupa.client.HupaConstants;
 >>>>>>> integrate them as a whole one - first: make the default place work
 import org.apache.hupa.client.HupaController;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
 import org.apache.hupa.client.activity.ContactPropertiesActivity;
 import org.apache.hupa.client.activity.ContactsListActivity;
+=======
+import org.apache.hupa.client.activity.ComposeContentActivity;
+import org.apache.hupa.client.activity.ComposeHeaderActivity;
+import org.apache.hupa.client.activity.ComposeStatusActivity;
+>>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 import org.apache.hupa.client.activity.FolderListActivity;
 import org.apache.hupa.client.activity.LabelListActivity;
 import org.apache.hupa.client.activity.LabelPropertiesActivity;
@@ -146,6 +152,7 @@ import org.apache.hupa.client.activity.TopBarActivity;
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.mapper.CachingTopActivityMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -189,6 +196,11 @@ import org.apache.hupa.client.mapper.MainContentActivityMapper;
 =======
 =======
 >>>>>>> make message list view panel work as expected partly
+=======
+import org.apache.hupa.client.mapper.ComposeContentActivityMapper;
+import org.apache.hupa.client.mapper.ComposeHeaderActivityMapper;
+import org.apache.hupa.client.mapper.ComposeStatusActivityMapper;
+>>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 import org.apache.hupa.client.mapper.FolderListActivityMapper;
 import org.apache.hupa.client.mapper.LoginActivityMapper;
 import org.apache.hupa.client.mapper.LogoActivityMapper;
@@ -207,6 +219,9 @@ import org.apache.hupa.client.mapper.WestActivityMapper;
 >>>>>>> make message list view panel work as expected partly
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.ui.ComposeContentView;
+import org.apache.hupa.client.ui.ComposeHeaderView;
+import org.apache.hupa.client.ui.ComposeStatusView;
 import org.apache.hupa.client.ui.FolderListView;
 import org.apache.hupa.client.ui.FoldersTreeViewModel;
 import org.apache.hupa.client.ui.HupaLayout;
@@ -266,7 +281,6 @@ import com.google.gwt.user.cellview.client.CellTree;
 >>>>>>> refactoring.
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.name.Named;
 
 <<<<<<< HEAD
@@ -475,13 +489,16 @@ public class AppGinModule extends AbstractGinModule {
 		bind(LogoActivity.Displayable.class).to(LogoView.class);
 		bind(NavigationActivity.Displayable.class).to(NavigationView.class);
 		bind(ToolBarActivity.Displayable.class).to(ToolBarView.class);
-//		bind(FolderListActivity.Displayable.class).to(FolderListView.class);
+		// bind(FolderListActivity.Displayable.class).to(FolderListView.class);
 		bind(MessageListActivity.Displayable.class).to(MessageListView.class);
 		bind(MessageListFooterActivity.Displayable.class).to(
 				MessageListFooterView.class);
 		bind(MessageContentActivity.Displayable.class).to(
 				MessageContentView.class);
 		bind(StatusActivity.Displayable.class).to(StatusView.class);
+		bind(ComposeStatusActivity.Displayable.class).to(ComposeStatusView.class);
+		bind(ComposeHeaderActivity.Displayable.class).to(ComposeHeaderView.class);
+		bind(ComposeContentActivity.Displayable.class).to(ComposeContentView.class);
 
 		bind(LoginActivity.class).in(Singleton.class);
 		bind(TopBarActivity.class).in(Singleton.class);
@@ -493,6 +510,9 @@ public class AppGinModule extends AbstractGinModule {
 		// bind(MessageListFooterActivity.class).in(Singleton.class);
 		// bind(MessageContentActivity.class).in(Singleton.class);
 		// bind(StatusActivity.class).in(Singleton.class);
+		bind(ComposeHeaderActivity.class).in(Singleton.class);
+		bind(ComposeContentActivity.class).in(Singleton.class);
+		bind(ComposeStatusActivity.class).in(Singleton.class);
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 		bind(TopActivity.Displayable.class).to(TopView.class);
@@ -693,14 +713,21 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 	@Named("TopRegion")
 	public ActivityManager getTopRegionActivityMapper(
 			CachingTopActivityMapper activityMapper, EventBus eventBus) {
+=======
+	@Named("ComposeHeaderRegion")
+	public ActivityManager getComposeHeaderActivityMapper(
+			ComposeHeaderActivityMapper activityMapper, EventBus eventBus) {
+>>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Named("MessageContentRegion")
 	public ActivityManager getMessageContentActivityMapper(MessageContentActivityMapper activityMapper,
@@ -742,20 +769,32 @@ public class AppGinModule extends AbstractGinModule {
 =======
 	public ActivityManager getWestRegionActivityMapper(WestActivityMapper activityMapper, EventBus eventBus) {
 >>>>>>> delete messages, make WestActivity Singleton
+=======
+	@Named("ComposeContentRegion")
+	public ActivityManager getComposeContentActivityMapper(
+			ComposeContentActivityMapper activityMapper, EventBus eventBus) {
+>>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	@Named("StatusRegion")
 	public ActivityManager getStatusActivityMapper(StatusActivityMapper activityMapper, EventBus eventBus) {
+=======
+	@Named("ComposeStatusRegion")
+	public ActivityManager getComposeStatusActivityMapper(
+			ComposeStatusActivityMapper activityMapper, EventBus eventBus) {
+>>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 	@Named("ComposeRegion")
 	public ActivityManager getComposeActivityMapper(ComposeActivityMapper activityMapper, EventBus eventBus) {
 =======
@@ -839,6 +878,8 @@ public class AppGinModule extends AbstractGinModule {
 	@Provides
 	@Singleton
 >>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
+=======
+>>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 	public PlaceController getPlaceController(EventBus eventBus) {
 		return new PlaceController(eventBus);
 	}
@@ -873,11 +914,16 @@ public class AppGinModule extends AbstractGinModule {
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(
 				historyMapper);
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 		historyHandler.register(placeController, eventBus, new DefaultPlace());
 =======
 		historyHandler.register(placeController, eventBus, new DefaultPlace("@"));
 >>>>>>> cope with issue #36, the default place and and the mail folder place, we would always come up with the default place whenever giving a empty string token
+=======
+		historyHandler.register(placeController, eventBus,
+				new DefaultPlace("@"));
+>>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 		return historyHandler;
 	}
 

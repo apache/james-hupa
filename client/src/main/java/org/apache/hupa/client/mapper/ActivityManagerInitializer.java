@@ -33,7 +33,8 @@ import com.google.inject.name.Named;
 public class ActivityManagerInitializer {
 
 	@Inject
-	public ActivityManagerInitializer(LoginLayoutable loginLayout,
+	public ActivityManagerInitializer(
+			LoginLayoutable loginLayout,
 			HupaLayoutable hupaLayout,
 			@Named("LoginPage") ActivityManager loginActivityManager,
 			@Named("TopBarRegion") ActivityManager topBarActivityManager,
@@ -44,7 +45,10 @@ public class ActivityManagerInitializer {
 			@Named("MessageListRegion") ActivityManager messageListActivityManager,
 			@Named("MessageListFooterRegion") ActivityManager messageListFooterActivityManager,
 			@Named("MessageContentRegion") ActivityManager messageContentActivityManager,
-			@Named("StatusRegion") ActivityManager statusActivityManager) {
+			@Named("StatusRegion") ActivityManager statusActivityManager,
+			@Named("ComposeHeaderRegion") ActivityManager composeHeaderActivityManager,
+			@Named("ComposeContentRegion") ActivityManager composeContentActivityManager,
+			@Named("ComposeStatusRegion") ActivityManager composeStatusActivityManager) {
 		loginActivityManager.setDisplay(loginLayout.getLoginView());
 		topBarActivityManager.setDisplay(hupaLayout.getTopBarView());
 		logoActivityManager.setDisplay(hupaLayout.getLogoView());
@@ -52,9 +56,15 @@ public class ActivityManagerInitializer {
 		toolBarActivityManager.setDisplay(hupaLayout.getToolBarView());
 		folderListActivityManager.setDisplay(hupaLayout.getFolderListView());
 		messageListActivityManager.setDisplay(hupaLayout.getMessageListView());
-		messageListFooterActivityManager.setDisplay(hupaLayout.getMessageListFooterView());
-		messageContentActivityManager.setDisplay(hupaLayout.getMessageContentView());
+		messageListFooterActivityManager.setDisplay(hupaLayout
+				.getMessageListFooterView());
+		messageContentActivityManager.setDisplay(hupaLayout
+				.getMessageContentView());
 		statusActivityManager.setDisplay(hupaLayout.getStatusView());
+		composeHeaderActivityManager.setDisplay(hupaLayout.getComposeHeader());
+		composeContentActivityManager
+				.setDisplay(hupaLayout.getComposeContent());
+		composeStatusActivityManager.setDisplay(hupaLayout.getComposeStatus());
 	}
 
 }

@@ -111,5 +111,14 @@ public interface HupaLayoutable extends Layoutable {
 	void switchToCompose();
 
 	void switchToMessage();
+<<<<<<< HEAD
 >>>>>>> could change main panel dynamically currently by clicking the compose button
+=======
+
+	AcceptsOneWidget getComposeHeader();
+
+	AcceptsOneWidget getComposeContent();
+
+	AcceptsOneWidget getComposeStatus();
+>>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
 }

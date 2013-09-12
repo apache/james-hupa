@@ -19,10 +19,10 @@
 
 package org.apache.hupa.client.ui;
 
+import org.apache.hupa.client.activity.ComposeHeaderActivity;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
-import com.google.gwt.resources.client.CssResource.NotStrict;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 <<<<<<< HEAD
@@ -85,27 +85,20 @@ import com.google.gwt.user.client.ui.Anchor;
 >>>>>>> composing composing panel
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
+import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
 
-public class ComposeView extends Composite {
+public class ComposeHeaderView extends Composite implements
+		ComposeHeaderActivity.Displayable {
 
-	@UiField FlexTable headerTable;
-	@UiField Style style;
-	private static final int ROW_FROM = 0;
-	private static final int ROW_TO = 1;
-	private static final int ROW_CC = 2;
-	private static final int ROW_BCC = 3;
-	private static final int ROW_REPLY = 4;
-	private static final int ROW_FOLLOWUP = 5;
-	private static final int ROW_SWITCH = 6;
-	private static final int ROW_SUBJECT = 7;
+	@UiField protected FlexTable headerTable;
+
+	@UiField protected Style style;
 
 	interface Style extends CssResource {
 		String hiddenInput();
@@ -123,19 +116,16 @@ public class ComposeView extends Composite {
 		String operation();
 	}
 
-	public interface Resources extends ClientBundle {
+	private static final int ROW_FROM = 0;
+	private static final int ROW_TO = 1;
+	private static final int ROW_CC = 2;
+	private static final int ROW_BCC = 3;
+	private static final int ROW_REPLY = 4;
+	private static final int ROW_FOLLOWUP = 5;
+	private static final int ROW_SWITCH = 6;
+	private static final int ROW_SUBJECT = 7;
 
-		Resources INSTANCE = GWT.create(Resources.class);
-
-		@NotStrict
-		@Source("res/CssComposePanel.css")
-		public Css stylesheet();
-
-		public interface Css extends CssResource {
-		}
-	}
-
-	public ComposeView() {
+	public ComposeHeaderView() {
 		initWidget(binder.createAndBindUi(this));
 		FlexCellFormatter cellFormatter = headerTable.getFlexCellFormatter();
 		RowFormatter rowFormatter = headerTable.getRowFormatter();
@@ -177,7 +167,6 @@ public class ComposeView extends Composite {
 		operationPanel.add(buttonPanel);
 		operationPanel.addStyleName(style.operation());
 		headerTable.setWidget(ROW_FROM, 1, operationPanel);
-		
 
 		TextBox to = new TextBox();
 		to.setWidth("100%");
@@ -232,12 +221,12 @@ public class ComposeView extends Composite {
 		return t;
 	}
 
-	interface __ComposePanelUiBinder extends
-			UiBinder<DockLayoutPanel, ComposeView> {
+	interface ComposeHeaderUiBinder extends
+			UiBinder<FlexTable, ComposeHeaderView> {
 	}
 
-	private static __ComposePanelUiBinder binder = GWT
-			.create(__ComposePanelUiBinder.class);
+	private static ComposeHeaderUiBinder binder = GWT
+			.create(ComposeHeaderUiBinder.class);
 
 >>>>>>> preparing for composing panel
 }

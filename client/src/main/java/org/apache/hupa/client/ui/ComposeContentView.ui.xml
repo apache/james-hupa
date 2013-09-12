@@ -1,0 +1,57 @@
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	you under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	<ui:style>
+		.composeoptionsbox {
+			padding: 4px 8px 0 8px;
+			background: #d2d2d2;
+			border-bottom: 1px solid #e8e8e8;
+			-webkit-box-shadow: 0 2px 3px 0 #999;
+			-moz-box-shadow: 0 2px 3px 0 #999;
+			box-shadow: 0 2px 3px 0 #999;
+			white-space: nowrap;
+		}
+		
+		.composeattachments {
+			position: absolute;
+			right: 0;
+			top: 1px;
+			bottom: 0;
+			width: 240px;
+			background: #f0f0f0;
+			border-left: 1px solid #ddd;
+			padding: 8px;
+			overflow: auto;
+		}
+		
+		.composebodycontainer {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 260px;
+			bottom: 0;
+		}
+	</ui:style>
+	<g:DockLayoutPanel unit="PX">
+		<g:north size="23">
+			<g:HTMLPanel addStyleNames="{style.composeoptionsbox}">composeOption</g:HTMLPanel>
+		</g:north>
+		<g:east size="257">
+			<g:HTMLPanel addStyleNames="{style.composeattachments}">composeAttachment
+			</g:HTMLPanel>
+		</g:east>
+		<g:center>
+			<g:HTMLPanel addStyleNames="{style.composebodycontainer}">composeBody</g:HTMLPanel>
+		</g:center>
+	</g:DockLayoutPanel>
+</ui:UiBinder>
