@@ -35,7 +35,7 @@ import org.apache.hupa.client.guice.GuiceClientTestModule;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.User;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpSession;

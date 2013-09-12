@@ -51,8 +51,8 @@ import org.apache.hupa.server.mock.MockLogProvider;
 import org.apache.hupa.server.preferences.InSessionUserPreferencesStorage;
 import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.ConfigurationProperties;
-import org.apache.hupa.shared.data.Settings;
-import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.domain.Settings;
+import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.rpc.Contacts;
 import org.apache.hupa.shared.rpc.SendMessage;
 
