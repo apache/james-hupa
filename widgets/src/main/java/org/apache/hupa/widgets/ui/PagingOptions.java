@@ -57,10 +57,10 @@ public class PagingOptions extends Composite {
     
     public PagingOptions(final PagingScrollTable<?> table, PagingOptionsConstants constants, Loading loading) {
         this.loading = loading;
-        firstLink = new EnableHyperlink("<< " + constants.pageFirst(),"");
-        prevLink = new EnableHyperlink("< " + constants.pagePrev(),"");
-        lastLink = new EnableHyperlink(constants.pageLast() + " >>","");
-        nextLink = new EnableHyperlink(constants.pageNext() + " >","");
+        firstLink = new EnableHyperlink("<< " + constants.pageFirst(),null);
+        prevLink = new EnableHyperlink("< " + constants.pagePrev(),null);
+        lastLink = new EnableHyperlink(constants.pageLast() + " >>",null);
+        nextLink = new EnableHyperlink(constants.pageNext() + " >",null);
         pagingPanel.setSpacing(3);
 
         pagingPanel.add(panel);

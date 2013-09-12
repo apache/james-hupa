@@ -457,17 +457,6 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		this.placeController = placeController;
 		this.dispatcher = dispatcher;
 		this.messageSendPlaceProvider = messageSendPlaceProvider;
-		
-
-        // add this event on constructor because we don't want to remove it on unbind
-        eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
-
-            public void onLogout(LogoutEvent logoutEvent) {
-            	IMAPMessageListActivity.this.display.reset();
-            	IMAPMessageListActivity.this.display.getSearchValue().setValue("");
-            }
-            
-        });
 	}
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
@@ -477,6 +466,14 @@ public class IMAPMessageListActivity extends AbstractActivity {
 	}
 	
 	private void bind(){
+        eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
+
+            public void onLogout(LogoutEvent logoutEvent) {
+            	IMAPMessageListActivity.this.display.reset();
+            	IMAPMessageListActivity.this.display.getSearchValue().setValue("");
+            }
+            
+        });
 		eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
 
             public void onMessagesReceived(MessagesReceivedEvent event) {
