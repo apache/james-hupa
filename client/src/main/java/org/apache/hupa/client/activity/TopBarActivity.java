@@ -170,7 +170,7 @@ public class TopBarActivity extends AppBaseActivity {
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
 		bindTo(eventBus);
-		if (user != null) {
+		if (user != null && isOccupied()) {
 			display.getUserLabel().add(new HTML(user.getName()));
 		}
 	}
@@ -215,6 +215,10 @@ public class TopBarActivity extends AppBaseActivity {
 				}
 			});
 		}
+	}
+
+	private boolean isOccupied() {
+		return display.getUserLabel().getWidgetCount() < 1;
 	}
 
 	public interface Displayable extends WidgetDisplayable {

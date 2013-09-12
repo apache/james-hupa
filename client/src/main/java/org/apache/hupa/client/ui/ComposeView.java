@@ -317,6 +317,16 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 
 	MyFancyLookingButton button = new MyFancyLookingButton();
 
+	HasText emptyText = new HasText() {
+		@Override
+		public String getText() {
+			return "";
+		}
+		@Override
+		public void setText(String text) {
+		}
+	};
+
 	@Override
 	public HasText getTo() {
 		return toSuggest;
@@ -324,12 +334,18 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 
 	@Override
 	public HasText getCc() {
-		return ccSuggest;
+		if (isShowing(ROW_CC))
+			return ccSuggest;
+		else
+			return emptyText;
 	}
 
 	@Override
 	public HasText getBcc() {
-		return bccSuggest;
+		if (isShowing(ROW_BCC))
+			return bccSuggest;
+		else
+			return emptyText;
 	}
 
 	@Override
