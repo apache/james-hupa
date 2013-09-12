@@ -4,7 +4,10 @@ client/.classpath
 client/.project
 client/.settings/
 client/target/
+<<<<<<< HEAD
 client/.gwt/
+=======
+>>>>>>> add gitignore to ignore files by git
 mock/.classpath
 mock/.project
 mock/.settings/
@@ -23,7 +26,10 @@ widgets/.classpath
 widgets/.project
 widgets/.settings/
 widgets/target/
+<<<<<<< HEAD
 
 client/src/main/gwt-unitCache/
 client/src/main/webapp/WEB-INF/deploy/
 client/src/main/webapp/hupa/
+=======
+>>>>>>> add gitignore to ignore files by git
