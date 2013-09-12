@@ -35,6 +35,7 @@ import org.apache.hupa.client.place.DefaultPlace;
 =======
 >>>>>>> support code split
 import org.apache.hupa.client.place.MailFolderPlace;
+<<<<<<< HEAD
 >>>>>>> make message list view panel work as expected partly
 
 import com.google.gwt.activity.shared.Activity;
@@ -42,6 +43,11 @@ import com.google.gwt.activity.shared.ActivityMapper;
 <<<<<<< HEAD
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
+=======
+import org.apache.hupa.client.place.SettingPlace;
+
+import com.google.gwt.activity.shared.Activity;
+>>>>>>> try to rearrange the places and history managment.
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
 >>>>>>> support code split
@@ -50,10 +56,14 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class MessageListActivityMapper extends _MessageActivityMapper {
 =======
 public class MessageListActivityMapper implements ActivityMapper {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+public class MessageListActivityMapper extends MainActivityMapper {
+>>>>>>> try to rearrange the places and history managment.
 	private final Provider<MessageListActivity> messageListActivityProvider;
 
 	@Inject
@@ -61,6 +71,7 @@ public class MessageListActivityMapper implements ActivityMapper {
 		this.messageListActivityProvider = messageListActivityProvider;
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	@Override
@@ -95,6 +106,11 @@ public class MessageListActivityMapper implements ActivityMapper {
 =======
 	public Activity getActivity(final Place place) {
 		if (!(place instanceof MailFolderPlace))
+=======
+	@Override
+	Activity asyncLoadActivity(final Place place) {
+		if (place instanceof SettingPlace)
+>>>>>>> try to rearrange the places and history managment.
 			return null;
 		return new ActivityAsyncProxy() {
 			@Override
@@ -114,7 +130,7 @@ public class MessageListActivityMapper implements ActivityMapper {
 =======
 			@Override
 			protected Activity createInstance() {
-				return messageListActivityProvider.get().with(((MailFolderPlace) place).getFullName());
+				return messageListActivityProvider.get();
 			}
 		};
 >>>>>>> fixed issue#57 - really disable the tools in toolbar

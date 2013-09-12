@@ -107,6 +107,7 @@ public class FolderListActivity extends AppBaseActivity {
 =======
 >>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 	public interface Displayable extends WidgetDisplayable {
+		void refresh();
 	}
 >>>>>>> make reload mail folder place work, fixed issue #7
 }

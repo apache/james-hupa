@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.NotificationActivity;
-import org.apache.hupa.client.activity.TopBarActivity;
+import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -56,7 +56,6 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	@Inject private HupaRequestFactory rf;
 	@Inject private HupaController controller;
 	@Inject private PlaceController placeController;
-	@Inject private TopBarActivity.Displayable topBar;
 	@Inject private NotificationActivity.Displayable notice;
 	private User user;
 	private ImapFolder currentFolder;
@@ -69,11 +68,11 @@ public class FoldersTreeViewModel implements TreeViewModel {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
-				topBar.showLoading("loading");//FIXME delay to show, why
+				controller.showTopLoading("Loading...");
 				SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event.getSource();
 				currentFolder = selectionModel.getSelectedObject();
 				eventBus.fireEvent(new LoadMessagesEvent(user, selectionModel.getSelectedObject()));
-				placeController.goTo(new MailFolderPlace(selectionModel.getSelectedObject().getFullName()));
+				placeController.goTo(new IMAPMessagePlace(selectionModel.getSelectedObject().getFullName()));
 			}
 		});
 		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
@@ -90,6 +89,11 @@ public class FoldersTreeViewModel implements TreeViewModel {
 					return item == null ? null : item.getFullName();
 				}
 			});
+	private ImapFolderListDataProvider dataProvider;
+
+	public void refresh() {
+		dataProvider.refresh();
+	}
 
 	/**
 	 * Get the {@link NodeInfo} that provides the children of the specified
@@ -97,11 +101,12 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	 */
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
-		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(rf, (ImapFolder) value), new FolderCell(
-				ClickEvent.getType().getName()), selectionModel, null);
+		dataProvider = new ImapFolderListDataProvider(rf, (ImapFolder) value);
+		return new DefaultNodeInfo<ImapFolder>(dataProvider, new FolderCell(ClickEvent.getType().getName()),
+				selectionModel, null);
 	}
 
-	class FolderCell extends AbstractCell<ImapFolder> implements HasEditable{
+	class FolderCell extends AbstractCell<ImapFolder> implements HasEditable {
 		public FolderCell(String... consumedEvents) {
 			super(consumedEvents);
 		}
@@ -111,26 +116,32 @@ public class FoldersTreeViewModel implements TreeViewModel {
 			if (value != null) {
 				sb.appendEscaped(value.getName());
 			}
+			if (value.getUnseenMessageCount() > 0) {
+				sb.appendHtmlConstant("<span style='position:absolute;right:6px;top:3px;font-weight:bold;'>(");
+				sb.appendHtmlConstant("" + value.getUnseenMessageCount());
+				sb.appendHtmlConstant(")</span>");
+			}
 		}
 
-//		@Override
-//        public Set<String> getConsumedEvents() {
-//            HashSet<String> events = new HashSet<String>();
-//            events.add("click");
-//            return events;
-//        }
+		// @Override
+		// public Set<String> getConsumedEvents() {
+		// HashSet<String> events = new HashSet<String>();
+		// events.add("click");
+		// return events;
+		// }
 		// TODO is this a click event?
 		@Override
 		public void onBrowserEvent(Context context, Element parent, ImapFolder value, NativeEvent event,
 				ValueUpdater<ImapFolder> valueUpdater) {
 			super.onBrowserEvent(context, parent, value, event, valueUpdater);
-//			if("click".equals(event.getType())){//FIXME why slow in debug mode
-//				topBar.showLoading();
-//			}
-			if (clickSameFolder(value)) {
+			// if("click".equals(event.getType())){//FIXME why slow in debug
+			// mode
+			// topBar.showLoading();
+			// }
+//			if (clickSameFolder(value)) {
 				eventBus.fireEvent(new LoadMessagesEvent(user, value));
 				placeController.goTo(new MailFolderPlace(value.getFullName()));
-			}
+//			}
 		}
 
 		private boolean clickSameFolder(ImapFolder value) {
@@ -139,17 +150,17 @@ public class FoldersTreeViewModel implements TreeViewModel {
 		@Override
 		public void startEdit() {
 			// TODO Auto-generated method stub
-			
+
 		}
 		@Override
 		public void cancelEdit() {
 			// TODO Auto-generated method stub
-			
+
 		}
 		@Override
 		public void stopEdit() {
 			// TODO Auto-generated method stub
-			
+
 		}
 		@Override
 		public boolean isEdit() {
@@ -158,10 +169,11 @@ public class FoldersTreeViewModel implements TreeViewModel {
 		}
 	}
 
-	public class ImapFolderListDataProvider extends AsyncDataProvider<ImapFolder> {
+	public class ImapFolderListDataProvider extends AsyncDataProvider<ImapFolder> implements HasRefresh{
 
 		private HupaRequestFactory rf;
 		private ImapFolder folder;
+		private HasData<ImapFolder> display;
 
 		public ImapFolderListDataProvider(HupaRequestFactory rf, ImapFolder folder) {
 			this.rf = rf;
@@ -171,6 +183,7 @@ public class FoldersTreeViewModel implements TreeViewModel {
 		@Override
 		public void addDataDisplay(HasData<ImapFolder> display) {
 			super.addDataDisplay(display);
+			this.display = display;
 		}
 
 		@Override
@@ -194,6 +207,11 @@ public class FoldersTreeViewModel implements TreeViewModel {
 
 			});
 
+		}
+
+		@Override
+		public void refresh() {
+			this.onRangeChanged(display);
 		}
 
 	}

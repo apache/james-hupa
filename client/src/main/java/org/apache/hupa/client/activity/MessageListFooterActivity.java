@@ -35,6 +35,7 @@ import com.google.gwt.user.client.ui.ListBox;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.inject.Inject;
@@ -66,6 +67,7 @@ public class MessageListFooterActivity extends AppBaseActivity {
 	@Inject private Displayable display;
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public interface Displayable extends IsWidget {
 		SimplePager getPager();
 		HasVisibility getLabelsPanel();
@@ -74,4 +76,9 @@ public class MessageListFooterActivity extends AppBaseActivity {
 =======
 	public interface Displayable extends WidgetDisplayable {}
 >>>>>>> integrate all of the views to their corresponding activities and mappers
+=======
+	public interface Displayable extends WidgetDisplayable {
+		SimplePager getPager();
+	}
+>>>>>>> try to rearrange the places and history managment.
 }

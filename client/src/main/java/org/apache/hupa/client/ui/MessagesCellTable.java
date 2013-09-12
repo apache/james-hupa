@@ -631,7 +631,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 		return row.getFlags().contains(IMAPFlag.SEEN);
 	}
 	public void markRead(final Message message, final boolean read) {
-		setStyleBasedOnSelected(read);
+//		setStyleBasedOnSelected(read);
 		flush();
 	}
 

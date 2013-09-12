@@ -142,6 +142,7 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 		SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
 		simplePager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
 		simplePager.setDisplay(table);
+		simplePager.startLoading();
 		initWidget(binder.createAndBindUi(this));
 	}
 
@@ -161,11 +162,15 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 	private static MessageListFooterUiBinder binder = GWT.create(MessageListFooterUiBinder.class);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> try to rearrange the places and history managment.
 	@Override
 	public SimplePager getPager() {
 		return simplePager;
 	}
 
+<<<<<<< HEAD
 	@Override
 	public HasVisibility getLabelsPanel() {
 		return labelsPanel;
@@ -178,4 +183,6 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 
 =======
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+>>>>>>> try to rearrange the places and history managment.
 }

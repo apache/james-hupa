@@ -24,6 +24,9 @@ import java.util.List;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> try to rearrange the places and history managment.
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 
@@ -37,6 +40,7 @@ public abstract class AppBaseActivity extends AbstractActivity {
 
 	@Inject protected EventBus eventBus;
 	@Inject protected HupaController hc;
+<<<<<<< HEAD
 	@Inject protected PlaceController pc;
 	@Inject protected HupaRequestFactory rf;
 
@@ -57,6 +61,8 @@ public abstract class AppBaseActivity extends AbstractActivity {
 >>>>>>> fix issue 10
 =======
 	@Inject protected EventBus eventBus;
+=======
+>>>>>>> try to rearrange the places and history managment.
 	@Inject protected PlaceController placeController;
 	@Inject protected HupaRequestFactory requestFactory;
 

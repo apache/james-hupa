@@ -24,6 +24,7 @@ package org.apache.hupa.client.place;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.apache.hupa.client.activity.IMAPMessageActivity;
 >>>>>>> 1. improve the inbox folder place.
@@ -83,10 +84,13 @@ public class IMAPMessagePlace extends Place {
 	
 =======
 =======
+=======
+>>>>>>> try to rearrange the places and history managment.
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class IMAPMessagePlace extends AbstractPlace {
+<<<<<<< HEAD
 >>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
 
 >>>>>>> forward and reply message to use RF
@@ -143,6 +147,11 @@ public class IMAPMessagePlace extends AbstractPlace {
 
 	public User getUser() {
 		return user;
+=======
+	String token;
+	public IMAPMessagePlace(String token){
+		this.token = token;
+>>>>>>> try to rearrange the places and history managment.
 	}
 
 <<<<<<< HEAD
@@ -203,10 +212,11 @@ public class IMAPMessagePlace extends AbstractPlace {
 
 		@Override
 		public String getToken(IMAPMessagePlace place) {
-			return place.getMessageDetails().getMessageId();
+			return place.getToken();
 		}
 	}
 
+<<<<<<< HEAD
 	public IMAPMessagePlace with(User user, ImapFolder folder, Message message, MessageDetails messageDetails) {
 		this.message = message;
 		this.messageDetails = messageDetails;
@@ -226,6 +236,10 @@ public class IMAPMessagePlace extends AbstractPlace {
 =======
 	public String getMessageId() {
 		return messageId;
+=======
+	public String getToken() {
+		return token;
+>>>>>>> try to rearrange the places and history managment.
 	}
 
 >>>>>>> prepare for message content panel

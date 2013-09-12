@@ -19,74 +19,19 @@
 
 package org.apache.hupa.client.place;
 
-import org.apache.hupa.shared.domain.User;
-
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class MailFolderPlace extends AbstractPlace {
 
-	private User user;
-	private String uid;
-	private String fullName;
-	private static final String DELIMITER = "/";
+	private String token;
 
-	/**
-	 * Folder places look like: #Mock-Inbox, #INBOX,<br>
-	 * while message places: #Mock-Inbox&#47;10, #INBOX&#47;1234,
-	 * #%5BGmail%5DDrafts&#47;18
-	 * 
-	 * @param token
-	 */
 	public MailFolderPlace(String token) {
-		if (isMessagePlace(token)) {
-			initPlace4Message(token);
-		} else {
-			initPlace4Folder(token);
-		}
+		this.token = token;
 	}
 
-	public MailFolderPlace(User user) {
-		String token = user.getSettings().getInboxFolderName();
-		if (isMessagePlace(token)) {
-			initPlace4Message(token);
-		} else {
-			initPlace4Folder(token);
-		}
-		this.user = user;
-	}
-
-	private boolean isMessagePlace(String token) {
-		return token.contains(DELIMITER) && isEndWIthDigit(token);
-	}
-
-	private void initPlace4Folder(String token) {
-		fullName = token;
-	}
-
-	private void initPlace4Message(String token) {
-		fullName = token.substring(0, token.lastIndexOf(DELIMITER));
-		uid = token.substring(token.lastIndexOf(DELIMITER) + 1);
-	}
-
-	private boolean isEndWIthDigit(String token) {
-		return token.substring(token.lastIndexOf(DELIMITER) + 1)
-				.matches("\\d+");
-	}
-
-	public String getUid() {
-		return uid;
-	}
-
-	public String getFullName() {
-		return fullName;
-	}
-
-	public User getUser(){
-		return user;
-	}
 	// the main place use empty string such that colon'd disappear
-	@Prefix("")
+	@Prefix("folder")
 	public static class Tokenizer implements PlaceTokenizer<MailFolderPlace> {
 
 		@Override
@@ -96,36 +41,11 @@ public class MailFolderPlace extends AbstractPlace {
 
 		@Override
 		public String getToken(MailFolderPlace place) {
-			StringBuilder token = new StringBuilder(place.getFullName());
-			if (place.getUid() != null && place.getUid().length() > 0) {
-				token.append(DELIMITER + place.getUid());
-			}
-			return token.toString();
+			return place.getToken();
 		}
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (o == null)
-			return false;
-		if (o == this)
-			return true;
-		if (o.getClass() != getClass())
-			return false;
-		MailFolderPlace place = (MailFolderPlace) o;
-		return (fullName == place.fullName || (fullName != null && fullName
-				.equals(place.getFullName())))
-				&& (uid == place.uid || (uid != null && uid.equals(place
-						.getUid())));
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((fullName == null) ? 0 : fullName.hashCode());
-		result = prime * result + ((uid == null) ? 0 : uid.hashCode());
-		return result;
+	public String getToken() {
+		return token;
 	}
 }

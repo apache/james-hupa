@@ -181,6 +181,7 @@ import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 
+import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
@@ -247,9 +248,8 @@ public class MessageContentActivity extends AppBaseActivity {
 		void fillMessageContent(String messageContent);
 	}
 
-	public MessageContentActivity with(MailFolderPlace place) {
-		this.fullName = place.getFullName();
-		this.uid = place.getUid();
+	public Activity with(String token) {
+		uid = token;
 		return this;
 	}
 >>>>>>> make message content work as expected partly

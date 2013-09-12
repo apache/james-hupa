@@ -93,9 +93,14 @@ public class _CenterSettingPanel extends Composite {
 import java.util.Arrays;
 import java.util.List;
 
+<<<<<<< HEAD
 import com.google.gwt.cell.client.TextCell;
 >>>>>>> make label settings prototype
+=======
+import com.google.gwt.cell.client.AbstractCell;
+>>>>>>> try to rearrange the places and history managment.
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
@@ -115,20 +120,20 @@ public class _CenterSettingPanel extends Composite {
 	@UiField SplitLayoutPanel thisPanel;
 
 	@UiField SimpleLayoutPanel settingsTab;
-	
+
 	@UiField SimpleLayoutPanel labelListContainer;
 	@UiField SimplePanel labelPropertiesContainer;
-	
+
 	public _CenterSettingPanel() {
-		
+
 		initWidget(binder.createAndBindUi(this));
 		settingsTab.setWidget(createTabList());
 	}
+
 	private static final List<String> TABS = Arrays.asList("Folders");
 
 	private CellList<String> createTabList() {
-		TextCell textCell = new TextCell();
-		CellList<String> cellList = new CellList<String>(textCell);
+		CellList<String> cellList = new CellList<String>(new SpanCell());
 		cellList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		final SingleSelectionModel<String> selectionModel = new SingleSelectionModel<String>();
 		cellList.setSelectionModel(selectionModel);
@@ -136,7 +141,7 @@ public class _CenterSettingPanel extends Composite {
 			public void onSelectionChange(SelectionChangeEvent event) {
 				String selected = selectionModel.getSelectedObject();
 				if (selected != null) {
-//					Window.alert("You selected: " + selected);
+					// Window.alert("You selected: " + selected);
 				}
 			}
 		});
@@ -148,9 +153,28 @@ public class _CenterSettingPanel extends Composite {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	interface _CeterSettingPanelUiBinder extends UiBinder<DockLayoutPanel, _CenterSettingPanel> {
 >>>>>>> attempt to add label setting feature
 =======
+=======
+	static class SpanCell extends AbstractCell<String> {
+
+		public SpanCell() {
+		}
+
+		@Override
+		public void render(Context context, String value, SafeHtmlBuilder sb) {
+			if (value == null) {
+				return;
+			}
+			sb.appendHtmlConstant("<span style='display: block;color: #376572;text-shadow: 0px 1px 1px #fff;text-decoration: none;cursor: default;padding: 6px 8px 2px 8px;height: 17px;white-space: nowrap;'>");
+			sb.appendHtmlConstant(value);
+			sb.appendHtmlConstant("</span>");
+		}
+	}
+
+>>>>>>> try to rearrange the places and history managment.
 	interface _CeterSettingPanelUiBinder extends UiBinder<SplitLayoutPanel, _CenterSettingPanel> {
 >>>>>>> add layout styles to three part
 	}

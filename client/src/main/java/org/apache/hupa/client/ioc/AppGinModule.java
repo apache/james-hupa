@@ -65,6 +65,7 @@ import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 import org.apache.hupa.client.activity.FolderListActivity;
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.LabelListActivity;
 import org.apache.hupa.client.activity.LabelPropertiesActivity;
 import org.apache.hupa.client.activity.LoginActivity;
@@ -145,6 +146,8 @@ import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.FolderListActivity;
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import org.apache.hupa.client.activity.IMAPMessageActivity;
+=======
+>>>>>>> try to rearrange the places and history managment.
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
 import org.apache.hupa.client.activity.LabelListActivity;
 import org.apache.hupa.client.activity.LabelPropertiesActivity;
@@ -257,9 +260,12 @@ import org.apache.hupa.client.ui.HupaLayoutable;
 import org.apache.hupa.client.ui.IMAPMessageListView;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.client.ui.IMAPMessageView;
+=======
+>>>>>>> try to rearrange the places and history managment.
 import org.apache.hupa.client.ui.LabelListView;
 import org.apache.hupa.client.ui.LabelPropertiesView;
 import org.apache.hupa.client.ui.LoginLayout;
@@ -594,6 +600,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(WestActivity.Displayable.class).to(WestView.class).in(Singleton.class);
 		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
 		bind(MessageSendActivity.Displayable.class).to(MessageSendView.class);
+<<<<<<< HEAD
 		bind(IMAPMessageActivity.Displayable.class).to(IMAPMessageView.class);
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -627,6 +634,8 @@ public class AppGinModule extends AbstractGinModule {
 =======
 		
 =======
+=======
+>>>>>>> try to rearrange the places and history managment.
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 		bind(LoginActivity.class).in(Singleton.class);
@@ -637,7 +646,6 @@ public class AppGinModule extends AbstractGinModule {
 		bind(WestActivity.class).in(Singleton.class);
 		bind(IMAPMessageListActivity.class).in(Singleton.class);
 		bind(MessageSendActivity.class).in(Singleton.class);
-		bind(IMAPMessageActivity.class).in(Singleton.class);
 
 		bind(MessagesCellTable.class).in(Singleton.class);
 		bind(FoldersTreeViewModel.class).in(Singleton.class);

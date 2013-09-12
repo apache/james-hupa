@@ -343,7 +343,7 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 >>>>>>> add rename RF to label setting feature
 =======
 		int parentIndex = wholeList.indexOf(isParent ? labelNode : labelNode.getParent());
-		parent.setSelectedIndex(parentIndex < 0 ? 0 : parentIndex);
+		parent.setSelectedIndex(parentIndex < 0 ? 0 : parentIndex + 1);
 	}
 	@Override
 	public HasClickHandlers getSave() {

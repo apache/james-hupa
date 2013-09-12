@@ -23,6 +23,7 @@ import org.apache.hupa.client.activity.MessageContentActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.MessagePlace;
 
 import com.google.gwt.activity.shared.Activity;
@@ -33,6 +34,9 @@ import com.google.gwt.core.client.RunAsyncCallback;
 import org.apache.hupa.client.place.DefaultPlace;
 =======
 >>>>>>> scrub code
+=======
+import org.apache.hupa.client.place.IMAPMessagePlace;
+>>>>>>> try to rearrange the places and history managment.
 import org.apache.hupa.client.place.MailFolderPlace;
 <<<<<<< HEAD
 >>>>>>> prepare for message content panel
@@ -111,7 +115,7 @@ public class MessageContentActivityMapper implements ActivityMapper {
 					(MailFolderPlace) place);
 =======
 	public Activity getActivity(final Place place) {
-		if (place instanceof MailFolderPlace) {
+		if (place instanceof IMAPMessagePlace) {
 			return new ActivityAsyncProxy() {
 				@Override
 				protected void doAsync(RunAsyncCallback callback) {
@@ -120,8 +124,7 @@ public class MessageContentActivityMapper implements ActivityMapper {
 
 				@Override
 				protected Activity createInstance() {
-					return messageContentActivityProvider.get().with(
-							(MailFolderPlace) place);
+					return messageContentActivityProvider.get().with(((IMAPMessagePlace)place).getToken());
 				}
 			};
 >>>>>>> support code split
