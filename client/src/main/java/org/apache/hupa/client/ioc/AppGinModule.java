@@ -52,6 +52,7 @@ import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
 import org.apache.hupa.client.activity.ContactPropertiesActivity;
 import org.apache.hupa.client.activity.ContactsListActivity;
+<<<<<<< HEAD
 =======
 import org.apache.hupa.client.activity.ComposeContentActivity;
 import org.apache.hupa.client.activity.ComposeHeaderActivity;
@@ -64,6 +65,8 @@ import org.apache.hupa.client.activity.ComposeActivity;
 >>>>>>> make send text mail work excellently
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
+=======
+>>>>>>> prepared for issue#73, established the UI layout
 import org.apache.hupa.client.activity.FolderListActivity;
 <<<<<<< HEAD
 import org.apache.hupa.client.activity.LabelListActivity;
@@ -233,7 +236,12 @@ import org.apache.hupa.client.mapper.CachingTopBarActivityMapper;
 import org.apache.hupa.client.mapper.ComposeActivityMapper;
 >>>>>>> make send text mail work excellently
 import org.apache.hupa.client.mapper.ComposeToolBarActivityMapper;
+<<<<<<< HEAD
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
+=======
+import org.apache.hupa.client.mapper.ContactPropertiesActivityMapper;
+import org.apache.hupa.client.mapper.ContactsListActivityMapper;
+>>>>>>> prepared for issue#73, established the UI layout
 import org.apache.hupa.client.mapper.FolderListActivityMapper;
 import org.apache.hupa.client.mapper.LabelListActivityMapper;
 import org.apache.hupa.client.mapper.LabelPropertiesActivityMapper;
@@ -260,6 +268,8 @@ import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.ComposeToolBarView;
 import org.apache.hupa.client.ui.ComposeView;
+import org.apache.hupa.client.ui.ContactPropertiesView;
+import org.apache.hupa.client.ui.ContactsListView;
 import org.apache.hupa.client.ui.FolderListView;
 import org.apache.hupa.client.ui.FoldersTreeViewModel;
 import org.apache.hupa.client.ui.HupaLayout;
@@ -377,6 +387,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(LabelPropertiesActivity.Displayable.class).to(LabelPropertiesView.class).in(Singleton.class);
 		bind(ContactsListActivity.Displayable.class).to(ContactsListView.class).in(Singleton.class);
 		bind(ContactPropertiesActivity.Displayable.class).to(ContactPropertiesView.class).in(Singleton.class);
+<<<<<<< HEAD
 =======
 		bind(ComposeActivity.Displayable.class).to(ComposeView.class).in(Singleton.class);
 <<<<<<< HEAD
@@ -395,6 +406,8 @@ public class AppGinModule extends AbstractGinModule {
 =======
 		bind(LabelPropertiesActivity.Displayable.class).to(LabelPropertiesView.class).in(Singleton.class);
 >>>>>>> add rename RF to label setting feature
+=======
+>>>>>>> prepared for issue#73, established the UI layout
 
 		bind(LoginActivity.class).in(Singleton.class);
 		bind(TopBarActivity.class).in(Singleton.class);
@@ -713,6 +726,20 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
 
+	
+	@Provides
+	@Singleton
+	@Named("ContactsListRegion")
+	public ActivityManager getContactsListActivityMapper(ContactsListActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+	
+	@Provides
+	@Singleton
+	@Named("ContactPropertiesRegion")
+	public ActivityManager getContactPropertiesActivityMapper(ContactPropertiesActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
 	
 	@Provides
 	@Singleton

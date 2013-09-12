@@ -261,7 +261,8 @@ public class HupaLayout implements HupaLayoutable {
 	 */
 	public static final int LAYOUT_MESSAGE = 0x01;
 	public static final int LAYOUT_COMPOSE = 0x02;
-	public static final int LAYOUT_SETTING = 0x04;
+	public static final int LAYOUT_CONTACT = 0x04;
+	public static final int LAYOUT_SETTING = 0x08;
 
 	@UiField SimplePanel topBarContainer;
 	@UiField SimplePanel logoContainer;
@@ -274,6 +275,7 @@ public class HupaLayout implements HupaLayoutable {
 	@UiField _CenterPanel centerPanel;
 	@UiField _CenterComposePanel composePanel;
 	@UiField _CenterSettingPanel settingPanel;
+	@UiField _CenterContactPanel contactPanel;
 
 	private LayoutPanel hupaMainPanel;
 
@@ -386,6 +388,7 @@ public class HupaLayout implements HupaLayoutable {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Override
 	public AcceptsOneWidget getComposeHeader() {
 		return centerPanel.getComposeHeader();
@@ -441,11 +444,29 @@ public interface HupaLayout {
 >>>>>>> toggle to display/hide the tool bar view to adjust the compose and message panel
 =======
 =======
+=======
+	@Override
+	public AcceptsOneWidget getContactsListView() {
+		return contactPanel.getContactListView();
+	}
+
+	@Override
+	public AcceptsOneWidget getContactPropertiesView() {
+		return contactPanel.getContactPropertiesView();
+	}
+
+>>>>>>> prepared for issue#73, established the UI layout
 	private void arrangeLayout(int lyt) {
 		toolPanel.toggleTo(lyt);
 		showOrHideMessage(lyt);
 		showOrHideCompose(lyt);
 		showOrHideSetting(lyt);
+		showOrHideContact(lyt);
+	}
+
+	private void showOrHideContact(int lyt) {
+		mainBox.setWidgetLeftWidth(contactPanel, 0, Unit.PCT, (lyt & LAYOUT_CONTACT) / LAYOUT_CONTACT * 100, Unit.PCT);
+		mainBox.setWidgetTopHeight(contactPanel, 0, Unit.PCT, (lyt & LAYOUT_CONTACT) / LAYOUT_CONTACT * 100, Unit.PCT);
 	}
 
 	private void showOrHideSetting(int lyt) {

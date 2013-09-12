@@ -44,6 +44,7 @@ import org.apache.hupa.client.place.ComposePlace;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.HupaPlace;
@@ -87,6 +88,9 @@ import org.apache.hupa.client.place.MailFolderPlace;
 >>>>>>> prepare to make composeView's reload work
 =======
 =======
+=======
+import org.apache.hupa.client.place.ContactPlace;
+>>>>>>> prepared for issue#73, established the UI layout
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.HupaPlace;
 >>>>>>> change place management and make refresh folder and message list more gentle
@@ -364,7 +368,9 @@ public class HupaController {
 				//FIXME when gmail mode
 				this.placeController.goTo(new FolderPlace("INBOX"));
 			}
-		} else if (place instanceof SettingPlace) {
+		} else if (place instanceof ContactPlace) {
+			hupaLayout.switchTo(HupaLayout.LAYOUT_CONTACT);
+		}  else if (place instanceof SettingPlace) {
 			hupaLayout.switchTo(HupaLayout.LAYOUT_SETTING);
 		} else if(place instanceof HupaPlace){
 			hupaLayout.switchTo(HupaLayout.LAYOUT_MESSAGE);

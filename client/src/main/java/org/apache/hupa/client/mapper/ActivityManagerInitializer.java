@@ -35,8 +35,10 @@ public class ActivityManagerInitializer {
 	@Inject
 	public ActivityManagerInitializer(LoginLayoutable loginLayout, HupaLayoutable hupaLayout,
 
-	@Named("LabelListRegion") ActivityManager labelListActivityManager,
-	@Named("LabelPropertiesRegion") ActivityManager labelPropertiesActivityManager,
+	@Named("ContactsListRegion") ActivityManager contactsListActivityManager,
+			@Named("ContactPropertiesRegion") ActivityManager contactPropertiesActivityManager,
+			@Named("LabelListRegion") ActivityManager labelListActivityManager,
+			@Named("LabelPropertiesRegion") ActivityManager labelPropertiesActivityManager,
 			@Named("LoginPage") ActivityManager loginActivityManager,
 			@Named("TopBarRegion") ActivityManager topBarActivityManager,
 			@Named("LogoRegion") ActivityManager logoActivityManager,
@@ -48,9 +50,10 @@ public class ActivityManagerInitializer {
 			@Named("MessageListFooterRegion") ActivityManager messageListFooterActivityManager,
 			@Named("MessageContentRegion") ActivityManager messageContentActivityManager,
 			@Named("StatusRegion") ActivityManager statusActivityManager,
-			@Named("ComposeToolBarRegion") ActivityManager composeToolBarActivityManager
-			,@Named("ComposeRegion") ActivityManager composeActivityManager
-			) {
+			@Named("ComposeToolBarRegion") ActivityManager composeToolBarActivityManager,
+			@Named("ComposeRegion") ActivityManager composeActivityManager) {
+		contactsListActivityManager.setDisplay(hupaLayout.getContactsListView());
+		contactPropertiesActivityManager.setDisplay(hupaLayout.getContactPropertiesView());
 		labelPropertiesActivityManager.setDisplay(hupaLayout.getLabelPropertiesView());
 		labelListActivityManager.setDisplay(hupaLayout.getLabelListView());
 		loginActivityManager.setDisplay(loginLayout.getLoginView());

@@ -79,11 +79,17 @@
 			background-position: 0 -48px;
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
         .navigation .contactInnerSelected {
             background-position: 0 -72px;
         }
 =======
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+        .navigation .contactInnerSelected {
+            background-position: 0 -72px;
+        }
+>>>>>>> prepared for issue#73, established the UI layout
 		
 		.navigation a.contact:hover span.inner,.navigation a.contact.selected span.inner
 			{
@@ -146,6 +152,7 @@
 		</g:west>
 		<g:center>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<g:SimplePanel ui:field="contactOuter" addStyleNames="{style.navigation}">
 				<g:Anchor  ui:field="contact"
 =======
@@ -154,6 +161,9 @@
 				<g:Anchor
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
+=======
+			<g:SimplePanel ui:field="contactOuter" addStyleNames="{style.navigation}">
+>>>>>>> prepared for issue#73, established the UI layout
 				<g:Anchor  ui:field="contact"
 >>>>>>> make navigation styles shufflling be working as expected
 					addStyleNames="

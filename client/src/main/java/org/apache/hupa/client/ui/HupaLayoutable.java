@@ -163,5 +163,12 @@ public interface HupaLayoutable extends Layoutable {
 	AcceptsOneWidget getLabelPropertiesView();
 
 	void switchTo(int layout);
+<<<<<<< HEAD
 >>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
+=======
+
+	AcceptsOneWidget getContactPropertiesView();
+
+	AcceptsOneWidget getContactsListView();
+>>>>>>> prepared for issue#73, established the UI layout
 }

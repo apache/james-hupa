@@ -24,6 +24,9 @@ package org.apache.hupa.client.ui;
 import org.apache.hupa.client.activity.NavigationActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> prepared for issue#73, established the UI layout
 import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.FolderPlace;
 =======
@@ -74,7 +77,11 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 	@UiField SimplePanel contactOuter;
 =======
 	@UiField Anchor contact;
+<<<<<<< HEAD
 >>>>>>> make navigation styles shufflling be working as expected
+=======
+	@UiField SimplePanel contactOuter;
+>>>>>>> prepared for issue#73, established the UI layout
 	@UiField SimplePanel mailOuter;
 	@UiField SimplePanel settingOuter;
 	
@@ -85,6 +92,7 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 		String selected();
 		String settingsInnerSelected();
 		String mailInnerSelected();
+<<<<<<< HEAD
 <<<<<<< HEAD
 		String contactInnerSelected();
 	}
@@ -107,6 +115,9 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 =======
 >>>>>>> try to make switch to setting work
 =======
+=======
+		String contactInnerSelected();
+>>>>>>> prepared for issue#73, established the UI layout
 	}
 >>>>>>> make navigation styles shufflling be working as expected
 
@@ -170,22 +181,49 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 	@UiHandler("mail")
 	public void onMailClick(ClickEvent e){
 		mailOuter.addStyleName(style.selected());
-		settingOuter.removeStyleName(style.selected());
 		mail.addStyleName(style.mailInnerSelected());
+		
+		settingOuter.removeStyleName(style.selected());
 		setting.removeStyleName(style.settingsInnerSelected());
+		
+		contactOuter.removeStyleName(style.selected());
+		contact.removeStyleName(style.contactInnerSelected());
 		//FIXME need the default one
-		placeController.goTo(new FolderPlace("Mock-Inbox"));
+		placeController.goTo(new FolderPlace("INBOX"));
 	}
+	
+	
 	
 	@UiHandler("setting")
 	public void onSettingClick(ClickEvent e){
 		mailOuter.removeStyleName(style.selected());
-		settingOuter.addStyleName(style.selected());
 		mail.removeStyleName(style.mailInnerSelected());
+		contactOuter.removeStyleName(style.selected());
+		contact.removeStyleName(style.contactInnerSelected());
+		
+		settingOuter.addStyleName(style.selected());
 		setting.addStyleName(style.settingsInnerSelected());
 		placeController.goTo(new SettingPlace("folders"));
 	}
+<<<<<<< HEAD
 >>>>>>> try to make switch to setting work
+=======
+	
+
+	@UiHandler("contact")
+	public void onContactClick(ClickEvent e){
+		mailOuter.removeStyleName(style.selected());
+		mail.removeStyleName(style.mailInnerSelected());
+		contactOuter.addStyleName(style.selected());
+		contact.addStyleName(style.contactInnerSelected());
+		
+		settingOuter.removeStyleName(style.selected());
+		setting.removeStyleName(style.settingsInnerSelected());
+		placeController.goTo(new ContactPlace("contacts"));
+	}
+	
+	
+>>>>>>> prepared for issue#73, established the UI layout
 
 	interface NavigationUiBinder extends UiBinder<DockLayoutPanel, NavigationView> {
 	}
