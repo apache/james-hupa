@@ -32,7 +32,11 @@ import org.apache.hupa.client.place.FolderPlace;
 =======
 =======
 import org.apache.hupa.client.HupaController;
+<<<<<<< HEAD
 >>>>>>> fixed issue#61; add loading to mark, unmark.
+=======
+import org.apache.hupa.client.place.ComposePlace;
+>>>>>>> scrub code
 import org.apache.hupa.client.place.MailFolderPlace;
 >>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
 import org.apache.hupa.client.rf.SetFlagRequest;
@@ -220,6 +224,7 @@ public class ToolBarActivity extends AppBaseActivity {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
 	private void bindTo(EventBus eventBus) {
+
 		registerHandler(display.getMark().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				Widget source = (Widget) event.getSource();

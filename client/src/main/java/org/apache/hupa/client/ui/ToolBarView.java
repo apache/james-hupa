@@ -475,10 +475,10 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	}
 
 	@UiHandler("compose")
-	void handleClick(ClickEvent e) {
+	void handleCompose(ClickEvent e){
 		placeController.goTo(new ComposePlace("new").with(parameters));
 	}
-
+	
 	@UiHandler("reply")
 	void handleReplyClick(ClickEvent e) {
 		placeController.goTo(new ComposePlace("reply").with(parameters));
@@ -633,6 +633,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Override
 	public HasClickHandlers getRefresh() {
 		return refresh;
@@ -647,4 +648,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 >>>>>>> dynamical style tool bar
 =======
 >>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
+=======
+
+>>>>>>> scrub code
 }
