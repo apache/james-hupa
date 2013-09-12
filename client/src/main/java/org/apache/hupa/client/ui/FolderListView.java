@@ -22,6 +22,7 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -214,6 +215,8 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 import java.util.logging.Logger;
 
 >>>>>>> add a logger to folder list view for logging the switching activity
+=======
+>>>>>>> scrub code
 import org.apache.hupa.client.activity.FolderListActivity;
 import org.apache.hupa.client.place.ComposePlace;
 
@@ -235,7 +238,8 @@ public class FolderListView extends Composite implements
 		FolderListActivity.Displayable {
 	@UiField SimplePanel thisView;
 	private CellTree cellTree;
-	// FIXME here we can not support another cell tree, since both of their style
+	// FIXME here we can not support another cell tree, since both of their
+	// style
 	// would not be cleared.
 	private HTMLPanel contactPanel;
 

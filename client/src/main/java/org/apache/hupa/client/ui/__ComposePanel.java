@@ -90,7 +90,6 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -215,38 +214,6 @@ public class __ComposePanel extends Composite {
 		TextBox t = new TextBox();
 		t.setWidth("100%");
 		return t;
-	}
-
-	/**
-	 * Add a row to the flex table.
-	 */
-	private void addRow(FlexTable flexTable) {
-		int numRows = flexTable.getRowCount();
-		ListBox lb = new ListBox();
-		lb.addItem("foo");
-		lb.addItem("bar");
-		Button addRowButton = new Button("cwFlexTableAddRow");
-		Button removeRowButton = new Button("cwFlexTableRemoveRow");
-		HorizontalPanel buttonPanel = new HorizontalPanel();
-		buttonPanel.add(new Anchor("logo"));
-		buttonPanel.add(lb);
-		buttonPanel.add(addRowButton);
-		buttonPanel.add(removeRowButton);
-
-		flexTable.setWidget(numRows, 0, buttonPanel);
-		flexTable.setWidget(numRows, 1, new TextBox());
-		// flexTable.getFlexCellFormatter().setRowSpan(0, 1, numRows + 1);
-	}
-
-	/**
-	 * Remove a row from the flex table.
-	 */
-	private void removeRow(FlexTable flexTable) {
-		int numRows = flexTable.getRowCount();
-		if (numRows > 1) {
-			flexTable.removeRow(numRows - 1);
-			flexTable.getFlexCellFormatter().setRowSpan(0, 1, numRows - 1);
-		}
 	}
 
 	interface __ComposePanelUiBinder extends

@@ -19,8 +19,6 @@
 
 package org.apache.hupa.client.ui;
 
-import org.apache.hupa.client.activity.StatusActivity;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -35,8 +33,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class __ContentPanel extends Composite implements
-		StatusActivity.Displayable {
+public class __ContentPanel extends Composite{
 	@UiField SplitLayoutPanel thisPanel;
 	@UiField DockLayoutPanel messageListBox;
 	@UiField SimpleLayoutPanel messageListContainer;
