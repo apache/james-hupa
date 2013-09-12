@@ -130,17 +130,19 @@
 			margin-top: 0px;
 			padding: 0px;
 			width: 100%;
-			min-width: 920px;
-			margin-top: 15px;
-		}
-		
-		* html div.Hupa {
+			min-width: 800px;
 			margin-top: 15px;
 		}
 		
 		.northPanel {
-			padding-left: 80px;
-			padding-right: 8px;
+			clear: both;
+			border: 1px solid #7FAAFF;
+			box-shadow: 0 1px 4px grey;
+			border-radius: 5px;
+			background: literal("-moz-linear-gradient(#eaeaea, #fafafa)");
+			background: literal("-webkit-linear-gradient(#eaeaea, #fafafa)");
+			background: literal("-o-linear-gradient(#eaeaea, #fafafa)");
+			margin: 0px 8px 8px 8px;
 		}
 		
 		.topView {
@@ -154,17 +156,22 @@
 >>>>>>> use DockLayoutPanel as the App Layout
 			background: literal("-webkit-linear-gradient(#FFFFFF, #C5D9FF)");
 			background: literal("-o-linear-gradient(#FFFFFF, #C5D9FF)");
+<<<<<<< HEAD
 =======
 			background: -moz-linear-gradient(#FFFFFF, #C5D9FF);
 			background: -webkit-linear-gradient(#FFFFFF, #C5D9FF);
 			background: -o-linear-gradient(#FFFFFF, #C5D9FF);
 >>>>>>> decorate the theme
+=======
+			width : 98%
+>>>>>>> make it look more beautiful
 		}
 		
 		.hupa-logo {
 			width: 90px;
 			height: 64px;
 			float: left;
+<<<<<<< HEAD
 			background: url(images/hupa-logo-64-transparent.png) no-repeat;
 		}
 		
@@ -181,6 +188,9 @@
 			background: -webkit-linear-gradient(#eaeaea, #fafafa);
 			background: -o-linear-gradient(#eaeaea, #fafafa);
 >>>>>>> decorate the theme
+=======
+			background: url(hupa-logo-64-transparent.png) no-repeat;
+>>>>>>> make it look more beautiful
 		}
 		
 		.westPanel {
@@ -202,6 +212,7 @@
 		}
 		
 		.centerPanel {
+			clear: both;
 			border: 1px solid #7FAAFF;
 			box-shadow: 0 1px 4px grey;
 			border-radius: 5px;
@@ -210,6 +221,7 @@
 			background: literal("-moz-linear-gradient(#eaeaea, #fafafa)");
 			background: literal("-webkit-linear-gradient(#eaeaea, #fafafa)");
 			background: literal("-o-linear-gradient(#eaeaea, #fafafa)");
+<<<<<<< HEAD
 =======
 			background: -moz-linear-gradient(#eaeaea, #fafafa);
 			background: -webkit-linear-gradient(#eaeaea, #fafafa);
@@ -218,6 +230,10 @@
 			clear: both;
 			margin: 8px 8px 8px 8px;
 			min-height: 500px;
+=======
+			margin: 0px 8px 8px 8px;
+			min-height: 400px;
+>>>>>>> make it look more beautiful
 		}
 	</ui:style>
 <<<<<<< HEAD
@@ -254,7 +270,10 @@
 =======
 	<g:DockLayoutPanel unit='EM' addStyleNames="{style.Hupa}">
 		<g:north size='8'>
-			<g:SimplePanel ui:field="northPanel" addStyleNames="{style.northPanel}"/>
+			<g:HorizontalPanel ui:field="northPanel" addStyleNames="{style.northPanel}">
+				<g:SimplePanel ui:field="logoContainer"/>
+				<g:SimplePanel ui:field="topContainer" />
+			</g:HorizontalPanel>
 		</g:north>
 		<g:south size='2'>
 			<g:SimplePanel ui:field="southPanel" />

@@ -43,6 +43,7 @@
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+<<<<<<< HEAD
 	<ui:style>
 		.round-corner-panel {
 			border: 1px solid #7FAAFF;
@@ -65,5 +66,8 @@
 =======
 	<g:FlowPanel ui:field="topWrapper" addStyleNames="{style.round-corner-panel}">
 >>>>>>> introduce the top activity
+=======
+	<g:FlowPanel ui:field="topWrapper">
+>>>>>>> make it look more beautiful
 	</g:FlowPanel>
 </ui:UiBinder>

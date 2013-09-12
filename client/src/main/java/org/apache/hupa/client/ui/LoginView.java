@@ -240,7 +240,7 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 		submitButton.getElement().setClassName(resetButton.getElement().getClassName());
 		loading = new Loading(constants.loading());
 
-//		mainContainer.setStyleName(HupaCSS.C_login_container);
+		mainContainer.setStyleName(HupaCSS.C_login_container);
 		flexTable.addStyleName(HupaCSS.C_login_form);
 		usernameTextBox.addStyleName(HupaCSS.C_login_box);
 		passwordTextBox.addStyleName(HupaCSS.C_login_box);
@@ -257,7 +257,7 @@ public class LoginView extends Composite implements KeyUpHandler, LoginActivity.
 
 		rPanel.add(formPanel);
 		formPanel.add(flexTable);
-		mainContainer.add(rPanel);
+		mainContainer.add(formPanel);
 		mainContainer.add(loading);
 <<<<<<< HEAD
 		initWidget(mainContainer);

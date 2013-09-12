@@ -26,6 +26,7 @@
 package org.apache.hupa.client.ui;
 
 import org.apache.hupa.client.HupaCSS;
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
@@ -42,6 +43,9 @@ import static com.google.gwt.dom.client.Style.Unit.PCT;
 
 =======
 >>>>>>> use DockLayoutPanel as the App Layout
+=======
+
+>>>>>>> make it look more beautiful
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -52,6 +56,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.HTMLPanel;
 =======
 >>>>>>> Change to new mvp framework - first step
@@ -66,6 +71,9 @@ import com.google.gwt.user.client.ui.FlowPanel;
 =======
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 >>>>>>> use DockLayoutPanel as the App Layout
+=======
+import com.google.gwt.user.client.ui.HorizontalPanel;
+>>>>>>> make it look more beautiful
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -111,6 +119,7 @@ public class AppLayoutImpl implements AppLayout {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@UiField LayoutPanel northPanel;
 	@UiField HTMLPanel southPanel;
 	@UiField SimplePanel westPanel;
@@ -139,10 +148,15 @@ public class AppLayoutImpl implements AppLayout {
 	@UiField SimplePanel southPanel;
 >>>>>>> use DockLayoutPanel as the App Layout
 
+=======
+	@UiField HorizontalPanel northPanel;
+	@UiField SimplePanel southPanel;
+>>>>>>> make it look more beautiful
 	@UiField SimplePanel westPanel;
 	@UiField SimplePanel eastPanel;
-
 	@UiField LayoutPanel centerPanel;
+	@UiField SimplePanel logoContainer;
+	@UiField SimplePanel topContainer;
 
 	@Inject
 	public AppLayoutImpl() {
@@ -154,7 +168,11 @@ public class AppLayoutImpl implements AppLayout {
 >>>>>>> decorate the theme
 =======
 		appLayoutPanel = binder.createAndBindUi(this);
+<<<<<<< HEAD
 >>>>>>> use DataGrid instead of CellTable to list messages.
+=======
+		logoContainer.addStyleName(HupaCSS.C_logo_container);
+>>>>>>> make it look more beautiful
 		setLoginLayout();
 	}
 
@@ -208,7 +226,9 @@ public class AppLayoutImpl implements AppLayout {
 			@Override
 			public void setWidget(IsWidget w) {
 				Widget widget = Widget.asWidgetOrNull(w);
-				northPanel.setWidget(widget);
+				if(widget != null){
+					topContainer.add(widget);
+				}
 			}
 		};
 	}
