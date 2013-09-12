@@ -22,6 +22,7 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.place.ComposePlace;
 <<<<<<< HEAD
@@ -35,13 +36,17 @@ import org.apache.hupa.shared.events.DeleteClickEvent;
 =======
 import java.util.ArrayList;
 
+=======
+>>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.place.ComposePlace;
-import org.apache.hupa.client.rf.DeleteMessageByUidRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
 import org.apache.hupa.shared.domain.DeleteMessageResult;
 >>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
+=======
+>>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
@@ -375,12 +380,11 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.google.web.bindery.requestfactory.shared.Receiver;
 
 public class ToolBarView extends Composite implements ToolBarActivity.Displayable {
 
-	@Inject PlaceController placeController;
-	@Inject protected HupaRequestFactory requestFactory;
+	@Inject private PlaceController placeController;
+	@Inject private HupaRequestFactory requestFactory;
 
 	@UiField Anchor refresh;
 	@UiField Anchor compose;
@@ -487,27 +491,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		placeController.goTo(new ComposePlace("forward").with(parameters));
 	}
 
-	@UiHandler("delete")
-	void handleDeleteClick(ClickEvent e) {
-		if (null == parameters)
-			return;
-		ArrayList<Long> uidList = new ArrayList<Long>();
-		uidList.add(parameters.getOldmessage().getUid());
-		DeleteMessageByUidRequest req = requestFactory.deleteMessageByUidRequest();
-		DeleteMessageByUidAction action = req.create(DeleteMessageByUidAction.class);
-		ImapFolder f = req.create(ImapFolder.class);
-		f.setFullName(parameters.getFolder().getFullName());
-		action.setMessageUids(uidList);
-		action.setFolder(f);
-		req.delete(action).fire(new Receiver<DeleteMessageResult>() {
-			@Override
-			public void onSuccess(DeleteMessageResult response) {
-				// TODO how to refresh the message list
-				placeController.goTo(placeController.getWhere());
-			}
-		});
-	}
-
 	public ToolBarView() {
 		initWidget(binder.createAndBindUi(this));
 <<<<<<< HEAD
@@ -583,6 +566,11 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	@Override
 	public PopupPanel getPopup() {
 		return simplePopup;
+	}
+
+	@Override
+	public HasClickHandlers getDelete() {
+		return delete;
 	}
 
 	@Override

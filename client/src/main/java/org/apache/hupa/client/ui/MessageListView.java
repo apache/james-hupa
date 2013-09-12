@@ -23,6 +23,7 @@ package org.apache.hupa.client.ui;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 <<<<<<< HEAD
@@ -76,6 +77,12 @@ import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 =======
+=======
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+>>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
 import org.apache.hupa.client.activity.MessageListActivity;
 >>>>>>> scrub code
 import org.apache.hupa.client.rf.HupaRequestFactory;
@@ -89,12 +96,12 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.inject.Inject;
 
 public class MessageListView extends Composite implements MessageListActivity.Displayable {
 
 	@UiField(provided = true) MessagesCellTable grid;
-	
 
 	@Inject
 	public MessageListView(final EventBus eventBus, final HupaRequestFactory requestFactory,
@@ -102,6 +109,7 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 		grid = table;
 		initWidget(binder.createAndBindUi(this));
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 	public void fetch(final int start) {
@@ -161,12 +169,16 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 =======
 =======
 >>>>>>> let messages list activity make use of mvp
+=======
+
+>>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
 	interface MessageListUiBinder extends UiBinder<DataGrid<Message>, MessageListView> {
 >>>>>>> coping with reply and forward sending message
 	}
 
 	private static MessageListUiBinder binder = GWT.create(MessageListUiBinder.class);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -217,14 +229,43 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 =======
 
 >>>>>>> let messages list activity make use of mvp
+=======
+>>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
 	@Override
 	public MessagesCellTable getGrid() {
 		return grid;
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> prepare for place management and history controller
 =======
+=======
+	@Override
+	public List<Long> getSelectedMessagesIds() {
+		List<Long> selecteds = new ArrayList<Long>();
+		MultiSelectionModel<? super Message> selectionModel = (MultiSelectionModel<? super Message>) grid
+				.getSelectionModel();
+		selectionModel.getSelectedSet();
+		for (Message msg : getSelectedMessages()) {
+			selecteds.add(msg.getUid());
+		}
+		return selecteds;
+	}
+
+	@Override
+	public void refresh() {
+		grid.refresh();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Set<Message> getSelectedMessages() {
+		MultiSelectionModel<? super Message> selectionModel = (MultiSelectionModel<? super Message>) grid
+				.getSelectionModel();
+		return (Set<Message>) selectionModel.getSelectedSet();
+	}
+>>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
 
 >>>>>>> let messages list activity make use of mvp
 }

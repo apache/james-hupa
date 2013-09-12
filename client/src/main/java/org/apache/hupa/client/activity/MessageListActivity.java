@@ -23,6 +23,7 @@ package org.apache.hupa.client.activity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -252,10 +253,15 @@ import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 import org.apache.hupa.client.place.MailFolderPlace;
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 =======
+=======
+import java.util.Collection;
+>>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
 import java.util.List;
+import java.util.Set;
 
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.place.MailFolderPlace;
+import org.apache.hupa.client.rf.DeleteMessageByUidRequest;
 import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
@@ -263,6 +269,8 @@ import org.apache.hupa.client.ui.MessagesCellTable;
 >>>>>>> let messages list activity make use of mvp
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.data.ImapFolderImpl;
+import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
+import org.apache.hupa.shared.domain.DeleteMessageResult;
 import org.apache.hupa.shared.domain.FetchMessagesAction;
 import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
@@ -305,11 +313,7 @@ public class MessageListActivity extends AppBaseActivity {
 			@Override
 			public void onCellPreview(final CellPreviewEvent<Message> event) {
 				if (hasClickedButFirstCol(event)) {
-					List<Message> displayedItems = display.getGrid().getVisibleItems();
-					for (Message msg : displayedItems) {
-						display.getGrid().getSelectionModel().setSelected(msg, false);
-						toolBarDisplay.enableAllTools(false);
-					}
+					antiSelectMessages(display.getGrid().getVisibleItems());
 					GetMessageDetailsRequest req = requestFactory.messageDetailsRequest();
 					GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
 					final ImapFolder f = req.create(ImapFolder.class);
@@ -424,12 +428,41 @@ public class MessageListActivity extends AppBaseActivity {
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 	public interface Displayable extends WidgetDisplayable {
 		MessagesCellTable getGrid();
+
+		List<Long> getSelectedMessagesIds();
+
+		void refresh();
+
+		Set<Message> getSelectedMessages();
 	}
 
 	public void setFolder(ImapFolder folder) {
 		this.folder = folder;
-		// if (folder != null)
-		// fetch(0);
+	}
+
+	private void antiSelectMessages(Collection<Message> c) {
+		for (Message msg : c) {
+			display.getGrid().getSelectionModel().setSelected(msg, false);
+			toolBarDisplay.enableAllTools(false);
+		}
+	}
+	public void deleteSelectedMessages() {
+		MailFolderPlace currentPlace = (MailFolderPlace) placeController.getWhere();
+		final List<Long> uids = display.getSelectedMessagesIds();
+		DeleteMessageByUidRequest req = requestFactory.deleteMessageByUidRequest();
+		DeleteMessageByUidAction action = req.create(DeleteMessageByUidAction.class);
+		ImapFolder f = req.create(ImapFolder.class);
+		f.setFullName(currentPlace.getFullName());
+		action.setMessageUids(uids);
+		action.setFolder(f);
+		req.delete(action).fire(new Receiver<DeleteMessageResult>() {
+			@Override
+			public void onSuccess(DeleteMessageResult response) {
+				fetch(0);
+				antiSelectMessages(display.getSelectedMessages());
+				display.refresh();
+			}
+		});
 	}
 >>>>>>> prepare for message content panel
 }

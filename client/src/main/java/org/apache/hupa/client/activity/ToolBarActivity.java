@@ -26,7 +26,11 @@ package org.apache.hupa.client.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
+=======
+import org.apache.hupa.client.place.MailFolderPlace;
+>>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
 import org.apache.hupa.client.rf.SetFlagRequest;
 import org.apache.hupa.client.ui.MessagesCellTable;
 import org.apache.hupa.client.ui.ToolBarView.Parameters;
@@ -169,10 +173,6 @@ import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.SetFlagAction;
-import org.apache.hupa.shared.events.LoadMessagesEvent;
-import org.apache.hupa.shared.events.LoadMessagesEventHandler;
-import org.apache.hupa.shared.events.LoginEvent;
-import org.apache.hupa.shared.events.LoginEventHandler;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -188,6 +188,9 @@ public class ToolBarActivity extends AppBaseActivity {
 
 	@Inject private Displayable display;
 	@Inject private MessagesCellTable table;
+	@Inject private MessageListActivity.Displayable messagesDisplay;
+	@Inject private MessageListActivity messageListActivity;
+	//FIXME messagesDisplay can not be injected into ToolBarView, why?
 	private String folderName;
 
 	@Override
@@ -208,17 +211,6 @@ public class ToolBarActivity extends AppBaseActivity {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
 	private void bindTo(EventBus eventBus) {
-		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
-			@Override
-			public void onLogin(LoginEvent e) {
-				display.setParameters(new Parameters(e.getUser(), null, null, null));
-			}
-		});
-		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
-			public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
-				display.enableAllTools(false);
-			}
-		});
 		registerHandler(display.getMark().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				// Reposition the popup relative to the button
@@ -242,6 +234,15 @@ public class ToolBarActivity extends AppBaseActivity {
 			public void onClick(ClickEvent event) {
 				toMarkRead(false);
 				display.getPopup().hide();
+			}
+		}));
+		registerHandler(display.getDelete().addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {		
+				if (!(placeController.getWhere() instanceof MailFolderPlace))
+					return;
+				messageListActivity.deleteSelectedMessages();
 			}
 		}));
 	}
@@ -289,6 +290,7 @@ public class ToolBarActivity extends AppBaseActivity {
 		HasClickHandlers getMarkRead();
 
 		HasClickHandlers getMark();
+		HasClickHandlers getDelete();
 
 		PopupPanel getPopup();
 	}
