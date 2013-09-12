@@ -28,11 +28,8 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.LayoutPanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 <<<<<<< HEAD
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -247,7 +244,6 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 =======
 >>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class HupaLayout implements HupaLayoutable {
@@ -257,28 +253,14 @@ public class HupaLayout implements HupaLayoutable {
 	@UiField SimplePanel logoContainer;
 	@UiField SimpleLayoutPanel navigationContainer;
 
-	@UiField SimplePanel toolBarContainer;
+	@UiField ToolPanel toolPanel;
 
-	@UiField SplitLayoutPanel messageSpace;
-	@UiField DockLayoutPanel folderArea;
-
-	@UiField SplitLayoutPanel messageArea;
-	@UiField ScrollPanel folderListContainer;
-	@UiField DockLayoutPanel messageListBox;
-	@UiField SimpleLayoutPanel messageListContainer;
-	@UiField SimplePanel messageListFooterContainer;
-	@UiField ScrollPanel messageContentContainer;
-	@UiField SimplePanel statusContainer;
-
-	@UiField HTMLPanel contactBox;
+	@UiField CenterPanel centerPanel;
 
 	private LayoutPanel hupaMainPanel;
 
 	public HupaLayout() {
 		hupaMainPanel = binder.createAndBindUi(this);
-		messageSpace.setWidgetMinSize(folderArea, 144);
-		messageArea.setWidgetHidden(contactBox, true);
-		messageArea.setWidgetMinSize(messageListBox, 130);
 	}
 
 	@Override
@@ -324,62 +306,32 @@ public class HupaLayout implements HupaLayoutable {
 
 	@Override
 	public AcceptsOneWidget getToolBarView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				toolBarContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
+		return toolPanel.getToolBarView();
 	}
 
 	@Override
 	public AcceptsOneWidget getFolderListView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				folderListContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
+		return centerPanel.getFolderListView();
 	}
 
 	@Override
 	public AcceptsOneWidget getMessageListView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				messageListContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
+		return centerPanel.getMessageListView();
 	}
 
 	@Override
 	public AcceptsOneWidget getMessageListFooterView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				messageListFooterContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
+		return centerPanel.getMessageListFooterView();
 	}
 
 	@Override
 	public AcceptsOneWidget getMessageContentView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				messageContentContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
+		return centerPanel.getMessageContentView();
 	}
 
 	@Override
 	public AcceptsOneWidget getStatusView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				statusContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
+		return centerPanel.getStatusView();
 	}
 
 <<<<<<< HEAD

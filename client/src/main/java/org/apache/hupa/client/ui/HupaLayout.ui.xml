@@ -29,6 +29,7 @@
 			background: linear-gradient(top, #404040 0%, #060606 100%);
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	</ui:style>
 	<g:LayoutPanel addStyleNames="{style.minWidth}">
 		<g:layer left='0' right='0' top='0' height='92px'>
@@ -123,6 +124,8 @@
 			width: auto;
 			height: auto;
 		}
+=======
+>>>>>>> split the layout panel to little ones
 	</ui:style>
 	<g:LayoutPanel addStyleNames="{style.minWidth}">
 		<g:layer left='0' right='0' top='0' height='92px'>
@@ -231,72 +234,12 @@
 		</g:layer>
 =======
 		<g:layer left='10px' right='10px' top='88px' bottom="20px">
-			<g:DockLayoutPanel ui:field="MainBox">
+			<g:DockLayoutPanel ui:field="mainBox">
 				<g:north size="40">
-					<g:DockLayoutPanel unit="PX">
-						<g:west size="550">
-							<g:SimplePanel ui:field="toolBarContainer" />
-						</g:west>
-						<g:east size="180">
-							<g:HTMLPanel>
-								Search
-								<input style='color: gray;' value='//TODO' />
-							</g:HTMLPanel>
-						</g:east>
-						<g:center>
-							<g:HTMLPanel />
-						</g:center>
-					</g:DockLayoutPanel>
+					<hupa:ToolPanel ui:field="toolPanel" />
 				</g:north>
 				<g:center>
-					<g:SplitLayoutPanel ui:field="messageSpace">
-						<g:west size="373">
-							<g:DockLayoutPanel unit="PX" ui:field="folderArea"
-								addStyleNames="{style.folderList}  {style.box}  {style.listBox}">
-								<g:center>
-									<g:ScrollPanel ui:field="folderListContainer" />
-								</g:center>
-								<g:south size="41">
-									<g:SimplePanel styleName="{style.boxFooter}">
-										<g:HTMLPanel tag="span"></g:HTMLPanel>
-									</g:SimplePanel>
-								</g:south>
-							</g:DockLayoutPanel>
-						</g:west>
-						<g:center>
-							<g:SplitLayoutPanel ui:field="messageArea">
-								<g:north size="200">
-									<g:DockLayoutPanel unit="PX" addStyleNames="{style.box}"
-										ui:field="messageListBox">
-										<g:center>
-											<g:SimpleLayoutPanel ui:field="messageListContainer" />
-										</g:center>
-										<g:south size="31">
-											<g:SimplePanel ui:field="messageListFooterContainer"
-												addStyleNames="{style.messageListFooter}" />
-										</g:south>
-									</g:DockLayoutPanel>
-								</g:north>
-								<g:west size="200">
-									<g:HTMLPanel ui:field="contactBox" addStyleNames="{style.box}">
-										Address
-									</g:HTMLPanel>
-								</g:west>
-								<g:center>
-									<g:DockLayoutPanel unit="PX" addStyleNames="{style.box}"
-										ui:field="messageContentBox">
-										<g:center>
-											<g:ScrollPanel ui:field="messageContentContainer"
-												addStyleNames="{style.messageContentWorkAround}" />
-										</g:center>
-										<g:south size="25">
-											<g:SimplePanel ui:field="statusContainer" />
-										</g:south>
-									</g:DockLayoutPanel>
-								</g:center>
-							</g:SplitLayoutPanel>
-						</g:center>
-					</g:SplitLayoutPanel>
+					<hupa:CenterPanel ui:field="centerPanel" />
 				</g:center>
 			</g:DockLayoutPanel>
 <<<<<<< HEAD

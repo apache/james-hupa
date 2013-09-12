@@ -1,0 +1,153 @@
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	you under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+	<ui:image field="buttons" src="res/buttons.png" />
+	<ui:image field="originLogo" src="res/hupa-logo-original-transparent.png" />
+	<ui:style>
+		.folderList {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			min-width: 144px;
+			bottom: 0;
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+		
+		.box {
+			border: 1px solid #A3A3A3;
+			border-radius: 4px;
+			overflow: hidden;
+			box-shadow: 0 0 2px #999;
+			-o-box-shadow: 0 0 2px #999;
+			-webkit-box-shadow: 0 0 2px #999;
+			-moz-box-shadow: 0 0 2px #999;
+			background: white;
+		}
+		
+		.listBox {
+			background: #D9ECF4;
+			overflow: hidden;
+		}
+		
+		.box .boxFooter {
+			border-radius: 0 0 4px 4px;
+		}
+		
+		.listBox .boxFooter {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 42px;
+			border-top: 1px solid #CCDDE4;
+			background: #D9ECF4;
+			-webkit-box-shadow: inset 0 1px 0 0 white;
+			-moz-box-shadow: inset 0 1px 0 0 #fff;
+			box-shadow: inset 0 1px 0 0 white;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		
+		.messageListFooter {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 22px;
+			padding: 4px 8px;
+			border-top: 1px solid #ddd;
+			background: #ebebeb;
+			background: -moz-linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ebebeb),
+				color-stop(100%, #c6c6c6) );
+			background: -o-linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
+			background: -ms-linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
+			background: linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
+			border-radius: 0 0 4px 4px;
+		}
+		
+		@sprite .messageContent {
+			margin: 8px;
+			gwt-image: 'originLogo';
+			background-position: center center;
+			width: auto;
+			height: auto;
+			filter: grayscale(100%);
+			-webkit-filter: grayscale(100%);
+			-moz-filter: grayscale(100%);
+			-ms-filter: grayscale(100%);
+			-o-filter: grayscale(100%);
+			opacity: 0.7;
+		}
+		
+		@sprite .messageContentWorkAround {
+			margin: 8px 0 8px 8px;
+			padding-right: 8px;
+			gwt-image: 'originLogo';
+			background-position: center center;
+			width: auto;
+			height: auto;
+		}
+	</ui:style>
+	<g:SplitLayoutPanel ui:field="centerPanel">
+		<g:west size="373">
+			<g:DockLayoutPanel unit="PX" ui:field="folderArea"
+				addStyleNames="{style.folderList}  {style.box}  {style.listBox}">
+				<g:center>
+					<g:ScrollPanel ui:field="folderListContainer" />
+				</g:center>
+				<g:south size="41">
+					<g:SimplePanel styleName="{style.boxFooter}">
+						<g:HTMLPanel tag="span"></g:HTMLPanel>
+					</g:SimplePanel>
+				</g:south>
+			</g:DockLayoutPanel>
+		</g:west>
+		<g:center>
+			<g:SplitLayoutPanel ui:field="messageArea">
+				<g:north size="200">
+					<g:DockLayoutPanel unit="PX" addStyleNames="{style.box}"
+						ui:field="messageListBox">
+						<g:center>
+							<g:SimpleLayoutPanel ui:field="messageListContainer" />
+						</g:center>
+						<g:south size="31">
+							<g:SimplePanel ui:field="messageListFooterContainer"
+								addStyleNames="{style.messageListFooter}" />
+						</g:south>
+					</g:DockLayoutPanel>
+				</g:north>
+				<g:west size="200">
+					<g:HTMLPanel ui:field="contactBox" addStyleNames="{style.box}">
+						Address
+					</g:HTMLPanel>
+				</g:west>
+				<g:center>
+					<g:DockLayoutPanel unit="PX" addStyleNames="{style.box}"
+						ui:field="messageContentBox">
+						<g:center>
+							<g:ScrollPanel ui:field="messageContentContainer"
+								addStyleNames="{style.messageContentWorkAround}" />
+						</g:center>
+						<g:south size="25">
+							<g:SimplePanel ui:field="statusContainer" />
+						</g:south>
+					</g:DockLayoutPanel>
+				</g:center>
+			</g:SplitLayoutPanel>
+		</g:center>
+	</g:SplitLayoutPanel>
+</ui:UiBinder>
