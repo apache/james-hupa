@@ -210,6 +210,7 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 =======
 =======
 import org.apache.hupa.client.activity.FolderListActivity;
+import org.apache.hupa.client.ui.res.TreeResources;
 
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
@@ -228,7 +229,7 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 
 	@Inject
 	public FolderListView(final FoldersTreeViewModel viewModel, final EventBus eventBus) {
-		CellTree.Resources res = GWT.create(CellTree.BasicResources.class);
+		CellTree.Resources res = GWT.create(TreeResources.class);
 		cellTree = new CellTree(viewModel, null, res);
 		cellTree.setAnimationEnabled(true);
 		initWidget(binder.createAndBindUi(this));

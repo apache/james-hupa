@@ -22,13 +22,21 @@ package org.apache.hupa.client.ui;
 import java.util.List;
 
 import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.ui.res.TreeResources;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 
 import com.google.gwt.cell.client.AbstractCell;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.resources.client.ClientBundle.Source;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.user.client.ui.AbstractImagePrototype;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.impl.ClippedImagePrototype;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ProvidesKey;
@@ -44,6 +52,7 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	protected User user;
 	@Inject protected HupaRequestFactory rf;
 	@Inject protected EventBus eventBus;
+	private static TreeResources images;
 
 	public FoldersTreeViewModel() {
 
@@ -58,6 +67,9 @@ public class FoldersTreeViewModel implements TreeViewModel {
 								selectionModel.getSelectedObject()));
 					}
 				});
+		if (images == null) {
+			images = GWT.create(TreeResources.class);
+		}
 	}
 
 	private final SingleSelectionModel<ImapFolder> selectionModel = new SingleSelectionModel<ImapFolder>(
@@ -72,18 +84,48 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	 * Get the {@link NodeInfo} that provides the children of the specified
 	 * value.
 	 */
+	// @Override
+	// public <T> NodeInfo<?> getNodeInfo(T value) {
+	// return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(
+	// (ImapFolder) value), new ImapFolderCell(images.listicons()) {
+	// @Override
+	// public void render(Context context, ImapFolder value,
+	// SafeHtmlBuilder sb) {
+	// if (value != null) {
+	// sb.appendEscaped(value.getName());
+	// }
+	// }
+	// }, selectionModel, null);
+	// }
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
 		return new DefaultNodeInfo<ImapFolder>(new ImapFolderListDataProvider(
-				(ImapFolder) value), new AbstractCell<ImapFolder>() {
-			@Override
-			public void render(Context context, ImapFolder value,
-					SafeHtmlBuilder sb) {
-				if (value != null) {
-					sb.appendEscaped(value.getName());
-				}
+				(ImapFolder) value), new ImapFolderCell(images.listicons()),
+				selectionModel, null);
+	}
+
+	/**
+	 * The cell used to render categories.
+	 */
+	private static class ImapFolderCell extends AbstractCell<ImapFolder> {
+		private final ImageResource image;
+
+		public ImapFolderCell(ImageResource image) {
+			this.image = image;
+		}
+
+		@Override
+		public void render(com.google.gwt.cell.client.Cell.Context context,
+				ImapFolder value, SafeHtmlBuilder sb) {
+			if (value != null) {
+				AbstractImagePrototype imagePrototype = new ClippedImagePrototype(
+						image.getSafeUri(), -6, 213, 24, 24);
+				sb.appendHtmlConstant(imagePrototype.getHTML()).appendEscaped(
+						" ");
+				sb.appendEscaped(value.getName());
 			}
-		}, selectionModel, null);
+
+		}
 	}
 
 	private class ImapFolderListDataProvider extends
@@ -95,10 +137,10 @@ public class FoldersTreeViewModel implements TreeViewModel {
 
 		ImapFolder folder;
 
-        @Override
-        public void addDataDisplay(HasData<ImapFolder> display) {
-                super.addDataDisplay(display);
-        }
+		@Override
+		public void addDataDisplay(HasData<ImapFolder> display) {
+			super.addDataDisplay(display);
+		}
 
 		@Override
 		protected void onRangeChanged(HasData<ImapFolder> display) {
@@ -106,13 +148,14 @@ public class FoldersTreeViewModel implements TreeViewModel {
 					.fire(new Receiver<List<ImapFolder>>() {
 						@Override
 						public void onSuccess(List<ImapFolder> response) {
-							System.out.println("list of folders-"+response);
+							System.out.println("list of folders-" + response);
 							if (response == null || response.size() == 0) {
 								updateRowCount(-1, true);
 							} else {
 								updateRowData(0, response);
 							}
 						}
+
 						@Override
 						public void onFailure(ServerFailure error) {
 							if (error.isFatal()) {
