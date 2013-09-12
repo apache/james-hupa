@@ -22,6 +22,7 @@ package org.apache.hupa.client.mapper;
 import org.apache.hupa.client.activity.MessageContentActivity;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.MessagePlace;
 
 import com.google.gwt.activity.shared.Activity;
@@ -30,6 +31,8 @@ import com.google.gwt.core.client.RunAsyncCallback;
 =======
 =======
 import org.apache.hupa.client.place.DefaultPlace;
+=======
+>>>>>>> scrub code
 import org.apache.hupa.client.place.MailFolderPlace;
 <<<<<<< HEAD
 >>>>>>> prepare for message content panel
@@ -85,6 +88,7 @@ public class MessageContentActivityMapper implements ActivityMapper {
 
 	public Activity getActivity(Place place) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if(place instanceof DefaultPlace)return null;
 		else if (place instanceof MailFolderPlace) return null;
 		else if (place instanceof IMAPMessagePlace) return messageContentActivityProvider.get();
@@ -94,6 +98,9 @@ public class MessageContentActivityMapper implements ActivityMapper {
 		if (place instanceof DefaultPlace)
 			return null;
 		else if (place instanceof MailFolderPlace) {
+=======
+		if (place instanceof MailFolderPlace) {
+>>>>>>> scrub code
 			return messageContentActivityProvider.get().with(
 					(MailFolderPlace) place);
 		}

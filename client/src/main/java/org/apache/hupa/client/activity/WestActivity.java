@@ -599,7 +599,7 @@ public class WestActivity extends AppBaseActivity {
 
 	public WestActivity with(MailFolderPlace place) {
 		this.currentPlace = place;
-		this.user = place.getUser();
+//		this.user = place.getUser();
 		this.folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
 		return this;
 	}

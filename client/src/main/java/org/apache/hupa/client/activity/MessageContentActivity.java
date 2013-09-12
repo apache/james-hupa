@@ -22,6 +22,7 @@ package org.apache.hupa.client.activity;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -167,6 +168,11 @@ public class MessageContentActivity extends AppBaseActivity {
 import org.apache.hupa.client.place.IMAPMessagePlace;
 >>>>>>> make message content work as expected partly
 =======
+=======
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+>>>>>>> scrub code
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
@@ -179,15 +185,20 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class MessageContentActivity extends AppBaseActivity {
 
+	private static final Logger log = Logger
+			.getLogger(MessageContentActivity.class.getName());
+
+	@Inject private Displayable display;
 	private String fullName;
 	private String uid;
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		if (uid != null && uid.matches("\\d+")) {
+		if (isUidSet()) {
 			GetMessageDetailsRequest req = requestFactory
 					.messageDetailsRequest();
 			GetMessageDetailsAction action = req
@@ -201,13 +212,22 @@ public class MessageContentActivity extends AppBaseActivity {
 				public void onSuccess(GetMessageDetailsResult response) {
 					display.fillMessageContent(response.getMessageDetails()
 							.getText());
+				}
 
+				@Override
+				public void onFailure(ServerFailure error) {
+					if (error.isFatal()) {
+						log.log(Level.SEVERE, error.getMessage());
+						// TODO write the error message to status bar.
+						// throw new RuntimeException(error.getMessage());
+					}
 				}
 			});
 		}
 		container.setWidget(display.asWidget());
 	}
 
+<<<<<<< HEAD
 	@Inject private Displayable display;
 <<<<<<< HEAD
 	
@@ -216,6 +236,11 @@ public class MessageContentActivity extends AppBaseActivity {
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 =======
 =======
+=======
+	private boolean isUidSet() {
+		return uid != null && uid.matches("\\d+");
+	}
+>>>>>>> scrub code
 
 >>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 	public interface Displayable extends WidgetDisplayable {
@@ -224,7 +249,7 @@ public class MessageContentActivity extends AppBaseActivity {
 
 	public MessageContentActivity with(MailFolderPlace place) {
 		this.fullName = place.getFullName();
-		this.uid = place.getMessageId();
+		this.uid = place.getUid();
 		return this;
 	}
 >>>>>>> make message content work as expected partly

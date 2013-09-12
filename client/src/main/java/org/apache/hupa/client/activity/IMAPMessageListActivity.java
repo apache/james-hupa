@@ -868,8 +868,9 @@ public class IMAPMessageListActivity extends AppBaseActivity {
         display.getTable().setVisibleRangeAndClearData(display.getTable().getVisibleRange(), true);
     }
 	public IMAPMessageListActivity with(MailFolderPlace place) {
-		this.user = place.getUser();
+//		this.user = place.getUser();
 //		this.folder = place.getFolder();
+<<<<<<< HEAD
 		this.searchValue = place.getSearchValue();
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1119,6 +1120,9 @@ public class IMAPMessageListActivity extends AppBaseActivity {
 >>>>>>> use CellTable to deal with MessageTableModel, even a few issues
 =======
 >>>>>>> fix the CellTable display
+=======
+//		this.searchValue = place.getSearchValue();
+>>>>>>> scrub code
 		return this;
 	}
 

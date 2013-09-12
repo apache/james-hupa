@@ -19,49 +19,53 @@
 
 package org.apache.hupa.client.place;
 
-import org.apache.hupa.shared.domain.ImapFolder;
-import org.apache.hupa.shared.domain.MessageDetails;
-import org.apache.hupa.shared.domain.User;
-
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class MailFolderPlace extends AbstractPlace {
 
-	private User user;
-	private String searchValue;
 	private String uid;
-	private MessageDetails messageDetails;
 	private String fullName;
+	private static final String DELIMITER = "/";
 
+	/**
+	 * Folder places look like: #Mock-Inbox, #INBOX,<br>
+	 * while message places: #Mock-Inbox&#47;10, #INBOX&#47;1234, #%5BGmail%5DDrafts&#47;18
+	 * 
+	 * @param token
+	 */
 	public MailFolderPlace(String token) {
-		if (token.contains("/")
-				&& token.substring(token.lastIndexOf("/") + 1).matches("\\d+")) {
-			fullName = token.substring(0, token.lastIndexOf("/"));
-			uid = token.substring(token.lastIndexOf("/") + 1);
+		if (isMessagePlace(token)) {
+			initPlace4Message(token);
 		} else {
-			fullName = token;
+			initPlace4Folder(token);
 		}
 	}
 
-	public MessageDetails getMessageDetails() {
-		return messageDetails;
+	private boolean isMessagePlace(String token) {
+		return token.contains(DELIMITER) && isEndWIthDigit(token);
 	}
 
-	public String getMessageId() {
+	private void initPlace4Folder(String token) {
+		fullName = token;
+	}
+
+	private void initPlace4Message(String token) {
+		fullName = token.substring(0, token.lastIndexOf(DELIMITER));
+		uid = token.substring(token.lastIndexOf(DELIMITER) + 1);
+	}
+
+	private boolean isEndWIthDigit(String token) {
+		return token.substring(token.lastIndexOf(DELIMITER) + 1)
+				.matches("\\d+");
+	}
+
+	public String getUid() {
 		return uid;
 	}
 
 	public String getFullName() {
 		return fullName;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public String getSearchValue() {
-		return searchValue;
 	}
 
 	// the main place use empty string such that colon'd disappear
@@ -75,19 +79,11 @@ public class MailFolderPlace extends AbstractPlace {
 
 		@Override
 		public String getToken(MailFolderPlace place) {
-			String token = place.getFullName();
-			if (place.getMessageId() != null
-					&& place.getMessageId().length() > 0) {
-				token += "/" + place.getMessageId();
+			StringBuilder token = new StringBuilder(place.getFullName());
+			if (place.getUid() != null && place.getUid().length() > 0) {
+				token.append(DELIMITER + place.getUid());
 			}
-			return token;
+			return token.toString();
 		}
-	}
-
-	public static void main(String[] args) {
-		System.out.println("123a".matches("\\d+"));
-		// String lll = "test/asdf/123";
-		// System.out.println(lll.substring(lll.lastIndexOf("/")+1));
-		// System.out.println(lll.substring(0, lll.lastIndexOf("/")));
 	}
 }
