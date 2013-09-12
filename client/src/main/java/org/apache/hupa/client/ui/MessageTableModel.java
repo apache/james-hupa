@@ -224,13 +224,13 @@ public class MessageTableModel extends MutableTableModel<Message> {
 	private User user;
 	private ImapFolder folder;
 	private String searchValue;
-	@Inject private HupaRequestFactory requestFactory;
+	private HupaRequestFactory requestFactory;
 
 	@Inject
-	public MessageTableModel(EventBus eventBus) {
+	public MessageTableModel(EventBus eventBus, HupaRequestFactory requestFactory) {
 
 		this.eventBus = eventBus;
-		// this.dispatcher = dispatcher;
+		this.requestFactory = requestFactory;
 
 		// bind some Events
 		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
@@ -284,9 +284,11 @@ public class MessageTableModel extends MutableTableModel<Message> {
 			return;
 		}
 		FetchMessagesRequest req = requestFactory.messagesRequest();
-		FetchMessagesAction action = req.create(FetchMessagesAction.class);
-		action.setFolder(folder);
+		final FetchMessagesAction action = req.create(FetchMessagesAction.class);
+		
+		// FIXME cannot put setFolder to the first place
 		action.setOffset(request.getNumRows());
+		action.setFolder(folder);
 		action.setSearchString(searchValue);
 		action.setStart(request.getStartRow());
 		req.fetch(action).fire(new Receiver<FetchMessagesResult>() {

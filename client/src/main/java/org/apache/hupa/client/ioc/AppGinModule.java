@@ -164,6 +164,7 @@ import org.apache.hupa.client.ui.IMAPMessageListView;
 import org.apache.hupa.client.ui.IMAPMessageView;
 import org.apache.hupa.client.ui.LoginView;
 import org.apache.hupa.client.ui.MessageSendView;
+import org.apache.hupa.client.ui.MessageTableModel;
 import org.apache.hupa.client.ui.TopView;
 import org.apache.hupa.client.ui.WestView;
 
@@ -383,6 +384,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(IMAPMessageActivity.Displayable.class).to(IMAPMessageView.class);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 		bind(TopActivity.Displayable.class).to(TopView.class);
@@ -395,6 +397,9 @@ public class AppGinModule extends AbstractGinModule {
 		
 		
 =======
+=======
+		bind(MessageTableModel.class).in(Singleton.class);
+>>>>>>> Can fetch messages if click the Refresh button, but a strange issue occur.
 
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 		bind(PagingScrollTableRowDragController.class).in(Singleton.class);

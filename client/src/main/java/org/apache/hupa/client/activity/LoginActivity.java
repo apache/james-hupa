@@ -426,8 +426,8 @@ public class LoginActivity extends AbstractActivity {
 		loginRequest.login(user, pass).fire(new Receiver<User>() {
 			@Override
 			public void onSuccess(User response) {
-                eventBus.fireEvent(new LoginEvent(response));
 				placeController.goTo(new MailFolderPlace().with(response));
+                eventBus.fireEvent(new LoginEvent(response));
 			}
 			@Override
 			public void onFailure(ServerFailure error){
