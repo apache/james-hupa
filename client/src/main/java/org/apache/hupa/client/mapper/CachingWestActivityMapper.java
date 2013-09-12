@@ -40,7 +40,7 @@ public class CachingWestActivityMapper implements ActivityMapper {
 			@Override
 			public Place filter(Place place) {
 				return (place instanceof DefaultPlace || place instanceof MailFolderPlace) ? place
-						: new MailFolderPlace();
+						: new MailFolderPlace("");
 			}
 		};
 

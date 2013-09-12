@@ -51,8 +51,9 @@ public class FoldersTreeViewModel implements TreeViewModel {
 	@Inject private HupaRequestFactory rf;
 	@Inject private EventBus eventBus;
 	@Inject private PlaceController placeController;
-	@Inject private Provider<MailFolderPlace> folderPlaceProvider;
-	protected User user;
+	// @Inject private Provider<MailFolderPlace> folderPlaceProvider;
+	private User user;
+	private ImapFolder currentFolder;
 
 	public FoldersTreeViewModel() {
 
@@ -63,10 +64,11 @@ public class FoldersTreeViewModel implements TreeViewModel {
 					public void onSelectionChange(SelectionChangeEvent event) {
 						SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event
 								.getSource();
+						currentFolder = selectionModel.getSelectedObject();
 						eventBus.fireEvent(new LoadMessagesEvent(user,
 								selectionModel.getSelectedObject()));
-						placeController.goTo(folderPlaceProvider.get().with(
-								selectionModel.getSelectedObject()));
+						placeController.goTo(new MailFolderPlace(selectionModel
+								.getSelectedObject().getFullName()));
 					}
 				});
 	}
@@ -97,13 +99,20 @@ public class FoldersTreeViewModel implements TreeViewModel {
 				}
 			}
 
+			// TODO is this a click event?
 			@Override
 			public void onBrowserEvent(Context context, Element parent,
 					ImapFolder value, NativeEvent event,
 					ValueUpdater<ImapFolder> valueUpdater) {
-				eventBus.fireEvent(new LoadMessagesEvent(user, value));
-				placeController.goTo(folderPlaceProvider.get().with(
-						value.getName()));
+				if (clickSameFolder(value)) {
+					eventBus.fireEvent(new LoadMessagesEvent(user, value));
+					placeController.goTo(new MailFolderPlace(value
+							.getFullName()));
+				}
+			}
+
+			private boolean clickSameFolder(ImapFolder value) {
+				return value == currentFolder;
 			}
 		}, selectionModel, null);
 	}

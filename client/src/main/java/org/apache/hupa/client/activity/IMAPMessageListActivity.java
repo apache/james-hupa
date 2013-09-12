@@ -869,7 +869,7 @@ public class IMAPMessageListActivity extends AppBaseActivity {
     }
 	public IMAPMessageListActivity with(MailFolderPlace place) {
 		this.user = place.getUser();
-		this.folder = place.getFolder();
+//		this.folder = place.getFolder();
 		this.searchValue = place.getSearchValue();
 <<<<<<< HEAD
 <<<<<<< HEAD

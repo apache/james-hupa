@@ -108,6 +108,10 @@ public class IMAPMessagePlace extends AbstractPlace {
 	public IMAPMessagePlace(String token) {
 		this.messageId = token;
 	}
+	
+	public IMAPMessagePlace(MessageDetails messageDetails){
+		this.messageDetails = messageDetails;
+	}
 
 	public Message getMessage() {
 		return message;
@@ -199,10 +203,7 @@ public class IMAPMessagePlace extends AbstractPlace {
 
 		@Override
 		public String getToken(IMAPMessagePlace place) {
-			return place.getMessageId();
-//			System.out.println(place);
-//			System.out.println(place.getMessage());
-//			return String.valueOf(place.getMessage().getUid());
+			return place.getMessageDetails().getMessageId();
 		}
 	}
 
@@ -217,6 +218,7 @@ public class IMAPMessagePlace extends AbstractPlace {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 
 =======
@@ -227,4 +229,6 @@ public class IMAPMessagePlace extends AbstractPlace {
 	}
 
 >>>>>>> prepare for message content panel
+=======
+>>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 }

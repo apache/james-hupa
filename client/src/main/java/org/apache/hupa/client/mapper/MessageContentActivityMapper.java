@@ -30,14 +30,18 @@ import com.google.gwt.core.client.RunAsyncCallback;
 =======
 =======
 import org.apache.hupa.client.place.DefaultPlace;
-import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.place.MailFolderPlace;
+<<<<<<< HEAD
 >>>>>>> prepare for message content panel
+=======
+import org.apache.hupa.client.rf.HupaRequestFactory;
+>>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 >>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -68,10 +72,14 @@ public class MessageContentActivityMapper extends _MessageActivityMapper {
 		};
 =======
 public class MessageContentActivityMapper implements ActivityMapper {
+
+	@Inject protected PlaceController placeController;
+	@Inject protected HupaRequestFactory requestFactory;
 	private final Provider<MessageContentActivity> messageContentActivityProvider;
 
 	@Inject
-	public MessageContentActivityMapper(Provider<MessageContentActivity> messageContentActivityProvider) {
+	public MessageContentActivityMapper(
+			Provider<MessageContentActivity> messageContentActivityProvider) {
 		this.messageContentActivityProvider = messageContentActivityProvider;
 	}
 
@@ -85,10 +93,9 @@ public class MessageContentActivityMapper implements ActivityMapper {
 =======
 		if (place instanceof DefaultPlace)
 			return null;
-		else if (place instanceof MailFolderPlace)
-			return null;
-		else if (place instanceof IMAPMessagePlace) {
-			return messageContentActivityProvider.get().with((IMAPMessagePlace) place);
+		else if (place instanceof MailFolderPlace) {
+			return messageContentActivityProvider.get().with(
+					(MailFolderPlace) place);
 		}
 		return null;
 >>>>>>> make message content work as expected partly

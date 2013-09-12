@@ -19,8 +19,8 @@
 
 package org.apache.hupa.client.place;
 
-import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.User;
 
 import com.google.gwt.place.shared.PlaceTokenizer;
@@ -28,74 +28,66 @@ import com.google.gwt.place.shared.Prefix;
 
 public class MailFolderPlace extends AbstractPlace {
 
-	// this can remove the colon ":"
-	private static final String PREFIX = "folder";
 	private User user;
-	private String folderName = "";
+	private String searchValue;
+	private String uid;
+	private MessageDetails messageDetails;
+	private String fullName;
 
-	public String getFolderName() {
-		return folderName;
+	public MailFolderPlace(String token) {
+		if (token.contains("/")
+				&& token.substring(token.lastIndexOf("/") + 1).matches("\\d+")) {
+			fullName = token.substring(0, token.lastIndexOf("/"));
+			uid = token.substring(token.lastIndexOf("/") + 1);
+		} else {
+			fullName = token;
+		}
 	}
 
-	/**
-	 * equality test based on Class type, to let different instance of this
-	 * Place class to be equals for CachingActivityMapper test on Place equality
-	 * 
-	 * @param otherPlace
-	 *            the place to compare with
-	 * @return true if this place and otherPlace are of the same Class type
-	 */
-	@Override
-	public boolean equals(Object otherPlace) {
-		return this == otherPlace;// || (otherPlace != null && getClass() ==
-									// otherPlace.getClass());
+	public MessageDetails getMessageDetails() {
+		return messageDetails;
 	}
 
-	@Override
-	public int hashCode() {
-		return PREFIX.hashCode();
+	public String getMessageId() {
+		return uid;
 	}
 
-	public MailFolderPlace with(String folderName) {
-		this.folderName = folderName;
-		this.folder = new ImapFolderImpl();
-		folder.setFullName(folderName);
-		return this;
-	}
-
-	public MailFolderPlace with(ImapFolder folder) {
-		this.folder = folder;
-		this.folderName = folder.getName();
-		return this;
+	public String getFullName() {
+		return fullName;
 	}
 
 	public User getUser() {
 		return user;
 	}
 
-	@Prefix(PREFIX)
+	public String getSearchValue() {
+		return searchValue;
+	}
+
+	// the main place use empty string such that colon'd disappear
+	@Prefix("")
 	public static class Tokenizer implements PlaceTokenizer<MailFolderPlace> {
 
 		@Override
 		public MailFolderPlace getPlace(String token) {
-			// TODO create place from token rather than with methods such that we can get place we want.
-			return new MailFolderPlace().with(token);
+			return new MailFolderPlace(token);
 		}
 
 		@Override
 		public String getToken(MailFolderPlace place) {
-			return place.getFolderName();
+			String token = place.getFullName();
+			if (place.getMessageId() != null
+					&& place.getMessageId().length() > 0) {
+				token += "/" + place.getMessageId();
+			}
+			return token;
 		}
 	}
 
-	private ImapFolder folder;
-	private String searchValue;
-
-	public ImapFolder getFolder() {
-		return folder;
-	}
-
-	public String getSearchValue() {
-		return searchValue;
+	public static void main(String[] args) {
+		System.out.println("123a".matches("\\d+"));
+		// String lll = "test/asdf/123";
+		// System.out.println(lll.substring(lll.lastIndexOf("/")+1));
+		// System.out.println(lll.substring(0, lll.lastIndexOf("/")));
 	}
 }
