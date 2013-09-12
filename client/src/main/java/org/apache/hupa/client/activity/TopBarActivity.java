@@ -149,7 +149,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
@@ -160,12 +162,17 @@ public class TopBarActivity extends AppBaseActivity {
 
 	@Inject private Displayable display;
 	@Inject private LoginLayoutable loginLayout;
+
+	@UiField protected HTMLPanel userLabel;
 	private User user;
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
-		bindTo(this.eventBus);
+		bindTo(eventBus);
+		if (user != null) {
+			display.getUserLabel().add(new HTML(user.getName()));
+		}
 	}
 
 <<<<<<< HEAD
@@ -181,12 +188,11 @@ public class TopBarActivity extends AppBaseActivity {
 				user = event.getUser();
 			}
 		});
-		registerHandler(display.getLogoutClick().addClickHandler(
-				new ClickHandler() {
-					public void onClick(ClickEvent event) {
-						doLogout();
-					}
-				}));
+		registerHandler(display.getLogoutClick().addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				doLogout();
+			}
+		}));
 	}
 
 	private void doLogout() {
@@ -198,16 +204,14 @@ public class TopBarActivity extends AppBaseActivity {
 					eventBus.fireEvent(new LogoutEvent(response.getUser()));
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
-					TopBarActivity.this.placeController
-							.goTo(new DefaultPlace("@"));
+					TopBarActivity.this.placeController.goTo(new DefaultPlace("@"));
 				}
 
 				@Override
 				public void onFailure(ServerFailure error) {
 					RootLayoutPanel.get().clear();
 					RootLayoutPanel.get().add(loginLayout.get());
-					TopBarActivity.this.placeController
-							.goTo(new DefaultPlace("@"));
+					TopBarActivity.this.placeController.goTo(new DefaultPlace("@"));
 				}
 			});
 		}

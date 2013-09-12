@@ -175,8 +175,6 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 		headerTable.setWidget(ROW_SUBJECT, 0, new Label("Subject"));
 
 		selectFrom = new ListBox();
-		selectFrom.addItem("echowdx@gmail.com");
-		selectFrom.addItem("bar");
 		sendButton = new Button("Send message");
 		saveButton = new Button("Save as draft");
 		cancelButton = new Button("Cancel");
@@ -275,7 +273,13 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 
 	@Override
 	public String getFromText() {
+		// TODO hardcode to the first identifier
 		return selectFrom.getItemText(0);
+	}
+	
+	@Override
+	public ListBox getFromList(){
+		return selectFrom;
 	}
 
 
