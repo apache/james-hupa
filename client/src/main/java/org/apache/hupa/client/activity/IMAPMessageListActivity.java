@@ -442,7 +442,6 @@ import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
-import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.User;
@@ -458,6 +457,7 @@ import org.apache.hupa.shared.events.MessagesReceivedEvent;
 import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.DeleteAllMessages;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
@@ -508,10 +508,14 @@ public class IMAPMessageListActivity extends AbstractActivity {
     private String searchValue;
     private User user;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
 =======
     private IMAPFolder folder;
 >>>>>>> Change to new mvp framework - first step
+=======
+    private IMAPFolderProxy folder;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
     private ShowMessageTableListener tableListener = new ShowMessageTableListener();
 
 
@@ -1037,10 +1041,14 @@ public class IMAPMessageListActivity extends AbstractActivity {
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void revealDisplay(User user, IMAPFolderProxy folder, String searchValue) {
 =======
     public void revealDisplay(User user, IMAPFolder folder, String searchValue) {
 >>>>>>> Change to new mvp framework - first step
+=======
+    public void revealDisplay(User user, IMAPFolderProxy folder, String searchValue) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.user = user;
        
         if (this.user == null 

@@ -20,20 +20,28 @@
 package org.apache.hupa.shared.rpc;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
 public class DeleteAllMessages extends DeleteMessage{
 
     private static final long serialVersionUID = -6801849429581798842L;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public DeleteAllMessages(IMAPFolderProxy folder) {
 =======
     public DeleteAllMessages(IMAPFolder folder) {
 >>>>>>> first commit
+=======
+    public DeleteAllMessages(IMAPFolderProxy folder) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         super(folder);
     }
     

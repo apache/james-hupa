@@ -38,9 +38,13 @@ import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MessagesReceivedEvent;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
@@ -59,10 +63,14 @@ public class MessageTableModel extends MutableTableModel<Message> {
     private DispatchAsync dispatcher;
     private User user;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
 =======
     private IMAPFolder folder;
 >>>>>>> first commit
+=======
+    private IMAPFolderProxy folder;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
     private String searchValue;
 
     @Inject
@@ -93,10 +101,14 @@ public class MessageTableModel extends MutableTableModel<Message> {
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
 <<<<<<< HEAD
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());
 =======
                 folder = new IMAPFolder(user.getSettings().getInboxFolderName());
 >>>>>>> first commit
+=======
+                folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
                 searchValue = null;
             }
         });

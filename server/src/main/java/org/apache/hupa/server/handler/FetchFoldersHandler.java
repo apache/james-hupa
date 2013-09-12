@@ -34,9 +34,13 @@ import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.rpc.FetchFolders;
 import org.apache.hupa.shared.rpc.FetchFoldersResult;
 
@@ -70,6 +74,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
             
             // List of mail 'root' imap folders
 <<<<<<< HEAD
+<<<<<<< HEAD
             List<IMAPFolderProxy> imapFolders = new ArrayList<IMAPFolderProxy>();
 
             // Create IMAPFolder tree list
@@ -82,6 +87,13 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
             for (Folder f : folder.list()) {
                 IMAPFolder imapFolder = createIMAPFolder(f);
 >>>>>>> first commit
+=======
+            List<IMAPFolderProxy> imapFolders = new ArrayList<IMAPFolderProxy>();
+
+            // Create IMAPFolder tree list
+            for (Folder f : folder.list()) {
+            	IMAPFolderProxy imapFolder = createIMAPFolder(f);
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
                 imapFolders.add(imapFolder);
                 walkFolders(f, imapFolder);
             }
@@ -108,6 +120,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
      * @throws MessagingException If an error occurs
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void walkFolders(Folder folder, IMAPFolderProxy imapFolder) throws ActionException, MessagingException{
         for (Folder f : folder.list()) {
         	IMAPFolderProxy iFolder = createIMAPFolder(f);
@@ -116,6 +129,11 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
         for (Folder f : folder.list()) {
             IMAPFolder iFolder = createIMAPFolder(f);
 >>>>>>> first commit
+=======
+    private void walkFolders(Folder folder, IMAPFolderProxy imapFolder) throws ActionException, MessagingException{
+        for (Folder f : folder.list()) {
+        	IMAPFolderProxy iFolder = createIMAPFolder(f);
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
             imapFolder.getChildIMAPFolders().add(iFolder);
             walkFolders(f, iFolder);
         }
@@ -137,6 +155,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
      * @throws MessagingException If an error occurs
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy createIMAPFolder(Folder folder) throws ActionException {
 
         String fullName = folder.getFullName();
@@ -149,15 +168,26 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
         String delimiter;
         IMAPFolder iFolder = null;
 >>>>>>> first commit
+=======
+    private IMAPFolderProxy createIMAPFolder(Folder folder) throws ActionException {
+
+        String fullName = folder.getFullName();
+        String delimiter;
+        IMAPFolderProxy iFolder = null;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         
         try {
             logger.debug("Creating folder: " + fullName + " for user: " + getUser());
             delimiter = String.valueOf(folder.getSeparator());
 <<<<<<< HEAD
+<<<<<<< HEAD
             iFolder = (IMAPFolderProxy)new IMAPFolder(fullName);
 =======
             iFolder = new IMAPFolder(fullName);
 >>>>>>> first commit
+=======
+            iFolder = (IMAPFolderProxy)new IMAPFolder(fullName);
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
             iFolder.setDelimiter(delimiter);
             if("[Gmail]".equals(folder.getFullName()))
                 return iFolder;

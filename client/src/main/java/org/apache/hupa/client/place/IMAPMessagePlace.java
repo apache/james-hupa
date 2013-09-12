@@ -2,14 +2,20 @@ package org.apache.hupa.client.place;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.apache.hupa.client.activity.IMAPMessageActivity;
 >>>>>>> 1. improve the inbox folder place.
+=======
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
 =======
@@ -32,8 +38,12 @@ public class IMAPMessagePlace extends Place {
 	
 	private Message message;
 	private MessageDetails messageDetails;
+<<<<<<< HEAD
 	private IMAPFolder folder;
 >>>>>>> 1. improve the inbox folder place.
+=======
+	private IMAPFolderProxy folder;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 	private User user;
 
   public Message getMessage() {
@@ -60,7 +70,7 @@ public class IMAPMessagePlace extends Place {
 >>>>>>> 
 =======
 
-	public IMAPFolder getFolder() {
+	public IMAPFolderProxy getFolder() {
 		return folder;
 	}
 
@@ -97,10 +107,14 @@ public class IMAPMessagePlace extends Place {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public IMAPMessagePlace with(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails){
 =======
 	public IMAPMessagePlace with(User user, IMAPFolder folder, Message message, MessageDetails messageDetails){
 >>>>>>> 1. improve the inbox folder place.
+=======
+	public IMAPMessagePlace with(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails){
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
       this.message = message;
       this.messageDetails = messageDetails;
       this.folder = folder;

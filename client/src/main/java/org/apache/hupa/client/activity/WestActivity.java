@@ -311,7 +311,6 @@ import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
-import org.apache.hupa.client.rf.IMAPFolderProxy;
 import org.apache.hupa.client.rf.IMAPFolderRequestContext;
 import org.apache.hupa.client.ui.WidgetContainerDisplayable;
 import org.apache.hupa.client.widgets.HasDialog;
@@ -345,6 +344,7 @@ import org.apache.hupa.shared.events.ReplyMessageEvent;
 import org.apache.hupa.shared.events.ReplyMessageEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.SentMessageEventHandler;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.GenericResult;
@@ -441,7 +441,7 @@ public class WestActivity extends AbstractActivity {
 	
     private DispatchAsync dispatcher;
     private User user;
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
     private IMAPTreeItem tItem;
     private HasEditable editableTreeItem;
     private String searchValue;
@@ -541,11 +541,15 @@ public class WestActivity extends AbstractActivity {
 			@Override
 			public void onSuccess(List<IMAPFolderProxy> response) {
 <<<<<<< HEAD
+<<<<<<< HEAD
               display.bindTreeItems(createTreeNodes(response));
 =======
 System.out.println("1111111"+response);
               display.bindTreeItems(null);
 >>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
+=======
+              display.bindTreeItems(createTreeNodes(response));
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 //              // disable
               display.getDeleteEnable().setEnabled(false);
               display.getRenameEnable().setEnabled(false);
@@ -590,6 +594,7 @@ System.out.println("1111111"+response);
      * @return
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     private List<IMAPTreeItem> createTreeNodes(List<IMAPFolderProxy> list) {
         List<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
 
@@ -600,6 +605,12 @@ System.out.println("1111111"+response);
 
         for (IMAPFolder iFolder : list) {
 >>>>>>> Change to new mvp framework - first step
+=======
+    private List<IMAPTreeItem> createTreeNodes(List<IMAPFolderProxy> list) {
+        List<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
+
+        for (IMAPFolderProxy iFolder : list) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
             final IMAPTreeItem record = new IMAPTreeItem(iFolder);
             record.addEditHandler(new EditHandler() {
@@ -625,10 +636,14 @@ System.out.println("1111111"+response);
             record.setUserObject(iFolder);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             List<IMAPFolderProxy> childFolders = iFolder.getChildIMAPFolders();
 =======
             List<IMAPFolder> childFolders = iFolder.getChildIMAPFolders();
 >>>>>>> Change to new mvp framework - first step
+=======
+            List<IMAPFolderProxy> childFolders = iFolder.getChildIMAPFolders();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
             List<IMAPTreeItem> items = createTreeNodes(childFolders);
             for (IMAPTreeItem item : items) {
                 record.addItem(item);
@@ -785,10 +800,14 @@ System.out.println("1111111"+response);
                 if (tItem.isEdit()) 
                     return;
 <<<<<<< HEAD
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy) tItem.getUserObject();
 =======
                 folder = (IMAPFolder) tItem.getUserObject();
 >>>>>>> 
+=======
+                folder = (IMAPFolderProxy) tItem.getUserObject();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
                 eventBus.fireEvent(new LoadMessagesEvent(user, folder));
             }
 
@@ -800,10 +819,14 @@ System.out.println("1111111"+response);
                 if (tItem.isEdit()) 
                     return;
 <<<<<<< HEAD
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy) tItem.getUserObject();
 =======
                 folder = (IMAPFolder) tItem.getUserObject();
 >>>>>>> 
+=======
+                folder = (IMAPFolderProxy) tItem.getUserObject();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
                 if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
                     display.getDeleteEnable().setEnabled(false);
                     display.getRenameEnable().setEnabled(false);
@@ -877,10 +900,14 @@ System.out.println("1111111"+response);
 
             public void onMessagesReceived(MessagesReceivedEvent event) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             	IMAPFolderProxy f = event.getFolder();
 =======
                 IMAPFolder f = event.getFolder();
 >>>>>>> 
+=======
+            	IMAPFolderProxy f = event.getFolder();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
                 display.updateTreeItem(f);
             }
 
@@ -890,11 +917,15 @@ System.out.println("1111111"+response);
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
 <<<<<<< HEAD
+<<<<<<< HEAD
 //                folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());;
                 searchValue = null;
 //                showMessageTable(user, folder, searchValue);
 =======
                 folder = new IMAPFolder(user.getSettings().getInboxFolderName());;
+=======
+//                folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
                 searchValue = null;
 <<<<<<< HEAD
                 showMessageTable(user, folder, searchValue);
@@ -987,7 +1018,7 @@ System.out.println("1111111"+response);
         return false;
       };
     }-*/;
-    private void showMessageTable(User user, IMAPFolder folder, String searchValue) {
+    private void showMessageTable(User user, IMAPFolderProxy folder, String searchValue) {
         this.user = user;
         this.folder = folder;
         this.searchValue = searchValue;
@@ -1036,15 +1067,20 @@ System.out.println("1111111"+response);
         public HasEnable getNewEnable();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         public void updateTreeItem(IMAPFolderProxy folder);
 =======
         public void updateTreeItem(IMAPFolder folder);
 >>>>>>> Change to new mvp framework - first step
+=======
+        public void updateTreeItem(IMAPFolderProxy folder);
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
         public void deleteSelectedFolder();
 
         public HasEditable createFolder(EditHandler handler);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
 
@@ -1054,6 +1090,11 @@ System.out.println("1111111"+response);
 
         public void decreaseUnseenMessageCount(IMAPFolder folder, int amount);
 >>>>>>> Change to new mvp framework - first step
+=======
+        public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
+
+        public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         
         public void setLoadingFolders(boolean loading);
         public void setLoadingMessage(boolean loading);

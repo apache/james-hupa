@@ -24,15 +24,20 @@ import java.io.Serializable;
 import net.customware.gwt.dispatch.shared.Action;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
 public class DeleteFolder implements Action<GenericResult> , Serializable{
 
     private static final long serialVersionUID = 7921329310932404439L;
     
+<<<<<<< HEAD
 <<<<<<< HEAD
     private IMAPFolderProxy folder;
 
@@ -42,6 +47,11 @@ public class DeleteFolder implements Action<GenericResult> , Serializable{
 
     public DeleteFolder(IMAPFolder folder) {
 >>>>>>> first commit
+=======
+    private IMAPFolderProxy folder;
+
+    public DeleteFolder(IMAPFolderProxy folder) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.folder = folder;
     }
 
@@ -49,10 +59,14 @@ public class DeleteFolder implements Action<GenericResult> , Serializable{
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public IMAPFolderProxy getFolder() {
 =======
     public IMAPFolder getFolder() {
 >>>>>>> first commit
+=======
+    public IMAPFolderProxy getFolder() {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         return folder;
     }
 }

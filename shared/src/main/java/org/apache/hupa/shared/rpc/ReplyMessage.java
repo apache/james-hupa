@@ -21,12 +21,17 @@
 package org.apache.hupa.shared.rpc;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.SMTPMessage;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.data.SMTPMessage;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
 public class ReplyMessage extends ForwardMessage {
 
@@ -34,10 +39,14 @@ public class ReplyMessage extends ForwardMessage {
 
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ReplyMessage(SMTPMessage msg, IMAPFolderProxy folder, long uid) {
 =======
     public ReplyMessage(SMTPMessage msg, IMAPFolder folder, long uid) {
 >>>>>>> first commit
+=======
+    public ReplyMessage(SMTPMessage msg, IMAPFolderProxy folder, long uid) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         super(msg, folder, uid);
     }
 

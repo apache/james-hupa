@@ -52,9 +52,13 @@ import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.event.EditHandler;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
@@ -76,12 +80,15 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.user.client.ui.Panel;
+<<<<<<< HEAD
 =======
 =======
 import com.google.gwt.user.client.ui.Panel;
 >>>>>>> constantly changed by manolo
 import com.google.gwt.user.client.ui.SimplePanel;
 >>>>>>> first commit
+=======
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -531,10 +538,14 @@ public class MainView extends Composite implements MainPresenter.Display {
         // Generate a new folder with a whitespace as name, this is needed as
         // workaround
 <<<<<<< HEAD
+<<<<<<< HEAD
         IMAPFolderProxy folder = (IMAPFolderProxy)new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
 =======
         IMAPFolder folder = new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
 >>>>>>> first commit
+=======
+        IMAPFolderProxy folder = (IMAPFolderProxy)new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         folder.setDelimiter(oldFolder.getDelimiter());
 
         final IMAPTreeItem newItem = new IMAPTreeItem(folder);
@@ -579,10 +590,14 @@ public class MainView extends Composite implements MainPresenter.Display {
      * decreaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
 =======
     public void decreaseUnseenMessageCount(IMAPFolder folder, int amount) {
 >>>>>>> first commit
+=======
+    public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -601,10 +616,14 @@ public class MainView extends Composite implements MainPresenter.Display {
      * increaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
 =======
     public void increaseUnseenMessageCount(IMAPFolder folder, int amount) {
 >>>>>>> first commit
+=======
+    public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -618,12 +637,17 @@ public class MainView extends Composite implements MainPresenter.Display {
 
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolderProxy folder) {
         if (folder.getFullName().equalsIgnoreCase(((IMAPFolderProxy) item.getUserObject()).getFullName())) {
 =======
     private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolder folder) {
         if (folder.getFullName().equalsIgnoreCase(((IMAPFolder) item.getUserObject()).getFullName())) {
 >>>>>>> first commit
+=======
+    private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolderProxy folder) {
+        if (folder.getFullName().equalsIgnoreCase(((IMAPFolderProxy) item.getUserObject()).getFullName())) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
             return item;
         }
         for (int i = 0; i < item.getChildCount(); i++) {
@@ -640,10 +664,14 @@ public class MainView extends Composite implements MainPresenter.Display {
      * @see org.apache.hupa.client.mvp.MainPresenter.Display#updateTreeItem(org.apache.hupa.shared.data.IMAPFolder)
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void updateTreeItem(IMAPFolderProxy folder) {
 =======
     public void updateTreeItem(IMAPFolder folder) {
 >>>>>>> first commit
+=======
+    public void updateTreeItem(IMAPFolderProxy folder) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);

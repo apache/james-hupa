@@ -22,6 +22,7 @@ package org.apache.hupa.shared.events;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
 =======
@@ -36,6 +37,10 @@ import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -43,6 +48,7 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 
     public final static Type<DecreaseUnseenEventHandler> TYPE = new Type<DecreaseUnseenEventHandler>();
     private User user;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -73,19 +79,27 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 =======
     private IMAPFolder folder;
+=======
+    private IMAPFolderProxy folder;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
     private int amount;
     
-    public DecreaseUnseenEvent(User user, IMAPFolder folder) {
+    public DecreaseUnseenEvent(User user, IMAPFolderProxy folder) {
         this(user, folder, 1);
     }
     
+<<<<<<< HEAD
     public DecreaseUnseenEvent(User user, IMAPFolder folder, int amount) {
 >>>>>>> first commit
+=======
+    public DecreaseUnseenEvent(User user, IMAPFolderProxy folder, int amount) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.user =user;
         this.folder = folder;
         this.amount = amount;
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -99,6 +113,9 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 =======
     public IMAPFolder getFolder() {
 >>>>>>> first commit
+=======
+    public IMAPFolderProxy getFolder() {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         return folder;
     }
     

@@ -24,19 +24,27 @@ import java.io.Serializable;
 import net.customware.gwt.dispatch.shared.Action;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
 public class FetchMessages implements Action<FetchMessagesResult>, Serializable {
     
     private static final long serialVersionUID = -3181183289937321202L;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
 =======
     private IMAPFolder folder;
 >>>>>>> first commit
+=======
+    private IMAPFolderProxy folder;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
     private int start;
     private int offset;
     private String searchString;
@@ -45,10 +53,14 @@ public class FetchMessages implements Action<FetchMessagesResult>, Serializable 
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public FetchMessages(IMAPFolderProxy folder,int start, int offset,String searchString) {
 =======
     public FetchMessages(IMAPFolder folder,int start, int offset,String searchString) {
 >>>>>>> first commit
+=======
+    public FetchMessages(IMAPFolderProxy folder,int start, int offset,String searchString) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.folder = folder;
         this.start = start;
         this.offset = offset;
@@ -56,10 +68,14 @@ public class FetchMessages implements Action<FetchMessagesResult>, Serializable 
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public IMAPFolderProxy getFolder() {
 =======
     public IMAPFolder getFolder() {
 >>>>>>> first commit
+=======
+    public IMAPFolderProxy getFolder() {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         return folder;
     }
     

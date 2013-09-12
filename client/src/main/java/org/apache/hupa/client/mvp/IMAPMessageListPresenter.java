@@ -32,12 +32,17 @@ import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.User;
 =======
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.data.User;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.events.DecreaseUnseenEvent;
 import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
@@ -52,9 +57,13 @@ import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
 import org.apache.hupa.shared.events.NewMessageEvent;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.rpc.DeleteAllMessages;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
@@ -129,10 +138,14 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
     private String searchValue;
     private User user;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
 =======
     private IMAPFolder folder;
 >>>>>>> first commit
+=======
+    private IMAPFolderProxy folder;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
     private DispatchAsync dispatcher;
     private ShowMessageTableListener tableListener = new ShowMessageTableListener();
     
@@ -425,6 +438,7 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
     }
     
     public void revealDisplay(User user, IMAPFolderProxy folder, String searchValue) {
+<<<<<<< HEAD
         this.user = user;
        
         if (this.user == null 
@@ -443,6 +457,8 @@ public class IMAPMessageListPresenter extends WidgetPresenter<IMAPMessageListPre
     }
     
     public void revealDisplay(User user, IMAPFolder folder, String searchValue) {
+=======
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.user = user;
        
 <<<<<<< HEAD

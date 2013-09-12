@@ -89,9 +89,13 @@ import org.apache.hupa.shared.events.ReplyMessageEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
 import org.apache.hupa.shared.events.SentMessageEventHandler;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.FetchFolders;
@@ -145,15 +149,20 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
         public HasEnable getNewEnable();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         public void updateTreeItem(IMAPFolderProxy folder);
 =======
         public void updateTreeItem(IMAPFolder folder);
 >>>>>>> first commit
+=======
+        public void updateTreeItem(IMAPFolderProxy folder);
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
         public void deleteSelectedFolder();
 
         public HasEditable createFolder(EditHandler handler);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
 
@@ -163,6 +172,11 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
         public void decreaseUnseenMessageCount(IMAPFolder folder, int amount);
 >>>>>>> first commit
+=======
+        public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
+
+        public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount);
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         
         public void setLoadingFolders(boolean loading);
         public void setLoadingMessage(boolean loading);
@@ -180,8 +194,12 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     private DispatchAsync dispatcher;
 >>>>>>> constantly changed by manolo
     private User user;
+<<<<<<< HEAD
     private IMAPFolder folder;
 >>>>>>> first commit
+=======
+    private IMAPFolderProxy folder;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
     private String searchValue;
     private IMAPMessageListPresenter messageListPresenter;
     private IMAPMessagePresenter messagePresenter;
@@ -243,6 +261,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
      * @return
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     private List<IMAPTreeItem> createTreeNodes(List<IMAPFolderProxy> list) {
         List<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
 
@@ -253,6 +272,12 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
         for (IMAPFolder iFolder : list) {
 >>>>>>> first commit
+=======
+    private List<IMAPTreeItem> createTreeNodes(List<IMAPFolderProxy> list) {
+        List<IMAPTreeItem> tList = new ArrayList<IMAPTreeItem>();
+
+        for (IMAPFolderProxy iFolder : list) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
             final IMAPTreeItem record = new IMAPTreeItem(iFolder);
             record.addEditHandler(new EditHandler() {
@@ -286,10 +311,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
             record.setUserObject(iFolder);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             List<IMAPFolderProxy> childFolders = iFolder.getChildIMAPFolders();
 =======
             List<IMAPFolder> childFolders = iFolder.getChildIMAPFolders();
 >>>>>>> first commit
+=======
+            List<IMAPFolderProxy> childFolders = iFolder.getChildIMAPFolders();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
             List<IMAPTreeItem> items = createTreeNodes(childFolders);
             for (IMAPTreeItem item : items) {
                 record.addItem(item);
@@ -316,10 +345,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void showMessageTable(User user, IMAPFolderProxy folder, String searchValue) {
 =======
     private void showMessageTable(User user, IMAPFolder folder, String searchValue) {
 >>>>>>> first commit
+=======
+    private void showMessageTable(User user, IMAPFolderProxy folder, String searchValue) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.user = user;
         this.folder = folder;
         this.searchValue = searchValue;
@@ -329,10 +362,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void showMessage(User user, IMAPFolderProxy folder, Message message, MessageDetails details) {
 =======
     private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {
 >>>>>>> first commit
+=======
+    private void showMessage(User user, IMAPFolderProxy folder, Message message, MessageDetails details) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         messagePresenter.revealDisplay(user, folder, message, details);
     }
 
@@ -501,10 +538,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                 if (tItem.isEdit()) 
                     return;
 <<<<<<< HEAD
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy) tItem.getUserObject();
 =======
                 folder = (IMAPFolder) tItem.getUserObject();
 >>>>>>> first commit
+=======
+                folder = (IMAPFolderProxy) tItem.getUserObject();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
                 eventBus.fireEvent(new LoadMessagesEvent(user, folder));
             }
 
@@ -517,10 +558,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                 if (tItem.isEdit()) 
                     return;
 <<<<<<< HEAD
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy) tItem.getUserObject();
 =======
                 folder = (IMAPFolder) tItem.getUserObject();
 >>>>>>> first commit
+=======
+                folder = (IMAPFolderProxy) tItem.getUserObject();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
                 if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
                     display.getDeleteEnable().setEnabled(false);
                     display.getRenameEnable().setEnabled(false);
@@ -615,10 +660,14 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 
             public void onMessagesReceived(MessagesReceivedEvent event) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             	IMAPFolderProxy f = event.getFolder();
 =======
                 IMAPFolder f = event.getFolder();
 >>>>>>> first commit
+=======
+            	IMAPFolderProxy f = event.getFolder();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
                 display.updateTreeItem(f);
             }
 
@@ -630,6 +679,7 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
                 user = event.getUser();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());;
                 searchValue = null;
                 showMessageTable(user, folder, searchValue);
@@ -639,6 +689,9 @@ public class MainPresenter extends WidgetContainerPresenter<MainPresenter.Displa
 >>>>>>> first commit
 =======
                 folder = new IMAPFolder(user.getSettings().getInboxFolderName());;
+=======
+                folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
                 searchValue = null;
                 showMessageTable(user, folder, searchValue);
 >>>>>>> constantly changed by manolo

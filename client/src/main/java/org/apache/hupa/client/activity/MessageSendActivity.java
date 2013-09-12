@@ -66,7 +66,6 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.dispatch.shared.Action;
 
 import org.apache.hupa.client.evo.HupaEvoCallback;
-import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.place.MessageSendPlace;
 <<<<<<< HEAD
 >>>>>>> 1. improve the inbox folder place.
@@ -95,6 +94,7 @@ import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.LoadMessagesEventHandler;
 import org.apache.hupa.shared.events.SentMessageEvent;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 <<<<<<< HEAD
@@ -102,6 +102,9 @@ import org.apache.hupa.widgets.ui.HasEnable;
 
 =======
 =======
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 >>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.shared.rpc.ForwardMessage;
@@ -147,10 +150,14 @@ public class MessageSendActivity extends AbstractActivity {
     private ArrayList<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
     private Type type = Type.NEW;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
 =======
     private IMAPFolder folder;
 >>>>>>> 1. improve the inbox folder place.
+=======
+    private IMAPFolderProxy folder;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
     private Message oldmessage;
     
     protected SMTPMessage message = null;
@@ -594,10 +601,14 @@ public class MessageSendActivity extends AbstractActivity {
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void revealDisplay(User user, IMAPFolderProxy folder, Message oldmessage, MessageDetails oldDetails, String mailto, Type type) {
 =======
     public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, String mailto, Type type) {
 >>>>>>> 1. improve the inbox folder place.
+=======
+    public void revealDisplay(User user, IMAPFolderProxy folder, Message oldmessage, MessageDetails oldDetails, String mailto, Type type) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.reset();
         this.oldmessage = oldmessage;
         this.oldDetails = oldDetails;
@@ -648,10 +659,14 @@ public class MessageSendActivity extends AbstractActivity {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void revealDisplay(User user, IMAPFolderProxy folder, Message oldmessage, MessageDetails oldDetails, Type type) {
 =======
     public void revealDisplay(User user, IMAPFolder folder, Message oldmessage, MessageDetails oldDetails, Type type) {
 >>>>>>> 1. improve the inbox folder place.
+=======
+    public void revealDisplay(User user, IMAPFolderProxy folder, Message oldmessage, MessageDetails oldDetails, Type type) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.revealDisplay(user, folder, oldmessage, oldDetails, null, type);
     }
 

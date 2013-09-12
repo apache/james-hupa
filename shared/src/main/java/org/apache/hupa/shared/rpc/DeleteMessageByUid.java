@@ -22,11 +22,16 @@ package org.apache.hupa.shared.rpc;
 import java.util.ArrayList;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
 public class DeleteMessageByUid extends DeleteMessage {
 
@@ -35,10 +40,14 @@ public class DeleteMessageByUid extends DeleteMessage {
     private ArrayList<Long> messageUids;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public DeleteMessageByUid(IMAPFolderProxy folder, ArrayList<Long> messageUids) {
 =======
     public DeleteMessageByUid(IMAPFolder folder, ArrayList<Long> messageUids) {
 >>>>>>> first commit
+=======
+    public DeleteMessageByUid(IMAPFolderProxy folder, ArrayList<Long> messageUids) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         super(folder);
         this.messageUids = messageUids;
     }

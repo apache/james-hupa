@@ -10,6 +10,7 @@ import org.apache.hupa.client.evo.HupaEvoCallback;
 import org.apache.hupa.client.place.IMAPMessagePlace;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.SConsts;
+<<<<<<< HEAD
 =======
 import org.apache.hupa.client.HupaEvoCallback;
 import org.apache.hupa.client.mvp.WidgetDisplayable;
@@ -21,6 +22,8 @@ import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.IMAPFolder;
 >>>>>>> 1. improve the inbox folder place.
+=======
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
@@ -30,9 +33,13 @@ import org.apache.hupa.shared.events.ForwardMessageEvent;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.ReplyMessageEvent;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 >>>>>>> 1. improve the inbox folder place.
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 
@@ -139,10 +146,14 @@ public class IMAPMessageActivity  extends AbstractActivity {
     private Message message;
     private CachingDispatchAsync dispatcher;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
 =======
     private IMAPFolder folder;
 >>>>>>> 1. improve the inbox folder place.
+=======
+    private IMAPFolderProxy folder;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
     private User user;
 	private final Displayable display;
 	private final EventBus eventBus;

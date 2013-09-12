@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import javax.mail.Flags;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import javax.mail.Flags.Flag;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -33,6 +34,12 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Flags.Flag;
 >>>>>>> first commit
+=======
+import javax.mail.Flags.Flag;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.server.ExecutionContext;
@@ -41,12 +48,17 @@ import net.customware.gwt.dispatch.shared.ActionException;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.SetFlag;
 
@@ -67,10 +79,14 @@ public class SetFlagsHandler extends AbstractSessionHandler<SetFlag, GenericResu
             ExecutionContext context) throws ActionException {
         User user = getUser();
 <<<<<<< HEAD
+<<<<<<< HEAD
         IMAPFolderProxy folder = action.getFolder();
 =======
         IMAPFolder folder = action.getFolder();
 >>>>>>> first commit
+=======
+        IMAPFolderProxy folder = action.getFolder();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         ArrayList<Long> uids = action.getUids();
         com.sun.mail.imap.IMAPFolder f = null;
         try {

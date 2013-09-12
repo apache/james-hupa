@@ -39,9 +39,13 @@ import org.apache.hupa.shared.events.ForwardMessageEvent;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.ReplyMessageEvent;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 
@@ -72,10 +76,14 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
     private Message message;
     private CachingDispatchAsync dispatcher;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
 =======
     private IMAPFolder folder;
 >>>>>>> first commit
+=======
+    private IMAPFolderProxy folder;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
     private User user;
 
     @Inject
@@ -86,10 +94,14 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void revealDisplay(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails) {
 =======
     public void revealDisplay(User user, IMAPFolder folder, Message message, MessageDetails messageDetails) {
 >>>>>>> first commit
+=======
+    public void revealDisplay(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.message = message;
         this.messageDetails = messageDetails;
         this.folder = folder;

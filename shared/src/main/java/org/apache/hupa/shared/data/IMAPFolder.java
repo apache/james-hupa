@@ -30,17 +30,21 @@ import org.apache.hupa.shared.rf.EntityBase;
 >>>>>>> first commit
 =======
 import java.util.List;
-import java.util.Properties;
 
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
 
 import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
 >>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
+=======
+import org.apache.hupa.shared.rf.EntityBase;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
 /**
  * IMAPFolder
  * 
  */
+<<<<<<< HEAD
 <<<<<<< HEAD
 public class IMAPFolder extends EntityBase implements Serializable {
 	
@@ -74,6 +78,9 @@ public class IMAPFolder implements Serializable {
     /**
 >>>>>>> first commit
 =======
+=======
+public class IMAPFolder extends EntityBase implements Serializable {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 	
 	private Long id;
 	private Long version;
@@ -104,10 +111,14 @@ public class IMAPFolder implements Serializable {
     private static final long serialVersionUID = 2084188092060266479L;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private List<IMAPFolder> childs = new ArrayList<IMAPFolder>();
 =======
     private ArrayList<IMAPFolder> childs = new ArrayList<IMAPFolder>();
 >>>>>>> first commit
+=======
+    private List<IMAPFolder> childs = new ArrayList<IMAPFolder>();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
     private String fullName;
     private String delimiter;
     private int msgCount;
@@ -151,10 +162,14 @@ public class IMAPFolder implements Serializable {
      * @param childs
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void setChildIMAPFolders(List<IMAPFolder> childs) {
 =======
     public void setChildIMAPFolders(ArrayList<IMAPFolder> childs) {
 >>>>>>> first commit
+=======
+    public void setChildIMAPFolders(List<IMAPFolder> childs) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.childs = childs;
     }
 
@@ -164,10 +179,14 @@ public class IMAPFolder implements Serializable {
      * @return childs
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     public List<IMAPFolder> getChildIMAPFolders() {
 =======
     public ArrayList<IMAPFolder> getChildIMAPFolders() {
 >>>>>>> first commit
+=======
+    public List<IMAPFolder> getChildIMAPFolders() {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         return childs;
     }
 
@@ -262,8 +281,12 @@ public class IMAPFolder implements Serializable {
         return getFullName().hashCode();
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> first commit
+=======
+
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
     
 }

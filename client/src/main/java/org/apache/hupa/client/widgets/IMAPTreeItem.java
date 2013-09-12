@@ -177,7 +177,11 @@ import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
+<<<<<<< HEAD
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.ui.EditableTreeItem;
 
@@ -186,10 +190,14 @@ public class IMAPTreeItem extends EditableTreeItem {
     protected String oldName;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public IMAPTreeItem(IMAPFolderProxy folder) {
 =======
     public IMAPTreeItem(IMAPFolder folder) {
 >>>>>>> first commit
+=======
+    public IMAPTreeItem(IMAPFolderProxy folder) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         setUserObject(folder);
         setFolderText(folder);    
     }
@@ -213,10 +221,14 @@ public class IMAPTreeItem extends EditableTreeItem {
     
     public void setUnseenMessageCount(int cound) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
 =======
         IMAPFolder folder = (IMAPFolder) getUserObject();
 >>>>>>> first commit
+=======
+    	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         int count = folder.getUnseeMessageCount();
         folder.setUnseenMessageCount(count);
         setFolderText(folder);
@@ -229,10 +241,14 @@ public class IMAPTreeItem extends EditableTreeItem {
      */
     public void descreaseUnseenMessageCount(int decreaseCount) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
 =======
         IMAPFolder folder = (IMAPFolder) getUserObject();
 >>>>>>> first commit
+=======
+    	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         int count = folder.getUnseeMessageCount();
         if (count > 0) { 
             count = count - decreaseCount;
@@ -255,10 +271,14 @@ public class IMAPTreeItem extends EditableTreeItem {
      */
     public void increaseUnseenMessageCount( int increaseCount) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
 =======
         IMAPFolder folder = (IMAPFolder) getUserObject();
 >>>>>>> first commit
+=======
+    	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         int count = folder.getUnseeMessageCount(); 
         count = count+ increaseCount;
         folder.setUnseenMessageCount(count);
@@ -266,14 +286,19 @@ public class IMAPTreeItem extends EditableTreeItem {
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void setFolderText(IMAPFolderProxy folder) {
 =======
     private void setFolderText(IMAPFolder folder) {
 >>>>>>> first commit
+=======
+    private void setFolderText(IMAPFolderProxy folder) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         setText(getFolderName(folder));
         setUnseenMessageCountStyle(folder);
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
     private void setUnseenMessageCountStyle(IMAPFolderProxy folder) {
         boolean containsUnseen = (folder.getUnseeMessageCount() > 0);
@@ -283,6 +308,11 @@ public class IMAPTreeItem extends EditableTreeItem {
         boolean containsUnseen = (folder.getUnseeMessageCount() > 0);
         for (IMAPFolder fold : folder.getChildIMAPFolders()) {
 >>>>>>> first commit
+=======
+    private void setUnseenMessageCountStyle(IMAPFolderProxy folder) {
+        boolean containsUnseen = (folder.getUnseeMessageCount() > 0);
+        for (IMAPFolderProxy fold : folder.getChildIMAPFolders()) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
             if (fold.getUnseeMessageCount() > 0) {
                 containsUnseen = true;
                 break;
@@ -302,10 +332,14 @@ public class IMAPTreeItem extends EditableTreeItem {
      * @return name
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     private String getFolderName(IMAPFolderProxy folder) {
 =======
     private String getFolderName(IMAPFolder folder) {
 >>>>>>> first commit
+=======
+    private String getFolderName(IMAPFolderProxy folder) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         if (folder.getUnseeMessageCount() > 0) {
             return folder.getName() + " ("+folder.getUnseeMessageCount()+")";
         }
@@ -314,6 +348,7 @@ public class IMAPTreeItem extends EditableTreeItem {
     
     @Override
     public void setUserObject(Object obj) {
+<<<<<<< HEAD
 <<<<<<< HEAD
         if ((obj instanceof IMAPFolderProxy) == false) {
             throw new IllegalArgumentException("UserObject needs to be an instance of IMAPFolder");
@@ -325,6 +360,12 @@ public class IMAPTreeItem extends EditableTreeItem {
         }        
         setFolderText((IMAPFolder)obj);
 >>>>>>> first commit
+=======
+        if ((obj instanceof IMAPFolderProxy) == false) {
+            throw new IllegalArgumentException("UserObject needs to be an instance of IMAPFolder");
+        }        
+        setFolderText((IMAPFolderProxy)obj);
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
         super.setUserObject(obj);
     }
@@ -332,10 +373,14 @@ public class IMAPTreeItem extends EditableTreeItem {
     @Override
     public void startEdit() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
 =======
         IMAPFolder folder = (IMAPFolder) getUserObject();
 >>>>>>> first commit
+=======
+    	IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         oldFullName = folder.getFullName();
         oldName = folder.getName();
         showEditBox(oldName);
@@ -345,10 +390,14 @@ public class IMAPTreeItem extends EditableTreeItem {
     @Override
     public void cancelEdit() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     	IMAPFolderProxy folder = ((IMAPFolderProxy) getUserObject());
 =======
         IMAPFolder folder = ((IMAPFolder) getUserObject());
 >>>>>>> first commit
+=======
+    	IMAPFolderProxy folder = ((IMAPFolderProxy) getUserObject());
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         folder.setFullName(oldFullName);
         showItem(getFolderName(folder));
 
@@ -365,10 +414,14 @@ public class IMAPTreeItem extends EditableTreeItem {
             String newFolderName = editBox.getText();
             String newFullFolderName = oldFullName.substring(0, oldFullName.length() - oldName.length())  + newFolderName; 
 <<<<<<< HEAD
+<<<<<<< HEAD
             IMAPFolderProxy folder = ((IMAPFolderProxy) getUserObject());
 =======
             IMAPFolder folder = ((IMAPFolder) getUserObject());
 >>>>>>> first commit
+=======
+            IMAPFolderProxy folder = ((IMAPFolderProxy) getUserObject());
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
             folder.setFullName(newFullFolderName);
             showItem(getFolderName(folder));
 

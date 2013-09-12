@@ -118,6 +118,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
             ExecutionContext context) throws ActionException {
         User user = getUser();
 <<<<<<< HEAD
+<<<<<<< HEAD
         IMAPFolderProxy folder = action.getFolder();
         if (folder == null) {
             folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());
@@ -126,6 +127,11 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         if (folder == null) {
             folder = new IMAPFolder(user.getSettings().getInboxFolderName());
 >>>>>>> first commit
+=======
+        IMAPFolderProxy folder = action.getFolder();
+        if (folder == null) {
+            folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         }
         com.sun.mail.imap.IMAPFolder f = null;
         int start = action.getStart();

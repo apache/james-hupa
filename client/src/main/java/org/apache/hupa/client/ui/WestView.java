@@ -102,9 +102,13 @@ import org.apache.hupa.shared.events.LogoutEvent;
 import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.event.EditHandler;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
@@ -538,6 +542,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
             return null;
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         IMAPFolderProxy oldFolder = (IMAPFolderProxy) selected.getUserObject();
 
         // Generate a new folder with a whitespace as name, this is needed as
@@ -550,6 +555,13 @@ public class WestView extends Composite implements WestActivity.Displayable {
         // workaround
         IMAPFolder folder = new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
 >>>>>>> Change to new mvp framework - first step
+=======
+        IMAPFolderProxy oldFolder = (IMAPFolderProxy) selected.getUserObject();
+
+        // Generate a new folder with a whitespace as name, this is needed as
+        // workaround
+        IMAPFolderProxy folder = (IMAPFolderProxy)new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         folder.setDelimiter(oldFolder.getDelimiter());
 
         final IMAPTreeItem newItem = new IMAPTreeItem(folder);
@@ -594,10 +606,14 @@ public class WestView extends Composite implements WestActivity.Displayable {
      * decreaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
 =======
     public void decreaseUnseenMessageCount(IMAPFolder folder, int amount) {
 >>>>>>> Change to new mvp framework - first step
+=======
+    public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -616,10 +632,14 @@ public class WestView extends Composite implements WestActivity.Displayable {
      * increaseUnseenMessageCount(org.apache.hupa.shared.data.IMAPFolder, int)
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
 =======
     public void increaseUnseenMessageCount(IMAPFolder folder, int amount) {
 >>>>>>> Change to new mvp framework - first step
+=======
+    public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -633,10 +653,14 @@ public class WestView extends Composite implements WestActivity.Displayable {
 
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolderProxy folder) {
 =======
     private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolder folder) {
 >>>>>>> Change to new mvp framework - first step
+=======
+    private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolderProxy folder) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         if (folder.getFullName().equalsIgnoreCase(((IMAPFolder) item.getUserObject()).getFullName())) {
             return item;
         }
@@ -654,10 +678,14 @@ public class WestView extends Composite implements WestActivity.Displayable {
      * @see org.apache.hupa.client.mvp.MainPresenter.Display#updateTreeItem(org.apache.hupa.shared.data.IMAPFolder)
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void updateTreeItem(IMAPFolderProxy folder) {
 =======
     public void updateTreeItem(IMAPFolder folder) {
 >>>>>>> Change to new mvp framework - first step
+=======
+    public void updateTreeItem(IMAPFolderProxy folder) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);

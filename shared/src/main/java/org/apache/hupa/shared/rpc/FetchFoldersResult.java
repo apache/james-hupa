@@ -21,6 +21,7 @@ package org.apache.hupa.shared.rpc;
 
 import java.io.Serializable;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 
 import net.customware.gwt.dispatch.shared.Result;
@@ -28,12 +29,14 @@ import net.customware.gwt.dispatch.shared.Result;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import java.util.ArrayList;
+=======
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import java.util.List;
-
-import org.apache.hupa.shared.data.IMAPFolder;
 
 import net.customware.gwt.dispatch.shared.Result;
 >>>>>>> first commit
+
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
 public class FetchFoldersResult implements Result, Serializable {
 
@@ -41,6 +44,7 @@ public class FetchFoldersResult implements Result, Serializable {
      * 
      */
     private static final long serialVersionUID = -6215610133650989605L;
+<<<<<<< HEAD
 <<<<<<< HEAD
     private List<IMAPFolderProxy> folders;
 
@@ -50,6 +54,11 @@ public class FetchFoldersResult implements Result, Serializable {
 
     public FetchFoldersResult(List<IMAPFolder> folders) {
 >>>>>>> first commit
+=======
+    private List<IMAPFolderProxy> folders;
+
+    public FetchFoldersResult(List<IMAPFolderProxy> folders) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.folders=folders;
     }
     
@@ -58,15 +67,20 @@ public class FetchFoldersResult implements Result, Serializable {
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     public List<IMAPFolderProxy> getFolders() {
 =======
     public List<IMAPFolder> getFolders() {
 >>>>>>> first commit
+=======
+    public List<IMAPFolderProxy> getFolders() {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         return folders;
     }
 
     public String toString() {
         StringBuffer ret = new StringBuffer("");
+<<<<<<< HEAD
 <<<<<<< HEAD
         for (IMAPFolderProxy folder : folders) {
             ret.append(folder.getFullName()).append("\n");
@@ -76,12 +90,18 @@ public class FetchFoldersResult implements Result, Serializable {
             ret.append(folder.getFullName()).append("\n");
             for (IMAPFolder f : folder.getChildIMAPFolders()) {
 >>>>>>> first commit
+=======
+        for (IMAPFolderProxy folder : folders) {
+            ret.append(folder.getFullName()).append("\n");
+            for (IMAPFolderProxy f : folder.getChildIMAPFolders()) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
                 childFolder(f, ret);
             }
         }
         return ret.toString();
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
     private void childFolder(IMAPFolderProxy child, StringBuffer ret) {
         ret.append(child.getFullName()).append("\n");
@@ -91,6 +111,11 @@ public class FetchFoldersResult implements Result, Serializable {
         ret.append(child.getFullName()).append("\n");
         for (IMAPFolder folder : child.getChildIMAPFolders()) {
 >>>>>>> first commit
+=======
+    private void childFolder(IMAPFolderProxy child, StringBuffer ret) {
+        ret.append(child.getFullName()).append("\n");
+        for (IMAPFolderProxy folder : child.getChildIMAPFolders()) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
             childFolder(folder, ret);
         }
     }

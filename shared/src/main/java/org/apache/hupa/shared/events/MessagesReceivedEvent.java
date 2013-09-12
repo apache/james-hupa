@@ -36,9 +36,12 @@ import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import java.util.ArrayList;
 
-import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
+<<<<<<< HEAD
 >>>>>>> first commit
+=======
+import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -62,10 +65,14 @@ public class MessagesReceivedEvent extends GwtEvent<MessagesReceivedEventHandler
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 =======
     private ArrayList<Message> messages;
-    private IMAPFolder folder;
+    private IMAPFolderProxy folder;
     
+<<<<<<< HEAD
     public MessagesReceivedEvent(IMAPFolder folder, ArrayList<Message> messages) {
 >>>>>>> first commit
+=======
+    public MessagesReceivedEvent(IMAPFolderProxy folder, ArrayList<Message> messages) {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         this.messages = messages;
         this.folder = folder;
     }
@@ -86,6 +93,7 @@ public class MessagesReceivedEvent extends GwtEvent<MessagesReceivedEventHandler
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public IMAPFolder getFolder() {
 >>>>>>> first commit
 =======
@@ -94,6 +102,9 @@ public class MessagesReceivedEvent extends GwtEvent<MessagesReceivedEventHandler
 =======
     public IMAPFolder getFolder() {
 >>>>>>> first commit
+=======
+    public IMAPFolderProxy getFolder() {
+>>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         return folder;
     }
     
