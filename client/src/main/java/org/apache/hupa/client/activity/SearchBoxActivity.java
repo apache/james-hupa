@@ -103,6 +103,7 @@ public class SearchBoxActivity extends AppBaseActivity {
 
         }));
 
+<<<<<<< HEAD
         registerHandler(eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
 
             public void onMessagesReceived(MessagesReceivedEvent event) {
@@ -113,6 +114,17 @@ public class SearchBoxActivity extends AppBaseActivity {
 
         }));
 >>>>>>> fixed issue#74, finished to add search feature
+=======
+//        registerHandler(eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
+//
+//            public void onMessagesReceived(MessagesReceivedEvent event) {
+//
+//                // fill the oracle
+//                display.fillSearchOracle(event.getMessages());
+//            }
+//
+//        }));
+>>>>>>> quick fix something - use textbox for search and make contacts TODO
 	}
 
 	@Inject private Displayable display;

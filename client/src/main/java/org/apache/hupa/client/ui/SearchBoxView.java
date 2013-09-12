@@ -43,13 +43,18 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.SuggestBox;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.TextBox;
 =======
 >>>>>>> prepare to add search feature
+=======
+import com.google.gwt.user.client.ui.TextBox;
+>>>>>>> quick fix something - use textbox for search and make contacts TODO
 
 public class SearchBoxView extends Composite implements SearchBoxActivity.Displayable {
 
 	private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
+<<<<<<< HEAD
 <<<<<<< HEAD
 	private TextBox searchBox = new TextBox();
 	private Button searchButton = new Button("Search");
@@ -74,18 +79,22 @@ public class SearchBoxView extends Composite implements SearchBoxActivity.Displa
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER || (event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE && searchBox.getText().trim().equals(""))) {
 =======
 	private SuggestBox searchBox = new SuggestBox(oracle);
+=======
+	private TextBox searchBox = new TextBox();
+>>>>>>> quick fix something - use textbox for search and make contacts TODO
 	private Button searchButton = new Button("Search");
 	@UiField protected HorizontalPanel thisPanel;
 
-	@SuppressWarnings("deprecation")
+//	@SuppressWarnings("deprecation")
 	public SearchBoxView() {
 		initWidget(binder.createAndBindUi(this));
 
 //        searchBox.addStyleName(HupaCSS.C_msg_search);
         
-        searchBox.setAnimationEnabled(true);
-        searchBox.setAutoSelectEnabled(false);
-        searchBox.setLimit(20);
+//        searchBox.setAnimationEnabled(true);
+//        searchBox.setAutoSelectEnabled(false);
+//        searchBox.setLimit(20);
+		searchBox.getElement().setAttribute("type", "search");
 		searchBox.addKeyUpHandler(new KeyUpHandler() {
 			public void onKeyUp(KeyUpEvent event) {
 				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {

@@ -212,14 +212,15 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 
 	@UiHandler("contact")
 	public void onContactClick(ClickEvent e){
-		mailOuter.removeStyleName(style.selected());
-		mail.removeStyleName(style.mailInnerSelected());
-		contactOuter.addStyleName(style.selected());
-		contact.addStyleName(style.contactInnerSelected());
-		
-		settingOuter.removeStyleName(style.selected());
-		setting.removeStyleName(style.settingsInnerSelected());
-		placeController.goTo(new ContactPlace("contacts"));
+		Window.alert("//TODO");
+//		mailOuter.removeStyleName(style.selected());
+//		mail.removeStyleName(style.mailInnerSelected());
+//		contactOuter.addStyleName(style.selected());
+//		contact.addStyleName(style.contactInnerSelected());
+//		
+//		settingOuter.removeStyleName(style.selected());
+//		setting.removeStyleName(style.settingsInnerSelected());
+//		placeController.goTo(new ContactPlace("contacts"));
 	}
 	
 	
