@@ -71,6 +71,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+<<<<<<< HEAD
 =======
 =======
 import org.apache.hupa.shared.domain.User;
@@ -93,6 +94,8 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 >>>>>>> fixed issue#57 - really disable the tools in toolbar
+=======
+>>>>>>> done issue#72, get back the unread count
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -426,12 +429,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	@UiField HTMLPanel replyAllTip;
 	@UiField HTMLPanel forwardTip;
 
-	HandlerRegistration replyReg;
-	HandlerRegistration replyAllReg;
-	HandlerRegistration forwardReg;
-	HandlerRegistration deleteReg;
-	HandlerRegistration markReg;
-
 	@UiField Style style;
 
 	interface Style extends CssResource {
@@ -551,6 +548,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 >>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
 =======
 
+<<<<<<< HEAD
 		markReg = mark.addClickHandler(markHandler);
 		deleteReg = delete.addClickHandler(deleteHandler);
 		replyReg = reply.addClickHandler(replyHandler);
@@ -563,6 +561,13 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		enableAllTools(false);
 =======
 >>>>>>> try to make messages list better for user experience
+=======
+		mark.addClickHandler(markHandler);
+		delete.addClickHandler(deleteHandler);
+		reply.addClickHandler(replyHandler);
+		replyAll.addClickHandler(replyAllHandler);
+		forward.addClickHandler(forwardHandler);
+>>>>>>> done issue#72, get back the unread count
 	}
 
 	@UiHandler("compose")
@@ -682,14 +687,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		forwardGroup.addStyleName(style.disabledButton());
 		replyAllTip.addStyleName(style.disabledButton());
 		forwardTip.addStyleName(style.disabledButton());
-//		if(replyReg != null){
-//			replyReg.removeHandler();
-//			replyAllReg.removeHandler();
-//			forwardReg.removeHandler();	
-//			replyReg = null;
-//			replyAllReg = null;
-//			forwardReg = null;
-//		}
 	}
 
 	private void removeSendingDisableds() {
@@ -698,16 +695,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		forwardGroup.removeStyleName(style.disabledButton());
 		replyAllTip.removeStyleName(style.disabledButton());
 		forwardTip.removeStyleName(style.disabledButton());
-
-//		if(replyReg != null){
-//			replyReg.removeHandler();
-//			replyAllReg.removeHandler();
-//			forwardReg.removeHandler();	
-//		}
-//		replyReg = reply.addClickHandler(replyHandler);
-//		replyAllReg = replyAll.addClickHandler(replyAllHandler);
-//		forwardReg = forward.addClickHandler(forwardHandler);
-		
 	}
 	
 	
@@ -715,13 +702,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	private void addDealingDisableds() {
 		delete.addStyleName(style.disabledButton());
 		mark.addStyleName(style.disabledButton());
-		
-//		if(deleteReg != null){
-//			deleteReg.removeHandler();
-//			markReg.removeHandler();
-//			deleteReg = null;
-//			markReg = null;
-//		}
 	}
 
 	private void removeDealingDisableds() {
@@ -730,6 +710,7 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 >>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
 =======
 		mark.removeStyleName(style.disabledButton());
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
@@ -754,12 +735,15 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 //		markReg = mark.addClickHandler(markHandler);
 //		deleteReg = delete.addClickHandler(deleteHandler);
 >>>>>>> make folders list view refresh automatically according to the actual unread message
+=======
+>>>>>>> done issue#72, get back the unread count
 	}
 
 	interface ToolBarUiBinder extends UiBinder<FlowPanel, ToolBarView> {
 	}
 
 	private static ToolBarUiBinder binder = GWT.create(ToolBarUiBinder.class);
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -810,4 +794,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 >>>>>>> fixed issue#57 - really disable the tools in toolbar
 
 >>>>>>> scrub code
+=======
+>>>>>>> done issue#72, get back the unread count
 }
