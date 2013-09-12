@@ -29,7 +29,7 @@ import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 import org.apache.hupa.client.CachingDispatchAsync;
 import org.apache.hupa.client.HupaCallback;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
@@ -40,12 +40,16 @@ import org.apache.hupa.shared.events.LoadMessagesEvent;
 import org.apache.hupa.shared.events.ReplyMessageEvent;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 >>>>>>> first commit
 =======
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
 
@@ -77,6 +81,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
     private CachingDispatchAsync dispatcher;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
 =======
     private IMAPFolder folder;
@@ -84,6 +89,9 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 =======
     private IMAPFolderProxy folder;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    private ImapFolder folder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
     private User user;
 
     @Inject
@@ -95,6 +103,7 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void revealDisplay(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails) {
 =======
     public void revealDisplay(User user, IMAPFolder folder, Message message, MessageDetails messageDetails) {
@@ -102,6 +111,9 @@ public class IMAPMessagePresenter extends WidgetPresenter<IMAPMessagePresenter.D
 =======
     public void revealDisplay(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public void revealDisplay(User user, ImapFolder folder, Message message, MessageDetails messageDetails) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         this.message = message;
         this.messageDetails = messageDetails;
         this.folder = folder;

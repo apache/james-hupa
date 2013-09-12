@@ -25,6 +25,7 @@ import net.customware.gwt.dispatch.shared.Action;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -32,11 +33,15 @@ import org.apache.hupa.shared.data.IMAPFolder;
 =======
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 
 public class DeleteFolder implements Action<GenericResult> , Serializable{
 
     private static final long serialVersionUID = 7921329310932404439L;
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     private IMAPFolderProxy folder;
@@ -52,12 +57,18 @@ public class DeleteFolder implements Action<GenericResult> , Serializable{
 
     public DeleteFolder(IMAPFolderProxy folder) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    private ImapFolder folder;
+
+    public DeleteFolder(ImapFolder folder) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         this.folder = folder;
     }
 
     protected DeleteFolder() {
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public IMAPFolderProxy getFolder() {
@@ -67,6 +78,9 @@ public class DeleteFolder implements Action<GenericResult> , Serializable{
 =======
     public IMAPFolderProxy getFolder() {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public ImapFolder getFolder() {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         return folder;
     }
 }

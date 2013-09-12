@@ -33,6 +33,7 @@ import org.apache.hupa.server.IMAPStoreCache;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.shared.data.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -42,6 +43,9 @@ import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 
 import com.google.inject.Inject;
@@ -75,6 +79,7 @@ public class DeleteMessageByUidHandler extends
             throws ActionException {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     	IMAPFolderProxy folder = action.getFolder();
 =======
         IMAPFolder folder = action.getFolder();
@@ -82,6 +87,9 @@ public class DeleteMessageByUidHandler extends
 =======
     	IMAPFolderProxy folder = action.getFolder();
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    	ImapFolder folder = action.getFolder();
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         ArrayList<Long> uids = action.getMessageUids();
         User user = getUser();
 

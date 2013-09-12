@@ -6,20 +6,20 @@ import java.util.Properties;
 
 import javax.mail.Folder;
 import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.ImapFolder;
 
 import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
 import com.sun.mail.imap.IMAPStore;
 
-public class IMAPFolderService {
+public class ImapFolderService {
 
 	private static boolean useSSL = true;
 	
@@ -27,7 +27,7 @@ public class IMAPFolderService {
 		return s;
 	}
 	
-	public static List<IMAPFolder> requestFolders() throws MessagingException, ActionException{
+	public static List<ImapFolder> requestFolders() throws MessagingException, ActionException{
 		HttpSession session = RequestFactoryServlet.getThreadLocalRequest().getSession();
 		Session mailSession = Session.getDefaultInstance(new Properties(), null);
 		IMAPStore store = (IMAPStore)mailSession.getStore(useSSL ? "imaps" : "imap");
@@ -39,11 +39,11 @@ public class IMAPFolderService {
         com.sun.mail.imap.IMAPFolder folder = (com.sun.mail.imap.IMAPFolder) store.getDefaultFolder();
 
         // List of mail 'root' imap folders
-        List<IMAPFolder> imapFolders = new ArrayList<IMAPFolder>();
+        List<ImapFolder> imapFolders = new ArrayList<ImapFolder>();
 
         // Create IMAPFolder tree list
         for (Folder f : folder.list()) {
-            IMAPFolder imapFolder = createIMAPFolder(f);
+        	ImapFolder imapFolder = createIMAPFolder(f);
             imapFolders.add(imapFolder);
             walkFolders(f, imapFolder);
         }
@@ -58,9 +58,9 @@ public class IMAPFolderService {
      * @throws ActionException If an error occurs
      * @throws MessagingException If an error occurs
      */
-    private static void walkFolders(Folder folder, IMAPFolder imapFolder) throws  MessagingException{
+    private static void walkFolders(Folder folder, ImapFolder imapFolder) throws  MessagingException{
         for (Folder f : folder.list()) {
-            IMAPFolder iFolder = createIMAPFolder(f);
+        	ImapFolder iFolder = createIMAPFolder(f);
             imapFolder.getChildren().add(iFolder);
             walkFolders(f, iFolder);
         }
@@ -74,16 +74,16 @@ public class IMAPFolderService {
      * @throws ActionException If an error occurs
      * @throws MessagingException If an error occurs
      */
-    private static IMAPFolder createIMAPFolder(Folder folder){
+    private static ImapFolder createIMAPFolder(Folder folder){
 
         String fullName = folder.getFullName();
         String delimiter;
-        IMAPFolder iFolder = null;
+        ImapFolder iFolder = null;
         
         try {
             System.out.println("Creating folder: " + fullName + " for user: ");
             delimiter = String.valueOf(folder.getSeparator());
-            iFolder = new IMAPFolder(fullName);
+            iFolder = (ImapFolder)new ImapFolderImpl(fullName);
             iFolder.setDelimiter(delimiter);
             if("[Gmail]".equals(folder.getFullName()))
                 return iFolder;

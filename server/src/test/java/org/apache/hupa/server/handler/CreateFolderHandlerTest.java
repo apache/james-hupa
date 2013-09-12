@@ -24,7 +24,7 @@ import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.exception.InvalidSessionException;
 import org.apache.hupa.shared.rpc.CreateFolder;
 
@@ -34,7 +34,7 @@ import javax.mail.MessagingException;
 public class CreateFolderHandlerTest extends HupaGuiceTestCase {
     
     public void testCreate() throws MessagingException {
-        IMAPFolder folder = createFolder();
+        ImapFolderImpl folder = createFolder();
         MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
         Folder f1 = store.getFolder(folder.getFullName());
         assertFalse("not exists",f1.exists());
@@ -50,7 +50,7 @@ public class CreateFolderHandlerTest extends HupaGuiceTestCase {
     }
     
     public void testDuplicateFolder() throws MessagingException {
-        IMAPFolder folder = createFolder();
+        ImapFolderImpl folder = createFolder();
         MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
         Folder f1 = store.getFolder(folder.getFullName());
         f1.create(Folder.HOLDS_FOLDERS);
@@ -63,7 +63,7 @@ public class CreateFolderHandlerTest extends HupaGuiceTestCase {
     
     public void testInvalidSessionId() {
         httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
-        IMAPFolder folder = createFolder();
+        ImapFolderImpl folder = createFolder();
         try {
             createFolderHandler.execute(new CreateFolder(folder), null);
             fail("Invalid session");
@@ -74,8 +74,8 @@ public class CreateFolderHandlerTest extends HupaGuiceTestCase {
         }
     }
     
-    private IMAPFolder createFolder() {
-        IMAPFolder folder = new IMAPFolder();
+    private ImapFolderImpl createFolder() {
+        ImapFolderImpl folder = new ImapFolderImpl();
         folder.setFullName("NewFolder");
         folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPARATOR));
         return folder;

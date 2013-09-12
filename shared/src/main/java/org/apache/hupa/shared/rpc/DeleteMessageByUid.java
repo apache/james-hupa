@@ -23,7 +23,11 @@ import java.util.ArrayList;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -41,6 +45,7 @@ public class DeleteMessageByUid extends DeleteMessage {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public DeleteMessageByUid(IMAPFolderProxy folder, ArrayList<Long> messageUids) {
 =======
     public DeleteMessageByUid(IMAPFolder folder, ArrayList<Long> messageUids) {
@@ -48,6 +53,9 @@ public class DeleteMessageByUid extends DeleteMessage {
 =======
     public DeleteMessageByUid(IMAPFolderProxy folder, ArrayList<Long> messageUids) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public DeleteMessageByUid(ImapFolder folder, ArrayList<Long> messageUids) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         super(folder);
         this.messageUids = messageUids;
     }

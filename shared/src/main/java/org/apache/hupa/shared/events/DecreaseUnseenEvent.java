@@ -31,6 +31,7 @@ import org.apache.hupa.shared.data.User;
 >>>>>>> first commit
 =======
 import org.apache.hupa.shared.data.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 =======
@@ -41,6 +42,9 @@ import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -48,6 +52,7 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 
     public final static Type<DecreaseUnseenEventHandler> TYPE = new Type<DecreaseUnseenEventHandler>();
     private User user;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -65,12 +70,16 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 =======
     private IMAPFolderProxy folder;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    private ImapFolder folder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
     private int amount;
     
-    public DecreaseUnseenEvent(User user, IMAPFolderProxy folder) {
+    public DecreaseUnseenEvent(User user, ImapFolder folder) {
         this(user, folder, 1);
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
     public DecreaseUnseenEvent(User user, IMAPFolder folder, int amount) {
 >>>>>>> first commit
@@ -94,11 +103,15 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 =======
     public DecreaseUnseenEvent(User user, IMAPFolderProxy folder, int amount) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public DecreaseUnseenEvent(User user, ImapFolder folder, int amount) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         this.user =user;
         this.folder = folder;
         this.amount = amount;
     }
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -116,6 +129,9 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 =======
     public IMAPFolderProxy getFolder() {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public ImapFolder getFolder() {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         return folder;
     }
     

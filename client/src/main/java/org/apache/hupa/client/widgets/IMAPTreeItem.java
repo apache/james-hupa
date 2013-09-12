@@ -21,6 +21,7 @@ package org.apache.hupa.client.widgets;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.ui.EditableTreeItem;
@@ -182,6 +183,10 @@ import org.apache.hupa.shared.data.IMAPFolder;
 =======
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.data.ImapFolderImpl;
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.ui.EditableTreeItem;
 
@@ -439,7 +444,7 @@ public class IMAPTreeItem extends EditableTreeItem {
 	protected String oldFullName;
 	protected String oldName;
 
-	public IMAPTreeItem(IMAPFolderProxy folder) {
+	public IMAPTreeItem(ImapFolder folder) {
 		setUserObject(folder);
 		setFolderText(folder);
 	}
@@ -462,7 +467,7 @@ public class IMAPTreeItem extends EditableTreeItem {
 	}
 
 	public void setUnseenMessageCount(int cound) {
-		IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+		ImapFolder folder = (ImapFolder) getUserObject();
 		int count = folder.getUnseenMessageCount();
 		folder.setUnseenMessageCount(count);
 		setFolderText(folder);
@@ -473,7 +478,7 @@ public class IMAPTreeItem extends EditableTreeItem {
 	 * Decrease the unseen messagecount of this folder
 	 */
 	public void descreaseUnseenMessageCount(int decreaseCount) {
-		IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+		ImapFolder folder = (ImapFolder) getUserObject();
 		int count = folder.getUnseenMessageCount();
 		if (count > 0) {
 			count = count - decreaseCount;
@@ -495,21 +500,21 @@ public class IMAPTreeItem extends EditableTreeItem {
 	 * Increase the unseen messagecount of this folder
 	 */
 	public void increaseUnseenMessageCount(int increaseCount) {
-		IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+		ImapFolder folder = (ImapFolder) getUserObject();
 		int count = folder.getUnseenMessageCount();
 		count = count + increaseCount;
 		folder.setUnseenMessageCount(count);
 		setFolderText(folder);
 	}
 
-	private void setFolderText(IMAPFolderProxy folder) {
+	private void setFolderText(ImapFolder folder) {
 		setText(getFolderName(folder));
 		setUnseenMessageCountStyle(folder);
 	}
 
-	private void setUnseenMessageCountStyle(IMAPFolderProxy folder) {
+	private void setUnseenMessageCountStyle(ImapFolder folder) {
 		boolean containsUnseen = (folder.getUnseenMessageCount() > 0);
-		for (IMAPFolderProxy fold : folder.getChildren()) {
+		for (ImapFolder fold : folder.getChildren()) {
 			if (fold.getUnseenMessageCount() > 0) {
 				containsUnseen = true;
 				break;
@@ -529,7 +534,7 @@ public class IMAPTreeItem extends EditableTreeItem {
 	 * @param folder
 	 * @return name
 	 */
-	private String getFolderName(IMAPFolderProxy folder) {
+	private String getFolderName(ImapFolder folder) {
 		if (folder.getUnseenMessageCount() > 0) {
 			return folder.getName() + " (" + folder.getUnseenMessageCount() + ")";
 		}
@@ -538,17 +543,17 @@ public class IMAPTreeItem extends EditableTreeItem {
 
 	@Override
 	public void setUserObject(Object obj) {
-		if ((obj instanceof IMAPFolderProxy) == false) {
+		if ((obj instanceof ImapFolder) == false) {
 			throw new IllegalArgumentException("UserObject needs to be an instance of IMAPFolder");
 		}
-		setFolderText((IMAPFolderProxy) obj);
+		setFolderText((ImapFolder) obj);
 
 		super.setUserObject(obj);
 	}
 
 	@Override
 	public void startEdit() {
-		IMAPFolderProxy folder = (IMAPFolderProxy) getUserObject();
+		ImapFolder folder = (ImapFolder) getUserObject();
 		oldFullName = folder.getFullName();
 		oldName = folder.getName();
 		showEditBox(oldName);
@@ -557,7 +562,7 @@ public class IMAPTreeItem extends EditableTreeItem {
 
 	@Override
 	public void cancelEdit() {
-		IMAPFolderProxy folder = ((IMAPFolderProxy) getUserObject());
+		ImapFolder folder = ((ImapFolder) getUserObject());
 		folder.setFullName(oldFullName);
 		showItem(getFolderName(folder));
 
@@ -574,7 +579,7 @@ public class IMAPTreeItem extends EditableTreeItem {
 			String newFolderName = editBox.getText();
 			String newFullFolderName = oldFullName.substring(0, oldFullName.length() - oldName.length())
 					+ newFolderName;
-			IMAPFolderProxy folder = ((IMAPFolderProxy) getUserObject());
+			ImapFolder folder = ((ImapFolder) getUserObject());
 			folder.setFullName(newFullFolderName);
 			showItem(getFolderName(folder));
 

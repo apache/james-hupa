@@ -3,6 +3,7 @@ package org.apache.hupa.client.place;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.apache.hupa.client.activity.IMAPMessageActivity;
 >>>>>>> 1. improve the inbox folder place.
@@ -17,6 +18,13 @@ import org.apache.hupa.shared.data.User;
 =======
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+=======
+import org.apache.hupa.shared.data.ImapFolderImpl;
+import org.apache.hupa.shared.data.Message;
+import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 
 =======
 >>>>>>> 
@@ -39,11 +47,15 @@ public class IMAPMessagePlace extends Place {
 	private Message message;
 	private MessageDetails messageDetails;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private IMAPFolder folder;
 >>>>>>> 1. improve the inbox folder place.
 =======
 	private IMAPFolderProxy folder;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+	private ImapFolder folder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 	private User user;
 
   public Message getMessage() {
@@ -70,7 +82,7 @@ public class IMAPMessagePlace extends Place {
 >>>>>>> 
 =======
 
-	public IMAPFolderProxy getFolder() {
+	public ImapFolder getFolder() {
 		return folder;
 	}
 
@@ -108,6 +120,7 @@ public class IMAPMessagePlace extends Place {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public IMAPMessagePlace with(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails){
 =======
 	public IMAPMessagePlace with(User user, IMAPFolder folder, Message message, MessageDetails messageDetails){
@@ -115,6 +128,9 @@ public class IMAPMessagePlace extends Place {
 =======
 	public IMAPMessagePlace with(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails){
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+	public IMAPMessagePlace with(User user, ImapFolder folder, Message message, MessageDetails messageDetails){
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
       this.message = message;
       this.messageDetails = messageDetails;
       this.folder = folder;

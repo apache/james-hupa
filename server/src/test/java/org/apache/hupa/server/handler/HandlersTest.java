@@ -51,8 +51,12 @@ import org.apache.hupa.server.guice.providers.LogProvider;
 >>>>>>> first commit
 =======
 import org.apache.hupa.server.guice.providers.LogProvider;
+<<<<<<< HEAD
 >>>>>>> constantly changed by manolo
 import org.apache.hupa.shared.data.IMAPFolder;
+=======
+import org.apache.hupa.shared.data.ImapFolderImpl;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 import org.apache.hupa.shared.rpc.CreateFolder;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.FetchFolders;
@@ -123,7 +127,7 @@ public class HandlersTest extends HupaGuiceTestCase {
         IMAPStore store = storeCache.get(testUser);
         
         String folderName = testUser.getSettings().getInboxFolderName();
-        IMAPFolder sFolder = new IMAPFolder();
+        ImapFolderImpl sFolder = new ImapFolderImpl();
         sFolder.setFullName(folderName);
         
         com.sun.mail.imap.IMAPFolder f1 = (com.sun.mail.imap.IMAPFolder)store.getFolder(sFolder.getFullName());
@@ -167,7 +171,7 @@ public class HandlersTest extends HupaGuiceTestCase {
         IMAPStore store = storeCache.get(testUser);
         
         String folderName = testUser.getSettings().getInboxFolderName() + store.getDefaultFolder().getSeparator() + "newFolder";
-        IMAPFolder sFolder = new IMAPFolder();
+        ImapFolderImpl sFolder = new ImapFolderImpl();
         sFolder.setFullName(folderName);
         
         Folder f1 = store.getFolder(sFolder.getFullName());

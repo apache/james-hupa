@@ -21,6 +21,7 @@ package org.apache.hupa.shared.rpc;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -28,6 +29,9 @@ import org.apache.hupa.shared.data.IMAPFolder;
 =======
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 
 public class FetchRecentMessages extends FetchMessages{
 
@@ -38,6 +42,7 @@ public class FetchRecentMessages extends FetchMessages{
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public FetchRecentMessages(IMAPFolderProxy folder, int start,
 =======
     public FetchRecentMessages(IMAPFolder folder, int start,
@@ -45,6 +50,9 @@ public class FetchRecentMessages extends FetchMessages{
 =======
     public FetchRecentMessages(IMAPFolderProxy folder, int start,
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public FetchRecentMessages(ImapFolder folder, int start,
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
             int offset, String searchString) {
         super(folder, start, offset, searchString);
     }

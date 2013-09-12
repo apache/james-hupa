@@ -37,10 +37,11 @@ package org.apache.hupa.client.place;
 =======
 >>>>>>> 1. improve the inbox folder place.
 import org.apache.hupa.client.activity.MessageSendActivity.Type;
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
@@ -54,6 +55,9 @@ package org.apache.hupa.client.place;
 =======
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 
 >>>>>>> 1. improve the inbox folder place.
 import com.google.gwt.place.shared.Place;
@@ -190,7 +194,7 @@ public class MessageSendPlace extends Place {
 
 	
 	private User user ;
-	private IMAPFolderProxy folder;
+	private ImapFolder folder;
 	private Message message;
 	private MessageDetails messageDetails;
 	private Type forward;
@@ -214,7 +218,7 @@ public class MessageSendPlace extends Place {
 		return this.getClass().getName() + "->[MessageSend]";
 	}
 
-	public Place with(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails, Type forward) {
+	public Place with(User user, ImapFolder folder, Message message, MessageDetails messageDetails, Type forward) {
 		this.forward = forward;
 		this.user = user;
 		this.folder = folder;
@@ -227,7 +231,7 @@ public class MessageSendPlace extends Place {
 		return user;
 	}
 
-	public IMAPFolderProxy getFolder() {
+	public ImapFolder getFolder() {
 		return folder;
 	}
 

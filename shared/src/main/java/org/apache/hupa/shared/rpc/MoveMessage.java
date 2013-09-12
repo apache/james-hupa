@@ -23,16 +23,16 @@ import java.io.Serializable;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.proxy.ImapFolder;
 
 public class MoveMessage implements Action<MoveMessageResult>, Serializable {
 
     private static final long serialVersionUID = 7771146077050895244L;
-    private IMAPFolder oldFolder;
-    private IMAPFolder newFolder;
+    private ImapFolder oldFolder;
+    private ImapFolder newFolder;
     private long messageUid;
 
-    public MoveMessage(IMAPFolder oldFolder, IMAPFolder newFolder, long messageUid) {
+    public MoveMessage(ImapFolder oldFolder, ImapFolder newFolder, long messageUid) {
         this.oldFolder = oldFolder;
         this.newFolder = newFolder;
         this.messageUid = messageUid;
@@ -45,11 +45,11 @@ public class MoveMessage implements Action<MoveMessageResult>, Serializable {
         return messageUid;
     }
     
-    public IMAPFolder getOldFolder() {
+    public ImapFolder getOldFolder() {
         return oldFolder;
     }
     
-    public IMAPFolder getNewFolder() {
+    public ImapFolder getNewFolder() {
         return newFolder;
     }
 }

@@ -27,7 +27,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.rpc.GenericResult;
 import org.apache.hupa.shared.rpc.RenameFolder;
@@ -55,7 +55,7 @@ public class RenameFolderHandler extends AbstractSessionHandler<RenameFolder, Ge
     protected GenericResult executeInternal(RenameFolder action,
             ExecutionContext context) throws ActionException {
         User user = getUser();
-        IMAPFolder folder = action.getFolder();
+        ImapFolderImpl folder = action.getFolder();
         String newName = action.getNewName();
         try {
             IMAPStore store = cache.get(user);

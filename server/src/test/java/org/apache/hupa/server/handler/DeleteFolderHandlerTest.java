@@ -24,7 +24,7 @@ import org.apache.hupa.server.HupaGuiceTestCase;
 import org.apache.hupa.server.mock.MockIMAPFolder;
 import org.apache.hupa.server.mock.MockIMAPStore;
 import org.apache.hupa.shared.SConsts;
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.exception.InvalidSessionException;
 import org.apache.hupa.shared.rpc.DeleteFolder;
 
@@ -34,7 +34,7 @@ import javax.mail.MessagingException;
 public class DeleteFolderHandlerTest extends HupaGuiceTestCase {
 
     public void testDelete() throws MessagingException {
-        IMAPFolder folder = createFolder();
+        ImapFolderImpl folder = createFolder();
         MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
         Folder f1 = store.getFolder(folder.getFullName());
         f1.create(Folder.HOLDS_FOLDERS);
@@ -49,7 +49,7 @@ public class DeleteFolderHandlerTest extends HupaGuiceTestCase {
     }
     
     public void testDeleteNonExistFolder() throws MessagingException {
-        IMAPFolder folder = createFolder();
+        ImapFolderImpl folder = createFolder();
         try {
             deleteFolderHandler.execute(new DeleteFolder(folder), null);
             fail("Folder should not exist");
@@ -59,7 +59,7 @@ public class DeleteFolderHandlerTest extends HupaGuiceTestCase {
     
     public void testInvalidSessionId() {
         httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
-        IMAPFolder folder = createFolder();
+        ImapFolderImpl folder = createFolder();
         try {
             deleteFolderHandler.execute(new DeleteFolder(folder), null);
             fail("Invalid session");
@@ -70,8 +70,8 @@ public class DeleteFolderHandlerTest extends HupaGuiceTestCase {
         }
     }
     
-    private IMAPFolder createFolder() {
-        IMAPFolder folder = new IMAPFolder();
+    private ImapFolderImpl createFolder() {
+        ImapFolderImpl folder = new ImapFolderImpl();
         folder.setFullName("NewFolder");
         folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPARATOR));
         return folder;

@@ -26,6 +26,7 @@ import net.customware.gwt.dispatch.shared.Action;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -33,10 +34,14 @@ import org.apache.hupa.shared.data.IMAPFolder;
 =======
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 
 public class GetMessageDetails implements Action<GetMessageDetailsResult>, Serializable {
 
     private static final long serialVersionUID = 5826298202494313834L;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     private IMAPFolderProxy folder;
@@ -55,6 +60,12 @@ public class GetMessageDetails implements Action<GetMessageDetailsResult>, Seria
 
     public GetMessageDetails(IMAPFolderProxy folder, long uid) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    private ImapFolder folder;
+    private long uid;
+
+    public GetMessageDetails(ImapFolder folder, long uid) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         this.folder = folder;
         this.uid = uid;
     }
@@ -65,6 +76,7 @@ public class GetMessageDetails implements Action<GetMessageDetailsResult>, Seria
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public IMAPFolderProxy getFolder() {
 =======
     public IMAPFolder getFolder() {
@@ -72,6 +84,9 @@ public class GetMessageDetails implements Action<GetMessageDetailsResult>, Seria
 =======
     public IMAPFolderProxy getFolder() {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public ImapFolder getFolder() {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         return folder;
     }
     

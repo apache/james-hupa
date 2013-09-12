@@ -182,7 +182,7 @@ public class GetMessageDetailsHandlerTest extends HupaGuiceTestCase {
         MimeMessage msg = TestUtils.loadMessageFromFile(session,"7.msg");
         serverfolder.addMessages(new Message[]{msg});
         
-        org.apache.hupa.shared.data.IMAPFolder clientfolder = new org.apache.hupa.shared.data.IMAPFolder("WHATEVER");
+        org.apache.hupa.shared.data.ImapFolderImpl clientfolder = new org.apache.hupa.shared.data.ImapFolderImpl("WHATEVER");
         MessageDetails details = getDetailsHandler.exposeMessage(testUser, clientfolder, 0);
         
         // inline images have to be downloaded from the server

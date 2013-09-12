@@ -23,15 +23,15 @@ import java.io.Serializable;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 
 public class RenameFolder implements Action<GenericResult>, Serializable {
 
     private static final long serialVersionUID = 1924419911921600320L;
-    private IMAPFolder folder;
+    private ImapFolderImpl folder;
     private String newName;
 
-    public RenameFolder(IMAPFolder folder, String newName) {
+    public RenameFolder(ImapFolderImpl folder, String newName) {
         this.folder = folder;
         this.newName = newName;
     }
@@ -40,7 +40,7 @@ public class RenameFolder implements Action<GenericResult>, Serializable {
         
     }
     
-    public IMAPFolder getFolder() {
+    public ImapFolderImpl getFolder() {
         return folder;
     }
     

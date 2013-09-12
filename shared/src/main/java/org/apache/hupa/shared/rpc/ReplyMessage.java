@@ -23,6 +23,7 @@ package org.apache.hupa.shared.rpc;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.shared.data.SMTPMessage;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.data.IMAPFolder;
@@ -32,12 +33,16 @@ import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.data.SMTPMessage;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 
 public class ReplyMessage extends ForwardMessage {
 
     private static final long serialVersionUID = -383135476236902779L;
 
     
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public ReplyMessage(SMTPMessage msg, IMAPFolderProxy folder, long uid) {
@@ -47,6 +52,9 @@ public class ReplyMessage extends ForwardMessage {
 =======
     public ReplyMessage(SMTPMessage msg, IMAPFolderProxy folder, long uid) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public ReplyMessage(SMTPMessage msg, ImapFolder folder, long uid) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         super(msg, folder, uid);
     }
 

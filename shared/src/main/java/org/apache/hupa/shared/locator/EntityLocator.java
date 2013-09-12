@@ -1,13 +1,12 @@
 package org.apache.hupa.shared.locator;
 
-import org.apache.hupa.shared.rf.EntityBase;
-
 import com.google.web.bindery.requestfactory.shared.Locator;
+import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
-public abstract class EntityLocator extends Locator<EntityBase, Long> {
+public abstract class EntityLocator extends Locator<ValueProxy, Long> {
 
 	@Override
-	public EntityBase create(Class<? extends EntityBase> clazz) {
+	public ValueProxy create(Class<? extends ValueProxy> clazz) {
 		try {
 			return clazz.newInstance();
 		} catch (InstantiationException e) {
@@ -18,26 +17,16 @@ public abstract class EntityLocator extends Locator<EntityBase, Long> {
 	}
 
 	@Override
-	public abstract EntityBase find(Class<? extends EntityBase> clazz, Long id);
+	public abstract ValueProxy find(Class<? extends ValueProxy> clazz, Long id);
 
 	@Override
-	public Class<EntityBase> getDomainType() {
+	public Class<ValueProxy> getDomainType() {
 		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Long getId(EntityBase domainObject) {
-		return domainObject.getId();
 	}
 
 	@Override
 	public Class<Long> getIdType() {
 		return Long.class;
-	}
-
-	@Override
-	public Object getVersion(EntityBase domainObject) {
-		return domainObject.getVersion();
 	}
 
 }

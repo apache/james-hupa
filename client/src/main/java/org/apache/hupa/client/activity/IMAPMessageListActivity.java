@@ -457,7 +457,7 @@ import org.apache.hupa.shared.events.MessagesReceivedEvent;
 import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 import org.apache.hupa.shared.events.MoveMessageEventHandler;
-import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+import org.apache.hupa.shared.proxy.ImapFolder;
 import org.apache.hupa.shared.rpc.DeleteAllMessages;
 import org.apache.hupa.shared.rpc.DeleteMessageByUid;
 import org.apache.hupa.shared.rpc.DeleteMessageResult;
@@ -509,6 +509,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
     private User user;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
 =======
     private IMAPFolder folder;
@@ -516,6 +517,9 @@ public class IMAPMessageListActivity extends AbstractActivity {
 =======
     private IMAPFolderProxy folder;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    private ImapFolder folder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
     private ShowMessageTableListener tableListener = new ShowMessageTableListener();
 
 
@@ -1042,6 +1046,7 @@ public class IMAPMessageListActivity extends AbstractActivity {
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void revealDisplay(User user, IMAPFolderProxy folder, String searchValue) {
 =======
     public void revealDisplay(User user, IMAPFolder folder, String searchValue) {
@@ -1049,6 +1054,9 @@ public class IMAPMessageListActivity extends AbstractActivity {
 =======
     public void revealDisplay(User user, IMAPFolderProxy folder, String searchValue) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public void revealDisplay(User user, ImapFolder folder, String searchValue) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         this.user = user;
        
         if (this.user == null 

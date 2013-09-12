@@ -24,15 +24,15 @@ import java.io.Serializable;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 
 public class RawMessage implements Action<RawMessageResult>, Serializable {
 
     private static final long serialVersionUID = 5826298202494313834L;
-    private IMAPFolder folder;
+    private ImapFolderImpl folder;
     private long uid;
 
-    public RawMessage(IMAPFolder folder, long uid) {
+    public RawMessage(ImapFolderImpl folder, long uid) {
         this.folder = folder;
         this.uid = uid;
     }
@@ -41,7 +41,7 @@ public class RawMessage implements Action<RawMessageResult>, Serializable {
     private RawMessage() {
     }
     
-    public IMAPFolder getFolder() {
+    public ImapFolderImpl getFolder() {
         return folder;
     }
     

@@ -23,21 +23,21 @@ import java.io.Serializable;
 
 import net.customware.gwt.dispatch.shared.Action;
 
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 
 public class CreateFolder implements Action<GenericResult>, Serializable{
 
     private static final long serialVersionUID = -4966856616698265177L;
-    private IMAPFolder folder;
+    private ImapFolderImpl folder;
 
-    public CreateFolder(IMAPFolder folder) {
+    public CreateFolder(ImapFolderImpl folder) {
         this.folder = folder;
     }
 
     protected CreateFolder() {
     }
     
-    public IMAPFolder getFolder() {
+    public ImapFolderImpl getFolder() {
         return folder;
     }
     

@@ -126,14 +126,20 @@
         <dependency>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
         </dependency>
         <dependency>
+<<<<<<< HEAD
 =======
 >>>>>>> constantly changed by manolo
 =======
 >>>>>>> constantly changed by manolo
+=======
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>

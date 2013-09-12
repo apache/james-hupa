@@ -48,8 +48,12 @@ import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -59,6 +63,7 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
     private User user;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy folder;
 =======
     private IMAPFolder folder;
@@ -66,6 +71,9 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
 =======
     private IMAPFolderProxy folder;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    private ImapFolder folder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
     private Message message;
     private MessageDetails details;
     private boolean replyAll;
@@ -82,6 +90,7 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ReplyMessageEvent(User user, IMAPFolderProxy folder, Message message, MessageDetails details, boolean replyAll) {
 =======
     public ReplyMessageEvent(User user, IMAPFolder folder, Message message, MessageDetails details, boolean replyAll) {
@@ -89,6 +98,9 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
 =======
     public ReplyMessageEvent(User user, IMAPFolderProxy folder, Message message, MessageDetails details, boolean replyAll) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public ReplyMessageEvent(User user, ImapFolder folder, Message message, MessageDetails details, boolean replyAll) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         this.user = user;
         this.folder = folder;
         this.message = message;
@@ -102,6 +114,7 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public IMAPFolderProxy getFolder() {
 =======
     public IMAPFolder getFolder() {
@@ -109,6 +122,9 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
 =======
     public IMAPFolderProxy getFolder() {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public ImapFolder getFolder() {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         return folder;
     }
     

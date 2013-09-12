@@ -31,8 +31,9 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.User;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
@@ -41,6 +42,9 @@ import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 import org.apache.hupa.shared.rpc.FetchFolders;
 import org.apache.hupa.shared.rpc.FetchFoldersResult;
 
@@ -75,6 +79,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
             // List of mail 'root' imap folders
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             List<IMAPFolderProxy> imapFolders = new ArrayList<IMAPFolderProxy>();
 
             // Create IMAPFolder tree list
@@ -94,6 +99,13 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
             for (Folder f : folder.list()) {
             	IMAPFolderProxy imapFolder = createIMAPFolder(f);
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+            List<ImapFolder> imapFolders = new ArrayList<ImapFolder>();
+
+            // Create IMAPFolder tree list
+            for (Folder f : folder.list()) {
+            	ImapFolder imapFolder = createIMAPFolder(f);
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
                 imapFolders.add(imapFolder);
                 walkFolders(f, imapFolder);
             }
@@ -121,6 +133,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
      */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void walkFolders(Folder folder, IMAPFolderProxy imapFolder) throws ActionException, MessagingException{
         for (Folder f : folder.list()) {
         	IMAPFolderProxy iFolder = createIMAPFolder(f);
@@ -137,6 +150,11 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
             imapFolder.getChildIMAPFolders().add(iFolder);
 =======
+=======
+    private void walkFolders(Folder folder, ImapFolder imapFolder) throws ActionException, MessagingException{
+        for (Folder f : folder.list()) {
+        	ImapFolder iFolder = createIMAPFolder(f);
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
             imapFolder.getChildren().add(iFolder);
 >>>>>>> 
             walkFolders(f, iFolder);
@@ -160,6 +178,7 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
      */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPFolderProxy createIMAPFolder(Folder folder) throws ActionException {
 
         String fullName = folder.getFullName();
@@ -179,10 +198,18 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
         String delimiter;
         IMAPFolderProxy iFolder = null;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    private ImapFolder createIMAPFolder(Folder folder) throws ActionException {
+
+        String fullName = folder.getFullName();
+        String delimiter;
+        ImapFolder iFolder = null;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         
         try {
             logger.debug("Creating folder: " + fullName + " for user: " + getUser());
             delimiter = String.valueOf(folder.getSeparator());
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             iFolder = (IMAPFolderProxy)new IMAPFolder(fullName);
@@ -192,6 +219,9 @@ public class FetchFoldersHandler extends AbstractSessionHandler<FetchFolders, Fe
 =======
             iFolder = (IMAPFolderProxy)new IMAPFolder(fullName);
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+            iFolder = (ImapFolder)new ImapFolderImpl(fullName);
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
             iFolder.setDelimiter(delimiter);
             if("[Gmail]".equals(folder.getFullName()))
                 return iFolder;

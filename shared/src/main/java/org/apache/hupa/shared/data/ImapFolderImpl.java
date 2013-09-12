@@ -25,6 +25,7 @@ import java.util.ArrayList;
 <<<<<<< HEAD
 import java.util.List;
 
+<<<<<<< HEAD:shared/src/main/java/org/apache/hupa/shared/data/IMAPFolder.java
 import org.apache.hupa.shared.rf.EntityBase;
 =======
 >>>>>>> first commit
@@ -39,11 +40,15 @@ import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
 =======
 import org.apache.hupa.shared.rf.EntityBase;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
 
 /**
  * IMAPFolder
  * 
  */
+<<<<<<< HEAD:shared/src/main/java/org/apache/hupa/shared/data/IMAPFolder.java
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -107,6 +112,9 @@ public class IMAPFolder extends EntityBase implements Serializable {
 	}
 	
 	
+=======
+public class ImapFolderImpl implements ImapFolder {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
 
 	/**
 >>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
@@ -114,6 +122,7 @@ public class IMAPFolder extends EntityBase implements Serializable {
      */
     private static final long serialVersionUID = 2084188092060266479L;
 
+<<<<<<< HEAD:shared/src/main/java/org/apache/hupa/shared/data/IMAPFolder.java
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -127,16 +136,19 @@ public class IMAPFolder extends EntityBase implements Serializable {
 =======
     private List<IMAPFolder> children = new ArrayList<IMAPFolder>();
 >>>>>>> 
+=======
+    private List<ImapFolder> children = new ArrayList<ImapFolder>();
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
     private String fullName;
     private String delimiter;
     private int messageCount;
     private int unseenMessageCount;
     private boolean subscribed = false;
 
-    public IMAPFolder() {
+    public ImapFolderImpl() {
     }
 
-    public IMAPFolder(String fullName) {
+    public ImapFolderImpl(String fullName) {
         setFullName(fullName);
     }
 
@@ -169,6 +181,7 @@ public class IMAPFolder extends EntityBase implements Serializable {
      * 
      * @param children
      */
+<<<<<<< HEAD:shared/src/main/java/org/apache/hupa/shared/data/IMAPFolder.java
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -182,6 +195,9 @@ public class IMAPFolder extends EntityBase implements Serializable {
         this.childs = childs;
 =======
     public void setChildren(List<IMAPFolder> children) {
+=======
+    public void setChildren(List<ImapFolder> children) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
         this.children = children;
 >>>>>>> 
     }
@@ -191,6 +207,7 @@ public class IMAPFolder extends EntityBase implements Serializable {
      * 
      * @return childs
      */
+<<<<<<< HEAD:shared/src/main/java/org/apache/hupa/shared/data/IMAPFolder.java
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -204,6 +221,9 @@ public class IMAPFolder extends EntityBase implements Serializable {
         return childs;
 =======
     public List<IMAPFolder> getChildren() {
+=======
+    public List<ImapFolder> getChildren() {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
         return children;
 >>>>>>> 
     }
@@ -286,8 +306,8 @@ public class IMAPFolder extends EntityBase implements Serializable {
     
     @Override
     public boolean equals(Object o) {
-        if (o instanceof IMAPFolder) {
-            if (((IMAPFolder) o).getFullName().equals(getFullName())) {
+        if (o instanceof ImapFolder) {
+            if (((ImapFolder) o).getFullName().equals(getFullName())) {
                 return true;
             }
         }

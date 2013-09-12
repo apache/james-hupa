@@ -69,7 +69,7 @@ import org.apache.hupa.server.guice.providers.LogProvider;
 >>>>>>> constantly changed by manolo
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.server.utils.TestUtils;
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.SMTPMessage;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -235,7 +235,7 @@ public class InImapUserPreferencesStorageTest extends HupaGuiceTestCase {
             assertTrue(folder.getMessageCount() == 0);
         
         // Fetch inbox messages
-        IMAPFolder cFolder = new IMAPFolder(testUser.getSettings().getInboxFolderName());
+        ImapFolderImpl cFolder = new ImapFolderImpl(testUser.getSettings().getInboxFolderName());
         FetchMessagesResult result = fetchMessagesHandler.execute(new FetchMessages(cFolder, 0, 10, null), null);
         
         // Could be possible that there insn't any message in inbox

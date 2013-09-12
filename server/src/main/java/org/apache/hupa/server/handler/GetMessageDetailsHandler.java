@@ -91,6 +91,7 @@ import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.data.MessageAttachment;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 import static org.apache.hupa.server.utils.RegexPatterns.*;
@@ -105,6 +106,9 @@ import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 import org.apache.hupa.shared.rpc.GetMessageDetails;
 import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
 
@@ -145,6 +149,7 @@ public class GetMessageDetailsHandler extends
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     protected MessageDetails exposeMessage(User user, IMAPFolderProxy folder,
 =======
     protected MessageDetails exposeMessage(User user, IMAPFolder folder,
@@ -152,6 +157,9 @@ public class GetMessageDetailsHandler extends
 =======
     protected MessageDetails exposeMessage(User user, IMAPFolderProxy folder,
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    protected MessageDetails exposeMessage(User user, ImapFolder folder,
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
             long uid) throws ActionException {
         IMAPStore store = null;
         com.sun.mail.imap.IMAPFolder f = null;

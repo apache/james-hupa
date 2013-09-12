@@ -62,11 +62,11 @@ import org.apache.hupa.server.preferences.UserPreferencesStorage;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.server.utils.MessageUtils;
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.Tag;
 import org.apache.hupa.shared.data.User;
-import org.apache.hupa.shared.proxy.IMAPFolderProxy;
+import org.apache.hupa.shared.proxy.ImapFolder;
 import org.apache.hupa.shared.rpc.FetchMessages;
 import org.apache.hupa.shared.rpc.FetchMessagesResult;
 
@@ -119,6 +119,7 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         User user = getUser();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         IMAPFolderProxy folder = action.getFolder();
         if (folder == null) {
             folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());
@@ -132,6 +133,11 @@ public abstract class AbstractFetchMessagesHandler <A extends FetchMessages> ext
         if (folder == null) {
             folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+        ImapFolder folder = action.getFolder();
+        if (folder == null) {
+            folder = (ImapFolder)new ImapFolderImpl(user.getSettings().getInboxFolderName());
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         }
         com.sun.mail.imap.IMAPFolder f = null;
         int start = action.getStart();

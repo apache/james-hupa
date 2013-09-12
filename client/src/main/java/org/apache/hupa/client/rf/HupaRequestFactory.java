@@ -74,6 +74,10 @@ public interface HupaRequestFactory extends RequestFactory {
 >>>>>>> first commit
 =======
   UserRequest userRequest();
+<<<<<<< HEAD
   IMAPFolderRequestContext folderRequest();
 >>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
+=======
+  ImapFolderRequestContext folderRequest();
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 }

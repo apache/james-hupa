@@ -30,7 +30,7 @@ import org.apache.hupa.client.guice.GuiceMvpTestModule;
 import org.apache.hupa.client.guice.GuiceMvpTestModule.DispatchTestAsync;
 import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
 import org.apache.hupa.client.guice.GuiceClientTestModule;
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.SMTPMessage;
@@ -221,7 +221,7 @@ public class MessageSendPresenterTest extends HupaMvpTestCase {
         oldDetails.setText("Message");
         oldDetails.setUid(0l);
         
-        IMAPFolder folder = new IMAPFolder();
+        ImapFolderImpl folder = new ImapFolderImpl();
         folder.setFullName("FOLDER");
         
         presenter.bind();

@@ -92,7 +92,7 @@ import org.apache.hupa.client.mvp.IMAPMessageListView;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
-import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.Message.IMAPFlag;
 import org.apache.hupa.shared.data.User;
@@ -103,12 +103,16 @@ import org.apache.hupa.shared.events.LogoutEventHandler;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 =======
 >>>>>>> Change to new mvp framework - first step
 =======
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.event.EditHandler;
 import org.apache.hupa.widgets.ui.EnableHyperlink;
@@ -297,7 +301,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
             bindDropController(iTreeItem);
             folderTree.addItem(iTreeItem);
 
-            if (((IMAPFolderProxy) iTreeItem.getUserObject()).getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
+            if (((ImapFolder) iTreeItem.getUserObject()).getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
                 folderTree.setSelectedItem(iTreeItem, false);
             }
 
@@ -401,7 +405,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
                 oldTreeItem.decreaseUnseenMessageCount();
                 item.increaseUnseenMessageCount();
             }
-            bus.fireEvent(new MoveMessageEvent(user, (IMAPFolder) oldTreeItem.getUserObject(), (IMAPFolder) item.getUserObject(), message));
+            bus.fireEvent(new MoveMessageEvent(user, (ImapFolder) oldTreeItem.getUserObject(), (ImapFolder) item.getUserObject(), message));
         }
 
         /**
@@ -520,7 +524,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
         // Select the INBOX after delete folder
         for (int i = 0; i < folderTree.getItemCount(); i++) {
             IMAPTreeItem item = (IMAPTreeItem) folderTree.getItem(i);
-            if (((IMAPFolder) item.getUserObject()).getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
+            if (((ImapFolder) item.getUserObject()).getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
                 folderTree.setSelectedItem(item, true);
                 break;
             }
@@ -543,6 +547,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
         
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         IMAPFolderProxy oldFolder = (IMAPFolderProxy) selected.getUserObject();
 
         // Generate a new folder with a whitespace as name, this is needed as
@@ -562,6 +567,13 @@ public class WestView extends Composite implements WestActivity.Displayable {
         // workaround
         IMAPFolderProxy folder = (IMAPFolderProxy)new IMAPFolder(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+        ImapFolder oldFolder = (ImapFolder) selected.getUserObject();
+
+        // Generate a new folder with a whitespace as name, this is needed as
+        // workaround
+        ImapFolder folder = (ImapFolder)new ImapFolderImpl(oldFolder.getFullName() + oldFolder.getDelimiter() + " ");
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         folder.setDelimiter(oldFolder.getDelimiter());
 
         final IMAPTreeItem newItem = new IMAPTreeItem(folder);
@@ -607,6 +619,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
      */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
 =======
     public void decreaseUnseenMessageCount(IMAPFolder folder, int amount) {
@@ -614,6 +627,9 @@ public class WestView extends Composite implements WestActivity.Displayable {
 =======
     public void decreaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public void decreaseUnseenMessageCount(ImapFolder folder, int amount) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -633,6 +649,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
      */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
 =======
     public void increaseUnseenMessageCount(IMAPFolder folder, int amount) {
@@ -640,6 +657,9 @@ public class WestView extends Composite implements WestActivity.Displayable {
 =======
     public void increaseUnseenMessageCount(IMAPFolderProxy folder, int amount) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public void increaseUnseenMessageCount(ImapFolder folder, int amount) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);
@@ -654,6 +674,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolderProxy folder) {
 =======
     private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolder folder) {
@@ -662,6 +683,10 @@ public class WestView extends Composite implements WestActivity.Displayable {
     private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, IMAPFolderProxy folder) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
         if (folder.getFullName().equalsIgnoreCase(((IMAPFolder) item.getUserObject()).getFullName())) {
+=======
+    private IMAPTreeItem findTreeItemForFolder(IMAPTreeItem item, ImapFolder folder) {
+        if (folder.getFullName().equalsIgnoreCase(((ImapFolder) item.getUserObject()).getFullName())) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
             return item;
         }
         for (int i = 0; i < item.getChildCount(); i++) {
@@ -679,6 +704,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
      */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void updateTreeItem(IMAPFolderProxy folder) {
 =======
     public void updateTreeItem(IMAPFolder folder) {
@@ -686,6 +712,9 @@ public class WestView extends Composite implements WestActivity.Displayable {
 =======
     public void updateTreeItem(IMAPFolderProxy folder) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public void updateTreeItem(ImapFolder folder) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         int count = folderTree.getItemCount();
         for (int i = 0; i < count; i++) {
             IMAPTreeItem item = findTreeItemForFolder((IMAPTreeItem) folderTree.getItem(i), folder);

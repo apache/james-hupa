@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 import org.apache.hupa.shared.data.Message;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> first commit
 =======
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
@@ -42,6 +43,9 @@ import org.apache.hupa.shared.data.Message;
 =======
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+import org.apache.hupa.shared.proxy.ImapFolder;
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -65,14 +69,18 @@ public class MessagesReceivedEvent extends GwtEvent<MessagesReceivedEventHandler
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
 =======
     private ArrayList<Message> messages;
-    private IMAPFolderProxy folder;
+    private ImapFolder folder;
     
+<<<<<<< HEAD
 <<<<<<< HEAD
     public MessagesReceivedEvent(IMAPFolder folder, ArrayList<Message> messages) {
 >>>>>>> first commit
 =======
     public MessagesReceivedEvent(IMAPFolderProxy folder, ArrayList<Message> messages) {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public MessagesReceivedEvent(ImapFolder folder, ArrayList<Message> messages) {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         this.messages = messages;
         this.folder = folder;
     }
@@ -94,6 +102,7 @@ public class MessagesReceivedEvent extends GwtEvent<MessagesReceivedEventHandler
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public IMAPFolder getFolder() {
 >>>>>>> first commit
 =======
@@ -105,6 +114,9 @@ public class MessagesReceivedEvent extends GwtEvent<MessagesReceivedEventHandler
 =======
     public IMAPFolderProxy getFolder() {
 >>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
+=======
+    public ImapFolder getFolder() {
+>>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
         return folder;
     }
     

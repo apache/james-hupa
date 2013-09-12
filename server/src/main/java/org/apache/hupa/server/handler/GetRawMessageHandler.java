@@ -52,7 +52,7 @@ public class GetRawMessageHandler extends AbstractSessionHandler<RawMessage, Raw
             ExecutionContext context) throws ActionException {
         User user = getUser();
         long uid = action.getUid();
-        org.apache.hupa.shared.data.IMAPFolder folder = action.getFolder();
+        org.apache.hupa.shared.data.ImapFolderImpl folder = action.getFolder();
         try {
             IMAPStore store = cache.get(user);
             IMAPFolder f = (IMAPFolder) store.getFolder(folder.getFullName());
