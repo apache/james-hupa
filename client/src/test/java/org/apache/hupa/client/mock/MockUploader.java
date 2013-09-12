@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.mock;
 
+<<<<<<< HEAD
 import gwtupload.client.IFileInput;
 import gwtupload.client.IUploadStatus;
 import gwtupload.client.IUploadStatus.Status;
@@ -30,6 +31,20 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Widget;
 
+=======
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.Widget;
+
+import gwtupload.client.IFileInput;
+import gwtupload.client.IUploadStatus;
+import gwtupload.client.IUploader;
+import gwtupload.client.IUploadStatus.Status;
+import gwtupload.client.IUploader.UploadedInfo;
+
+import java.util.Iterator;
+
+>>>>>>> first commit
 public class MockUploader implements IUploader {
 
     public HandlerRegistration addOnCancelUploadHandler(OnCancelUploaderHandler handler) {
@@ -118,7 +133,11 @@ public class MockUploader implements IUploader {
         // TODO Auto-generated method stub
     }
 
+<<<<<<< HEAD
     public void setValidExtensions(String... ext) {
+=======
+    public void setValidExtensions(String[] ext) {
+>>>>>>> first commit
         // TODO Auto-generated method stub
     }
 

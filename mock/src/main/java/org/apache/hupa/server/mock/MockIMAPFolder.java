@@ -19,6 +19,12 @@
 
 package org.apache.hupa.server.mock;
 
+<<<<<<< HEAD
+=======
+import com.sun.mail.imap.IMAPFolder;
+import com.sun.mail.imap.IMAPStore;
+
+>>>>>>> first commit
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,18 +32,28 @@ import java.util.List;
 
 import javax.mail.FetchProfile;
 import javax.mail.Flags;
+<<<<<<< HEAD
 import javax.mail.Flags.Flag;
+=======
+>>>>>>> first commit
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
+<<<<<<< HEAD
 import javax.mail.internet.MimeMessage;
 import javax.mail.search.SearchTerm;
 
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
+=======
+import javax.mail.Flags.Flag;
+import javax.mail.internet.MimeMessage;
+import javax.mail.search.SearchTerm;
+
+>>>>>>> first commit
 public class MockIMAPFolder extends IMAPFolder {
 
     public static final char SEPARATOR = '.';
@@ -256,6 +272,7 @@ public class MockIMAPFolder extends IMAPFolder {
     }
 
     @Override
+<<<<<<< HEAD
     public synchronized Message[] search(SearchTerm search)
             throws MessagingException {
         checkExists();
@@ -266,6 +283,12 @@ public class MockIMAPFolder extends IMAPFolder {
         	}
         }
         return ret.toArray(new Message[0]);
+=======
+    public synchronized Message[] search(SearchTerm arg0)
+            throws MessagingException {
+        checkExists();
+        return getMessages();
+>>>>>>> first commit
     }
 
     @Override
@@ -306,11 +329,19 @@ public class MockIMAPFolder extends IMAPFolder {
         Message[] array = new Message[ints.length];
 
         for (int i = 0; i < ints.length; i++) {
+<<<<<<< HEAD
             int mInt = ints[i];
             if (mInt > messages.size() || mInt < 0) {
                 throw new MessagingException();
             }
             array[i] = messages.get(ints[i]);
+=======
+            int mInt = ints[i] - 1;
+            if (mInt > messages.size() || mInt < messages.size()) {
+                throw new MessagingException();
+            }
+            array[i] = messages.get(i);
+>>>>>>> first commit
         }
         return array;
     }

@@ -72,6 +72,7 @@ p {
    margin-top: 5px;
    margin-bottom: 0px;
 }
+<<<<<<< HEAD
 .red {
   font-weight: bold;
   color: red;
@@ -93,6 +94,9 @@ pre {
         var s = document.getElementsByTagName('script').item(0); s.parentNode.insertBefore(ga, s);
       })();
     </script>
+=======
+</style>
+>>>>>>> first commit
 </head>
 
 <body>
@@ -103,14 +107,21 @@ pre {
 	</div>
 
 	<div class='text box'>
+<<<<<<< HEAD
 		<p>
 		<ul>
 			<li>Hupa in <a href=/hupa.demo>Demo</a> mode:
+=======
+		<p>You can select one of our demo instances:
+		<ul>
+			<li>Hupa in <b>Demo</b> mode: <a href=/hupa.demo>http</a>:
+>>>>>>> first commit
 				<ul>
                     <li>Username is set to <b>'demo'</b> and the password is <b>'demo'</b></li>
 					<li>Uses a collection of example messages and stub
 						implementations of IMAP and SMTP servers.</li>
 					<li>In this instance you can test almost the Hupa features,
+<<<<<<< HEAD
 						but emails you send will never reach the addressee.</li>
 				</ul></li>
 			</li>
@@ -125,11 +136,22 @@ $ java -jar hupa-0.0.2-SNAPSHOT.war
           Your instance on Hupa:
 				<ul>
 					<li>Will work with any imap enabled account in gmail.</li>
+=======
+						but emails you send will never reach the addressee, 
+                                                and message search is not implemented.</li>
+				</ul></li>
+			</li>
+
+			<li>Hupa for <b>Gmail</b>: <a href=https://james.zones.apache.org/hupa.gmail>https</a> | <a href=/hupa.gmail>http</a>
+				<ul>
+					<li>It will work with any imap enabled account in gmail.</li>
+>>>>>>> first commit
 					<li>You have to provide a valid gmail username (don't forget
 						the domain part) and your password.</li>
 					<li>Because this instance and gmail servers are far away, and
 						Hupa caching is not enabled, you will notice a latency when using
 						the application.</li>
+<<<<<<< HEAD
 					<li>You can read your real messages, search them, and use Hupa to reply and send
 						messages to your contacts.</li>
                                         <div class='warn'>
@@ -144,6 +166,20 @@ $ java -jar hupa-0.0.2-SNAPSHOT.war
                                            <p>Because this is a demo instance we are using a
                                            self-signed certificate.</p>
 -->
+=======
+					<li>You can manage your folders, read your messages, search them, reply and send
+						messages to your contacts.</li>
+                                        <div class='warn'>
+                                           <p>Like any other email client, Hupa needs your credentials in order to 
+                                           open a secure session with gmail servers. </p>
+                                           <p>Hupa uses a SSL
+                                           channel to comunicate with gmail; 
+                                           in the same way we recomend that
+                                           you use hupa via HTTPS so as the communication between your browser and Hupa
+                                           were not compromissed. </p>
+                                           <p>Because this is a demo instance we are using a
+                                           self-signed certificate.</p>
+>>>>>>> first commit
                                         </div>
 				</ul></li>
 		</ul>

@@ -19,8 +19,13 @@
 
 package org.apache.hupa.shared.events;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -28,6 +33,7 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
 
     public final static Type<DecreaseUnseenEventHandler> TYPE = new Type<DecreaseUnseenEventHandler>();
     private User user;
+<<<<<<< HEAD
     private ImapFolder folder;
     private int amount;
     
@@ -36,12 +42,26 @@ public class DecreaseUnseenEvent extends GwtEvent<DecreaseUnseenEventHandler>{
     }
     
     public DecreaseUnseenEvent(User user, ImapFolder folder, int amount) {
+=======
+    private IMAPFolder folder;
+    private int amount;
+    
+    public DecreaseUnseenEvent(User user, IMAPFolder folder) {
+        this(user, folder, 1);
+    }
+    
+    public DecreaseUnseenEvent(User user, IMAPFolder folder, int amount) {
+>>>>>>> first commit
         this.user =user;
         this.folder = folder;
         this.amount = amount;
     }
     
+<<<<<<< HEAD
     public ImapFolder getFolder() {
+=======
+    public IMAPFolder getFolder() {
+>>>>>>> first commit
         return folder;
     }
     

@@ -20,10 +20,17 @@
 
 package org.apache.hupa.shared.events;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.Message;
+import org.apache.hupa.shared.data.MessageDetails;
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -31,11 +38,19 @@ public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
 
     public final static Type<ForwardMessageEventHandler> TYPE = new Type<ForwardMessageEventHandler>();
     private User user;
+<<<<<<< HEAD
     private ImapFolder folder;
     private Message message;
     private MessageDetails details;
 
     public ForwardMessageEvent(User user, ImapFolder folder, Message message, MessageDetails details) {
+=======
+    private IMAPFolder folder;
+    private Message message;
+    private MessageDetails details;
+
+    public ForwardMessageEvent(User user, IMAPFolder folder, Message message, MessageDetails details) {
+>>>>>>> first commit
         this.user = user;
         this.folder = folder;
         this.message = message;
@@ -46,7 +61,11 @@ public class ForwardMessageEvent extends GwtEvent<ForwardMessageEventHandler> {
         return user;
     }
 
+<<<<<<< HEAD
     public ImapFolder getFolder() {
+=======
+    public IMAPFolder getFolder() {
+>>>>>>> first commit
         return folder;
     }
 

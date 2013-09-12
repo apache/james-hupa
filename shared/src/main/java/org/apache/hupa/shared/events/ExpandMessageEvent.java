@@ -19,10 +19,16 @@
 
 package org.apache.hupa.shared.events;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.Message;
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 
 import com.google.gwt.event.shared.GwtEvent;
 
@@ -31,15 +37,22 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
     public final static Type<ExpandMessageEventHandler> TYPE = new Type<ExpandMessageEventHandler>();
     private Message message;
     private User user;
+<<<<<<< HEAD
     private ImapFolder folder;
     private MessageDetails messageDetails;
     
     public ExpandMessageEvent(User user, ImapFolder folder, Message message) {
+=======
+    private IMAPFolder folder;
+    
+    public ExpandMessageEvent(User user, IMAPFolder folder, Message message) {
+>>>>>>> first commit
         this.message = message;
         this.folder = folder;
         this.user = user;
     }
     
+<<<<<<< HEAD
     public ExpandMessageEvent(User user, ImapFolder folder, Message message, MessageDetails messageDetails) {
         this.message = message;
         this.folder = folder;
@@ -48,6 +61,9 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
 	}
 
 	public Message getMessage() {
+=======
+    public Message getMessage() {
+>>>>>>> first commit
         return message;
     }
     
@@ -55,6 +71,7 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
         return user;
     }
     
+<<<<<<< HEAD
     public ImapFolder getFolder () {
         return folder;
     }
@@ -63,6 +80,12 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
     	return messageDetails;
     }
     
+=======
+    public IMAPFolder getFolder () {
+        return folder;
+    }
+    
+>>>>>>> first commit
     
     @Override
     protected void dispatch(ExpandMessageEventHandler handler) {

@@ -21,10 +21,18 @@ package org.apache.hupa.server.guice;
 
 import java.util.Properties;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.SettingsImpl;
 import org.apache.hupa.shared.data.UserImpl;
 
 import com.google.inject.AbstractModule;
+=======
+import net.customware.gwt.dispatch.server.guice.ActionHandlerModule;
+
+import org.apache.hupa.shared.data.Settings;
+import org.apache.hupa.shared.data.User;
+
+>>>>>>> first commit
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -73,10 +81,17 @@ import com.google.inject.name.Named;
  * @author manolo
  *
  */
+<<<<<<< HEAD
 public abstract class AbstractGuiceTestModule extends AbstractModule{
 
     protected static class TestUser extends UserImpl {
     	
+=======
+public abstract class AbstractGuiceTestModule extends ActionHandlerModule {
+
+    protected static class TestUser extends User {
+        private static final long serialVersionUID = 1L;
+>>>>>>> first commit
         @Inject
         public TestUser(@Named("Username") String username, 
                         @Named("Password") String password, 
@@ -86,7 +101,12 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
                         @Named("DefaultDraftsFolder") final String draft) {
             setName(username);
             setPassword(password);
+<<<<<<< HEAD
             setSettings(new SettingsImpl() {
+=======
+            setSettings(new Settings() {
+                private static final long serialVersionUID = 1L;
+>>>>>>> first commit
                 {
                     setInboxFolderName(inbox);
                     setSentFolderName(sent);
@@ -114,17 +134,37 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
             put("IMAPServerPort", "143");
             put("IMAPS", "false");
             
+<<<<<<< HEAD
+=======
+            put("TrustStore", "my-truststore");
+            put("TrustStorePassword", "my-truststore-password");
+            
+            put("IMAPConnectionPoolSize", "4");
+            put("IMAPConnectionPoolTimeout", "300000");
+            
+>>>>>>> first commit
             put("DefaultInboxFolder", "INBOX");
             put("DefaultTrashFolder", "Trash");
             put("DefaultSentFolder", "Sent");
             put("DefaultDraftsFolder", "Drafts");
             
+<<<<<<< HEAD
+=======
+            put("PostFetchMessageCount", "0");
+
+>>>>>>> first commit
             put("SMTPServerAddress", "localhost");
             put("SMTPServerPort", "25");
             put("SMTPS", "false");
             put("SMTPAuth", "true");
             
+<<<<<<< HEAD
             put("SessionDebug", "true");
+=======
+            put("SessionDebug", "false");
+            
+            put("DefaultUserSessionId", "just_an_id");
+>>>>>>> first commit
         }
     };
     
@@ -144,17 +184,37 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
             put("IMAPServerPort", "143");
             put("IMAPS", "false");
             
+<<<<<<< HEAD
+=======
+            put("TrustStore", "my-truststore");
+            put("TrustStorePassword", "my-truststore-password");
+            
+            put("IMAPConnectionPoolSize", "4");
+            put("IMAPConnectionPoolTimeout", "300000");
+            
+>>>>>>> first commit
             put("DefaultInboxFolder", "INBOX");
             put("DefaultTrashFolder", "INBOX.Trash");
             put("DefaultSentFolder", "INBOX.Sent");
             put("DefaultDraftsFolder", "INBOX.Drafts");
             
+<<<<<<< HEAD
+=======
+            put("PostFetchMessageCount", "0");
+
+>>>>>>> first commit
             put("SMTPServerAddress", "mail.hotelsearch.com");
             put("SMTPServerPort", "25");
             put("SMTPS", "false");
             put("SMTPAuth", "true");
             
+<<<<<<< HEAD
             put("SessionDebug", "true");
+=======
+            put("SessionDebug", "false");
+            
+            put("DefaultUserSessionId", "just_an_id");
+>>>>>>> first commit
         }
     };
     
@@ -173,6 +233,12 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
             put("IMAPServerPort", "993");
             put("IMAPS", "true");
             
+<<<<<<< HEAD
+=======
+            put("TrustStore", "my-truststore");
+            put("TrustStorePassword", "my-truststore-password");
+            
+>>>>>>> first commit
             put("IMAPConnectionPoolSize", "4");
             put("IMAPConnectionPoolTimeout", "300000");
             
@@ -181,12 +247,23 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
             put("DefaultSentFolder", "[Gmail]/Sent Mail");
             put("DefaultDraftsFolder", "[Gmail]/Drafts");
             
+<<<<<<< HEAD
+=======
+            put("PostFetchMessageCount", "0");
+
+>>>>>>> first commit
             put("SMTPServerAddress", "smtp.gmail.com");
             put("SMTPServerPort", "465");
             put("SMTPS", "true");
             put("SMTPAuth", "true");
             
+<<<<<<< HEAD
             put("SessionDebug", "true");
+=======
+            put("SessionDebug", "false");
+            
+            put("DefaultUserSessionId", "just_an_id");
+>>>>>>> first commit
         }
     };
 

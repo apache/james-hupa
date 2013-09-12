@@ -19,7 +19,11 @@
 
 package org.apache.hupa.shared.events;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 
 import com.google.gwt.event.shared.GwtEvent;
 

@@ -17,6 +17,10 @@
  * under the License.                                           *
  ****************************************************************/
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> first commit
 package org.apache.hupa.server.guice.providers;
 
 import org.apache.commons.logging.Log;

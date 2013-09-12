@@ -23,6 +23,10 @@ import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 
 import java.util.Arrays;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.regex.Pattern;
+>>>>>>> first commit
 
 /**
  *

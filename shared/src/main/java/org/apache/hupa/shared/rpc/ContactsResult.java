@@ -21,6 +21,7 @@ package org.apache.hupa.shared.rpc;
 
 import java.io.Serializable;
 
+<<<<<<< HEAD
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 
@@ -82,5 +83,59 @@ public class ContactsResult{
 	public void setContacts(Contact[] contacts) {
 		this.contacts = contacts;
 	}
+=======
+import net.customware.gwt.dispatch.shared.Result;
+
+public class ContactsResult implements Result, Serializable {
+
+    public static class Contact implements Result, Serializable {
+        private static final long serialVersionUID = -8632580327693416473L;
+        public String mail;
+        public String realname;
+
+        public Contact() {
+        }
+        
+        public Contact(String mail){
+            this.realname = !mail.contains("<") ? "" : 
+                             mail.replaceAll("<.+$", "")
+                             .replaceAll("^[\\s\"']+","")
+                             .replaceAll("[\\s\"']+$", "");
+            this.mail = mail.replaceAll("^.*<([^>]+)>","$1");
+        }
+
+        public Contact(String realname, String mail) {
+            this.realname = realname;
+            this.mail = mail;
+        }
+
+        public String toString() {
+            return (realname != null ? realname : "") + "<" + mail + ">";
+        }
+        
+        public String toKey() {
+            return toString().replaceAll("[^\\w\\d<@>]+", "").toLowerCase();
+        }
+        
+    }
+
+    private static final long serialVersionUID = -8740775403377441876L;
+    private Contact[] contacts;
+
+    public ContactsResult() {
+    }
+
+    public ContactsResult(Contact... contacts) {
+        this.contacts = contacts;
+    }
+
+    public Contact[] getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Contact[] contacts) {
+        this.contacts = contacts;
+    }
+>>>>>>> first commit
 
 }

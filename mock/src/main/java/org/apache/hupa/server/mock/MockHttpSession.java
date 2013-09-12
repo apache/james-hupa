@@ -30,6 +30,10 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 
 import com.google.inject.Inject;
+<<<<<<< HEAD
+=======
+import com.google.inject.name.Named;
+>>>>>>> first commit
 
 @SuppressWarnings("deprecation")
 public class MockHttpSession implements HttpSession{
@@ -40,9 +44,15 @@ public class MockHttpSession implements HttpSession{
     private static int seq = 0;
     
     @Inject
+<<<<<<< HEAD
     public MockHttpSession() {
         cTime = System.currentTimeMillis();
         this.id = MockConstants.SESSION_ID + "-" + seq++;
+=======
+    public MockHttpSession(@Named("DefaultUserSessionId") String id) {
+        cTime = System.currentTimeMillis();
+        this.id = id + "-" + seq++;
+>>>>>>> first commit
     }
     
     public Object getAttribute(String name) {
@@ -50,8 +60,13 @@ public class MockHttpSession implements HttpSession{
     }
 
     
+<<<<<<< HEAD
     @SuppressWarnings("rawtypes")
 	public Enumeration getAttributeNames() {
+=======
+    @SuppressWarnings("unchecked")
+    public Enumeration getAttributeNames() {
+>>>>>>> first commit
         return new Enumeration() {
             Iterator it = attributeMap.keySet().iterator();
             public boolean hasMoreElements() {

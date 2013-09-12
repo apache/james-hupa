@@ -19,6 +19,7 @@
 
 package org.apache.hupa.server.utils;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +30,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+=======
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+>>>>>>> first commit
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -44,6 +51,10 @@ import javax.mail.internet.MimeUtility;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
+<<<<<<< HEAD
+=======
+import org.apache.hupa.server.handler.AbstractSendMessageHandler;
+>>>>>>> first commit
 
 
 
@@ -76,7 +87,11 @@ public class MessageUtils {
         }
         Address[] array = new Address[recipients.size()];
         for (int i = 0; i < recipients.size(); i++) {
+<<<<<<< HEAD
             array[i] = new InternetAddress(encodeEmail(recipients.get(i)));
+=======
+            array[i] = new InternetAddress(recipients.get(i));
+>>>>>>> first commit
         }
         return array;
     }
@@ -175,11 +190,16 @@ public class MessageUtils {
      */
     public static BodyPart fileitemToBodypart(FileItem item) throws MessagingException {
         MimeBodyPart messageBodyPart = new MimeBodyPart();
+<<<<<<< HEAD
         DataSource source = new FileItemDataStore(item);
+=======
+        DataSource source = new AbstractSendMessageHandler.FileItemDataStore(item);
+>>>>>>> first commit
         messageBodyPart.setDataHandler(new DataHandler(source));
         messageBodyPart.setFileName(source.getName());
         return messageBodyPart;
     }
+<<<<<<< HEAD
 
     /**
      * DataStore which wrap a FileItem
@@ -279,4 +299,7 @@ public class MessageUtils {
         }
         return ret;
     }
+=======
+    
+>>>>>>> first commit
 }

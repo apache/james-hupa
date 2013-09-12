@@ -18,6 +18,7 @@
  ****************************************************************/
 package org.apache.hupa.server.utils;
 
+<<<<<<< HEAD
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -33,12 +34,28 @@ import org.junit.Test;
 public class MessageUtilsTest extends HupaGuiceTestCase {
     
     @Test public void extractMessageAttachments() throws Exception {
+=======
+import org.apache.hupa.server.HupaGuiceTestCase;
+
+import java.util.List;
+
+import javax.mail.BodyPart;
+import javax.mail.Message;
+
+public class MessageUtilsTest extends HupaGuiceTestCase {
+    
+    public void testExtractMessageAttachments() throws Exception {
+>>>>>>> first commit
         Message message = TestUtils.createMockMimeMessage(session, 2);
         List<BodyPart> parts = MessageUtils.extractMessageAttachments(logger, message.getContent());
         assertEquals(2, parts.size());
     }
 
+<<<<<<< HEAD
     @Test public void extractInlineAttachments() throws Exception {
+=======
+    public void testExtractInlineAttachments() throws Exception {
+>>>>>>> first commit
         Message message = TestUtils.createMockMimeMessage(session, 1);
         
         List<BodyPart> attachments = MessageUtils.extractMessageAttachments(logger, message.getContent());
@@ -60,6 +77,7 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
         assertEquals(3, attachments.size());
         assertEquals(1, inlineImgs.size());
     }
+<<<<<<< HEAD
     
     @Test public void getRecipients () throws Exception  {
         String encodedEmail = "=?ISO-8859-1?Q?Manolo_Pe=F1a?= <hello@hupa.org>";
@@ -69,4 +87,6 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
         Address[] addr = MessageUtils.getRecipients(encodedEmail, decodedEmail);
         assertEquals(addr[0].toString(), addr[1].toString());
     }
+=======
+>>>>>>> first commit
 }

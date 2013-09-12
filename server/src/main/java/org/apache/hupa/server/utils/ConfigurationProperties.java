@@ -53,7 +53,12 @@ public enum ConfigurationProperties {
 
     // Used only in demo mode
     USERNAME("Username", false, null),
+<<<<<<< HEAD
     PASSWORD("Password", false, null);
+=======
+    PASSWORD("Password", false, null),
+    SESSIONID("DefaultUserSessionId", false, null);
+>>>>>>> first commit
     
     private String property;
     private boolean mandatory;

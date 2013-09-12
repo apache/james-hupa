@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client;
 
+<<<<<<< HEAD
 import org.apache.hupa.client.ioc.AppGinjector;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -53,5 +54,34 @@ public class Hupa implements EntryPoint {
 	}
 
 	private final AppGinjector injector = GWT.create(AppGinjector.class);
+=======
+import net.customware.gwt.presenter.client.place.PlaceManager;
+
+import org.apache.hupa.client.gin.HupaGinjector;
+import org.apache.hupa.client.mvp.AppPresenter;
+
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.RootPanel;
+
+public class Hupa implements EntryPoint{
+    private final HupaGinjector injector = GWT.create(HupaGinjector.class);
+    
+    public void onModuleLoad() {
+        // remove the loading message from the browser
+        com.google.gwt.user.client.Element loading = DOM.getElementById("loading");
+
+        DOM.removeChild(RootPanel.getBodyElement(), loading);
+
+        AppPresenter aPres = injector.getAppPresenter();
+        aPres.bind();
+       
+        RootPanel.get().add(aPres.getDisplay().asWidget());
+
+        PlaceManager placeManager = injector.getPlaceManager();
+        placeManager.fireCurrentPlace();
+    }
+>>>>>>> first commit
 
 }

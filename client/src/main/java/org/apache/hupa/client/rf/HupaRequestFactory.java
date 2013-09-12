@@ -21,6 +21,7 @@ package org.apache.hupa.client.rf;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
 public interface HupaRequestFactory extends RequestFactory {
+<<<<<<< HEAD
 	SubjectRequest subjectRequest();
 
 	ImapFolderRequest folderRequest();
@@ -58,4 +59,7 @@ public interface HupaRequestFactory extends RequestFactory {
 	IdleRequest idleRequest();
 
 	SetFlagRequest setFlagRequest();
+=======
+  SubjectRequest subjectRequest();
+>>>>>>> first commit
 }

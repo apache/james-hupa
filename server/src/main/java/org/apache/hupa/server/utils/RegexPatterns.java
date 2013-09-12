@@ -48,8 +48,12 @@ public class RegexPatterns {
     
     public static final Pattern regex_inlineImg = Pattern.compile("(?si)(<\\s*img\\s+.*?src=)[\"']?cid:([^\"']+)[\"']?");
     public static final String repl_inlineImg = "$1'" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD 
+<<<<<<< HEAD
                                         + "?" + SConsts.PARAM_MODE + "=inline" 
                                         + "&" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
+=======
+                                        + "?" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
+>>>>>>> first commit
                                         + "&" + SConsts.PARAM_UID + "=%%UID%%" 
                                         + "&" + SConsts.PARAM_NAME + "=$2' name='cid:$2'";
     
@@ -100,4 +104,8 @@ public class RegexPatterns {
 //    s=s.replaceAll("[ \t]+", " ");
 
     
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> first commit

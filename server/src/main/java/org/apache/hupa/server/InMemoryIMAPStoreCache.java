@@ -29,7 +29,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 
 import org.apache.commons.logging.Log;
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -92,6 +96,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
      * @see org.apache.hupa.server.IMAPStoreCache#get(org.apache.hupa.shared.data.User)
      */
     public IMAPStore get(User user) throws MessagingException {
+<<<<<<< HEAD
     	IMAPStore ret =  get(user.getName(),user.getPassword());
     	
     	// TODO: this is a hack, we should have a default domain suffix in configuration files
@@ -99,6 +104,9 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
     		user.setName(user.getName() + "@gmail.com");
     	}
     	return ret;
+=======
+        return get(user.getName(),user.getPassword());
+>>>>>>> first commit
     }
     
     /*

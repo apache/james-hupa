@@ -16,6 +16,7 @@
   specific language governing permissions and limitations
   under the License.
 */
+<<<<<<< HEAD
 /************[ Fonts ]***************************/
 body,table td,select,* {
 	font-family: arial, 'comic sans ms', sans-serif, helvetica, verdana;
@@ -39,20 +40,44 @@ body.noscroll { /* also avoids bounce effect in Chrome and Safari */
 	background: #fae5b0;
 }
 
+=======
+
+/************[ Fonts ]***************************/
+body, table td, select, * {
+    font-family:  arial, 'comic sans ms', sans-serif, helvetica, verdana;
+    font-size: 12px;
+}
+
+/************[ widget: MyDialogBox ]****************/
+.hupa-dialog-box td.dialogMiddleCenter  {
+	background: #fae5b0;
+}
+>>>>>>> first commit
 .hupa-dialog-box .dialogContent .gwt-Label {
 	font-weight: bold;
 	margin: 15px;
 }
+<<<<<<< HEAD
 
 .hupa-dialog-box .Caption {
 	font-size: 14px;
+=======
+.hupa-dialog-box .Caption {
+    font-size: 14px;
+>>>>>>> first commit
 }
 
 /************[ widget: RndPanel ]****************/
 .hupa-rounded {
+<<<<<<< HEAD
 	border: 1px solid #7FAAFF;
 	border-radius: 5px;
 	overflow: hidden;
+=======
+   border: 1px solid #7FAAFF; 
+   border-radius: 5px;
+   overflow: hidden;
+>>>>>>> first commit
 }
 
 /************[ widget: Loading ]*************************************/
@@ -61,12 +86,21 @@ div.hupa-loading {
 	padding-left: 25px;
 	width: 100px;
 	height: 14px;
+<<<<<<< HEAD
 	white-space: nowrap;
 	margin-top: 5px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: left;
 	vertical-align: top;
+=======
+    white-space: nowrap;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    vertical-align: top;
+>>>>>>> first commit
 }
 
 /************[ widget: EnableHyperLink ]*********/
@@ -75,12 +109,19 @@ div.hupa-loading {
 	text-decoration: underline;
 	cursor: pointer;
 }
+<<<<<<< HEAD
 
 .hupa-hyperlink .gwt-Hyperlink-disabled {
 	color: #8d8d8d;
 }
 
 div.gwt-Hyperlink,div.gwt-Anchor {
+=======
+.hupa-hyperlink .gwt-Hyperlink-disabled {
+	color: #8d8d8d;
+}
+div.gwt-Hyperlink, div.gwt-Anchor {
+>>>>>>> first commit
 	padding-left: 4px;
 }
 
@@ -90,6 +131,7 @@ div.Hupa {
 	margin-top: 0px;
 	padding: 0px;
 	width: 100%;
+<<<<<<< HEAD
 	min-width: 400px;
 }
 
@@ -111,33 +153,70 @@ div.hupa-top {
 	padding-left: 0px;
 }
 
+=======
+	min-width: 920px;
+}
+* html div.Hupa {
+   margin-top: 15px;
+}
+div.hupa-logo {
+    width: 90px;
+	height: 64px;
+    float: left;
+	background: url(images/hupa-logo-64-transparent.png) no-repeat;
+}
+
+div.hupa-top { 
+    padding-left: 80px;
+    padding-right: 8px;
+}
+* html div.hupa-top { 
+    padding-left: 0px;
+} 
+>>>>>>> first commit
 div.hupa-top-wrap {
 	height: 64px;
 	background-color: #C5D9FF;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> first commit
 div.cgb-RPC-hupa-top-wrap {
 	height: 59px;
 }
 
 table.hupa-top {
+<<<<<<< HEAD
 	width: 100%;
 	margin-bottom: 0px;
 }
 
+=======
+    width: 100%;    
+    margin-bottom: 0px;
+}
+>>>>>>> first commit
 table.hupa-button-bar td div {
 	padding-top: 12px;
 }
 
+<<<<<<< HEAD
 div.hupa-loginfo-label,div.hupa-loginfo-user {
 	margin-left: 10px;
 	margin-right: 10px;
 }
 
+=======
+div.hupa-loginfo-label, div.hupa-loginfo-user {
+	margin-left: 10px;
+}
+>>>>>>> first commit
 .hupa-loginfo-user {
 	font-style: italic;
 	font-weight: bold;
 }
+<<<<<<< HEAD
 
 .hupa-menu-button {
 	margin-right: 15px;
@@ -145,18 +224,33 @@ div.hupa-loginfo-label,div.hupa-loginfo-user {
 
 div.hupa-header {
 	display: none;
+=======
+.hupa-menu-button {
+	margin-right: 15px;
+}
+div.hupa-header {
+    color: transparent;
+>>>>>>> first commit
 	padding-left: 10px;
 	height: 32px;
 }
 
+<<<<<<< HEAD
 .hupa-central {
 	clear: both;
 	margin: 8px 8px 8px 8px;
 	min-height: 200px;
+=======
+div.hupa-main {
+	clear: both;
+	margin: 8px 8px 8px 8px;
+	min-height: 500px;
+>>>>>>> first commit
 }
 
 * html div.cgb-RPC-hupa-main {
 	height: 500px;
+<<<<<<< HEAD
 	text-align: center;
 }
 
@@ -170,13 +264,33 @@ div.hupa-header {
 	left: 25%;
 }
 
+=======
+    text-align: center;
+}
+
+div.hupa-flash {
+	border: 1px solid #FAD163;
+    background-color: #fae5b0;
+	text-align: center;
+    margin: auto auto 2px auto;
+    width: 50%;
+    position: absolute;
+    top: 45px;
+    left: 25%;
+}
+>>>>>>> first commit
 * html div.hupa-flash {
 	border: none;
 	background: none;
 }
+<<<<<<< HEAD
 
 * html .hupa-flash div {
 	background-color: #fae5b0;
+=======
+* html .hupa-flash div {
+    background-color: #fae5b0;
+>>>>>>> first commit
 }
 
 .hupa-flash div.gwt-Label {
@@ -187,6 +301,7 @@ div.hupa-bottom {
 	text-align: center;
 }
 /************[ view: LoginView ]*******************/
+<<<<<<< HEAD
 .hupa-login {
 	margin: 10pt auto;
 	width: 20%;
@@ -204,12 +319,30 @@ div.hupa-bottom {
 }
 
 .hupa-login-form {
+=======
+table.hupa-login {
+    text-align: right;
+	margin-left: auto;
+	margin-right: auto; 
+	padding: 40px;
+}
+
+table.hupa-login td {
+	text-align: center;
+	padding-top: 6px;
+}
+table.hupa-login-form {
+>>>>>>> first commit
 	padding: 10px;
 }
 
 .hupa-login-textbox {
 	width: 230px;
+<<<<<<< HEAD
 	background-color: #d8ecfd;
+=======
+	background-color:  #d8ecfd;
+>>>>>>> first commit
 	border: 1px solid #7FAAFF;
 	margin-left: 5px;
 }
@@ -223,6 +356,7 @@ div.hupa-bottom {
 /************[ widget: CommandsBar ]*********/
 .hupa-commands-bar {
 	width: 100%;
+<<<<<<< HEAD
 	background-color: #deeeff;
 }
 
@@ -238,10 +372,28 @@ div.hupa-bottom {
 
 .hupa-msgtable-row {
 	text-align: left;
+=======
+    padding: 5px 4px 5px 4px;
+    background-color: #deeeff;  
+}
+
+/************[ view: IMAPMessageListView ]*******************/
+.hupa-msglist, .hupa-msg-top-bar, .hupa-msgtable {
+	width: 100%;
+}
+.hupa-msg-top-bar {
+	padding: 10px 4px 10px 4px;
+    background-color: #C3D9FF;	
+}
+
+.hupa-msgtable-row {
+    text-align: left;
+>>>>>>> first commit
 	vertical-align: top;
 	padding: 0px 10px 0px 10px;
 	cursor: pointer;
 }
+<<<<<<< HEAD
 
 .hupa-msgtable-unseen {
 	font-weight: bold;
@@ -253,10 +405,22 @@ div.hupa-bottom {
 	padding: 20px;
 }
 
+=======
+.hupa-msgtable-unseen {
+    font-weight: bold;
+}
+
+.hupa-msgtable-empty {
+    font-weight: bold;
+	text-align: center;
+	padding: 20px;
+}
+>>>>>>> first commit
 .hupa-search-box {
 	width: 150px;
 }
 
+<<<<<<< HEAD
 input[type=text],input[type=file],textarea {
 	background-color: #d8ecfd;
 	border: 1px solid #7FAAFF;
@@ -268,36 +432,71 @@ input[type=text],input[type=file],textarea {
 
 .gwt-SuggestBoxPopup {
 	font-size: 10px;
+=======
+input[type=text], input[type=file], textarea {
+    background-color:  #d8ecfd;
+    border: 1px solid #7FAAFF;
+}
+
+.dragdrop-dragable{
+	background: red;
+	}
+
+.gwt-SuggestBoxPopup {
+    font-size: 10px;
+>>>>>>> first commit
 }
 
 .hupa-buttons .gwt-ListBox {
 	margin-left: 5px;
+<<<<<<< HEAD
 	padding-left: 3px;
+=======
+>>>>>>> first commit
 }
 
 /*************[ buttonbars ]*********************/
 .hupa-buttons {
+<<<<<<< HEAD
 	white-space: nowrap;
 }
 
 .hupa-buttons td {
 	padding-left: 3px;
+=======
+    white-space: nowrap;
+}
+
+.hupa-buttons td {
+  padding-left: 3px;
+>>>>>>> first commit
 }
 
 .hupa-buttons div {
 	white-space: nowrap;
 	vertical-align: middle;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> first commit
 .hupa-buttons .gwt-Hyperlink {
 	padding-left: 6px;
 }
 
+<<<<<<< HEAD
 /************[ widget: MessageHeaders ]*******************/
 table.hupa-msg-headers {
 	background-color: #C3D9FF;
 }
 
+=======
+
+/************[ widget: MessageHeaders ]*******************/
+table.hupa-msg-headers {
+    background-color: #C3D9FF;
+}
+>>>>>>> first commit
 .hupa-msg-headers td.label {
 	width: 175px;
 	text-align: right;
@@ -309,7 +508,10 @@ table.hupa-msg-headers {
 table.hupa-msgview {
 	width: 100%;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> first commit
 div.hupa-msgview-content {
 	padding: 20px;
 }
@@ -322,18 +524,26 @@ div.hupa-msgview-content {
 	cursor: pointer;
 }
 
+<<<<<<< HEAD
 .hupa-attachment-view {
 	margin-left: 10px;
 }
 
+=======
+>>>>>>> first commit
 /************[ view: MessageSendView ]*******************/
 table.hupa-msgsend {
 	width: 100%;
 }
 
 .hupa-validate-error {
+<<<<<<< HEAD
 	border: 1pt solid red;
 	background-color: #fae5b0;
+=======
+	border:	1pt solid red;
+    background-color: #fae5b0;
+>>>>>>> first commit
 }
 
 /************[ view: ContactsView ]*******************/
@@ -342,12 +552,17 @@ table.hupa-contacts {
 	margin-right: auto;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> first commit
 /************************************************************************/
 /*** Non re-factored stuff ***/
 .cbg-ButtonContent {
 	font-size: 80%;
 }
 
+<<<<<<< HEAD
 .hupa-ErrorLabel,.gwt-PagingOptions .errorMessage {
 	color: #FF0000;
 }
@@ -481,3 +696,88 @@ div.hupa-main {
 	border-radius: 50px;
 	max-height: 8px;
 }
+=======
+.hupa-ErrorLabel, .gwt-PagingOptions .errorMessage {
+    color:           			   #FF0000;
+}
+
+.gwt-ScrollTable .dataTable td {
+    border-top:    				  	1pt solid #EEEEEE;
+    white-space:   			    	nowrap;
+    padding:					   	0px 10px 0px 10px;
+    overflow:    			      	hidden;
+    font-size:						12px;
+	cursor:         			    pointer;
+}
+
+
+.gwt-ScrollTable .dataTable tr.highlighted {
+    background:    				  	#FAD163;
+}
+
+.gwt-ScrollTable .dataTable tr.selected td {
+    background:       				#FFF7D7;
+}
+
+.hupa-IMAPFolder-unseen {
+	font-weight: bold;	
+}
+
+.hupa-IMAPFolder-selected {
+    background:                     #f1e77b;
+    width:                          100%;   
+}
+
+.hupa-droptarget-invalid {
+	color:							red;
+}
+
+.hupa-editor { 
+	border: 2px solid #C3D9FF;
+}
+
+/**** HTML5 shadows and gradients ****/
+
+body {
+    background: #eaeaea;
+}
+.hupa-rounded {
+    box-shadow: 0 1px 4px grey;
+}
+.hupa-top-wrap, .hupa-login-form, .hupa-msg-top-bar {
+    background: -moz-linear-gradient(#FFFFFF, #C5D9FF);
+    background: -webkit-linear-gradient(#FFFFFF, #C5D9FF);
+    background: -o-linear-gradient(#FFFFFF, #C5D9FF);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#C5D9FF',GradientType=0 ); 
+}
+.hupa-commands-bar {
+    background: -moz-linear-gradient(#C5D9FF, #eaeaea);
+    background: -webkit-linear-gradient(#C5D9FF, #eaeaea);
+    background: -o-linear-gradient(#C5D9FF, #eaeaea);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5D9FF', endColorstr='#eaeaea',GradientType=0 ); 
+}
+.hupa-tree {
+    background: -moz-linear-gradient(#C5D9FF, #eaeaea);
+    background: -webkit-linear-gradient(#C5D9FF, #eaeaea);
+    background: -o-linear-gradient(#C5D9FF, #eaeaea);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C5D9FF', endColorstr='#eaeaea',GradientType=0 ); 
+}
+div.hupa-main {
+    background: -moz-linear-gradient(#eaeaea, #fafafa);
+    background: -webkit-linear-gradient(#eaeaea, #fafafa);
+    background: -o-linear-gradient(#eaeaea, #fafafa);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#fafafa',GradientType=0 );     
+}
+.hupa-flash, .hupa-dialog-box td.dialogMiddleCenter  {
+    background: -moz-linear-gradient(#fae5b0, #eaeaea);
+    background: -webkit-linear-gradient(#fae5b0, #eaeaea);
+    background: -o-linear-gradient(#fae5b0, #eaeaea);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fae5b0', endColorstr='#eaeaea',GradientType=0 );     
+}
+.hupa-login-form, .hupa-bottom {
+    text-shadow: 1px 1px 3px #666666;
+}
+* html  .hupa-bottom {
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666', Direction=135, Strength=1);
+}
+>>>>>>> first commit

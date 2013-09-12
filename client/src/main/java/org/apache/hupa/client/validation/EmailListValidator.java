@@ -33,7 +33,11 @@ import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
  *
  */
 public class EmailListValidator extends Validator<EmailListValidator>{
+<<<<<<< HEAD
     private static final String emailRegex = "^(.*<)?[A-Za-z0-9._%'*/=+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(>)?\\s*$";
+=======
+    private static final String emailRegex = "^(.*<)?[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(>)?\\s*$";
+>>>>>>> first commit
     
     private HasText text;
     public EmailListValidator(HasText text) {

@@ -25,6 +25,10 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import org.apache.hupa.widgets.ui.impl.RndPanelGenerator;
+<<<<<<< HEAD
+=======
+import org.apache.hupa.widgets.ui.impl.RndPanelGeneratorImpl;
+>>>>>>> first commit
 
 /**
  * Widget which renders a rounded panel.

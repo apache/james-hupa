@@ -20,14 +20,20 @@
 
 package org.apache.hupa.shared.events;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 
 import com.google.gwt.event.shared.GwtEvent;
 
 public class LoadMessagesEvent extends GwtEvent<LoadMessagesEventHandler>{
     public final static Type<LoadMessagesEventHandler> TYPE = new Type<LoadMessagesEventHandler>();
     private User user;
+<<<<<<< HEAD
     private ImapFolder folder;
     private String searchValue;
     
@@ -36,6 +42,16 @@ public class LoadMessagesEvent extends GwtEvent<LoadMessagesEventHandler>{
     }
     
     public LoadMessagesEvent(User user, ImapFolder folder, String searchValue) {
+=======
+    private IMAPFolder folder;
+    private String searchValue;
+    
+    public LoadMessagesEvent(User user, IMAPFolder folder) {
+        this(user,folder,null);
+    }
+    
+    public LoadMessagesEvent(User user, IMAPFolder folder, String searchValue) {
+>>>>>>> first commit
         this.user = user;
         this.folder = folder;
         this.searchValue = searchValue;
@@ -43,7 +59,11 @@ public class LoadMessagesEvent extends GwtEvent<LoadMessagesEventHandler>{
     public User getUser() {
         return user;
     }
+<<<<<<< HEAD
     public ImapFolder getFolder() {
+=======
+    public IMAPFolder getFolder() {
+>>>>>>> first commit
         return folder;
     }
     

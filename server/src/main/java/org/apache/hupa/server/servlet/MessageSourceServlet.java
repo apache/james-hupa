@@ -31,9 +31,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
+<<<<<<< HEAD
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.shared.SConsts;
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 
 import com.google.inject.Inject;
 import com.sun.mail.imap.IMAPFolder;
@@ -45,11 +51,19 @@ import com.sun.mail.imap.IMAPStore;
 public class MessageSourceServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1245563204035792963L;
+<<<<<<< HEAD
     private IMAPStoreCache cache;
     private Log logger;
 
     @Inject
     public MessageSourceServlet(IMAPStoreCache cache, Log logger) {
+=======
+    private InMemoryIMAPStoreCache cache;
+    private Log logger;
+
+    @Inject
+    public MessageSourceServlet(InMemoryIMAPStoreCache cache, Log logger) {
+>>>>>>> first commit
         this.cache = cache;
         this.logger = logger;
     }
@@ -87,7 +101,11 @@ public class MessageSourceServlet extends HttpServlet {
         } catch (Exception e) {
             String msg = "Unable to get raw content of msg for user " + user + " in folder " + folderName + " with uid " + message_uuid;
             logger.error(msg, e);
+<<<<<<< HEAD
             throw new ServletException(msg, e);
+=======
+            throw new ServletException(msg);
+>>>>>>> first commit
         } finally {
             IOUtils.closeQuietly(outs);
         }

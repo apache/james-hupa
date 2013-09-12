@@ -19,22 +19,37 @@
 
 package org.apache.hupa.shared.events;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
+=======
+import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.User;
+>>>>>>> first commit
 
 import com.google.gwt.event.shared.GwtEvent;
 
 public class FolderSelectionEvent extends GwtEvent<FolderSelectionEventHandler>{
     
     private User user;
+<<<<<<< HEAD
     private ImapFolder folder;
     public final static Type<FolderSelectionEventHandler> TYPE = new Type<FolderSelectionEventHandler>();
     public FolderSelectionEvent(User user, ImapFolder folder) {
+=======
+    private IMAPFolder folder;
+    public final static Type<FolderSelectionEventHandler> TYPE = new Type<FolderSelectionEventHandler>();
+    public FolderSelectionEvent(User user, IMAPFolder folder) {
+>>>>>>> first commit
         this.user =user;
         this.folder = folder;
     }
     
+<<<<<<< HEAD
     public ImapFolder getFolder() {
+=======
+    public IMAPFolder getFolder() {
+>>>>>>> first commit
         return folder;
     }
     
