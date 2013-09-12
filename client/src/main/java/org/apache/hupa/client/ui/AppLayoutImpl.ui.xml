@@ -107,9 +107,9 @@
 		.topView {
 			height: 64px;
 			background-color: #C5D9FF;
-			background: -moz-linear-gradient(#FFFFFF, #C5D9FF);
-			background: -webkit-linear-gradient(#FFFFFF, #C5D9FF);
-			background: -o-linear-gradient(#FFFFFF, #C5D9FF);
+			background:  literal("-moz-linear-gradient(#FFFFFF, #C5D9FF)");
+			background: literal("-webkit-linear-gradient(#FFFFFF, #C5D9FF)");
+			background: literal("-o-linear-gradient(#FFFFFF, #C5D9FF)");
 		}
 		
 		.hupa-logo {
@@ -123,9 +123,9 @@
 			clear: both;
 			margin: 8px 8px 8px 8px;
 			min-height: 500px;
-			background: -moz-linear-gradient(#eaeaea, #fafafa);
-			background: -webkit-linear-gradient(#eaeaea, #fafafa);
-			background: -o-linear-gradient(#eaeaea, #fafafa);
+			background: literal("-moz-linear-gradient(#eaeaea, #fafafa)");
+			background: literal("-webkit-linear-gradient(#eaeaea, #fafafa)");
+			background: literal("-o-linear-gradient(#eaeaea, #fafafa)");
 		}
 		
 		.westPanel {
@@ -133,9 +133,9 @@
 			box-shadow: 0 1px 4px grey;
 			border-radius: 5px;
 			overflow: hidden;
-			background: -moz-linear-gradient(#eaeaea, #fafafa);
-			background: -webkit-linear-gradient(#eaeaea, #fafafa);
-			background: -o-linear-gradient(#eaeaea, #fafafa);
+			background: literal("-moz-linear-gradient(#eaeaea, #fafafa)");
+			background: literal("-webkit-linear-gradient(#eaeaea, #fafafa)");
+			background: literal("-o-linear-gradient(#eaeaea, #fafafa)");
 			clear: both;
 			margin: 8px 8px 8px 8px;
 		}
@@ -145,9 +145,9 @@
 			box-shadow: 0 1px 4px grey;
 			border-radius: 5px;
 			overflow: hidden;
-			background: -moz-linear-gradient(#eaeaea, #fafafa);
-			background: -webkit-linear-gradient(#eaeaea, #fafafa);
-			background: -o-linear-gradient(#eaeaea, #fafafa);
+			background: literal("-moz-linear-gradient(#eaeaea, #fafafa)");
+			background: literal("-webkit-linear-gradient(#eaeaea, #fafafa)");
+			background: literal("-o-linear-gradient(#eaeaea, #fafafa)");
 			clear: both;
 			margin: 8px 8px 8px 8px;
 			min-height: 500px;
