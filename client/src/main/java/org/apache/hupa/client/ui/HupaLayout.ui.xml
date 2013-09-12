@@ -184,7 +184,20 @@
 		<g:layer left='10px' right='10px' top='88px' bottom="20px">
 			<g:DockLayoutPanel ui:field="MainBox">
 				<g:north size="40">
-					<g:SimplePanel ui:field="toolBarContainer" />
+					<g:DockLayoutPanel unit="PX">
+						<g:west size="550">
+							<g:SimplePanel ui:field="toolBarContainer" />
+						</g:west>
+						<g:east size="180">
+							<g:HTMLPanel>
+								Search
+								<input style='color: gray;' value='//TODO' />
+							</g:HTMLPanel>
+						</g:east>
+						<g:center>
+							<g:HTMLPanel />
+						</g:center>
+					</g:DockLayoutPanel>
 				</g:north>
 				<g:center>
 					<g:SplitLayoutPanel ui:field="MessageSpace">
@@ -210,7 +223,7 @@
 											<g:LayoutPanel addStyleNames="{style.box}"
 												ui:field="MessageListBox">
 												<g:layer>
-													<g:LayoutPanel ui:field="messageListContainer"/>
+													<g:LayoutPanel ui:field="messageListContainer" />
 												</g:layer>
 												<g:layer bottom="0" height="25px">
 													<g:SimplePanel ui:field="messageListFooterContainer" />
