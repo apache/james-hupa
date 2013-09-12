@@ -100,12 +100,13 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 >>>>>>> make send text mail work excellently
 		area.setHeight("100%");
 
-		Toolbar toolbar = new Toolbar(area, constants);
-		toolbar.ensureDebugId("hupa-editor-toolbar");
+//		Toolbar toolbar = new Toolbar(area, constants);
+//		toolbar.ensureDebugId("hupa-editor-toolbar");
 
-		super.add(toolbar);
+//		super.add(toolbar);
 		super.add(area);
 		setWidth("100%");
+		setHeight("100%");
 
 <<<<<<< HEAD
 		// Note: rich-area is created in an iframe, so Hupa's style sheets
@@ -153,12 +154,18 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fixed issue#62
 	
 	public RichTextArea getArea(){
 		return area;
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
+=======
+>>>>>>> fixed issue#62
 
 	@Override
 	public void setSize(String width, String height) {
@@ -168,18 +175,26 @@ public class Editor extends FlowPanel implements HasHTML, Focusable {
 	@Override
 	public void setWidth(String width) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		super.setWidth(width);
 =======
 >>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
+=======
+		super.setWidth(width);
+>>>>>>> fixed issue#62
 		area.setWidth(width);
 	}
 
 	@Override
 	public void setHeight(String height) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		super.setHeight(height);
 =======
 >>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
+=======
+		super.setHeight(height);
+>>>>>>> fixed issue#62
 		area.setHeight(height);
 	}
 

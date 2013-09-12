@@ -141,6 +141,7 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
 public class ComposeActivity extends AppBaseActivity {
 	@Inject private Displayable display;
 	@Inject private HupaController hupaController;
+	@Inject private TopBarActivity topBar;
 	private List<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -462,6 +463,9 @@ public class ComposeActivity extends AppBaseActivity {
 			return;
 		if (user == null){
 			user = place.getParameters().getUser();
+		}
+		if(user == null){
+			user = topBar.getUser();
 		}
 		display.getFromList().addItem(user.getName());
 		if("new".equals(place.getToken())){

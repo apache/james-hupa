@@ -29,6 +29,7 @@ import org.apache.hupa.client.validation.NotEmptyValidator;
 import org.apache.hupa.client.validation.SetFocusAction;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.widgets.editor.Editor;
+import org.apache.hupa.widgets.editor.Toolbar;
 import org.apache.hupa.widgets.ui.MultiValueSuggestArea;
 
 import com.google.gwt.core.client.GWT;
@@ -124,6 +125,7 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	@UiField protected DockLayoutPanel thisPanel;
 	@UiField protected SimplePanel header;
 	@UiField protected FlexTable headerTable;
+	@UiField protected SimplePanel editorToolBar;
 	@UiField protected SimplePanel composeEditor;
 	@UiField protected FlowPanel attach;
 	@UiField protected Style style;
@@ -198,6 +200,10 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 		uploader.avoidRepeatFiles(true);
 		uploader.setI18Constants(constants);
 		attach.add(uploader);
+
+		Toolbar toolbar = new Toolbar(editor.getArea(), constants);
+		toolbar.ensureDebugId("hupa-editor-toolbar");
+		editorToolBar.add(toolbar);
 		composeEditor.add(editor);
 	}
 

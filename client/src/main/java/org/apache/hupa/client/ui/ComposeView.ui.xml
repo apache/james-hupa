@@ -309,8 +309,15 @@
 						</g:FlowPanel>
 					</g:east>
 					<g:center>
-						<g:SimplePanel ui:field="composeEditor"
-							addStyleNames="{style.composebodycontainer}" />
+						<g:DockLayoutPanel>
+							<g:north size="37">
+								<g:SimplePanel ui:field="editorToolBar" />
+							</g:north>
+							<g:center>
+								<g:SimplePanel ui:field="composeEditor"
+									addStyleNames="{style.composebodycontainer}" />
+							</g:center>
+						</g:DockLayoutPanel>
 					</g:center>
 				</g:DockLayoutPanel>
 >>>>>>> make send text mail work excellently

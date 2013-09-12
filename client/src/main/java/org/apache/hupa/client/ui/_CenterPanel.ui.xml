@@ -12,14 +12,20 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fixed issue#62
 	<ui:style src="res/CssSplitLayoutPanel.css" />
 	<g:SplitLayoutPanel ui:field="thisPanel"
 		addStyleNames="{style.splitLayoutPanel}">
 		<g:west size="220">
+<<<<<<< HEAD
 =======
 	<g:SplitLayoutPanel ui:field="thisPanel">
 		<g:west size="373">
 >>>>>>> split the layout panel to more small ones
+=======
+>>>>>>> fixed issue#62
 			<hupa:__OutlinePanel ui:field="outlinePanel" />
 		</g:west>
 		<g:center>

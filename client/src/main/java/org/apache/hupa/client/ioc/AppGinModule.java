@@ -352,6 +352,7 @@ public class AppGinModule extends AbstractGinModule {
 		bind(StatusActivity.Displayable.class).to(StatusView.class);
 		bind(ComposeToolBarActivity.Displayable.class).to(ComposeToolBarView.class);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		bind(ComposeActivity.Displayable.class).to(ComposeView.class);
 		bind(SearchBoxActivity.Displayable.class).to(SearchBoxView.class);
 		
@@ -365,6 +366,9 @@ public class AppGinModule extends AbstractGinModule {
 <<<<<<< HEAD
 >>>>>>> fixed issue#61; add loading to mark, unmark.
 =======
+=======
+//		bind(ComposeActivity.Displayable.class).to(ComposeView.class).in(Singleton.class);
+>>>>>>> fixed issue#62
 		
 		bind(LabelListActivity.Displayable.class).to(LabelListView.class).in(Singleton.class);
 >>>>>>> make label settings prototype

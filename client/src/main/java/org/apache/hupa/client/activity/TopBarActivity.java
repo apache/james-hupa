@@ -247,5 +247,12 @@ public class TopBarActivity extends AppBaseActivity {
 		void showLoading(String message);
 		void hideLoading();
 	}
+<<<<<<< HEAD
 >>>>>>> add logout support
+=======
+	
+	public User getUser(){
+		return user;
+	}
+>>>>>>> fixed issue#62
 }
