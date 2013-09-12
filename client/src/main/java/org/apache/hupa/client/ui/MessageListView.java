@@ -20,6 +20,7 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -51,12 +52,17 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 
 	interface MessageListUiBinder extends UiBinder<SimpleLayoutPanel, MessageListView> {
 =======
+=======
+import org.apache.hupa.client.activity.MessageListActivity;
+
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
-public class MessageListView extends Composite {
+public class MessageListView extends Composite implements
+		MessageListActivity.Displayable {
 
 	public MessageListView() {
 		initWidget(binder.createAndBindUi(this));
@@ -66,7 +72,8 @@ public class MessageListView extends Composite {
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 	}
 
-	private static MessageListUiBinder binder = GWT.create(MessageListUiBinder.class);
+	private static MessageListUiBinder binder = GWT
+			.create(MessageListUiBinder.class);
 
 <<<<<<< HEAD
 	@Override

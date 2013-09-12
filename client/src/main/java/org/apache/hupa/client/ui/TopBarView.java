@@ -20,6 +20,7 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.TopBarActivity;
 
 import com.google.gwt.core.client.GWT;
@@ -51,13 +52,21 @@ public class TopBarView extends Composite implements TopBarActivity.Displayable 
 		String hideLoading();
 	}
 =======
+=======
+import org.apache.hupa.client.activity.TopBarActivity;
+
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 
+<<<<<<< HEAD
 public class TopBarView extends Composite {
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+public class TopBarView extends Composite implements TopBarActivity.Displayable{
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 
 	public TopBarView() {
 		initWidget(binder.createAndBindUi(this));

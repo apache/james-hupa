@@ -20,6 +20,7 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.NavigationActivity;
 import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.FolderPlace;
@@ -59,13 +60,21 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 		String contactInnerSelected();
 	}
 =======
+=======
+import org.apache.hupa.client.activity.NavigationActivity;
+
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 
+<<<<<<< HEAD
 public class NavigationView extends Composite {
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+public class NavigationView extends Composite implements NavigationActivity.Displayable{
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 
 	public NavigationView() {
 		initWidget(binder.createAndBindUi(this));

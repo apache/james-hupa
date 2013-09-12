@@ -21,6 +21,7 @@ package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -82,4 +83,26 @@ public interface HupaLayoutable {
 
 public interface HupaLayoutable extends Layoutable{
 >>>>>>> integrate them as a whole one - first: make the default place work
+=======
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+
+public interface HupaLayoutable extends Layoutable {
+	AcceptsOneWidget getTopBarView();
+
+	AcceptsOneWidget getLogoView();
+
+	AcceptsOneWidget getNavigationView();
+
+	AcceptsOneWidget getToolBarView();
+
+	AcceptsOneWidget getFolderListView();
+
+	AcceptsOneWidget getMessageListView();
+
+	AcceptsOneWidget getMessageListFooterView();
+
+	AcceptsOneWidget getMessageContentView();
+
+	AcceptsOneWidget getStatusView();
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 }

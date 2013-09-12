@@ -20,6 +20,7 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.List;
 
 import org.apache.hupa.client.HupaCSS;
@@ -61,18 +62,24 @@ public class MessageContentView extends Composite implements MessageContentActiv
 
 	@Inject
 =======
+=======
+import org.apache.hupa.client.activity.MessageContentActivity;
+
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
-public class MessageContentView extends Composite {
+public class MessageContentView extends Composite implements
+		MessageContentActivity.Displayable {
 
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 	public MessageContentView() {
 		initWidget(binder.createAndBindUi(this));
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Override
 	public void fillMessageContent(String messageDetail) {
@@ -148,9 +155,14 @@ public class MessageContentView extends Composite {
 	}
 =======
 	interface MessageContentUiBinder extends UiBinder<HTMLPanel, MessageContentView> {
+=======
+	interface MessageContentUiBinder extends
+			UiBinder<HTMLPanel, MessageContentView> {
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	}
 
-	private static MessageContentUiBinder binder = GWT.create(MessageContentUiBinder.class);
+	private static MessageContentUiBinder binder = GWT
+			.create(MessageContentUiBinder.class);
 
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 }

@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.activity;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -159,4 +160,22 @@ public class MessageContentActivity extends AppBaseActivity {
        return false;
        };
        }-*/;
+=======
+import org.apache.hupa.client.ui.WidgetDisplayable;
+
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.inject.Inject;
+
+public class MessageContentActivity extends AppBaseActivity {
+
+	@Override
+	public void start(AcceptsOneWidget container, EventBus eventBus) {
+		container.setWidget(display.asWidget());
+	}
+
+	@Inject private Displayable display;
+	
+	public interface Displayable extends WidgetDisplayable {}
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 }

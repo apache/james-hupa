@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client;
 
+import org.apache.hupa.client.ui.HupaLayoutable;
 import org.apache.hupa.client.ui.LoginLayoutable;
 
 import com.google.gwt.activity.shared.ActivityManager;
@@ -32,10 +33,28 @@ import com.google.inject.name.Named;
 public class HupaActivityManagerInitializer {
 
 	@Inject
-	public HupaActivityManagerInitializer(LoginLayoutable layout
-			,@Named("LoginPage") ActivityManager loginActivityManager
-			) {
-		loginActivityManager.setDisplay(layout.getLoginView());
+	public HupaActivityManagerInitializer(LoginLayoutable loginLayout,
+			HupaLayoutable hupaLayout,
+			@Named("LoginPage") ActivityManager loginActivityManager,
+			@Named("TopBarRegion") ActivityManager topBarActivityManager,
+			@Named("LogoRegion") ActivityManager logoActivityManager,
+			@Named("NavigationRegion") ActivityManager navigationActivityManager,
+			@Named("ToolBarRegion") ActivityManager toolBarActivityManager,
+			@Named("FolderListRegion") ActivityManager folderListActivityManager,
+			@Named("MessageListRegion") ActivityManager messageListActivityManager,
+			@Named("MessageListFooterRegion") ActivityManager messageListFooterActivityManager,
+			@Named("MessageContentRegion") ActivityManager messageContentActivityManager,
+			@Named("StatusRegion") ActivityManager statusActivityManager) {
+		loginActivityManager.setDisplay(loginLayout.getLoginView());
+		topBarActivityManager.setDisplay(hupaLayout.getTopBarView());
+		logoActivityManager.setDisplay(hupaLayout.getLogoView());
+		navigationActivityManager.setDisplay(hupaLayout.getNavigationView());
+		toolBarActivityManager.setDisplay(hupaLayout.getToolBarView());
+		folderListActivityManager.setDisplay(hupaLayout.getFolderListView());
+		messageListActivityManager.setDisplay(hupaLayout.getMessageListView());
+		messageListFooterActivityManager.setDisplay(hupaLayout.getMessageListFooterView());
+		messageContentActivityManager.setDisplay(hupaLayout.getMessageContentView());
+		statusActivityManager.setDisplay(hupaLayout.getStatusView());
 	}
 
 }

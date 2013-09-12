@@ -20,16 +20,26 @@
 package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.FolderListActivity;
+<<<<<<< HEAD
 import org.apache.hupa.client.place.SettingPlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
+=======
+
+import com.google.gwt.activity.shared.Activity;
+import com.google.gwt.activity.shared.ActivityMapper;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+<<<<<<< HEAD
 public class FolderListActivityMapper extends _HupaActivityMapper {
+=======
+public class FolderListActivityMapper implements ActivityMapper {
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	private final Provider<FolderListActivity> folderListActivityProvider;
 
 	@Inject
@@ -37,6 +47,7 @@ public class FolderListActivityMapper extends _HupaActivityMapper {
 		this.folderListActivityProvider = folderListActivityProvider;
 	}
 
+<<<<<<< HEAD
 	@Override
 	Activity asyncLoadActivity(final Place place) {
 		if (place instanceof SettingPlace)
@@ -53,5 +64,9 @@ public class FolderListActivityMapper extends _HupaActivityMapper {
 			}
 		};
 
+=======
+	public Activity getActivity(Place place) {
+		return folderListActivityProvider.get();
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	}
 }

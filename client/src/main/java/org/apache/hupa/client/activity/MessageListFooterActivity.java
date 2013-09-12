@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.activity;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.events.MoveMessageEvent;
 
@@ -30,6 +31,12 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasVisibility;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.ListBox;
+=======
+import org.apache.hupa.client.ui.WidgetDisplayable;
+
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.inject.Inject;
 
 public class MessageListFooterActivity extends AppBaseActivity {
@@ -37,6 +44,7 @@ public class MessageListFooterActivity extends AppBaseActivity {
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
+<<<<<<< HEAD
 		bindTo(eventBus);
 	}
 
@@ -51,13 +59,19 @@ public class MessageListFooterActivity extends AppBaseActivity {
 				}
 			}
 		});
+=======
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	}
 
 	@Inject private Displayable display;
 	
+<<<<<<< HEAD
 	public interface Displayable extends IsWidget {
 		SimplePager getPager();
 		HasVisibility getLabelsPanel();
 		ListBox getLabels();
 	}
+=======
+	public interface Displayable extends WidgetDisplayable {}
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 }

@@ -84,6 +84,7 @@
 				<g:north size="23">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 					<hupa:TopBarView />
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
 =======
@@ -94,6 +95,9 @@
 						<hupa:TopBarView ui:field="topBarView" />
 					</g:SimplePanel>
 >>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
+=======
+					<g:SimplePanel ui:field="topBarContainer"/>
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 				</g:north>
 				<g:center>
 					<g:LayoutPanel addStyleNames="{style.feature}"
@@ -110,11 +114,10 @@
 							<g:SimpleLayoutPanel ui:field="navigationContainer" />
 =======
 						<g:layer width="177px" left="10px">
-							<g:SimplePanel>
-								<hupa:LogoView ui:field="logoView" />
-							</g:SimplePanel>
+							<g:SimplePanel ui:field="logoContainer"/>
 						</g:layer>
 						<g:layer width="301px" right="0">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 							<hupa:NavigationView />
@@ -145,6 +148,9 @@
 								<hupa:NavigationView ui:field="navigationView" />
 							</g:SimplePanel>
 >>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
+=======
+							<g:LayoutPanel ui:field="navigationContainer"/><!-- why can not be SimplePanel here -->
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 						</g:layer>
                         <g:layer left="0%" width="0%" top="0%" height="0%">
                             <hupa:_CenterContactPanel ui:field="contactPanel" />
@@ -160,9 +166,7 @@
 		<g:layer left='10px' right='10px' top='88px' bottom="20px">
 			<g:DockLayoutPanel ui:field="MainBox">
 				<g:north size="40">
-					<g:SimplePanel>
-						<hupa:ToolBarView ui:field="toolBarView" />
-					</g:SimplePanel>
+					<g:SimplePanel ui:field="toolBarContainer"/>
 				</g:north>
 				<g:center>
 					<g:SplitLayoutPanel ui:field="MessageSpace">
@@ -170,9 +174,7 @@
 							<g:LayoutPanel ui:field="LeftBox"
 								addStyleNames="{style.folderList}  {style.box}  {style.listBox}">
 								<g:layer top="0" height="100%">
-									<g:SimplePanel>
-										<hupa:FolderListView ui:field="folderListView" />
-									</g:SimplePanel>
+									<g:SimplePanel ui:field="folderListContainer"/>
 								</g:layer>
 								<g:layer bottom="0" height="41px">
 									<g:SimplePanel styleName="{style.boxFooter}">
@@ -190,15 +192,10 @@
 											<g:LayoutPanel addStyleNames="{style.box}"
 												ui:field="MessageListBox">
 												<g:layer>
-													<g:SimplePanel>
-														<hupa:MessageListView ui:field="messageView" />
-													</g:SimplePanel>
+													<g:SimplePanel ui:field="messageListContainer"/>
 												</g:layer>
 												<g:layer bottom="0" height="25px">
-													<g:SimplePanel>
-														<hupa:MessageListFooterView
-															ui:field="messageListFooterView" />
-													</g:SimplePanel>
+													<g:SimplePanel ui:field="messageListFooterContainer"/>
 												</g:layer>
 											</g:LayoutPanel>
 										</g:north>
@@ -206,13 +203,12 @@
 											<g:LayoutPanel addStyleNames="{style.box}"
 												ui:field="MessageContentBox">
 												<g:layer>
-													<g:SimplePanel>
+													<g:SimplePanel ui:field="messageContentContainer">
 														<hupa:MessageContentView ui:field="messageContentView" />
 													</g:SimplePanel>
 												</g:layer>
 												<g:layer bottom="0" height="25px">
-													<g:SimplePanel>
-														<hupa:StatusView ui:field="statusView" />
+													<g:SimplePanel ui:field="statusContainer">
 													</g:SimplePanel>
 												</g:layer>
 											</g:LayoutPanel>

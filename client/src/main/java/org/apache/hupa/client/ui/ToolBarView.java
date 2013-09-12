@@ -20,6 +20,7 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
@@ -316,12 +317,17 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		delete.removeStyleName(style.disabledButton());
 		mark.removeStyleName(style.disabledButton());
 =======
+=======
+import org.apache.hupa.client.activity.ToolBarActivity;
+
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 
-public class ToolBarView extends Composite {
+public class ToolBarView extends Composite implements
+		ToolBarActivity.Displayable {
 
 	public ToolBarView() {
 		initWidget(binder.createAndBindUi(this));

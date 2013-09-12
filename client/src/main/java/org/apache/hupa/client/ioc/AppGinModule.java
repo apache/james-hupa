@@ -45,6 +45,7 @@ import org.apache.hupa.client.HupaConstants;
 =======
 >>>>>>> integrate them as a whole one - first: make the default place work
 import org.apache.hupa.client.HupaController;
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
 import org.apache.hupa.client.activity.ContactPropertiesActivity;
@@ -126,14 +127,26 @@ import org.apache.hupa.client.CachingDispatchAsync;
 =======
 import org.apache.hupa.client.HupaController;
 >>>>>>> move new theme ui from experiment to hupa evo
+=======
+import org.apache.hupa.client.activity.FolderListActivity;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import org.apache.hupa.client.activity.IMAPMessageActivity;
 import org.apache.hupa.client.activity.IMAPMessageListActivity;
 import org.apache.hupa.client.activity.LoginActivity;
+import org.apache.hupa.client.activity.LogoActivity;
+import org.apache.hupa.client.activity.MessageContentActivity;
+import org.apache.hupa.client.activity.MessageListActivity;
+import org.apache.hupa.client.activity.MessageListFooterActivity;
 import org.apache.hupa.client.activity.MessageSendActivity;
+import org.apache.hupa.client.activity.NavigationActivity;
+import org.apache.hupa.client.activity.StatusActivity;
+import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.activity.TopActivity;
+import org.apache.hupa.client.activity.TopBarActivity;
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
 import org.apache.hupa.client.mapper.CachingTopActivityMapper;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.apache.hupa.client.mapper.CachingWestActivityMapper;
 =======
@@ -172,10 +185,24 @@ import org.apache.hupa.client.mapper.MainContentActivityMapper;
 <<<<<<< HEAD
 >>>>>>> Make the evo more clear.
 =======
+=======
+import org.apache.hupa.client.mapper.FolderListActivityMapper;
+import org.apache.hupa.client.mapper.LoginActivityMapper;
+import org.apache.hupa.client.mapper.LogoActivityMapper;
+import org.apache.hupa.client.mapper.MainContentActivityMapper;
+import org.apache.hupa.client.mapper.MessageContentActivityMapper;
+import org.apache.hupa.client.mapper.MessageListActivityMapper;
+import org.apache.hupa.client.mapper.MessageListFooterActivityMapper;
+import org.apache.hupa.client.mapper.NavigationActivityMapper;
+import org.apache.hupa.client.mapper.StatusActivityMapper;
+import org.apache.hupa.client.mapper.ToolBarActivityMapper;
+import org.apache.hupa.client.mapper.TopBarActivityMapper;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import org.apache.hupa.client.mapper.WestActivityMapper;
 >>>>>>> delete messages, make WestActivity Singleton
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.ui.FolderListView;
 import org.apache.hupa.client.ui.FoldersTreeViewModel;
 import org.apache.hupa.client.ui.HupaLayout;
 import org.apache.hupa.client.ui.HupaLayoutable;
@@ -188,8 +215,16 @@ import org.apache.hupa.client.ui.IMAPMessageView;
 import org.apache.hupa.client.ui.LoginLayout;
 import org.apache.hupa.client.ui.LoginLayoutable;
 import org.apache.hupa.client.ui.LoginView;
+import org.apache.hupa.client.ui.LogoView;
+import org.apache.hupa.client.ui.MessageContentView;
+import org.apache.hupa.client.ui.MessageListFooterView;
+import org.apache.hupa.client.ui.MessageListView;
 import org.apache.hupa.client.ui.MessageSendView;
 import org.apache.hupa.client.ui.MessagesCellTable;
+import org.apache.hupa.client.ui.NavigationView;
+import org.apache.hupa.client.ui.StatusView;
+import org.apache.hupa.client.ui.ToolBarView;
+import org.apache.hupa.client.ui.TopBarView;
 import org.apache.hupa.client.ui.TopView;
 import org.apache.hupa.client.ui.WestView;
 
@@ -239,7 +274,8 @@ import com.google.inject.name.Named;
 @SuppressWarnings("deprecation")
 >>>>>>> add SuppressWarnings("depraction")
 public class AppGinModule extends AbstractGinModule {
-	public static Logger logger = Logger.getLogger(AppGinModule.class.getName());
+	public static Logger logger = Logger
+			.getLogger(AppGinModule.class.getName());
 
 	@Override
 	protected void configure() {
@@ -254,6 +290,7 @@ public class AppGinModule extends AbstractGinModule {
 
 		// Activities
 		bind(LoginActivity.Displayable.class).to(LoginView.class);
+<<<<<<< HEAD
 		bind(TopBarActivity.Displayable.class).to(TopBarView.class).in(Singleton.class);
 		bind(LogoActivity.Displayable.class).to(LogoView.class).in(Singleton.class);
 		bind(NotificationActivity.Displayable.class).to(NotificationView.class).in(Singleton.class);
@@ -426,11 +463,26 @@ public class AppGinModule extends AbstractGinModule {
 		bind(LoginActivity.Displayable.class).to(LoginView.class);
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+		bind(TopBarActivity.Displayable.class).to(TopBarView.class);
+		bind(LogoActivity.Displayable.class).to(LogoView.class);
+		bind(NavigationActivity.Displayable.class).to(NavigationView.class);
+		bind(ToolBarActivity.Displayable.class).to(ToolBarView.class);
+		bind(FolderListActivity.Displayable.class).to(FolderListView.class);
+		bind(MessageListActivity.Displayable.class).to(MessageListView.class);
+		bind(MessageListFooterActivity.Displayable.class).to(MessageListFooterView.class);
+		bind(MessageContentActivity.Displayable.class).to(MessageContentView.class);
+		bind(StatusActivity.Displayable.class).to(StatusView.class);
+
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 		bind(TopActivity.Displayable.class).to(TopView.class);
-		bind(WestActivity.Displayable.class).to(WestView.class).in(Singleton.class);
-		bind(IMAPMessageListActivity.Displayable.class).to(IMAPMessageListView.class);
+		bind(WestActivity.Displayable.class).to(WestView.class).in(
+				Singleton.class);
+		bind(IMAPMessageListActivity.Displayable.class).to(
+				IMAPMessageListView.class);
 		bind(MessageSendActivity.Displayable.class).to(MessageSendView.class);
 		bind(IMAPMessageActivity.Displayable.class).to(IMAPMessageView.class);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -460,6 +512,9 @@ public class AppGinModule extends AbstractGinModule {
 		bind(WestActivity.class).in(Singleton.class);
 =======
 		
+=======
+
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 		bind(LoginActivity.class).in(Singleton.class);
 >>>>>>> remove gwt-incubator dependency in Messages List Model; 
 		bind(TopActivity.class).in(Singleton.class);
@@ -472,12 +527,14 @@ public class AppGinModule extends AbstractGinModule {
 		bind(FoldersTreeViewModel.class);
 		bind(CellTree.Resources.class).to(CellTree.BasicResources.class);
 		// Places
-		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
+		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(
+				Singleton.class);
 
 		// Application EventBus
 		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
 
 		// Application Controller
+<<<<<<< HEAD
 <<<<<<< HEAD
 		bind(AppController.class).in(Singleton.class);
 <<<<<<< HEAD
@@ -491,11 +548,15 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 =======
 //		bind(AppController.class).in(Singleton.class);
+=======
+		// bind(AppController.class).in(Singleton.class);
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 		bind(HupaController.class).in(Singleton.class);
 >>>>>>> move new theme ui from experiment to hupa evo
 
 		// bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <<<<<<< HEAD
@@ -511,18 +572,99 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> introduce the top activity
 =======
 	
+=======
+
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	@Provides
 	@Singleton
 	@Named("LoginPage")
-	public ActivityManager getLoginActivityMapper(LoginActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getLoginActivityMapper(
+			LoginActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
+
+	@Provides
+	@Singleton
+	@Named("TopBarRegion")
+	public ActivityManager getTopBarActivityMapper(
+			TopBarActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+
+	@Provides
+	@Singleton
+	@Named("LogoRegion")
+	public ActivityManager getLogoActivityMapper(
+			LogoActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+<<<<<<< HEAD
 	
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+
+	@Provides
+	@Singleton
+	@Named("NavigationRegion")
+	public ActivityManager getNavigationActivityMapper(
+			NavigationActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+
+	@Provides
+	@Singleton
+	@Named("ToolBarRegion")
+	public ActivityManager getToolBarActivityMapper(
+			ToolBarActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+
+	@Provides
+	@Singleton
+	@Named("FolderListRegion")
+	public ActivityManager getFolderListActivityMapper(
+			FolderListActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+
+	@Provides
+	@Singleton
+	@Named("MessageListRegion")
+	public ActivityManager getMessageListActivityMapper(
+			MessageListActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+
+	@Provides
+	@Singleton
+	@Named("MessageListFooterRegion")
+	public ActivityManager getMessageListFooterActivityMapper(
+			MessageListFooterActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+
+	@Provides
+	@Singleton
+	@Named("MessageContentRegion")
+	public ActivityManager getMessageContentActivityMapper(
+			MessageContentActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+
+	@Provides
+	@Singleton
+	@Named("StatusRegion")
+	public ActivityManager getStatusActivityMapper(
+			StatusActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
+
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	@Provides
 	@Singleton
 	@Named("TopRegion")
-	public ActivityManager getTopRegionActivityMapper(CachingTopActivityMapper activityMapper, EventBus eventBus) {
+	public ActivityManager getTopRegionActivityMapper(
+			CachingTopActivityMapper activityMapper, EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
@@ -551,6 +693,7 @@ public class AppGinModule extends AbstractGinModule {
 	@Provides
 	@Singleton
 	@Named("WestRegion")
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	public ActivityManager getVerticalMasterRegionActivityMapper(WestActivityMapper activityMapper,
@@ -584,6 +727,10 @@ public class AppGinModule extends AbstractGinModule {
 	@Singleton
 	@Named("ComposeRegion")
 	public ActivityManager getComposeActivityMapper(ComposeActivityMapper activityMapper, EventBus eventBus) {
+=======
+	public ActivityManager getWestRegionActivityMapper(
+			WestActivityMapper activityMapper, EventBus eventBus) {
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
@@ -601,6 +748,7 @@ public class AppGinModule extends AbstractGinModule {
 >>>>>>> introduce the top activity
 =======
 	@Named("MainContentRegion")
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public ActivityManager getVerticalMasterRegionActivityMapper(MainContentActivityMapper activityMapper,
 >>>>>>> Change to new mvp framework - first step
@@ -631,6 +779,10 @@ public class AppGinModule extends AbstractGinModule {
 	}
 =======
 	        EventBus eventBus) {
+=======
+	public ActivityManager getMainContentRegionActivityMapper(
+			MainContentActivityMapper activityMapper, EventBus eventBus) {
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 		return new ActivityManager(activityMapper, eventBus);
 	}
 
@@ -653,6 +805,7 @@ public class AppGinModule extends AbstractGinModule {
 
 	@Provides
 	@Singleton
+<<<<<<< HEAD
 	public PlaceHistoryHandler getHistoryHandler(PlaceController placeController, PlaceHistoryMapper historyMapper,
 	        EventBus eventBus) {
 		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
@@ -673,6 +826,13 @@ public class AppGinModule extends AbstractGinModule {
 =======
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+	public PlaceHistoryHandler getHistoryHandler(
+			PlaceController placeController, PlaceHistoryMapper historyMapper,
+			EventBus eventBus) {
+		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(
+				historyMapper);
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 		historyHandler.register(placeController, eventBus, new DefaultPlace());
 		return historyHandler;
 	}

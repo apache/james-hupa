@@ -46,6 +46,7 @@ public class LoginLayout implements LoginLayoutable {
 			@Override
 			public void setWidget(IsWidget w) {
 				loginContainer.setWidget(Widget.asWidgetOrNull(w));
+<<<<<<< HEAD
 			}
 		};
 	}
@@ -67,9 +68,10 @@ public class LoginLayout implements LoginLayoutable {
 			@Override
 			public void setWidget(IsWidget w) {
 				loginContainer.add(Widget.asWidgetOrNull(w));
+=======
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 			}
 		};
-
 	}
 <<<<<<< HEAD
 	

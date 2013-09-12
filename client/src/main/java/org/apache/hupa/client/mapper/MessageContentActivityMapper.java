@@ -20,15 +20,22 @@
 package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.MessageContentActivity;
+<<<<<<< HEAD
 import org.apache.hupa.client.place.MessagePlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
+=======
+
+import com.google.gwt.activity.shared.Activity;
+import com.google.gwt.activity.shared.ActivityMapper;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+<<<<<<< HEAD
 public class MessageContentActivityMapper extends _MessageActivityMapper {
 	private final Provider<MessageContentActivity> messageContentActivityProvider;
 
@@ -53,5 +60,18 @@ public class MessageContentActivityMapper extends _MessageActivityMapper {
 				return messageContentActivityProvider.get();
 			}
 		};
+=======
+public class MessageContentActivityMapper implements ActivityMapper {
+	private final Provider<MessageContentActivity> messageContentActivityProvider;
+
+	@Inject
+	public MessageContentActivityMapper(
+			Provider<MessageContentActivity> messageContentActivityProvider) {
+		this.messageContentActivityProvider = messageContentActivityProvider;
+	}
+
+	public Activity getActivity(Place place) {
+		return messageContentActivityProvider.get();
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	}
 }

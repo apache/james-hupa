@@ -74,6 +74,7 @@ import org.apache.hupa.client.place.DefaultPlace;
 >>>>>>> scrub code
 import org.apache.hupa.client.place.MailFolderPlace;
 import org.apache.hupa.client.rf.LoginUserRequest;
+import org.apache.hupa.client.ui.HupaLayoutable;
 import org.apache.hupa.client.ui.WidgetDisplayable;
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -140,7 +141,10 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasValue;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.IsWidget;
+=======
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -148,6 +152,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class LoginActivity extends AppBaseActivity {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	
 
@@ -230,6 +235,11 @@ public class LoginActivity extends AbstractActivity {
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 =======
 >>>>>>> scrub code
+=======
+	
+
+	@Inject private HupaLayoutable hupaLayout;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
@@ -475,8 +485,10 @@ public class LoginActivity extends AbstractActivity {
 		loginRequest.login(user, pass).fire(new Receiver<User>() {
 			@Override
 			public void onSuccess(User response) {
-				placeController.goTo(new MailFolderPlace().with(response, useDefaultInboxFolder(response), null));
-				eventBus.fireEvent(new LoginEvent(response));
+				RootLayoutPanel.get().clear();
+				RootLayoutPanel.get().add(hupaLayout.get());
+//				placeController.goTo(new MailFolderPlace().with(response, useDefaultInboxFolder(response), null));
+//				eventBus.fireEvent(new LoginEvent(response));
 			}
 			@Override
 			public void onFailure(ServerFailure error) {

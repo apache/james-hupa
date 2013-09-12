@@ -85,12 +85,16 @@
 		}
 		
 		.checkMail {
-			background-position: center -1180px;
+			background-position: center -1176px;
 		}
 		
 		.compose {
+<<<<<<< HEAD
 			background-position: center -534px;
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+			background-position: center -530px;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 		}
 		
 		.spacer {
@@ -102,10 +106,14 @@
 		
 		.reply {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			background-position: center -570px;
 =======
 			background-position: center -574px;
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+			background-position: center -570px;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 		}
 		
 		.dropButton {
@@ -123,10 +131,14 @@
 		.replyAll {
 			min-width: 64px;
 <<<<<<< HEAD
+<<<<<<< HEAD
 			background-position: left -610px;
 =======
 			background-position: left -614px;
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+			background-position: left -610px;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 		}
 		
 		@sprite .dropButton .dropButtonTip {
@@ -137,6 +149,7 @@
 			top: 0;
 			height: 42px;
 			width: 18px;
+<<<<<<< HEAD
 <<<<<<< HEAD
 			background-position: 0 -1255px;
 		}
@@ -214,25 +227,32 @@
 			background-position: 0 -1198px;
 =======
 			background-position: 0 -1259px;
+=======
+			background-position: 0 -1255px;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 			cursor: pointer;
 		}
 		
 		.forward {
 			min-width: 64px;
-			background-position: left -654px;
+			background-position: left -650px;
 		}
 		
 		.delete {
-			background-position: center -694px;
+			background-position: center -690px;
 		}
 		
 		.mark {
-			background-position: center -1098px;
+			background-position: center -1094px;
 		}
 		
 		.more {
+<<<<<<< HEAD
 			background-position: center -854px;
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+			background-position: center -850px;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 		}
 	</ui:style>
 

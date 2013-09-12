@@ -20,17 +20,27 @@
 package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.MessageListActivity;
+<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.MessagePlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
+=======
+
+import com.google.gwt.activity.shared.Activity;
+import com.google.gwt.activity.shared.ActivityMapper;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+<<<<<<< HEAD
 public class MessageListActivityMapper extends _MessageActivityMapper {
+=======
+public class MessageListActivityMapper implements ActivityMapper {
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	private final Provider<MessageListActivity> messageListActivityProvider;
 
 	@Inject
@@ -38,6 +48,7 @@ public class MessageListActivityMapper extends _MessageActivityMapper {
 		this.messageListActivityProvider = messageListActivityProvider;
 	}
 
+<<<<<<< HEAD
 	@Override
 	protected Activity lazyLoadActivity(final Place place) {
 		if (place instanceof FolderPlace) {
@@ -61,5 +72,9 @@ public class MessageListActivityMapper extends _MessageActivityMapper {
 				return messageListActivityProvider.get();
 			}
 		};
+=======
+	public Activity getActivity(Place place) {
+		return messageListActivityProvider.get();
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	}
 }

@@ -20,6 +20,7 @@
 package org.apache.hupa.client.ui;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,22 +119,33 @@ public class MessageListFooterView extends Composite implements MessageListFoote
 
 	interface MessageListFooterUiBinder extends UiBinder<HorizontalPanel, MessageListFooterView> {
 =======
+=======
+import org.apache.hupa.client.activity.MessageListFooterActivity;
+
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
-public class MessageListFooterView extends Composite {
+public class MessageListFooterView extends Composite implements
+		MessageListFooterActivity.Displayable {
 
 	public MessageListFooterView() {
 		initWidget(binder.createAndBindUi(this));
 	}
 
+<<<<<<< HEAD
 	interface MessageListFooterUiBinder extends UiBinder<HTMLPanel, MessageListFooterView> {
 >>>>>>> make login page as one part of the overall layout & splite layout to little one
+=======
+	interface MessageListFooterUiBinder extends
+			UiBinder<HTMLPanel, MessageListFooterView> {
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	}
 
-	private static MessageListFooterUiBinder binder = GWT.create(MessageListFooterUiBinder.class);
+	private static MessageListFooterUiBinder binder = GWT
+			.create(MessageListFooterUiBinder.class);
 
 <<<<<<< HEAD
 	@Override

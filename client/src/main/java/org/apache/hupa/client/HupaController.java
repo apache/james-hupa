@@ -265,10 +265,10 @@ public class HupaController {
 		@Override
 		public void onPlaceChange(PlaceChangeEvent event) {
 			log.fine("place changed to " + event.getNewPlace());
-			if (placeChange(event)) {
-				checkSession();
-			}
-			refreshActivities(event);
+			// if (placeChange(event)) {
+			// checkSession();
+			// }
+			// refreshActivities(event);
 		}
 
 		private void refreshActivities(PlaceChangeEvent event) {
@@ -276,8 +276,20 @@ public class HupaController {
 			if (newPlace != currentPlace) {
 				if (isAuth(newPlace, currentPlace)) {
 					// appPanelView.setDefaultLayout();
+					if (!(RootLayoutPanel.get().getLayoutData() instanceof HupaLayoutable)) {
+						RootLayoutPanel.get().clear();
+						RootLayoutPanel.get().add(hupaLayout.get());
+						RootLayoutPanel.get().setLayoutData(hupaLayout);
+
+					}
 				} else if (newPlace instanceof DefaultPlace) {
 					// appPanelView.setLoginLayout();
+
+					if (!(RootLayoutPanel.get().getLayoutData() instanceof LoginLayoutable)) {
+						RootLayoutPanel.get().clear();
+						RootLayoutPanel.get().add(loginLayout.get());
+						RootLayoutPanel.get().setLayoutData(loginLayout);
+					}
 				}
 				currentPlace = newPlace;
 			}
@@ -319,14 +331,19 @@ public class HupaController {
 		checkSession.isValid().fire(new Receiver<Boolean>() {
 			@Override
 			public void onSuccess(Boolean sessionValid) {
-				RootLayoutPanel.get().clear();
-				RootLayoutPanel.get().add(hupaLayout.get());//
+				// RootLayoutPanel.get().clear();
+				// RootLayoutPanel.get().add(hupaLayout.get());
 				if (!sessionValid) {
-					// RootLayoutPanel.get().clear();
-					// RootLayoutPanel.get().add(loginLayout.get());//
-					// HupaController.this.placeController
-					// .goTo(new DefaultPlace());
-					// this?
+
+					RootLayoutPanel.get().clear();
+					RootLayoutPanel.get().add(loginLayout.get());//
+					HupaController.this.placeController
+							.goTo(new DefaultPlace());
+
+				} else {
+					RootLayoutPanel.get().clear();
+					RootLayoutPanel.get().add(hupaLayout.get());//
+
 				}
 			}
 

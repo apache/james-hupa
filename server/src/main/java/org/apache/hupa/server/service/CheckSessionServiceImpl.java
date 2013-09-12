@@ -41,13 +41,15 @@ public class CheckSessionServiceImpl extends AbstractService implements CheckSes
 >>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.exception.HupaException;
 
 public class CheckSessionServiceImpl extends AbstractService implements CheckSessionService {
 	
+	@Override
 	public User getUser() throws HupaException{
-		return super.getUser();
+        return (User) httpSessionProvider.get().getAttribute(SConsts.USER_SESS_ATTR);
 	}
 	
 <<<<<<< HEAD

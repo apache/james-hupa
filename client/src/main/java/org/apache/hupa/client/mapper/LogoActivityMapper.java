@@ -22,13 +22,21 @@ package org.apache.hupa.client.mapper;
 import org.apache.hupa.client.activity.LogoActivity;
 
 import com.google.gwt.activity.shared.Activity;
+<<<<<<< HEAD
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
+=======
+import com.google.gwt.activity.shared.ActivityMapper;
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+<<<<<<< HEAD
 public class LogoActivityMapper extends _HupaActivityMapper {
+=======
+public class LogoActivityMapper implements ActivityMapper {
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	private final Provider<LogoActivity> logoActivityProvider;
 
 	@Inject
@@ -36,6 +44,7 @@ public class LogoActivityMapper extends _HupaActivityMapper {
 		this.logoActivityProvider = topActivityProvider;
 	}
 
+<<<<<<< HEAD
 	@Override
 	public Activity asyncLoadActivity(Place place) {
 		return new ActivityAsyncProxy() {
@@ -49,5 +58,9 @@ public class LogoActivityMapper extends _HupaActivityMapper {
 				return logoActivityProvider.get();
 			}
 		};
+=======
+	public Activity getActivity(Place place) {
+		return logoActivityProvider.get();
+>>>>>>> integrate all of the views to their corresponding activities and mappers
 	}
 }
