@@ -32,7 +32,10 @@ import org.apache.hupa.widgets.editor.Editor;
 import org.apache.hupa.widgets.ui.MultiValueSuggestArea;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -96,10 +99,12 @@ import com.google.gwt.user.client.ui.Anchor;
 >>>>>>> composing composing panel
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
@@ -246,16 +251,34 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 				.addActionForFailure(fAction), new NotEmptyValidator(getToText()).addActionForFailure(sAction)
 				.addActionForFailure(fAction));
 		editor = new Editor();
-
+		
 		BaseUploadStatus uploadStatus = new BaseUploadStatus();
 		uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
-		uploader = new MultiUploader(FileInputType.ANCHOR, uploadStatus);
+		uploader = new MultiUploader(FileInputType.CUSTOM.with(button), uploadStatus);
 		uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
 		uploader.avoidRepeatFiles(true);
 		uploader.setI18Constants(constants);
 		attach.add(uploader);
 		composeEditor.add(editor);
 	}
+
+
+	  class MyFancyLookingButton extends Composite implements HasClickHandlers {
+		    DecoratorPanel widget = new DecoratorPanel();
+		    
+		    public MyFancyLookingButton() {
+		      DecoratorPanel widget = new DecoratorPanel();
+		      initWidget(widget);
+		      widget.setWidget(new HTML("Choose ..."));
+		      widget.setSize("100px","50px");
+		    }
+
+		    public HandlerRegistration addClickHandler(ClickHandler handler) {
+		      return addDomHandler(handler, ClickEvent.getType());
+		    }
+		  }
+
+		  MyFancyLookingButton button = new MyFancyLookingButton();
 
 	@Override
 	public HasText getToText() {
