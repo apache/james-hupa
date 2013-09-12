@@ -580,7 +580,8 @@ public class MessagesCellTable extends DataGrid<Message> {
 
 		addColumn(checkboxCol, header);
 		setColumnWidth(checkboxCol, 3, Unit.EM);
-		addColumn(fromCol, new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(constants.mailTableFrom())), fromFooter);
+//		addColumn(fromCol, new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(constants.mailTableFrom())), fromFooter);
+		addColumn(fromCol,constants.mailTableFrom());
 		setColumnWidth(fromCol, 40, Unit.PCT);
 		addColumn(subjectCol, constants.mailTableSubject());
 		setColumnWidth(subjectCol, 60, Unit.PCT);

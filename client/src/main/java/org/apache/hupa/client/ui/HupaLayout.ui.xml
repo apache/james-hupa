@@ -78,6 +78,24 @@
 			white-space: nowrap;
 			overflow: hidden;
 		}
+		
+		.messageListFooter {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 22px;
+			padding: 4px 8px;
+			border-top: 1px solid #ddd;
+			background: #ebebeb;
+			background: -moz-linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ebebeb),
+				color-stop(100%, #c6c6c6) );
+			background: -o-linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
+			background: -ms-linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
+			background: linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
+			border-radius: 0 0 4px 4px;
+		}
 	</ui:style>
 	<g:LayoutPanel addStyleNames="{style.minWidth}">
 		<g:layer left='0' right='0' top='0' height='92px'>
@@ -226,8 +244,8 @@
 										<g:center>
 											<g:SimpleLayoutPanel ui:field="messageListContainer" />
 										</g:center>
-										<g:south size="25">
-											<g:SimplePanel ui:field="messageListFooterContainer" />
+										<g:south size="31">
+											<g:SimplePanel ui:field="messageListFooterContainer" addStyleNames="{style.messageListFooter}"/>
 										</g:south>
 									</g:DockLayoutPanel>
 								</g:north>

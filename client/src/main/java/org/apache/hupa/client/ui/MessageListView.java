@@ -102,19 +102,19 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 		this.eventBus = eventBus;
 		this.table = table;
 		initWidget(binder.createAndBindUi(this));
-//		this.table.addCellPreviewHandler(new Handler<Message>() {
-//			@Override
-//			public void onCellPreview(CellPreviewEvent<Message> event) {
-//				if (hasClickedButFirstCol(event)) {
-//					eventBus.fireEvent(new ExpandMessageEvent(user, folder, event.getValue()));
-//				}
-//			}
-//
-//			private boolean hasClickedButFirstCol(CellPreviewEvent<Message> event) {
-//				return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
-//			}
-//
-//		});
+		this.table.addCellPreviewHandler(new Handler<Message>() {
+			@Override
+			public void onCellPreview(CellPreviewEvent<Message> event) {
+				if (hasClickedButFirstCol(event)) {
+					eventBus.fireEvent(new ExpandMessageEvent(user, folder, event.getValue()));
+				}
+			}
+
+			private boolean hasClickedButFirstCol(CellPreviewEvent<Message> event) {
+				return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
+			}
+
+		});
 		this.table.addRangeChangeHandler(new RangeChangeEvent.Handler() {
 			@Override
 			public void onRangeChange(RangeChangeEvent event) {
