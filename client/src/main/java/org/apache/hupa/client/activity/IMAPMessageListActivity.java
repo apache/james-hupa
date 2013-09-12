@@ -870,19 +870,12 @@ public class IMAPMessageListActivity extends AbstractActivity {
 				eventBus.fireEvent(new DecreaseUnseenEvent(user, folder, response.getCount()));
 			}
 		});
-
-		// dispatcher.execute(new DeleteMessageByUid(folder,uids), new
-		// HupaEvoCallback<DeleteMessageResult>(dispatcher, eventBus) {
-		// public void callback(DeleteMessageResult result) {
-		// eventBus.fireEvent(new
-		// DecreaseUnseenEvent(user,folder,result.getCount()));
-		// }
-		// });
 	}
 	public IMAPMessageListActivity with(MailFolderPlace place) {
 		this.user = place.getUser();
 		this.folder = place.getFolder();
 		this.searchValue = place.getSearchValue();
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	}
@@ -1128,6 +1121,8 @@ public class IMAPMessageListActivity extends AbstractActivity {
 =======
 		display.setImapFolder(folder);
 >>>>>>> use CellTable to deal with MessageTableModel, even a few issues
+=======
+>>>>>>> fix the CellTable display
 		return this;
 	}
 
@@ -1302,7 +1297,6 @@ public class IMAPMessageListActivity extends AbstractActivity {
 		public HasValue<String> getSearchValue();
 		public void fillSearchOracle(List<Message> messages);
 		public void setExpandLoading(boolean expanding);
-		void setImapFolder(ImapFolder folder);
 
 	}
 

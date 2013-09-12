@@ -75,7 +75,6 @@ import com.google.gwt.dom.client.Style.Unit;
 >>>>>>> Change to new mvp framework - first step
 import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
-import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.widgets.CommandsBar;
 import org.apache.hupa.client.widgets.ConfirmDialogBox;
@@ -83,17 +82,19 @@ import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable;
 import org.apache.hupa.client.widgets.DragRefetchPagingScrollTable.DragHandlerFactory;
 import org.apache.hupa.client.widgets.EnableButton;
 import org.apache.hupa.client.widgets.HasDialog;
+import org.apache.hupa.shared.data.MessageImpl;
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
-import org.apache.hupa.shared.domain.FetchMessagesAction;
-import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
+import org.apache.hupa.shared.events.DecreaseUnseenEvent;
+import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.widgets.ui.HasEnable;
 import org.apache.hupa.widgets.ui.Loading;
 import org.apache.hupa.widgets.ui.PagingOptions;
 import org.cobogw.gwt.user.client.ui.Button;
 import org.cobogw.gwt.user.client.ui.ButtonBar;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
@@ -108,6 +109,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 >>>>>>> use CellTable to deal with MessageTableModel, even a few issues
+=======
+>>>>>>> fix the CellTable display
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasChangeHandlers;
@@ -119,6 +122,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.google.gwt.event.shared.EventBus;
+<<<<<<< HEAD
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.Anchor;
@@ -767,6 +771,8 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 =======
 import com.google.gwt.event.shared.EventBus;
 >>>>>>> fix some bugs related to RF, and try to use new CellView to replace gwt-incubator 
+=======
+>>>>>>> fix the CellTable display
 import com.google.gwt.gen2.table.client.AbstractColumnDefinition;
 import com.google.gwt.gen2.table.client.AbstractScrollTable.ColumnResizePolicy;
 import com.google.gwt.gen2.table.client.AbstractScrollTable.ResizePolicy;
@@ -794,6 +800,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.google.gwt.user.cellview.client.AbstractPager;
 import com.google.gwt.user.cellview.client.DataGrid;
@@ -809,6 +816,9 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 >>>>>>> use CellTable to deal with MessageTableModel, even a few issues
+=======
+import com.google.gwt.user.cellview.client.SimplePager;
+>>>>>>> fix the CellTable display
 import com.google.gwt.user.client.ui.Anchor;
 >>>>>>> 
 import com.google.gwt.user.client.ui.Composite;
@@ -822,10 +832,9 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TableListener;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 @SuppressWarnings("deprecation")
 <<<<<<< HEAD
@@ -1595,14 +1604,8 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	private Button searchButton;
 	private Loading loading;
 
-	private MessagesCellTable table;
 	private SimplePager pager;
-	
-	private ImapFolder folder;
-	@Override
-	public void setImapFolder(ImapFolder folder){
-		this.folder = folder;
-	}
+	private EventBus eventBus;
 
 	@Inject
 	public IMAPMessageListView(final PagingScrollTableRowDragController controller,
@@ -1611,9 +1614,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 	        final MessagesCellTable table) {
 		this.messages = messages;
 		this.imageBundle = imageBundle;
-
-		// table = new MessagesCellTable(eventBus, requestFactory, imageBundle);
-		this.table = table;
+		this.eventBus = eventBus;
 		pager = new SimplePager();
 		pager.setDisplay(table);
 
@@ -1630,7 +1631,6 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		this.cTableModel = new CachedTableModel<Message>(mTableModel);
 		cTableModel.setRowCount(MutableTableModel.UNKNOWN_ROW_COUNT);
 		mTableModel.addRowCountChangeHandler(new RowCountChangeHandler() {
-
 			public void onRowCountChange(RowCountChangeEvent event) {
 				cTableModel.setRowCount(event.getNewRowCount());
 			}
@@ -1642,11 +1642,9 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		        createTableDefinitation(), controller, 1);
 		mailTable.setPageSize(20);
 		mailTable.setDragHandler(0, 30, new DragHandlerFactory() {
-
 			public Widget createHandler() {
 				return new Image(imageBundle.readyToMoveMailIcon());
 			}
-
 		});
 
 		HTML emptyTable = new HTML(constants.emptyMailTable());
@@ -1732,141 +1730,13 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 		commandsBar.addRight(pager);
 
 		msgListContainer.add(commandsBar);
+
+		msgListContainer.add(table);
 		// msgListContainer.add(mailTable);
-		msgListContainer.add(createTable(eventBus, requestFactory, imageBundle));
-		// msgListContainer.addSouth(table, DEFAULT_MSG_PAGE_SIZE);
 
 		confirmBox.setText(messages.confirmDeleteMessages());
 		confirmDeleteAllBox.setText(messages.confirmDeleteAllMessages());
 		initWidget(msgListContainer);
-	}
-	
-	private boolean pending;
-	private ListDataProvider<Message> dataProvider = new ListDataProvider<Message>();
-	private MessagesCellTable createTable(final EventBus eventBus, final HupaRequestFactory requestFactory,
-	        final HupaImageBundle imageBundle){
-		MessagesCellTable table = new MessagesCellTable(eventBus, requestFactory, imageBundle);
-		table.setWidth("100%", true);
-		SimplePager.Resources pr = GWT.create(SimplePager.Resources.class);
-		pager = new SimplePager(TextLocation.CENTER, pr, false, 0, true);
-		pager.setDisplay(table);
-
-		table.addColumn(new CheckboxColumn());
-		table.addColumn(new FromColumn());
-		table.addColumn(new SubjectColumn());
-		table.addColumn(new AttachmentColumn());
-		table.addColumn(new DateColumn());
-
-		if (!pending) {
-			pending = true;
-			Scheduler.get().scheduleFinally(new ScheduledCommand() {
-				@Override
-				public void execute() {
-					pending = false;
-					fetch(0, requestFactory);
-				}
-			});
-		}
-		dataProvider.addDataDisplay(table);
-		return table;
-	}
-
-	public void fetch(final int start, final HupaRequestFactory requestFactory) {
-		FetchMessagesRequest messagesRequest = requestFactory.messagesRequest();
-		FetchMessagesAction action = messagesRequest.create(FetchMessagesAction.class);
-		final ImapFolder folder1 = messagesRequest.create(ImapFolder.class);
-		folder1.setChildren(this.folder.getChildren());
-		folder1.setDelimiter(this.folder.getDelimiter());
-		folder1.setFullName(this.folder.getFullName());
-		folder1.setMessageCount(this.folder.getMessageCount());
-		folder1.setName(this.folder.getName());
-		folder1.setSubscribed(this.folder.getSubscribed());
-		folder1.setUnseenMessageCount(this.folder.getUnseenMessageCount());
-		// FIXME cannot put setFolder to the first place
-		action.setOffset(table.getPageSize());
-		action.setFolder(folder1);
-		action.setSearchString(null);
-		action.setStart(start);
-		messagesRequest.fetch(action).fire(new Receiver<FetchMessagesResult>() {
-
-			@Override
-			public void onFailure(ServerFailure error) {
-				if (error.isFatal()) {
-					throw new RuntimeException(error.getMessage());
-				}
-			}
-			@Override
-			public void onSuccess(final FetchMessagesResult result) {
-				assert result != null;
-				folder.setMessageCount(result.getRealCount());
-				folder.setUnseenMessageCount(result.getRealUnreadCount());
-				dataProvider.setList(result.getMessages());
-//				table.setRowCount(result.getRealCount());
-//				if (result.getMessages() != null) {
-//					table.setRowData(start + table.getPageSize(), result.getMessages());
-//				} else {
-//					table.setRowData(start +table.getPageSize(), result.getMessages());
-//				}
-
-	            pager.setPageStart(start);
-//	            if (start == 0 || !table.isRowCountExact()) {
-//	            	table.setRowCount(start + result.getMessages().size(), result.getMessages().size() < table.getPageSize());
-//	            }
-//				flush();
-				// Notify presenter to update folder tree view
-//				eventBus.fireEvent(new MessagesReceivedEvent(folder1, result.getMessages()));
-			}
-		});
-	}
-
-	private class CheckboxColumn extends Column<Message, Boolean> {
-		public CheckboxColumn() {
-			super(new CheckboxCell());
-		}
-		@Override
-		public Boolean getValue(Message object) {
-			return true;
-		}
-	}
-
-	private class FromColumn extends Column<Message, String> {
-		public FromColumn() {
-			super(new TextCell());
-		}
-		@Override
-		public String getValue(Message object) {
-			return object.getFrom();
-		}
-	}
-
-	private class SubjectColumn extends Column<Message, String> {
-		public SubjectColumn() {
-			super(new TextCell());
-		}
-		@Override
-		public String getValue(Message object) {
-			return object.getSubject();
-		}
-	}
-
-	private class AttachmentColumn extends Column<Message, ImageResource> {
-		public AttachmentColumn() {
-			super(new ImageResourceCell());
-		}
-		@Override
-		public ImageResource getValue(Message object) {
-			return object.hasAttachment() ? imageBundle.attachmentIcon() : null;
-		}
-	}
-
-	private class DateColumn extends Column<Message, Date> {
-		public DateColumn() {
-			super(new DateCell(DateTimeFormat.getFormat("dd.MMM.yyyy")));
-		}
-		@Override
-		public Date getValue(Message object) {
-			return object.getReceivedDate();
-		}
 	}
 	PageLoadHandler onMessagePageLoadHandler = new PageLoadHandler() {
 

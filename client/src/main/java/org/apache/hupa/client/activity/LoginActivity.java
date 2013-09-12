@@ -241,7 +241,7 @@ public class LoginActivity extends AbstractActivity {
 	public void bind() {
 		display.getLoginClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				doLogin();
+				doLogin();// FIXME double run if press "ENTER" key in the login page
 			}
 		});
 <<<<<<< HEAD

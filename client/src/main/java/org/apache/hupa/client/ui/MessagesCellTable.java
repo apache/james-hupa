@@ -483,11 +483,14 @@ import org.apache.hupa.client.bundles.HupaImageBundle;
 import org.apache.hupa.client.rf.FetchMessagesRequest;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.data.ImapFolderImpl;
+import org.apache.hupa.shared.data.MessageImpl;
 import org.apache.hupa.shared.domain.FetchMessagesAction;
 import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.events.DecreaseUnseenEvent;
+import org.apache.hupa.shared.events.ExpandMessageEvent;
 import org.apache.hupa.shared.events.FolderSelectionEvent;
 import org.apache.hupa.shared.events.FolderSelectionEventHandler;
 import org.apache.hupa.shared.events.LoadMessagesEvent;
@@ -502,21 +505,25 @@ import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.SimplePager;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.RangeChangeEvent;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class MessagesCellTable extends CellTable<Message> {
 
-	private static final int PAGE_SIZE = 25;
+	private static final int PAGE_SIZE = 15;
 	
 	private User user;
 	private ImapFolder folder;
@@ -527,6 +534,7 @@ public class MessagesCellTable extends CellTable<Message> {
 	private boolean pending;
 
 	private SimplePager pager;
+	private ListDataProvider<Message> dataProvider;
 	
 	public SimplePager getPager(){
 		return pager;
@@ -548,26 +556,15 @@ public class MessagesCellTable extends CellTable<Message> {
 
 		pager = new SimplePager();
 		pager.setDisplay(this);
+		dataProvider = new ListDataProvider<Message>();
+		dataProvider.addDataDisplay(this);
 		setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
-		setVisible(true);
 		addRangeChangeHandler(new RangeChangeEvent.Handler() {
 			@Override
 			public void onRangeChange(RangeChangeEvent event) {
 				fetch(event.getNewRange().getStart());
 			}
 		});
-		/*
-		if (!pending) {
-			pending = true;
-			Scheduler.get().scheduleFinally(new ScheduledCommand() {
-				@Override
-				public void execute() {
-					pending = false;
-					fetch(0);
-				}
-			});
-		}
-		*/
 		// bind some Events
 		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
 
@@ -575,7 +572,18 @@ public class MessagesCellTable extends CellTable<Message> {
 				user = loadMessagesEvent.getUser();
 				folder = loadMessagesEvent.getFolder();
 				searchValue = loadMessagesEvent.getSearchValue();
-//				fetch(0);
+				fetch(0);
+//				if (!pending) {
+//					pending = true;
+//					Scheduler.get().scheduleFinally(new ScheduledCommand() {
+//						@Override
+//						public void execute() {
+//							pending = false;
+//							fetch(0);
+//						}
+//					});
+//				}
+				
 			}
 		});
 		eventBus.addHandler(FolderSelectionEvent.TYPE, new FolderSelectionEventHandler() {
@@ -592,7 +600,16 @@ public class MessagesCellTable extends CellTable<Message> {
 				user = event.getUser();
 				folder = new ImapFolderImpl(user.getSettings().getInboxFolderName());
 				searchValue = null;
-//				fetch(0);
+				if (!pending) {
+					pending = true;
+					Scheduler.get().scheduleFinally(new ScheduledCommand() {
+						@Override
+						public void execute() {
+							pending = false;
+							fetch(0);
+						}
+					});
+				}
 			}
 		});
 		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
@@ -606,22 +623,49 @@ public class MessagesCellTable extends CellTable<Message> {
 
 		// this.setRowData(values);
 
+		setSelectionModel(selectionModel);
+	    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+	      @Override
+	      public void onSelectionChange(SelectionChangeEvent event) {
+	    	  refreshSelection();
+	      }
+	    });
+
 	}
 
+
+	private final SingleSelectionModel<Message> selectionModel = new SingleSelectionModel<Message>();
+	protected void refreshSelection() {
+		Message message = selectionModel.getSelectedObject();
+		if(message == null) return;
+//		display.setExpandLoading(true);
+
+		if (message.getFlags().contains(MessageImpl.IMAPFlag.SEEN) == false) {
+			// add flag, fire event and redraw
+			message.getFlags().add(MessageImpl.IMAPFlag.SEEN);
+			eventBus.fireEvent(new DecreaseUnseenEvent(user, folder, 1));
+
+//			display.redraw();
+
+		}
+		eventBus.fireEvent(new ExpandMessageEvent(user, folder, message));
+	    selectionModel.setSelected(message, false);
+	    
+    }
 	public void fetch(final int start) {
 		FetchMessagesRequest messagesRequest = requestFactory.messagesRequest();
 		FetchMessagesAction action = messagesRequest.create(FetchMessagesAction.class);
-		final ImapFolder folder = messagesRequest.create(ImapFolder.class);
-		folder.setChildren(this.folder.getChildren());
-		folder.setDelimiter(this.folder.getDelimiter());
-		folder.setFullName(this.folder.getFullName());
-		folder.setMessageCount(this.folder.getMessageCount());
-		folder.setName(this.folder.getName());
-		folder.setSubscribed(this.folder.getSubscribed());
-		folder.setUnseenMessageCount(this.folder.getUnseenMessageCount());
+		final ImapFolder folder1 = messagesRequest.create(ImapFolder.class);
+		folder1.setChildren(this.folder.getChildren());
+		folder1.setDelimiter(this.folder.getDelimiter());
+		folder1.setFullName(this.folder.getFullName());
+		folder1.setMessageCount(this.folder.getMessageCount());
+		folder1.setName(this.folder.getName());
+		folder1.setSubscribed(this.folder.getSubscribed());
+		folder1.setUnseenMessageCount(this.folder.getUnseenMessageCount());
 		// FIXME cannot put setFolder to the first place
 		action.setOffset(getPageSize());
-		action.setFolder(folder);
+		action.setFolder(folder1);
 		action.setSearchString(searchValue);
 		action.setStart(start);
 		messagesRequest.fetch(action).fire(new Receiver<FetchMessagesResult>() {
@@ -637,6 +681,7 @@ public class MessagesCellTable extends CellTable<Message> {
 				assert result != null;
 				MessagesCellTable.this.folder.setMessageCount(result.getRealCount());
 				MessagesCellTable.this.folder.setUnseenMessageCount(result.getRealUnreadCount());
+				dataProvider.setList(result.getMessages());
 				setRowCount(result.getRealCount());
 				if (result.getMessages() != null) {
 					setRowData(start + getPageSize(), result.getMessages());
@@ -650,7 +695,7 @@ public class MessagesCellTable extends CellTable<Message> {
 	            }
 //				flush();
 				// Notify presenter to update folder tree view
-				eventBus.fireEvent(new MessagesReceivedEvent(folder, result.getMessages()));
+				eventBus.fireEvent(new MessagesReceivedEvent(folder1, result.getMessages()));
 			}
 		});
 	}

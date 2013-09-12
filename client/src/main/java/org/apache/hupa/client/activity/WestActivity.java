@@ -912,7 +912,7 @@ System.out.println("1111111"+response);
 				}
 
 				display.setLoadingMessage(true);
-				if(messagesRequest == null){
+				if (messagesRequest == null) {
 					messagesRequest = requestFactory.messagesRequest();
 				}
 				GetMessageDetailsRequest req = messagesRequest.append(requestFactory.messageDetailsRequest());
@@ -937,9 +937,6 @@ System.out.println("1111111"+response);
 							eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
 						}
 						display.setLoadingMessage(false);
-						// showMessage(user, folder, message,
-						// response.getMessageDetails());
-
 						placeController.goTo(messagePlaceProvider.get().with(user, folder, message,
 						        response.getMessageDetails()));
 					}
@@ -1100,6 +1097,7 @@ System.out.println("1111111"+response);
 				folder = messagesRequest.edit(editableFolder);
 
 				// folder = (ImapFolder) tItem.getUserObject();
+				// FIXME not good to find
 				eventBus.fireEvent(new LoadMessagesEvent(user, folder));
 <<<<<<< HEAD
 >>>>>>> fix the frozen autobean issue, yet another occur
@@ -1337,7 +1335,7 @@ System.out.println("1111111"+response);
 		this.searchValue = searchValue;
 
 		// FIXME goto?
-//		placeController.goTo(new MailFolderPlace().with(user, folder, searchValue));
+		placeController.goTo(new MailFolderPlace().with(user, folder, searchValue));
 		// placeController.goTo(mailInboxPlaceProvider.get().with(user));
 		// System.out.println("111");
 		// placeController.goTo(new
