@@ -104,10 +104,26 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+<<<<<<< HEAD
 	<g:VerticalPanel ui:field="mainContainer">
 		<g:FormPanel ui:field="formPanel">
 			<g:FlexTable ui:field="flexTable"></g:FlexTable>
 		</g:FormPanel>
 	</g:VerticalPanel>
 >>>>>>> replace with uibinder
+=======
+	<ui:with field='res' type='org.apache.hupa.client.bundles.HupaResources'/>
+	
+	<g:FlowPanel ui:field="mainContainer">
+		<g:FlowPanel ui:field="innerBox">
+		    <g:Image resource='{res.logo64PNG}'></g:Image>
+			<g:FormPanel ui:field="formPanel">
+				<g:FlexTable ui:field="flexTable"></g:FlexTable>
+			</g:FormPanel>
+			<g:Button ui:field="loginButton"></g:Button>
+		</g:FlowPanel>
+		<g:FlowPanel ui:field="boxBottom"><g:FlowPanel ui:field="messageBox"></g:FlowPanel></g:FlowPanel> 
+		<g:FlowPanel ui:field="bottomLine"><g:HTML>You're using <b>Hupa</b> Webmail which is part of the <a target='_blank' href='http://james.apache.org'>Apache-James</a> project.</g:HTML></g:FlowPanel>
+	</g:FlowPanel>
+>>>>>>> refactoring theme 1 - login page
 </ui:UiBinder>

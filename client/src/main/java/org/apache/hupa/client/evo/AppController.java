@@ -21,8 +21,8 @@ package org.apache.hupa.client.evo;
 
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.place.MailFolderPlace;
-import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.rf.CheckSessionRequest;
+import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.client.ui.AppLayout;
 
 import com.google.gwt.event.shared.EventBus;

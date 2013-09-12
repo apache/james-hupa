@@ -318,6 +318,7 @@ public class AppLayoutImpl implements AppLayout {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		arrangeLayoutSize(8, 2, 15, 0);
 	}
 
@@ -424,14 +425,13 @@ public class AppLayoutImpl implements AppLayout {
 =======
 		this.arrangeLayout(true);
 >>>>>>> use DataGrid instead of CellTable to list messages.
+=======
+		arrangeLayoutSize(8, 2, 15, 0);
+>>>>>>> refactoring theme 1 - login page
 	}
 
 	public void setLoginLayout() {
-		this.arrangeLayout(false);
-	}
-	
-	private void arrangeLayout(boolean needWest){
-		this.arrangeLayoutSize(8, 2, needWest ? 15 : 0, 0);
+		arrangeLayoutSize(0, 2, 0, 0);
 	}
 	
 	private void arrangeLayoutSize(double n, double s, double w, double e){

@@ -292,12 +292,15 @@ public class LoginActivity extends AbstractActivity {
 
 =======
 		}));
+<<<<<<< HEAD
 		registerHandler(display.getResetClick().addClickHandler(new ClickHandler() {
 >>>>>>> scrub code
 			public void onClick(ClickEvent event) {
 				doReset();
 			}
 		}));
+=======
+>>>>>>> refactoring theme 1 - login page
 		eventBus.addHandler(SessionExpireEvent.TYPE, new SessionExpireEventHandler() {
 <<<<<<< HEAD
 
@@ -534,7 +537,6 @@ public class LoginActivity extends AbstractActivity {
 	public interface Displayable extends WidgetDisplayable {
 >>>>>>> Change to new mvp framework - first step
 		public HasClickHandlers getLoginClick();
-		public HasClickHandlers getResetClick();
 		public HasValue<String> getUserNameValue();
 		public HasValue<String> getPasswordValue();
 		public Focusable getUserNameFocus();

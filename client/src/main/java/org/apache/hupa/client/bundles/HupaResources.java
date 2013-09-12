@@ -17,40 +17,38 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.hupa.client.evo;
+package org.apache.hupa.client.bundles;
 
-import org.apache.hupa.client.bundles.HupaResources;
-import org.apache.hupa.client.ioc.AppGinjector;
-
-import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
-import com.google.gwt.dom.client.StyleInjector;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.resources.client.CssResource.NotStrict;
+import com.google.gwt.resources.client.ImageResource;
 
-public class HupaEvo implements EntryPoint {
-	@Override
-	public void onModuleLoad() {
-		handleExceptionsAsync();
-		replaceLoading();
-	    AppController appController = injector.getAppController();
-	    StyleInjector.inject(HupaResources.INSTANCE.stylesheet().getText());
-	    appController.start();
-	}
+public interface HupaResources extends ClientBundle {
+
+	public static final HupaResources INSTANCE = GWT
+			.create(HupaResources.class);
+
+	@NotStrict
+	@Source("styles.css")
+	public Css stylesheet();
 	
-	private void handleExceptionsAsync(){
-		GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-            public void onUncaughtException(Throwable e) {
-                e.printStackTrace();
-            }
-        });
-	}
+    @Source("hupa-logo-49-transparent.png")
+    ImageResource logo49PNG();
+    @Source("hupa-logo-64-transparent.png")
+    ImageResource logo64PNG();
 
-	private void replaceLoading() {
-		DOM.removeChild(RootPanel.getBodyElement(), DOM.getElementById("loading"));
+	public interface Css extends CssResource {
+		String loginForm();
+		String boxInner();
+		String tdTitle();
+		String tdInput();
+		String pFormbuttons();
+		String submitButton();
+		String boxBottom();
+		String messageBox();
+		String bottomLine();
 	}
-
-	private final AppGinjector injector = GWT.create(AppGinjector.class);
 
 }

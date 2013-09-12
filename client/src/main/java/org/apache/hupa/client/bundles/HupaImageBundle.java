@@ -32,4 +32,6 @@ public interface HupaImageBundle extends ClientBundle{
     
     @Source("email.png")
     ImageResource moveMailIcon();
+    
+    
 }

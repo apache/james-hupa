@@ -40,6 +40,7 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+<<<<<<< HEAD
 	<ui:style>
 	</ui:style>
 	<g:DockLayoutPanel unit='EM'>
@@ -280,8 +281,13 @@
 >>>>>>> decorate the theme
 =======
 	<g:DockLayoutPanel unit='EM' addStyleNames="{style.Hupa}">
+=======
+	<ui:style>
+	</ui:style>
+	<g:DockLayoutPanel unit='EM'>
+>>>>>>> refactoring theme 1 - login page
 		<g:north size='8'>
-			<g:LayoutPanel ui:field="northPanel" addStyleNames="{style.northPanel}">
+			<g:LayoutPanel ui:field="northPanel">
 			<g:layer left="0px" width="84px" top="0px" height="64">
 				<g:SimplePanel ui:field="logoContainer"/></g:layer>
 			<g:layer right="12px" width="37%" >
@@ -289,17 +295,17 @@
 			</g:LayoutPanel>
 		</g:north>
 		<g:south size='2'>
-			<g:HTMLPanel  ui:field="southPanel" addStyleNames="{style.southPanel}"><g:HTML>You're using <b>Hupa</b> Webmail which is part of the <a target='_blank' href='http://james.apache.org'>Apache-James</a> project.</g:HTML>
+			<g:HTMLPanel  ui:field="southPanel">
 			</g:HTMLPanel>
 		</g:south>
 		<g:west size='12'>
-			<g:SimplePanel ui:field="westPanel" addStyleNames="{style.westPanel}"/>
+			<g:SimplePanel ui:field="westPanel"/>
 		</g:west>
 		<g:east size='0'>
 			<g:SimplePanel ui:field="eastPanel" />
 		</g:east>
 		<g:center>
-			<g:LayoutPanel ui:field="centerPanel" addStyleNames="{style.centerPanel}"/>
+			<g:LayoutPanel ui:field="centerPanel"/>
 		</g:center>
 	</g:DockLayoutPanel>
 >>>>>>> use DockLayoutPanel as the App Layout
