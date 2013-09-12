@@ -28,6 +28,7 @@
 	background-position: center 0;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 @external .gwt-SplitLayoutPanel-HDragger;
 @external .gwt-SplitLayoutPanel-VDragger;
@@ -55,3 +56,28 @@
 @external .gwt-SplitLayoutPanel-HDragger;
 @external .gwt-SplitLayoutPanel-VDragger;
 >>>>>>> add splitter
+=======
+
+@external .gwt-SplitLayoutPanel-HDragger;
+@external .gwt-SplitLayoutPanel-VDragger;
+.statusbar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 27px;
+	padding-left: 8px;
+	border-top: 1px solid #ddd;
+	border-radius: 0 0 4px 4px;
+	background: #eaeaea;
+	background: -moz-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eaeaea),
+		color-stop(100%, #c8c8c8) );
+	background: -o-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+	background: -ms-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+	background: linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+>>>>>>> layout the label setting view

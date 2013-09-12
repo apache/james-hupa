@@ -40,4 +40,10 @@ client/src/main/webapp/hupa/
 >>>>>>> add gitignore to ignore files by git
 =======
 
+<<<<<<< HEAD
 >>>>>>> update git ignore
+=======
+client/src/main/gwt-unitCache/
+client/src/main/webapp/WEB-INF/deploy/
+client/src/main/webapp/hupa/
+>>>>>>> layout the label setting view

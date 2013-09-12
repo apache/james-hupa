@@ -1,0 +1,94 @@
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	you under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+<!DOCTYPE ui:UiBinder SYSTEM 'http://dl.google.com/gwt/DTD/xhtml.ent'>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
+	ui:generateLocales='default'>
+	<ui:style>
+
+		.propform fieldset {
+		margin-bottom: 20px;
+		border: 0;
+		padding: 0;
+		}
+
+		.propform fieldset legend {
+		display: block;
+		font-size: 14px;
+		font-weight: bold;
+		padding-bottom: 10px;
+		margin-bottom: 0;
+		}
+
+		.propform fieldset fieldset legend {
+		color: #666;
+		font-size: 12px;
+		}
+
+		fieldset.floating {
+		float: left;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		}
+
+		table{
+		border-collapse: collapse;
+		border-spacing:
+		0;
+		}
+
+		table.attribute {
+		border-spacing: 0;
+		border-collapse: collapse;
+		}
+
+		table.attribute td {
+		width: 80%;
+		padding: 4px
+		10px;
+		background: #eee;
+		border-bottom: 2px solid #fff;
+		}
+		table.noBorder td{
+		border:0;
+		}
+	</ui:style>
+	<g:DecoratorPanel addStyleNames="{style.propform}">
+		<g:CaptionPanel captionText="Properties">
+			<g:VerticalPanel>
+				<g:CaptionPanel captionText="Location">
+					<g:VerticalPanel addStyleNames="{style.attribute}">
+						<g:HorizontalPanel addStyleNames="{style.noBorder}">
+							<g:Label>
+								<ui:msg key='folderName'>Folder Name:</ui:msg>
+							</g:Label>
+							<g:TextBox ui:field='_name' name="_name" />
+						</g:HorizontalPanel>
+						<g:HorizontalPanel addStyleNames="{style.noBorder}">
+							<g:Label>
+								<ui:msg key='parentFolder'>Parent Folder:</ui:msg>
+							</g:Label>
+							<g:ListBox ui:field='_parent'>
+								<g:item value="1">---</g:item>
+								<g:item value="2" selected="selected">inbox</g:item>
+							</g:ListBox>
+						</g:HorizontalPanel>
+					</g:VerticalPanel>
+				</g:CaptionPanel>
+				<g:CaptionPanel captionText="Infomation">
+					<g:VerticalPanel addStyleNames="{style.attribute}">
+					</g:VerticalPanel>
+				</g:CaptionPanel>
+			</g:VerticalPanel>
+		</g:CaptionPanel>
+	</g:DecoratorPanel>
+
+</ui:UiBinder>

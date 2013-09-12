@@ -9,6 +9,7 @@
 	OF ANY KIND, either express or implied. See the License for the specific 
 	language governing permissions and limitations under the License. -->
 <<<<<<< HEAD
+<<<<<<< HEAD
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
 
@@ -132,6 +133,8 @@
 	</g:SplitLayoutPanel>
 =======
 
+=======
+>>>>>>> layout the label setting view
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
 
@@ -219,6 +222,10 @@
 			width: 100%;
 			z-index: 100;
 		}
+		
+		.boxcontent {
+			padding: 10px;
+		}
 	</ui:style>
 
 	<g:SplitLayoutPanel ui:field="thisPanel"
@@ -258,9 +265,14 @@
 				</g:west>
 				<g:center>
 					<g:SimpleLayoutPanel addStyleNames="{style.uibox} {style.contentbox}">
-						<g:HTML>
-							<h2 class="{style.boxtitle}">PlayGround</h2>
-						</g:HTML>
+						<g:HTMLPanel>
+							<h2 class="{style.boxtitle}">Folder properties</h2>
+							<g:FlowPanel addStyleNames="{style.boxcontent}">
+								<hupa:SettingFolderActionView />
+								<g:Button>Save</g:Button>
+							</g:FlowPanel>
+							<div class="{style.statusbar}" />
+						</g:HTMLPanel>
 					</g:SimpleLayoutPanel>
 				</g:center>
 			</g:SplitLayoutPanel>
