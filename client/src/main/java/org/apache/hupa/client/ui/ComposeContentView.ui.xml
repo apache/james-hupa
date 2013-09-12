@@ -51,7 +51,7 @@
 			</g:HTMLPanel>
 		</g:east>
 		<g:center>
-			<g:HTMLPanel addStyleNames="{style.composebodycontainer}">composeBody</g:HTMLPanel>
+			<g:SimplePanel ui:field="composeEditor" addStyleNames="{style.composebodycontainer}" />
 		</g:center>
 	</g:DockLayoutPanel>
 </ui:UiBinder>

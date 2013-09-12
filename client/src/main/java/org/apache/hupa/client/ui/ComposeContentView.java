@@ -20,17 +20,24 @@
 package org.apache.hupa.client.ui;
 
 import org.apache.hupa.client.activity.ComposeContentActivity;
+import org.apache.hupa.widgets.editor.Editor;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 
 public class ComposeContentView extends Composite implements
 		ComposeContentActivity.Displayable {
+	
+	@UiField SimplePanel composeEditor;
 
 	public ComposeContentView() {
 		initWidget(binder.createAndBindUi(this));
+		Editor editor = new Editor();
+		composeEditor.add(editor);
 	}
 
 	interface ComposeContentUiBinder extends

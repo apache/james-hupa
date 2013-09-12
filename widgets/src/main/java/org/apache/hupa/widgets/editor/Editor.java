@@ -260,7 +260,8 @@ public class Editor extends VerticalPanel implements HasHTML, Focusable {
         super.setStyleName("hupa-editor");
         super.add(toolbar);
         super.add(area);
-        super.setWidth("100%");
+        super.setSize("100%", "100%");
+        
         
         // Note: rich-area is created in an iframe, so Hupa's style sheets 
         // are not available, unless we inject them to the generated iframe

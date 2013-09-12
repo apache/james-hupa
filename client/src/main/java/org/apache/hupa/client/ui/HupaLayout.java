@@ -277,15 +277,11 @@ public class HupaLayout implements HupaLayoutable {
 
 	@Override
 	public void switchToMessage() {
-		System.out.println("compose=====1"+(centerPanel.thisPanel.getWidgetIndex(centerPanel.composePanel)));
-		System.out.println("content-----1"+(centerPanel.thisPanel.getWidgetIndex(centerPanel.contentPanel)));
 		if (isMessageOccupied())
 			return;
 		if (isComposeOccupied()) {
 			changeToMessage();
 		}
-		System.out.println("compose====="+(centerPanel.thisPanel.getWidgetIndex(centerPanel.composePanel)));
-		System.out.println("content-----"+(centerPanel.thisPanel.getWidgetIndex(centerPanel.contentPanel)));
 	}
 
 	private void changeToCompose() {

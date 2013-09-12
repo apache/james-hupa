@@ -212,7 +212,7 @@ public class ComposeHeaderView extends Composite implements
 		// addRow(headerTable);
 
 		// Return the panel
-		headerTable.ensureDebugId("cwFlexTable");
+//		headerTable.ensureDebugId("cwFlexTable");
 	}
 
 	private TextBox create() {
