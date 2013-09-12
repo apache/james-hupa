@@ -56,6 +56,7 @@
     </parent>
     <groupId>org.apache.james.hupa</groupId>
     <artifactId>hupa-parent</artifactId>
+<<<<<<< HEAD
     <version>0.0.3-SNAPSHOT</version>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -75,6 +76,9 @@
 >>>>>>> first commit
 =======
 >>>>>>> constantly changed by manolo
+=======
+    <version>0.0.5-SNAPSHOT</version>
+>>>>>>> Set snapshot version higger than the current hupa in svn repo
     <packaging>pom</packaging>
     <name>Apache James Hupa Parent</name>
     <description>Hupa is a GWT based Webmail</description>

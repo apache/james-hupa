@@ -39,6 +39,7 @@
         <artifactId>hupa-parent</artifactId>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <version>0.0.3-SNAPSHOT</version>
 =======
         <version>0.0.2-SNAPSHOT</version>
@@ -46,6 +47,9 @@
 =======
         <version>0.0.3-SNAPSHOT</version>
 >>>>>>> constantly changed by manolo
+=======
+        <version>0.0.5-SNAPSHOT</version>
+>>>>>>> Set snapshot version higger than the current hupa in svn repo
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>hupa</artifactId>
