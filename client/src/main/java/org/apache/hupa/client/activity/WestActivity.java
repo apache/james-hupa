@@ -302,15 +302,54 @@ import org.apache.hupa.shared.rpc.GetMessageDetails;
 import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
 =======
 import org.apache.hupa.client.HupaEvoCallback;
+import org.apache.hupa.client.mvp.MessageSendPresenter.Type;
+import org.apache.hupa.client.mvp.MainPresenter;
 import org.apache.hupa.client.mvp.WidgetContainerDisplayable;
+import org.apache.hupa.client.place.IMAPMessagePlace;
+import org.apache.hupa.client.place.MailInboxPlace;
+import org.apache.hupa.client.place.MessageSendPlace;
 import org.apache.hupa.client.widgets.HasDialog;
 import org.apache.hupa.client.widgets.IMAPTreeItem;
 import org.apache.hupa.shared.data.IMAPFolder;
+import org.apache.hupa.shared.data.Message;
+import org.apache.hupa.shared.data.Message.IMAPFlag;
+import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
+import org.apache.hupa.shared.events.BackEvent;
+import org.apache.hupa.shared.events.BackEventHandler;
+import org.apache.hupa.shared.events.DecreaseUnseenEvent;
+import org.apache.hupa.shared.events.DecreaseUnseenEventHandler;
+import org.apache.hupa.shared.events.ExpandMessageEvent;
+import org.apache.hupa.shared.events.ExpandMessageEventHandler;
+import org.apache.hupa.shared.events.FolderSelectionEvent;
+import org.apache.hupa.shared.events.FolderSelectionEventHandler;
+import org.apache.hupa.shared.events.ForwardMessageEvent;
+import org.apache.hupa.shared.events.ForwardMessageEventHandler;
+import org.apache.hupa.shared.events.IncreaseUnseenEvent;
+import org.apache.hupa.shared.events.IncreaseUnseenEventHandler;
+import org.apache.hupa.shared.events.LoadMessagesEvent;
+import org.apache.hupa.shared.events.LoadMessagesEventHandler;
+import org.apache.hupa.shared.events.LoginEvent;
+import org.apache.hupa.shared.events.LoginEventHandler;
+import org.apache.hupa.shared.events.MessagesReceivedEvent;
+import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
+import org.apache.hupa.shared.events.NewMessageEvent;
+import org.apache.hupa.shared.events.NewMessageEventHandler;
+import org.apache.hupa.shared.events.ReplyMessageEvent;
+import org.apache.hupa.shared.events.ReplyMessageEventHandler;
+import org.apache.hupa.shared.events.SentMessageEvent;
+import org.apache.hupa.shared.events.SentMessageEventHandler;
+import org.apache.hupa.shared.rpc.CreateFolder;
+import org.apache.hupa.shared.rpc.DeleteFolder;
 import org.apache.hupa.shared.rpc.FetchFolders;
 import org.apache.hupa.shared.rpc.FetchFoldersResult;
 import org.apache.hupa.shared.rpc.GenericResult;
+<<<<<<< HEAD
 >>>>>>> Change to new mvp framework - first step
+=======
+import org.apache.hupa.shared.rpc.GetMessageDetails;
+import org.apache.hupa.shared.rpc.GetMessageDetailsResult;
+>>>>>>> 
 import org.apache.hupa.shared.rpc.RenameFolder;
 import org.apache.hupa.widgets.event.EditEvent;
 import org.apache.hupa.widgets.event.EditHandler;
@@ -319,6 +358,9 @@ import org.apache.hupa.widgets.ui.HasEnable;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -335,6 +377,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+<<<<<<< HEAD
 import com.google.web.bindery.requestfactory.shared.Receiver;
 =======
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -345,12 +388,15 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.inject.Inject;
 >>>>>>> Change to new mvp framework - first step
+=======
+>>>>>>> 
 
 public class WestActivity extends AbstractActivity {
 
 	private final Displayable display;
 	private final EventBus eventBus;
 	private final PlaceController placeController;
+<<<<<<< HEAD
 <<<<<<< HEAD
 	private final Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
 	private final Provider<MessageSendPlace> messageSendPlaceProvider;
@@ -373,27 +419,43 @@ public class WestActivity extends AbstractActivity {
     public WestActivity(Displayable display, EventBus eventBus, PlaceController placeController,
 			DispatchAsync dispatcher,Provider<IMAPMessagePlace> IMAPMessagePlaceProvider,Provider<MessageSendPlace> messageSendPlaceProvider,Provider<IMAPMessagePlace> messagePlaceProvider){
 =======
+=======
+	private final Provider<MailInboxPlace> mailInboxPlaceProvider;
+	private final Provider<IMAPMessagePlace> IMAPMessagePlaceProvider;
+	private final Provider<MessageSendPlace> messageSendPlaceProvider;
+>>>>>>> 
 	
     private DispatchAsync dispatcher;
     private User user;
     private IMAPFolder folder;
     private IMAPTreeItem tItem;
     private HasEditable editableTreeItem;
+    private String searchValue;
     
     @Inject
     public WestActivity(Displayable display, EventBus eventBus, PlaceController placeController,
+<<<<<<< HEAD
 			DispatchAsync dispatcher){
 >>>>>>> Change to new mvp framework - first step
+=======
+			DispatchAsync dispatcher,Provider<MailInboxPlace> mailInboxPlaceProvider,Provider<IMAPMessagePlace> IMAPMessagePlaceProvider,Provider<MessageSendPlace> messageSendPlaceProvider){
+>>>>>>> 
     	this.dispatcher = dispatcher;
     	this.display = display;
     	this.eventBus = eventBus;
     	this.placeController = placeController;
+<<<<<<< HEAD
 <<<<<<< HEAD
     	this.IMAPMessagePlaceProvider = IMAPMessagePlaceProvider;
     	this.messageSendPlaceProvider = messageSendPlaceProvider;
     	this.messagePlaceProvider = messagePlaceProvider;
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+    	this.mailInboxPlaceProvider = mailInboxPlaceProvider;
+    	this.IMAPMessagePlaceProvider = IMAPMessagePlaceProvider;
+    	this.messageSendPlaceProvider = messageSendPlaceProvider;
+>>>>>>> 
     	
     }
 
@@ -542,6 +604,9 @@ public class WestActivity extends AbstractActivity {
     }
 	private void bind(){
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 
 		eventBus.addHandler(LoadMessagesEvent.TYPE, new LoadMessagesEventHandler() {
 
             public void onLoadMessagesEvent(LoadMessagesEvent loadMessagesEvent) {
@@ -568,9 +633,13 @@ public class WestActivity extends AbstractActivity {
                             eventBus.fireEvent(new DecreaseUnseenEvent(user, folder));
                         }
                         display.setLoadingMessage(false);
+<<<<<<< HEAD
 //                        showMessage(user, folder, message, result.getMessageDetails());
 
                         placeController.goTo(messagePlaceProvider.get().with(user,folder, message,result.getMessageDetails()));
+=======
+                        showMessage(user, folder, message, result.getMessageDetails());
+>>>>>>> 
                     }
                 });
             }
@@ -658,7 +727,11 @@ public class WestActivity extends AbstractActivity {
                 tItem = (IMAPTreeItem) event.getSelectedItem();
                 if (tItem.isEdit()) 
                     return;
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy) tItem.getUserObject();
+=======
+                folder = (IMAPFolder) tItem.getUserObject();
+>>>>>>> 
                 eventBus.fireEvent(new LoadMessagesEvent(user, folder));
             }
 
@@ -669,7 +742,11 @@ public class WestActivity extends AbstractActivity {
                 tItem = (IMAPTreeItem) event.getSelectedItem();
                 if (tItem.isEdit()) 
                     return;
+<<<<<<< HEAD
                 folder = (IMAPFolderProxy) tItem.getUserObject();
+=======
+                folder = (IMAPFolder) tItem.getUserObject();
+>>>>>>> 
                 if (folder.getFullName().equalsIgnoreCase(user.getSettings().getInboxFolderName())) {
                     display.getDeleteEnable().setEnabled(false);
                     display.getRenameEnable().setEnabled(false);
@@ -742,7 +819,11 @@ public class WestActivity extends AbstractActivity {
 		eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
 
             public void onMessagesReceived(MessagesReceivedEvent event) {
+<<<<<<< HEAD
             	IMAPFolderProxy f = event.getFolder();
+=======
+                IMAPFolder f = event.getFolder();
+>>>>>>> 
                 display.updateTreeItem(f);
             }
 
@@ -751,14 +832,21 @@ public class WestActivity extends AbstractActivity {
 
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
+<<<<<<< HEAD
 //                folder = (IMAPFolderProxy)new IMAPFolder(user.getSettings().getInboxFolderName());;
                 searchValue = null;
 //                showMessageTable(user, folder, searchValue);
+=======
+                folder = new IMAPFolder(user.getSettings().getInboxFolderName());;
+                searchValue = null;
+                showMessageTable(user, folder, searchValue);
+>>>>>>> 
             }
             
         });
 
         exportJSMethods(this);
+<<<<<<< HEAD
 	}
 
     
@@ -813,6 +901,65 @@ public class WestActivity extends AbstractActivity {
 	}
 
 >>>>>>> Change to new mvp framework - first step
+=======
+	}
+
+    
+    public void openLink(String url) {
+        Window.open(url, "_blank", "");
+    }
+
+    public void mailTo(String mailto) {
+//        sendPresenter.revealDisplay(user, mailto);
+    }
+    private native void exportJSMethods(WestActivity westactivity) /*-{
+      $wnd.openLink = function(url) {
+        try {
+           westactivity.@org.apache.hupa.client.activity.WestActivity::openLink(Ljava/lang/String;) (url);
+        } catch(e) {}
+        return false;
+      };
+      $wnd.mailTo = function(mail) {
+        try {
+           westactivity.@org.apache.hupa.client.activity.WestActivity::mailTo(Ljava/lang/String;) (mail);
+        } catch(e) {}
+        return false;
+      };
+    }-*/;
+    private void showMessageTable(User user, IMAPFolder folder, String searchValue) {
+        this.user = user;
+        this.folder = folder;
+        this.searchValue = searchValue;
+        placeController.goTo(mailInboxPlaceProvider.get().with(user));
+    }
+
+    private void showMessage(User user, IMAPFolder folder, Message message, MessageDetails details) {
+    	placeController.goTo(IMAPMessagePlaceProvider.get());
+    }
+
+    private void showNewMessage() {
+    	placeController.goTo(this.messageSendPlaceProvider.get());
+//        sendPresenter.revealDisplay(user);
+    }
+
+    private void showForwardMessage(ForwardMessageEvent event) {
+    	placeController.goTo(this.messageSendPlaceProvider.get());
+//        sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.FORWARD);
+    }
+
+    private void showReplyMessage(ReplyMessageEvent event) {
+        if (event.getReplyAll()) {
+        	placeController.goTo(this.messageSendPlaceProvider.get());
+//            sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY_ALL);
+        } else {
+        	placeController.goTo(this.messageSendPlaceProvider.get());
+//            sendPresenter.revealDisplay(event.getUser(), event.getFolder(), event.getMessage(), event.getMessageDetails(), Type.REPLY);
+
+        }
+    	placeController.goTo(this.messageSendPlaceProvider.get());
+//        sendPresenter.revealDisplay();
+    }
+>>>>>>> 
     public interface Displayable extends WidgetContainerDisplayable {
         
         public HasSelectionHandlers<TreeItem> getTree();

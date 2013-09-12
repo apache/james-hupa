@@ -2,13 +2,25 @@ package org.apache.hupa.client.place;
 
 import org.apache.hupa.shared.data.User;
 
+import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
-public class MailInboxPlace extends MailPlace {
+public class MailInboxPlace extends Place {
 
 	private static final String PREFIX = "inbox";
 	private User user;
+	private String mailId;
+	
+	public MailInboxPlace(){
+		this.mailId = "";
+	}
+	public MailInboxPlace(String token){
+		this.mailId = token;
+	}
+	public String getMailId(){
+		return mailId;
+	}
 
 	/**
 	 * equality test based on Class type, to let different instance of this
@@ -46,12 +58,12 @@ public class MailInboxPlace extends MailPlace {
 
 		@Override
 		public MailInboxPlace getPlace(String token) {
-			return new MailInboxPlace();
+			return new MailInboxPlace(token);
 		}
 
 		@Override
 		public String getToken(MailInboxPlace place) {
-			return PREFIX;
+			return place.getMailId();
 		}
 	}
 }

@@ -179,6 +179,7 @@ public class WestView extends Composite implements WestActivity.Displayable {
         this.bus = bus;
         loader = new Loading(constants.loading());
 <<<<<<< HEAD
+<<<<<<< HEAD
         newFolderButton = new EnableHyperlink(constants.newFolder(), null);
         renameFolderButton = new EnableHyperlink(constants.renameFolder(), null);
         deleteFolderButton = new EnableHyperlink(constants.deleteFolder(), null);
@@ -187,6 +188,11 @@ public class WestView extends Composite implements WestActivity.Displayable {
         renameFolderButton = new EnableHyperlink(constants.renameFolder(), "");
         deleteFolderButton = new EnableHyperlink(constants.deleteFolder(), "");
 >>>>>>> Change to new mvp framework - first step
+=======
+        newFolderButton = new EnableHyperlink(constants.newFolder(), null);
+        renameFolderButton = new EnableHyperlink(constants.renameFolder(), null);
+        deleteFolderButton = new EnableHyperlink(constants.deleteFolder(), null);
+>>>>>>> 
         
         dockPanel = new DockPanel();
 

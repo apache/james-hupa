@@ -46,6 +46,7 @@ import org.apache.hupa.shared.data.User;
 =======
 import org.apache.hupa.client.HupaEvoCallback;
 import org.apache.hupa.client.mvp.WidgetDisplayable;
+import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.shared.data.User;
 >>>>>>> introduce the top activity
 import org.apache.hupa.shared.events.FlashEvent;
@@ -102,9 +103,13 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.inject.Provider;
 =======
 >>>>>>> introduce the top activity
+=======
+import com.google.inject.Provider;
+>>>>>>> 
 
 public class TopActivity extends AbstractActivity {
 
@@ -161,6 +166,7 @@ public class TopActivity extends AbstractActivity {
 				showLogin(username);
 				noopTimer.cancel();
 <<<<<<< HEAD
+<<<<<<< HEAD
 				TopActivity.this.placeController.goTo(defaultPlaceProvider.get());
 			}
 <<<<<<< HEAD
@@ -183,6 +189,9 @@ public class TopActivity extends AbstractActivity {
 		eventBus.addHandler(ServerStatusEvent.TYPE, new ServerStatusEventHandler() {
 =======
 =======
+=======
+				TopActivity.this.placeController.goTo(defaultPlaceProvider.get());
+>>>>>>> 
 			}
 >>>>>>> introduce the top activity
 
@@ -324,16 +333,24 @@ public class TopActivity extends AbstractActivity {
 	private Timer noopTimer = new IdleTimer();
 
 	@Inject
+<<<<<<< HEAD
 	public TopActivity(Displayable display, EventBus eventBus, PlaceController placeController,
 >>>>>>> introduce the top activity
+=======
+	public TopActivity(Displayable display, EventBus eventBus, PlaceController placeController, Provider<DefaultPlace> defaultPlaceProvider,
+>>>>>>> 
 			HupaConstants constants, DispatchAsync dispatcher) {
 		this.dispatcher = dispatcher;
 		this.display = display;
 		this.eventBus = eventBus;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		this.defaultPlaceProvider = defaultPlaceProvider;
 =======
 >>>>>>> introduce the top activity
+=======
+		this.defaultPlaceProvider = defaultPlaceProvider;
+>>>>>>> 
 		this.constants = constants;
 		this.placeController = placeController;
 
@@ -376,9 +393,13 @@ public class TopActivity extends AbstractActivity {
 	private final PlaceController placeController;
 	private final DispatchAsync dispatcher;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private final Provider<DefaultPlace> defaultPlaceProvider;
 =======
 >>>>>>> introduce the top activity
+=======
+	private final Provider<DefaultPlace> defaultPlaceProvider;
+>>>>>>> 
 
 	private User user;
 	private ServerStatus serverStatus = ServerStatus.Available;

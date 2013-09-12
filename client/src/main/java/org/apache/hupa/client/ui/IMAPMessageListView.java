@@ -772,9 +772,13 @@ import com.google.gwt.gen2.table.event.client.RowCountChangeEvent;
 import com.google.gwt.gen2.table.event.client.RowCountChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.Anchor;
 =======
 >>>>>>> Change to new mvp framework - first step
+=======
+import com.google.gwt.user.client.ui.Anchor;
+>>>>>>> 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
@@ -814,6 +818,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
 
     private ListBox pageBox = new ListBox();
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Anchor allLink;    
     private Anchor noneLink;
     private Anchor refreshLink;
@@ -822,6 +827,11 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
     private Hyperlink noneLink;
     private Hyperlink refreshLink;
 >>>>>>> Change to new mvp framework - first step
+=======
+    private Anchor allLink;    
+    private Anchor noneLink;
+    private Anchor refreshLink;
+>>>>>>> 
     private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
     private SuggestBox searchBox = new SuggestBox(oracle);
     private Button searchButton;
@@ -838,6 +848,7 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
         markSeenButton = new EnableButton(constants.markSeen());
         markUnSeenButton = new EnableButton(constants.markUnseen());
 <<<<<<< HEAD
+<<<<<<< HEAD
         allLink = new Anchor(constants.all());    
         noneLink = new Anchor(constants.none());
         refreshLink = new Anchor(constants.refresh());
@@ -846,6 +857,11 @@ public class IMAPMessageListView extends Composite implements IMAPMessageListAct
         noneLink = new Hyperlink(constants.none(),"");
         refreshLink = new Hyperlink(constants.refresh(),"");
 >>>>>>> Change to new mvp framework - first step
+=======
+        allLink = new Anchor(constants.all());    
+        noneLink = new Anchor(constants.none());
+        refreshLink = new Anchor(constants.refresh());
+>>>>>>> 
         searchButton = new Button(constants.searchButton());
         loading = new Loading(constants.loading());
         this.cTableModel = new CachedTableModel<Message>(mTableModel);

@@ -1,16 +1,20 @@
 package org.apache.hupa.client.place;
 
+<<<<<<< HEAD
 import org.apache.hupa.shared.data.IMAPFolder;
 import org.apache.hupa.shared.data.Message;
 import org.apache.hupa.shared.data.MessageDetails;
 import org.apache.hupa.shared.data.User;
 import org.apache.hupa.shared.proxy.IMAPFolderProxy;
 
+=======
+>>>>>>> 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class IMAPMessagePlace extends Place {
+<<<<<<< HEAD
 	
 	private Message message;
 	private MessageDetails messageDetails;
@@ -34,6 +38,10 @@ public class IMAPMessagePlace extends Place {
 	}
 
 @Prefix("message")
+=======
+
+  @Prefix("IMAPMessage")
+>>>>>>> 
   public static class Tokenizer implements PlaceTokenizer<IMAPMessagePlace> {
 
     @Override
@@ -43,7 +51,11 @@ public class IMAPMessagePlace extends Place {
 
     @Override
     public String getToken(IMAPMessagePlace place) {
+<<<<<<< HEAD
       return String.valueOf(place.getMessage().getUid());
+=======
+      return "IMAPMessage";
+>>>>>>> 
     }
   }
   
@@ -51,6 +63,7 @@ public class IMAPMessagePlace extends Place {
 	  return this.getClass().getName()+"->[IMAPMessage]";
   }
 
+<<<<<<< HEAD
 	public IMAPMessagePlace with(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails){
       this.message = message;
       this.messageDetails = messageDetails;
@@ -59,4 +72,6 @@ public class IMAPMessagePlace extends Place {
       return this;
 	}
 
+=======
+>>>>>>> 
 }

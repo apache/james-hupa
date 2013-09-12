@@ -128,8 +128,8 @@ import org.apache.hupa.client.activity.TopActivity;
 import org.apache.hupa.client.activity.WestActivity;
 import org.apache.hupa.client.dnd.PagingScrollTableRowDragController;
 import org.apache.hupa.client.mvp.AppPlaceHistoryMapper;
+import org.apache.hupa.client.mvp.CachingTopActivityMapper;
 import org.apache.hupa.client.mvp.MainContentActivityMapper;
-import org.apache.hupa.client.mvp.TopActivityMapper;
 import org.apache.hupa.client.mvp.WestActivityMapper;
 >>>>>>> Change to new mvp framework - first step
 import org.apache.hupa.client.place.DefaultPlace;
@@ -385,7 +385,7 @@ public class AppGinModule extends AbstractGinModule {
 	@Provides
 	@Singleton
 	@Named("TopRegion")
-	public ActivityManager getTopRegionActivityMapper(TopActivityMapper activityMapper,
+	public ActivityManager getTopRegionActivityMapper(CachingTopActivityMapper activityMapper,
 			EventBus eventBus) {
 		return new ActivityManager(activityMapper, eventBus);
 	}
