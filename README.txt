@@ -54,5 +54,4 @@ shared, mock, server, widget and client.
   >> 'GWT module hupa needs to be (re)compiled, please run a compile or use the Compile/Browse button in hosted mode'
  
   Configure the plugin to compile only the 'Hupa' module.
-  Properties -> Google -> Web Toolkit -> Entry Point Modules -> Hupa - org.apache.hupa
- 
+  Properties -> Google -> Web Toolkit -> Entry Point Modules -> Hupa - org.apache.hupa 
