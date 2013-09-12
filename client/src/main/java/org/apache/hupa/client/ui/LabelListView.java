@@ -323,7 +323,7 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 						updateRowCount(-1, true);
 					} else {
 						for (ImapFolder folder : response) {
-							fillCellList(folderNodes, folder, LabelNode.ROOT, INTENTS);
+							fillCellList(folderNodes, folder, LabelNode.ROOT, "");
 						}
 						updateRowData(start, folderNodes);
 					}
