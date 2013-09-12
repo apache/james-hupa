@@ -21,6 +21,7 @@ package org.apache.hupa.client.ui;
 
 import java.util.List;
 
+import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.NotificationActivity;
 import org.apache.hupa.client.activity.TopBarActivity;
 import org.apache.hupa.client.place.MailFolderPlace;
@@ -54,6 +55,7 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 public class FoldersTreeViewModel implements TreeViewModel {
 
 	@Inject private HupaRequestFactory rf;
+	@Inject private HupaController controller;
 	@Inject private PlaceController placeController;
 	@Inject private TopBarActivity.Displayable topBar;
 	@Inject private NotificationActivity.Displayable notice;
@@ -69,7 +71,8 @@ public class FoldersTreeViewModel implements TreeViewModel {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
 				topBar.showLoading();//FIXME delay to show, why
-				notice.notice(SafeHtmlUtils.fromString("Hi, this is the notification test."));
+				controller.showNotice(SafeHtmlUtils.fromString("Hi, this is the notification test.<a href='http://g.cn/' target='_blacnk'>Link</a>"), 3000);
+//				notice.notice(SafeHtmlUtils.fromString("Hi, this is the notification test.<a href='http://g.cn/' target='_blacnk'>Link</a>"));
 				SingleSelectionModel<ImapFolder> selectionModel = (SingleSelectionModel<ImapFolder>) event.getSource();
 				currentFolder = selectionModel.getSelectedObject();
 				eventBus.fireEvent(new LoadMessagesEvent(user, selectionModel.getSelectedObject()));

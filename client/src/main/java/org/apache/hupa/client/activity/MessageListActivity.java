@@ -380,12 +380,12 @@ public class MessageListActivity extends AppBaseActivity {
 				assert result != null;
 				display.getGrid().setRowCount(result.getRealCount());
 				display.getGrid().setRowData(start, result.getMessages());
-//				Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-//				    @Override
-//				    public void execute() {
-//				    	topBar.hideLoading();
-//				    }
-//				});
+				Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+				    @Override
+				    public void execute() {
+				    	topBar.hideLoading();
+				    }
+				});
 			}
 
 			@Override

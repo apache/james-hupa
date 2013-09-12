@@ -24,9 +24,13 @@ package org.apache.hupa.client;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.apache.hupa.client.activity.NotificationActivity;
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.activity.TopBarActivity;
+=======
+import org.apache.hupa.client.activity.NotificationActivity;
+>>>>>>> make a notification timer to be able to schedule the notice with millis time.
 import org.apache.hupa.client.mapper.ActivityManagerInitializer;
 import org.apache.hupa.client.place.ComposePlace;
 <<<<<<< HEAD
@@ -92,6 +96,7 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
@@ -121,6 +126,9 @@ public class HupaController {
 		this.eventBus = eventBus;
 =======
 =======
+=======
+import com.google.gwt.safehtml.shared.SafeHtml;
+>>>>>>> make a notification timer to be able to schedule the notice with millis time.
 import com.google.gwt.user.client.Timer;
 >>>>>>> fixed issue#48, and add the original IdleTimer
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -136,6 +144,7 @@ public class HupaController {
 	@Inject private HupaLayoutable hupaLayout;
 	@Inject private HupaRequestFactory requestFactory;
 	@Inject private LoginLayoutable loginLayout;
+	@Inject private NotificationActivity.Displayable noticeRegion;
 	private EventBus eventBus;
 
 	private Timer noopTimer = new IdleTimer();
@@ -368,6 +377,18 @@ public class HupaController {
 			}
 		});
 	}
+
+    public void showNotice(SafeHtml html, int millis){
+    	noticeRegion.notice(html);
+        if (millis > 0)
+        	hideNotice.schedule(millis);
+    }
+    
+    private final Timer hideNotice = new Timer() {
+        public void run() {
+        	noticeRegion.hideNotification();
+        }
+    };
 
 	private class IdleTimer extends Timer {
 		boolean running = false;
