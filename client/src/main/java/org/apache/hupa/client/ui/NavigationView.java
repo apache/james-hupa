@@ -188,8 +188,12 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 		
 		contactOuter.removeStyleName(style.selected());
 		contact.removeStyleName(style.contactInnerSelected());
-		//FIXME need the default one
-		placeController.goTo(new FolderPlace("INBOX"));
+		//FIXME need the configure one
+		if(GWT.isProdMode()){
+			placeController.goTo(new FolderPlace("INBOX"));
+		}else{
+			placeController.goTo(new FolderPlace("Mock-Inbox"));
+		}
 	}
 	
 	

@@ -365,8 +365,12 @@ public class HupaController {
 			if (here.getParameters() != null) {
 				hupaLayout.switchTo(HupaLayout.LAYOUT_COMPOSE);
 			} else {
-				//FIXME when gmail mode
-				this.placeController.goTo(new FolderPlace("INBOX"));
+				//FIXME using configure one
+				if(GWT.isProdMode()){
+					placeController.goTo(new FolderPlace("INBOX"));
+				}else{
+					placeController.goTo(new FolderPlace("Mock-Inbox"));
+				}
 			}
 		} else if (place instanceof ContactPlace) {
 			hupaLayout.switchTo(HupaLayout.LAYOUT_CONTACT);
