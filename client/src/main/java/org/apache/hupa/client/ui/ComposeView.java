@@ -126,20 +126,35 @@ import gwtupload.client.MultiUploader;
 
 public class ComposeView extends Composite implements ComposeActivity.Displayable {
 
+	@UiField protected DockLayoutPanel thisPanel;
+	@UiField protected SimplePanel header;
 	@UiField protected FlexTable headerTable;
 	@UiField protected SimplePanel composeEditor;
 	@UiField protected FlowPanel attach;
 	@UiField protected Style style;
 	private ListBox selectFrom;
-	// we only need one instance for all suggestion-boxes
-	private MultiValueSuggestArea to = new MultiValueSuggestArea(" ,@<>");
-	private MultiValueSuggestArea cc = new MultiValueSuggestArea(to.getOracle());
-	private MultiValueSuggestArea bcc = new MultiValueSuggestArea(to.getOracle());
+	/* we only need one instance for all suggestion-boxes */
+	private MultiValueSuggestArea toSuggest = new MultiValueSuggestArea(" ,@<>");
+	private MultiValueSuggestArea ccSuggest = new MultiValueSuggestArea(toSuggest.getOracle());
+	private MultiValueSuggestArea bccSuggest = new MultiValueSuggestArea(toSuggest.getOracle());
 	private TextBox subject = new TextBox();
 
 	private Button sendButton;
 	private Button saveButton;
 	private Button cancelButton;
+
+	private Anchor addCcButton;
+	private Anchor addBccButton;
+	private Anchor addReplyButton;
+	private Anchor addFollowupButton;
+
+	private Anchor _CcButton = new Anchor("x");
+	private Anchor _BccButton = new Anchor("x");
+	private Anchor _ReplyButton = new Anchor("x");
+	private Anchor _FollowupButton = new Anchor("x");
+
+	private FlexCellFormatter cellFormatter;
+	private RowFormatter rowFormatter;
 
 	private Editor editor;
 
@@ -155,38 +170,61 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	private static final int ROW_SWITCH = 6;
 	private static final int ROW_SUBJECT = 7;
 
+	private static final int ROW_HEIGHT = 33;
+
 	interface Style extends CssResource {
-		String hiddenInput();
-
-		String add();
-
+		String show();
+		String hide();
 		String iconlink();
-
+		String add();
+		String cancel();
 		String formlinks();
-
 		String left();
-
 		String right();
-
 		String operation();
 	}
 
 	@Inject
 	public ComposeView(HupaConstants constants, HupaMessages messages) {
 		initWidget(binder.createAndBindUi(this));
-		FlexCellFormatter cellFormatter = headerTable.getFlexCellFormatter();
-		RowFormatter rowFormatter = headerTable.getRowFormatter();
+		initFormatters();
+		createFirstColumn();
+		createSecondColumn();
+		bindValidators(messages);
+		createEditor(constants);
+	}
 
-		headerTable.setWidget(ROW_FROM, 0, new Label("From"));
+	private void createEditor(HupaConstants constants) {
+		editor = new Editor();
+		BaseUploadStatus uploadStatus = new BaseUploadStatus();
+		uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
+		uploader = new MultiUploader(FileInputType.CUSTOM.with(button), uploadStatus);
+		uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
+		uploader.avoidRepeatFiles(true);
+		uploader.setI18Constants(constants);
+		attach.add(uploader);
+		composeEditor.add(editor);
+	}
 
-		headerTable.setWidget(ROW_TO, 0, new Label("To"));
-		headerTable.setWidget(ROW_CC, 0, new Label("Cc"));
-		headerTable.setWidget(ROW_BCC, 0, new Label("Bcc"));
-		headerTable.setWidget(ROW_REPLY, 0, new Label("Reply-To"));
-		headerTable.setWidget(ROW_FOLLOWUP, 0, new Label("Followup-To"));
-		headerTable.setWidget(ROW_SWITCH, 0, new Label(""));
-		headerTable.setWidget(ROW_SUBJECT, 0, new Label("Subject"));
+	private void bindValidators(HupaMessages messages) {
+		SetFocusAction fAction = new SetFocusAction();
+		AddStyleAction sAction = new AddStyleAction(HupaCSS.C_validate, 3000);
+		validator = new DefaultValidationProcessor(new ValidationMessages(messages));
+		validator.addValidators("cc",
+				new EmailListValidator(getCc()).addActionForFailure(sAction).addActionForFailure(fAction));
+		validator.addValidators("bcc", new EmailListValidator(getBcc()).addActionForFailure(sAction)
+				.addActionForFailure(fAction));
+		validator.addValidators("to",
+				new EmailListValidator(getTo()).addActionForFailure(sAction).addActionForFailure(fAction),
+				new NotEmptyValidator(getTo()).addActionForFailure(sAction).addActionForFailure(fAction));
+	}
 
+	private void initFormatters() {
+		cellFormatter = headerTable.getFlexCellFormatter();
+		rowFormatter = headerTable.getRowFormatter();
+	}
+
+	private void createSecondColumn() {
 		selectFrom = new ListBox();
 		sendButton = new Button("Send message");
 		saveButton = new Button("Save as draft");
@@ -194,7 +232,6 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 		FlowPanel operationPanel = new FlowPanel();
 		FlowPanel contactPanel = new FlowPanel();
 		FlowPanel buttonPanel = new FlowPanel();
-
 		contactPanel.add(selectFrom);
 		contactPanel.addStyleName(style.left());
 		// buttonPanel.add(new Anchor("Edit identities"));
@@ -206,93 +243,93 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 		operationPanel.add(buttonPanel);
 		operationPanel.addStyleName(style.operation());
 		headerTable.setWidget(ROW_FROM, 1, operationPanel);
-
-		headerTable.setWidget(ROW_TO, 1, to);
-
-		headerTable.setWidget(ROW_CC, 1, cc);
-		headerTable.setWidget(ROW_BCC, 1, bcc);
+		headerTable.setWidget(ROW_TO, 1, toSuggest);
+		headerTable.setWidget(ROW_CC, 1, ccSuggest);
+		headerTable.setWidget(ROW_BCC, 1, bccSuggest);
 		headerTable.setWidget(ROW_REPLY, 1, create());
 		headerTable.setWidget(ROW_FOLLOWUP, 1, create());
-
-		FlowPanel linkPanel = new FlowPanel();
-		Anchor cc = new Anchor("Add Cc");
-		cc.addStyleName(style.iconlink());
-		cc.addStyleName(style.add());
-		Anchor bcc = new Anchor("Add Bcc");
-		bcc.addStyleName(style.iconlink());
-		bcc.addStyleName(style.add());
-		Anchor replyTo = new Anchor("Add Reply-To");
-		replyTo.addStyleName(style.iconlink());
-		replyTo.addStyleName(style.add());
-		Anchor followupTo = new Anchor("Add Followup-To");
-		followupTo.addStyleName(style.iconlink());
-		followupTo.addStyleName(style.add());
-		linkPanel.add(cc);
-		linkPanel.add(bcc);
-		linkPanel.add(replyTo);
-		linkPanel.add(followupTo);
-		headerTable.setWidget(ROW_SWITCH, 1, linkPanel);
+		headerTable.setWidget(ROW_SWITCH, 1, createOpsPanel());
 		cellFormatter.addStyleName(ROW_SWITCH, 1, style.formlinks());
 		headerTable.setWidget(ROW_SUBJECT, 1, subject);
-
-		rowFormatter.addStyleName(ROW_CC, style.hiddenInput());
-		rowFormatter.addStyleName(ROW_BCC, style.hiddenInput());
-		rowFormatter.addStyleName(ROW_REPLY, style.hiddenInput());
-		rowFormatter.addStyleName(ROW_FOLLOWUP, style.hiddenInput());
-
-		SetFocusAction fAction = new SetFocusAction();
-		AddStyleAction sAction = new AddStyleAction(HupaCSS.C_validate, 3000);
-		validator = new DefaultValidationProcessor(new ValidationMessages(messages));
-		validator.addValidators("cc", new EmailListValidator(getCcText()).addActionForFailure(sAction)
-				.addActionForFailure(fAction));
-		validator.addValidators("bcc", new EmailListValidator(getBccText()).addActionForFailure(sAction)
-				.addActionForFailure(fAction));
-		validator.addValidators("to", new EmailListValidator(getToText()).addActionForFailure(sAction)
-				.addActionForFailure(fAction), new NotEmptyValidator(getToText()).addActionForFailure(sAction)
-				.addActionForFailure(fAction));
-		editor = new Editor();
-		
-		BaseUploadStatus uploadStatus = new BaseUploadStatus();
-		uploadStatus.setCancelConfiguration(IUploadStatus.GMAIL_CANCEL_CFG);
-		uploader = new MultiUploader(FileInputType.CUSTOM.with(button), uploadStatus);
-		uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
-		uploader.avoidRepeatFiles(true);
-		uploader.setI18Constants(constants);
-		attach.add(uploader);
-		composeEditor.add(editor);
+		rowFormatter.addStyleName(ROW_CC, style.hide());
+		rowFormatter.addStyleName(ROW_BCC, style.hide());
+		rowFormatter.addStyleName(ROW_REPLY, style.hide());
+		rowFormatter.addStyleName(ROW_FOLLOWUP, style.hide());
 	}
 
+	private void createFirstColumn() {
+		headerTable.setWidget(ROW_FROM, 0, new Label("From"));
+		headerTable.setWidget(ROW_TO, 0, new Label("To"));
+		headerTable.setWidget(ROW_CC, 0, createCell("Cc", _CcButton));
+		headerTable.setWidget(ROW_BCC, 0, createCell("Bcc", _BccButton));
+		headerTable.setWidget(ROW_REPLY, 0, createCell("Reply", _ReplyButton));
+		headerTable.setWidget(ROW_FOLLOWUP, 0, createCell("Follow", _FollowupButton));
+		headerTable.setWidget(ROW_SWITCH, 0, new Label(""));
+		headerTable.setWidget(ROW_SUBJECT, 0, new Label("Subject"));
+	}
 
-	  class MyFancyLookingButton extends Composite implements HasClickHandlers {
-		    DecoratorPanel widget = new DecoratorPanel();
-		    
-		    public MyFancyLookingButton() {
-		      DecoratorPanel widget = new DecoratorPanel();
-		      initWidget(widget);
-		      widget.setWidget(new HTML("Choose ..."));
-		      widget.setSize("100px","50px");
-		    }
+	private FlowPanel createCell(String labelText, Anchor w) {
+		FlowPanel ccCell = new FlowPanel();
+		Label cc = new Label(labelText);
+		cc.addStyleName(style.left());
+		ccCell.add(cc);
+		w.addStyleName(style.iconlink());
+		w.addStyleName(style.cancel());
+		ccCell.add(w);
+		return ccCell;
+	}
 
-		    public HandlerRegistration addClickHandler(ClickHandler handler) {
-		      return addDomHandler(handler, ClickEvent.getType());
-		    }
-		  }
+	private FlowPanel createOpsPanel() {
+		FlowPanel addOpsPanel = new FlowPanel();
+		addCcButton = new Anchor("Add Cc");
+		addCcButton.addStyleName(style.iconlink());
+		addCcButton.addStyleName(style.add());
+		addBccButton = new Anchor("Add Bcc");
+		addBccButton.addStyleName(style.iconlink());
+		addBccButton.addStyleName(style.add());
+		addReplyButton = new Anchor("Add Reply-To");
+		addReplyButton.addStyleName(style.iconlink());
+		addReplyButton.addStyleName(style.add());
+		addFollowupButton = new Anchor("Add Followup-To");
+		addFollowupButton.addStyleName(style.iconlink());
+		addFollowupButton.addStyleName(style.add());
+		addOpsPanel.add(addCcButton);
+		addOpsPanel.add(addBccButton);
+		addOpsPanel.add(addReplyButton);
+		addOpsPanel.add(addFollowupButton);
+		return addOpsPanel;
+	}
 
-		  MyFancyLookingButton button = new MyFancyLookingButton();
+	class MyFancyLookingButton extends Composite implements HasClickHandlers {
+		DecoratorPanel widget = new DecoratorPanel();
+
+		public MyFancyLookingButton() {
+			DecoratorPanel widget = new DecoratorPanel();
+			initWidget(widget);
+			widget.setWidget(new HTML("Choose ..."));
+			widget.setSize("100px", "50px");
+		}
+
+		public HandlerRegistration addClickHandler(ClickHandler handler) {
+			return addDomHandler(handler, ClickEvent.getType());
+		}
+	}
+
+	MyFancyLookingButton button = new MyFancyLookingButton();
 
 	@Override
-	public HasText getToText() {
-		return to;
+	public HasText getTo() {
+		return toSuggest;
 	}
 
 	@Override
-	public HasText getCcText() {
-		return cc;
+	public HasText getCc() {
+		return ccSuggest;
 	}
 
 	@Override
-	public HasText getBccText() {
-		return bcc;
+	public HasText getBcc() {
+		return bccSuggest;
 	}
 
 	@Override
@@ -301,7 +338,47 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	}
 
 	@Override
-	public HasText getSubjectText() {
+	public HasClickHandlers getCcClick() {
+		return addCcButton;
+	}
+
+	@Override
+	public HasClickHandlers get_CcClick() {
+		return _CcButton;
+	}
+
+	@Override
+	public HasClickHandlers getBccClick() {
+		return addBccButton;
+	}
+
+	@Override
+	public HasClickHandlers get_BccClick() {
+		return _BccButton;
+	}
+
+	@Override
+	public HasClickHandlers getReplyClick() {
+		return addReplyButton;
+	}
+
+	@Override
+	public HasClickHandlers get_ReplyClick() {
+		return _ReplyButton;
+	}
+
+	@Override
+	public HasClickHandlers getFollowupClick() {
+		return addFollowupButton;
+	}
+
+	@Override
+	public HasClickHandlers get_FollowupClick() {
+		return _FollowupButton;
+	}
+
+	@Override
+	public HasText getSubject() {
 		return subject;
 	}
 
@@ -322,7 +399,7 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	}
 
 	@Override
-	public HasText getMessageText() {
+	public HasText getMessage() {
 		return editor;
 	}
 
@@ -334,6 +411,80 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	@Override
 	public IUploader getUploader() {
 		return uploader;
+	}
+
+	@Override
+	public void showCc() {
+		showRow(ROW_CC);
+		// hide(addCcButton);
+	}
+
+	@Override
+	public void hideCc() {
+		hideRow(ROW_CC);
+		// show(addCcButton);
+	}
+
+	@Override
+	public void showBcc() {
+		showRow(ROW_BCC);
+		// hide(addBccButton);
+	}
+
+	@Override
+	public void hideBcc() {
+		hideRow(ROW_BCC);
+		// show(addBccButton);
+	}
+
+	@Override
+	public void showReply() {
+		showRow(ROW_REPLY);
+		// hide(addReplyButton);
+	}
+
+	@Override
+	public void hideReply() {
+		hideRow(ROW_REPLY);
+		// show(addReplyButton);
+	}
+
+	@Override
+	public void showFollowup() {
+		showRow(ROW_FOLLOWUP);
+		// hide(addFollowupButton);
+	}
+
+	@Override
+	public void hideFollowup() {
+		hideRow(ROW_FOLLOWUP);
+		// show(addFollowupButton);
+	}
+
+	private void showRow(int row) {
+		if (isShowing(row)) {
+			return;
+		}
+		rowFormatter.removeStyleName(row, style.hide());
+		rowFormatter.addStyleName(row, style.show());
+		thisPanel.setWidgetSize(header, thisPanel.getWidgetSize(header) + ROW_HEIGHT);
+	}
+
+	private void hideRow(int row) {
+		if (isHiding(row)) {
+			return;
+		}
+		rowFormatter.removeStyleName(row, style.show());
+		rowFormatter.addStyleName(row, style.hide());
+		thisPanel.setWidgetSize(header, thisPanel.getWidgetSize(header) - ROW_HEIGHT);
+	}
+
+	private boolean isShowing(int row) {
+		return rowFormatter.getStyleName(row).contains(style.show());
+	}
+
+	private boolean isHiding(int row) {
+		return rowFormatter.getStyleName(row).contains(style.hide());
 	}
 
 	// TODO

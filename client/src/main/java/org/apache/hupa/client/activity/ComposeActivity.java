@@ -416,6 +416,55 @@ public class ComposeActivity extends AppBaseActivity {
 			}
 		});
 		registerHandler(display.getSendClick().addClickHandler(sendClickHandler));
+		
+		registerHandler(display.getCcClick().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.showCc();
+			}
+		}));
+		registerHandler(display.get_CcClick().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.hideCc();
+			}
+		}));
+		registerHandler(display.getBccClick().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.showBcc();
+			}
+		}));
+		registerHandler(display.get_BccClick().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.hideBcc();
+			}
+		}));
+		registerHandler(display.getReplyClick().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.showReply();
+			}
+		}));
+		registerHandler(display.get_ReplyClick().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.hideReply();
+			}
+		}));
+		registerHandler(display.getFollowupClick().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.showFollowup();
+			}
+		}));
+		registerHandler(display.get_FollowupClick().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				display.hideFollowup();
+			}
+		}));
 		registerHandler(display.getUploader().addOnStatusChangedHandler(onStatusChangedHandler));
 		registerHandler(display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler));
 		registerHandler(display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler));
@@ -667,10 +716,14 @@ public class ComposeActivity extends AppBaseActivity {
 	private boolean validate() {
 		// Don't trust only in view validation
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> make add operation buttons work according to the click events
 		return display.validate() && display.getTo().getText().trim().length() > 0
 				&& EmailListValidator.isValidAddressList(display.getTo().getText())
 				&& EmailListValidator.isValidAddressList(display.getCc().getText())
 				&& EmailListValidator.isValidAddressList(display.getBcc().getText());
+<<<<<<< HEAD
 	}
 
 	private SmtpMessage parseMessage(RequestContext rc) {
@@ -697,6 +750,8 @@ public class ComposeActivity extends AppBaseActivity {
 				&& EmailListValidator.isValidAddressList(display.getCcText().getText())
 				&& EmailListValidator.isValidAddressList(display.getBccText().getText());
 >>>>>>> make send text mail work excellently
+=======
+>>>>>>> make add operation buttons work according to the click events
 	}
 
 	private SmtpMessage parseMessage(RequestContext rc) {
@@ -710,12 +765,12 @@ public class ComposeActivity extends AppBaseActivity {
 			attaches.add(attachMent);
 		}
 		message.setFrom(display.getFromText());
-		message.setSubject(display.getSubjectText().getText());
+		message.setSubject(display.getSubject().getText());
 		message.setText(display.getMessageHTML().getHTML());
 		message.setMessageAttachments(attaches);
-		message.setTo(emailTextToArray(display.getToText().getText()));
-		message.setCc(emailTextToArray(display.getCcText().getText()));
-		message.setBcc(emailTextToArray(display.getBccText().getText()));
+		message.setTo(emailTextToArray(display.getTo().getText()));
+		message.setCc(emailTextToArray(display.getCc().getText()));
+		message.setBcc(emailTextToArray(display.getBcc().getText()));
 		return message;
 	}
 
@@ -773,22 +828,31 @@ public class ComposeActivity extends AppBaseActivity {
 
 	public interface Displayable extends WidgetDisplayable {
 		String getFromText();
-
-		HasText getToText();
-
-		HasText getCcText();
-
-		HasText getBccText();
-
-		HasText getSubjectText();
-
+		void showCc();
+		void hideCc();
+		void showBcc();
+		void hideBcc();
+		void showReply();
+		void hideReply();
+		void showFollowup();
+		void hideFollowup();
+		HasText getTo();
+		HasText getCc();
+		HasText getBcc();
+		HasText getSubject();
 		HasClickHandlers getSendClick();
-
+		HasClickHandlers getCcClick();
+		HasClickHandlers get_CcClick();
+		HasClickHandlers getBccClick();
+		HasClickHandlers get_BccClick();
+		HasClickHandlers getReplyClick();
+		HasClickHandlers get_ReplyClick();
+		HasClickHandlers getFollowupClick();
+		HasClickHandlers get_FollowupClick();
 		boolean validate();
-
-		HasText getMessageText();
-
+		HasText getMessage();
 		HasHTML getMessageHTML();
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> make send text mail work excellently
 =======
@@ -798,6 +862,9 @@ public class ComposeActivity extends AppBaseActivity {
 >>>>>>> add user label, yet issue46 occur
 =======
 
+=======
+		ListBox getFromList();
+>>>>>>> make add operation buttons work according to the click events
 		IUploader getUploader();
 >>>>>>> make attachments sending work as expected
 	}
