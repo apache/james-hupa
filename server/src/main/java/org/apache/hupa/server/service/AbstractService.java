@@ -40,14 +40,18 @@ import org.apache.hupa.shared.exception.InvalidSessionException;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+<<<<<<< HEAD
 =======
 
 import com.google.inject.Inject;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+>>>>>>> fix issue 5,6,8:
 
 public abstract class AbstractService {
 	
     @Inject protected IMAPStoreCache cache;
+<<<<<<< HEAD
 <<<<<<< HEAD
     @Inject protected Provider<HttpSession> httpSessionProvider;
     @Inject protected Log logger;
@@ -62,14 +66,25 @@ public abstract class AbstractService {
         }
 =======
     @Inject protected HttpSession httpSession;
+=======
+    @Inject protected Provider<HttpSession> httpSessionProvider;
+>>>>>>> fix issue 5,6,8:
     @Inject protected Log logger;
 
 	protected User getUser() {
-		return (User) getHttpSession().getAttribute(SConsts.USER_SESS_ATTR);
-	}
 
+<<<<<<< HEAD
 	protected HttpSession getHttpSession() {
 		return httpSession;
 >>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
+=======
+        User user = (User) httpSessionProvider.get().getAttribute(SConsts.USER_SESS_ATTR);
+//        if (user == null) { TODO exception
+//            throw new Exception("User not found in session with id " + httpSessionProvider.get().getId());
+//        } else {
+//            return user;
+//        }
+        return user;
+>>>>>>> fix issue 5,6,8:
 	}
 }

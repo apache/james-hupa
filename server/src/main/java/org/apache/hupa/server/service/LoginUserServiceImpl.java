@@ -25,6 +25,7 @@
 package org.apache.hupa.server.service;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 =======
@@ -37,6 +38,10 @@ import javax.mail.MessagingException;
 
 =======
 >>>>>>> alert people "invilid login" for the wrong username and/or password, which should be improved with a gentle way
+=======
+import javax.servlet.http.HttpSession;
+
+>>>>>>> fix issue 5,6,8:
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.UserImpl;
@@ -67,8 +72,13 @@ public class LoginUserServiceImpl extends AbstractService implements LoginUserSe
 	public User login(String username, String password) {
 =======
 	public User login(String username, String password) throws Exception {
+<<<<<<< HEAD
 >>>>>>> alert people "invilid login" for the wrong username and/or password, which should be improved with a gentle way
 		SessionUtils.cleanSessionAttributes(httpSession);
+=======
+		HttpSession httpSession = httpSessionProvider.get();
+        SessionUtils.cleanSessionAttributes(httpSession);
+>>>>>>> fix issue 5,6,8:
 		User user = new UserImpl();
 		user.setName(username);
 		user.setPassword(password);

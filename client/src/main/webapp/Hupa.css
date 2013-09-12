@@ -422,10 +422,15 @@ div.hupa-bottom {
 table.hupa-login {
 =======
 .hupa-login {
+<<<<<<< HEAD
 	margin-top:10px;
 	margin-left:auto;
 	margin-right:auto;
 >>>>>>> make it look more beautiful
+=======
+	margin: 10pt auto;
+	width: 20%;
+>>>>>>> fix issue 5,6,8:
     text-align: right;
     position: relative;
     left: 50%;

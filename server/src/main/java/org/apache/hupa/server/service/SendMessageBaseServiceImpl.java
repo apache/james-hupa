@@ -261,8 +261,12 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      */
     @SuppressWarnings("rawtypes")
     protected List getAttachments(SendMessageAction action) throws MessagingException {
+<<<<<<< HEAD
         FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSession);
 >>>>>>> forward and reply message to use RF
+=======
+        FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSessionProvider.get());
+>>>>>>> fix issue 5,6,8:
         List<MessageAttachment> attachments = action.getMessage().getMessageAttachments();
         
         ArrayList<FileItem> items = new ArrayList<FileItem>();
@@ -290,10 +294,14 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         if (attachments != null && ! attachments.isEmpty()) {
             for(MessageAttachment attach : attachments) 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 SessionUtils.getSessionRegistry(logger, httpSessionProvider.get()).remove(attach.getName());
 =======
                 SessionUtils.getSessionRegistry(logger, httpSession).remove(attach.getName());
 >>>>>>> forward and reply message to use RF
+=======
+                SessionUtils.getSessionRegistry(logger, httpSessionProvider.get()).remove(attach.getName());
+>>>>>>> fix issue 5,6,8:
         }
     }
     

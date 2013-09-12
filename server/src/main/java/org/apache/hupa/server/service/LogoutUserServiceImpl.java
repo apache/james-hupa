@@ -53,10 +53,14 @@ public class LogoutUserServiceImpl extends AbstractService implements LogoutUser
 
 		// remove user attributes from session
 <<<<<<< HEAD
+<<<<<<< HEAD
 		SessionUtils.cleanSessionAttributes(httpSessionProvider.get());
 =======
 		SessionUtils.cleanSessionAttributes(httpSession);
 >>>>>>> other RFs
+=======
+		SessionUtils.cleanSessionAttributes(httpSessionProvider.get());
+>>>>>>> fix issue 5,6,8:
 
 		return new LogoutUserResultImpl(user);
 
