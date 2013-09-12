@@ -53,7 +53,7 @@ public class RegexPatternsTest extends TestCase {
         String txt, res;
         txt = ".. <img\nsrc=\"cid:abcd\"\nwhatever=/>click</a\n> ..";
         res = RegexPatterns.replaceAll(txt, RegexPatterns.regex_inlineImg, RegexPatterns.repl_inlineImg);
-        assertEquals(".. <img\nsrc='hupa/downloadAttachmentServlet?folder=%%FOLDER%%&uid=%%UID%%&name=abcd' name='cid:abcd'\nwhatever=/>click</a\n> ..", res);
+        assertEquals(".. <img\nsrc='hupa/downloadAttachmentServlet?mode=inline&folder=%%FOLDER%%&uid=%%UID%%&name=abcd' name='cid:abcd'\nwhatever=/>click</a\n> ..", res);
     }
 
     public void testRegexRestoreInlineLinks() {
