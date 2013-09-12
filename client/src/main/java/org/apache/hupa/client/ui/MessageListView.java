@@ -45,6 +45,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RequiresResize;
+<<<<<<< HEAD
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.inject.Inject;
@@ -97,11 +98,13 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+=======
+>>>>>>> Fix grid not resizing since we werent implementing RequiresResize in its container. In fact we could get rid of its container
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.inject.Inject;
 
-public class MessageListView extends Composite implements MessageListActivity.Displayable {
+public class MessageListView extends Composite implements MessageListActivity.Displayable, RequiresResize {
 
 	@UiField SimpleLayoutPanel thisView;
 	private MessagesCellTable grid;
@@ -274,5 +277,13 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 	}
 >>>>>>> fixed issue#59, coupled with fixing some UI refreshment issues in toolsbar
 
+<<<<<<< HEAD
 >>>>>>> let messages list activity make use of mvp
+=======
+    @Override
+    public void onResize() {
+        grid.onResize();
+    }
+
+>>>>>>> Fix grid not resizing since we werent implementing RequiresResize in its container. In fact we could get rid of its container
 }
