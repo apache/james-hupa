@@ -255,11 +255,6 @@ public class ToolBarActivity extends AppBaseActivity {
 				display.getPopup().hide();
 			}
 		}));
-//		registerHandler(display.getDeleteReg());
-//		registerHandler(display.getMarkReg());
-//		registerHandler(display.getReplyReg());
-//		registerHandler(display.getReplyAllReg());
-//		registerHandler(display.getForwardReg());
 	}
 
 	protected void toMarkRead(boolean read) {

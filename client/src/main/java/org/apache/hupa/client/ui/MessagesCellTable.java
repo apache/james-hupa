@@ -516,6 +516,7 @@ import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 
+import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -523,6 +524,9 @@ import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.InputElement;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -543,6 +547,12 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class MessagesCellTable extends DataGrid<Message> {
+
+	@Inject private ToolBarActivity.Displayable toolBar;
+	@Inject protected HupaController hc;
+	@Inject EventBus eventBus;
+	private String folderName;
+	private String searchValue;
 
 	public static final int PAGE_SIZE = 25;
 
@@ -633,12 +643,43 @@ public class MessagesCellTable extends DataGrid<Message> {
 		}
 
 	}
+	
+	public final class CheckboxHeader extends Header<Boolean> {
 
-	@Inject private ToolBarActivity.Displayable toolBar;
-	private String folderName;
-	private String searchValue;
-	@Inject protected HupaController hc;
-	@Inject EventBus eventBus;
+		private final MultiSelectionModel<? super Message> selectionModel;
+		private final AsyncDataProvider<Message> provider;
+
+		public CheckboxHeader(MultiSelectionModel<? super Message> selectionModel,
+				AsyncDataProvider<Message> provider) {
+			super(new CheckboxCell());
+			this.selectionModel = selectionModel;
+			this.provider = provider;
+		}
+
+		@Override
+		public Boolean getValue() {
+			if(selectionModel == null || provider==null){
+				return false;
+			}
+			if(selectionModel.getSelectedSet().size() == 0 || provider.getDataDisplays().size() == 0){
+				return false;
+			}
+			boolean allItemsSelected = selectionModel.getSelectedSet().size() == provider.getDataDisplays().size();
+			return allItemsSelected;
+		}
+
+		@Override
+		public void onBrowserEvent(Context context, Element elem, NativeEvent event) {
+			InputElement input = elem.getFirstChild().cast();
+			Boolean isChecked = input.isChecked();
+			List<Message> displayedItems = MessagesCellTable.this.getVisibleItems();
+			for (Message element : displayedItems) {
+				selectionModel.setSelected(element, isChecked);
+				checkboxCol.getFieldUpdater().update(0, element, isChecked);
+			}
+		}
+
+	}
 
 	@Inject
 	public MessagesCellTable(final HupaImageBundle imageBundle, final HupaConstants constants,
@@ -672,7 +713,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 			}
 		});
 
-		addColumn(checkboxCol, header);
+		addColumn(checkboxCol, new CheckboxHeader(selectionModel, dataProvider));
 		setColumnWidth(checkboxCol, 3, Unit.EM);
 		addColumn(fromCol, constants.mailTableFrom());
 		setColumnWidth(fromCol, 40, Unit.PCT);
@@ -808,6 +849,7 @@ public class MessagesCellTable extends DataGrid<Message> {
 	}
 	public void refresh() {
 		dataProvider.refresh();
+		redrawHeaders();
 	}
 
 }
