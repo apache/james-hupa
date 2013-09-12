@@ -474,7 +474,7 @@ public class IMAPMessageListView extends Composite implements Display{
         pageBox.setSelectedIndex(0);
         cTableModel.clearCache();
         cTableModel.setRowCount(CachedTableModel.UNKNOWN_ROW_COUNT);
-//        mailTable.gotoFirstPage();
+        mailTable.gotoPage(0, false);
     }
 
     /*
