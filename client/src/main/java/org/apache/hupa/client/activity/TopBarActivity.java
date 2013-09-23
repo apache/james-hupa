@@ -19,13 +19,10 @@
 
 package org.apache.hupa.client.activity;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.LogoutUserRequest;
 import org.apache.hupa.client.ui.LoginLayoutable;
-<<<<<<< HEAD
 import org.apache.hupa.shared.domain.LogoutUserResult;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.LoginEvent;
@@ -105,7 +102,6 @@ public class TopBarActivity extends AppBaseActivity {
 					RootLayoutPanel.get().add(loginLayout.get());
 					pc.goTo(new DefaultPlace(""));
 					Window.Location.reload();
-<<<<<<< HEAD
 				}
 
 				@Override
@@ -134,133 +130,4 @@ public class TopBarActivity extends AppBaseActivity {
 	public User getUser(){
 		return user;
 	}
-=======
-=======
-import org.apache.hupa.client.place.DefaultPlace;
-import org.apache.hupa.client.rf.LogoutUserRequest;
-import org.apache.hupa.client.ui.LoginLayoutable;
->>>>>>> add logout support
-import org.apache.hupa.client.ui.WidgetDisplayable;
-=======
->>>>>>> replace with IsWidget
-import org.apache.hupa.shared.domain.LogoutUserResult;
-import org.apache.hupa.shared.domain.User;
-import org.apache.hupa.shared.events.LoginEvent;
-import org.apache.hupa.shared.events.LoginEventHandler;
-import org.apache.hupa.shared.events.LogoutEvent;
-
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
-import com.google.inject.Inject;
-import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
-
-public class TopBarActivity extends AppBaseActivity {
-
-	@Inject private Displayable display;
-	@Inject private LoginLayoutable loginLayout;
-
-	@UiField protected HTMLPanel userLabel;
-	private User user;
-
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		container.setWidget(display.asWidget());
-		bindTo(eventBus);
-		if (isNotOccupied()) {
-			try {
-				checkSessionUser();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-	@Inject private Displayable display;
-	
-	public interface Displayable extends WidgetDisplayable {}
->>>>>>> integrate all of the views to their corresponding activities and mappers
-=======
-=======
-	private void checkSessionUser() {
-		CheckSessionRequest checkSession = rf.sessionRequest();
-		checkSession.getUser().fire(new Receiver<User>() {
-			@Override
-			public void onSuccess(User user) {
-				if (user != null) {
-					display.getUserLabel().add(new HTML(user.getName()));
-					eventBus.fireEvent(new LoginEvent(user));
-				}
-			}
-		});
-	}
->>>>>>> fixed issue#46 and issue#32
-	private void bindTo(EventBus eventBus) {
-		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
-			public void onLogin(LoginEvent event) {
-				user = event.getUser();
-			}
-		});
-		registerHandler(display.getLogoutClick().addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				doLogout();
-			}
-		}));
-	}
-
-	private void doLogout() {
-		if (user != null) {
-			LogoutUserRequest req = rf.logoutRequest();
-			req.logout().fire(new Receiver<LogoutUserResult>() {
-				@Override
-				public void onSuccess(LogoutUserResult response) {
-					eventBus.fireEvent(new LogoutEvent(response.getUser()));
-					RootLayoutPanel.get().clear();
-					RootLayoutPanel.get().add(loginLayout.get());
-					TopBarActivity.this.pc.goTo(new DefaultPlace("@"));
-=======
->>>>>>> fixed issue#87, and remove deprecated west view related codes
-				}
-
-				@Override
-				public void onFailure(ServerFailure error) {
-					RootLayoutPanel.get().clear();
-					RootLayoutPanel.get().add(loginLayout.get());
-					pc.goTo(new DefaultPlace(""));
-					Window.Location.reload();
-				}
-			});
-		}
-	}
-
-	private boolean isNotOccupied() {
-		return display.getUserLabel().getWidgetCount() < 1;
-	}
-
-	public interface Displayable extends IsWidget {
-		HasClickHandlers getLogoutClick();
-		void showUserName(String userName);
-		HTMLPanel getUserLabel();
-		void showLoading(String message);
-		void hideLoading();
-	}
-<<<<<<< HEAD
->>>>>>> add logout support
-=======
-	
-	public User getUser(){
-		return user;
-	}
->>>>>>> fixed issue#62
 }

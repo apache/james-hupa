@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,11 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-=======
->>>>>>> forward and reply message to use RF
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.shared.data;
 
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -59,15 +50,7 @@ public class SendForwardMessageActionImpl extends SendMessageActionImpl implemen
 	}
 
 	@Override
-<<<<<<< HEAD
-<<<<<<< HEAD
 	public long getUid() {
-=======
-	public long getReplyMessageUid() {
->>>>>>> forward and reply message to use RF
-=======
-	public long getUid() {
->>>>>>> fixed the requestfactory's quirk
 		return uid;
 	}
 
@@ -85,8 +68,6 @@ public class SendForwardMessageActionImpl extends SendMessageActionImpl implemen
 	public String getReferences() {
 		return references;
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 	@Override
 	public void setInReplyTo(String inReplyTo) {
@@ -97,22 +78,4 @@ public class SendForwardMessageActionImpl extends SendMessageActionImpl implemen
 	public void setReferences(String references) {
 		this.references = references;
 	}
-=======
-=======
-
->>>>>>> fixed the requestfactory's quirk
-	@Override
-	public void setInReplyTo(String inReplyTo) {
-		this.inReplyTo = inReplyTo;
-	}
-
-	@Override
-	public void setReferences(String references) {
-		this.references = references;
-<<<<<<< HEAD
-    }
->>>>>>> forward and reply message to use RF
-=======
-	}
->>>>>>> fixed the requestfactory's quirk
 }

@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements. See the NOTICE file
@@ -22,7 +17,6 @@
     under the License.
 -->
 
-<<<<<<< HEAD
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<g:FlowPanel ui:field="topWrapper">
@@ -36,41 +30,5 @@
 			<g:Label ui:field="appnameLabel"></g:Label>
 			<g:Label ui:field="extraLabel"></g:Label>
 		</g:HorizontalPanel>
-<<<<<<< HEAD
-=======
-=======
->>>>>>> decorate the theme
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-<<<<<<< HEAD
-	<ui:style>
-		.round-corner-panel {
-			border: 1px solid #7FAAFF;
-			box-shadow: 0 1px 4px grey;
-			border-radius: 5px;
-			overflow: hidden;
-		}
-	</ui:style>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<g:FlowPanel addStyleNames="{style.round-corner-panel}">
->>>>>>> decorate the theme
-=======
-	<g:FlowPanel ui:field="topWrapper" addStyleNames="{style.round-corner-panel}">
->>>>>>> introduce the top activity
-=======
-	<g:FlowPanel addStyleNames="{style.round-corner-panel}">
->>>>>>> decorate the theme
-=======
-	<g:FlowPanel ui:field="topWrapper" addStyleNames="{style.round-corner-panel}">
->>>>>>> introduce the top activity
-=======
-	<g:FlowPanel ui:field="topWrapper">
->>>>>>> make it look more beautiful
-=======
->>>>>>> replace with uibinder
 	</g:FlowPanel>
 </ui:UiBinder>

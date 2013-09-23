@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,22 +17,10 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-=======
->>>>>>> other RFs
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.shared.data;
 
 import org.apache.hupa.shared.domain.GetMessageRawAction;
 import org.apache.hupa.shared.domain.ImapFolder;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import org.apache.hupa.shared.rpc.RawMessage;
->>>>>>> other RFs
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 
 public class GetMessageRawActionImpl implements GetMessageRawAction {
 
@@ -60,18 +44,8 @@ public class GetMessageRawActionImpl implements GetMessageRawAction {
     }
     
     public boolean equals(Object obj) {
-<<<<<<< HEAD
-<<<<<<< HEAD
         if (obj instanceof GetMessageRawAction) {
             GetMessageRawAction action = (GetMessageRawAction) obj;
-=======
-        if (obj instanceof RawMessage) {
-            RawMessage action = (RawMessage) obj;
->>>>>>> other RFs
-=======
-        if (obj instanceof GetMessageRawAction) {
-            GetMessageRawAction action = (GetMessageRawAction) obj;
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
             if (action.getFolder().equals(getFolder()) && action.getUid() == getUid()) {
                 return true;
             }

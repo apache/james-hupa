@@ -33,14 +33,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public class SettingNavView extends Composite implements SettingNavActivity.Displayable {
 	
 	@UiField Element navLabelsItem;
-<<<<<<< HEAD
-	@UiField Element navEcsItem;
-	
 	@UiField Anchor labelsAnchor;
-	@UiField Anchor ecsAnchor;
-=======
-	@UiField Anchor labelsAnchor;
->>>>>>> make a skeleton in the setting place, for more setting items
 
 	public SettingNavView() {
 		initWidget(binder.createAndBindUi(this));
@@ -57,44 +50,15 @@ public class SettingNavView extends Composite implements SettingNavActivity.Disp
 	}
 
 	@Override
-<<<<<<< HEAD
-	public HasClickHandlers getEcsAchor() {
-		return ecsAnchor;
-	}
-
-
-	@Override
 	public void singleSelect(int i) {
 		switch(i){
-		case 2:selectEcsItem();break;
-=======
-	public void singleSelect(int i) {
-		switch(i){
->>>>>>> make a skeleton in the setting place, for more setting items
 		default:selectNavLabelItem();
 		}
 	}
 
-<<<<<<< HEAD
-	private void selectEcsItem() {
-		String labelClass = navLabelsItem.getAttribute("class");
-		navLabelsItem.setAttribute("class", labelClass.replace("selected", ""));
-		String ecsClass = navEcsItem.getAttribute("class");
-		navEcsItem.setAttribute("class", ecsClass + " selected");
-		
-	}
-
-	private void selectNavLabelItem() {
-		String ecsClass = navEcsItem.getAttribute("class");
-		navEcsItem.setAttribute("class", ecsClass.replace("selected", ""));
-		String labelClass = navLabelsItem.getAttribute("class");
-		navLabelsItem.setAttribute("class", labelClass + " selected");
-	}
-=======
 	private void selectNavLabelItem() {
 		String clazz = navLabelsItem.getAttribute("class");
 		navLabelsItem.setAttribute("class", clazz + " selected");
 	}
 
->>>>>>> make a skeleton in the setting place, for more setting items
 }

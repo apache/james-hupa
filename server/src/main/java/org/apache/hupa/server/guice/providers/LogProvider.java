@@ -17,17 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> first commit
-=======
-
->>>>>>> first commit
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.guice.providers;
 
 import org.apache.commons.logging.Log;

@@ -29,15 +29,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 public class LabelListActivityMapper extends _HupaActivityMapper {
-=======
-public class LabelListActivityMapper extends MainActivityMapper {
->>>>>>> make label settings prototype
-=======
-public class LabelListActivityMapper extends _HupaActivityMapper {
->>>>>>> change place management and make refresh folder and message list more gentle
 	private final Provider<LabelListActivity> labelListActivityProvider;
 
 	@Inject

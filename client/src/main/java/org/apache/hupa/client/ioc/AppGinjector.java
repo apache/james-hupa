@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -22,36 +17,9 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
 package org.apache.hupa.client.ioc;
 
 import org.apache.hupa.client.HupaController;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
-package org.apache.hupa.client.ioc;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-import org.apache.hupa.client.AppController;
->>>>>>> Change to new mvp framework - first step
-=======
-import org.apache.hupa.client.evo.AppController;
->>>>>>> Make the evo more clear.
-=======
-package org.apache.hupa.client.ioc;
-
-import org.apache.hupa.client.AppController;
->>>>>>> Change to new mvp framework - first step
-=======
-=======
->>>>>>> move new theme ui from experiment to hupa evo
-import org.apache.hupa.client.evo.AppController;
->>>>>>> Make the evo more clear.
-=======
->>>>>>> make send text mail work excellently
 
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
@@ -63,22 +31,6 @@ import com.google.gwt.inject.client.Ginjector;
  */
 @GinModules(AppGinModule.class)
 public interface AppGinjector extends Ginjector {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 //  AppController getAppController();
   HupaController getHupaController();
-=======
-  AppController getAppController();
->>>>>>> Change to new mvp framework - first step
-=======
-  AppController getAppController();
-<<<<<<< HEAD
->>>>>>> Change to new mvp framework - first step
-=======
-=======
-//  AppController getAppController();
->>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
-  HupaController getHupaController();
->>>>>>> move new theme ui from experiment to hupa evo
 }

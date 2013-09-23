@@ -79,15 +79,7 @@ public class GetMessageDetailServiceTest extends HupaGuiceTestCase {
         res = getMessageDetailsService.filterHtmlDocument(msg, "aFolder", 9999l);
         assertNotSame(msg, res);
         assertEquals("...\n...<img   \n   src='" + 
-<<<<<<< HEAD
-<<<<<<< HEAD
                 SConsts.HUPA + SConsts.SERVLET_DOWNLOAD + "?mode=inline&" 
-=======
-                SConsts.HUPA + SConsts.SERVLET_DOWNLOAD + "?" 
->>>>>>> re-add server unit tests
-=======
-                SConsts.HUPA + SConsts.SERVLET_DOWNLOAD + "?mode=inline&" 
->>>>>>> Fix tests
                 + SConsts.PARAM_FOLDER + "=aFolder&" 
                 + SConsts.PARAM_UID + "=9999&"
                 + SConsts.PARAM_NAME + "=1.1934304663@web28309.mail.ukl.yahoo.com' name='cid:1.1934304663@web28309.mail.ukl.yahoo.com' width=200\n....", res);
@@ -201,15 +193,7 @@ public class GetMessageDetailServiceTest extends HupaGuiceTestCase {
         
         // inline images have to be downloaded from the server
         assertTrue(details.getText().contains("img src=\'" + 
-<<<<<<< HEAD
-<<<<<<< HEAD
                 SConsts.HUPA + SConsts.SERVLET_DOWNLOAD + "?mode=inline&" +
-=======
-                SConsts.HUPA + SConsts.SERVLET_DOWNLOAD + "?" +
->>>>>>> re-add server unit tests
-=======
-                SConsts.HUPA + SConsts.SERVLET_DOWNLOAD + "?mode=inline&" +
->>>>>>> Fix tests
                 SConsts.PARAM_FOLDER + "=WHATEVER&" + 
                 SConsts.PARAM_UID + "=0&" + 
                 SConsts.PARAM_NAME + "=1.1934304663@web28309.mail.ukl.yahoo.com'"));

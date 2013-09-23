@@ -19,15 +19,9 @@
 
 package org.apache.hupa.client.ui;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.client.activity.TopBarActivity;
 
 import com.google.gwt.core.client.GWT;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.CssResource;
@@ -48,99 +42,22 @@ public class TopBarView extends Composite implements TopBarActivity.Displayable 
 	@UiField Anchor logout;
 	@UiField HTMLPanel userLabel;
 	@UiField SimplePanel loading;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	@UiField HTML loadingRegion;
-=======
->>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
-=======
-	@UiField HTML loadingRegion;
->>>>>>> fixed issue#61; add loading to mark, unmark.
 	
 	@UiField Style style;
 
 	interface Style extends CssResource {
 		String hideLoading();
 	}
-<<<<<<< HEAD
-=======
-=======
-import org.apache.hupa.client.activity.TopBarActivity;
-
->>>>>>> integrate all of the views to their corresponding activities and mappers
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-
-<<<<<<< HEAD
-public class TopBarView extends Composite {
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-public class TopBarView extends Composite implements TopBarActivity.Displayable{
->>>>>>> integrate all of the views to their corresponding activities and mappers
-=======
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
-
-public class TopBarView extends Composite implements TopBarActivity.Displayable {
-
-	@UiField Anchor logout;
-	@UiField HTMLPanel userLabel;
->>>>>>> add logout support
-=======
->>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 
 	public TopBarView() {
 		initWidget(binder.createAndBindUi(this));
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
 	
 	@UiHandler("about")
 	void handleAboutClick(ClickEvent e){
 		Window.alert("// TODO show about model view");
 	}
-<<<<<<< HEAD
-
-	@Override
-	public void showLoading(String message){
-		loadingRegion.setHTML(message);
-		loading.removeStyleName(style.hideLoading());
-	}
-	
-	@Override
-	public void hideLoading(){
-		loadingRegion.setHTML("");
-		loading.addStyleName(style.hideLoading());
-	}
-	
-	@Override
-	public HasClickHandlers getLogoutClick() {
-		return logout;
-	}
-
-	@Override
-	public HTMLPanel getUserLabel() {
-		return userLabel;
-	}
-	
-	@Override
-	public void showUserName(String userName){
-		userLabel.clear();
-		userLabel.add(new HTML(userName));
-	}
-=======
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
->>>>>>> fill the empty compose view with the old message when the composing type are reply, replyAll, forward and preparing for about & deleting operation
 
 	@Override
 	public void showLoading(String message){

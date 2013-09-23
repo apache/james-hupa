@@ -19,30 +19,14 @@
 
 package org.apache.hupa.client.ui;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.client.activity.LogoActivity;
 
-=======
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-import org.apache.hupa.client.activity.LogoActivity;
-
->>>>>>> integrate all of the views to their corresponding activities and mappers
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 public class LogoView extends Composite implements LogoActivity.Displayable {
-=======
-public class LogoView extends Composite {
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-public class LogoView extends Composite implements LogoActivity.Displayable {
->>>>>>> integrate all of the views to their corresponding activities and mappers
 
 	public LogoView() {
 		initWidget(binder.createAndBindUi(this));

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,11 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-=======
->>>>>>> forward and reply message to use RF
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import java.io.File;
@@ -53,14 +44,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.mail.internet.MimeMultipart;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import net.customware.gwt.dispatch.shared.ActionException;
-
->>>>>>> forward and reply message to use RF
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 import org.apache.commons.fileupload.FileItem;
 import org.apache.hupa.server.FileItemRegistry;
 import org.apache.hupa.server.IMAPStoreCache;
@@ -75,14 +58,7 @@ import org.apache.hupa.shared.domain.MessageAttachment;
 import org.apache.hupa.shared.domain.SendMessageAction;
 import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.domain.User;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
-=======
->>>>>>> forward and reply message to use RF
-=======
-import org.apache.hupa.shared.exception.HupaException;
->>>>>>> re-add server unit tests
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -152,13 +128,6 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * @return message
      * @throws AddressException
      * @throws MessagingException
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-     * @throws ActionException
->>>>>>> forward and reply message to use RF
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
      */
     protected Message createMessage(Session session, SendMessageAction action) throws AddressException, MessagingException {
         MimeMessage message = new MimeMessage(session);
@@ -172,17 +141,8 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         message.setRecipients(RecipientType.TO, MessageUtils.getRecipients(m.getTo()));
         message.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
         message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
-<<<<<<< HEAD
-<<<<<<< HEAD
 //        message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
         message.setSubject(m.getSubject(), "utf-8");
-=======
-        message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
->>>>>>> forward and reply message to use RF
-=======
-//        message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
-        message.setSubject(m.getSubject(), "utf-8");
->>>>>>> make send text mail work excellently
         updateHeaders(message, action);
         message.saveChanges();
         return message;
@@ -212,25 +172,10 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * @param action the action
      * @return filledMessage
      * @throws MessagingException
-<<<<<<< HEAD
-<<<<<<< HEAD
      * @throws IOException 
 	 * @throws HupaException 
      */
     protected Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException, HupaException {
-=======
-     * @throws ActionException
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
-     * @throws IOException 
-	 * @throws HupaException 
-     */
-<<<<<<< HEAD
-    protected Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException {
->>>>>>> forward and reply message to use RF
-=======
-    protected Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException, HupaException {
->>>>>>> re-add server unit tests
 
         String html = restoreInlineLinks(action.getMessage().getText());
         
@@ -265,29 +210,11 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * 
      * @param action
      * @return A list of stored attachments
-<<<<<<< HEAD
-<<<<<<< HEAD
      * @throws HupaException 
      */
     @SuppressWarnings("rawtypes")
     protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
         FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSessionProvider.get());
-=======
-     */
-    @SuppressWarnings("rawtypes")
-    protected List getAttachments(SendMessageAction action) throws MessagingException {
-<<<<<<< HEAD
-        FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSession);
->>>>>>> forward and reply message to use RF
-=======
-=======
-     * @throws HupaException 
-     */
-    @SuppressWarnings("rawtypes")
-    protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
->>>>>>> re-add server unit tests
-        FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSessionProvider.get());
->>>>>>> fix issue 5,6,8:
         List<MessageAttachment> attachments = action.getMessage().getMessageAttachments();
         
         ArrayList<FileItem> items = new ArrayList<FileItem>();
@@ -314,15 +241,7 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         List<MessageAttachment> attachments = msg.getMessageAttachments();
         if (attachments != null && ! attachments.isEmpty()) {
             for(MessageAttachment attach : attachments) 
-<<<<<<< HEAD
-<<<<<<< HEAD
                 SessionUtils.getSessionRegistry(logger, httpSessionProvider.get()).remove(attach.getName());
-=======
-                SessionUtils.getSessionRegistry(logger, httpSession).remove(attach.getName());
->>>>>>> forward and reply message to use RF
-=======
-                SessionUtils.getSessionRegistry(logger, httpSessionProvider.get()).remove(attach.getName());
->>>>>>> fix issue 5,6,8:
         }
     }
     

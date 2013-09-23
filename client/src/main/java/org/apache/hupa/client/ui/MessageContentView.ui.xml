@@ -11,25 +11,11 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	<ui:image field="buttons" src="res/buttons.png" />
-=======
->>>>>>> beautify message list and content
-=======
-	<ui:image field="buttons" src="res/buttons.png" />
->>>>>>> fixed issue#86, use opening a new window button to show the raw message in a new window
 	<ui:style>
 		.messageContent {
 			display: block;
 			background-color: white;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fixed issue#64, add attachments region in message content view
 			width: 100%;
 			height: 100%;
 		}
@@ -61,74 +47,6 @@
 			min-height: 200px;
 			background: #f0f0f0;
 			padding: 8px;
-<<<<<<< HEAD
-		}
-		
-		.moreHeaders {
-			position: absolute;
-			top: 8px;
-            cursor: pointer;
-			right: 18px;
-			width: 18em;
-			text-align: right;
-			white-space: nowrap;
-		}
-		
-		@sprite  .inner {
-			gwt-image: 'buttons';
-			background-position: -29px -271px;
-			display: inline-block;
-			width: 16px;
-			height: 13px;
-			text-indent: 1000px;
-			overflow: hidden;
-		}
-	</ui:style>
-	<g:DockLayoutPanel unit="PX">
-		<g:center>
-			<g:DockLayoutPanel unit="PX" ui:field="thisPanel">
-				<g:north size="30">
-					<g:FlowPanel addStyleNames="{style.previewheader} {style.messageheader}">
-						<g:SimplePanel ui:field="rawPanel" addStyleNames="{style.moreHeaders}">
-
-							<g:Anchor ui:field="rawButton" addStyleNames="{style.inner}">Raw
-							</g:Anchor>
-						</g:SimplePanel>
-					</g:FlowPanel>
-				</g:north>
-				<g:center>
-					<g:ScrollPanel ui:field="messageContent"
-						addStyleNames="{style.messageContent}" />
-				</g:center>
-				<g:east size="0">
-					<g:FlowPanel ui:field="attachments" addStyleNames="{style.attachBox}">
-					</g:FlowPanel>
-				</g:east>
-			</g:DockLayoutPanel>
-		</g:center>
-	</g:DockLayoutPanel>
-=======
-	<g:HTMLPanel>MessageContent
-	</g:HTMLPanel>
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-	<g:VerticalPanel ui:field="messageContainer" />
->>>>>>> prepare for message content panel
-=======
-	<g:ScrollPanel>
-		<g:HTML ui:field="messageContent" />
-	</g:ScrollPanel>
->>>>>>> make message content work as expected partly
-=======
-			width:100%;
-			height:100%;
-		}
-	</ui:style>
-	<g:SimplePanel addStyleNames="{style.messageContent}">
-		<g:HTML ui:field="messageContent" />
-	</g:SimplePanel>
->>>>>>> beautify message list and content
-=======
 		}
 		
 		.moreHeaders {
@@ -174,9 +92,4 @@
 			</g:DockLayoutPanel>
 		</g:center>
 	</g:DockLayoutPanel>
-<<<<<<< HEAD
->>>>>>> fixed issue#64, add attachments region in message content view
 </ui:UiBinder>
-=======
-</ui:UiBinder>
->>>>>>> make cursor pointer to the right place

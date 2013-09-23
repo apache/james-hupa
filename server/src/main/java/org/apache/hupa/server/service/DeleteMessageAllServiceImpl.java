@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,11 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-=======
->>>>>>> delete messages, make WestActivity Singleton
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import javax.mail.Folder;
@@ -35,14 +26,7 @@ import javax.mail.MessagingException;
 import org.apache.hupa.shared.domain.DeleteMessageAction;
 import org.apache.hupa.shared.domain.DeleteMessageAllAction;
 import org.apache.hupa.shared.domain.User;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
-=======
->>>>>>> delete messages, make WestActivity Singleton
-=======
-import org.apache.hupa.shared.exception.HupaException;
->>>>>>> re-add server unit tests
 
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
@@ -50,15 +34,7 @@ import com.sun.mail.imap.IMAPStore;
 public class DeleteMessageAllServiceImpl extends DeleteMessageBaseServiceImpl implements DeleteMessageAllService {
 
 	@Override
-<<<<<<< HEAD
-<<<<<<< HEAD
 	protected Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws HupaException {
-=======
-	protected Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws Exception {
->>>>>>> delete messages, make WestActivity Singleton
-=======
-	protected Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws HupaException {
->>>>>>> re-add server unit tests
 		DeleteMessageAllAction action = (DeleteMessageAllAction) actionBase;
 		User user = getUser();
 		try {
@@ -72,15 +48,7 @@ public class DeleteMessageAllServiceImpl extends DeleteMessageBaseServiceImpl im
 		} catch (MessagingException e) {
 			String errorMsg = "Error while deleting all messages in folder " + action.getFolder() + " for user " + user;
 			logger.error(errorMsg, e);
-<<<<<<< HEAD
-<<<<<<< HEAD
 			throw new HupaException(errorMsg);
-=======
-			throw new Exception(errorMsg);
->>>>>>> delete messages, make WestActivity Singleton
-=======
-			throw new HupaException(errorMsg);
->>>>>>> re-add server unit tests
 
 		}
 

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,11 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-=======
->>>>>>> Succeed creating new folder
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import javax.mail.Folder;
@@ -44,10 +35,6 @@ public class CreateFolderServiceImpl extends AbstractService implements CreateFo
 	public GenericResult create(CreateFolderAction action) throws Exception {
 		User user = getUser();
 		ImapFolder folder = action.getFolder();
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> delete and rename folder
 		IMAPStore store = cache.get(user);
 		Folder f = store.getFolder(folder.getFullName());
 		if (f.create(Folder.HOLDS_MESSAGES)) {
@@ -56,28 +43,7 @@ public class CreateFolderServiceImpl extends AbstractService implements CreateFo
 		} else {
 			logger.info("Unable to create folder " + folder + " for user " + user);
 			throw new Exception("Unable to create folder " + folder + " for user " + user);
-<<<<<<< HEAD
 
-=======
-
-		try {
-			IMAPStore store = cache.get(user);
-			Folder f = store.getFolder(folder.getFullName());
-			if (f.create(Folder.HOLDS_MESSAGES)) {
-				logger.info("Successfully create folder " + folder + " for user " + user);
-				return new GenericResultImpl();
-			} else {
-				logger.info("Unable to create folder " + folder + " for user " + user);
-				throw new Exception("Unable to create folder " + folder + " for user " + user);
-
-			}
-		} catch (Exception e) {
-			logger.error("Error while creating folder " + folder + " for user " + user, e);
-			throw new Exception("Error while creating folder " + folder + " for user " + user, e);
->>>>>>> Succeed creating new folder
-=======
-
->>>>>>> delete and rename folder
 		}
 	}
 

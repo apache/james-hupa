@@ -31,8 +31,6 @@ import com.google.gwt.user.client.ui.Widget;
 public class LoginLayout implements LoginLayoutable {
 
 	@UiField SimplePanel loginContainer;
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 	private LayoutPanel loginMainPanel;
 
@@ -46,39 +44,10 @@ public class LoginLayout implements LoginLayoutable {
 			@Override
 			public void setWidget(IsWidget w) {
 				loginContainer.setWidget(Widget.asWidgetOrNull(w));
-<<<<<<< HEAD
 			}
 		};
 	}
 
-=======
-	
-=======
-
->>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
-	private LayoutPanel loginMainPanel;
-
-	public LoginLayout() {
-		this.loginMainPanel = binder.createAndBindUi(this);
-	}
-
-	@Override
-	public AcceptsOneWidget getLoginView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				loginContainer.add(Widget.asWidgetOrNull(w));
-=======
->>>>>>> integrate all of the views to their corresponding activities and mappers
-			}
-		};
-	}
-<<<<<<< HEAD
-	
->>>>>>> integrate them as a whole one - first: make the default place work
-=======
-
->>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
 	@Override
 	public LayoutPanel get() {
 		return loginMainPanel;

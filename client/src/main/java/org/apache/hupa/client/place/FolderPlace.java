@@ -19,208 +19,23 @@
 
 package org.apache.hupa.client.place;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import org.apache.hupa.client.activity.IMAPMessageActivity;
->>>>>>> 1. improve the inbox folder place.
-=======
->>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
-import org.apache.hupa.shared.data.IMAPFolder;
-import org.apache.hupa.shared.data.Message;
-import org.apache.hupa.shared.data.MessageDetails;
-import org.apache.hupa.shared.data.User;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
-import org.apache.hupa.shared.proxy.IMAPFolderProxy;
-=======
-import org.apache.hupa.shared.data.ImapFolderImpl;
-<<<<<<< HEAD
-import org.apache.hupa.shared.data.MessageDetails;
-<<<<<<< HEAD
-import org.apache.hupa.shared.data.User;
-<<<<<<< HEAD
-import org.apache.hupa.shared.proxy.ImapFolder;
->>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
-=======
-import org.apache.hupa.shared.domain.ImapFolder;
->>>>>>> Allow client can use the domain entity interface.
-=======
-=======
->>>>>>> try to get message details, problem is:
-=======
->>>>>>> forward and reply message to use RF
-import org.apache.hupa.shared.domain.ImapFolder;
-import org.apache.hupa.shared.domain.Message;
-import org.apache.hupa.shared.domain.MessageDetails;
-import org.apache.hupa.shared.domain.User;
->>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
-
-=======
->>>>>>> 
-=======
-
-<<<<<<< HEAD
->>>>>>> 1. improve the inbox folder place.
-import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
-public class IMAPMessagePlace extends Place {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	
-	private Message message;
-	private MessageDetails messageDetails;
-	private IMAPFolderProxy folder;
-=======
-	
-=======
-=======
-=======
->>>>>>> try to rearrange the places and history managment.
-import com.google.gwt.place.shared.PlaceTokenizer;
-import com.google.gwt.place.shared.Prefix;
-
-<<<<<<< HEAD:client/src/main/java/org/apache/hupa/client/place/IMAPMessagePlace.java
-public class IMAPMessagePlace extends AbstractPlace {
-<<<<<<< HEAD
->>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
-
->>>>>>> forward and reply message to use RF
-	private Message message;
-	private MessageDetails messageDetails;
-<<<<<<< HEAD
-<<<<<<< HEAD
-	private IMAPFolder folder;
->>>>>>> 1. improve the inbox folder place.
-=======
-	private IMAPFolderProxy folder;
->>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
-=======
-	private ImapFolder folder;
->>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
-	private User user;
-//	private String messageId;
-
-	public IMAPMessagePlace(String token) {
-//		this.messageId = token;
-	}
-	
-	public IMAPMessagePlace(MessageDetails messageDetails){
-		this.messageDetails = messageDetails;
-	}
-
-	public Message getMessage() {
-		return message;
-	}
-
-	public MessageDetails getMessageDetails() {
-		return messageDetails;
-	}
-<<<<<<< HEAD
-
-	public IMAPFolderProxy getFolder() {
-		return folder;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-@Prefix("message")
-=======
-
-  @Prefix("IMAPMessage")
->>>>>>> 
-=======
-
-	public ImapFolder getFolder() {
-		return folder;
-	}
-
-	public User getUser() {
-		return user;
-=======
-	String token;
-	public IMAPMessagePlace(String token){
-=======
 public class FolderPlace extends HupaPlace {
 
 	private String token;
 
 	public FolderPlace(String token) {
->>>>>>> change place management and make refresh folder and message list more gentle:client/src/main/java/org/apache/hupa/client/place/FolderPlace.java
 		this.token = token;
->>>>>>> try to rearrange the places and history managment.
 	}
 
-<<<<<<< HEAD:client/src/main/java/org/apache/hupa/client/place/IMAPMessagePlace.java
-<<<<<<< HEAD
-@Prefix("message")
->>>>>>> 1. improve the inbox folder place.
-  public static class Tokenizer implements PlaceTokenizer<IMAPMessagePlace> {
-
-    @Override
-    public IMAPMessagePlace getPlace(String token) {
-      return new IMAPMessagePlace();
-    }
-
-    @Override
-    public String getToken(IMAPMessagePlace place) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-      return String.valueOf(place.getMessage().getUid());
-=======
-      return "IMAPMessage";
->>>>>>> 
-=======
-      return String.valueOf(place.getMessage().getUid());
->>>>>>> 1. improve the inbox folder place.
-    }
-  }
-  
-  public String toString(){
-	  return this.getClass().getName()+"->[IMAPMessage]";
-  }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	public IMAPMessagePlace with(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails){
-=======
-	public IMAPMessagePlace with(User user, IMAPFolder folder, Message message, MessageDetails messageDetails){
->>>>>>> 1. improve the inbox folder place.
-=======
-	public IMAPMessagePlace with(User user, IMAPFolderProxy folder, Message message, MessageDetails messageDetails){
->>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
-=======
-	public IMAPMessagePlace with(User user, ImapFolder folder, Message message, MessageDetails messageDetails){
->>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.
-      this.message = message;
-      this.messageDetails = messageDetails;
-      this.folder = folder;
-      this.user = user;
-      return this;
-=======
-	@Prefix("message")
-	public static class Tokenizer implements PlaceTokenizer<IMAPMessagePlace> {
-=======
 	public String getToken() {
 		return token;
 	}
 
 	@Prefix("folder")
 	public static class Tokenizer implements PlaceTokenizer<FolderPlace> {
->>>>>>> change place management and make refresh folder and message list more gentle:client/src/main/java/org/apache/hupa/client/place/FolderPlace.java
 
 		@Override
 		public FolderPlace getPlace(String token) {
@@ -232,41 +47,6 @@ public class FolderPlace extends HupaPlace {
 			return place.getToken();
 		}
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD:client/src/main/java/org/apache/hupa/client/place/IMAPMessagePlace.java
-
-<<<<<<< HEAD
-	public IMAPMessagePlace with(User user, ImapFolder folder, Message message, MessageDetails messageDetails) {
-		this.message = message;
-		this.messageDetails = messageDetails;
-		this.folder = folder;
-		this.user = user;
-		return this;
->>>>>>> forward and reply message to use RF
-	}
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 
-=======
->>>>>>> 1. improve the inbox folder place.
-=======
-	public String getMessageId() {
-		return messageId;
-=======
-	public String getToken() {
-		return token;
->>>>>>> try to rearrange the places and history managment.
-	}
-
->>>>>>> prepare for message content panel
-=======
->>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
-=======
->>>>>>> change place management and make refresh folder and message list more gentle:client/src/main/java/org/apache/hupa/client/place/FolderPlace.java
-=======
 //
 //	@Override
 //	public boolean equals(Object o) {
@@ -287,5 +67,4 @@ public class FolderPlace extends HupaPlace {
 //		result = prime * result + ((token == null) ? 0 : token.hashCode());
 //		return result;
 //	}
->>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 }

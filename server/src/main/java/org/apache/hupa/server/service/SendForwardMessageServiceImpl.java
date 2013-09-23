@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,11 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-=======
->>>>>>> forward and reply message to use RF
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import java.io.IOException;
@@ -41,14 +32,7 @@ import org.apache.hupa.server.preferences.UserPreferencesStorage;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.domain.SendForwardMessageAction;
 import org.apache.hupa.shared.domain.SendMessageAction;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
-=======
->>>>>>> forward and reply message to use RF
-=======
-import org.apache.hupa.shared.exception.HupaException;
->>>>>>> re-add server unit tests
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -65,15 +49,7 @@ public class SendForwardMessageServiceImpl extends SendMessageBaseServiceImpl im
 
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
-<<<<<<< HEAD
-<<<<<<< HEAD
     protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
-=======
-    protected List getAttachments(SendMessageAction action) throws MessagingException {
->>>>>>> forward and reply message to use RF
-=======
-    protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
->>>>>>> re-add server unit tests
     	SendForwardMessageAction forwardAction = (SendForwardMessageAction)action;
         List<?> items = new ArrayList();
         IMAPStore store = cache.get(getUser());
@@ -83,15 +59,7 @@ public class SendForwardMessageServiceImpl extends SendMessageBaseServiceImpl im
             folder.open(Folder.READ_ONLY);
         }
         // Put the original attachments in the list 
-<<<<<<< HEAD
-<<<<<<< HEAD
         Message msg = folder.getMessageByUID(forwardAction.getUid());
-=======
-        Message msg = folder.getMessageByUID(forwardAction.getReplyMessageUid());
->>>>>>> forward and reply message to use RF
-=======
-        Message msg = folder.getMessageByUID(forwardAction.getUid());
->>>>>>> fixed the requestfactory's quirk
         try {
             items = MessageUtils.extractMessageAttachments(logger, msg.getContent());
             logger.debug("Forwarding a message, extracted: " + items.size() + " from original.");

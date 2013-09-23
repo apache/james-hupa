@@ -19,24 +19,6 @@
 
 package org.apache.hupa.server.mock;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import com.sun.mail.imap.IMAPFolder;
-import com.sun.mail.imap.IMAPStore;
-
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
-=======
-import com.sun.mail.imap.IMAPFolder;
-import com.sun.mail.imap.IMAPStore;
-
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,63 +26,18 @@ import java.util.List;
 
 import javax.mail.FetchProfile;
 import javax.mail.Flags;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import javax.mail.Flags.Flag;
-=======
->>>>>>> first commit
-=======
-import javax.mail.Flags.Flag;
->>>>>>> constantly changed by manolo
-=======
->>>>>>> first commit
-=======
-import javax.mail.Flags.Flag;
->>>>>>> constantly changed by manolo
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import javax.mail.internet.MimeMessage;
 import javax.mail.search.SearchTerm;
 
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
-=======
-=======
->>>>>>> first commit
-import javax.mail.Flags.Flag;
-import javax.mail.internet.MimeMessage;
-import javax.mail.search.SearchTerm;
-
-<<<<<<< HEAD
->>>>>>> first commit
-=======
-import javax.mail.internet.MimeMessage;
-import javax.mail.search.SearchTerm;
-
-import com.sun.mail.imap.IMAPFolder;
-import com.sun.mail.imap.IMAPStore;
-
->>>>>>> constantly changed by manolo
-=======
->>>>>>> first commit
-=======
-import javax.mail.internet.MimeMessage;
-import javax.mail.search.SearchTerm;
-
-import com.sun.mail.imap.IMAPFolder;
-import com.sun.mail.imap.IMAPStore;
-
->>>>>>> constantly changed by manolo
 public class MockIMAPFolder extends IMAPFolder {
 
     public static final char SEPARATOR = '.';
@@ -319,10 +256,6 @@ public class MockIMAPFolder extends IMAPFolder {
     }
 
     @Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     public synchronized Message[] search(SearchTerm search)
             throws MessagingException {
         checkExists();
@@ -333,37 +266,6 @@ public class MockIMAPFolder extends IMAPFolder {
         	}
         }
         return ret.toArray(new Message[0]);
-=======
-=======
->>>>>>> first commit
-    public synchronized Message[] search(SearchTerm arg0)
-            throws MessagingException {
-        checkExists();
-        return getMessages();
-<<<<<<< HEAD
->>>>>>> first commit
-=======
-    public synchronized Message[] search(SearchTerm search)
-            throws MessagingException {
-        checkExists();
-=======
-    public synchronized Message[] search(SearchTerm search)
-            throws MessagingException {
-        checkExists();
->>>>>>> constantly changed by manolo
-        ArrayList<Message> ret = new ArrayList<Message>();
-        for (Message m : messages) {
-        	if (search.match(m)) {
-        		ret.add(m);
-        	}
-        }
-        return ret.toArray(new Message[0]);
-<<<<<<< HEAD
->>>>>>> constantly changed by manolo
-=======
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
     }
 
     @Override
@@ -404,33 +306,11 @@ public class MockIMAPFolder extends IMAPFolder {
         Message[] array = new Message[ints.length];
 
         for (int i = 0; i < ints.length; i++) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
             int mInt = ints[i];
             if (mInt > messages.size() || mInt < 0) {
                 throw new MessagingException();
             }
             array[i] = messages.get(ints[i]);
-=======
-=======
->>>>>>> first commit
-            int mInt = ints[i] - 1;
-            if (mInt > messages.size() || mInt < messages.size()) {//TODO will throw an exception when mark as read
-                throw new MessagingException();
-            }
-            array[i] = messages.get(i);
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-            int mInt = ints[i];
-            if (mInt > messages.size() || mInt < 0) {
-                throw new MessagingException();
-            }
-            array[i] = messages.get(ints[i]);
->>>>>>> fixed issue#55 ; relative the mark as (un)read
         }
         return array;
     }

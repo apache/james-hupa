@@ -27,42 +27,18 @@ import javax.mail.MessagingException;
 
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.domain.ImapFolder;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> pull all folders for label settings
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.exception.HupaException;
-=======
->>>>>>> Fix issue #15.
-=======
-import org.apache.hupa.shared.exception.HupaException;
->>>>>>> re-add server unit tests
 
 import com.sun.mail.imap.IMAPStore;
 
 public class FetchFoldersServiceImpl extends AbstractService implements FetchFoldersService {
 
 	@Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> pull all folders for label settings
 	public List<ImapFolder> fetch(ImapFolder imapFolder, Boolean recursive) throws MessagingException, HupaException {
 		if(recursive){
 			return this.pullAll();
 		}
-<<<<<<< HEAD
-=======
-	public List<ImapFolder> fetch(ImapFolder imapFolder) throws MessagingException {
->>>>>>> Fix issue #15.
-=======
-	public List<ImapFolder> fetch(ImapFolder imapFolder) throws MessagingException, HupaException{
->>>>>>> re-add server unit tests
-=======
->>>>>>> pull all folders for label settings
 		try {
 			Folder folder = null;
 			IMAPStore store = cache.get(getUser());
@@ -82,10 +58,6 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 			throw new MessagingException();
 		}
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> pull all folders for label settings
 	
 	public List<ImapFolder> pullAll() throws MessagingException, HupaException {
 		User user = getUser();
@@ -159,17 +131,10 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 
 		return iFolder;
 	}
-<<<<<<< HEAD
-=======
->>>>>>> Fix issue #15.
-=======
->>>>>>> pull all folders for label settings
 
 	/**
 	 * Create a new IMAPFolder from the given Folder
 	 * 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	 * @param folder
 	 *            Current folder
 	 * @return imapFolder Created IMAPFolder
@@ -180,38 +145,11 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 	 *             If an error occurs
 	 */
 	private ImapFolder createImapFolder(Folder folder) throws HupaException {
-=======
-	 * @param folder Current folder
-=======
-	 * @param folder
-	 *            Current folder
->>>>>>> pull all folders for label settings
-	 * @return imapFolder Created IMAPFolder
-	 * @throws HupaException
-	 * @throws Exception
-	 *             If an error occurs
-	 * @throws MessagingException
-	 *             If an error occurs
-	 */
-<<<<<<< HEAD
-	private ImapFolder createImapFolder(Folder folder) {
->>>>>>> Fix issue #15.
-=======
-	private ImapFolder createImapFolder(Folder folder) throws HupaException {
->>>>>>> bind FolderListActivity to Singleton, otherwise it might create its view several times
 		String fullName = folder.getFullName();
 		String delimiter;
 		ImapFolder iFolder = null;
 		try {
-<<<<<<< HEAD
-<<<<<<< HEAD
 			System.out.println("Creating folder2: " + fullName + " for user: " + this.getUser());
-=======
-			System.out.println("Creating folder: " + fullName + " for user: ");
->>>>>>> Fix issue #15.
-=======
-			System.out.println("Creating folder2: " + fullName + " for user: " + this.getUser());
->>>>>>> bind FolderListActivity to Singleton, otherwise it might create its view several times
 			delimiter = String.valueOf(folder.getSeparator());
 			iFolder = new ImapFolderImpl(fullName);
 			iFolder.setDelimiter(delimiter);
@@ -220,15 +158,7 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 			iFolder.setMessageCount(folder.getMessageCount());
 			iFolder.setSubscribed(folder.isSubscribed());
 			iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());
-<<<<<<< HEAD
-<<<<<<< HEAD
 			if (folder.list().length != 0) {
-=======
-			if(folder.list().length != 0){
->>>>>>> Fix issue #15.
-=======
-			if (folder.list().length != 0) {
->>>>>>> pull all folders for label settings
 				iFolder.setHasChildren(true);
 			}
 		} catch (MessagingException e) {

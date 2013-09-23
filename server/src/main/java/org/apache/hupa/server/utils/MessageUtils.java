@@ -19,49 +19,16 @@
 
 package org.apache.hupa.server.utils;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import java.io.File;
-import java.io.IOException;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import java.io.InputStream;
-import java.io.OutputStream;
-=======
->>>>>>> constantly changed by manolo
-=======
->>>>>>> constantly changed by manolo
-=======
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
-=======
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -79,22 +46,8 @@ import javax.mail.internet.MimeUtility;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import org.apache.hupa.server.handler.AbstractSendMessageHandler;
->>>>>>> first commit
-=======
-import org.apache.hupa.server.handler.AbstractSendMessageHandler;
->>>>>>> first commit
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
-=======
 import org.apache.hupa.shared.data.MessageAttachmentImpl;
 import org.apache.hupa.shared.domain.MessageAttachment;
->>>>>>> Move method to Util class
 
 
 
@@ -127,23 +80,7 @@ public class MessageUtils {
         }
         Address[] array = new Address[recipients.size()];
         for (int i = 0; i < recipients.size(); i++) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
             array[i] = new InternetAddress(encodeEmail(recipients.get(i)));
-=======
-            array[i] = new InternetAddress(recipients.get(i));
->>>>>>> first commit
-=======
-            array[i] = new InternetAddress(encodeEmail(recipients.get(i)));
->>>>>>> constantly changed by manolo
-=======
-            array[i] = new InternetAddress(recipients.get(i));
->>>>>>> first commit
-=======
-            array[i] = new InternetAddress(encodeEmail(recipients.get(i)));
->>>>>>> constantly changed by manolo
         }
         return array;
     }
@@ -340,28 +277,11 @@ public class MessageUtils {
      */
     public static BodyPart fileitemToBodypart(FileItem item) throws MessagingException {
         MimeBodyPart messageBodyPart = new MimeBodyPart();
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         DataSource source = new FileItemDataStore(item);
-=======
-        DataSource source = new AbstractSendMessageHandler.FileItemDataStore(item);
->>>>>>> first commit
-=======
-        DataSource source = new AbstractSendMessageHandler.FileItemDataStore(item);
->>>>>>> first commit
-=======
-        DataSource source = new FileItemDataStore(item);
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
         messageBodyPart.setDataHandler(new DataHandler(source));
         messageBodyPart.setFileName(source.getName());
         return messageBodyPart;
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 
     /**
      * DataStore which wrap a FileItem
@@ -416,7 +336,6 @@ public class MessageUtils {
         }
 
     }  
-<<<<<<< HEAD
     /**
      * Decode iso-xxxx strings present in subjects and emails like:
      * 
@@ -462,108 +381,4 @@ public class MessageUtils {
         }
         return ret;
     }
-=======
-    
-<<<<<<< HEAD
->>>>>>> first commit
-=======
-    /**
-     * Decode iso-xxxx strings present in subjects and emails like:
-     * 
-     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
-     */
-    public static String decodeText(String s) {
-        String ret = s;
-        try {
-            ret = MimeUtility.decodeText(s);
-        } catch (UnsupportedEncodingException e) {
-            System.out.println(e.getMessage());
-        }
-        ret =  ret
-          // Remove quotes around names in email addresses
-          .replaceFirst("^[<\"' ]+([^\"<>]*)[>\"' ]+<", "$1 <");
-        return ret;
-    }
-    
-    /**
-     * Encode non ascii characters present in emails like:
-     * 
-     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
-     */
-    public static String encodeEmail(String s) {
-        if (s == null) {
-            return s;
-        }
-        Pattern p = Pattern.compile("^\\s*(.*?)\\s*(<[^>]+>)\\s*");
-        Matcher m = p.matcher(s);
-        return m.matches() ? encodeTexts(m.group(1)) + " " + m.group(2) : s;
-    }
-    
-    /**
-     * Encode non ascii characters present in email headers
-     */
-    public static String encodeTexts(String s) {
-        String ret = s;
-        if (s != null) {
-            try {
-                ret = MimeUtility.encodeText(s, "ISO-8859-1", null);
-            } catch (UnsupportedEncodingException e) {
-            }
-        }
-        return ret;
-    }
->>>>>>> constantly changed by manolo
-=======
-    
-<<<<<<< HEAD
->>>>>>> first commit
-=======
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
-    /**
-     * Decode iso-xxxx strings present in subjects and emails like:
-     * 
-     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
-     */
-    public static String decodeText(String s) {
-        String ret = s;
-        try {
-            ret = MimeUtility.decodeText(s);
-        } catch (UnsupportedEncodingException e) {
-            System.out.println(e.getMessage());
-        }
-        ret =  ret
-          // Remove quotes around names in email addresses
-          .replaceFirst("^[<\"' ]+([^\"<>]*)[>\"' ]+<", "$1 <");
-        return ret;
-    }
-    
-    /**
-     * Encode non ascii characters present in emails like:
-     * 
-     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
-     */
-    public static String encodeEmail(String s) {
-        if (s == null) {
-            return s;
-        }
-        Pattern p = Pattern.compile("^\\s*(.*?)\\s*(<[^>]+>)\\s*");
-        Matcher m = p.matcher(s);
-        return m.matches() ? encodeTexts(m.group(1)) + " " + m.group(2) : s;
-    }
-    
-    /**
-     * Encode non ascii characters present in email headers
-     */
-    public static String encodeTexts(String s) {
-        String ret = s;
-        if (s != null) {
-            try {
-                ret = MimeUtility.encodeText(s, "ISO-8859-1", null);
-            } catch (UnsupportedEncodingException e) {
-            }
-        }
-        return ret;
-    }
->>>>>>> constantly changed by manolo
 }

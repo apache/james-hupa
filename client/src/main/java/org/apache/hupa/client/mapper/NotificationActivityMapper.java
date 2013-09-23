@@ -28,15 +28,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 public class NotificationActivityMapper extends _HupaActivityMapper {
-=======
-public class NotificationActivityMapper extends MainActivityMapper {
->>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
-=======
-public class NotificationActivityMapper extends _HupaActivityMapper {
->>>>>>> change place management and make refresh folder and message list more gentle
 	private final Provider<NotificationActivity> notificationActivityProvider;
 
 	@Inject

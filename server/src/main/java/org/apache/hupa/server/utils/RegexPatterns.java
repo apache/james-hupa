@@ -48,21 +48,8 @@ public class RegexPatterns {
     
     public static final Pattern regex_inlineImg = Pattern.compile("(?si)(<\\s*img\\s+.*?src=)[\"']?cid:([^\"']+)[\"']?");
     public static final String repl_inlineImg = "$1'" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                         + "?" + SConsts.PARAM_MODE + "=inline" 
                                         + "&" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
-=======
-                                        + "?" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
->>>>>>> first commit
-=======
-                                        + "?" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
->>>>>>> first commit
-=======
-                                        + "?" + SConsts.PARAM_MODE + "=inline" 
-                                        + "&" + SConsts.PARAM_FOLDER + "=%%FOLDER%%" 
->>>>>>> Fix issue in chrome with inlined images in messages
                                         + "&" + SConsts.PARAM_UID + "=%%UID%%" 
                                         + "&" + SConsts.PARAM_NAME + "=$2' name='cid:$2'";
     
@@ -113,16 +100,4 @@ public class RegexPatterns {
 //    s=s.replaceAll("[ \t]+", " ");
 
     
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> first commit
-=======
-}
->>>>>>> first commit
-=======
-}
->>>>>>> Fix issue in chrome with inlined images in messages

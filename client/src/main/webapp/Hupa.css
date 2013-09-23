@@ -16,9 +16,6 @@
   specific language governing permissions and limitations
   under the License.
 */
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 /************[ Fonts ]***************************/
 body,table td,select,* {
 	font-family: arial, 'comic sans ms', sans-serif, helvetica, verdana;
@@ -42,90 +39,20 @@ body.noscroll { /* also avoids bounce effect in Chrome and Safari */
 	background: #fae5b0;
 }
 
-=======
-=======
->>>>>>> first commit
-
-=======
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-/************[ Fonts ]***************************/
-body,table td,select,* {
-	font-family: arial, 'comic sans ms', sans-serif, helvetica, verdana;
-	font-size: 12px;
-}
-
-body {
-	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	color: #333;
-	background: url(images/linen.jpg) repeat #d1d5d8;
-	margin: 0;
-}
-
-body.noscroll { /* also avoids bounce effect in Chrome and Safari */
-	overflow: hidden;
-}
-
-/************[ widget: MyDialogBox ]****************/
-.hupa-dialog-box td.dialogMiddleCenter {
-	background: #fae5b0;
-}
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 .hupa-dialog-box .dialogContent .gwt-Label {
 	font-weight: bold;
 	margin: 15px;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 .hupa-dialog-box .Caption {
 	font-size: 14px;
-=======
-.hupa-dialog-box .Caption {
-    font-size: 14px;
->>>>>>> first commit
-=======
-.hupa-dialog-box .Caption {
-    font-size: 14px;
->>>>>>> first commit
-=======
-
-.hupa-dialog-box .Caption {
-	font-size: 14px;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 }
 
 /************[ widget: RndPanel ]****************/
 .hupa-rounded {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	border: 1px solid #7FAAFF;
 	border-radius: 5px;
 	overflow: hidden;
-=======
-   border: 1px solid #7FAAFF; 
-   border-radius: 5px;
-   overflow: hidden;
->>>>>>> first commit
-=======
-   border: 1px solid #7FAAFF; 
-   border-radius: 5px;
-   overflow: hidden;
->>>>>>> first commit
-=======
-	border: 1px solid #7FAAFF;
-	border-radius: 5px;
-	overflow: hidden;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 }
 
 /************[ widget: Loading ]*************************************/
@@ -134,33 +61,12 @@ div.hupa-loading {
 	padding-left: 25px;
 	width: 100px;
 	height: 14px;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 	white-space: nowrap;
 	margin-top: 5px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: left;
 	vertical-align: top;
-<<<<<<< HEAD
-=======
-=======
->>>>>>> first commit
-    white-space: nowrap;
-    margin-top: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    vertical-align: top;
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 }
 
 /************[ widget: EnableHyperLink ]*********/
@@ -169,34 +75,12 @@ div.hupa-loading {
 	text-decoration: underline;
 	cursor: pointer;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 .hupa-hyperlink .gwt-Hyperlink-disabled {
 	color: #8d8d8d;
 }
 
 div.gwt-Hyperlink,div.gwt-Anchor {
-=======
-=======
->>>>>>> first commit
-.hupa-hyperlink .gwt-Hyperlink-disabled {
-	color: #8d8d8d;
-}
-div.gwt-Hyperlink, div.gwt-Anchor {
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-
-.hupa-hyperlink .gwt-Hyperlink-disabled {
-	color: #8d8d8d;
-}
-
-div.gwt-Hyperlink,div.gwt-Anchor {
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 	padding-left: 4px;
 }
 
@@ -206,14 +90,9 @@ div.Hupa {
 	margin-top: 0px;
 	padding: 0px;
 	width: 100%;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	min-width: 400px;
 }
 
-<<<<<<< HEAD
 * html div.Hupa {
 	margin-top: 0px;
 }
@@ -232,127 +111,33 @@ div.hupa-top {
 	padding-left: 0px;
 }
 
-=======
-=======
->>>>>>> first commit
-	min-width: 920px;
-=======
-	min-width: 800px;
->>>>>>> make it look more beautiful
-=======
-	min-width: 400px;
->>>>>>> decorate columns of messages list and related panels above and below.
-}
-=======
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-* html div.Hupa {
-	margin-top: 0px;
-}
-
-div.hupa-logo {
-	height: 64px;
-	background: url(images/hupa-logo-64-transparent.png) no-repeat;
-}
-
-div.hupa-top {
-	padding-left: 90px;
-	margin-right: 8px;
-}
-<<<<<<< HEAD
-* html div.hupa-top { 
-    padding-left: 0px;
-} 
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-
-* html div.hupa-top {
-	padding-left: 0px;
-}
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 div.hupa-top-wrap {
 	height: 64px;
 	background-color: #C5D9FF;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 div.cgb-RPC-hupa-top-wrap {
 	height: 59px;
 }
 
 table.hupa-top {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	width: 100%;
 	margin-bottom: 0px;
 }
 
-=======
-    width: 100%;    
-    margin-bottom: 0px;
-}
->>>>>>> first commit
-=======
-    width: 100%;    
-    margin-bottom: 0px;
-}
->>>>>>> first commit
-=======
-	width: 100%;
-	margin-bottom: 0px;
-}
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 table.hupa-button-bar td div {
 	padding-top: 12px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 div.hupa-loginfo-label,div.hupa-loginfo-user {
 	margin-left: 10px;
 	margin-right: 10px;
 }
 
-=======
-div.hupa-loginfo-label, div.hupa-loginfo-user {
-	margin-left: 10px;
-	margin-right: 10px;
-}
->>>>>>> first commit
-=======
-div.hupa-loginfo-label, div.hupa-loginfo-user {
-	margin-left: 10px;
-}
->>>>>>> first commit
-=======
-div.hupa-loginfo-label,div.hupa-loginfo-user {
-	margin-left: 10px;
-	margin-right: 10px;
-}
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 .hupa-loginfo-user {
 	font-style: italic;
 	font-weight: bold;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 .hupa-menu-button {
 	margin-right: 15px;
@@ -360,66 +145,18 @@ div.hupa-loginfo-label,div.hupa-loginfo-user {
 
 div.hupa-header {
 	display: none;
-=======
-=======
->>>>>>> first commit
-=======
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-.hupa-menu-button {
-	margin-right: 15px;
-}
-
-div.hupa-header {
-<<<<<<< HEAD
-    color: transparent;
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-	display: none;
->>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
 	padding-left: 10px;
 	height: 32px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 .hupa-central {
 	clear: both;
 	margin: 8px 8px 8px 8px;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	min-height: 200px;
-=======
-=======
->>>>>>> first commit
-div.hupa-main {
-=======
-.hupa-central {
->>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
-	clear: both;
-	margin: 8px 8px 8px 8px;
-	min-height: 500px;
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-	min-height: 400px;
->>>>>>> make it look more beautiful
-=======
-	min-height: 200px;
->>>>>>> decorate columns of messages list and related panels above and below.
 }
 
 * html div.cgb-RPC-hupa-main {
 	height: 500px;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	text-align: center;
 }
 
@@ -433,55 +170,13 @@ div.hupa-main {
 	left: 25%;
 }
 
-=======
-=======
->>>>>>> first commit
-    text-align: center;
-=======
-	text-align: center;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-}
-
-.hupa-flash {
-	background-color: #fae5b0;
-	text-align: center;
-	margin: auto auto 2px auto;
-	width: 50%;
-	position: absolute;
-	top: 45px;
-	left: 25%;
-}
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 * html div.hupa-flash {
 	border: none;
 	background: none;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 * html .hupa-flash div {
 	background-color: #fae5b0;
-=======
-* html .hupa-flash div {
-    background-color: #fae5b0;
->>>>>>> first commit
-=======
-* html .hupa-flash div {
-    background-color: #fae5b0;
->>>>>>> first commit
-=======
-
-* html .hupa-flash div {
-	background-color: #fae5b0;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 }
 
 .hupa-flash div.gwt-Label {
@@ -492,9 +187,6 @@ div.hupa-bottom {
 	text-align: center;
 }
 /************[ view: LoginView ]*******************/
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 .hupa-login {
 	margin: 10pt auto;
 	width: 20%;
@@ -502,7 +194,6 @@ div.hupa-bottom {
 	position: relative;
 	left: 50%;
 	padding: 20px;
-<<<<<<< HEAD
 	border: 1px solid #7FAAFF;
 	box-shadow: 0 1px 4px grey;
 	border-radius: 5px;
@@ -513,66 +204,12 @@ div.hupa-bottom {
 }
 
 .hupa-login-form {
-=======
-=======
->>>>>>> first commit
-table.hupa-login {
-=======
-.hupa-login {
-<<<<<<< HEAD
-	margin-top:10px;
-	margin-left:auto;
-	margin-right:auto;
->>>>>>> make it look more beautiful
-=======
-	margin: 10pt auto;
-	width: 20%;
->>>>>>> fix issue 5,6,8:
-    text-align: right;
-    position: relative;
-    left: 50%;
-    padding: 20px;
-=======
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-	border: 1px solid #7FAAFF;
-	box-shadow: 0 1px 4px grey;
-	border-radius: 5px;
-}
-
-.hupa-login td {
-	text-align: center;
-}
-<<<<<<< HEAD
-<<<<<<< HEAD
-table.hupa-login-form {
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-=======
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-.hupa-login-form {
->>>>>>> make it look more beautiful
 	padding: 10px;
 }
 
 .hupa-login-textbox {
 	width: 230px;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	background-color: #d8ecfd;
-=======
-	background-color:  #d8ecfd;
->>>>>>> first commit
-=======
-	background-color:  #d8ecfd;
->>>>>>> first commit
-=======
-	background-color: #d8ecfd;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 	border: 1px solid #7FAAFF;
 	margin-left: 5px;
 }
@@ -586,10 +223,6 @@ table.hupa-login-form {
 /************[ widget: CommandsBar ]*********/
 .hupa-commands-bar {
 	width: 100%;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	background-color: #deeeff;
 }
 
@@ -605,45 +238,10 @@ table.hupa-login-form {
 
 .hupa-msgtable-row {
 	text-align: left;
-=======
-=======
->>>>>>> first commit
-    padding: 5px 4px 5px 4px;
-=======
->>>>>>> decorate columns of messages list and related panels above and below.
-    background-color: #deeeff;  
-=======
-	background-color: #deeeff;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-}
-
-/************[ view: IMAPMessageListView ]*******************/
-.hupa-msglist,.hupa-msg-top-bar,.hupa-msgtable {
-	width: 100%;
-}
-
-.hupa-msg-top-bar {
-	padding: 10px 4px 10px 4px;
-	background-color: #C3D9FF;
-}
-
-.hupa-msgtable-row {
-<<<<<<< HEAD
-    text-align: left;
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-	text-align: left;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 	vertical-align: top;
 	padding: 0px 10px 0px 10px;
 	cursor: pointer;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 .hupa-msgtable-unseen {
 	font-weight: bold;
@@ -655,36 +253,10 @@ table.hupa-login-form {
 	padding: 20px;
 }
 
-=======
-=======
->>>>>>> first commit
-=======
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-.hupa-msgtable-unseen {
-	font-weight: bold;
-}
-
-.hupa-msgtable-empty {
-	font-weight: bold;
-	text-align: center;
-	padding: 20px;
-}
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 .hupa-search-box {
 	width: 150px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 input[type=text],input[type=file],textarea {
 	background-color: #d8ecfd;
 	border: 1px solid #7FAAFF;
@@ -696,130 +268,36 @@ input[type=text],input[type=file],textarea {
 
 .gwt-SuggestBoxPopup {
 	font-size: 10px;
-=======
-=======
->>>>>>> first commit
-input[type=text], input[type=file], textarea {
-    background-color:  #d8ecfd;
-    border: 1px solid #7FAAFF;
-=======
-input[type=text],input[type=file],textarea {
-	background-color: #d8ecfd;
-	border: 1px solid #7FAAFF;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-}
-
-.dragdrop-dragable {
-	background: red;
-}
-
-.gwt-SuggestBoxPopup {
-<<<<<<< HEAD
-    font-size: 10px;
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-	font-size: 10px;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 }
 
 .hupa-buttons .gwt-ListBox {
 	margin-left: 5px;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	padding-left: 3px;
-=======
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-  padding-left: 3px;
->>>>>>> decorate columns of messages list and related panels above and below.
-=======
-	padding-left: 3px;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 }
 
 /*************[ buttonbars ]*********************/
 .hupa-buttons {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	white-space: nowrap;
 }
 
 .hupa-buttons td {
 	padding-left: 3px;
-=======
-=======
->>>>>>> first commit
-    white-space: nowrap;
-}
-
-.hupa-buttons td {
-  padding-left: 3px;
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-	white-space: nowrap;
-}
-
-.hupa-buttons td {
-	padding-left: 3px;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 }
 
 .hupa-buttons div {
 	white-space: nowrap;
 	vertical-align: middle;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 .hupa-buttons .gwt-Hyperlink {
 	padding-left: 6px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 /************[ widget: MessageHeaders ]*******************/
 table.hupa-msg-headers {
 	background-color: #C3D9FF;
 }
 
-=======
-=======
->>>>>>> first commit
-
-=======
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-/************[ widget: MessageHeaders ]*******************/
-table.hupa-msg-headers {
-	background-color: #C3D9FF;
-}
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 .hupa-msg-headers td.label {
 	width: 175px;
 	text-align: right;
@@ -831,17 +309,7 @@ table.hupa-msg-headers {
 table.hupa-msgview {
 	width: 100%;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 div.hupa-msgview-content {
 	padding: 20px;
 }
@@ -854,46 +322,18 @@ div.hupa-msgview-content {
 	cursor: pointer;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 .hupa-attachment-view {
 	margin-left: 10px;
 }
 
-=======
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-.hupa-attachment-view {
-	margin-left: 10px;
-}
-
->>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
 /************[ view: MessageSendView ]*******************/
 table.hupa-msgsend {
 	width: 100%;
 }
 
 .hupa-validate-error {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	border: 1pt solid red;
 	background-color: #fae5b0;
-=======
-	border:	1pt solid red;
-    background-color: #fae5b0;
->>>>>>> first commit
-=======
-	border:	1pt solid red;
-    background-color: #fae5b0;
->>>>>>> first commit
-=======
-	border: 1pt solid red;
-	background-color: #fae5b0;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 }
 
 /************[ view: ContactsView ]*******************/
@@ -902,26 +342,12 @@ table.hupa-contacts {
 	margin-right: auto;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> first commit
-=======
-
->>>>>>> first commit
-=======
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
 /************************************************************************/
 /*** Non re-factored stuff ***/
 .cbg-ButtonContent {
 	font-size: 80%;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 .hupa-ErrorLabel,.gwt-PagingOptions .errorMessage {
 	color: #FF0000;
 }
@@ -1055,181 +481,3 @@ div.hupa-main {
 	border-radius: 50px;
 	max-height: 8px;
 }
-=======
-=======
->>>>>>> first commit
-.hupa-ErrorLabel, .gwt-PagingOptions .errorMessage {
-    color:           			   #FF0000;
-=======
-.hupa-ErrorLabel,.gwt-PagingOptions .errorMessage {
-	color: #FF0000;
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-}
-
-.gwt-ScrollTable .dataTable td {
-	border-top: 1pt solid #EEEEEE;
-	white-space: nowrap;
-	padding: 0px 10px 0px 10px;
-	overflow: hidden;
-	font-size: 12px;
-	cursor: pointer;
-}
-
-.gwt-ScrollTable .dataTable tr.highlighted {
-	background: #FAD163;
-}
-
-.gwt-ScrollTable .dataTable tr.selected td {
-	background: #FFF7D7;
-}
-
-.hupa-IMAPFolder-unseen {
-	font-weight: bold;
-}
-
-.hupa-IMAPFolder-selected {
-	background: #f1e77b;
-	width: 100%;
-}
-
-.hupa-droptarget-invalid {
-	color: red;
-}
-
-.hupa-editor {
-	border-left: 1px solid #CCC;
-	border-right: 1px solid #CCC;
-}
-
-/**** HTML5 shadows and gradients ****/
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
-body {
-    background: #eaeaea;
-}
-=======
-
->>>>>>> refactoring theme 1 - login page
-=======
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width
-.hupa-rounded {
-	box-shadow: 0 1px 4px grey;
-}
-
-.hupa-top-wrap,.hupa-login-box,.hupa-msg-top-bar {
-	background: -moz-linear-gradient(#FFFFFF, #C5D9FF);
-	background: -webkit-linear-gradient(#FFFFFF, #C5D9FF);
-	background: -o-linear-gradient(#FFFFFF, #C5D9FF);
-	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#FFFFFF',
-		endColorstr='#C5D9FF', GradientType=0 );
-}
-
-.hupa-commands-bar {
-	background: -moz-linear-gradient(#C5D9FF, #eaeaea);
-	background: -webkit-linear-gradient(#C5D9FF, #eaeaea);
-	background: -o-linear-gradient(#C5D9FF, #eaeaea);
-	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#C5D9FF',
-		endColorstr='#eaeaea', GradientType=0 );
-}
-
-.hupa-tree {
-	background: -moz-linear-gradient(#C5D9FF, #eaeaea);
-	background: -webkit-linear-gradient(#C5D9FF, #eaeaea);
-	background: -o-linear-gradient(#C5D9FF, #eaeaea);
-	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#C5D9FF',
-		endColorstr='#eaeaea', GradientType=0 );
-}
-
-div.hupa-main {
-	background: -moz-linear-gradient(#eaeaea, #fafafa);
-	background: -webkit-linear-gradient(#eaeaea, #fafafa);
-	background: -o-linear-gradient(#eaeaea, #fafafa);
-	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#eaeaea',
-		endColorstr='#fafafa', GradientType=0 );
-}
-
-.hupa-flash,.hupa-dialog-box td.dialogMiddleCenter {
-	background: -moz-linear-gradient(#fae5b0, #eaeaea);
-	background: -webkit-linear-gradient(#fae5b0, #eaeaea);
-	background: -o-linear-gradient(#fae5b0, #eaeaea);
-	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#fae5b0',
-		endColorstr='#eaeaea', GradientType=0 );
-}
-
-.hupa-login-form,.hupa-bottom {
-	text-shadow: 1px 1px 3px #666666;
-}
-
-* html  .hupa-bottom {
-	filter: progid:DXImageTransform.Microsoft.Shadow(color='#666666',
-		Direction=135, Strength=1 );
-}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> first commit
-=======
-=======
->>>>>>> constantly changed by manolo
-
-.hupa-button {
-	background: #FFFFFF;
-	background: -moz-linear-gradient(#FFFFFF, #EDEDED);
-	background: -webkit-linear-gradient(#FFFFFF, #EDEDED);
-	background: -o-linear-gradient(#FFFFFF, #EDEDED);
-	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#FFFFFF',
-		endColorstr='#EDEDED', GradientType=0 );
-	border: 1px solid #B7B7B7;
-	color: #606060;
-	border-radius: 2em 2em 2em 2em;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-	cursor: pointer;
-	display: inline-block;
-	font: 10px;
-	margin: 0 2px;
-	outline: medium none;
-	padding: 2px 10px;
-	text-align: center;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-	vertical-align: baseline;
-}
-
-.hupa-button:hover {
-	background: #ededed;
-	background: -moz-linear-gradient(#FFFFFF, #dcdcdc);
-	background: -webkit-linear-gradient(#FFFFFF, #dcdcdc);
-	background: -o-linear-gradient(#FFFFFF, #dcdcdc);
-	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#FFFFFF',
-		endColorstr='#dcdcdc', GradientType=0 );
-}
-
-.gwt-DecoratorPanel .middleCenter {
-	height: 100%;
-	width: 100%;
-}
-
-<<<<<<< HEAD
-
-
-
-
-
-<<<<<<< HEAD
->>>>>>> constantly changed by manolo
-=======
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
-=======
-.gwt-SuggestBox {
-	border-radius: 50px;
-	max-height: 8px;
-}
->>>>>>> temporarily use the FlowPanel as Editor, the inner rich text area can not automatically adjust the height and width

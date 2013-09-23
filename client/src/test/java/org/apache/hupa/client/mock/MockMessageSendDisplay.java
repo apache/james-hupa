@@ -19,60 +19,20 @@
 
 package org.apache.hupa.client.mock;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import gwtupload.client.IUploader;
 
 import org.apache.hupa.client.activity.ComposeActivity.Displayable;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.widgets.ui.HasEnable;
 
-=======
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-import gwtupload.client.IUploader;
-
-import org.apache.hupa.client.activity.ComposeActivity.Displayable;
-import org.apache.hupa.shared.rpc.ContactsResult.Contact;
-import org.apache.hupa.widgets.ui.HasEnable;
-
->>>>>>> delete some deprecated code
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> scrub code, remove deprecated code
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MockMessageSendDisplay implements Displayable {
-=======
-=======
->>>>>>> first commit
-import com.google.gwt.user.client.ui.Widget;
-
-<<<<<<< HEAD
-import gwtupload.client.IUploader;
-
-import org.apache.hupa.client.mvp.MessageSendPresenter.Display;
-import org.apache.hupa.shared.rpc.ContactsResult.Contact;
-import org.apache.hupa.widgets.ui.HasEnable;
-
-public class MockMessageSendDisplay implements Display {
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-public class MockMessageSendDisplay implements Displayable {
->>>>>>> delete some deprecated code
 
     HasClickHandlers backClick = new MockWidget();
     HasText bccText = new MockWidget();
@@ -110,22 +70,6 @@ public class MockMessageSendDisplay implements Displayable {
         return editorFocus;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> first commit
-    public HasText getFromText() {
-        return fromText;
-    }
-
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
->>>>>>> scrub code, remove deprecated code
     public HasHTML getMessageHTML() {
         return messageHtml;
     }
@@ -184,11 +128,6 @@ public class MockMessageSendDisplay implements Displayable {
         return true;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> scrub code, remove deprecated code
 	@Override
 	public void showCc() {
 		// TODO Auto-generated method stub
@@ -339,11 +278,4 @@ public class MockMessageSendDisplay implements Displayable {
 		return null;
 	}
 
-<<<<<<< HEAD
-=======
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
->>>>>>> scrub code, remove deprecated code
 }

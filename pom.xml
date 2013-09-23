@@ -17,86 +17,25 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-=======
-=======
->>>>>>> first commit
-<project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-<<<<<<< HEAD
->>>>>>> first commit
-=======
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
->>>>>>> constantly changed by manolo
-=======
->>>>>>> first commit
-=======
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
->>>>>>> constantly changed by manolo
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.james</groupId>
         <artifactId>james-project</artifactId>
         <version>1.8.1</version>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> constantly changed by manolo
-=======
->>>>>>> constantly changed by manolo
         <relativePath />
     </parent>
     <groupId>org.apache.james.hupa</groupId>
     <artifactId>hupa-parent</artifactId>
-<<<<<<< HEAD
-    <version>0.0.3-SNAPSHOT</version>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> first commit
-        <relativePath></relativePath>
-    </parent>
-    <groupId>org.apache.hupa</groupId>
-    <artifactId>hupa-parent</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
-=======
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
-=======
     <version>0.0.5-SNAPSHOT</version>
->>>>>>> Set snapshot version higger than the current hupa in svn repo
     <packaging>pom</packaging>
     <name>Apache James Hupa Parent</name>
     <description>Hupa is a GWT based Webmail</description>
     <url>http://james.apache.org/hupa</url>
     <inceptionYear>2009</inceptionYear>
     <modules>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <module>shared</module>
         <module>mock</module>
-=======
-        <module>mock</module>
-        <module>shared</module>
->>>>>>> first commit
-=======
-        <module>mock</module>
-        <module>shared</module>
->>>>>>> first commit
         <module>server</module>
         <module>widgets</module>
         <module>client</module>
@@ -117,20 +56,8 @@
         </site>
     </distributionManagement>
     <properties>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         <gwtVersion>2.5.1</gwtVersion>
         <gwtMavenVersion>2.5.1</gwtMavenVersion>
-=======
-        <gwtVersion>2.5.0</gwtVersion>
-        <gwtMavenVersion>2.5.0</gwtMavenVersion>
->>>>>>> update to the latest 2.5.0 version of gwt
-=======
-        <gwtVersion>2.5.1</gwtVersion>
-        <gwtMavenVersion>2.5.1</gwtMavenVersion>
->>>>>>> upgrade gwt to 2.5.1
         <gwt.moduleSuffix />
         <gwt.logLevel>ERROR</gwt.logLevel>
         <jettyVersion>7.3.0.v20110203</jettyVersion>
@@ -186,123 +113,16 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-=======
-        <gwtVersion>2.4.0</gwtVersion>
-        <gwtMavenVersion>2.4.0</gwtMavenVersion>
-        <gwt.moduleSuffix />
-        <gwt.logLevel>ERROR</gwt.logLevel>
-        <jettyVersion>7.3.0.v20110203</jettyVersion>
-        <mock.scope>test</mock.scope>
-    </properties>
-
-    <profiles>
-      <profile>
-        <!-- Agressive js compression. Compile for all browsers and languages -->
-        <id>prod</id>
-        <properties>
-          <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
-          <gwt.disableClassMetadata>true</gwt.disableClassMetadata>
-          <gwt.disableCastChecking>true</gwt.disableCastChecking>
-          <gwt.logLevel>TRACE</gwt.logLevel>
-        </properties>
-      </profile>
-      <profile>
-        <id>demo</id>
-        <properties>
-          <mock.scope />
-        </properties>
-      </profile>
-      <profile>
-        <!-- Deliver Hupa with Demo stuff -->
-        <id>pretty</id>
-        <properties>
-          <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
-          <gwt.style>PRETTY</gwt.style>
-          <mock.scope />
-          <gwt.logLevel>TRACE</gwt.logLevel>
-        </properties>
-      </profile>
-    </profiles>
-
-=======
-        <gwtVersion>2.4.0</gwtVersion>
-        <gwtMavenVersion>2.4.0</gwtMavenVersion>
-        <gwt.moduleSuffix />
-        <gwt.logLevel>ERROR</gwt.logLevel>
-        <jettyVersion>7.3.0.v20110203</jettyVersion>
-        <mock.scope>test</mock.scope>
-    </properties>
-<<<<<<< HEAD
->>>>>>> first commit
-=======
-
-    <profiles>
-      <profile>
-        <!-- Agressive js compression. Compile for all browsers and languages -->
-        <id>prod</id>
-        <properties>
-          <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
-          <gwt.disableClassMetadata>true</gwt.disableClassMetadata>
-          <gwt.disableCastChecking>true</gwt.disableCastChecking>
-          <gwt.logLevel>TRACE</gwt.logLevel>
-        </properties>
-      </profile>
-      <profile>
-        <!-- Deliver Hupa with Demo stuff -->
-        <id>demo</id>
-        <properties>
-          <mock.scope />
-        </properties>
-      </profile>
-    </profiles>
-
->>>>>>> constantly changed by manolo
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.hupa</groupId>
-                <artifactId>hupa-mock</artifactId>
-                <version>${project.version}</version>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> constantly changed by manolo
-                <scope>${mock.scope}</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.hupa</groupId>
->>>>>>> first commit
-=======
-            </dependency>
-            <dependency>
-                <groupId>org.apache.hupa</groupId>
->>>>>>> first commit
                 <artifactId>hupa-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <groupId>${project.groupId}</groupId>
-=======
-                <groupId>org.apache.hupa</groupId>
->>>>>>> first commit
-=======
-                <groupId>org.apache.hupa</groupId>
->>>>>>> first commit
                 <artifactId>hupa-shared</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <groupId>${project.groupId}</groupId>
-=======
-                <groupId>org.apache.hupa</groupId>
->>>>>>> first commit
-=======
-                <groupId>org.apache.hupa</groupId>
->>>>>>> first commit
                 <artifactId>hupa-widgets</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>

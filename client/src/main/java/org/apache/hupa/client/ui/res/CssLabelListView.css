@@ -15,16 +15,8 @@
  */
 .cellListWidget {
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
 	cursor:default;
 	
-=======
->>>>>>> add adjusted style to labels list in setting palce
-=======
-	cursor:default;
-	
->>>>>>> fixed issue#67; fixed issue#69 (with default select inbox folder); fixed issue#70;
 }
 
 .cellListEvenItem {
@@ -60,26 +52,11 @@
 }
 
 .cellListKeyboardSelectedItem {
-<<<<<<< HEAD
-<<<<<<< HEAD
     background:  #c7e3ef;
 }
 
 .cellListSelectedItem {
 	background:  #c7e3ef;
-=======
-	background: #ffc;
-}
-
-.cellListSelectedItem {
->>>>>>> add adjusted style to labels list in setting palce
-=======
-    background:  #c7e3ef;
-}
-
-.cellListSelectedItem {
-	background:  #c7e3ef;
->>>>>>> fixed issue#71, use an unique background
     background-color: #c7e3ef;
     color: #004458;
     height: auto;

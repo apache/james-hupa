@@ -1,23 +1,10 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
 	<ui:image field="buttons" src="res/buttons.png" />
-<<<<<<< HEAD
-<<<<<<< HEAD
 	<ui:image field="originLogo" src="res/hupa-logo-original-transparent.png" />
 	<ui:style>
 		.minWidth {
 			min-width: 700px;
-<<<<<<< HEAD
-=======
-=======
-	<ui:image field="originLogo" src="res/hupa-logo-original-transparent.png" />
->>>>>>> beautify message list and content
-	<ui:style>
-		.minWidth {
-			min-width: 1150px;
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
->>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
 		}
 		
 		.feature {
@@ -31,238 +18,32 @@
 			background: -ms-linear-gradient(top, #404040 0%, #060606 100%);
 			background: linear-gradient(top, #404040 0%, #060606 100%);
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
 	</ui:style>
 	<g:LayoutPanel addStyleNames="{style.minWidth}">
 		<g:layer left='0' right='0' top='0' height='92px'>
 			<g:DockLayoutPanel unit="PX" ui:field="Header">
 				<g:north size="23">
 					<g:SimplePanel ui:field="topBarContainer" />
-=======
-		
-		.folderList {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			min-width: 144px;
-			bottom: 0;
-			overflow-x: hidden;
-			overflow-y: auto;
-		}
-		
-		.box {
-			border: 1px solid #A3A3A3;
-			border-radius: 4px;
-			overflow: hidden;
-			box-shadow: 0 0 2px #999;
-			-o-box-shadow: 0 0 2px #999;
-			-webkit-box-shadow: 0 0 2px #999;
-			-moz-box-shadow: 0 0 2px #999;
-			background: white;
-		}
-		
-		.listBox {
-			background: #D9ECF4;
-			overflow: hidden;
-		}
-		
-		.box .boxFooter {
-			border-radius: 0 0 4px 4px;
-		}
-		
-		.listBox .boxFooter {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			height: 42px;
-			border-top: 1px solid #CCDDE4;
-			background: #D9ECF4;
-			-webkit-box-shadow: inset 0 1px 0 0 white;
-			-moz-box-shadow: inset 0 1px 0 0 #fff;
-			box-shadow: inset 0 1px 0 0 white;
-			white-space: nowrap;
-			overflow: hidden;
-		}
-		
-		.messageListFooter {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			height: 22px;
-			padding: 4px 8px;
-			border-top: 1px solid #ddd;
-			background: #ebebeb;
-			background: -moz-linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
-			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ebebeb),
-				color-stop(100%, #c6c6c6) );
-			background: -o-linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
-			background: -ms-linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
-			background: linear-gradient(top, #ebebeb 0%, #c6c6c6 100%);
-			border-radius: 0 0 4px 4px;
-		}
-		
-		@sprite .messageContent {
-			margin: 8px;
-			gwt-image: 'originLogo';
-			background-position: center center;
-			width: auto;
-			height: auto;
-			filter: grayscale(100%);
-			-webkit-filter: grayscale(100%);
-			-moz-filter: grayscale(100%);
-			-ms-filter: grayscale(100%);
-			-o-filter: grayscale(100%);
-			opacity: 0.7;
-		}
-		
-		@sprite .messageContentWorkAround {
-			margin: 8px 0 8px 8px;
-			padding-right: 8px;
-			gwt-image: 'originLogo';
-			background-position: center center;
-			width: auto;
-			height: auto;
-		}
-=======
->>>>>>> split the layout panel to little ones
-	</ui:style>
-	<g:LayoutPanel addStyleNames="{style.minWidth}">
-		<g:layer left='0' right='0' top='0' height='92px'>
-			<g:DockLayoutPanel unit="PX" ui:field="Header">
-				<g:north size="23">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-					<hupa:TopBarView />
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-					<hupa:TopBarView ui:field="topBarView"/>
->>>>>>> integrate them as a whole one - first: make the default place work
-=======
-					<g:SimplePanel>
-						<hupa:TopBarView ui:field="topBarView" />
-					</g:SimplePanel>
->>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
-=======
-					<g:SimplePanel ui:field="topBarContainer"/>
->>>>>>> integrate all of the views to their corresponding activities and mappers
-=======
-					<g:SimplePanel ui:field="topBarContainer" />
->>>>>>> make message list view panel work as expected partly
 				</g:north>
 				<g:center>
 					<g:LayoutPanel addStyleNames="{style.feature}"
 						ui:field="HupaFeature">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-						
->>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
-=======
-
->>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 						<g:layer width="177px" left="10px">
 							<g:SimplePanel ui:field="logoContainer" />
 						</g:layer>
 						<g:layer>
-<<<<<<< HEAD
-<<<<<<< HEAD
 							<g:SimplePanel ui:field="notificationContainer" />
 						</g:layer>
 						<g:layer width="287px" right="0">
 							<g:SimpleLayoutPanel ui:field="navigationContainer" />
-=======
-						<g:layer width="177px" left="10px">
-							<g:SimplePanel ui:field="logoContainer" />
-						</g:layer>
-<<<<<<< HEAD
-						<g:layer width="301px" right="0">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-							<hupa:NavigationView />
->>>>>>> make login page as one part of the overall layout & splite layout to little one
 						</g:layer>
 					</g:LayoutPanel>
 				</g:center>
 			</g:DockLayoutPanel>
 		</g:layer>
-<<<<<<< HEAD
 		<g:layer left='10px' right='10px' top='84px' bottom="20px">
 			<g:DockLayoutPanel>
-				<g:north size="44">
-					<hupa:_ToolPanel ui:field="toolPanel" />
-				</g:north>
-				<g:center>
-					<g:LayoutPanel ui:field="mainBox">
-						<g:layer left="0%" width="100%" top="0%" height="100%">
-							<hupa:_CenterPanel ui:field="centerPanel" />
-						</g:layer>
-						<g:layer left="0%" width="0%" top="0%" height="0%">
-							<hupa:_CenterSettingPanel ui:field="settingPanel" />
-=======
-							<hupa:NavigationView ui:field="navigationView"/>
->>>>>>> integrate them as a whole one - first: make the default place work
-=======
-							<g:SimplePanel>
-								<hupa:NavigationView ui:field="navigationView" />
-							</g:SimplePanel>
->>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
-=======
-=======
-=======
-						  <g:SimplePanel ui:field="notificationContainer" />
-=======
-							<g:SimplePanel ui:field="notificationContainer" />
->>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
-						</g:layer>
->>>>>>> add loading and notification bar(finishing the folder list click event), related to the issue#18
-						<g:layer width="287px" right="0">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
-							<g:LayoutPanel ui:field="navigationContainer"/><!-- why can not be SimplePanel here -->
->>>>>>> integrate all of the views to their corresponding activities and mappers
-=======
-							<g:LayoutPanel ui:field="navigationContainer" /><!-- 
-								why can not be SimplePanel here -->
->>>>>>> make message list view panel work as expected partly
-=======
-							<g:LayoutPanel ui:field="navigationContainer" />
->>>>>>> DataGrid requires to be put in a LayoutPanel or Panel that implements the ProvidesResize interface to be visible
-=======
-							<g:SimpleLayoutPanel ui:field="navigationContainer" />
->>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
-						</g:layer>
-                        <g:layer left="0%" width="0%" top="0%" height="0%">
-                            <hupa:_CenterContactPanel ui:field="contactPanel" />
-                        </g:layer>
-                        <g:layer left="0%" width="0%" top="0%" height="0%">
-                            <hupa:_CenterComposePanel ui:field="composePanel" />
-                        </g:layer>
-					</g:LayoutPanel>
-				</g:center>
-			</g:DockLayoutPanel>
-		</g:layer>
-<<<<<<< HEAD
-=======
-		<g:layer left='10px' right='10px' top='88px' bottom="20px">
-=======
-		<g:layer left='10px' right='10px' top='84px' bottom="20px">
-<<<<<<< HEAD
->>>>>>> make fine tuning with tool buttons in toolbar
-			<g:DockLayoutPanel ui:field="mainBox">
-=======
-			<g:DockLayoutPanel>
->>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 				<g:north size="44">
 					<hupa:_ToolPanel ui:field="toolPanel" />
 				</g:north>
@@ -283,11 +64,6 @@
 					</g:LayoutPanel>
 				</g:center>
 			</g:DockLayoutPanel>
-<<<<<<< HEAD
-		</g:layer> -->
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
 		</g:layer>
->>>>>>> integrate them as a whole one - first: make the default place work
 	</g:LayoutPanel>
 </ui:UiBinder>

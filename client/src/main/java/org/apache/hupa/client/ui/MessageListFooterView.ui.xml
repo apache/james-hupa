@@ -10,8 +10,6 @@
 	language governing permissions and limitations under the License. -->
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-<<<<<<< HEAD
-<<<<<<< HEAD
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
 	<ui:style>
@@ -24,34 +22,6 @@
 		<c:SimplePager ui:field="simplePager" />
 		<g:SimplePanel ui:field="labelsPanel" addStyleNames="{style.moveMessage}">
 			<g:ListBox ui:field="labels"></g:ListBox>
-<<<<<<< HEAD
 		</g:SimplePanel>
 	</g:HorizontalPanel>
-=======
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-	<g:HTMLPanel>MessageListFooter
-	</g:HTMLPanel>
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
-
-	<ui:style>
-		.moveMessage {
-		position:absolute;
-		right:20px;	
-		}
-	</ui:style>
-	<g:HorizontalPanel>
-		<c:SimplePager ui:field="simplePager" />
-<<<<<<< HEAD
-	</g:SimplePanel>
->>>>>>> make message list view panel work as expected partly
-=======
-		<g:SimplePanel addStyleNames="{style.moveMessage}">
-			<g:HTML>Hello</g:HTML>
-=======
->>>>>>> fixed issue#85, can move one message now in DEMO mode, while not test in Gmail mode
-		</g:SimplePanel>
-	</g:HorizontalPanel>
->>>>>>> remove deprecated code
 </ui:UiBinder>

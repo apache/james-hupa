@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,7 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
 package org.apache.hupa.server.service;
 
 import org.apache.hupa.shared.domain.User;
@@ -30,21 +25,4 @@ import org.apache.hupa.shared.exception.HupaException;
 public interface CheckSessionService {
 	public User getUser() throws HupaException;
 	public Boolean isValid() throws HupaException;
-=======
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
-package org.apache.hupa.server.service;
-
-import org.apache.hupa.shared.domain.User;
-import org.apache.hupa.shared.exception.HupaException;
-
-public interface CheckSessionService {
-<<<<<<< HEAD
-	public User getUser();
-	public Boolean isValid();
->>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
-=======
-	public User getUser() throws HupaException;
-	public Boolean isValid() throws HupaException;
->>>>>>> re-add server unit tests
 }

@@ -10,42 +10,6 @@
 	language governing permissions and limitations under the License. -->
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	<g:SimplePanel ui:field="thisView" />
-=======
-=======
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'
-<<<<<<< HEAD
-	xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
->>>>>>> make folder list in west panel partly work
-=======
-	xmlns:hupa='urn:import:org.apache.hupa.client.ui'
-    xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
->>>>>>> track the folder list tree model issue of invalid session, TODO how to retrieve folders data using GIN
-=======
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
-<<<<<<< HEAD
->>>>>>> make message list view panel work as expected partly
-	<g:SimplePanel ui:field="FolderListView">
-		<c:CellTree ui:field="cellTree" />
-	</g:SimplePanel>
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-=======
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
->>>>>>> change message list view to make it not refresh the whole list when click one of the messages
-	<g:SimplePanel ui:field="thisView" />
->>>>>>> make compose panel left another widget rather than cell tree
-=======
-	<g:ScrollPanel ui:field="thisView" />
->>>>>>> fixed issue#67; fixed issue#69 (with default select inbox folder); fixed issue#70;
-=======
-	<g:SimplePanel ui:field="thisView" />
->>>>>>> fixed issue#79, using 100 as the assuming page size of labels list rather than CellList's default page size 25
 </ui:UiBinder>

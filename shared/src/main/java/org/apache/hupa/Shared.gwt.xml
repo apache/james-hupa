@@ -16,17 +16,6 @@
 -->
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.6.4//EN" "http://google-web-toolkit.googlecode.com/svn/tags/1.6.4/distro-source/core/src/gwt-module.dtd">
 <module>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  <inherits name='net.customware.gwt.dispatch.Dispatch' />
->>>>>>> first commit
-=======
-  <inherits name='net.customware.gwt.dispatch.Dispatch' />
->>>>>>> first commit
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
   <inherits name='com.google.gwt.user.User'/>
   <source path="shared"/>
 </module>

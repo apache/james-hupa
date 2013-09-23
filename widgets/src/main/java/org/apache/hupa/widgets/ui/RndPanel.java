@@ -25,17 +25,6 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import org.apache.hupa.widgets.ui.impl.RndPanelGenerator;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import org.apache.hupa.widgets.ui.impl.RndPanelGeneratorImpl;
->>>>>>> first commit
-=======
-import org.apache.hupa.widgets.ui.impl.RndPanelGeneratorImpl;
->>>>>>> first commit
-=======
->>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
 
 /**
  * Widget which renders a rounded panel.

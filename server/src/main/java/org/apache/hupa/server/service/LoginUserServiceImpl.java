@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,43 +17,17 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-package org.apache.hupa.server.service;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> re-add server unit tests
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpSession;
-=======
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import javax.mail.MessagingException;
->>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
-
-=======
->>>>>>> alert people "invilid login" for the wrong username and/or password, which should be improved with a gentle way
-=======
 import javax.servlet.http.HttpSession;
 
->>>>>>> fix issue 5,6,8:
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.UserImpl;
 import org.apache.hupa.shared.domain.Settings;
 import org.apache.hupa.shared.domain.User;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
-=======
->>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
-=======
-import org.apache.hupa.shared.exception.HupaException;
->>>>>>> re-add server unit tests
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -66,9 +36,6 @@ public class LoginUserServiceImpl extends AbstractService implements LoginUserSe
 
 	@Inject private Provider<Settings> settingsProvider;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	public User login(String username, String password) throws HupaException, MessagingException {
 		HttpSession httpSession = httpSessionProvider.get();
         SessionUtils.cleanSessionAttributes(httpSession);
@@ -76,34 +43,6 @@ public class LoginUserServiceImpl extends AbstractService implements LoginUserSe
 		user.setName(username);
 		user.setPassword(password);
 		cache.get(user);
-=======
-	public User login(String username, String password) {
-=======
-	public User login(String username, String password) throws Exception {
-<<<<<<< HEAD
->>>>>>> alert people "invilid login" for the wrong username and/or password, which should be improved with a gentle way
-		SessionUtils.cleanSessionAttributes(httpSession);
-=======
-=======
-	public User login(String username, String password) throws HupaException, MessagingException {
->>>>>>> re-add server unit tests
-		HttpSession httpSession = httpSessionProvider.get();
-        SessionUtils.cleanSessionAttributes(httpSession);
->>>>>>> fix issue 5,6,8:
-		User user = new UserImpl();
-		user.setName(username);
-		user.setPassword(password);
-<<<<<<< HEAD
-		try {
-			cache.get(user);
-		} catch (Exception e) {
-			logger.error("Unable to authenticate user: " + username, e);
-			throw e;
-		}
->>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
-=======
-		cache.get(user);
->>>>>>> re-add server unit tests
 		user.setAuthenticated(true);
 		user.setSettings(settingsProvider.get());
 		httpSession.setAttribute(SConsts.USER_SESS_ATTR, user);

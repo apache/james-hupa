@@ -17,54 +17,12 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.james.hupa</groupId>
         <artifactId>hupa-parent</artifactId>
-<<<<<<< HEAD
-        <version>0.0.3-SNAPSHOT</version>
-=======
-=======
->>>>>>> first commit
-<project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-<<<<<<< HEAD
-=======
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
->>>>>>> constantly changed by manolo
-=======
->>>>>>> first commit
-=======
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
->>>>>>> constantly changed by manolo
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.apache.hupa</groupId>
-        <artifactId>hupa-parent</artifactId>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <version>0.0.2-SNAPSHOT</version>
->>>>>>> first commit
-=======
-        <version>0.0.3-SNAPSHOT</version>
->>>>>>> constantly changed by manolo
-=======
-        <version>0.0.2-SNAPSHOT</version>
->>>>>>> first commit
-=======
-        <version>0.0.3-SNAPSHOT</version>
->>>>>>> constantly changed by manolo
-=======
         <version>0.0.5-SNAPSHOT</version>
->>>>>>> Set snapshot version higger than the current hupa in svn repo
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>hupa-mock</artifactId>
@@ -73,15 +31,7 @@
     <description>Mock objects for hupa</description>
     <dependencies>
         <dependency>
-<<<<<<< HEAD
-<<<<<<< HEAD
             <groupId>${project.groupId}</groupId>
-=======
-            <groupId>org.apache.hupa</groupId>
->>>>>>> first commit
-=======
-            <groupId>org.apache.hupa</groupId>
->>>>>>> first commit
             <artifactId>hupa-shared</artifactId>
         </dependency>
         <dependency>
@@ -119,23 +69,6 @@
             <artifactId>mail</artifactId>
         </dependency>
         <dependency>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> first commit
-            <groupId>net.customware.gwt.dispatch
-        </groupId>
-            <artifactId>gwt-dispatch</artifactId>
-        </dependency>
-        <dependency>
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
             <groupId>com.googlecode.gwtupload</groupId>
             <artifactId>gwtupload</artifactId>
         </dependency>

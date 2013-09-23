@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,37 +17,17 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-=======
->>>>>>> other RFs
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.data.LogoutUserResultImpl;
 import org.apache.hupa.shared.domain.LogoutUserResult;
 import org.apache.hupa.shared.domain.User;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
 
 public class LogoutUserServiceImpl extends AbstractService implements LogoutUserService {
 	@Override
 	public LogoutUserResult logout() throws HupaException {
-=======
-
-public class LogoutUserServiceImpl extends AbstractService implements LogoutUserService {
-	@Override
-	public LogoutUserResult logout() {
->>>>>>> other RFs
-=======
-import org.apache.hupa.shared.exception.HupaException;
-
-public class LogoutUserServiceImpl extends AbstractService implements LogoutUserService {
-	@Override
-	public LogoutUserResult logout() throws HupaException {
->>>>>>> re-add server unit tests
 
 		User user = getUser();
 		user.setAuthenticated(false);
@@ -60,15 +36,7 @@ public class LogoutUserServiceImpl extends AbstractService implements LogoutUser
 		cache.delete(user);
 
 		// remove user attributes from session
-<<<<<<< HEAD
-<<<<<<< HEAD
 		SessionUtils.cleanSessionAttributes(httpSessionProvider.get());
-=======
-		SessionUtils.cleanSessionAttributes(httpSession);
->>>>>>> other RFs
-=======
-		SessionUtils.cleanSessionAttributes(httpSessionProvider.get());
->>>>>>> fix issue 5,6,8:
 
 		return new LogoutUserResultImpl(user);
 

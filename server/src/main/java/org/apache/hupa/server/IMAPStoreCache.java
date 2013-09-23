@@ -24,19 +24,7 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.shared.domain.User;
-=======
-import org.apache.hupa.shared.data.User;
->>>>>>> first commit
-=======
-import org.apache.hupa.shared.data.User;
->>>>>>> first commit
-=======
-import org.apache.hupa.shared.domain.User;
->>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import com.sun.mail.imap.IMAPStore;
 

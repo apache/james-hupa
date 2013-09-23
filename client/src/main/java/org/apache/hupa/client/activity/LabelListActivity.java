@@ -19,14 +19,9 @@
 
 package org.apache.hupa.client.activity;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.rf.DeleteFolderRequest;
 import org.apache.hupa.client.ui.LabelNode;
-<<<<<<< HEAD
 import org.apache.hupa.shared.domain.DeleteFolderAction;
 import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.ImapFolder;
@@ -115,121 +110,4 @@ public class LabelListActivity extends AppBaseActivity {
 			}
 		});
 	}
-=======
-=======
-import org.apache.hupa.client.ui.LabelNode;
->>>>>>> add rename RF to label setting feature
-=======
->>>>>>> fixed issue#57 - really disable the tools in toolbar
-=======
-import org.apache.hupa.client.HupaController;
-import org.apache.hupa.client.rf.DeleteFolderRequest;
-import org.apache.hupa.client.ui.LabelNode;
->>>>>>> make delete label in label setting work(backend now)
-import org.apache.hupa.client.ui.WidgetDisplayable;
-=======
->>>>>>> replace with IsWidget
-import org.apache.hupa.shared.domain.DeleteFolderAction;
-import org.apache.hupa.shared.domain.GenericResult;
-import org.apache.hupa.shared.domain.ImapFolder;
-import org.apache.hupa.shared.events.DeleteFolderEvent;
-import org.apache.hupa.shared.events.DeleteFolderEventHandler;
-import org.apache.hupa.shared.events.RefreshLabelListEvent;
-import org.apache.hupa.shared.events.RefreshLabelListEventHandler;
-
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.view.client.SingleSelectionModel;
-import com.google.inject.Inject;
-import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
-
-public class LabelListActivity extends AppBaseActivity {
-
-	@Inject private HupaController hupaController;
-	@Inject private Displayable display;
-	@Inject private LabelPropertiesActivity.Displayable labelProperties;
-
-
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		container.setWidget(display.asWidget());
-		bindTo(eventBus);
-	}
-
-	private void bindTo(final EventBus eventBus) {
-		this.registerHandler(display.getDelete().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				if (Window.confirm("Are you sure?")) {
-					eventBus.fireEvent(new DeleteFolderEvent());
-				}
-			}
-		}));
-		eventBus.addHandler(DeleteFolderEvent.TYPE, new DeleteFolderEventHandler() {
-			@Override
-			public void onDeleteFolderEvent(DeleteFolderEvent event) {
-				deleteSelected();
-			}
-		});
-		eventBus.addHandler(RefreshLabelListEvent.TYPE, new RefreshLabelListEventHandler(){
-			@Override
-			public void onRefreshEvent(RefreshLabelListEvent event) {
-				display.refresh();
-			}
-		});
-	}
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-	@Inject private Displayable display;
-<<<<<<< HEAD
-	
-	public interface Displayable extends WidgetDisplayable {}
->>>>>>> make label settings prototype
-=======
-
-=======
->>>>>>> make add of label setting work in backend
-	public interface Displayable extends WidgetDisplayable {
-=======
-	public interface Displayable extends IsWidget {
->>>>>>> replace with IsWidget
-		final int CASCADE_TYPE_ADD = 0x01;
-		final int CASCADE_TYPE_RENAME = 0x02;
-		SingleSelectionModel<LabelNode> getSelectionModel();
-		HasClickHandlers getAdd();
-		HasClickHandlers getDelete();
-		void refresh();
-	}
-
-	public void deleteSelected() {
-		hupaController.showTopLoading("Deleting...");
-		SingleSelectionModel<LabelNode> selectionModel = display.getSelectionModel();
-		LabelNode labelNode = selectionModel.getSelectedObject();
-		DeleteFolderRequest req = rf.deleteFolderRequest();
-		DeleteFolderAction action = req.create(DeleteFolderAction.class);
-		final ImapFolder f = req.create(ImapFolder.class);
-		f.setFullName(labelNode.getFolder().getFullName());
-		action.setFolder(f);
-		req.delete(action).fire(new Receiver<GenericResult>() {
-			@Override
-			public void onSuccess(GenericResult response) {
-				hupaController.hideTopLoading();
-				display.refresh();
-				hupaController.showNotice("The label \"" + f.getFullName() + "\" was deleted.", 10000);
-			}
-			@Override
-			public void onFailure(ServerFailure error) {
-				hupaController.hideTopLoading();
-				hupaController.showNotice(error.getMessage(), 10000);
-			}
-		});
-	}
->>>>>>> add rename RF to label setting feature
 }

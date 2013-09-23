@@ -19,15 +19,6 @@
 
 package org.apache.hupa.client;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> move new theme ui from experiment to hupa evo
 import org.apache.hupa.client.ioc.AppGinjector;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -45,16 +36,7 @@ public class Hupa implements EntryPoint {
 
 	private void initApp() {
 		replaceLoading();
-<<<<<<< HEAD
-<<<<<<< HEAD
 		injector.getHupaController().start();
-=======
-		HupaController hupaController = injector.getHupaController();
-		hupaController.start();
->>>>>>> move new theme ui from experiment to hupa evo
-=======
-		injector.getHupaController().start();
->>>>>>> integrate them as a whole one - first: make the default place work
 	}
 
 	private void handleExceptionsAsync() {
@@ -71,125 +53,5 @@ public class Hupa implements EntryPoint {
 	}
 
 	private final AppGinjector injector = GWT.create(AppGinjector.class);
-<<<<<<< HEAD
-=======
-=======
->>>>>>> Change to new mvp framework - first step
-=======
->>>>>>> first commit
-=======
->>>>>>> Change to new mvp framework - first step
-import net.customware.gwt.presenter.client.place.PlaceManager;
-
-import org.apache.hupa.client.gin.HupaGinjector;
-import org.apache.hupa.client.mvp.AppPresenter;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
-import org.apache.hupa.client.gin.HupaEvoGinjector;
-import org.apache.hupa.client.mvp.AppPlaceFactory;
-import org.apache.hupa.client.mvp.AppPlaceHistoryMapper;
-import org.apache.hupa.client.place.LoginPlace;
-<<<<<<< HEAD
->>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
-=======
->>>>>>> Change to new mvp framework - first step
-=======
->>>>>>> first commit
-=======
->>>>>>> change the LOGIN progress using native MVP instead of gwt-presenter
-=======
->>>>>>> Change to new mvp framework - first step
-
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.RootPanel;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Change to new mvp framework - first step
-public class Hupa implements EntryPoint {
-	 private final HupaGinjector injector = GWT.create(HupaGinjector.class);
-
-//	private SimplePanel appWidget = new SimplePanel();
-<<<<<<< HEAD
-
-	public void onModuleLoad() {
-		// remove the loading message from the browser
-		com.google.gwt.user.client.Element loading = DOM.getElementById("loading");
-
-		DOM.removeChild(RootPanel.getBodyElement(), loading);
-
-		AppPresenter aPres = injector.getAppPresenter();
-		aPres.bind();
-
-		RootPanel.get().add(aPres.getDisplay().asWidget());
-
-		PlaceManager placeManager = injector.getPlaceManager();
-		placeManager.fireCurrentPlace();
-
-<<<<<<< HEAD
-		AppPlaceFactory factory = injector.getAppPlaceFactory();
-		LoginPlace defaultPlace = factory.getLoginPlace();
-		
-		AppPlaceHistoryMapper historyMapper = GWT.create(AppPlaceHistoryMapper.class);
-		historyMapper.setFactory(factory);
-		
-		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
-		historyHandler.register(placeController, eventBus, defaultPlace);
-		
-		RootPanel.get().add(appWidget);
-		
-		historyHandler.handleCurrentHistory();
-    }
->>>>>>> first commit
-=======
-	}
->>>>>>> Change to new mvp framework - first step
-=======
-public class Hupa implements EntryPoint{
-//    private final HupaGinjector injector = GWT.create(HupaGinjector.class);
-=======
->>>>>>> Change to new mvp framework - first step
-
-	public void onModuleLoad() {
-		// remove the loading message from the browser
-		com.google.gwt.user.client.Element loading = DOM.getElementById("loading");
-
-		DOM.removeChild(RootPanel.getBodyElement(), loading);
-
-		AppPresenter aPres = injector.getAppPresenter();
-		aPres.bind();
-
-		RootPanel.get().add(aPres.getDisplay().asWidget());
-
-		PlaceManager placeManager = injector.getPlaceManager();
-		placeManager.fireCurrentPlace();
-
-<<<<<<< HEAD
-		AppPlaceFactory factory = injector.getAppPlaceFactory();
-		LoginPlace defaultPlace = factory.getLoginPlace();
-		
-		AppPlaceHistoryMapper historyMapper = GWT.create(AppPlaceHistoryMapper.class);
-		historyMapper.setFactory(factory);
-		
-		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
-		historyHandler.register(placeController, eventBus, defaultPlace);
-		
-		RootPanel.get().add(appWidget);
-		
-		historyHandler.handleCurrentHistory();
-    }
->>>>>>> first commit
-=======
-	}
->>>>>>> Change to new mvp framework - first step
-=======
->>>>>>> move new theme ui from experiment to hupa evo
 
 }

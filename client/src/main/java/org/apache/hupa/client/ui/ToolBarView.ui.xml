@@ -11,8 +11,6 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-<<<<<<< HEAD
-<<<<<<< HEAD
 	<ui:image field="buttons" src="res/buttons.png" />
 	<ui:image field="listicons" src="res/listicons.png" />
 	<ui:style type="org.apache.hupa.client.ui.ToolBarView.Style">
@@ -20,21 +18,6 @@
 			position: absolute;
 			display: block;
 			top: -2px;
-=======
-	<ui:image field="buttons" src="res/buttons.png"/>
-	<ui:style>
-=======
-	<ui:image field="buttons" src="res/buttons.png" />
-	<ui:style type="org.apache.hupa.client.ui.ToolBarView.Style">
->>>>>>> dynamical style tool bar
-		.bar {
-			position: absolute;
-<<<<<<< HEAD
-			top: -6px;
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-			top: -2px;
->>>>>>> beautify message list and content
 			right: 390px;
 			left: 0;
 			height: 40px;
@@ -42,10 +25,6 @@
 			z-index: 10;
 		}
 		
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
 		@sprite .listicon {
 			gwt-image: 'listicons';
 			display: block;
@@ -56,11 +35,6 @@
 			opacity: 0.99;
 		}
 		
-<<<<<<< HEAD
-=======
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
->>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
 		@sprite .button {
 			gwt-image: 'buttons';
 			text-align: center;
@@ -72,15 +46,7 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
-<<<<<<< HEAD
-<<<<<<< HEAD
 			padding: 28px 2px 0 2px;
-=======
-			padding: 24px 2px 0 2px;
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-			padding: 28px 2px 0 2px;
->>>>>>> beautify message list and content
 			text-shadow: 0px 1px 1px #EEE;
 			box-shadow: none;
 			-webkit-box-shadow: none;
@@ -90,8 +56,6 @@
 			margin: 0 2px;
 			border-radius: 4px;
 			text-decoration: none;
-<<<<<<< HEAD
-<<<<<<< HEAD
 		}
 		
 		.checkMail {
@@ -100,23 +64,6 @@
 		
 		.compose {
 			background-position: center -530px;
-=======
-			cursor: pointer;
-=======
->>>>>>> make tool bar's style work as expected
-		}
-		
-		.checkMail {
-			background-position: center -1176px;
-		}
-		
-		.compose {
-<<<<<<< HEAD
-			background-position: center -534px;
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-			background-position: center -530px;
->>>>>>> integrate all of the views to their corresponding activities and mappers
 		}
 		
 		.spacer {
@@ -127,15 +74,7 @@
 		}
 		
 		.reply {
-<<<<<<< HEAD
-<<<<<<< HEAD
 			background-position: center -570px;
-=======
-			background-position: center -574px;
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-			background-position: center -570px;
->>>>>>> integrate all of the views to their corresponding activities and mappers
 		}
 		
 		.dropButton {
@@ -152,15 +91,7 @@
 		
 		.replyAll {
 			min-width: 64px;
-<<<<<<< HEAD
-<<<<<<< HEAD
 			background-position: left -610px;
-=======
-			background-position: left -614px;
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-			background-position: left -610px;
->>>>>>> integrate all of the views to their corresponding activities and mappers
 		}
 		
 		@sprite .dropButton .dropButtonTip {
@@ -171,10 +102,7 @@
 			top: 0;
 			height: 42px;
 			width: 18px;
-<<<<<<< HEAD
-<<<<<<< HEAD
 			background-position: 0 -1255px;
-<<<<<<< HEAD
 		}
 		
         .handCursor{
@@ -195,92 +123,6 @@
 		
 		.more {
 			background-position: center -850px;
-		}
-		
-		.disabledButton {
-			opacity: 0.4;
-			cursor: default;
-		}
-		
-		.popupMenu {
-			width: auto;
-			background: #444;
-			border: 1px solid #999;
-			z-index: 240;
-			border-radius: 4px;
-			box-shadow: 0 2px 6px 0 #333;
-			-moz-box-shadow: 0 2px 6px 0 #333;
-			-webkit-box-shadow: 0 2px 6px 0 #333;
-			-o-box-shadow: 0 2px 6px 0 #333;
-		}
-		
-		.toolBarMenu {
-			margin: 0;
-			padding: 0;
-		}
-		
-		.toolBarMenu td {
-            border-top: 1px solid #5a5a5a;
-            border-bottom: 1px solid #333;
-            padding: 3px 8px;
-        }
-        
-        .toolBarMenu td:hover {
-	       background-color: #0186ba;
-
-        }
-		
-		.activeIcon {
-			display: block;
-			white-space: nowrap;
-			color: #666;
-			text-shadow: 0px 1px 1px #333;
-			text-decoration: none;
-			min-height: 14px;
-			color: #eee;
-			padding: 2px 25px;
-			cursor: default;
-		}
-		
-		.read {
-			background-position: 0 -1222px;
-		}
-		
-		.unread {
-			background-position: 0 -1198px;
-=======
-			background-position: 0 -1259px;
-=======
-			background-position: 0 -1255px;
->>>>>>> integrate all of the views to their corresponding activities and mappers
-			cursor: pointer;
-=======
->>>>>>> make tool bar's style work as expected
-		}
-		
-        .handCursor{
-            cursor: pointer;
-        }
-		.forward {
-			min-width: 64px;
-			background-position: left -650px;
-		}
-		
-		.delete {
-			background-position: center -690px;
-		}
-		
-		.mark {
-			background-position: center -1094px;
-		}
-		
-		.more {
-<<<<<<< HEAD
-			background-position: center -854px;
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-			background-position: center -850px;
->>>>>>> integrate all of the views to their corresponding activities and mappers
 		}
 		
 		.disabledButton {
@@ -338,9 +180,6 @@
 	</ui:style>
 
 	<g:FlowPanel addStyleNames="{style.bar}" ui:field="ToolBar">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		<g:Anchor ui:field="refresh" addStyleNames="{style.button} {style.checkMail} {style.handCursor}">Refresh</g:Anchor>
 		<g:Anchor ui:field="compose" addStyleNames="{style.button} {style.compose} {style.handCursor}">Compose</g:Anchor>
 		<g:HTMLPanel tag="span" addStyleNames="{style.spacer}"></g:HTMLPanel>
@@ -364,60 +203,5 @@
 			addStyleNames="{style.button} {style.mark} {style.handCursor}">Mark</g:Anchor>
 		<g:Anchor ui:field="more"
 			addStyleNames="{style.button} {style.more} {style.handCursor}">More</g:Anchor>
-=======
-		<g:Anchor addStyleNames="{style.button} {style.checkMail}">Refresh</g:Anchor>
-		<g:Anchor addStyleNames="{style.button} {style.compose}">Compose</g:Anchor>
-=======
-		<g:Anchor ui:field="refresh" addStyleNames="{style.button} {style.checkMail}">Refresh</g:Anchor>
-		<g:Anchor ui:field="compose" addStyleNames="{style.button} {style.compose}">Compose</g:Anchor>
->>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
-=======
-		<g:Anchor ui:field="refresh" addStyleNames="{style.button} {style.checkMail} {style.handCursor}">Refresh</g:Anchor>
-		<g:Anchor ui:field="compose" addStyleNames="{style.button} {style.compose} {style.handCursor}">Compose</g:Anchor>
->>>>>>> make tool bar's style work as expected
-		<g:HTMLPanel tag="span" addStyleNames="{style.spacer}"></g:HTMLPanel>
-		<g:Anchor ui:field="reply"
-			addStyleNames="{style.button} {style.reply} {style.handCursor}">Reply</g:Anchor>
-		<g:HTMLPanel ui:field="replyAllGroup" tag="span"
-			addStyleNames="{style.dropButton} {style.handCursor}">
-			<g:Anchor ui:field="replyAll" addStyleNames="{style.button} {style.replyAll}">Reply all
-			</g:Anchor>
-			<g:HTMLPanel ui:field="replyAllTip" tag="span" addStyleNames="{style.dropButtonTip}" />
-		</g:HTMLPanel>
-		<g:HTMLPanel ui:field="forwardGroup" tag="span"
-			addStyleNames="{style.dropButton} {style.handCursor}">
-			<g:Anchor ui:field="forward" addStyleNames="{style.button} {style.forward}">Forward
-			</g:Anchor>
-			<g:HTMLPanel ui:field="forwardTip" tag="span" addStyleNames="{style.dropButtonTip}" />
-		</g:HTMLPanel>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-		<g:Anchor addStyleNames="{style.button} {style.delete}">Delete</g:Anchor>
-		<g:Anchor addStyleNames="{style.button} {style.mark}">Mark</g:Anchor>
-		<g:Anchor addStyleNames="{style.button} {style.more}">More</g:Anchor>
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-		<g:Anchor addStyleNames="{style.button} {style.delete} {style.disabledButton}">Delete</g:Anchor>
-		<g:Anchor addStyleNames="{style.button} {style.mark} {style.disabledButton}">Mark</g:Anchor>
-		<g:Anchor addStyleNames="{style.button} {style.more} {style.disabledButton}">More</g:Anchor>
->>>>>>> dynamical style tool bar
-=======
-		<g:Anchor ui:field="delete" addStyleNames="{style.button} {style.delete} {style.disabledButton}">Delete</g:Anchor>
-		<g:Anchor ui:field="mark" addStyleNames="{style.button} {style.mark} {style.disabledButton}">Mark</g:Anchor>
-		<g:Anchor ui:field="more" addStyleNames="{style.button} {style.more} {style.disabledButton}">More</g:Anchor>
->>>>>>> add enable tool bar buttons toggling event, with being related to issue #31
-=======
-		<g:Anchor ui:field="delete"
-			addStyleNames="{style.button} {style.delete} {style.handCursor}">Delete</g:Anchor>
-		<g:Anchor ui:field="mark"
-			addStyleNames="{style.button} {style.mark} {style.handCursor}">Mark</g:Anchor>
-		<g:Anchor ui:field="more"
-<<<<<<< HEAD
-			addStyleNames="{style.button} {style.more} {style.disabledButton}">More</g:Anchor>
->>>>>>> 1.do not select the message which is being focused on. 2.create the mark popup menu
-=======
-			addStyleNames="{style.button} {style.more} {style.handCursor}">More</g:Anchor>
->>>>>>> make tool bar's style work as expected
 	</g:FlowPanel>
 </ui:UiBinder>

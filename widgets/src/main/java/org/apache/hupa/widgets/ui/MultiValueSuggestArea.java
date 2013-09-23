@@ -19,21 +19,9 @@
 
 package org.apache.hupa.widgets.ui;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
-=======
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyDownEvent;
-import com.google.gwt.event.dom.client.KeyDownHandler;
->>>>>>> Avoid entering a new-line in the textarea when selecting a suggestion element
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Focusable;
@@ -64,11 +52,6 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
             // instead of overriding getText and setText from SuggestBox because a bug in the implementation
             // I've sent a patch to gwt.
             super(oracle, new TextArea() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Avoid entering a new-line in the textarea when selecting a suggestion element
                 
                 {
                     // Avoid entering a new-line when selecting a suggestion element
@@ -81,13 +64,6 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
                         }
                     });
                 }
-<<<<<<< HEAD
-=======
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
->>>>>>> Avoid entering a new-line in the textarea when selecting a suggestion element
 
                 String search = null;
                 
@@ -112,36 +88,12 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
         // this methods in the the box implementation
         @Override
         public String getValue() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
             return DOM.getElementProperty(getValueBox().getElement(), "value");
-=======
-            return DOM.getElementProperty(getTextBox().getElement(), "value");
->>>>>>> first commit
-=======
-            return DOM.getElementProperty(getTextBox().getElement(), "value");
->>>>>>> first commit
-=======
-            return DOM.getElementProperty(getValueBox().getElement(), "value");
->>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
         }
 
         @Override
         public void setValue(String text) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
             DOM.setElementProperty(getValueBox().getElement(), "value", text);
-=======
-            DOM.setElementProperty(getTextBox().getElement(), "value", text);
->>>>>>> first commit
-=======
-            DOM.setElementProperty(getTextBox().getElement(), "value", text);
->>>>>>> first commit
-=======
-            DOM.setElementProperty(getValueBox().getElement(), "value", text);
->>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
         }
     }
 

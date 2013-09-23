@@ -22,11 +22,6 @@ package org.apache.hupa.client.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> try to rearrange the places and history managment.
 import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.rf.HupaRequestFactory;
 
@@ -40,46 +35,14 @@ public abstract class AppBaseActivity extends AbstractActivity {
 
 	@Inject protected EventBus eventBus;
 	@Inject protected HupaController hc;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	@Inject protected PlaceController pc;
 	@Inject protected HupaRequestFactory rf;
 
-=======
-=======
-import org.apache.hupa.client.rf.HupaRequestFactory;
-
->>>>>>> scrub code
-import com.google.gwt.activity.shared.AbstractActivity;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.place.shared.PlaceController;
-import com.google.inject.Inject;
-
-public abstract class AppBaseActivity extends AbstractActivity {
-
-<<<<<<< HEAD
->>>>>>> fix issue 10
-=======
-	@Inject protected EventBus eventBus;
-=======
->>>>>>> try to rearrange the places and history managment.
-	@Inject protected PlaceController placeController;
-	@Inject protected HupaRequestFactory requestFactory;
-=======
-	@Inject protected PlaceController pc;
-	@Inject protected HupaRequestFactory rf;
->>>>>>> change message list view to make it not refresh the whole list when click one of the messages
-
->>>>>>> scrub code
 	protected List<HandlerRegistration> registrations = new ArrayList<HandlerRegistration>();
 
 	@Override
 	public void onStop() {
-<<<<<<< HEAD
-<<<<<<< HEAD
 		for (HandlerRegistration registration : registrations) {
-<<<<<<< HEAD
 			if(registration != null){
 				registration.removeHandler();	
 			}
@@ -97,38 +60,4 @@ public abstract class AppBaseActivity extends AbstractActivity {
 
 	public void onCancel() {
 	}
-=======
-			registration.removeHandler();
-		}
-		registrations.clear();
-=======
-//		for (HandlerRegistration registration : registrations) {
-//			registration.removeHandler();
-//		}
-//		registrations.clear();
->>>>>>> cope with issue #36, the default place and and the mail folder place, we would always come up with the default place whenever giving a empty string token
-=======
-		for (HandlerRegistration registration : registrations) {
-			if(registration != null){
-				registration.removeHandler();	
-			}
-		}
-		registrations.clear();
->>>>>>> make send text mail work excellently
-	}
-<<<<<<< HEAD
->>>>>>> fix issue 10
-=======
-
-	protected void registerHandler(HandlerRegistration handlerRegistration) {
-		registrations.add(handlerRegistration);
-	}
-
-	public String mayStop() {
-		return null;
-	}
-
-	public void onCancel() {
-	}
->>>>>>> scrub code
 }

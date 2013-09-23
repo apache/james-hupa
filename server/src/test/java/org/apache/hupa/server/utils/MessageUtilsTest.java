@@ -18,11 +18,6 @@
  ****************************************************************/
 package org.apache.hupa.server.utils;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> re-add server unit tests
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -38,52 +33,12 @@ import org.junit.Test;
 public class MessageUtilsTest extends HupaGuiceTestCase {
     
     @Test public void extractMessageAttachments() throws Exception {
-<<<<<<< HEAD
-=======
-=======
->>>>>>> first commit
-import org.apache.hupa.server.HupaGuiceTestCase;
-
-import java.util.List;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-import javax.mail.Address;
-=======
->>>>>>> first commit
-=======
-import javax.mail.Address;
->>>>>>> constantly changed by manolo
-import javax.mail.BodyPart;
-import javax.mail.Message;
-
-public class MessageUtilsTest extends HupaGuiceTestCase {
-    
-    public void testExtractMessageAttachments() throws Exception {
-<<<<<<< HEAD
->>>>>>> first commit
-=======
->>>>>>> first commit
-=======
->>>>>>> re-add server unit tests
         Message message = TestUtils.createMockMimeMessage(session, 2);
         List<BodyPart> parts = MessageUtils.extractMessageAttachments(logger, message.getContent());
         assertEquals(2, parts.size());
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     @Test public void extractInlineAttachments() throws Exception {
-=======
-    public void testExtractInlineAttachments() throws Exception {
->>>>>>> first commit
-=======
-    public void testExtractInlineAttachments() throws Exception {
->>>>>>> first commit
-=======
-    @Test public void extractInlineAttachments() throws Exception {
->>>>>>> re-add server unit tests
         Message message = TestUtils.createMockMimeMessage(session, 1);
         
         List<BodyPart> attachments = MessageUtils.extractMessageAttachments(logger, message.getContent());
@@ -105,25 +60,8 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
         assertEquals(3, attachments.size());
         assertEquals(1, inlineImgs.size());
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     
     @Test public void getRecipients () throws Exception  {
-=======
-    
-    public void testGetRecipients () throws Exception  {
->>>>>>> constantly changed by manolo
-=======
-    
-    public void testGetRecipients () throws Exception  {
->>>>>>> constantly changed by manolo
-=======
-    
-    @Test public void getRecipients () throws Exception  {
->>>>>>> re-add server unit tests
         String encodedEmail = "=?ISO-8859-1?Q?Manolo_Pe=F1a?= <hello@hupa.org>";
         String decodedEmail = MessageUtils.decodeText(encodedEmail);
         assertFalse(encodedEmail.equals(decodedEmail));
@@ -131,17 +69,4 @@ public class MessageUtilsTest extends HupaGuiceTestCase {
         Address[] addr = MessageUtils.getRecipients(encodedEmail, decodedEmail);
         assertEquals(addr[0].toString(), addr[1].toString());
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
-=======
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
-=======
->>>>>>> re-add server unit tests
 }

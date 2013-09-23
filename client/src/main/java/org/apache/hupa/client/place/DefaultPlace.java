@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -22,7 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
 package org.apache.hupa.client.place;
 
 import com.google.gwt.place.shared.PlaceTokenizer;
@@ -44,7 +38,6 @@ public class DefaultPlace extends AbstractPlace {
 	}
 
 	@Prefix("")
-<<<<<<< HEAD
 	public static class Tokenizer implements PlaceTokenizer<DefaultPlace> {
 
 		@Override
@@ -57,69 +50,5 @@ public class DefaultPlace extends AbstractPlace {
 			return place.getToken();
 		}
 	}
-=======
-=======
->>>>>>> Change to new mvp framework - first step
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
-package org.apache.hupa.client.place;
-
-import com.google.gwt.place.shared.PlaceTokenizer;
-import com.google.gwt.place.shared.Prefix;
-
-public class DefaultPlace extends AbstractPlace {
-
-<<<<<<< HEAD
-  @Prefix("!")
-  public static class Tokenizer implements PlaceTokenizer<DefaultPlace> {
-
-    @Override
-    public DefaultPlace getPlace(String token) {
-      return new DefaultPlace();
-    }
-
-    @Override
-    public String getToken(DefaultPlace place) {
-      return "login";
-    }
-  }
-<<<<<<< HEAD
-  
-  public String toString(){
-	  return this.getClass().getName()+"->[home page]";
-  }
-<<<<<<< HEAD
->>>>>>> Change to new mvp framework - first step
-=======
->>>>>>> Change to new mvp framework - first step
-=======
->>>>>>> remove some warnings and create the AbstractPlace that can give place infomation
-=======
-	String token;
-
-	public DefaultPlace(String token) {
-		this.token = token;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	@Prefix("!")
-=======
->>>>>>> scrub code, remove deprecated code
-	public static class Tokenizer implements PlaceTokenizer<DefaultPlace> {
-
-		@Override
-		public DefaultPlace getPlace(String token) {
-			return new DefaultPlace(token);
-		}
-
-		@Override
-		public String getToken(DefaultPlace place) {
-			return place.getToken();
-		}
-	}
->>>>>>> cope with issue #36, the default place and and the mail folder place, we would always come up with the default place whenever giving a empty string token
 
 }

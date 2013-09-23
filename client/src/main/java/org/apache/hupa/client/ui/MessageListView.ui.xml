@@ -10,51 +10,6 @@
 	language governing permissions and limitations under the License. -->
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<g:SimpleLayoutPanel ui:field="thisView" />
-=======
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-<<<<<<< HEAD
-	<g:HTMLPanel>MessageList
-	</g:HTMLPanel>
->>>>>>> make login page as one part of the overall layout & splite layout to little one
-=======
-	<g:SimplePanel>
-		<g:HTMLPanel>MessageList
-		</g:HTMLPanel>
-	</g:SimplePanel>
->>>>>>> try to integrate the messages list's panel
-=======
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
-	<g:LayoutPanel>
-		<g:layer>
-			<hupa:MessagesCellTable ui:field="table" />
-		</g:layer>
-	</g:LayoutPanel>
->>>>>>> make message list view panel work as expected partly
-=======
-	xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
-	<hupa:MessagesCellTable ui:field="table" />
->>>>>>> adjust to the ui of folder list panel
-=======
-	xmlns:hupa='urn:import:org.apache.hupa.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<c:DataGrid ui:field="table" />
->>>>>>> deal with onResizeEvent of folder list panel, but found issue #25
-=======
-	<c:DataGrid ui:field="grid" />
->>>>>>> prepare for place management and history controller
-=======
-	<hupa:MessagesCellTable ui:field="grid" />
->>>>>>> try to link the mark actions to rf services
-=======
-    xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-	<g:SimpleLayoutPanel ui:field="thisView" />
->>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 </ui:UiBinder>

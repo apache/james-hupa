@@ -17,39 +17,12 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-=======
-<project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-=======
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
->>>>>>> constantly changed by manolo
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
->>>>>>> first commit
-=======
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
->>>>>>> constantly changed by manolo
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.apache.hupa</groupId>
+        <groupId>org.apache.james.hupa</groupId>
         <artifactId>hupa-parent</artifactId>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <version>0.0.3-SNAPSHOT</version>
-=======
-        <version>0.0.2-SNAPSHOT</version>
->>>>>>> first commit
-=======
-        <version>0.0.3-SNAPSHOT</version>
->>>>>>> constantly changed by manolo
-=======
         <version>0.0.5-SNAPSHOT</version>
->>>>>>> Set snapshot version higger than the current hupa in svn repo
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>hupa</artifactId>
@@ -58,9 +31,6 @@
     <description>A GWT based IMAP webmail</description>
     <dependencies>
         <dependency>
-<<<<<<< HEAD
-            <groupId>org.apache.hupa</groupId>
-=======
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
             <exclusions>
@@ -76,28 +46,18 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
->>>>>>> fixing weird error in compilation:  Deferred binding failed for 'com.google.gwt.user.client.ui.NativeHorizontalScrollbar'
             <artifactId>hupa-server</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.hupa</groupId>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> constantly changed by manolo
+            <groupId>${project.groupId}</groupId>
             <artifactId>hupa-mock</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.hupa</groupId>
-<<<<<<< HEAD
-=======
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
+            <groupId>${project.groupId}</groupId>
             <artifactId>hupa-shared</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.hupa</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>hupa-widgets</artifactId>
         </dependency>
         <dependency>
@@ -117,36 +77,6 @@
             <artifactId>gwtupload</artifactId>
         </dependency>
         <dependency>
-<<<<<<< HEAD
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-user</artifactId>
-            <exclusions>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> constantly changed by manolo
-                <exclusion>
-                    <groupId>javax.validation</groupId>
-                    <artifactId>validation-api</artifactId>
-                </exclusion>
-<<<<<<< HEAD
-=======
-              <exclusion>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-              </exclusion>
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-dev</artifactId>
-        </dependency>
-        <dependency>
-=======
->>>>>>> fixing weird error in compilation:  Deferred binding failed for 'com.google.gwt.user.client.ui.NativeHorizontalScrollbar'
             <groupId>com.google.gwt.inject</groupId>
             <artifactId>gin</artifactId>
         </dependency>
@@ -160,21 +90,9 @@
 	      <classifier>sources</classifier>
 	    </dependency>
         <dependency>
-<<<<<<< HEAD
-<<<<<<< HEAD
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>4.2.0.Final</version>
-=======
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <version>4.2.0.Final</version>
->>>>>>> first commit
-=======
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>4.2.0.Final</version>
->>>>>>> constantly changed by manolo
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -192,10 +110,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> constantly changed by manolo
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
@@ -204,19 +118,6 @@
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-webapp</artifactId>
         </dependency>
-<<<<<<< HEAD
-=======
-		<dependency>
-		    <groupId>org.eclipse.jetty</groupId>
-		    <artifactId>jetty-server</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>org.eclipse.jetty</groupId>
-		    <artifactId>jetty-webapp</artifactId>
-		</dependency>        
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
     </dependencies>
     <build>
         <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
@@ -226,20 +127,6 @@
                 <artifactId>gwt-maven-plugin</artifactId>
                 <configuration>
                     <runTarget>Hupa.html</runTarget>
-<<<<<<< HEAD
-                    <extraJvmArgs>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        -Xmx512M -Xss128M
-=======
-                        -Xmx512M -Xss128M -Dhupa.config.file=${project.parent.basedir}/server/src/main/webapp/WEB-INF/conf/config.properties
->>>>>>> first commit
-=======
-                        -Xmx512M -Xss128M
->>>>>>> constantly changed by manolo
-                    </extraJvmArgs>
-=======
->>>>>>> Compiler optimizations and profiles
                     <localWorkers>1</localWorkers>
                     <compileReport>${gwt.compileReport}</compileReport>
                     <disableClassMetadata>${gwt.disableClassMetadata}</disableClassMetadata>
@@ -295,25 +182,11 @@
                         </resource>
                     </webResources>
                     <warName>${project.artifactId}-${project.version}</warName>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> constantly changed by manolo
                     <archive>
                         <manifest>
                             <mainClass>org.apache.hupa.Launcher</mainClass>
                         </manifest>
                     </archive>
-<<<<<<< HEAD
-=======
-  			        <archive>
-			           <manifest>
-			              <mainClass>org.apache.hupa.Launcher</mainClass>
-			           </manifest>
-			        </archive>
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
                 </configuration>
             </plugin>
             <plugin>
@@ -368,15 +241,7 @@
                 </executions>
             </plugin>
             <plugin>
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <groupId>org.apache.maven.plugins</groupId>
-=======
-               <groupId>org.apache.maven.plugins</groupId>
->>>>>>> first commit
-=======
-                <groupId>org.apache.maven.plugins</groupId>
->>>>>>> constantly changed by manolo
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
@@ -405,25 +270,13 @@
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</directory>
-<<<<<<< HEAD
-<<<<<<< HEAD
                                     <include>org/apache/hupa/Launcher.class</include>
-=======
-                                     <include>org/apache/hupa/Launcher.class</include>
->>>>>>> first commit
-=======
-                                    <include>org/apache/hupa/Launcher.class</include>
->>>>>>> constantly changed by manolo
                                 </resource>
                             </resources>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> constantly changed by manolo
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -444,51 +297,6 @@
                     </execution>
                 </executions>
             </plugin>
-<<<<<<< HEAD
         </plugins>
     </build>
-=======
-			<plugin>
-			   <groupId>org.apache.maven.plugins</groupId>
-			   <artifactId>maven-dependency-plugin</artifactId>
-			   <executions>
-			      <execution>
-			         <id>jetty-classpath</id>
-			         <phase>prepare-package</phase>
-			         <goals>
-			            <goal>unpack-dependencies</goal>
-			         </goals>
-			         <configuration>
-			            <includeGroupIds>org.eclipse.jetty,javax.servlet</includeGroupIds>
-			            <excludeArtifactIds>jsp-api,jstl</excludeArtifactIds>
-			            <outputDirectory>
-			               ${project.build.directory}/${project.artifactId}-${project.version}
-			            </outputDirectory>
-			         </configuration>
-			      </execution>
-			   </executions>
-			</plugin>            
-=======
->>>>>>> constantly changed by manolo
-        </plugins>
-    </build>
-<<<<<<< HEAD
-    <profiles>
-      <profile>
-        <id>prod</id>
-        <properties>
-          <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
-          <gwt.disableClassMetadata>true</gwt.disableClassMetadata>
-          <gwt.disableCastChecking>true</gwt.disableCastChecking>
-          <gwt.logLevel>TRACE</gwt.logLevel>
-        </properties>
-      </profile>
-    </profiles>
-    <properties>
-      <gwt.moduleSuffix></gwt.moduleSuffix>
-      <gwt.logLevel>ERROR</gwt.logLevel>
-    </properties>
->>>>>>> first commit
-=======
->>>>>>> constantly changed by manolo
 </project>

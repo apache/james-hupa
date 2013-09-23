@@ -20,139 +20,14 @@
 package org.apache.hupa.shared.data;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import java.util.List;
 
-<<<<<<< HEAD
-<<<<<<< HEAD:shared/src/main/java/org/apache/hupa/shared/data/IMAPFolder.java
-import org.apache.hupa.shared.rf.EntityBase;
-=======
->>>>>>> first commit
-=======
-import java.util.List;
-
-<<<<<<< HEAD
-import javax.servlet.http.HttpSession;
-
-import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
->>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
-=======
-import org.apache.hupa.shared.rf.EntityBase;
->>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
-=======
-import org.apache.hupa.shared.proxy.ImapFolder;
->>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
-=======
 import org.apache.hupa.shared.domain.ImapFolder;
 
-<<<<<<< HEAD
->>>>>>> Allow client can use the domain entity interface.
-
-/**
- * IMAPFolder
- * 
- */
-<<<<<<< HEAD:shared/src/main/java/org/apache/hupa/shared/data/IMAPFolder.java
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-public class IMAPFolder extends EntityBase implements Serializable {
-	
-	private Long id;
-	private Long version;
-	
-
-    public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getVersion() {
-		return version;
-	}
-
-	public void setVersion(Long version) {
-		this.version = version;
-	}
-	
-	
-=======
-public class IMAPFolder implements Serializable {
->>>>>>> 
-
-	/**
-=======
-public class IMAPFolder implements Serializable {
-<<<<<<< HEAD
-
-    /**
->>>>>>> first commit
-=======
-=======
-public class IMAPFolder extends EntityBase implements Serializable {
->>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
-	
-	private Long id;
-	private Long version;
-	
-
-    public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getVersion() {
-		return version;
-	}
-
-	public void setVersion(Long version) {
-		this.version = version;
-	}
-	
-	
-=======
-=======
->>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
 public class ImapFolderImpl implements ImapFolder {
->>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
 
-<<<<<<< HEAD
-	/**
->>>>>>> As the FetchFolders RequestFactory, but can not run correctly.
-     * 
-     */
-    private static final long serialVersionUID = 2084188092060266479L;
-
-<<<<<<< HEAD:shared/src/main/java/org/apache/hupa/shared/data/IMAPFolder.java
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    private List<IMAPFolder> childs = new ArrayList<IMAPFolder>();
-=======
-    private ArrayList<IMAPFolder> childs = new ArrayList<IMAPFolder>();
->>>>>>> first commit
-=======
-    private List<IMAPFolder> childs = new ArrayList<IMAPFolder>();
->>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
-=======
-    private List<IMAPFolder> children = new ArrayList<IMAPFolder>();
->>>>>>> 
-=======
-=======
->>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
     private List<ImapFolder> children = new ArrayList<ImapFolder>();
-<<<<<<< HEAD
->>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
-=======
     private String name;
->>>>>>> fix the frozen autobean issue, yet another occur
     private String fullName;
     private String delimiter;
     private int messageCount;
@@ -207,25 +82,8 @@ public class ImapFolderImpl implements ImapFolder {
      * 
      * @param children
      */
-<<<<<<< HEAD:shared/src/main/java/org/apache/hupa/shared/data/IMAPFolder.java
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public void setChildIMAPFolders(List<IMAPFolder> childs) {
-=======
-    public void setChildIMAPFolders(ArrayList<IMAPFolder> childs) {
->>>>>>> first commit
-=======
-    public void setChildIMAPFolders(List<IMAPFolder> childs) {
->>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
-        this.childs = childs;
-=======
-    public void setChildren(List<IMAPFolder> children) {
-=======
     public void setChildren(List<ImapFolder> children) {
->>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
         this.children = children;
->>>>>>> 
     }
 
     /**
@@ -233,25 +91,8 @@ public class ImapFolderImpl implements ImapFolder {
      * 
      * @return childs
      */
-<<<<<<< HEAD:shared/src/main/java/org/apache/hupa/shared/data/IMAPFolder.java
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public List<IMAPFolder> getChildIMAPFolders() {
-=======
-    public ArrayList<IMAPFolder> getChildIMAPFolders() {
->>>>>>> first commit
-=======
-    public List<IMAPFolder> getChildIMAPFolders() {
->>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
-        return childs;
-=======
-    public List<IMAPFolder> getChildren() {
-=======
     public List<ImapFolder> getChildren() {
->>>>>>> Make the ValueProxy(ImapFolder) work with Manolo's patch. Hupa can display folders in west view with RequestFactory now.:shared/src/main/java/org/apache/hupa/shared/data/ImapFolderImpl.java
         return children;
->>>>>>> 
     }
 
     /**
@@ -344,25 +185,13 @@ public class ImapFolderImpl implements ImapFolder {
     public int hashCode() {
         return getFullName().hashCode();
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> first commit
-=======
-
-<<<<<<< HEAD
->>>>>>> Aim to make the front end view work after the server side's IMAPFolder services RF being working, but there are issues on RF's find* method, I think.
-=======
     // FIXME Could not locate setter for property name in type ImapFolderImpl
 	@Override
     public void setName(String name) {
 	    this.name = name;
     }
 
-<<<<<<< HEAD
->>>>>>> Succeed creating new folder
-=======
 	
 	@Override
     public void setFolderTo(ImapFolder folder) {
@@ -375,9 +204,6 @@ public class ImapFolderImpl implements ImapFolder {
 		folder.setUnseenMessageCount(this.unseenMessageCount);
     }
 
-<<<<<<< HEAD
->>>>>>> fix AllDelete feature in issue 11. and scrub some code
-=======
 	@Override
     public boolean getHasChildren() {
 	    return hasChildren;
@@ -388,6 +214,5 @@ public class ImapFolderImpl implements ImapFolder {
 		this.hasChildren = hasChildren;
 	}
 
->>>>>>> Fix issue #15.
     
 }

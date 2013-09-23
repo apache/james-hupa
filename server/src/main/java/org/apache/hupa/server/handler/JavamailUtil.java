@@ -24,19 +24,7 @@ import java.util.ArrayList;
 import javax.mail.Flags;
 import javax.mail.Flags.Flag;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
-=======
-import org.apache.hupa.shared.data.Message.IMAPFlag;
->>>>>>> first commit
-=======
-import org.apache.hupa.shared.data.Message.IMAPFlag;
->>>>>>> first commit
-=======
-import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
->>>>>>> try to change fetch messages to use RF
 
 /**
  * Util class which helps to convert from hupa internal data representation to javamaill classes

@@ -28,37 +28,9 @@ import com.google.gwt.user.client.ui.SplitLayoutPanel;
 
 public class _CenterPanel extends Composite {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	@UiField protected SplitLayoutPanel thisPanel;
 	@UiField protected __OutlinePanel outlinePanel;
 	@UiField protected __ContentPanel contentPanel;
-<<<<<<< HEAD
-=======
-	@UiField SplitLayoutPanel thisPanel;
-	@UiField __OutlinePanel outlinePanel;
-	@UiField __ContentPanel contentPanel;
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> split the layout panel to more small ones
-=======
-	@UiField __ComposePanel composePanel;
->>>>>>> preparing for composing panel
-=======
-	@UiField ComposeView composeView;
->>>>>>> scrub code
-=======
-	@UiField protected SplitLayoutPanel thisPanel;
-	@UiField protected __OutlinePanel outlinePanel;
-	@UiField protected __ContentPanel contentPanel;
-<<<<<<< HEAD
-	@UiField protected __ComposePanel composePanel;
->>>>>>> make compose panel managed by activity manager, there is a problem here that whether the hidden view will be lazy loaded regarding the code split mechnism
-=======
-	@UiField protected SimpleLayoutPanel composeContainer;
->>>>>>> make send text mail work excellently
-=======
->>>>>>> make layout can be arranged by clicking the navigation buttons; make the layout changing by set their sizes to zero rather than remove/add from their parent widgets; merge to the master branch.
 
 	public _CenterPanel() {
 		initWidget(binder.createAndBindUi(this));

@@ -22,22 +22,12 @@ package org.apache.hupa.client.activity;
 import java.util.List;
 
 import org.apache.hupa.shared.domain.Message;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fixed issue#74, finished to add search feature
 import org.apache.hupa.shared.events.MessagesReceivedEvent;
 import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
 import org.apache.hupa.shared.events.RefreshMessagesEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-<<<<<<< HEAD
-=======
-
->>>>>>> prepare to add search feature
-=======
->>>>>>> fixed issue#74, finished to add search feature
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -49,8 +39,6 @@ public class SearchBoxActivity extends AppBaseActivity {
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
-<<<<<<< HEAD
-<<<<<<< HEAD
 		bindTo(eventBus);
 		container.setWidget(display.asWidget());
 		
@@ -80,51 +68,6 @@ public class SearchBoxActivity extends AppBaseActivity {
 //            }
 //
 //        }));
-=======
-		container.setWidget(display.asWidget());
->>>>>>> prepare to add search feature
-=======
-		bindTo(eventBus);
-		container.setWidget(display.asWidget());
-		
-	}
-
-	private void bindTo(final EventBus eventBus) {
-
-        registerHandler(display.getSearchClick().addClickHandler(new ClickHandler() {
-
-            public void onClick(ClickEvent event) {
-                String searchValue = null;
-                if (display.getSearchValue().getValue().trim().length() > 0) {
-                    searchValue = display.getSearchValue().getValue().trim();
-                }
-                eventBus.fireEvent(new RefreshMessagesEvent(searchValue));
-            }
-
-        }));
-
-<<<<<<< HEAD
-        registerHandler(eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
-
-            public void onMessagesReceived(MessagesReceivedEvent event) {
-
-                // fill the oracle
-                display.fillSearchOracle(event.getMessages());
-            }
-
-        }));
->>>>>>> fixed issue#74, finished to add search feature
-=======
-//        registerHandler(eventBus.addHandler(MessagesReceivedEvent.TYPE, new MessagesReceivedEventHandler() {
-//
-//            public void onMessagesReceived(MessagesReceivedEvent event) {
-//
-//                // fill the oracle
-//                display.fillSearchOracle(event.getMessages());
-//            }
-//
-//        }));
->>>>>>> quick fix something - use textbox for search and make contacts TODO
 	}
 
 	@Inject private Displayable display;

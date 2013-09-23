@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,11 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-=======
->>>>>>> try to get message details, problem is:
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import static org.apache.hupa.server.utils.RegexPatterns.regex_badAttrs;
@@ -131,14 +122,6 @@ public class GetMessageDetailsServiceImpl extends AbstractService implements Get
 
 		boolean isHTML = MessageUtils.handleParts(message, content, sbPlain, attachmentList);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		System.out.println(isHTML);
-
->>>>>>> try to get message details, problem is:
-=======
->>>>>>> re-add server unit tests
 		if (isHTML) {
 			mDetails.setText(filterHtmlDocument(sbPlain.toString(), folderName, uid));
 		} else {

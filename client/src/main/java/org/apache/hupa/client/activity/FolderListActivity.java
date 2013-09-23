@@ -19,55 +19,17 @@
 
 package org.apache.hupa.client.activity;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.shared.events.RefreshUnreadEvent;
 import org.apache.hupa.shared.events.RefreshUnreadEventHandler;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
-=======
-=======
-import org.apache.hupa.client.ioc.FolderListFactory;
->>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
-=======
->>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
-import org.apache.hupa.client.ui.WidgetDisplayable;
-
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
->>>>>>> integrate all of the views to their corresponding activities and mappers
-=======
-=======
-import org.apache.hupa.shared.events.RefreshUnreadEvent;
-import org.apache.hupa.shared.events.RefreshUnreadEventHandler;
-
->>>>>>> done issue#72, get back the unread count
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.IsWidget;
->>>>>>> replace with IsWidget
 import com.google.inject.Inject;
 
 public class FolderListActivity extends AppBaseActivity {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	@Inject private Displayable display;
-=======
-	@Inject private FolderListFactory folderListFactory;
-	private Place place;
-	private Displayable display;
->>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
-=======
-	@Inject private Displayable display;
->>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
@@ -85,56 +47,7 @@ public class FolderListActivity extends AppBaseActivity {
 		});
 	}
 
-<<<<<<< HEAD
 	public interface Displayable extends IsWidget {
 		void refresh();
 	}
-=======
-=======
-	@Inject private Displayable display;
-
->>>>>>> make reload mail folder place work, fixed issue #7
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		container.setWidget(display.asWidget());
-		bindTo(eventBus);
-	}
-
-	private void bindTo(EventBus eventBus) {
-
-		eventBus.addHandler(RefreshUnreadEvent.TYPE, new RefreshUnreadEventHandler() {
-			@Override
-			public void onRefreshEvent(RefreshUnreadEvent event) {
-				display.refresh();
-			}
-		});
-	}
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-	@Inject private Displayable display;
-	
-	public interface Displayable extends WidgetDisplayable {}
->>>>>>> integrate all of the views to their corresponding activities and mappers
-=======
-=======
-	public FolderListActivity with(Place place) {
-		if (display == null || !place.getClass().equals(this.place.getClass())) {
-			display = folderListFactory.create(place);
-			this.place = place;
-		}
-		return this;
-	}
-
-<<<<<<< HEAD
->>>>>>> use GinFactoryModuleBuilder to inject multiple displayable instances of some activities
-=======
->>>>>>> fixed issue#45, issue#47, issue#51. change the layout of composite, don't use contact instead of folders list
-	public interface Displayable extends WidgetDisplayable {
-=======
-	public interface Displayable extends IsWidget {
->>>>>>> replace with IsWidget
-		void refresh();
-	}
->>>>>>> make reload mail folder place work, fixed issue #7
 }

@@ -19,21 +19,8 @@
 
 package org.apache.hupa.server.guice.providers;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.shared.data.SettingsImpl;
 import org.apache.hupa.shared.domain.Settings;
-=======
-import org.apache.hupa.shared.data.Settings;
->>>>>>> first commit
-=======
-import org.apache.hupa.shared.data.Settings;
->>>>>>> first commit
-=======
-import org.apache.hupa.shared.data.SettingsImpl;
-import org.apache.hupa.shared.domain.Settings;
->>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -60,19 +47,7 @@ public class DefaultUserSettingsProvider implements Provider<Settings> {
      * @see com.google.inject.Provider#get()
      */
     public Settings get() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         Settings settings = new SettingsImpl();
-=======
-        Settings settings = new Settings();
->>>>>>> first commit
-=======
-        Settings settings = new Settings();
->>>>>>> first commit
-=======
-        Settings settings = new SettingsImpl();
->>>>>>> Make chechsession and login work with RF, with refactoring fetch folders.
         settings.setInboxFolderName(inboxFolder);
         settings.setSentFolderName(sentFolder);
         settings.setTrashFolderName(trashFolder);

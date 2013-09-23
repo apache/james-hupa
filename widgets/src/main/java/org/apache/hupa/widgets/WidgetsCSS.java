@@ -25,17 +25,5 @@ public class WidgetsCSS {
     public static final String C_loading = "hupa-loading";
     public static final String C_hupa_rnd_container = "hupa-rounded";
     public static final String C_attachment = "hupa-attachment";
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     public static final String C_attachment_view = "hupa-attachment-view";
-=======
-
->>>>>>> first commit
-=======
-
->>>>>>> first commit
-=======
-    public static final String C_attachment_view = "hupa-attachment-view";
->>>>>>> merged with main trunk in apache: replacing rounded borders with gwt decorator boxes, fix Hupa-93 Hupa-94, fix IE issue
 }

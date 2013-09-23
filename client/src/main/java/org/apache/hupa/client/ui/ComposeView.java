@@ -37,64 +37,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.SimpleLayoutPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.Widget;
-
-public class __ComposePanel extends Composite {
-
-	@UiField protected SimplePanel composeHeaderContainer;
-	@UiField protected SimpleLayoutPanel composeContentContainer;
-	@UiField protected SimplePanel composeStatusContainer;
-
-	public __ComposePanel() {
-		initWidget(binder.createAndBindUi(this));
-	}
-
-	interface __ComposePanelUiBinder extends
-			UiBinder<DockLayoutPanel, __ComposePanel> {
-	}
-
-	private static __ComposePanelUiBinder binder = GWT
-			.create(__ComposePanelUiBinder.class);
-
-	public AcceptsOneWidget getComposeHeaderContainer() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				composeHeaderContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
-
-	public AcceptsOneWidget getComposeContentContainer() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				composeContentContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
-
-	public AcceptsOneWidget getComposeStatusContainer() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				composeStatusContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
-
-=======
-=======
 import com.google.gwt.user.client.ui.Anchor;
->>>>>>> composing composing panel
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -510,5 +453,4 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 
 	private static ComposeUiBinder binder = GWT.create(ComposeUiBinder.class);
 
->>>>>>> preparing for composing panel
 }

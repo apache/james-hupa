@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,47 +17,19 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-=======
->>>>>>> forward and reply message to use RF
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.shared.domain;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
 @ProxyFor(SendForwardMessageAction.class)
-<<<<<<< HEAD
-<<<<<<< HEAD
 public interface SendForwardMessageAction extends SendMessageAction {
 
 	ImapFolder getFolder();
 
 	long getUid();
-=======
-public interface SendForwardMessageAction extends SendMessageAction{
-
-	ImapFolder getFolder();
-
-	long getReplyMessageUid();
->>>>>>> forward and reply message to use RF
-=======
-public interface SendForwardMessageAction extends SendMessageAction {
-
-	ImapFolder getFolder();
-
-	long getUid();
->>>>>>> fixed the requestfactory's quirk
 
 	void setFolder(ImapFolder folder);
 
 	void setUid(long uid);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	
->>>>>>> forward and reply message to use RF
-=======
->>>>>>> fixed the requestfactory's quirk
 
 }

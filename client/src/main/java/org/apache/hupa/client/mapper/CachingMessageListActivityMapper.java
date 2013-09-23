@@ -19,14 +19,7 @@
 
 package org.apache.hupa.client.mapper;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.client.place.FolderPlace;
-=======
->>>>>>> change place management and make refresh folder and message list more gentle
-=======
-import org.apache.hupa.client.place.FolderPlace;
->>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 import org.apache.hupa.client.place.MessagePlace;
 
 import com.google.gwt.activity.shared.Activity;
@@ -46,8 +39,6 @@ public class CachingMessageListActivityMapper implements ActivityMapper {
 		FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
 			@Override
 			public Place filter(Place place) {
-<<<<<<< HEAD
-<<<<<<< HEAD
 				return place instanceof MessagePlace ? new FolderPlace(((MessagePlace) place).getTokenWrapper()
 						.getFolder()) : place;
 			}
@@ -55,22 +46,6 @@ public class CachingMessageListActivityMapper implements ActivityMapper {
 
 		filteredActivityMapper = new FilteredActivityMapper(filter,
 				new CachingActivityMapper(messageListActivityMapper));
-=======
-				return place instanceof MessagePlace ? Place.NOWHERE : place;
-			}
-		};
-
-		filteredActivityMapper = new FilteredActivityMapper(filter, new CachingActivityMapper(messageListActivityMapper));
->>>>>>> change place management and make refresh folder and message list more gentle
-=======
-				return place instanceof MessagePlace ? new FolderPlace(((MessagePlace) place).getTokenWrapper()
-						.getFolder()) : place;
-			}
-		};
-
-		filteredActivityMapper = new FilteredActivityMapper(filter,
-				new CachingActivityMapper(messageListActivityMapper));
->>>>>>> change message list view to make it not refresh the whole list when click one of the messages
 	}
 
 	@Override

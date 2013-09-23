@@ -20,24 +20,12 @@
 package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.StatusActivity;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 import org.apache.hupa.client.place.DefaultPlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.RunAsyncCallback;
-<<<<<<< HEAD
-=======
-
-import com.google.gwt.activity.shared.Activity;
-import com.google.gwt.activity.shared.ActivityMapper;
->>>>>>> integrate all of the views to their corresponding activities and mappers
-=======
->>>>>>> support code split
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -51,15 +39,7 @@ public class StatusActivityMapper implements ActivityMapper {
 	}
 
 	public Activity getActivity(Place place) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		if(place instanceof DefaultPlace) return null;
-=======
->>>>>>> support code split
-=======
-		if(place instanceof DefaultPlace) return null;
->>>>>>> try to fix some issues by reorganize the activity mapper and place controller
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
@@ -71,11 +51,5 @@ public class StatusActivityMapper implements ActivityMapper {
 				return statusActivityProvider.get();
 			}
 		};
-<<<<<<< HEAD
-=======
-		return statusActivityProvider.get();
->>>>>>> integrate all of the views to their corresponding activities and mappers
-=======
->>>>>>> support code split
 	}
 }

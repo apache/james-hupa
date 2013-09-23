@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,7 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
 package org.apache.hupa.server.service;
 
 import java.util.List;
@@ -36,30 +31,4 @@ import org.apache.hupa.shared.exception.HupaException;
 public interface FetchMessagesService {
 	FetchMessagesResult fetch(FetchMessagesAction action) throws HupaException;
 	List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException;
-=======
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
-package org.apache.hupa.server.service;
-
-import java.util.List;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-
-import org.apache.hupa.shared.domain.FetchMessagesAction;
-import org.apache.hupa.shared.domain.FetchMessagesResult;
-import org.apache.hupa.shared.exception.HupaException;
-
-public interface FetchMessagesService {
-<<<<<<< HEAD
-<<<<<<< HEAD
-	public FetchMessagesResult fetch(FetchMessagesAction action);
->>>>>>> try to fetch messages, yet can not fire the login event in ModelTable such that just get a NullPointerException in it.
-=======
-	FetchMessagesResult fetch(FetchMessagesAction action);
->>>>>>> Succeed creating new folder
-=======
-	FetchMessagesResult fetch(FetchMessagesAction action) throws HupaException;
-	List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException;
->>>>>>> re-add server unit tests
 }

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,11 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-=======
->>>>>>> delete messages, make WestActivity Singleton
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import javax.mail.Flags;
@@ -37,27 +28,12 @@ import org.apache.hupa.shared.domain.DeleteMessageAction;
 import org.apache.hupa.shared.domain.DeleteMessageResult;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
-=======
->>>>>>> delete messages, make WestActivity Singleton
-=======
-import org.apache.hupa.shared.exception.HupaException;
->>>>>>> re-add server unit tests
 
 import com.sun.mail.imap.IMAPStore;
 
 public abstract class DeleteMessageBaseServiceImpl extends AbstractService{
-<<<<<<< HEAD
-<<<<<<< HEAD
 	public DeleteMessageResult delete(DeleteMessageAction action) throws HupaException {
-=======
-	public DeleteMessageResult delete(DeleteMessageAction action) throws Exception {
->>>>>>> delete messages, make WestActivity Singleton
-=======
-	public DeleteMessageResult delete(DeleteMessageAction action) throws HupaException {
->>>>>>> re-add server unit tests
     	ImapFolder folder = action.getFolder();
         User user = getUser();
         try {
@@ -109,15 +85,7 @@ public abstract class DeleteMessageBaseServiceImpl extends AbstractService{
         } catch (MessagingException e) {
             logger.error("Error while deleting messages for user " + user
                     + " in folder" + action.getFolder(), e);
-<<<<<<< HEAD
-<<<<<<< HEAD
             throw new HupaException("Error while deleting messages");
-=======
-            throw new Exception("Error while deleting messages");
->>>>>>> delete messages, make WestActivity Singleton
-=======
-            throw new HupaException("Error while deleting messages");
->>>>>>> re-add server unit tests
         }
     }
 
@@ -128,13 +96,5 @@ public abstract class DeleteMessageBaseServiceImpl extends AbstractService{
      * @param action
      * @return messages
      */
-<<<<<<< HEAD
-<<<<<<< HEAD
     protected abstract Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws HupaException;
-=======
-    protected abstract Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws Exception;
->>>>>>> delete messages, make WestActivity Singleton
-=======
-    protected abstract Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws HupaException;
->>>>>>> re-add server unit tests
 }

@@ -3,10 +3,6 @@ package org.apache.hupa.client.ui;
 import org.apache.hupa.shared.domain.ImapFolder;
 
 public class LabelNode implements Comparable<LabelNode> {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fixed issue#65, while this should be improved to add some cache or something like
 	
 	public static LabelNode ROOT = new LabelNode("---"); 
 	
@@ -26,16 +22,6 @@ public class LabelNode implements Comparable<LabelNode> {
 	public void setNameForDisplay(String nameForDisplay) {
 		this.nameForDisplay = nameForDisplay;
 	}
-<<<<<<< HEAD
-=======
-	private ImapFolder folder;
-	private String name;
-	private String path;
-	private LabelNode parent;
-
->>>>>>> add rename RF to label setting feature
-=======
->>>>>>> add intents to labels list
 	public ImapFolder getFolder() {
 		return folder;
 	}
@@ -61,22 +47,10 @@ public class LabelNode implements Comparable<LabelNode> {
 		this.parent = parent;
 	}
 	@Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fixed issue#65, while this should be improved to add some cache or something like
 	public int compareTo(LabelNode o) {
 		if(name == null) return -1;
 		if(o == null) return 1;
 		return name.compareTo(o.name);
-<<<<<<< HEAD
-=======
-	public int compareTo(LabelNode arg0) {
-		// TODO Auto-generated method stub
-		return 0;
->>>>>>> add rename RF to label setting feature
-=======
->>>>>>> fixed issue#65, while this should be improved to add some cache or something like
 	}
 
 }

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
  * or more contributor license agreements.  See the NOTICE file *
@@ -21,11 +17,6 @@
  * under the License.                                           *
  ****************************************************************/
 
-<<<<<<< HEAD
-=======
->>>>>>> delete messages, make WestActivity Singleton
-=======
->>>>>>> remove both of gwt-representer and gwt-dispatch dependencies, add license headers to all new files
 package org.apache.hupa.server.service;
 
 import java.util.ArrayList;
@@ -38,29 +29,14 @@ import org.apache.hupa.shared.domain.DeleteMessageAction;
 import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
 import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.User;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.shared.exception.HupaException;
-=======
->>>>>>> delete messages, make WestActivity Singleton
-=======
-import org.apache.hupa.shared.exception.HupaException;
->>>>>>> re-add server unit tests
 
 import com.sun.mail.imap.IMAPStore;
 
 public class DeleteMessageByUidServiceImpl extends DeleteMessageBaseServiceImpl implements DeleteMessageByUidService{
 
 	@Override
-<<<<<<< HEAD
-<<<<<<< HEAD
     protected Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws HupaException {
-=======
-    protected Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws Exception {
->>>>>>> delete messages, make WestActivity Singleton
-=======
-    protected Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws HupaException {
->>>>>>> re-add server unit tests
 		DeleteMessageByUidAction action = (DeleteMessageByUidAction)actionBase;
     	ImapFolder folder = action.getFolder();
         List<Long> uids = action.getMessageUids();
@@ -87,15 +63,7 @@ public class DeleteMessageByUidServiceImpl extends DeleteMessageBaseServiceImpl 
             logger.error("Error while deleting messages with uids "
                     + action.getMessageUids() + " for user " + user
                     + " in folder" + action.getFolder(), e);
-<<<<<<< HEAD
-<<<<<<< HEAD
             throw new HupaException("Error while deleting messages", e);
-=======
-            throw new Exception("Error while deleting messages", e);
->>>>>>> delete messages, make WestActivity Singleton
-=======
-            throw new HupaException("Error while deleting messages", e);
->>>>>>> re-add server unit tests
         }
 
     }

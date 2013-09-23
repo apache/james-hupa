@@ -19,23 +19,13 @@
 
 package org.apache.hupa.client.activity;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fixed issue#64, add attachments region in message content view
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.place.MessagePlace.TokenWrapper;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
-<<<<<<< HEAD
 import org.apache.hupa.client.ui.ToolBarView.Parameters;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
@@ -124,7 +114,6 @@ public class MessageContentActivity extends AppBaseActivity {
 			}
 
 		}));
-<<<<<<< HEAD
 	}
 
 	private boolean isUidSet() {
@@ -170,168 +159,4 @@ public class MessageContentActivity extends AppBaseActivity {
        return false;
        };
        }-*/;
-=======
-=======
-import org.apache.hupa.client.place.IMAPMessagePlace;
->>>>>>> make message content work as expected partly
-=======
-=======
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
->>>>>>> scrub code
-import org.apache.hupa.client.place.MailFolderPlace;
-=======
-import org.apache.hupa.client.place.MessagePlace.TokenWrapper;
->>>>>>> change place management and make refresh folder and message list more gentle
-import org.apache.hupa.client.rf.GetMessageDetailsRequest;
->>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
-import org.apache.hupa.client.ui.WidgetDisplayable;
-=======
->>>>>>> replace with IsWidget
-=======
-import org.apache.hupa.client.place.ComposePlace;
-import org.apache.hupa.client.place.MessagePlace.TokenWrapper;
-import org.apache.hupa.client.rf.GetMessageDetailsRequest;
-import org.apache.hupa.client.ui.ToolBarView.Parameters;
->>>>>>> fixed issue#84, actually, in evo, there has been several deprecated classed, include WestActivity, which is replaced by FolderListActivity
-import org.apache.hupa.shared.domain.GetMessageDetailsAction;
-import org.apache.hupa.shared.domain.GetMessageDetailsResult;
-import org.apache.hupa.shared.domain.ImapFolder;
-import org.apache.hupa.shared.domain.MessageAttachment;
-import org.apache.hupa.shared.events.DeleteClickEvent;
-import org.apache.hupa.shared.events.DeleteClickEventHandler;
-import org.apache.hupa.shared.events.MailToEvent;
-
-import com.google.gwt.activity.shared.Activity;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.inject.Inject;
-import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
-
-public class MessageContentActivity extends AppBaseActivity {
-
-	private static final Logger log = Logger.getLogger(MessageContentActivity.class.getName());
-
-	@Inject private Displayable display;
-	private String fullName;
-	private String uid;
-
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		bindTo(eventBus);
-		if (isUidSet()) {
-			GetMessageDetailsRequest req = rf.messageDetailsRequest();
-			GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
-			final ImapFolder f = req.create(ImapFolder.class);
-			f.setFullName(fullName);
-			action.setFolder(f);
-			action.setUid(Long.parseLong(uid));
-			req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
-				@Override
-				public void onSuccess(GetMessageDetailsResult response) {
-					display.fillMessageContent(response.getMessageDetails().getText());
-					List<MessageAttachment> attaches = response.getMessageDetails().getMessageAttachments();
-					if (attaches == null || attaches.isEmpty()) {
-						display.showAttachmentPanel(false);
-					} else {
-						display.showAttachmentPanel(true);
-						display.setAttachments(response.getMessageDetails().getMessageAttachments(), fullName,
-								Long.parseLong(uid));
-					}
-				}
-
-				@Override
-				public void onFailure(ServerFailure error) {
-					if (error.isFatal()) {
-						log.log(Level.SEVERE, error.getMessage());
-						// TODO write the error message to status bar.
-						throw new RuntimeException(error.getMessage());
-					}
-				}
-			});
-		}
-		container.setWidget(display.asWidget());
-		exportJSMethods(this);
-	}
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-	@Inject private Displayable display;
-<<<<<<< HEAD
-	
-<<<<<<< HEAD
-	public interface Displayable extends WidgetDisplayable {}
->>>>>>> integrate all of the views to their corresponding activities and mappers
-=======
-=======
-=======
-=======
-	private void bindTo(EventBus eventBus) {
-		eventBus.addHandler(DeleteClickEvent.TYPE, new DeleteClickEventHandler() {
-			@Override
-			public void onDeleteClickEvent(DeleteClickEvent event) {
-				display.clearContent();
-			}
-		});
-=======
->>>>>>> fixed issue#86, use opening a new window button to show the raw message in a new window
-	}
-
->>>>>>> fixed issue#76 with adding delete handler event
-	private boolean isUidSet() {
-		return uid != null && uid.matches("\\d+");
-	}
->>>>>>> scrub code
-
-<<<<<<< HEAD
->>>>>>> make reload message content work, use the same place with folder list, while separated with slash, that looks like Gmail's
-	public interface Displayable extends WidgetDisplayable {
-=======
-	public interface Displayable extends IsWidget {
->>>>>>> replace with IsWidget
-		void fillMessageContent(String messageContent);
-		void clearContent();
-		void setAttachments(List<MessageAttachment> attachements, String folder, long uid);
-		void showAttachmentPanel(boolean is);
-		HasClickHandlers getRaw();
-	}
-
-	public Activity with(TokenWrapper tokenWrapper) {
-		fullName = tokenWrapper.getFolder();
-		uid = tokenWrapper.getUid();
-		return this;
-	}
-<<<<<<< HEAD
->>>>>>> make message content work as expected partly
-=======
-
-	public void openLink(String url) {
-		Window.open(url, "_blank", "");
-	}
-
-	public void mailTo(String mailto) {
-		pc.goTo(new ComposePlace("new").with(new Parameters(null, null, null, null)));
-		eventBus.fireEvent(new MailToEvent(mailto));
-	}
-
-	private native void exportJSMethods(MessageContentActivity activity)
-	/*-{
-       $wnd.openLink = function(url) {
-       try {
-       activity.@org.apache.hupa.client.activity.MessageContentActivity::openLink(Ljava/lang/String;) (url);
-       } catch(e) {}
-       return false;
-       };
-       $wnd.mailTo = function(mail) {
-       try {
-       activity.@org.apache.hupa.client.activity.MessageContentActivity::mailTo(Ljava/lang/String;) (mail);
-       } catch(e) {}
-       return false;
-       };
-       }-*/;
->>>>>>> fixed issue#84, actually, in evo, there has been several deprecated classed, include WestActivity, which is replaced by FolderListActivity
 }
