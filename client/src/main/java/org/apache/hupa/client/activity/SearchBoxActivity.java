@@ -22,8 +22,6 @@ package org.apache.hupa.client.activity;
 import java.util.List;
 
 import org.apache.hupa.shared.domain.Message;
-import org.apache.hupa.shared.events.MessagesReceivedEvent;
-import org.apache.hupa.shared.events.MessagesReceivedEventHandler;
 import org.apache.hupa.shared.events.RefreshMessagesEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;

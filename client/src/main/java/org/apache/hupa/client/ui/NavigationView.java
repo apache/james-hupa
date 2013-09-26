@@ -20,7 +20,6 @@
 package org.apache.hupa.client.ui;
 
 import org.apache.hupa.client.activity.NavigationActivity;
-import org.apache.hupa.client.place.ContactPlace;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.SettingPlace;
 
