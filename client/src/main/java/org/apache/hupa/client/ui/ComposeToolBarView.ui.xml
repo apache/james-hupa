@@ -81,6 +81,14 @@
 			background-position: center -890px;
 		}
 		
+		.send {
+			background-position: center -650px;
+		}
+		
+		.cancel {
+			background-position: center -1220px;
+		}
+		
 		.signature {
 			background-position: center -1135px;
 		}
@@ -89,17 +97,20 @@
 			opacity: 0.4;
 			cursor: default;
 		}
+		
+        .checkBox {
+	        margin: 5px;
+        }
+        
+        .checkBox td {
+	        cursor:normal;
+        }
 	</ui:style>
 
-	<g:FlowPanel addStyleNames="{style.bar}" ui:field="ToolBar">
-		<g:HTMLPanel ui:field="forwardGroup" tag="span"
-			addStyleNames="{style.dropButton} {style.disabledButton}">
-			<g:Anchor ui:field="spell" addStyleNames="{style.button} {style.spellCheck}">Spell
-			</g:Anchor>
-			<g:HTMLPanel tag="span" addStyleNames="{style.dropButtonTip}"></g:HTMLPanel>
-		</g:HTMLPanel>
-		<g:Anchor ui:field="attach" addStyleNames="{style.button} {style.attach}">Attach</g:Anchor>
-		<g:Anchor ui:field="signature"
-			addStyleNames="{style.button} {style.signature} {style.disabledButton}">Signature</g:Anchor>
-	</g:FlowPanel>
+	<g:HorizontalPanel addStyleNames="{style.bar}" ui:field="ToolBar">
+		<g:Anchor ui:field="cancel" addStyleNames="{style.button} {style.cancel}"
+			title="Back">Cancel</g:Anchor>
+		<g:Anchor ui:field="send" addStyleNames="{style.button} {style.send}"
+			title="Send message">Send</g:Anchor>
+	</g:HorizontalPanel>
 </ui:UiBinder>

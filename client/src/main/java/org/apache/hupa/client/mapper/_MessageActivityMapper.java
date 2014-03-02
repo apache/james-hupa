@@ -30,7 +30,7 @@ import com.google.gwt.place.shared.Place;
  */
 abstract class _MessageActivityMapper extends _HupaActivityMapper {
 	@Override
-	Activity asyncLoadActivity(Place place) {
+	protected Activity asyncLoadActivity(Place place) {
 		if (place instanceof SettingPlace)
 			return null;
 		if (place instanceof ComposePlace)

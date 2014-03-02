@@ -38,6 +38,7 @@ public class MessagePlace extends HupaPlace {
 		public String getFolder() {
 			return folder;
 		}
+
 		@Override
 		public String toString() {
 			return folder + SPLITTER + uid;
@@ -52,7 +53,9 @@ public class MessagePlace extends HupaPlace {
 
 	public MessagePlace(String token) {
 		String[] params = token.split(SPLITTER);
-		this.tokenWrapper = new TokenWrapper(params[0], params[1]);
+		if (params.length == 2) {
+			this.tokenWrapper = new TokenWrapper(params[0], params[1]);
+		}
 	}
 
 	@Prefix("message")
@@ -65,8 +68,7 @@ public class MessagePlace extends HupaPlace {
 
 		@Override
 		public String getToken(MessagePlace place) {
-			String token = place.getTokenWrapper().getFolder() + SPLITTER + place.getTokenWrapper().getUid();
-			return token;
+			return place.getTokenWrapper().getFolder() + SPLITTER + place.getTokenWrapper().getUid();
 		}
 	}
 

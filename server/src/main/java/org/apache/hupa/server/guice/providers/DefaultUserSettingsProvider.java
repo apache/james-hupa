@@ -27,20 +27,19 @@ import com.google.inject.Provider;
 import com.google.inject.name.Named;
 
 public class DefaultUserSettingsProvider implements Provider<Settings> {
-    private String inboxFolder;
-    private String sentFolder;
-    private String trashFolder;
-    private String draftFolder;
-    private int postCount;
-
-    @Inject
-    public DefaultUserSettingsProvider(@Named("DefaultInboxFolder") String inboxFolder, @Named("DefaultSentFolder") String sentFolder, @Named("DefaultTrashFolder") String trashFolder, @Named("DefaultDraftsFolder") String draftFolder, @Named("PostFetchMessageCount") int postCount) {
-        this.inboxFolder = inboxFolder;
-        this.sentFolder = sentFolder;
-        this.trashFolder = trashFolder;
-        this.draftFolder = draftFolder;
-        this.postCount = postCount;
-    }
+    
+    @Inject @Named("DefaultInboxFolder") private String inboxFolder; 
+    @Inject @Named("DefaultSentFolder") private String sentFolder; 
+    @Inject @Named("DefaultTrashFolder") private String trashFolder; 
+    @Inject @Named("DefaultDraftsFolder") private String draftFolder; 
+    @Inject @Named("PostFetchMessageCount") private int postCount; 
+    @Inject @Named("IMAPServerAddress") private String imapAddress;
+    @Inject @Named("IMAPServerPort") private int imapPort; 
+    @Inject @Named("IMAPS") private boolean imapSSL;
+    @Inject @Named("SMTPServerAddress") private String smtpAddress;
+    @Inject @Named("SMTPServerPort") private int smtpPort;
+    @Inject @Named("SMTPS") private boolean smtpSSL;            
+    @Inject @Named("SMTPAuth") private boolean smtpAuth;
     
     /*
      * (non-Javadoc)
@@ -53,6 +52,13 @@ public class DefaultUserSettingsProvider implements Provider<Settings> {
         settings.setTrashFolderName(trashFolder);
         settings.setDraftsFolderName(draftFolder);
         settings.setPostFetchMessageCount(postCount);
+        settings.setSmtpServer(smtpAddress);
+        settings.setSmtpPort(smtpPort);
+        settings.setSmtpSecure(smtpSSL);
+        settings.setImapServer(imapAddress);
+        settings.setImapPort(imapPort);
+        settings.setImapSecure(imapSSL);
+        settings.setSmtpAuth(smtpAuth);
         return settings;
     }
 

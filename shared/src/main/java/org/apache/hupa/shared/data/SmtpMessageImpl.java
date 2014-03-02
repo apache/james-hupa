@@ -19,8 +19,10 @@
 
 package org.apache.hupa.shared.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.hupa.shared.domain.MailHeader;
 import org.apache.hupa.shared.domain.MessageAttachment;
 import org.apache.hupa.shared.domain.SmtpMessage;
 
@@ -28,6 +30,7 @@ public class SmtpMessageImpl extends AbstractMessageImpl implements SmtpMessage 
 	private List<String> bcc;
 	private String text;
 	private List<MessageAttachment> messageAttachments;
+	private List<MailHeader> mailHeaders = new ArrayList<MailHeader>();
 
 	public String toString() {
 		StringBuffer bccList = new StringBuffer("");
@@ -85,5 +88,15 @@ public class SmtpMessageImpl extends AbstractMessageImpl implements SmtpMessage 
 	public List<MessageAttachment> getMessageAttachments() {
 		return messageAttachments;
 	}
+
+    @Override
+    public List<MailHeader> getMailHeaders() {
+        return mailHeaders;
+    }
+
+    @Override
+    public void setMailHeaders(List<MailHeader> mailHeaders) {
+        this.mailHeaders = mailHeaders == null ? new ArrayList<MailHeader>(): mailHeaders;
+    }
 
 }

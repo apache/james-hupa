@@ -41,7 +41,7 @@ public class ToolBarActivityMapper extends _HupaActivityMapper {
 	}
 
 	@Override
-	Activity asyncLoadActivity(final Place place) {
+	protected Activity asyncLoadActivity(final Place place) {
 		if(place instanceof SettingPlace) return null;
 		final ToolBarActivity tba = toolBarActivityProvider.get();
 		if (place instanceof FolderPlace) { // might be from login page

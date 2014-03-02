@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.mail.BodyPart;
 import javax.mail.Folder;
@@ -195,9 +196,9 @@ public class TestUtils extends TestCase {
 
         SmtpMessage smtpMessage = new SmtpMessageImpl();
         smtpMessage.setFrom("Test user <from@dom.com>");
-        smtpMessage.setTo(new ArrayList<String>(Arrays.asList("to@dom.com")));
-        smtpMessage.setCc(new ArrayList<String>(Arrays.asList("cc@dom.com")));
-        smtpMessage.setBcc(new ArrayList<String>(Arrays.asList("bcc@dom.com")));
+        smtpMessage.setTo(Arrays.asList("to@dom.com"));
+        smtpMessage.setCc(Arrays.asList("cc@dom.com"));
+        smtpMessage.setBcc(Arrays.asList("bcc@dom.com"));
         smtpMessage.setSubject("Subject");
         smtpMessage.setText("<div>Body</div>");
         smtpMessage.setMessageAttachments(attachments);

@@ -35,16 +35,14 @@ import org.apache.hupa.shared.domain.SendReplyMessageAction;
 import org.apache.hupa.shared.exception.HupaException;
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
 public class SendReplyMessageServiceImpl extends SendMessageBaseServiceImpl implements SendReplyMessageService{
 
 	@Inject
-	public SendReplyMessageServiceImpl(UserPreferencesStorage preferences, @Named("SMTPServerAddress") String address,
-	        @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL, IMAPStoreCache cache) {
-	    super(preferences, address, port, auth, useSSL,cache);
+	public SendReplyMessageServiceImpl(UserPreferencesStorage preferences, IMAPStoreCache cache) {
+	    super(preferences, cache);
     }
 
     @Override

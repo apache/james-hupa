@@ -20,9 +20,7 @@
 package org.apache.hupa.shared.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.MailHeader;
@@ -35,17 +33,16 @@ public class MessageDetailsImpl implements MessageDetails{
     private List<MessageAttachment> messageAttachments;
     private long uid;
     private String raw;
-    private Map<String, List<String>> headers = new HashMap<String, List<String>>();
-    private MailHeader mailHeader;
+    private List<MailHeader> mailHeaders = new ArrayList<MailHeader>();
 
     
-    public MailHeader getMailHeader() {
-    	return mailHeader;
+    public List<MailHeader> getMailHeaders() {
+    	return mailHeaders;
     }
 
 
-	public void setMailHeader(MailHeader mailHeader) {
-    	this.mailHeader = mailHeader;
+	public void setMailHeaders(List<MailHeader> mailHeaders) {
+    	this.mailHeaders = mailHeaders;
     }
 
 
@@ -54,7 +51,7 @@ public class MessageDetailsImpl implements MessageDetails{
         " text.length=" + (text != null ? text.length() : 0) + 
         " raw.length=" + (raw != null ? raw.length() : 0) + 
         " attachments=" + (messageAttachments != null ? messageAttachments.size() : 0) + 
-        " headers=" + (headers != null ? headers.size() : 0); 
+        " headers=" + mailHeaders.size();  
     }
     
     
@@ -83,20 +80,6 @@ public class MessageDetailsImpl implements MessageDetails{
     public String getRawHeader() {
         return raw;
     }
-    
-    public Map<String, List<String>> getHeaders() {
-		return headers;
-	}
-    
-    public void addHeader(String name, String value) {
-    	List<String> list = headers.get(name);
-    	if (list == null) {
-    		list = new ArrayList<String>();
-    		headers.put(name, list);
-    	}
-    	list.add(value);
-    }
-    
     
     
     /**
@@ -134,9 +117,12 @@ public class MessageDetailsImpl implements MessageDetails{
     }
 
     public String getHeaderValue(String key) {
-    	addHeader(mailHeader.getName(), mailHeader.getValue());
-        List<String> h = headers.get(key);
-        return h != null && !h.isEmpty() ? h.get(0) : null;
+        for (MailHeader h : getMailHeaders()) {
+           if (h.getName().equals(key)) {
+               return h.getValue();
+           }
+        }
+        return null;
     }
 
     /**

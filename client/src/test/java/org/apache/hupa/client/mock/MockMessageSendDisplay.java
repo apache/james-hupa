@@ -26,6 +26,8 @@ import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 import org.apache.hupa.widgets.ui.HasEnable;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasFocusHandlers;
+import com.google.gwt.user.client.TakesValue;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
@@ -274,6 +276,12 @@ public class MockMessageSendDisplay implements Displayable {
 
 	@Override
 	public String getFromText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HasFocusHandlers getAttachButton() {
 		// TODO Auto-generated method stub
 		return null;
 	}

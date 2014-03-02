@@ -31,6 +31,11 @@ public class FetchMessagesActionImpl implements FetchMessagesAction {
 
 	public FetchMessagesActionImpl() {
 	}
+	
+	@Override
+	public String toString() {
+	    return "[" + folder.getFullName() + "," + start + "," + offset + "," + searchString + "]";
+	}
 
 	public FetchMessagesActionImpl(ImapFolder folder, int start, int offset, String searchString) {
 		this.folder = folder;

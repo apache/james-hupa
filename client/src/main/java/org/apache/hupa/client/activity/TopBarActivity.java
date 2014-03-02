@@ -19,14 +19,11 @@
 
 package org.apache.hupa.client.activity;
 
+import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.place.DefaultPlace;
-import org.apache.hupa.client.rf.CheckSessionRequest;
 import org.apache.hupa.client.rf.LogoutUserRequest;
 import org.apache.hupa.client.ui.LoginLayoutable;
 import org.apache.hupa.shared.domain.LogoutUserResult;
-import org.apache.hupa.shared.domain.User;
-import org.apache.hupa.shared.events.LoginEvent;
-import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.LogoutEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -50,40 +47,17 @@ public class TopBarActivity extends AppBaseActivity {
 	@Inject private LoginLayoutable loginLayout;
 
 	@UiField protected HTMLPanel userLabel;
-	private User user;
 
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
 		bindTo(eventBus);
-		if (isNotOccupied()) {
-			try {
-				checkSessionUser();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
+		String user = HupaController.user != null ? HupaController.user.getName() : "Not logged in";
+        display.getUserLabel().clear();
+        display.getUserLabel().add(new HTML(user));
 	}
 
-	private void checkSessionUser() {
-		CheckSessionRequest checkSession = rf.sessionRequest();
-		checkSession.getUser().fire(new Receiver<User>() {
-			@Override
-			public void onSuccess(User user) {
-				if (user != null) {
-					display.getUserLabel().add(new HTML(user.getName()));
-					eventBus.fireEvent(new LoginEvent(user));
-				}
-			}
-		});
-	}
 	private void bindTo(EventBus eventBus) {
-		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
-			public void onLogin(LoginEvent event) {
-				user = event.getUser();
-			}
-		});
 		registerHandler(display.getLogoutClick().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				doLogout();
@@ -92,31 +66,18 @@ public class TopBarActivity extends AppBaseActivity {
 	}
 
 	private void doLogout() {
-		if (user != null) {
-			LogoutUserRequest req = rf.logoutRequest();
-			req.logout().fire(new Receiver<LogoutUserResult>() {
-				@Override
-				public void onSuccess(LogoutUserResult response) {
-					eventBus.fireEvent(new LogoutEvent(response.getUser()));
-					RootLayoutPanel.get().clear();
-					RootLayoutPanel.get().add(loginLayout.get());
-					pc.goTo(new DefaultPlace(""));
-					Window.Location.reload();
-				}
+        LogoutUserRequest req = rf.logoutRequest();
+        hc.showTopLoading("Logging out ...");
+        
+        req.logout().fire(new Receiver<LogoutUserResult>() {
+            public void onSuccess(LogoutUserResult response) {
+                eventBus.fireEvent(new LogoutEvent(response.getUser()));
+            }
 
-				@Override
-				public void onFailure(ServerFailure error) {
-					RootLayoutPanel.get().clear();
-					RootLayoutPanel.get().add(loginLayout.get());
-					pc.goTo(new DefaultPlace(""));
-					Window.Location.reload();
-				}
-			});
-		}
-	}
-
-	private boolean isNotOccupied() {
-		return display.getUserLabel().getWidgetCount() < 1;
+            public void onFailure(ServerFailure error) {
+                eventBus.fireEvent(new LogoutEvent(null));
+            }
+        });
 	}
 
 	public interface Displayable extends IsWidget {
@@ -125,9 +86,5 @@ public class TopBarActivity extends AppBaseActivity {
 		HTMLPanel getUserLabel();
 		void showLoading(String message);
 		void hideLoading();
-	}
-	
-	public User getUser(){
-		return user;
 	}
 }

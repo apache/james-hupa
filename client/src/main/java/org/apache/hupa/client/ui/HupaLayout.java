@@ -19,8 +19,10 @@
 
 package org.apache.hupa.client.ui;
 
+import org.apache.hupa.client.place.SettingPlace;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.query.client.GQuery;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -41,23 +43,35 @@ public class HupaLayout implements HupaLayoutable {
 	public static final int LAYOUT_CONTACT = 0x04;
 	public static final int LAYOUT_SETTING = 0x08;
 
-	@UiField SimplePanel topBarContainer;
-	@UiField SimplePanel logoContainer;
-	@UiField SimplePanel notificationContainer;
-	@UiField SimpleLayoutPanel navigationContainer;
-	@UiField _ToolPanel toolPanel;
+	@UiField public SimplePanel topBarContainer;
+	@UiField public SimplePanel logoContainer;
+	@UiField public SimplePanel notificationContainer;
+	@UiField public SimpleLayoutPanel navigationContainer;
+	@UiField public _ToolPanel toolPanel;
 
-	@UiField LayoutPanel mainBox;
+	@UiField public LayoutPanel mainBox;
 
-	@UiField _CenterPanel centerPanel;
-	@UiField _CenterComposePanel composePanel;
-	@UiField _CenterSettingPanel settingPanel;
-	@UiField _CenterContactPanel contactPanel;
+	@UiField public _CenterPanel centerPanel;
+	@UiField public _CenterComposePanel composePanel;
+	@UiField public _CenterSettingPanel settingPanel;
+	@UiField public _CenterContactPanel contactPanel;
 
-	private LayoutPanel hupaMainPanel;
+	protected LayoutPanel hupaMainPanel;
 
+	interface HupaLayoutUiBinder extends UiBinder<LayoutPanel, HupaLayout> {
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected static UiBinder binder;
+
+	@SuppressWarnings("unchecked")
 	public HupaLayout() {
-		hupaMainPanel = binder.createAndBindUi(this);
+		initBinder();
+	   hupaMainPanel = (LayoutPanel) binder.createAndBindUi(this);
+	}
+	
+	protected void initBinder() {
+	   binder = GWT.create(HupaLayoutUiBinder.class);
 	}
 
 	@Override
@@ -133,8 +147,8 @@ public class HupaLayout implements HupaLayoutable {
 		return centerPanel.getFolderListView();
 	}
 	@Override
-	public AcceptsOneWidget getContactListView() {
-		return composePanel.getContactListView();
+	public AcceptsOneWidget getAddressListView() {
+		return composePanel.getAddressListView();
 	}
 
 	@Override
@@ -166,7 +180,7 @@ public class HupaLayout implements HupaLayoutable {
 	public AcceptsOneWidget getSettingNavView() {
 		return settingPanel.getSettingNavView();
 	}
-	
+
 	@Override
 	public AcceptsOneWidget getLabelPropertiesView() {
 		return settingPanel.getLabelPropertiesView();
@@ -183,36 +197,18 @@ public class HupaLayout implements HupaLayoutable {
 	}
 
 	private void arrangeLayout(int lyt) {
+	    GQuery.console.log("HupaLayout arrangeLayout " + lyt);
 		toolPanel.toggleTo(lyt);
-		showOrHideMessage(lyt);
-		showOrHideCompose(lyt);
-		showOrHideSetting(lyt);
-		showOrHideContact(lyt);
+        mainBox.setWidgetVisible(contactPanel, lyt == LAYOUT_CONTACT);
+        mainBox.setWidgetVisible(settingPanel, lyt == LAYOUT_SETTING);
+        mainBox.setWidgetVisible(composePanel, lyt == LAYOUT_COMPOSE);
+        mainBox.setWidgetVisible(centerPanel, lyt == LAYOUT_MESSAGE);
 	}
 
-	private void showOrHideContact(int lyt) {
-		mainBox.setWidgetLeftWidth(contactPanel, 0, Unit.PCT, (lyt & LAYOUT_CONTACT) / LAYOUT_CONTACT * 100, Unit.PCT);
-		mainBox.setWidgetTopHeight(contactPanel, 0, Unit.PCT, (lyt & LAYOUT_CONTACT) / LAYOUT_CONTACT * 100, Unit.PCT);
+	@Override
+	public void arrangeSettingLayout(SettingPlace sp) {
+        GQuery.console.log("HupaLayout arrangeSettingLayout " + sp);
+		settingPanel.swithTo(sp);
 	}
-
-	private void showOrHideSetting(int lyt) {
-		mainBox.setWidgetLeftWidth(settingPanel, 0, Unit.PCT, (lyt & LAYOUT_SETTING) / LAYOUT_SETTING * 100, Unit.PCT);
-		mainBox.setWidgetTopHeight(settingPanel, 0, Unit.PCT, (lyt & LAYOUT_SETTING) / LAYOUT_SETTING * 100, Unit.PCT);
-	}
-
-	private void showOrHideCompose(int lyt) {
-		mainBox.setWidgetLeftWidth(composePanel, 0, Unit.PCT, (lyt & LAYOUT_COMPOSE) / LAYOUT_COMPOSE * 100, Unit.PCT);
-		mainBox.setWidgetTopHeight(composePanel, 0, Unit.PCT, (lyt & LAYOUT_COMPOSE) / LAYOUT_COMPOSE * 100, Unit.PCT);
-	}
-
-	private void showOrHideMessage(int lyt) {
-		mainBox.setWidgetLeftWidth(centerPanel, 0, Unit.PCT, (lyt & LAYOUT_MESSAGE) / LAYOUT_MESSAGE * 100, Unit.PCT);
-		mainBox.setWidgetTopHeight(centerPanel, 0, Unit.PCT, (lyt & LAYOUT_MESSAGE) / LAYOUT_MESSAGE * 100, Unit.PCT);
-	}
-
-	interface HupaLayoutUiBinder extends UiBinder<LayoutPanel, HupaLayout> {
-	}
-
-	private static HupaLayoutUiBinder binder = GWT.create(HupaLayoutUiBinder.class);
 
 }

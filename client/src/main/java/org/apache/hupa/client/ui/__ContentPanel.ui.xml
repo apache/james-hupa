@@ -11,7 +11,6 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-    <ui:image field="originLogo" src="res/hupa-logo-original-transparent.png" />
 	<ui:style>
 		.box {
 			border: 1px solid #A3A3A3;
@@ -42,28 +41,6 @@
 			border-radius: 0 0 4px 4px;
 		}
 		
-		@sprite .messageContent {
-			margin: 8px;
-			gwt-image: 'originLogo';
-			background-position: center center;
-			width: auto;
-			height: auto;
-			filter: grayscale(100%);
-			-webkit-filter: grayscale(100%);
-			-moz-filter: grayscale(100%);
-			-ms-filter: grayscale(100%);
-			-o-filter: grayscale(100%);
-			opacity: 0.7;
-		}
-		
-		@sprite .messageContentWorkAround {
-			margin: 8px 0 8px 8px;
-			padding-right: 8px;
-			gwt-image: 'originLogo';
-			background-position: center center;
-			width: auto;
-			height: auto;
-		}
 	</ui:style>
 	<g:SplitLayoutPanel ui:field="thisPanel">
 		<g:north size="200">
@@ -87,8 +64,7 @@
 			<g:DockLayoutPanel unit="PX" addStyleNames="{style.box}"
 				ui:field="messageContentBox">
 				<g:center>
-					<g:SimpleLayoutPanel ui:field="messageContentContainer"
-						addStyleNames="{style.messageContentWorkAround}" />
+					<g:SimpleLayoutPanel ui:field="messageContentContainer"/>
 				</g:center>
 				<g:south size="0">
 					<g:SimplePanel ui:field="statusContainer" />

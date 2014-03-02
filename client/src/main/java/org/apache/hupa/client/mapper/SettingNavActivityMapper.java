@@ -37,7 +37,7 @@ public class SettingNavActivityMapper extends _HupaActivityMapper {
 		this.settingNavActivityProvider = settingNavActivityProvider;
 	}
 	@Override
-	Activity asyncLoadActivity(Place place) {
+	protected Activity asyncLoadActivity(Place place) {
 		if(place instanceof DefaultPlace) return null;
 		return new ActivityAsyncProxy() {
 			@Override

@@ -93,22 +93,13 @@
 			</g:SimplePanel>
 		</g:west>
 		<g:center>
-			<g:SimplePanel ui:field="contactOuter" addStyleNames="{style.navigation}">
-				<g:Anchor  ui:field="contact"
-					addStyleNames="
-                                {style.contactInner} {style.inner}">
-					Contacts
-				</g:Anchor>
-			</g:SimplePanel>
-		</g:center>
-		<g:east size="97">
-			<g:SimplePanel ui:field="settingOuter" addStyleNames="{style.navigation}">
-				<g:Anchor ui:field="setting"
-					addStyleNames="
+            <g:SimplePanel ui:field="settingOuter" addStyleNames="{style.navigation}">
+                <g:Anchor ui:field="setting"
+                    addStyleNames="
                                 {style.settingsInner} {style.inner}">
-					Settings
-				</g:Anchor>
-			</g:SimplePanel>
-		</g:east>
+                    Settings
+                </g:Anchor>
+            </g:SimplePanel>
+		</g:center>
 	</g:DockLayoutPanel>
 </ui:UiBinder>

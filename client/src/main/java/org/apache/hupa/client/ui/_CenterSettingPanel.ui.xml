@@ -119,31 +119,11 @@
 			</g:DockLayoutPanel>
 		</g:west>
 		<g:center>
-			<g:SplitLayoutPanel>
-				<g:west size="260">
-					<g:DockLayoutPanel addStyleNames="{style.listbox} {style.uibox}">
-						<g:north size="34">
-							<g:HTML>
-								<h2 class="{style.boxtitle}">Folders</h2>
-							</g:HTML>
-						</g:north>
-						<g:center>
-							<g:SimpleLayoutPanel ui:field="labelListContainer" />
-						</g:center>
-					</g:DockLayoutPanel>
-				</g:west>
-				<g:center>
-					<g:SimpleLayoutPanel addStyleNames="{style.uibox} {style.contentbox}">
-						<g:HTMLPanel>
-							<h2 class="{style.boxtitle}">Folder properties</h2>
-							<g:FlowPanel addStyleNames="{style.boxcontent}">
-								<g:SimplePanel ui:field="labelPropertiesContainer"></g:SimplePanel>
-							</g:FlowPanel>
-							<div class="{style.statusbar}" />
-						</g:HTMLPanel>
-					</g:SimpleLayoutPanel>
-				</g:center>
-			</g:SplitLayoutPanel>
+			<g:LayoutPanel ui:field="settingBox">
+				<g:layer left="0%" width="100%" top="0%" height="100%">
+					<hupa:SettingLabelPanel ui:field="settingLabelPanel" />
+				</g:layer>
+			</g:LayoutPanel>
 		</g:center>
 	</g:SplitLayoutPanel>
 </ui:UiBinder>

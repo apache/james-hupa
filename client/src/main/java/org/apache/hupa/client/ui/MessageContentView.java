@@ -22,15 +22,17 @@ package org.apache.hupa.client.ui;
 import java.util.List;
 
 import org.apache.hupa.client.HupaCSS;
+import org.apache.hupa.client.HupaConstants;
 import org.apache.hupa.client.activity.MessageContentActivity;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.MessageAttachment;
+import org.apache.hupa.widgets.editor.Editor;
+import org.apache.hupa.widgets.editor.Toolbar;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
@@ -40,51 +42,73 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HasVisibility;
+import com.google.gwt.user.client.ui.HasHTML;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.inject.Inject;
 
 public class MessageContentView extends Composite implements MessageContentActivity.Displayable {
-	@UiField ScrollPanel messageContent;
-	HTML messageContentHTML = new HTML();
+	
+	
+	private Editor editor = new Editor();
 
-	//TODO should use a scrolled panel which can contain multiple children
+	// TODO should use a scrolled panel which can contain multiple children
+    @UiField HTML messageContent = new HTML();
 	@UiField FlowPanel attachments;
 	@UiField DockLayoutPanel thisPanel;
-	@UiField Anchor rawButton;
-	@UiField SimplePanel rawPanel;
+	@UiField FlowPanel tmpWrapper;
+    @UiField DockLayoutPanel messageUpdateContent;
+    @UiField SimplePanel updateToolBar;
+    @UiField SimplePanel updateEditor;
+    @UiField SimpleLayoutPanel centerPanel;
+	
+	String messageDetail = "";
 
 	@Inject
-	public MessageContentView() {
+	public MessageContentView(HupaConstants constants) {
 		initWidget(binder.createAndBindUi(this));
-	}
-
-	@Override
-	public void fillMessageContent(String messageDetail) {
-		messageContentHTML.setHTML(messageDetail);
-		messageContent.add(messageContentHTML);
+		
+		Toolbar toolbar = new Toolbar(editor.getArea(), constants);
+		toolbar.ensureDebugId("hupa-editor-toolbar");
+		
+		tmpWrapper.removeFromParent();
+		
+		
+		updateToolBar.setWidget(toolbar);
+		updateEditor.setWidget(editor);
+        
+        clearContent();
 	}
 	
 	@Override
-	public void showAttachmentPanel(boolean is){
-		if(is){
-			thisPanel.setWidgetSize(attachments, 216);
-		}else{
-			thisPanel.setWidgetSize(attachments, 0);
+	public void fillMessageContent(String messageDetail, boolean isEditable) {
+		this.messageDetail = messageDetail;
+		if (isEditable) {
+		    editor.setHTML(messageDetail);
+		    centerPanel.setWidget(messageUpdateContent);
+		} else {
+		    messageContent.setHTML(messageDetail);
+            centerPanel.setWidget(messageContent);
 		}
 	}
 
 	@Override
 	public void setAttachments(List<MessageAttachment> attachements, final String folder, final long uid) {
+        thisPanel.setWidgetHidden(attachments, false);
+
 		attachments.clear();
 		final Element downloadIframe = RootPanel.get("__download").getElement();
 		if (attachements != null) {
 			for (final MessageAttachment messageAttachment : attachements) {
-				Label link = new Label(messageAttachment.getName() + " (" + messageAttachment.getSize() / 1024 + "kB)");
+			    int s = messageAttachment.getSize() / 1024;
+			    String size = s < 100 ? "" : ("(" + s + " kB)");
+			    String name = messageAttachment.getName() + size;
+				Label link = new Label(name);
+				link.setTitle(name);
 				link.setStyleName(HupaCSS.C_hyperlink);
 				link.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent event) {
@@ -117,9 +141,9 @@ public class MessageContentView extends Composite implements MessageContentActiv
 
 	@Override
 	public void clearContent() {
-		messageContentHTML.setHTML("");
+	    fillMessageContent("<div class='emptyMsg' style='position absolute; height: 100%'/>", false);
+        thisPanel.setWidgetHidden(attachments, true);
 	}
-
 
 	interface Binder extends UiBinder<DockLayoutPanel, MessageContentView> {
 	}
@@ -127,12 +151,7 @@ public class MessageContentView extends Composite implements MessageContentActiv
 	private static Binder binder = GWT.create(Binder.class);
 
 	@Override
-	public HasClickHandlers getRaw() {
-		return rawButton;
-	}
-
-	@Override
-	public HasVisibility getRawPanel() {
-		return rawPanel;
+	public HasHTML getMessageHTML() {
+		return editor;
 	}
 }

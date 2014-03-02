@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.mail.AuthenticationFailedException;
 import javax.mail.Folder;
@@ -40,7 +41,7 @@ public class MockIMAPStore extends IMAPStore{
     public final static String MOCK_TRASH_FOLDER = "Mock-Trash";
     public final static String MOCK_DRAFTS_FOLDER = "Mock-Drafts";
     public static final String MOCK_HOST = "hupa.demo";
-    public final static String MOCK_LOGIN = "demo";
+	public final static String MOCK_LOGIN = "demo";
     private Map<String, String> validLogins = new HashMap<String, String>();
     private boolean connected = false;
     private List<MockIMAPFolder> folders = new ArrayList<MockIMAPFolder>();
@@ -51,10 +52,13 @@ public class MockIMAPStore extends IMAPStore{
      * Default constructor, it creates the folder structure and loads messages for demo
      */
     @Inject
-    public MockIMAPStore(Session session) {
-        this(session, demoUrl);
+    public MockIMAPStore(Properties prop) {
+        this(Session.getInstance(prop), demoUrl);
     }
-
+    
+    public MockIMAPStore(Session ses) {
+        this(ses, demoUrl);
+    }
     /**
      * Customized constructor
      */
@@ -62,6 +66,7 @@ public class MockIMAPStore extends IMAPStore{
         super(session, url);
         if (url != null && MOCK_HOST.equals(url.getHost())) {
             validLogins.put(MOCK_LOGIN, MOCK_LOGIN);
+            validLogins.put("hupa4ecs@gmail.com", "HupaForEcs");
             try {
                 new MockIMAPFolder(MOCK_INBOX_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
                 new MockIMAPFolder(MOCK_SENT_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
@@ -196,7 +201,7 @@ public class MockIMAPStore extends IMAPStore{
             connect();
             return;
         } 
-        throw new AuthenticationFailedException("Invalid login");
+        throw new AuthenticationFailedException("Invalid login, remember user demo/demo");
     }
 
     @Override

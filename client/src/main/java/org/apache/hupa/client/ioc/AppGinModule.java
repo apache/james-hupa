@@ -22,6 +22,7 @@ package org.apache.hupa.client.ioc;
 import java.util.logging.Logger;
 
 import org.apache.hupa.client.HupaController;
+import org.apache.hupa.client.activity.AddressListActivity;
 import org.apache.hupa.client.activity.ComposeActivity;
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
 import org.apache.hupa.client.activity.ContactPropertiesActivity;
@@ -41,6 +42,7 @@ import org.apache.hupa.client.activity.SettingNavActivity;
 import org.apache.hupa.client.activity.StatusActivity;
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.activity.TopBarActivity;
+import org.apache.hupa.client.mapper.AddressListActivityMapper;
 import org.apache.hupa.client.mapper.AppPlaceHistoryMapper;
 import org.apache.hupa.client.mapper.CachingTopBarActivityMapper;
 import org.apache.hupa.client.mapper.ComposeActivityMapper;
@@ -63,6 +65,8 @@ import org.apache.hupa.client.mapper.StatusActivityMapper;
 import org.apache.hupa.client.mapper.ToolBarActivityMapper;
 import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.storage.AppCacheHTML5;
+import org.apache.hupa.client.ui.AddressListView;
 import org.apache.hupa.client.ui.ComposeToolBarView;
 import org.apache.hupa.client.ui.ComposeView;
 import org.apache.hupa.client.ui.ContactPropertiesView;
@@ -70,6 +74,8 @@ import org.apache.hupa.client.ui.ContactsListView;
 import org.apache.hupa.client.ui.FolderListView;
 import org.apache.hupa.client.ui.HupaLayout;
 import org.apache.hupa.client.ui.HupaLayoutable;
+import org.apache.hupa.client.ui.HupaPlugins;
+import org.apache.hupa.client.ui.HupaPlugins.HupaDefaultPlugins;
 import org.apache.hupa.client.ui.LabelListView;
 import org.apache.hupa.client.ui.LabelPropertiesView;
 import org.apache.hupa.client.ui.LoginLayout;
@@ -87,12 +93,19 @@ import org.apache.hupa.client.ui.SettingNavView;
 import org.apache.hupa.client.ui.StatusView;
 import org.apache.hupa.client.ui.ToolBarView;
 import org.apache.hupa.client.ui.TopBarView;
+import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.events.LogoutEvent;
+import org.apache.hupa.shared.storage.AppCache;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.Response;
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
@@ -100,9 +113,18 @@ import com.google.gwt.user.cellview.client.CellTree;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+import com.google.web.bindery.requestfactory.gwt.client.DefaultRequestTransport;
+import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
 @SuppressWarnings("deprecation")
 public class AppGinModule extends AbstractGinModule {
+    
+    /**
+     * Gin implementation of our AppInjector
+     */
+    @GinModules(AppGinModule.class)
+    public static interface AppGinjector extends AppInjector {}
+    
 	public static Logger logger = Logger.getLogger(AppGinModule.class.getName());
 
 	@Override
@@ -112,26 +134,27 @@ public class AppGinModule extends AbstractGinModule {
 		bind(LoginLayoutable.class).to(LoginLayout.class).in(Singleton.class);
 
 		// Activities
-		bind(LoginActivity.Displayable.class).to(LoginView.class);
+		bind(LoginActivity.Displayable.class).to(LoginView.class).in(Singleton.class);
 		bind(TopBarActivity.Displayable.class).to(TopBarView.class).in(Singleton.class);
 		bind(LogoActivity.Displayable.class).to(LogoView.class).in(Singleton.class);
 		bind(NotificationActivity.Displayable.class).to(NotificationView.class).in(Singleton.class);
-		bind(NavigationActivity.Displayable.class).to(NavigationView.class);
+		bind(NavigationActivity.Displayable.class).to(NavigationView.class).in(Singleton.class);
 		bind(ToolBarActivity.Displayable.class).to(ToolBarView.class).in(Singleton.class);
 		// bind(FolderListActivity.Displayable.class).to(FolderListView.class);
 		bind(MessageListActivity.Displayable.class).to(MessageListView.class).in(Singleton.class);
-		bind(MessageListFooterActivity.Displayable.class).to(MessageListFooterView.class);
-		bind(MessageContentActivity.Displayable.class).to(MessageContentView.class);
-		bind(StatusActivity.Displayable.class).to(StatusView.class);
-		bind(ComposeToolBarActivity.Displayable.class).to(ComposeToolBarView.class);
-		bind(ComposeActivity.Displayable.class).to(ComposeView.class);
-		bind(SearchBoxActivity.Displayable.class).to(SearchBoxView.class);
-		
+		bind(MessageListFooterActivity.Displayable.class).to(MessageListFooterView.class).in(Singleton.class);
+		bind(MessageContentActivity.Displayable.class).to(MessageContentView.class).in(Singleton.class);
+		bind(StatusActivity.Displayable.class).to(StatusView.class).in(Singleton.class);
+		bind(ComposeToolBarActivity.Displayable.class).to(ComposeToolBarView.class).in(Singleton.class);
+		bind(ComposeActivity.Displayable.class).to(ComposeView.class).in(Singleton.class);
+		bind(SearchBoxActivity.Displayable.class).to(SearchBoxView.class).in(Singleton.class);
+
 		bind(LabelListActivity.Displayable.class).to(LabelListView.class).in(Singleton.class);
 		bind(SettingNavActivity.Displayable.class).to(SettingNavView.class).in(Singleton.class);
 		bind(LabelPropertiesActivity.Displayable.class).to(LabelPropertiesView.class).in(Singleton.class);
 		bind(ContactsListActivity.Displayable.class).to(ContactsListView.class).in(Singleton.class);
 		bind(ContactPropertiesActivity.Displayable.class).to(ContactPropertiesView.class).in(Singleton.class);
+		bind(AddressListActivity.Displayable.class).to(AddressListView.class).in(Singleton.class);
 
 		bind(LoginActivity.class).in(Singleton.class);
 		bind(TopBarActivity.class).in(Singleton.class);
@@ -150,21 +173,35 @@ public class AppGinModule extends AbstractGinModule {
 		bind(LabelPropertiesActivity.class).in(Singleton.class);
 		bind(ContactsListActivity.class).in(Singleton.class);
 		bind(ContactPropertiesActivity.class).in(Singleton.class);
+		bind(AddressListActivity.class).in(Singleton.class);
 		
 
 		bind(FolderListActivity.Displayable.class).to(FolderListView.class).in(Singleton.class);
 
 		bind(MessagesCellTable.class).in(Singleton.class);
-		bind(CellTree.Resources.class).to(CellTree.BasicResources.class);
+		bind(CellTree.Resources.class).to(CellTree.BasicResources.class).in(Singleton.class);
 		// Places
 		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
 
 		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
 
 		bind(HupaController.class).in(Singleton.class);
+		
+		bind(AppCache.class).to(AppCacheHTML5.class).in(Singleton.class);
+		
+		bind(RequestFactory.class).to(HupaRequestFactory.class).in(Singleton.class);
+		
+		bind(HupaPlugins.class).to(HupaDefaultPlugins.class).in(Singleton.class);
 	}
 
 
+	
+	@Provides
+	@Singleton
+	@Named("AddressListRegion")
+	public ActivityManager getAddressListActivityMapper(AddressListActivityMapper activityMapper, EventBus eventBus) {
+		return new ActivityManager(activityMapper, eventBus);
+	}
 	
 	@Provides
 	@Singleton
@@ -320,10 +357,30 @@ public class AppGinModule extends AbstractGinModule {
 
 	@Provides
 	@Singleton
-	HupaRequestFactory getRequestFactory(EventBus eventBus) {
-		HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
-		rf.initialize(eventBus);
-		return rf;
-	}
+    HupaRequestFactory getRequestFactory(final EventBus eventBus) {
+        HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
+        rf.initialize(eventBus, new DefaultRequestTransport() {
+            @Override
+            protected RequestCallback createRequestCallback(TransportReceiver receiver) {
+                final RequestCallback superCallback = super.createRequestCallback(receiver);
+                return new RequestCallback() {
+                    @Override
+                    public void onResponseReceived(Request request, Response response) {
+                        if (response.getText().contains(User.NOT_FOUND)) {
+                            eventBus.fireEvent(new LogoutEvent(null));
+                        } else {
+                            superCallback.onResponseReceived(request, response);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Request request, Throwable exception) {
+                        superCallback.onError(request, exception);
+                    }
+                };
+            }
+        });
+        return rf;
+    }
 
 }

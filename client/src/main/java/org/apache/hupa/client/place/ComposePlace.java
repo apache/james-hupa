@@ -29,6 +29,8 @@ public class ComposePlace extends AbstractPlace {
 
 	private String token;
 	private Parameters parameters;
+	private String subject;
+	private String body;
 
 	public ComposePlace(String token) {
 		this.token = token;
@@ -59,6 +61,21 @@ public class ComposePlace extends AbstractPlace {
 
 	public Parameters getParameters() {
 		return parameters;
+	}
+
+	public ComposePlace with(String subject, String body) {
+		this.parameters = new Parameters(null, null, null, null);
+		this.subject = subject;
+		this.body = body;
+		return this;
+	}
+	
+	public String getSubject(){
+		return subject;
+	}
+	
+	public String getBody(){
+		return body;
 	}
 
 }

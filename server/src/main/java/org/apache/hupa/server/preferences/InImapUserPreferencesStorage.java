@@ -183,8 +183,6 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
     
     private Log logger;
     
-    private Session session;
-
     private final IMAPStoreCache cache;
 
     private final Provider<HttpSession> sessionProvider;
@@ -197,7 +195,6 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
         this.sessionProvider = sessionProvider;
         this.cache = cache;
         this.logger = logger;
-        this.session = cache.getMailSession();
     }
 
     /* (non-Javadoc)
@@ -282,7 +279,7 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
         public void run(){
             try {
                 sleep(IMAP_SAVE_DELAY);
-                saveUserPreferencesInIMAP(logger, user, session, cache.get(user), folderName, subject, object);
+                saveUserPreferencesInIMAP(logger, user, cache.getMailSession(user), cache.get(user), folderName, subject, object);
             } catch (Exception e) {
                 logger.error("Error saving user's preferences: ", e);
             }

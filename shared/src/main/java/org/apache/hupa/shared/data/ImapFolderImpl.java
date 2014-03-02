@@ -213,6 +213,4 @@ public class ImapFolderImpl implements ImapFolder {
 	public void setHasChildren(boolean hasChildren){
 		this.hasChildren = hasChildren;
 	}
-
-    
 }

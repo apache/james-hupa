@@ -32,7 +32,7 @@ import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.SetFlagAction;
 import org.apache.hupa.shared.events.RefreshMessagesEvent;
-import org.apache.hupa.shared.events.RefreshUnreadEvent;
+import org.apache.hupa.shared.events.RefreshFoldersEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -91,7 +91,7 @@ public class ToolBarActivity extends AppBaseActivity {
 			public void onClick(ClickEvent event) {
 				hc.showTopLoading("Loading");
 				eventBus.fireEvent(new RefreshMessagesEvent());
-				eventBus.fireEvent(new RefreshUnreadEvent());
+				eventBus.fireEvent(new RefreshFoldersEvent());
 			}
 		}));
 	}
@@ -115,7 +115,7 @@ public class ToolBarActivity extends AppBaseActivity {
 		req.set(action).fire(new Receiver<GenericResult>() {
 			@Override
 			public void onSuccess(GenericResult response) {
-				eventBus.fireEvent(new RefreshUnreadEvent());
+				eventBus.fireEvent(new RefreshFoldersEvent());
 				messagesDisplay.refresh();
 				hc.hideTopLoading();
 			}
@@ -145,5 +145,8 @@ public class ToolBarActivity extends AppBaseActivity {
 		HasClickHandlers getDelete();
 		PopupPanel getPopup();
 		HasClickHandlers getCompose();
+
+		void enableUpdatingTools(boolean is);
+
 	}
 }

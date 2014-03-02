@@ -20,6 +20,7 @@
 package org.apache.hupa.client.mapper;
 
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
+import org.apache.hupa.client.place.ComposePlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -39,6 +40,11 @@ public class ComposeToolBarActivityMapper implements ActivityMapper {
 	}
 
 	public Activity getActivity(Place place) {
+		if (!(place instanceof ComposePlace))
+			return null;
+		final ComposePlace here = (ComposePlace) place;
+		if (!"new".equals(here.getToken()) && here.getParameters() == null)
+			return null;
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {
@@ -47,7 +53,7 @@ public class ComposeToolBarActivityMapper implements ActivityMapper {
 
 			@Override
 			protected Activity createInstance() {
-				return composeToolBarActivityProvider.get();
+				return composeToolBarActivityProvider.get().with(here);
 			}
 		};
 	}

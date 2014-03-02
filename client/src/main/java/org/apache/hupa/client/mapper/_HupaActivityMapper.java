@@ -28,7 +28,7 @@ import com.google.gwt.place.shared.Place;
  * almost all of the activities could extends this activity<p>
  * except the Login one.
  */
-abstract class _HupaActivityMapper implements ActivityMapper{
+public abstract class _HupaActivityMapper implements ActivityMapper{
 
 	@Override
 	public Activity getActivity(Place place) {
@@ -39,6 +39,6 @@ abstract class _HupaActivityMapper implements ActivityMapper{
 	/**
 	 * code splitting
 	 */
-	abstract Activity asyncLoadActivity(final Place place);
+	protected abstract Activity asyncLoadActivity(final Place place);
 
 }

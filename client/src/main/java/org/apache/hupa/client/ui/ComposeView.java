@@ -34,6 +34,7 @@ import org.apache.hupa.widgets.ui.MultiValueSuggestArea;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasFocusHandlers;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -44,9 +45,11 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTMLTable.RowFormatter;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -71,8 +74,10 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	@UiField protected SimplePanel editorToolBar;
 	@UiField protected SimplePanel composeEditor;
 	@UiField protected FlowPanel attach;
+	@UiField protected FocusPanel attachButton;
 	@UiField protected Style style;
 	private ListBox selectFrom;
+
 	/* we only need one instance for all suggestion-boxes */
 	private MultiValueSuggestArea toSuggest = new MultiValueSuggestArea(" ,@<>");
 	private MultiValueSuggestArea ccSuggest = new MultiValueSuggestArea(toSuggest.getOracle());
@@ -138,7 +143,8 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 		editor = new Editor();
 		BaseUploadStatus uploadStatus = new BaseUploadStatus();
 		uploadStatus.setCancelConfiguration(IUploadStatus.DEFAULT_CANCEL_CFG);
-		uploader = new MultiUploader(FileInputType.ANCHOR, uploadStatus);
+		
+		uploader = new MultiUploader(FileInputType.CUSTOM.with(attachButton), uploadStatus);
 		uploader.setServletPath(GWT.getModuleBaseURL() + SConsts.SERVLET_UPLOAD);
 		uploader.avoidRepeatFiles(true);
 		uploader.setI18Constants(constants);
@@ -173,7 +179,10 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 		sendButton = new Button("Send message");
 		saveButton = new Button("Save as draft");
 		cancelButton = new Button("Cancel");
-		FlowPanel operationPanel = new FlowPanel();
+		sendButton.addStyleName(style.hide());
+		saveButton.addStyleName(style.hide());
+		cancelButton.addStyleName(style.hide());
+		HorizontalPanel operationPanel = new HorizontalPanel();
 		FlowPanel contactPanel = new FlowPanel();
 		FlowPanel buttonPanel = new FlowPanel();
 		contactPanel.add(selectFrom);
@@ -280,9 +289,9 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	public HasClickHandlers getSendClick() {
 		return sendButton;
 	}
-	
+
 	@Override
-	public HasClickHandlers getCancelClick(){
+	public HasClickHandlers getCancelClick() {
 		return cancelButton;
 	}
 
@@ -327,6 +336,11 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	}
 
 	@Override
+	public HasFocusHandlers getAttachButton() {
+		return this.attachButton;
+	}
+	
+	@Override
 	public HasText getSubject() {
 		return subject;
 	}
@@ -365,56 +379,53 @@ public class ComposeView extends Composite implements ComposeActivity.Displayabl
 	@Override
 	public void showCc() {
 		showRow(ROW_CC);
-		// hide(addCcButton);
+		addCcButton.setVisible(false);
 	}
 
 	@Override
 	public void hideCc() {
 		hideRow(ROW_CC);
-		// show(addCcButton);
+		ccSuggest.setText("");
+        addCcButton.setVisible(true);
 	}
 
 	@Override
 	public void showBcc() {
 		showRow(ROW_BCC);
-		// hide(addBccButton);
+		addBccButton.setVisible(false);
 	}
 
 	@Override
 	public void hideBcc() {
 		hideRow(ROW_BCC);
-		// show(addBccButton);
+        bccSuggest.setText("");
+        addBccButton.setVisible(true);
 	}
 
 	@Override
 	public void showReply() {
 		showRow(ROW_REPLY);
-		// hide(addReplyButton);
 	}
 
 	@Override
 	public void hideReply() {
 		hideRow(ROW_REPLY);
-		// show(addReplyButton);
 	}
 
 	@Override
 	public void showFollowup() {
 		showRow(ROW_FOLLOWUP);
-		// hide(addFollowupButton);
 	}
 
 	@Override
 	public void hideFollowup() {
 		hideRow(ROW_FOLLOWUP);
-		// show(addFollowupButton);
 	}
-	
 
 	@Override
-    public void fillContactList(String[] contacts){
-        toSuggest.fillOracle(contacts);
-    }
+	public void fillContactList(String[] contacts) {
+		toSuggest.fillOracle(contacts);
+	}
 
 	private void showRow(int row) {
 		if (isShowing(row)) {

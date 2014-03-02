@@ -22,14 +22,16 @@ package org.apache.hupa.server.ioc.demo;
 import java.lang.reflect.Constructor;
 import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
-import javax.mail.Transport;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.CachedIMAPStore;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
+import org.apache.hupa.shared.domain.User;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -42,6 +44,7 @@ public class DemoGuiceServerModule extends org.apache.hupa.server.ioc.GuiceServe
 
     public DemoGuiceServerModule(Properties properties) {
         super(properties);
+        new RuntimeException().printStackTrace();
     }
     
     protected Class<? extends IMAPStoreCache> getIMAPStoreCacheClass() {
@@ -59,46 +62,41 @@ public class DemoGuiceServerModule extends org.apache.hupa.server.ioc.GuiceServe
      */
     public static class DemoIMAPStoreCache extends InMemoryIMAPStoreCache {
         @Inject
-        public DemoIMAPStoreCache(Log logger,
-                @Named("IMAPServerAddress") String address,
-                @Named("IMAPServerPort") int port, 
-                @Named("IMAPS") boolean useSSL,
-                @Named("IMAPConnectionPoolSize") int connectionPoolSize,
-                @Named("IMAPConnectionPoolTimeout") int timeout,
-                @Named("SessionDebug") boolean debug,
-                @Named("TrustStore") String truststore,
+        public DemoIMAPStoreCache(Log logger, 
+                @Named("IMAPConnectionPoolSize") int connectionPoolSize, 
+                @Named("IMAPConnectionPoolTimeout") int timeout, 
+                @Named("SessionDebug") boolean debug, 
+                @Named("TrustStore") String truststore, 
                 @Named("TrustStorePassword") String truststorePassword,
-                Session session) {
-            super(logger, address, port, useSSL, connectionPoolSize, timeout,
-                    debug, truststore, truststorePassword, session);
+                @Named("TrustSSL") boolean trustSSL) {
+            super(logger, connectionPoolSize, timeout, debug, truststore, truststorePassword, trustSSL);
         }
 
         @Override
-        public CachedIMAPStore createCachedIMAPStore()
+        public CachedIMAPStore createCachedIMAPStore(User user)
                 throws NoSuchProviderException {
             try {
-                Class<?> clz = 
-                    Class.forName("org.apache.hupa.server.mock.MockIMAPStore");
-                Constructor<?> cons = clz.getConstructors()[0];
-                IMAPStore store = (IMAPStore) cons
-                        .newInstance(new Object[] { session });
+                Class<?> clz = Class.forName("org.apache.hupa.server.mock.MockIMAPStore");
+                Constructor<?> cons = clz.getConstructors()[1];
+                IMAPStore store = (IMAPStore) cons.newInstance(new Object[] { Session.getInstance(new Properties()) });
                 return new CachedIMAPStore(store, 300);
+            } catch (ClassNotFoundException e) {
             } catch (Exception e) {
+                e.printStackTrace();
             }
-            return super.createCachedIMAPStore();
+            return super.createCachedIMAPStore(user);
         }
-
+        
         @Override
-        public Transport getMailTransport(boolean useSSL)
-                throws NoSuchProviderException {
+        public void sendMessage(Message msg) throws MessagingException {
             try {
-                Class<?> clz = 
-                    Class.forName("org.apache.hupa.server.mock.MockSMTPTransport");
-                Constructor<?> cons = clz.getConstructors()[0];
-                return (Transport) cons.newInstance(new Object[] { session });
+                Class.forName("org.apache.hupa.server.mock.MockIMAPStore");
+                return;
+            } catch (ClassNotFoundException e) {
             } catch (Exception e) {
+                e.printStackTrace();
             }
-            return super.getMailTransport(useSSL);
+            super.sendMessage(msg);
         }
     }
 

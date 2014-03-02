@@ -19,6 +19,10 @@
 
 package org.apache.hupa.client.activity;
 
+import org.apache.hupa.client.place.ComposePlace;
+
+import com.google.gwt.activity.shared.Activity;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -26,12 +30,18 @@ import com.google.inject.Inject;
 
 public class ComposeToolBarActivity extends AppBaseActivity {
 
+    public Activity with(ComposePlace place) {
+		return this;
+	}
+	
+    @Inject private Displayable display;
+    
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
 	}
 
-	@Inject private Displayable display;
-	
-	public interface Displayable extends IsWidget {}
+	public interface Displayable extends IsWidget {
+		HasClickHandlers getSendClick();
+	}
 }

@@ -99,25 +99,14 @@ public class DownloadAttachmentServlet extends HttpServlet {
 
             Object content = m.getContent();
             Part part  = MessageUtils.handleMultiPart(logger, content, attachmentName);
-            if (part.getContentType()!=null)
+            if (part.getContentType()!=null) {
                 response.setContentType(part.getContentType());
-            else
-                response.setContentType("application/download");
-
-            in = part.getInputStream();
-            if (in != null) {
-                // FIXME: for some reason Chrome does not display inline images when they have the content-length
-                // it's like the size reported in server is different than the received bytes.
-                if (!inline) {
-                    response.setContentLength(part.getSize());
-                }
-                IOUtils.copy(in, out);
             } else {
-                response.setContentLength(0);
+                response.setContentType("application/download");
             }
-
-            out.flush();
-
+            
+            handleAttachmentData(request, m, attachmentName, part.getInputStream(), out);
+            return;
         } catch (Exception e) {
             logger.error("Error while downloading attachment "
                     + attachmentName + " of message " + message_uuid
@@ -129,11 +118,17 @@ public class DownloadAttachmentServlet extends HttpServlet {
                 try {
                     folder.close(false);
                 } catch (MessagingException e) {
-                    // ignore on close
                 }
             }
-
         }
     }
 
+    /**
+     * Override this to create customized servlets
+     */
+    protected void handleAttachmentData(HttpServletRequest req, Message message,
+            String attachmentName, InputStream is, OutputStream os) throws Exception {
+        IOUtils.copy(is, os);
+        IOUtils.closeQuietly(os);
+    }
 }

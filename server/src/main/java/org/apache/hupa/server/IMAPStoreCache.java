@@ -19,20 +19,18 @@
 
 package org.apache.hupa.server;
 
+import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
-import javax.mail.Transport;
 
 import org.apache.hupa.shared.domain.User;
 
 import com.sun.mail.imap.IMAPStore;
 
 public interface IMAPStoreCache {
-    public void delete(String username);
-    public void delete(User user);
-    public IMAPStore get(String username,String password) throws MessagingException;
-    public IMAPStore get(User user) throws MessagingException;
-    public Transport getMailTransport(boolean useSSL) throws NoSuchProviderException;
-    public Session getMailSession();
+    void delete(String username);
+    void delete(User user);
+    IMAPStore get(User user) throws MessagingException;
+    Session getMailSession(User user);
+    void sendMessage(Message msg) throws MessagingException;
 }

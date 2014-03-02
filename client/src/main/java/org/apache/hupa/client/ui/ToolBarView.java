@@ -21,17 +21,18 @@ package org.apache.hupa.client.ui;
 
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.place.ComposePlace;
-import org.apache.hupa.client.rf.HupaRequestFactory;
 import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.events.DeleteClickEvent;
+import org.apache.hupa.shared.events.ShowRawEvent;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -50,27 +51,38 @@ import com.google.inject.Inject;
 public class ToolBarView extends Composite implements ToolBarActivity.Displayable {
 
 	@Inject private PlaceController placeController;
-	@Inject private HupaRequestFactory requestFactory;
 	@Inject private EventBus eventBus;
 
-	@UiField Anchor refresh;
-	@UiField Anchor compose;
-	@UiField Anchor reply;
-	@UiField HTMLPanel replyAllGroup;
-	@UiField Anchor replyAll;
-	@UiField HTMLPanel forwardGroup;
-	@UiField Anchor forward;
-	@UiField Anchor delete;
-	@UiField Anchor mark;
-	@UiField Anchor more;
-	
-	@UiField HTMLPanel replyAllTip;
-	@UiField HTMLPanel forwardTip;
+	@UiField public Anchor refresh;
+	@UiField public Anchor compose;
+	@UiField public Anchor reply;
+	@UiField public HTMLPanel replyAllGroup;
+	@UiField public Anchor replyAll;
+	@UiField public HTMLPanel forwardGroup;
+	@UiField public Anchor forward;
+	@UiField public Anchor delete;
+	@UiField public Anchor mark;
+	@UiField public Anchor raw;
+	@UiField public Anchor more;
 
-	@UiField Style style;
-	
+	@UiField public HTMLPanel replyAllTip;
+	@UiField public HTMLPanel forwardTip;
 
-	interface Style extends CssResource {
+	
+	// FIXME: !!!! The handlers management in this view is awful.
+	// It should use @UiHandlers with a enable/disble property.
+	
+	// Absolutely!!!
+	
+	HandlerRegistration deleteReg;
+	HandlerRegistration markReg;
+	HandlerRegistration replyReg;
+	HandlerRegistration replyAllReg;
+	HandlerRegistration forwardReg;
+
+	@UiField public Style style;
+
+	public interface Style extends CssResource {
 		String disabledButton();
 		String popupMenu();
 		String activeIcon();
@@ -141,22 +153,19 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 			this.oldDetails = oldDetails;
 		}
 	}
+	
+    interface ToolBarUiBinder extends UiBinder<FlowPanel, ToolBarView> {
+    }	    
+	
+	@SuppressWarnings("rawtypes")
+    protected UiBinder getBinder() {
+	    return GWT.create(ToolBarUiBinder.class);
+	}
 
-
-	public ToolBarView() {
-		initWidget(binder.createAndBindUi(this));
+	@SuppressWarnings("unchecked")
+    public ToolBarView() {
+		initWidget((Widget)getBinder().createAndBindUi(this));
 		simplePopup.addStyleName(style.popupMenu());
-		mark.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				// Reposition the popup relative to the button
-				Widget source = (Widget) event.getSource();
-				int left = source.getAbsoluteLeft();
-				int top = source.getAbsoluteTop() + source.getOffsetHeight();
-				simplePopup.setPopupPosition(left, top);
-				// Show the popup
-				simplePopup.show();
-			}
-		});
 		popup = new VerticalPanel();
 		markRead = new Anchor("As Read");
 		markUnread = new Anchor("As Unread");
@@ -170,51 +179,48 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		popup.add(markRead);
 		popup.add(markUnread);
 		simplePopup.setWidget(popup);
-
-		mark.addClickHandler(markHandler);
-		delete.addClickHandler(deleteHandler);
-		reply.addClickHandler(replyHandler);
-		replyAll.addClickHandler(replyAllHandler);
-		forward.addClickHandler(forwardHandler);
 	}
 
 	@UiHandler("compose")
-	void handleClick(ClickEvent e) {
+	public void handleClick(ClickEvent e) {
 		placeController.goTo(new ComposePlace("new").with(parameters));
 	}
-	private ClickHandler forwardHandler = new ClickHandler(){
+
+	private ClickHandler forwardHandler = new ClickHandler() {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			placeController.goTo(new ComposePlace("forward").with(parameters));	
+			placeController.goTo(new ComposePlace("forward").with(parameters));
 		}
-		
+
 	};
-	private ClickHandler replyAllHandler = new ClickHandler(){
+	private ClickHandler replyAllHandler = new ClickHandler() {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			placeController.goTo(new ComposePlace("replyAll").with(parameters));	
+			placeController.goTo(new ComposePlace("replyAll").with(parameters));
 		}
-		
+
 	};
-	private ClickHandler replyHandler = new ClickHandler(){
+	private ClickHandler replyHandler = new ClickHandler() {
 
 		@Override
 		public void onClick(ClickEvent event) {
 			placeController.goTo(new ComposePlace("reply").with(parameters));
 		}
-		
+
 	};
-	private ClickHandler deleteHandler = new ClickHandler(){
+	private ClickHandler deleteHandler = new ClickHandler() {
 
 		@Override
-		public void onClick(ClickEvent event) {		
-			eventBus.fireEvent(new DeleteClickEvent());
+		public void onClick(ClickEvent event) {
+            eventBus.fireEvent(new DeleteClickEvent());
 		}
 	};
+
 	private ClickHandler markHandler = new ClickHandler() {
 		public void onClick(ClickEvent event) {
+			// Reposition the popup relative to the button
 			Widget source = (Widget) event.getSource();
 			int left = source.getAbsoluteLeft();
 			int top = source.getAbsoluteTop() + source.getOffsetHeight();
@@ -222,6 +228,16 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 			simplePopup.show();
 		}
 	};
+	
+	private ClickHandler rawHandler = new ClickHandler() {
+		@Override
+		public void onClick(ClickEvent event) {
+            eventBus.fireEvent(new ShowRawEvent());
+		}
+	};
+	
+	private HandlerRegistration rawReg;
+
 	@Override
 	public HasClickHandlers getMark() {
 		return mark;
@@ -264,11 +280,15 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 	public HasClickHandlers getDelete() {
 		return delete;
 	}
-
+	@Override
+	public HasClickHandlers getRefresh() {
+		return refresh;
+	}
 	@Override
 	public void enableAllTools(boolean is) {
 		this.enableSendingTools(is);
 		this.enableDealingTools(is);
+		this.enableUpdatingTools(is);
 	}
 	@Override
 	public void enableSendingTools(boolean is) {
@@ -288,12 +308,28 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		}
 	}
 
+	public void enableUpdatingTools(boolean is) {
+	}
+
 	private void addSendingDisableds() {
 		reply.addStyleName(style.disabledButton());
 		replyAllGroup.addStyleName(style.disabledButton());
 		forwardGroup.addStyleName(style.disabledButton());
 		replyAllTip.addStyleName(style.disabledButton());
 		forwardTip.addStyleName(style.disabledButton());
+		raw.addStyleName(style.disabledButton());
+
+		if (replyReg != null) {
+			replyReg = removeHandler(replyReg);
+			replyAllReg = removeHandler(replyAllReg);
+			forwardReg = removeHandler(forwardReg);
+			rawReg = removeHandler(rawReg);
+			replyReg = null;
+			replyAllReg = null;
+			forwardReg = null;
+			rawReg = null;
+		}
+
 	}
 
 	private void removeSendingDisableds() {
@@ -302,27 +338,36 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 		forwardGroup.removeStyleName(style.disabledButton());
 		replyAllTip.removeStyleName(style.disabledButton());
 		forwardTip.removeStyleName(style.disabledButton());
+		raw.removeStyleName(style.disabledButton());
+
+		if (rawReg == null) rawReg = raw.addClickHandler(rawHandler);
+		if (replyReg == null) replyReg = reply.addClickHandler(replyHandler);
+		if (replyAllReg == null) replyAllReg = replyAll.addClickHandler(replyAllHandler);
+		if (forwardReg == null) forwardReg = forward.addClickHandler(forwardHandler);
 	}
-	
-	
+
 
 	private void addDealingDisableds() {
+		if (deleteReg != null) {
+			deleteReg = removeHandler(deleteReg);
+			markReg = removeHandler(markReg);
+			deleteReg = null;
+			markReg = null;
+		}
 		delete.addStyleName(style.disabledButton());
 		mark.addStyleName(style.disabledButton());
 	}
 
 	private void removeDealingDisableds() {
+		if (deleteReg == null) deleteReg = delete.addClickHandler(deleteHandler);
+		if (markReg == null) markReg = mark.addClickHandler(markHandler);
 		delete.removeStyleName(style.disabledButton());
 		mark.removeStyleName(style.disabledButton());
 	}
 
-	interface ToolBarUiBinder extends UiBinder<FlowPanel, ToolBarView> {
+	protected HandlerRegistration removeHandler(HandlerRegistration handler) {
+	    if (handler != null) handler.removeHandler();
+	    return null;
 	}
 
-	private static ToolBarUiBinder binder = GWT.create(ToolBarUiBinder.class);
-
-	@Override
-	public HasClickHandlers getRefresh() {
-		return refresh;
-	}
 }

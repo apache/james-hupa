@@ -24,10 +24,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.activation.DataSource;
-import javax.mail.Address;
 import javax.mail.AuthenticationFailedException;
 import javax.mail.BodyPart;
 import javax.mail.Flags.Flag;
@@ -36,13 +36,13 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.hupa.server.FileItemRegistry;
@@ -61,45 +61,31 @@ import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.exception.HupaException;
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
+import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
-public class SendMessageBaseServiceImpl extends AbstractService implements SendMessageService{
+public class SendMessageBaseServiceImpl extends AbstractService implements SendMessageService {
 
-	private final boolean auth;
-	private final String address;
-	private final int port;
-	private boolean useSSL = false;
 	UserPreferencesStorage userPreferences;
-	Session session;
 
 	@Inject
-	public SendMessageBaseServiceImpl(UserPreferencesStorage preferences, @Named("SMTPServerAddress") String address,
-	        @Named("SMTPServerPort") int port, @Named("SMTPAuth") boolean auth, @Named("SMTPS") boolean useSSL, IMAPStoreCache cache) {
+	public SendMessageBaseServiceImpl(UserPreferencesStorage preferences, IMAPStoreCache cache) {
 		this.cache = cache;
-		this.auth = auth;
-		this.address = address;
-		this.port = port;
-		this.useSSL = useSSL;
 		this.userPreferences = preferences;
-		this.session = cache.getMailSession();
-		session.getProperties().put("mail.smtp.auth", auth);
 	}
 	
-
-
     public GenericResult send(SendMessageAction action)
             throws Exception {
         GenericResult result = new GenericResultImpl();
         try {
-
-            Message message = createMessage(session, action);
+            User user = getUser();
+            Message message = createMessage(cache.getMailSession(user), action);
             message = fillBody(message,action);
-
             sendMessage(getUser(), message);
-            saveSentMessage(getUser(), message);
-        
+            if (!user.getSettings().getSmtpServer().contains("gmail.com")) {
+                saveSentMessage(getUser(), message);
+            }
             resetAttachments(action);
         
             // TODO: notify the user more accurately where the error is
@@ -129,7 +115,7 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * @throws AddressException
      * @throws MessagingException
      */
-    protected Message createMessage(Session session, SendMessageAction action) throws AddressException, MessagingException {
+    public Message createMessage(Session session, SendMessageAction action) throws AddressException, MessagingException {
         MimeMessage message = new MimeMessage(session);
         SmtpMessage m = action.getMessage();
         message.setFrom(new InternetAddress(m.getFrom()));
@@ -141,12 +127,38 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         message.setRecipients(RecipientType.TO, MessageUtils.getRecipients(m.getTo()));
         message.setRecipients(RecipientType.CC, MessageUtils.getRecipients(m.getCc()));
         message.setRecipients(RecipientType.BCC, MessageUtils.getRecipients(m.getBcc()));
-//        message.setSubject(MessageUtils.encodeTexts(m.getSubject()));
+        message.setSentDate(new Date());
+        message.addHeader("User-Agent:", "HUPA, The Apache JAMES webmail client.");
+        message.addHeader("X-Originating-IP", getClientIpAddr());
         message.setSubject(m.getSubject(), "utf-8");
         updateHeaders(message, action);
         message.saveChanges();
         return message;
     }
+    
+    public static String getClientIpAddr() {
+        HttpServletRequest request = RequestFactoryServlet.getThreadLocalRequest();
+        String ip = "unknown";
+        if (request != null) {
+            ip = request.getHeader("X-Forwarded-For");  
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+                ip = request.getHeader("Proxy-Client-IP");  
+            }  
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+                ip = request.getHeader("WL-Proxy-Client-IP");  
+            }  
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+                ip = request.getHeader("HTTP_CLIENT_IP");  
+            }  
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+                ip = request.getHeader("HTTP_X_FORWARDED_FOR");  
+            }  
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+                ip = request.getRemoteAddr();  
+            }  
+        }
+        return ip;
+    }  
     
     protected void updateHeaders(MimeMessage message, SendMessageAction action) {
         if (action.getInReplyTo() != null) {
@@ -175,7 +187,7 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * @throws IOException 
 	 * @throws HupaException 
      */
-    protected Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException, HupaException {
+    public Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException, HupaException {
 
         String html = restoreInlineLinks(action.getMessage().getText());
         
@@ -255,26 +267,8 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * @throws MessagingException
      */
     protected void sendMessage(User user, Message message) throws MessagingException {
-        
-        Transport transport = cache.getMailTransport(useSSL);
-    
-        if (auth) {
-            logger.debug("Use auth for smtp connection");
-            transport.connect(address,port,user.getName(), user.getPassword());
-        } else {
-            transport.connect(address, port, null,null);
-        }
-        
-        Address[] recips = message.getAllRecipients();
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < recips.length; i++) {
-            sb.append(recips[i]);
-            if (i != recips.length -1) {
-                sb.append(", ");
-            }
-        }
-        logger.info("Send message from " + message.getFrom()[0].toString()+ " to " + sb.toString());
-        transport.sendMessage(message, recips);
+        cache.sendMessage(message);
+        logger.info("Send message from " + message.getFrom()[0].toString());
     }
 
     /**

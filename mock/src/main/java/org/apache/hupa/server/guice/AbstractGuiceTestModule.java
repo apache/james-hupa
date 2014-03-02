@@ -21,8 +21,8 @@ package org.apache.hupa.server.guice;
 
 import java.util.Properties;
 
-import org.apache.hupa.shared.data.SettingsImpl;
 import org.apache.hupa.shared.data.UserImpl;
+import org.apache.hupa.shared.domain.Settings;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
@@ -79,21 +79,11 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
     	
         @Inject
         public TestUser(@Named("Username") String username, 
-                        @Named("Password") String password, 
-                        @Named("DefaultInboxFolder") final String inbox, 
-                        @Named("DefaultSentFolder") final String sent,
-                        @Named("DefaultTrashFolder") final String trash, 
-                        @Named("DefaultDraftsFolder") final String draft) {
+                        @Named("Password") String password,
+                        Settings settings) {
             setName(username);
             setPassword(password);
-            setSettings(new SettingsImpl() {
-                {
-                    setInboxFolderName(inbox);
-                    setSentFolderName(sent);
-                    setTrashFolderName(trash);
-                    setDraftsFolderName(draft);
-                }
-            });
+            setSettings(settings);
         }
     }
     
@@ -125,6 +115,7 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
             put("SMTPAuth", "true");
             
             put("SessionDebug", "true");
+            put("TrustSSL", "false");
         }
     };
     
@@ -155,6 +146,7 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
             put("SMTPAuth", "true");
             
             put("SessionDebug", "true");
+            put("TrustSSL", "false");
         }
     };
     
@@ -187,6 +179,7 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
             put("SMTPAuth", "true");
             
             put("SessionDebug", "true");
+            put("TrustSSL", "false");
         }
     };
 

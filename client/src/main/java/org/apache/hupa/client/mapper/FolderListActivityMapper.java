@@ -38,7 +38,7 @@ public class FolderListActivityMapper extends _HupaActivityMapper {
 	}
 
 	@Override
-	Activity asyncLoadActivity(final Place place) {
+	protected Activity asyncLoadActivity(final Place place) {
 		if (place instanceof SettingPlace)
 			return null;
 		return new ActivityAsyncProxy() {

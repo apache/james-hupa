@@ -20,9 +20,9 @@
 package org.apache.hupa.client.activity;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.place.MessagePlace.TokenWrapper;
 import org.apache.hupa.client.rf.GetMessageDetailsRequest;
@@ -31,20 +31,22 @@ import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;
 import org.apache.hupa.shared.domain.ImapFolder;
+import org.apache.hupa.shared.domain.MailHeader;
 import org.apache.hupa.shared.domain.MessageAttachment;
-import org.apache.hupa.shared.events.DeleteClickEvent;
-import org.apache.hupa.shared.events.DeleteClickEventHandler;
+import org.apache.hupa.shared.domain.MessageDetails;
 import org.apache.hupa.shared.events.MailToEvent;
+import org.apache.hupa.shared.events.MessageViewEvent;
+import org.apache.hupa.shared.events.RefreshFoldersEvent;
+import org.apache.hupa.shared.events.RefreshFoldersEventHandler;
+import org.apache.hupa.shared.events.ShowRawEvent;
+import org.apache.hupa.shared.events.ShowRawEventHandler;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.HasVisibility;
+import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -55,82 +57,90 @@ public class MessageContentActivity extends AppBaseActivity {
 	private static final Logger log = Logger.getLogger(MessageContentActivity.class.getName());
 
 	@Inject private Displayable display;
-	private String fullName;
+    @Inject private ToolBarActivity.Displayable toolBar;
+	
+	private String folder;
 	private String uid;
-
+	private MessageDetails details;
+	
+	public MessageContentActivity() {
+       exportJSMethods(this);
+    }
+	
 	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
+	public void start(AcceptsOneWidget container, final EventBus eventBus) {
 		bindTo(eventBus);
-		display.getRawPanel().setVisible(false);
 		if (isUidSet()) {
-			display.getRawPanel().setVisible(true);
+            hc.showTopLoading("Loading... ");
+            display.clearContent();
 			GetMessageDetailsRequest req = rf.messageDetailsRequest();
 			GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
 			final ImapFolder f = req.create(ImapFolder.class);
-			f.setFullName(fullName);
+			f.setFullName(folder);
 			action.setFolder(f);
 			action.setUid(Long.parseLong(uid));
+
+			final String id = uid; 
 			req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
 				@Override
 				public void onSuccess(GetMessageDetailsResult response) {
-					display.fillMessageContent(response.getMessageDetails().getText());
-					List<MessageAttachment> attaches = response.getMessageDetails().getMessageAttachments();
-					if (attaches == null || attaches.isEmpty()) {
-						display.showAttachmentPanel(false);
-					} else {
-						display.showAttachmentPanel(true);
-						display.setAttachments(response.getMessageDetails().getMessageAttachments(), fullName,
-								Long.parseLong(uid));
+				    if (!id.equals(uid)) {
+				        return;
+				    }
+                    hc.hideTopLoading();
+		            eventBus.fireEvent(new MessageViewEvent(response.getMessageDetails()));
+
+		            details = response.getMessageDetails();
+					display.fillMessageContent(details.getText(), false);
+					
+					List<MessageAttachment> attaches = details.getMessageAttachments();
+					if (attaches != null && !attaches.isEmpty()) {
+						display.setAttachments(attaches, folder, Long.parseLong(uid));
 					}
 				}
 
 				@Override
 				public void onFailure(ServerFailure error) {
+                    hc.hideTopLoading();
+                    toolBar.enableAllTools(false);
 					if (error.isFatal()) {
-						log.log(Level.SEVERE, error.getMessage());
-						// TODO write the error message to status bar.
-						throw new RuntimeException(error.getMessage());
+						hc.showNotice(error.getMessage(), 10000);
 					}
 				}
 			});
 		}
 		container.setWidget(display.asWidget());
-		exportJSMethods(this);
 	}
 
 	private void bindTo(EventBus eventBus) {
-		eventBus.addHandler(DeleteClickEvent.TYPE, new DeleteClickEventHandler() {
+		eventBus.addHandler(ShowRawEvent.TYPE, new ShowRawEventHandler() {
 			@Override
-			public void onDeleteClickEvent(DeleteClickEvent event) {
-				display.clearContent();
-			}
-		});
-		this.registerHandler(display.getRaw().addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
+			public void onShowRaw(ShowRawEvent event) {
 				String message_url = GWT.getModuleBaseURL() + SConsts.SERVLET_SOURCE + "?" + SConsts.PARAM_UID + "="
-						+ uid + "&" + SConsts.PARAM_FOLDER + "=" + fullName;
+						+ uid + "&" + SConsts.PARAM_FOLDER + "=" + folder;
 				Window.open(message_url, "_blank", "");
 			}
-
-		}));
+		});
+		eventBus.addHandler(RefreshFoldersEvent.TYPE, new RefreshFoldersEventHandler() {
+            public void onRefreshEvent(RefreshFoldersEvent event) {
+                display.clearContent();
+            }
+        });
 	}
-
+	
 	private boolean isUidSet() {
 		return uid != null && uid.matches("\\d+");
 	}
 
 	public interface Displayable extends IsWidget {
-		void fillMessageContent(String messageContent);
 		void clearContent();
-		void setAttachments(List<MessageAttachment> attachements, String folder, long uid);
-		void showAttachmentPanel(boolean is);
-		HasClickHandlers getRaw();
-		HasVisibility getRawPanel();
+        void setAttachments(List<MessageAttachment> attachements, String folder, long uid);
+		HasHTML getMessageHTML();
+        void fillMessageContent(String messageDetail, boolean isEditable);
 	}
 
 	public Activity with(TokenWrapper tokenWrapper) {
-		fullName = tokenWrapper.getFolder();
+		folder = tokenWrapper.getFolder();
 		uid = tokenWrapper.getUid();
 		return this;
 	}
@@ -143,20 +153,35 @@ public class MessageContentActivity extends AppBaseActivity {
 		pc.goTo(new ComposePlace("new").with(new Parameters(null, null, null, null)));
 		eventBus.fireEvent(new MailToEvent(mailto));
 	}
+	
+	private String getHeader(String key) {
+        for (MailHeader h : details.getMailHeaders()) {
+            if (h.getName().equals(key)) {
+                return h.getValue();
+            }
+        }
+        return null;
+	}
+    
+    private boolean isSenderMessage() {
+        String from = getHeader("From");
+        return from != null && from.contains(HupaController.user.getName())
+              || folder.equals(HupaController.user.getSettings().getSentFolderName());
+    }
 
-	private native void exportJSMethods(MessageContentActivity activity)
+	protected native void exportJSMethods(MessageContentActivity activity)
 	/*-{
-       $wnd.openLink = function(url) {
-       try {
-       activity.@org.apache.hupa.client.activity.MessageContentActivity::openLink(Ljava/lang/String;) (url);
-       } catch(e) {}
-       return false;
-       };
-       $wnd.mailTo = function(mail) {
-       try {
-       activity.@org.apache.hupa.client.activity.MessageContentActivity::mailTo(Ljava/lang/String;) (mail);
-       } catch(e) {}
-       return false;
-       };
-       }-*/;
+	   $wnd.openLink = function(url) {
+    	   try {
+    	       activity.@org.apache.hupa.client.activity.MessageContentActivity::openLink(Ljava/lang/String;) (url);
+    	   } catch(e) {}
+	       return false;
+	   };
+	   $wnd.mailTo = function(mail) {
+    	   try {
+    	       activity.@org.apache.hupa.client.activity.MessageContentActivity::mailTo(Ljava/lang/String;) (mail);
+    	   } catch(e) {}
+	       return false;
+	   };
+   }-*/;
 }

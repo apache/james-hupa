@@ -19,7 +19,11 @@
 
 package org.apache.hupa.client.ui;
 
+import org.apache.hupa.client.place.SettingPlace;
+
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.query.client.GQuery;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -27,31 +31,47 @@ import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class _CenterSettingPanel extends Composite {
-	
 
-	@UiField SplitLayoutPanel thisPanel;
+	@UiField public SplitLayoutPanel thisPanel;
 
-	@UiField SimpleLayoutPanel settingNavContainer;
+	@UiField public SimpleLayoutPanel settingNavContainer;
 
-	@UiField SimpleLayoutPanel labelListContainer;
-	@UiField SimplePanel labelPropertiesContainer;
-	
-	@UiField protected Style style;
+	@UiField public SettingLabelPanel settingLabelPanel;
 
-	interface Style extends CssResource {
-		
+	@UiField public LayoutPanel settingBox;
+
+	@UiField public Style style;
+
+	public interface Style extends CssResource {
 	}
-	
-	public _CenterSettingPanel() {
 
-		initWidget(binder.createAndBindUi(this));
+	public void arrangeLayout(int lyt) {
+        settingBox.setWidgetLeftWidth(settingLabelPanel, 0, Unit.PCT, 100, Unit.PCT);
+        settingBox.setWidgetTopHeight(settingLabelPanel, 0, Unit.PCT, 100, Unit.PCT);
 	}
+
+    interface _CenterSettingPanelUiBinder extends UiBinder<SplitLayoutPanel, _CenterSettingPanel> {
+    }
+
+    @SuppressWarnings("rawtypes")
+    protected static UiBinder binder;
+
+    @SuppressWarnings("unchecked")
+    public _CenterSettingPanel() {
+        binder = createBinder();
+		initWidget((SplitLayoutPanel)binder.createAndBindUi(this));
+	}
+    
+    @SuppressWarnings("rawtypes")
+    protected UiBinder createBinder() {
+        return GWT.create(_CenterSettingPanelUiBinder.class);
+    }
 
 	public interface Resources extends CellList.Resources {
 
@@ -61,29 +81,14 @@ public class _CenterSettingPanel extends Composite {
 		public CellList.Style cellListStyle();
 	}
 
-	interface _CeterSettingPanelUiBinder extends UiBinder<SplitLayoutPanel, _CenterSettingPanel> {
-	}
-
-	private static _CeterSettingPanelUiBinder binder = GWT.create(_CeterSettingPanelUiBinder.class);
-
 	public AcceptsOneWidget getLabelListView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				labelListContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
+		return settingLabelPanel.getLabelListView();
 	}
 
 	public AcceptsOneWidget getLabelPropertiesView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				labelPropertiesContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
+		return settingLabelPanel.getLabelPropertiesView();
 	}
-
+	
 	public AcceptsOneWidget getSettingNavView() {
 		return new AcceptsOneWidget() {
 			@Override
@@ -91,5 +96,9 @@ public class _CenterSettingPanel extends Composite {
 				settingNavContainer.setWidget(Widget.asWidgetOrNull(w));
 			}
 		};
+	}
+
+	public void swithTo(SettingPlace sp) {
+        GQuery.console.log("_CenterSetting... swithTo " + sp + " " + sp.getToken());
 	}
 }

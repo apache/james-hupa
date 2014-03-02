@@ -36,12 +36,11 @@ import org.apache.hupa.server.service.FetchFoldersServiceImpl;
 import org.apache.hupa.server.service.FetchMessagesService;
 import org.apache.hupa.server.service.FetchMessagesServiceImpl;
 import org.apache.hupa.server.service.GetMessageDetailsServiceImpl;
-import org.apache.hupa.server.service.IdleService;
-import org.apache.hupa.server.service.IdleServiceImpl;
 import org.apache.hupa.server.service.LoginUserService;
 import org.apache.hupa.server.service.LoginUserServiceImpl;
 import org.apache.hupa.server.service.LogoutUserService;
 import org.apache.hupa.server.service.LogoutUserServiceImpl;
+import org.apache.hupa.server.service.SendMessageBaseServiceImpl;
 import org.apache.hupa.server.service.SendReplyMessageServiceImpl;
 import org.apache.hupa.server.utils.SessionUtils;
 import org.apache.hupa.shared.SConsts;
@@ -53,7 +52,7 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.sun.mail.imap.IMAPStore;
 
-public class HupaGuiceTestCase{
+public class HupaGuiceTestCase {
 
     protected Injector injector = Guice.createInjector(getModules());
     
@@ -63,10 +62,10 @@ public class HupaGuiceTestCase{
 	protected DeleteFolderService deleteFolderService;
 	protected DeleteMessageByUidService deleteMessageByUidService;
 	protected GetMessageDetailsServiceImpl  getMessageDetailsService;
-	protected IdleService idleService;
 	protected LoginUserService loginUserService;
 	protected LogoutUserService logoutUserService;
 	protected SendReplyMessageServiceImpl sendReplyMessageService;
+	protected SendMessageBaseServiceImpl sendMessageService;
 	
 	protected Log logger;
     protected IMAPStoreCache storeCache;
@@ -79,6 +78,8 @@ public class HupaGuiceTestCase{
         return new Module[]{new GuiceServerTestModule()};
     }
     
+    protected FileItemRegistry registry;
+    
 
     @Before
     public void setUp(){
@@ -90,13 +91,12 @@ public class HupaGuiceTestCase{
         	deleteFolderService = injector.getInstance(DeleteFolderServiceImpl.class);
         	deleteMessageByUidService = injector.getInstance(DeleteMessageByUidServiceImpl.class);
         	getMessageDetailsService = injector.getInstance(GetMessageDetailsServiceImpl.class);
-        	idleService = injector.getInstance(IdleServiceImpl.class);
         	loginUserService = injector.getInstance(LoginUserServiceImpl.class);
         	logoutUserService = injector.getInstance(LogoutUserServiceImpl.class);
         	sendReplyMessageService = injector.getInstance(SendReplyMessageServiceImpl.class);
+        	sendMessageService = injector.getInstance(SendMessageBaseServiceImpl.class);
         	
         	logger = injector.getInstance(Log.class);
-            session = injector.getInstance(Session.class);
             storeCache = injector.getInstance(IMAPStoreCache.class);
             userPreferences = injector.getInstance(UserPreferencesStorage.class);
 
@@ -105,7 +105,10 @@ public class HupaGuiceTestCase{
             testUser = injector.getInstance(User.class);
             store = storeCache.get(testUser);
             httpSession.setAttribute(SConsts.USER_SESS_ATTR, testUser);
-        }catch (Exception e) {
+            session = storeCache.getMailSession(testUser);
+
+            registry = SessionUtils.getSessionRegistry(logger, httpSession);
+        } catch (Exception e) {
         	e.printStackTrace();
         }
     }

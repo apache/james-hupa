@@ -37,11 +37,11 @@ public class _CenterComposePanel extends Composite {
 
 	public _CenterComposePanel() {
 		initWidget(binder.createAndBindUi(this));
-		thisPanel.setWidgetMinSize(outlinePanel, 144);
+//		thisPanel.setWidgetHidden(outlinePanel, true);
 	}
 
-	public AcceptsOneWidget getContactListView() {
-		return outlinePanel.getContactListView();
+	public AcceptsOneWidget getAddressListView() {
+		return outlinePanel.getAddressListView();
 	}
 
 

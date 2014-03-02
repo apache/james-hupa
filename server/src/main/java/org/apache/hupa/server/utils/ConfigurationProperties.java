@@ -50,6 +50,7 @@ public enum ConfigurationProperties {
     SESSION_DEBUG("SessionDebug", false, "false"),
     SMTP_AUTH("SMTPAuth", false, "true"),
     SMTPS("SMTPS", false, "false"),
+    TRUST_SSL("TrustSSL", false, "false"),
 
     // Used only in demo mode
     USERNAME("Username", false, null),
@@ -119,8 +120,7 @@ public enum ConfigurationProperties {
 
         // Test for mandatory and complete properties with default values when
         // missing
-        for (ConfigurationProperties confProps : ConfigurationProperties
-                .values()) {
+        for (ConfigurationProperties confProps : ConfigurationProperties.values()) {
             String propName = confProps.getProperty();
             String propValue = confProps.getPropValue();
             Object value = properties.get(propName);
@@ -142,7 +142,7 @@ public enum ConfigurationProperties {
             }
         }
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException("Error validating configuration: \n" + properties + "\n" +  errors.toString());
+            throw new IllegalArgumentException("Error validating configuration : \n" + properties + "\n" +  errors.toString());
         }
     }
     

@@ -38,10 +38,11 @@ public abstract class AbstractService {
     @Inject protected Log logger;
 
 	protected User getUser() throws HupaException{
-
         User user = (User) httpSessionProvider.get().getAttribute(SConsts.USER_SESS_ATTR);
         if (user == null) {
-            throw new InvalidSessionException(getClass()+"User not found in session with id " + httpSessionProvider.get().getId());
+            throw new InvalidSessionException(getClass().getSimpleName()
+                    + User.NOT_FOUND
+                    + httpSessionProvider.get().getId());
         } else {
             return user;
         }

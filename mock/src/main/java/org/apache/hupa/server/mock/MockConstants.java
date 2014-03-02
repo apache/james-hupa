@@ -39,6 +39,13 @@ public class MockConstants {
             setSentFolderName(MockIMAPStore.MOCK_SENT_FOLDER);
             setTrashFolderName(MockIMAPStore.MOCK_TRASH_FOLDER);
             setDraftsFolderName(MockIMAPStore.MOCK_DRAFTS_FOLDER);
+            setImapServer("localhost");
+            setImapPort(143);
+            setImapSecure(false);
+            setSmtpServer("localhost");
+            setSmtpPort(25);
+            setSmtpSecure(false);
+            setSmtpAuth(false);
         }
     };
     
@@ -62,20 +69,11 @@ public class MockConstants {
         }
     };
 
-    public final static Settings mockUserSettings = new SettingsImpl() {
-        {
-            setInboxFolderName(MockIMAPStore.MOCK_INBOX_FOLDER);
-            setSentFolderName(MockIMAPStore.MOCK_SENT_FOLDER);
-            setTrashFolderName(MockIMAPStore.MOCK_TRASH_FOLDER);
-            setDraftsFolderName(MockIMAPStore.MOCK_DRAFTS_FOLDER);
-        }
-    };
-    
     public final static User mockUser = new UserImpl() {
         {
             setName(MockIMAPStore.MOCK_LOGIN);
             setPassword(MockIMAPStore.MOCK_LOGIN);
-            setSettings(mockUserSettings);
+            setSettings(mockSettings);
         }
     };
 }

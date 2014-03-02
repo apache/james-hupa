@@ -21,9 +21,11 @@ package org.apache.hupa.server.service;
 
 import javax.mail.MessagingException;
 
+import org.apache.hupa.shared.domain.Settings;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.exception.HupaException;
 
 public interface LoginUserService {
-	public User login(String username, String password) throws HupaException, MessagingException;
+	User login(String username, String password, Settings settings) throws HupaException, MessagingException;
+	Settings getSettings(String email);
 }

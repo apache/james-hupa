@@ -149,6 +149,7 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 		String delimiter;
 		ImapFolder iFolder = null;
 		try {
+		    new RuntimeException().printStackTrace();
 			System.out.println("Creating folder2: " + fullName + " for user: " + this.getUser());
 			delimiter = String.valueOf(folder.getSeparator());
 			iFolder = new ImapFolderImpl(fullName);

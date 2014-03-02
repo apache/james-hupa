@@ -40,7 +40,7 @@ public class _ToolPanel extends Composite {
 		initWidget(binder.createAndBindUi(this));
 	}
 
-	void toggleTo(int layout) {
+	public void toggleTo(int layout) {
 		switch (layout) {
 		case HupaLayout.LAYOUT_MESSAGE:
 			this.toggleToCompose(false);break;
@@ -53,15 +53,15 @@ public class _ToolPanel extends Composite {
 	}
 
 	private void hideAll() {
-		toolBarContainer.setVisible(false);
-		searchBoxContainer.setVisible(false);
-		composeToolBarContainer.setVisible(false);
+		thisPanel.setWidgetHidden(toolBarContainer, true);
+		thisPanel.setWidgetHidden(searchBoxContainer, true);
+		thisPanel.setWidgetHidden(composeToolBarContainer, true);
 	}
 
 	protected void toggleToCompose(boolean visible) {
-		toolBarContainer.setVisible(!visible);
-		searchBoxContainer.setVisible(!visible);
-		composeToolBarContainer.setVisible(visible);
+		thisPanel.setWidgetHidden(toolBarContainer, visible);
+		thisPanel.setWidgetHidden(searchBoxContainer, visible);
+		thisPanel.setWidgetHidden(composeToolBarContainer, !visible);
 	}
 
 	public AcceptsOneWidget getToolBarView() {

@@ -35,7 +35,7 @@
 						<g:layer>
 							<g:SimplePanel ui:field="notificationContainer" />
 						</g:layer>
-						<g:layer width="287px" right="0">
+						<g:layer width="171px" right="0">
 							<g:SimpleLayoutPanel ui:field="navigationContainer" />
 						</g:layer>
 					</g:LayoutPanel>
@@ -52,13 +52,13 @@
 						<g:layer left="0%" width="100%" top="0%" height="100%">
 							<hupa:_CenterPanel ui:field="centerPanel" />
 						</g:layer>
-						<g:layer left="0%" width="0%" top="0%" height="0%">
+						<g:layer left="0%" width="100%" top="0%" height="100%">
 							<hupa:_CenterSettingPanel ui:field="settingPanel" />
 						</g:layer>
-                        <g:layer left="0%" width="0%" top="0%" height="0%">
+                        <g:layer left="0%" width="100%" top="0%" height="100%">
                             <hupa:_CenterContactPanel ui:field="contactPanel" />
                         </g:layer>
-                        <g:layer left="0%" width="0%" top="0%" height="0%">
+                        <g:layer left="0%" width="100%" top="0%" height="100%">
                             <hupa:_CenterComposePanel ui:field="composePanel" />
                         </g:layer>
 					</g:LayoutPanel>

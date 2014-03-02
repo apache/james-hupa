@@ -12,6 +12,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 	<ui:image field="buttons" src="res/buttons.png" />
+
 	<ui:style type="org.apache.hupa.client.ui.ComposeView.Style">
 		.box {
 			border: 1px solid #A3A3A3;
@@ -46,7 +47,7 @@
 			padding: 3px 8px;
 		}
 		
-		.header td textarea,.header td input {
+		.header td textarea,.header td input[type="text"] {
 			width: 100%;
 			height: 13px;
 			resize: none;
@@ -166,6 +167,13 @@
 			padding-left: 8px;
 			border-top: 1px solid #ddd;
 			border-radius: 0 0 4px 4px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		
+		@external .gwt-RichTextToolbar;
+		.gwt-RichTextToolbar,.statusbar {
 			background: #eaeaea;
 			background: -moz-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
 			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eaeaea),
@@ -173,53 +181,109 @@
 			background: -o-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
 			background: -ms-linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
 			background: linear-gradient(top, #eaeaea 0%, #c8c8c8 100%);
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
 		}
 		
-		.uploader{
-	
-}
-.uploaderCancel{}
-.uploaderFilename{}
+		.uploader {
+			
+		}
+		
+		.uploaderCancel {
+			
+		}
+		
+		.uploaderFilename {
+			
+		}
+		
+		.attachButton {
+			width: 130px;
+			height: 27px;
+			outline: none;
+		}
+		
+		@sprite .attachImage {
+			gwt-image: 'buttons';
+			background-position: -7px -353px;
+			width: 26px;
+		}
+		
+		@sprite .attachClip {
+			gwt-image: 'buttons';
+			background-position: center -890px;
+			width: 24px;
+			margin-left: 6px;
+			margin-top: -4px;
+		}
+		
+		.attachImage,.attachText {
+			height: 27px;
+			cursor: pointer;
+			color: blue;
+			float: left;
+			padding-top: 7px;
+		}
+		
+		.attachClip,.attachClipText {
+			height: 27px;
+			cursor: pointer;
+			float: left;
+			padding-top: 7px;
+		}
 	</ui:style>
-	<g:DockLayoutPanel ui:field="thisPanel" unit="PX"
-		addStyleNames="{style.box}">
-		<g:north size="135">
+
+	<g:SplitLayoutPanel ui:field="thisPanel">
+		<g:north size="150">
 			<g:SimplePanel ui:field="header" addStyleNames="{style.header}">
 				<g:FlexTable ui:field="headerTable" addStyleNames="{style.headerTable}" />
 			</g:SimplePanel>
 		</g:north>
 		<g:center>
-			<g:SimpleLayoutPanel ui:field="composeContentContainer">
-				<g:DockLayoutPanel unit="PX">
-					<g:north size="23">
-						<g:HTMLPanel addStyleNames="{style.composeoptionsbox}">composeOption</g:HTMLPanel>
-					</g:north>
-					<g:east size="257">
-						<g:FlowPanel ui:field="attach" addStyleNames="{style.composeattachments}">
-						</g:FlowPanel>
-					</g:east>
-					<g:center>
-						<g:DockLayoutPanel>
-							<g:north size="23">
-								<g:SimplePanel ui:field="editorToolBar" />
-							</g:north>
-							<g:center>
-								<g:SimplePanel ui:field="composeEditor"
-									addStyleNames="{style.composebodycontainer}" />
-							</g:center>
-						</g:DockLayoutPanel>
-					</g:center>
-				</g:DockLayoutPanel>
-			</g:SimpleLayoutPanel>
+			<g:DockLayoutPanel unit="PX" addStyleNames="{style.box}">
+				<!-- <g:north size="23"> -->
+				<!-- <g:HTMLPanel addStyleNames="{style.composeoptionsbox}">composeOption</g:HTMLPanel> -->
+				<!-- </g:north> -->
+				<g:east size="257">
+					<g:DockLayoutPanel>
+						<g:north size="25">
+							<g:HTMLPanel addStyleNames="{style.statusbar}">
+								<div class="{style.attachClip}" />
+								<div class="{style.attachClipText}">Attachments</div>
+							</g:HTMLPanel>
+						</g:north>
+						<g:center>
+							<g:FlowPanel ui:field="attach" addStyleNames="{style.composeattachments}">
+								<g:VerticalPanel>
+									<g:FocusPanel ui:field="attachButton"
+										addStyleNames="{style.attachButton}">
+										<g:HTMLPanel>
+											<div class="{style.attachImage}" />
+											<div class="{style.attachText}">Attach a File ...</div>
+										</g:HTMLPanel>
+									</g:FocusPanel>
+								</g:VerticalPanel>
+							</g:FlowPanel>
+						</g:center>
+					</g:DockLayoutPanel>
+				</g:east>
+				<g:center>
+					<g:DockLayoutPanel>
+						<g:north size="23">
+							<g:SimplePanel ui:field="editorToolBar" />
+						</g:north>
+						<g:center>
+							<g:SimplePanel ui:field="composeEditor"
+								addStyleNames="{style.composebodycontainer}" />
+						</g:center>
+					</g:DockLayoutPanel>
+				</g:center>
+				<g:south size="28">
+					<g:SimplePanel ui:field="composeStatusContainer"
+						addStyleNames="{style.mailviewbottom} {style.box}">
+						<g:HTMLPanel addStyleNames="{style.statusbar}"></g:HTMLPanel>
+					</g:SimplePanel>
+				</g:south>
+			</g:DockLayoutPanel>
 		</g:center>
-		<g:south size="28">
-			<g:SimplePanel ui:field="composeStatusContainer"
-				addStyleNames="{style.mailviewbottom}{style.box}">
-				<g:HTMLPanel addStyleNames="{style.statusbar}">composeStatus</g:HTMLPanel>
-			</g:SimplePanel>
-		</g:south>
-	</g:DockLayoutPanel>
+
+	</g:SplitLayoutPanel>
 </ui:UiBinder>

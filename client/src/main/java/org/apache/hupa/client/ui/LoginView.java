@@ -20,220 +20,194 @@
 package org.apache.hupa.client.ui;
 
 import org.apache.hupa.client.activity.LoginActivity;
+import org.apache.hupa.shared.domain.Settings;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.resources.client.CssResource;
-import com.google.gwt.resources.client.CssResource.NotStrict;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.FormPanel;
-import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.SubmitButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Inject;
 
-public class LoginView extends Composite implements KeyUpHandler,
-		LoginActivity.Displayable {
+public class LoginView extends Composite implements LoginActivity.Displayable {
 
-	/*
-	 * invoke style lived in ui.xml should use this unique name, otherwise
-	 * define by ourselves
-	 */
-	public interface Style extends CssResource {
-		String loading();
+    @UiField FlowPanel innerBox;
+    @UiField HTMLPanel message;
+    @UiField SubmitButton submitButton;
+    @UiField Button setupButton;
+    
+    @UiField PopupPanel settingsPopup;
+    @UiField TextBox imapServer;
+    @UiField TextBox imapPort;
+    @UiField CheckBox imapSecure;
+    @UiField TextBox smtpServer;
+    @UiField TextBox smtpPort;
+    @UiField CheckBox smtpSecure;
+    private LoginActivity activity;
 
-		String hidden();
+    /*
+     * We wrap login/password boxes with a form which must be in the html
+     * document, in this way, the browser knows that we are sending a login form
+     * and offers the save password dialog to the user
+     */
+    @UiField(provided = true) TextBox usernameTextBox;
+    @UiField(provided = true) PasswordTextBox passwordTextBox;
 
-		String display();
-	}
+    public LoginView() {
+        // Wrapped elements from the html document
+        usernameTextBox = TextBox.wrap(DOM.getElementById("email"));
+        passwordTextBox = PasswordTextBox.wrap(DOM.getElementById("password"));
 
-	@UiField Style style;
-	@UiField FlowPanel mainContainer;
-	@UiField FlowPanel innerBox;
-	@UiField Button loginButton;
-	@UiField FlexTable flexTable;
-	@UiField FlowPanel boxBottom;
-	@UiField FlowPanel messageBox;
-	@UiField FlowPanel bottomLine;
-	@UiField FormPanel formPanel;
-	@UiField HTMLPanel message;
-	Resources.Css css = Resources.INSTANCE.stylesheet();
-	private SubmitButton submitButton;
-	PPanel buttonBar = new PPanel();
+        initWidget(binder.createAndBindUi(this));
+        imapPort.setText("");
+        smtpPort.setText("");
 
-	/*
-	 * We wrap login/password boxes with a form which must be in the html
-	 * document, in this way, the browser knows that we are sending a login form
-	 * and offers the save password dialog to the user
-	 */
-	private TextBox usernameTextBox = TextBox.wrap(DOM.getElementById("email"));
-	private PasswordTextBox passwordTextBox = PasswordTextBox.wrap(DOM
-			.getElementById("password"));
+        usernameTextBox.setFocus(true);
 
-	public interface Resources extends ClientBundle {
+        setLoading(false);
 
-		Resources INSTANCE = GWT.create(Resources.class);
+        settingsPopup.setVisible(false);
+    }
+    
+    @UiHandler("usernameTextBox")
+    protected void onUser(KeyPressEvent e) {
+        if (e.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+            new Timer() {
+                public void run() {
+                    passwordTextBox.setFocus(true);
+                }
+            }.schedule(100);
+        }
+    }
+    
+    @UiHandler("usernameTextBox")
+    protected void onUser(ChangeEvent e) {
+        activity.loadSettings();
+    }
 
-		@NotStrict
-		@Source("res/CssLoginView.css")
-		public Css stylesheet();
+    @UiHandler("passwordTextBox")
+    protected void onPassword(KeyDownEvent e) {
+        if (e.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+            submitButton.click();
+        }
+    }
+    
+    @UiHandler("submitButton")
+    protected void onSubmit(ClickEvent e) {
+        System.out.println("ON sub");
+        if (!usernameTextBox.getValue().isEmpty() && 
+            !passwordTextBox.getValue().isEmpty()) {
+            if (!settingsPopup.isShowing() && 
+                    (imapServer.getValue().isEmpty()
+                    || smtpServer.getValue().isEmpty()
+                    || imapPort.getValue().isEmpty()
+                    || smtpPort.getValue().isEmpty()
+                    )) {
+                       settingsPopup.showRelativeTo(setupButton);
+            } else {
+                setLoading(true);
+                activity.doLogin();
+            }            
+        }
+    }
+    
+    @UiHandler("setupButton")
+    protected void onSetup(ClickEvent e) {
+        if (settingsPopup.isShowing()) {
+            settingsPopup.hide();
+        } else {
+            settingsPopup.showRelativeTo(setupButton);
+        }
+    }
+    
+    @Override
+    public HasValue<String> getUserNameValue() {
+        return usernameTextBox;
+    }
 
-		public interface Css extends CssResource {
-			String loginForm();
+    @Override
+    public HasValue<String> getPasswordValue() {
+        return passwordTextBox;
+    }
 
-			String boxInner();
+    @Override
+    public void setLoading(boolean load) {
+        if (load) {
+            message.setVisible(true);
+            submitButton.setEnabled(false);
+        } else {
+            message.setVisible(false);
+            submitButton.setEnabled(true);
+        }
+    }
 
-			String tdTitle();
+    @Override
+    public Widget asWidget() {
+        return this;
+    }
 
-			String tdInput();
+    interface LoginViewUiBinder extends UiBinder<FlowPanel, LoginView> {
+    }
 
-			String pFormbuttons();
+    private static LoginViewUiBinder binder = GWT.create(LoginViewUiBinder.class);
+    
+    interface Style extends CssResource {
+        String imapSetting();
+    }
 
-			String submitButton();
+    @Override
+    public void setSettings(Settings s) {
+        System.out.println("Settings " + settingsPopup.isShowing());
+        imapServer.setValue(s.getImapServer());
+        imapPort.setValue("" + (s.getImapPort() > 0 ? s.getImapPort() : ""));
+        imapSecure.setValue(s.getImapSecure());
+        smtpServer.setValue(s.getSmtpServer());
+        smtpPort.setValue("" + (s.getSmtpPort() > 0 ? s.getSmtpPort() : ""));
+        smtpSecure.setValue(s.getSmtpSecure());
+    }
+    
+    @Override
+    public Settings getSettings(Settings s) {
+        s.setImapServer(imapServer.getValue());
+        imapPort.setValue(imapPort.getValue().replaceAll("[^\\d]+", ""));
+        if(imapPort.getValue().matches("\\d+"))
+        	s.setImapPort(Integer.valueOf(imapPort.getValue()));
+        s.setImapSecure(imapSecure.getValue());        
+        s.setSmtpServer(smtpServer.getValue());
+        smtpPort.setValue(smtpPort.getValue().replaceAll("[^\\d]+", ""));
+        if(smtpPort.getValue().matches("\\d+"))
+        	s.setSmtpPort(Integer.valueOf(smtpPort.getValue()));
+        s.setSmtpSecure(smtpSecure.getValue());
+        return s;
+    }
 
-			String boxBottom();
-
-			String messageBox();
-
-			String bottomLine();
-		}
-	}
-
-	@Inject
-	public LoginView() {
-		initWidget(binder.createAndBindUi(this));
-		mainContainer.addStyleName(css.loginForm());
-		innerBox.addStyleName(css.boxInner());
-		formPanel = FormPanel.wrap(DOM.getElementById("loginForm"), true);
-		submitButton = new SubmitButton("Login");
-		submitButton.setStyleName(css.submitButton());
-		bottomLine.addStyleName(css.bottomLine());
-		buttonBar.add(submitButton);
-		buttonBar.addStyleName(css.pFormbuttons());
-		createLoginPrompt();
-		flexTable.getFlexCellFormatter().setColSpan(2, 0, 2);
-		flexTable.setWidget(2, 0, buttonBar);
-
-		formPanel.add(flexTable);
-		innerBox.add(formPanel);
-
-		usernameTextBox.addKeyUpHandler(this);
-		usernameTextBox.setFocus(true);
-		passwordTextBox.addKeyUpHandler(this);
-
-		/*
-		 * The user submits the form so as the browser detect it and displays
-		 * the save password dialog. Then we click on the hidden loginButton
-		 * which stores the presenter clickHandler.
-		 */
-		formPanel.addSubmitHandler(new FormPanel.SubmitHandler() {
-			public void onSubmit(SubmitEvent event) {
-				if (!usernameTextBox.getValue().trim().isEmpty()
-						&& !passwordTextBox.getValue().trim().isEmpty()) {
-					loginButton.click();
-				}
-				// event.cancel();
-			}
-		});
-		innerBox.add(loginButton);
-		loginButton.setVisible(false);
-		setLoading(false);
-	}
-
-	private void createLoginPrompt() {
-		Label userNameLabel = new Label("username");
-		Label passWordLabel = new Label("password");
-		userNameLabel.addStyleName(css.tdTitle());
-		passWordLabel.addStyleName(css.tdTitle());
-		flexTable.setWidget(0, 0, userNameLabel);
-		flexTable.setWidget(0, 1, usernameTextBox);
-		flexTable.setWidget(1, 0, passWordLabel);
-		flexTable.setWidget(1, 1, passwordTextBox);
-		flexTable.getCellFormatter().addStyleName(0, 0, css.tdTitle());
-		flexTable.getCellFormatter().addStyleName(1, 0, css.tdTitle());
-		flexTable.getCellFormatter().addStyleName(0, 1, css.tdInput());
-		flexTable.getCellFormatter().addStyleName(1, 1, css.tdInput());
-	}
-
-	public class PPanel extends SimplePanel {
-		public PPanel() {
-			super(Document.get().createPElement());
-		}
-	}
-
-	@Override
-	public void onKeyUp(KeyUpEvent event) {
-		if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-			if (event.getSource().equals(usernameTextBox)) {
-				passwordTextBox.setFocus(true);
-			} else if (event.getSource().equals(passwordTextBox)) {
-				submitButton.click();
-				// formPanel.submit();
-			}
-		}
-
-	}
-
-	@Override
-	public HasClickHandlers getLoginClick() {
-		return loginButton;
-	}
-
-	@Override
-	public HasValue<String> getUserNameValue() {
-		return usernameTextBox;
-	}
-
-	@Override
-	public HasValue<String> getPasswordValue() {
-		return passwordTextBox;
-	}
-
-	@Override
-	public Focusable getUserNameFocus() {
-		return usernameTextBox;
-	}
-
-	// FIXME the ajax loader will not hidden after normal logout
-	@Override
-	public void setLoading(boolean load) {
-		if (load) {
-			message.addStyleName(style.loading());
-			message.addStyleName(style.display());
-		} else {
-			message.removeStyleName(style.loading());
-			message.removeStyleName(style.display());
-			message.addStyleName(style.hidden());
-		}
-	}
-
-	@Override
-	public Widget asWidget() {
-		return this;
-	}
-
-	interface LoginViewUiBinder extends UiBinder<FlowPanel, LoginView> {
-	}
-
-	private static LoginViewUiBinder binder = GWT
-			.create(LoginViewUiBinder.class);
-
+    @Override
+    public void setActivity(LoginActivity loginActivity) {
+        activity = loginActivity;
+    }
+    
+    @Override
+    protected void onAttach() {
+        super.onAttach();
+        new Timer() {public void run() {
+            activity.loadSettings();
+        }}.schedule(800);
+    }
 }

@@ -39,6 +39,7 @@
         <module>server</module>
         <module>widgets</module>
         <module>client</module>
+        <module>hupa</module>
     </modules>
     <scm>
         <connection>scm:svn:http://svn.apache.org/repos/asf/james/hupa/trunk</connection>
@@ -59,9 +60,11 @@
         <gwtVersion>2.5.1</gwtVersion>
         <gwtMavenVersion>2.5.1</gwtMavenVersion>
         <gwt.moduleSuffix />
-        <gwt.logLevel>ERROR</gwt.logLevel>
+        <gwt.logLevel>INFO</gwt.logLevel>
         <jettyVersion>7.3.0.v20110203</jettyVersion>
         <mock.scope>test</mock.scope>
+        <skipTests>true</skipTests>
+        <gwt.disableRunAsync>true</gwt.disableRunAsync>
     </properties>
 
     <profiles>
@@ -83,6 +86,12 @@
         </properties>
       </profile>
       <profile>
+        <id>test</id>
+        <properties>
+          <skipTests>false</skipTests>
+        </properties>
+      </profile>
+      <profile>
         <id>clos</id>
         <properties>
           <gwt.enableClosureCompiler>true</gwt.enableClosureCompiler>
@@ -92,10 +101,8 @@
         </properties>
       </profile>
       <profile>
-        <!-- Deliver Hupa with Demo stuff -->
         <id>pretty</id>
         <properties>
-          <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
           <gwt.style>PRETTY</gwt.style>
           <mock.scope />
           <gwt.logLevel>TRACE</gwt.logLevel>
@@ -113,6 +120,11 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>hupa-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>hupa-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -126,6 +138,11 @@
                 <artifactId>hupa-widgets</artifactId>
                 <version>${project.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.6</version>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
@@ -311,6 +328,12 @@
                 <version>${jettyVersion}</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>com.googlecode.gwtquery</groupId>
+                <artifactId>gwtquery</artifactId>
+                <version>1.4.1-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -332,6 +355,12 @@
             <id>cobogw</id>
             <name>Cobogw repository at googlecode</name>
             <url>http://cobogw.googlecode.com/svn/maven2</url>
+        </repository>
+        <repository>
+           <id>sonatype</id>
+           <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+           <snapshots><enabled>true</enabled></snapshots>
+           <releases><enabled>false</enabled></releases>
         </repository>
     </repositories>
     <build>
@@ -369,21 +398,5 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-<!--         See https://issues.apache.org/jira/browse/HUPA-81 -->
-<!--             <plugin>       -->
-<!--                 <groupId>org.codehaus.mojo</groupId> -->
-<!--                 <artifactId>emma-maven-plugin</artifactId> -->
-<!--                 <inherited>true</inherited>           -->
-<!--                 <executions> -->
-<!--                     <execution> -->
-<!--                         <phase>process-classes</phase>                -->
-<!--                         <goals> -->
-<!--                             <goal>instrument</goal> -->
-<!--                         </goals> -->
-<!--                     </execution> -->
-<!--                 </executions> -->
-<!--             </plugin> -->
-        </plugins>
     </build>
 </project>

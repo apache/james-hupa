@@ -19,6 +19,10 @@
 
 package org.apache.hupa.server.ioc;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.web.bindery.requestfactory.server.ServiceLayerDecorator;
@@ -51,7 +55,28 @@ public final class IocRfServiceDecorator extends ServiceLayerDecorator {
 
     @Override
     public <T> T createDomainObject(Class<T> clazz) {
-        System.out.println("Create domain " + clazz);
         return injector.getInstance(clazz);
+    }
+    
+    static int count = 0;
+    @Override
+    public Object invoke(Method domainMethod, Object... args) {
+        int n = count ++;
+        long start = System.currentTimeMillis();
+        boolean doLog = !"login".equals(domainMethod.getName());
+        if (doLog) System.out.println(n + " >>>>>>>>> Invoking  RF "  + domainMethod.getDeclaringClass() + " >>" + domainMethod.getName() + " " + new ArrayList<Object>(Arrays.asList(args)));
+        Object ret = null;
+        try {
+            ret =  super.invoke(domainMethod, args);
+        } catch (Throwable e) {
+            long l = System.currentTimeMillis() - start;
+            e.printStackTrace();
+            if (doLog) System.out.println(n + " << " + String.format("%6d", l) +" Returning RF ERROR "  + domainMethod.getDeclaringClass().getSimpleName() + " <<" + domainMethod.getName() + " " + new ArrayList<Object>(Arrays.asList(args)));
+            throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
+        } finally {
+            long l = System.currentTimeMillis() - start;
+            if (doLog) System.out.println(n + " << " + String.format("%6d", l) +" Returning RF "  + domainMethod.getDeclaringClass().getSimpleName() + " <<" + domainMethod.getName() + " " + new ArrayList<Object>(Arrays.asList(args)));
+        }
+        return ret;
     }
 }

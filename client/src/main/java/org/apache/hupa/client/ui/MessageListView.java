@@ -24,8 +24,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.hupa.client.activity.MessageListActivity;
+import org.apache.hupa.client.ui.MessagesCellTable.MessageListDataProvider;
 import org.apache.hupa.shared.domain.Message;
 
+import com.google.gwt.core.client.Duration;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -59,8 +61,14 @@ public class MessageListView extends Composite implements MessageListActivity.Di
 	}
 	
 	@Override
+	public MessageListDataProvider getDataProvider() {
+	    return grid.dataProvider;
+	}
+	
+	
+	@Override
 	public void refresh(){
-		grid.refresh();
+        grid.refresh();
 	}
 
 	@Override

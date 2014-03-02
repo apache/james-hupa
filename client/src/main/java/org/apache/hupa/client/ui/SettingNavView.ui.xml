@@ -11,27 +11,16 @@
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-	<ui:style>
-		.selected {
-			font-weight: bold;
-		}
-	</ui:style>
 	<g:HTMLPanel ui:field="thisPanel">
 		<div id="settings-sections" class="uibox listbox">
 			<h2 class="boxtitle">Settings</h2>
 			<div id="settings-tabs" class="scroller">
 				<span class="listitem folders selected" ui:field="navLabelsItem">
-					<g:Anchor ui:field="labelsAnchor">Labels
-					</g:Anchor>
+					<g:Anchor ui:field="labelsAnchor">IMAP-Folders</g:Anchor>
 				</span>
-				<!-- <span id="settingstabfolders" class="listitem preferences selected"> 
-					<a title="Manage folders" id="rcmbtn106" >Folders</a> </span> -->
-				<!-- <span id="settingstabidentities" class="listitem identities"> <a 
-					title="Manage identities for this account" id="rcmbtn107" >Identities</a> 
+				<!-- <span class="listitem identities"> <g:Anchor ui:field="others">Ohters</g:Anchor> 
 					</span> -->
-
 			</div>
 		</div>
-
 	</g:HTMLPanel>
 </ui:UiBinder>

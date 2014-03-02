@@ -44,4 +44,13 @@ public class MailHeaderImpl implements MailHeader {
 		return value;
 	}
 
+    @Override
+    public void setName(String s) {
+        name = s;
+    }
+
+    @Override
+    public void setValue(String s) {
+        value = s;
+    }
 }

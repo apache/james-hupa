@@ -28,12 +28,16 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
  */
 @ProxyFor(User.class)
 public interface User extends ValueProxy {
-	boolean getAuthenticated();
-	String getName();
-	String getPassword();
-	void setName(String string);
-	Settings getSettings();
-	void setPassword(String password);
-	void setAuthenticated(boolean b);
-	void setSettings(Settings settings);
+    public static final String NOT_FOUND = " <<<< User not found in session >>>> ID: ";
+    
+    String getId();
+    boolean getAuthenticated();
+    String getName();
+    String getPassword();
+    void setId(String string);
+    void setName(String string);
+    Settings getSettings();
+    void setPassword(String password);
+    void setAuthenticated(boolean b);
+    void setSettings(Settings settings);
 }

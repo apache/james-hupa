@@ -37,7 +37,7 @@ public class TopBarActivityMapper extends _HupaActivityMapper {
 	}
 
 	@Override
-	Activity asyncLoadActivity(final Place place) {
+	protected Activity asyncLoadActivity(final Place place) {
 		return new ActivityAsyncProxy() {
 			@Override
 			protected void doAsync(RunAsyncCallback callback) {

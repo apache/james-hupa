@@ -20,6 +20,7 @@
 package org.apache.hupa.server;
 
 import javax.mail.MessagingException;
+import javax.mail.Session;
 
 import com.sun.mail.imap.IMAPStore;
 
@@ -27,7 +28,8 @@ public class CachedIMAPStore {
     private long validUntil;
     private int validForMillis;
     private IMAPStore store;
-    
+    private Session session;
+
     private CachedIMAPStore() {
     }
     
@@ -55,4 +57,12 @@ public class CachedIMAPStore {
     public IMAPStore getStore() {
         return store;
     }
+    
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }    
 }

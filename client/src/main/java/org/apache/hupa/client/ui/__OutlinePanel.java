@@ -46,11 +46,9 @@ public class __OutlinePanel extends Composite {
 		};
 	}
 
-	interface __OutlinePanelUiBinder extends
-			UiBinder<DockLayoutPanel, __OutlinePanel> {
+	interface Binder extends UiBinder<DockLayoutPanel, __OutlinePanel> {
 	}
 
-	private static __OutlinePanelUiBinder binder = GWT
-			.create(__OutlinePanelUiBinder.class);
+	private static Binder binder = GWT.create(Binder.class);
 
 }

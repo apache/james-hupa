@@ -31,13 +31,20 @@ import com.google.inject.Inject;
 
 public class SettingNavActivity extends AppBaseActivity {
 
+    @Inject protected Displayable display;
+
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		container.setWidget(display.asWidget());
+		itemChangeByPlace();
 		bindTo(eventBus);
 	}
 
-	private void bindTo(EventBus eventBus) {
+	protected void itemChangeByPlace() {
+        display.singleSelect(1);
+	}
+
+	protected void bindTo(EventBus eventBus) {
 		registerHandler(display.getLabelsAchor().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -47,11 +54,8 @@ public class SettingNavActivity extends AppBaseActivity {
 		}));
 	}
 
-	@Inject private Displayable display;
-
 	public interface Displayable extends IsWidget {
 		HasClickHandlers getLabelsAchor();
-
 		void singleSelect(int i);
 	}
 }

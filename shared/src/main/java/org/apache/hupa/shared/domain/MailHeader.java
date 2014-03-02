@@ -27,4 +27,6 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 public interface MailHeader extends ValueProxy{
 	String getName();
 	String getValue();
+	void setName(String s);
+    void setValue(String s);
 }

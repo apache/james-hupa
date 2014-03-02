@@ -21,16 +21,16 @@ package org.apache.hupa.shared.domain;
 
 import java.util.List;
 
+import org.apache.hupa.shared.data.HasFullName;
+
+import com.google.gwt.user.client.ui.HasName;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(value = ImapFolder.class)
-public interface ImapFolder extends ValueProxy {
+public interface ImapFolder extends ValueProxy, HasName, HasFullName {
+    
 	int getUnseenMessageCount();
-	String getName();
-	void setName(String name);
-	String getFullName();
-	void setFullName(String oldFullName);
 	List<ImapFolder> getChildren();
 	void setChildren(List<ImapFolder> children);
 	void setUnseenMessageCount(int count);

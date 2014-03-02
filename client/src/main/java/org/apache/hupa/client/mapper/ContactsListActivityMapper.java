@@ -38,7 +38,7 @@ public class ContactsListActivityMapper extends _HupaActivityMapper {
 	}
 
 	@Override
-	Activity asyncLoadActivity(final Place place) {
+	protected Activity asyncLoadActivity(final Place place) {
 		if (!(place instanceof ContactPlace))
 			return null;
 		return new ActivityAsyncProxy() {

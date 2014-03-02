@@ -29,20 +29,25 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class SettingNavView extends Composite implements SettingNavActivity.Displayable {
 	
-	@UiField Element navLabelsItem;
-	@UiField Anchor labelsAnchor;
+	@UiField public Element navLabelsItem;
+	@UiField public Anchor labelsAnchor;
+	
+    @SuppressWarnings("rawtypes")
+    protected UiBinder getBinder() {
+        return GWT.create(Binder.class);
+    }
 
-	public SettingNavView() {
-		initWidget(binder.createAndBindUi(this));
+	@SuppressWarnings("unchecked")
+    public SettingNavView() {
+		initWidget((Widget)getBinder().createAndBindUi(this));
 	}
 
 	interface Binder extends UiBinder<HTMLPanel, SettingNavView> {
 	}
-
-	private static Binder binder = GWT.create(Binder.class);
 
 	@Override
 	public HasClickHandlers getLabelsAchor() {
@@ -51,14 +56,11 @@ public class SettingNavView extends Composite implements SettingNavActivity.Disp
 
 	@Override
 	public void singleSelect(int i) {
-		switch(i){
-		default:selectNavLabelItem();
-		}
+	    selectNavLabelItem();
 	}
 
-	private void selectNavLabelItem() {
-		String clazz = navLabelsItem.getAttribute("class");
-		navLabelsItem.setAttribute("class", clazz + " selected");
+	protected void selectNavLabelItem() {
+		String labelClass = navLabelsItem.getAttribute("class");
+		navLabelsItem.setAttribute("class", labelClass + " selected");
 	}
-
 }

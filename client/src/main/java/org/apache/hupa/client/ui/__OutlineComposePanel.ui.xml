@@ -51,7 +51,7 @@
 	<g:DockLayoutPanel unit="PX" ui:field="thisPanel"
 		addStyleNames="{style.folderList}  {style.box}  {style.listBox}">
 		<g:center>
-			<g:ScrollPanel ui:field="contactListContainer" />
+			<g:ScrollPanel ui:field="addressListContainer" />
 		</g:center>
 		<g:south size="41">
 			<g:SimplePanel styleName="{style.boxFooter}">

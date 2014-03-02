@@ -23,6 +23,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 import org.apache.hupa.server.utils.SessionUtils;
+import org.apache.hupa.server.utils.SettingsDiscoverer;
 import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.data.UserImpl;
 import org.apache.hupa.shared.domain.Settings;
@@ -35,18 +36,58 @@ import com.google.inject.Provider;
 public class LoginUserServiceImpl extends AbstractService implements LoginUserService {
 
 	@Inject private Provider<Settings> settingsProvider;
+	@Inject private SettingsDiscoverer settingsDiscoverer;
 
-	public User login(String username, String password) throws HupaException, MessagingException {
-		HttpSession httpSession = httpSessionProvider.get();
-        SessionUtils.cleanSessionAttributes(httpSession);
-		User user = new UserImpl();
-		user.setName(username);
-		user.setPassword(password);
-		cache.get(user);
-		user.setAuthenticated(true);
-		user.setSettings(settingsProvider.get());
-		httpSession.setAttribute(SConsts.USER_SESS_ATTR, user);
-		logger.debug("Logged user: " + username);
-		return user;
+	public User login(String username, String password, Settings settings) throws HupaException, MessagingException {
+	    logger.debug("Login user: " + username + " " + password);
+	    try {
+	        HttpSession httpSession = httpSessionProvider.get();
+	        SessionUtils.cleanSessionAttributes(httpSession);
+	        User user = new UserImpl();
+	        user.setName(username);
+	        user.setPassword(password);
+	        user.setSettings(fix(settings));
+	        cache.get(user);
+	        user.setAuthenticated(true);
+	        httpSession.setAttribute(SConsts.USER_SESS_ATTR, user);
+	        logger.debug("Logged user: " + username);
+	        settingsDiscoverer.setValidSettings(user);
+	        return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 	}
+	
+	private Settings fix(Settings a) {
+	    if (settingsProvider != null) {
+    	    Settings b = settingsProvider.get();
+    	    if (a == null) {
+    	        return b;
+    	    }
+    	    a.setImapServer(or(a.getImapServer(), b.getImapServer()));
+            a.setImapPort(or(a.getImapPort(), b.getImapPort()));
+            a.setSmtpServer((or(a.getSmtpServer(), b.getSmtpServer())));
+            a.setSmtpPort(or(a.getSmtpPort(), b.getSmtpPort()));
+            
+            a.setInboxFolderName(or(a.getInboxFolderName(), b.getInboxFolderName()));
+            a.setSentFolderName(or(a.getSentFolderName(), b.getSentFolderName()));
+            a.setTrashFolderName(or(a.getTrashFolderName(), b.getTrashFolderName()));
+            a.setDraftsFolderName(or(a.getDraftsFolderName(), b.getDraftsFolderName()));
+	    }
+	    return a;
+	}
+	
+	private <T> T or (T a, T b) {
+	    return a == null ? b : a;
+	}
+
+    @Override
+    public Settings getSettings(String email) {
+        if (settingsDiscoverer == null) {
+            settingsDiscoverer = new SettingsDiscoverer();
+        }
+        return settingsDiscoverer.discoverSettings(email);
+    }
+
 }

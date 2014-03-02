@@ -43,8 +43,8 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CaptionPanel;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.inject.Inject;
@@ -110,7 +110,7 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 				public void onSuccess(GenericResult response) {
 					hc.hideTopLoading();
 					eventBus.fireEvent(new RefreshLabelListEvent());
-					hc.showNotice("The label \"" + f.getName() + "\" was created.", 10000);
+					hc.showNotice("The label \"" + f.getFullName() + "\" was created.", 10000);
 				}
 				@Override
 				public void onFailure(ServerFailure error) {
@@ -125,7 +125,7 @@ public class LabelPropertiesView extends Composite implements LabelPropertiesAct
 		initWidget(binder.createAndBindUi(this));
 	}
 
-	interface Binder extends UiBinder<DecoratorPanel, LabelPropertiesView> {
+	interface Binder extends UiBinder<ScrollPanel, LabelPropertiesView> {
 	}
 
 	private static Binder binder = GWT.create(Binder.class);

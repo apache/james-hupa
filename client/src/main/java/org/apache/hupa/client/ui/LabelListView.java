@@ -25,11 +25,13 @@ import java.util.List;
 import org.apache.hupa.client.activity.LabelListActivity;
 import org.apache.hupa.client.activity.LabelPropertiesActivity;
 import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.storage.HupaStorage;
 import org.apache.hupa.shared.domain.ImapFolder;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.query.client.Function;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -44,16 +46,16 @@ import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class LabelListView extends Composite implements LabelListActivity.Displayable {
 
 	@Inject LabelPropertiesActivity.Displayable labelProperties;
+    @Inject private HupaStorage hupaStorage;
 	@UiField ScrollPanel thisView;
 
 	@UiField Button add;
 	@UiField Button delete;
+    private CellList<LabelNode> cellList;
 
 	public interface Resources extends CellList.Resources {
 
@@ -68,12 +70,20 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 	}
 
 	private final ImapLabelListDataProvider data;
+	
+    protected void onAttach() {
+        super.onAttach();
+        // Delay getting data until the widget has been attached, to use injected objects.
+        if (data.getDataDisplays().size() == 0) {
+            data.addDataDisplay(cellList);
+        }
+    };
 
 	@Inject
 	public LabelListView(final HupaRequestFactory rf) {
 		initWidget(binder.createAndBindUi(this));
-		data = new ImapLabelListDataProvider(rf);
-		CellList<LabelNode> cellList = new CellList<LabelNode>(new LabelCell(), Resources.INSTANCE);
+		data = new ImapLabelListDataProvider();
+		cellList = new CellList<LabelNode>(new LabelCell(), Resources.INSTANCE);
 		cellList.setPageSize(100);// assume one's labels are under one hundred, otherwise we need a pager
 		cellList.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
@@ -81,7 +91,6 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 				labelProperties.cascade(selectionModel.getSelectedObject(), data.getDataList(), CASCADE_TYPE_RENAME);
 			}
 		});
-		data.addDataDisplay(cellList);
 		thisView.setWidget(cellList);
 	}
 
@@ -98,84 +107,60 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 				}
 			});
 
-	public class ImapLabelListDataProvider extends AsyncDataProvider<LabelNode> implements HasRefresh {
+	// FIXME: almost the code in this class is identical to FolderListView, duplicated code in GWT is bad
+	// because explodes js size !!!
+    public class ImapLabelListDataProvider extends AsyncDataProvider<LabelNode> implements HasRefresh {
 
-		private HupaRequestFactory rf;
-		private List<LabelNode> folderNodes = new ArrayList<LabelNode>();
-		HasData<LabelNode> display;
+        private List<LabelNode> folderNodes = new ArrayList<LabelNode>();
+        HasData<LabelNode> display;
 
-		public List<LabelNode> getDataList() {
-			return folderNodes;
-		}
+        public List<LabelNode> getDataList() {
+            return folderNodes;
+        }
 
-		public ImapLabelListDataProvider(HupaRequestFactory rf) {
-			this.rf = rf;
-		}
+        @Override
+        public void addDataDisplay(HasData<LabelNode> display) {
+            super.addDataDisplay(display);
+            this.display = display;
+        }
 
-		@Override
-		public void addDataDisplay(HasData<LabelNode> display) {
-			super.addDataDisplay(display);
-			this.display = display;
-		}
+        @Override
+        protected void onRangeChanged(HasData<LabelNode> display) {
+            hupaStorage
+                .gettingFolders()
+                .done(new Function(){public void f() {
+                    List<ImapFolder> response = arguments(0);
+                    folderNodes.clear();
+                    for (ImapFolder folder : response) {
+                        fillCellList(folderNodes, folder, LabelNode.ROOT, "");
+                    }
+                    // For some reason removing a row does not update the display correctly
+                    updateRowCount(folderNodes.size(), true);
+                    updateRowData(0, folderNodes);
+                 }});
+        }
+        
+        private void fillCellList(List<LabelNode> folderNodes, ImapFolder curFolder, LabelNode parent, String intents) {
+            LabelNode labelNode = new LabelNode();
+            labelNode.setFolder(curFolder);
+            labelNode.setName(curFolder.getName());
+            labelNode.setNameForDisplay(intents + curFolder.getName());
+            labelNode.setParent(parent);
+            labelNode.setPath(curFolder.getFullName());
+            folderNodes.add(labelNode);
+            if (curFolder.getHasChildren()) {
+                for (ImapFolder subFolder : curFolder.getChildren()) {
+                    // FIXME: don't use intents, it will be much better user experience to use cellTree
+                    fillCellList(folderNodes, subFolder, labelNode, intents + "&nbsp;&nbsp;&nbsp;&nbsp;");
+                }
+            }
+        }
 
-		@Override
-		protected void onRangeChanged(HasData<LabelNode> display) {
-
-			final int start = display.getVisibleRange().getStart();
-
-			rf.fetchFoldersRequest().fetch(null, Boolean.TRUE).fire(new Receiver<List<ImapFolder>>() {
-
-				private String INTENTS = "&nbsp;&nbsp;&nbsp;&nbsp;";
-
-				@Override
-				public void onSuccess(List<ImapFolder> response) {
-					folderNodes.clear();
-					if (response == null || response.size() == 0) {
-						updateRowCount(-1, true);
-					} else {
-						for (ImapFolder folder : response) {
-							fillCellList(folderNodes, folder, LabelNode.ROOT, "");
-						}
-						updateRowData(start, folderNodes);
-					}
-				}
-
-				private void fillCellList(List<LabelNode> folderNodes, ImapFolder curFolder, LabelNode parent,
-						String intents) {
-					LabelNode labelNode = new LabelNode();
-					labelNode.setFolder(curFolder);
-					labelNode.setName(curFolder.getName());
-					labelNode.setNameForDisplay(intents + curFolder.getName());
-					labelNode.setParent(parent);
-					labelNode.setPath(curFolder.getFullName());
-					folderNodes.add(labelNode);
-					if("inbox".equalsIgnoreCase(curFolder.getName())){
-						if(selectionModel.getSelectedObject() == null){
-							selectionModel.setSelected(labelNode, true);
-						}
-					}
-					if (curFolder.getHasChildren()) {
-						for (ImapFolder subFolder : curFolder.getChildren()) {
-							fillCellList(folderNodes, subFolder, labelNode, intents + INTENTS);
-						}
-					}
-				}
-
-				@Override
-				public void onFailure(ServerFailure error) {
-					if (error.isFatal()) {
-						throw new RuntimeException(error.getMessage());
-					}
-				}
-
-			});
-		}
-
-		@Override
-		public void refresh() {
-			this.onRangeChanged(display);
-		}
-	}
+        @Override
+        public void refresh() {
+            this.onRangeChanged(display);
+        }
+    }
 
 	interface LabelListUiBinder extends UiBinder<DockLayoutPanel, LabelListView> {
 	}
@@ -194,6 +179,8 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
 
 	@Override
 	public void refresh() {
+	    System.out.println("REFRESH");
+	    hupaStorage.expireFolders();
 		data.refresh();
 	}
 

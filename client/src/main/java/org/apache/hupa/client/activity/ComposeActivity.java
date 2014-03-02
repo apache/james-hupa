@@ -34,7 +34,6 @@ import org.apache.hupa.client.place.ComposePlace;
 import org.apache.hupa.client.rf.SendForwardMessageRequest;
 import org.apache.hupa.client.rf.SendMessageRequest;
 import org.apache.hupa.client.rf.SendReplyMessageRequest;
-import org.apache.hupa.client.ui.MessagesCellTable;
 import org.apache.hupa.client.validation.EmailListValidator;
 import org.apache.hupa.shared.Util;
 import org.apache.hupa.shared.data.MessageAttachmentImpl;
@@ -48,19 +47,27 @@ import org.apache.hupa.shared.domain.SendMessageAction;
 import org.apache.hupa.shared.domain.SendReplyMessageAction;
 import org.apache.hupa.shared.domain.SmtpMessage;
 import org.apache.hupa.shared.domain.User;
+import org.apache.hupa.shared.events.AddressClickEvent;
+import org.apache.hupa.shared.events.AddressClickEventHandler;
+import org.apache.hupa.shared.events.AttachClickEvent;
+import org.apache.hupa.shared.events.AttachClickEventHandler;
 import org.apache.hupa.shared.events.LoginEvent;
 import org.apache.hupa.shared.events.LoginEventHandler;
 import org.apache.hupa.shared.events.MailToEvent;
 import org.apache.hupa.shared.events.MailToEventHandler;
+import org.apache.hupa.shared.events.SendClickEvent;
+import org.apache.hupa.shared.events.SendClickEventHandler;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasFocusHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.HasEnabled;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -72,9 +79,8 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
 public class ComposeActivity extends AppBaseActivity {
 	@Inject private Displayable display;
 	@Inject private HupaController hupaController;
-	@Inject private TopBarActivity topBar;
 	private List<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
-	private ComposePlace place;
+	protected ComposePlace place;
 	private User user;
 
 	public Activity with(ComposePlace place) {
@@ -96,7 +102,7 @@ public class ComposeActivity extends AppBaseActivity {
 			return null;
 		}
 		return null;
-//		return "Do you want to leave this page?"; TODO
+		// return "Do you want to leave this page?"; TODO
 	}
 
 	@Override
@@ -113,17 +119,24 @@ public class ComposeActivity extends AppBaseActivity {
 
 	}
 
-	private void fillHeader() {
+	protected void fillHeader() {
 		if (place == null || place.getParameters() == null)
 			return;
-		if (user == null){
+		if (user == null) {
 			user = place.getParameters().getUser();
 		}
-		if(user == null){
-			user = topBar.getUser();
+		if (user == null) {
+			user = HupaController.user;
 		}
 		display.getFromList().addItem(user.getName());
-		if("new".equals(place.getToken())){
+		display.getUploader().reset();
+		if ("new".equals(place.getToken())) {
+			display.getTo().setText("");
+			display.getCc().setText("");
+			display.getBcc().setText("");
+			display.getSubject().setText(place.getSubject() == null ? "" : place.getSubject());
+			display.getMessageHTML().setHTML(place.getBody() == null ? "" : place.getBody());
+			attachments.clear();
 			return;
 		}
 		Message oldMessage = place.getParameters().getOldmessage();
@@ -208,10 +221,32 @@ public class ComposeActivity extends AppBaseActivity {
 		}
 		return ret;
 	}
-	private void bindTo(EventBus eventBus) {
+	protected void bindTo(EventBus eventBus) {
+		eventBus.addHandler(AddressClickEvent.TYPE, new AddressClickEventHandler() {
+			@Override
+			public void onClick(AddressClickEvent event) {
+				String to = display.getTo().getText();
+				if(to != null && to.trim().length() > 0){
+				display.getTo().setText(to + ";" + event.getEmail());
+				}else {
+					display.getTo().setText(event.getEmail());
+				}
+			}
+		});
+        eventBus.addHandler(SendClickEvent.TYPE, new SendClickEventHandler() {
+            public void onSendClick(SendClickEvent event) {
+                send();
+            }
+        });
 		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 			public void onLogin(LoginEvent event) {
 				user = event.getUser();
+			}
+		});
+		eventBus.addHandler(AttachClickEvent.TYPE, new AttachClickEventHandler() {
+			public void onAttachClick(AttachClickEvent event) {
+				display.getAttachButton().fireEvent(new ClickEvent() {
+				});
 			}
 		});
 		registerHandler(display.getSendClick().addClickHandler(sendClickHandler));
@@ -269,33 +304,38 @@ public class ComposeActivity extends AppBaseActivity {
 		registerHandler(display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler));
 		registerHandler(display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler));
 
-		eventBus.addHandler(MailToEvent.TYPE, new MailToEventHandler(){
-
+		eventBus.addHandler(MailToEvent.TYPE, new MailToEventHandler() {
 			@Override
 			public void onMailTo(MailToEvent event) {
 				display.getTo().setText(event.getMailto());
-			}});
-		
+			}
+		});
+
 		fillSuggestList();
-		
+
 	}
 
 	private void fillSuggestList() {
+		// TODO move this to hupaStorage
 		Storage contactStore = Storage.getLocalStorageIfSupported();
-		if(contactStore != null){
-			String contactsString = contactStore.getItem(MessagesCellTable.CONTACTS_STORE);
-			if(contactsString != null){
-				display.fillContactList(contactsString.replace("[", "").replace("]", "").trim().split(","));	
-			}	
+		if (contactStore != null) {
+			String contactsString = contactStore.getItem(MessageListActivity.CONTACTS_STORE);
+			if (contactsString != null) {
+				display.fillContactList(contactsString.replace("[", "").replace("]", "").trim().split(","));
+			}
 		}
 	}
 
 	private OnFinishUploaderHandler onFinishUploadHandler = new OnFinishUploaderHandler() {
 		public void onFinish(IUploader uploader) {
 			if (uploader.getStatus() == Status.SUCCESS) {
-				String name = uploader.getInputName();
 				MessageAttachment attachment = new MessageAttachmentImpl();
-				attachment.setName(name);
+				// We use the fileInputName (unique) instead of the fileName so
+				// as we
+				// can find the item in the registry.
+				attachment.setName(uploader.getInputName());
+				attachment.setContentType(uploader.getServerInfo().ctype);
+				attachment.setSize(uploader.getServerInfo().size);
 				attachments.add(attachment);
 			}
 		}
@@ -303,13 +343,8 @@ public class ComposeActivity extends AppBaseActivity {
 
 	private OnStatusChangedHandler onStatusChangedHandler = new OnStatusChangedHandler() {
 		public void onStatusChanged(IUploader uploader) {
-			// TODO buttons disabled
-			// Status stat = display.getUploader().getStatus();
-
-			// if (stat == Status.INPROGRESS)
-			// display.getSendEnable().setEnabled(false);
-			// else
-			// display.getSendEnable().setEnabled(true);
+			Status stat = display.getUploader().getStatus();
+			((HasEnabled) display.getSendClick()).setEnabled(stat != Status.INPROGRESS);
 		}
 	};
 
@@ -333,54 +368,62 @@ public class ComposeActivity extends AppBaseActivity {
 
 	protected ClickHandler sendClickHandler = new ClickHandler() {
 		public void onClick(ClickEvent event) {
-			if (!validate())
-				return;
-			hupaController.showTopLoading("Sending...");
-
-			if ("new".equals(place.getToken())) {
-				SendMessageRequest sendReq = rf.sendMessageRequest();
-				SendMessageAction sendAction = sendReq.create(SendMessageAction.class);
-				sendAction.setMessage(parseMessage(sendReq));
-				sendReq.send(sendAction).fire(new Receiver<GenericResult>() {
-					@Override
-					public void onSuccess(GenericResult response) {
-						afterSend(response);
-					}
-				});
-			} else if ("forward".equals(place.getToken())) {
-				// FIXME will get a NullPointerException given accessing
-				// directly from some URL like #/compose:forward
-				SendForwardMessageRequest req = rf.sendForwardMessageRequest();
-				SendForwardMessageAction action = req.create(SendForwardMessageAction.class);
-				action.setMessage(parseMessage(req));
-				ImapFolder f = req.create(ImapFolder.class);
-				f.setFullName(place.getParameters().getFolderName());
-				action.setFolder(f);
-				action.setUid(place.getParameters().getOldmessage().getUid());
-				req.send(action).fire(new Receiver<GenericResult>() {
-					@Override
-					public void onSuccess(GenericResult response) {
-						afterSend(response);
-					}
-				});
-			} else {
-				SendReplyMessageRequest replyReq = rf.sendReplyMessageRequest();
-				SendReplyMessageAction action = replyReq.create(SendReplyMessageAction.class);
-				action.setMessage(parseMessage(replyReq));
-				ImapFolder folder = replyReq.create(ImapFolder.class);
-				folder.setFullName(place.getParameters().getFolderName());
-				action.setFolder(folder);
-				action.setUid(place.getParameters().getOldmessage().getUid());
-				replyReq.send(action).fire(new Receiver<GenericResult>() {
-					@Override
-					public void onSuccess(GenericResult response) {
-						afterSend(response);
-					}
-				});
-			}
+			send();
 		}
 	};
 
+	protected void send() {
+		if (!validate())
+			return;
+		hupaController.showTopLoading("Sending...");
+
+		MessageDetails oldDetails = place.getParameters().getOldDetails();
+
+		if ("new".equals(place.getToken())) {
+			SendMessageRequest sendReq = rf.sendMessageRequest();
+			SendMessageAction sendAction = sendReq.create(SendMessageAction.class);
+			sendAction.setMessage(parseMessage(sendReq));
+			sendReq.send(sendAction).fire(new Receiver<GenericResult>() {
+				@Override
+				public void onSuccess(GenericResult response) {
+					afterSend(response);
+				}
+			});
+		} else if ("forward".equals(place.getToken())) {
+			// FIXME will get a NullPointerException given accessing
+			// directly from some URL like #/compose:forward
+			SendForwardMessageRequest req = rf.sendForwardMessageRequest();
+			SendForwardMessageAction action = req.create(SendForwardMessageAction.class);
+			action.setReferences(oldDetails.getReferences());
+
+			action.setMessage(parseMessage(req));
+			ImapFolder f = req.create(ImapFolder.class);
+			f.setFullName(place.getParameters().getFolderName());
+			action.setFolder(f);
+			action.setUid(place.getParameters().getOldmessage().getUid());
+			req.send(action).fire(new Receiver<GenericResult>() {
+				@Override
+				public void onSuccess(GenericResult response) {
+					afterSend(response);
+				}
+			});
+		} else {
+			SendReplyMessageRequest replyReq = rf.sendReplyMessageRequest();
+			SendReplyMessageAction action = replyReq.create(SendReplyMessageAction.class);
+			action.setReferences(oldDetails.getReferences());
+			action.setMessage(parseMessage(replyReq));
+			ImapFolder folder = replyReq.create(ImapFolder.class);
+			folder.setFullName(place.getParameters().getFolderName());
+			action.setFolder(folder);
+			action.setUid(place.getParameters().getOldmessage().getUid());
+			replyReq.send(action).fire(new Receiver<GenericResult>() {
+				@Override
+				public void onSuccess(GenericResult response) {
+					afterSend(response);
+				}
+			});
+		}
+	}
 	private boolean validate() {
 		// Don't trust only in view validation
 		return display.validate() && display.getTo().getText().trim().length() > 0
@@ -389,7 +432,7 @@ public class ComposeActivity extends AppBaseActivity {
 				&& EmailListValidator.isValidAddressList(display.getBcc().getText());
 	}
 
-	private SmtpMessage parseMessage(RequestContext rc) {
+	protected SmtpMessage parseMessage(RequestContext rc) {
 		SmtpMessage message = rc.create(SmtpMessage.class);
 		List<MessageAttachment> attaches = new ArrayList<MessageAttachment>();
 		for (MessageAttachment attach : attachments) {
@@ -456,5 +499,6 @@ public class ComposeActivity extends AppBaseActivity {
 		ListBox getFromList();
 		IUploader getUploader();
 		void fillContactList(String[] contacts);
+		HasFocusHandlers getAttachButton();
 	}
 }

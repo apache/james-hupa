@@ -78,28 +78,35 @@ public abstract class ActivityAsyncProxy implements Activity {
 		this.hasAsyncBeenCancelled = false;
 		if (!this.hasAsyncBeenIssued) {
 			this.hasAsyncBeenIssued = true;
-			doAsync(new RunAsyncCallback() {
-
-				@Override
-				public void onSuccess() {
-					if (!ActivityAsyncProxy.this.hasAsyncBeenCancelled) {
-						assert ActivityAsyncProxy.this.instance == null;
-						ActivityAsyncProxy.this.instance = createInstance();
-						ActivityAsyncProxy.this.instance.start(
-								ActivityAsyncProxy.this.display,
-								ActivityAsyncProxy.this.eventBus);
-					}
-				}
-
-				@Override
-				public void onFailure(Throwable reason) {
-					ActivityAsyncProxy.this.hasAsyncFailed = true;
-					if (GWT.getUncaughtExceptionHandler() != null) {
-						GWT.getUncaughtExceptionHandler().onUncaughtException(
-								reason);
-					}
-				}
-			});
+            if (!ActivityAsyncProxy.this.hasAsyncBeenCancelled) {
+                assert ActivityAsyncProxy.this.instance == null;
+                ActivityAsyncProxy.this.instance = createInstance();
+                ActivityAsyncProxy.this.instance.start(
+                        ActivityAsyncProxy.this.display,
+                        ActivityAsyncProxy.this.eventBus);
+            }			
+//			doAsync(new RunAsyncCallback() {
+//
+//				@Override
+//				public void onSuccess() {
+//					if (!ActivityAsyncProxy.this.hasAsyncBeenCancelled) {
+//						assert ActivityAsyncProxy.this.instance == null;
+//						ActivityAsyncProxy.this.instance = createInstance();
+//						ActivityAsyncProxy.this.instance.start(
+//								ActivityAsyncProxy.this.display,
+//								ActivityAsyncProxy.this.eventBus);
+//					}
+//				}
+//
+//				@Override
+//				public void onFailure(Throwable reason) {
+//					ActivityAsyncProxy.this.hasAsyncFailed = true;
+//					if (GWT.getUncaughtExceptionHandler() != null) {
+//						GWT.getUncaughtExceptionHandler().onUncaughtException(
+//								reason);
+//					}
+//				}
+//			});
 		}
 	}
 

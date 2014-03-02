@@ -1,84 +1,296 @@
 <!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
-	license agreements. See the NOTICE file distributed with this work for additional 
-	information regarding copyright ownership. The ASF licenses this file to 
-	you under the Apache License, Version 2.0 (the "License"); you may not use 
-	this file except in compliance with the License. You may obtain a copy of 
-	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
-	by applicable law or agreed to in writing, software distributed under the 
-	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
-	OF ANY KIND, either express or implied. See the License for the specific 
-	language governing permissions and limitations under the License. -->
+    license agreements. See the NOTICE file distributed with this work for additional 
+    information regarding copyright ownership. The ASF licenses this file to 
+    you under the Apache License, Version 2.0 (the "License"); you may not use 
+    this file except in compliance with the License. You may obtain a copy of 
+    the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+    by applicable law or agreed to in writing, software distributed under the 
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+    OF ANY KIND, either express or implied. See the License for the specific 
+    language governing permissions and limitations under the License. -->
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-	<ui:image field='logo' src='res/hupa-logo-64-transparent.png' />
-	<ui:image field="shadow" src="res/loginShadow.png" />
-	<ui:image field="messages" src="res/messages.png" />
-	<ui:image field="loading" src="res/ajaxloader.gif" />
-	<ui:style type="org.apache.hupa.client.ui.LoginView.Style">
-		@sprite .boxBottom {
-			gwt-image: 'shadow';
-			background-position: top center;
-			width: auto;
-			height: auto;
-			margin-top: -3px;
-			padding-top: 10px;
-		}
-		
-		.message {
-			min-height: 40px;
-			padding: 5px 25px;
-			text-align: center;
-		}
-		
-		@sprite .notice {
-			gwt-image: 'messages';
-			background-position: 0 5px;
-			width: auto;
-			height: auto;
-			color: #555;
-			font-weight: bold;
-			padding: 6px 30px 6px 25px;
-			display: inline-block;
-			white-space: nowrap;
-			text-align: center;
-			cursor: default;
-		}
-		
-		.hidden {
-			display: none;
-		}
-		
-		.display {
-			display: inline-block;
-		}
-		
-		@sprite .loading {
-			gwt-image: 'loading';
-		}
-	</ui:style>
-	<g:FlowPanel ui:field="mainContainer">
-		<g:FlowPanel ui:field="innerBox">
-			<g:Image resource='{logo}'></g:Image>
-			<g:FormPanel ui:field="formPanel">
-				<g:FlexTable ui:field="flexTable" />
-			</g:FormPanel>
-			<g:Button ui:field="loginButton"></g:Button>
-		</g:FlowPanel>
-		<g:FlowPanel ui:field="boxBottom" styleName="{style.boxBottom}">
-			<g:FlowPanel ui:field="messageBox" addStyleNames="{style.message}">
-				<g:HTMLPanel ui:field="message" addStyleNames="{style.notice}{style.hidden}">
-				</g:HTMLPanel>
-			</g:FlowPanel>
-		</g:FlowPanel>
-		<g:FlowPanel ui:field="bottomLine">
-			<g:HTML>
-				You're using
-				<b>Hupa</b>
-				WebMail which is part of the
-				<a target='_blank' href='http://james.apache.org'>Apache-James</a>
-				project.
-			</g:HTML>
-		</g:FlowPanel>
-	</g:FlowPanel>
+    xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:image field='logo' src='res/hupa-logo-64-transparent.png' />
+    <ui:image field="shadow" src="res/loginShadow.png" />
+    <ui:image field="messages" src="res/messages.png" />
+    <ui:image field="spinner" src="res/ajaxloader.gif" />
+    <ui:image field="buttons" src="res/buttons.png" />
+
+    <ui:style>
+        .imapSetting {
+            width: auto;
+            background: #444;
+            border: 1px solid #999;
+            padding: 11px;
+            z-index: 240;
+            color: #cecece;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px 0 #333;
+            -moz-box-shadow: 0 2px 6px 0 #333;
+            -webkit-box-shadow: 0 2px 6px 0 #333;
+            -o-box-shadow: 0 2px 6px 0 #333;
+        }
+        
+        .imapSetting table td{
+            border-spacing: 0;
+            border-collapse: collapse;
+            padding: 3px;
+        }
+        
+        /*** Login form ***/
+        .loginForm {
+            position: relative;
+            width: 580px;
+            margin: 20ex auto 2ex auto;
+        }
+        
+        .loginForm .boxInner {
+            background: url(images/linen_login.jpg) top left no-repeat #5c5c5c;
+            width: 430px;
+            margin: 0 50px;
+            padding: 10px 24px 24px 24px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            box-shadow: inset 0 0 1px #ccc;
+            -o-box-shadow: inset 0 0 1px #ccc;
+            -webkit-box-shadow: inset 0 0 1px #ccc;
+            -moz-box-shadow: inset 0 0 1px #ccc;
+        }
+        
+        .loginForm .tdInput {
+            width: 80%;
+            padding: 8px;
+        }
+        
+        .loginForm input[type="text"],.loginForm input[type="password"] {
+            background-color: white;
+            width: 100%;
+            border-color: #666;
+        }
+        
+        .loginForm input.button {
+            color: #444;
+            text-shadow: 0px 1px 1px #fff;
+            border-color: #f9f9f9;
+            background: #f9f9f9;
+            background: -moz-linear-gradient(top, #f9f9f9 0%, #e2e2e2 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f9f9f9),
+                color-stop(100%, #e2e2e2) );
+            background: -o-linear-gradient(top, #f9f9f9 0%, #e2e2e2 100%);
+            background: -ms-linear-gradient(top, #f9f9f9 0%, #e2e2e2 100%);
+            background: linear-gradient(top, #f9f9f9 0%, #e2e2e2 100%);
+            box-shadow: inset 0 1px 0 0 #fff;
+            -moz-box-shadow: inset 0 1px 0 0 #fff;
+            -webkit-box-shadow: inset 0 1px 0 0 #fff;
+            -o-box-shadow: inset 0 1px 0 0 #fff;
+        }
+        
+        .loginForm input.button:hover,.loginForm input.button:focus {
+            box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0 #fff;
+            -moz-box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0
+                #fff;
+            -webkit-box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0
+                #fff;
+            -o-box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0 #fff;
+        }
+        
+        .loginForm input.button:active {
+            color: #333;
+            background: -moz-linear-gradient(top, #dcdcdc 0%, #f9f9f9 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dcdcdc),
+                color-stop(100%, #f9f9f9) );
+            background: -o-linear-gradient(top, #dcdcdc 0%, #f9f9f9 100%);
+            background: -ms-linear-gradient(top, #dcdcdc 0%, #f9f9f9 100%);
+            background: linear-gradient(top, #dcdcdc 0%, #f9f9f9 100%);
+        }
+        
+        .loginForm form table {
+            width: 98%;
+        }
+        
+        .loginForm .tdTitle {
+            white-space: nowrap;
+            color: #cecece;
+            text-shadow: 0px 1px 1px black;
+            text-align: right;
+            padding-right: 1em;
+        }
+        
+        .loginForm .pFormbuttons {
+            margin-top: 2em;
+            text-align: center;
+            border-radius: 5px;
+        }
+        
+        .loginForm .submitButton {
+            background-color: white;
+            font-size: 110%;
+            font-weight: bold;
+            padding: 4px 12px;
+            color: #000;
+            text-decoration: hand;
+            border: 1px solid #DDD;
+            text-align: center;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -o-border-radius: 5px;
+            border-radius: 5px;
+        }
+        
+        .loginForm .submitButton:hover {
+            box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0 #fff;
+            -moz-box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0
+                #fff;
+            -webkit-box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0
+                #fff;
+            -o-box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0 #fff;
+        }
+        
+        .loginForm #logo {
+            margin-bottom: 20px;
+        }
+        
+        .loginForm .messagebox {
+            min-height: 40px;
+            padding: 5px 25px;
+            text-align: center;
+        }
+        
+        .loginForm .messageBox div {
+            display: inline-block;
+            padding-right: 0;
+        }
+        
+        .bottomLine {
+            font-size: 90%;
+            text-align: center;
+            margin-top: 2em;
+        }
+        /*** boxBottom ***/
+        @sprite .boxBottom {
+            gwt-image: 'shadow';
+            background-position: top center;
+            width: auto;
+            height: auto;
+            margin-top: -3px;
+            padding-top: 10px;
+        }
+        
+        .message {
+            min-height: 40px;
+            padding: 5px 25px;
+            text-align: center;
+        }
+        
+        @sprite .notice {
+            gwt-image: 'messages';
+            background-position: 0 5px;
+            width: auto;
+            height: auto;
+            color: #555;
+            font-weight: bold;
+            padding: 6px 30px 6px 25px;
+            display: inline-block;
+            white-space: nowrap;
+            text-align: center;
+            cursor: default;
+        }
+        
+        @sprite .spinner {
+            gwt-image: 'spinner';
+        }
+        
+        @external .loading;
+        .loading {
+            display: none;
+        }
+        
+        @sprite .settingIcon {
+            gwt-image: 'buttons';
+            background-position: 0 -96px;
+            width: 33px;
+            height: 27px;
+            cursor: pointer;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -o-border-radius: 3px;
+            border-radius: 3px;
+        }
+    </ui:style>
+    <g:FlowPanel addStyleNames="{style.loginForm}">
+        <g:FlowPanel ui:field="innerBox" addStyleNames="{style.boxInner}">
+            <g:Image resource='{logo}'></g:Image>
+            <g:HTMLPanel>
+                <table>
+                    <tr>
+                        <td class="{style.tdTitle}">
+                            <div class="{style.tdTitle}">username</div>
+                        </td>
+                        <td class="{style.tdInput}">
+                            <g:TextBox ui:field="usernameTextBox" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="{style.tdTitle}">
+                            <div class="{style.tdTitle}">password</div>
+                        </td>
+                        <td class="{style.tdInput}">
+                            <g:PasswordTextBox ui:field="passwordTextBox" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="{style.pFormbuttons}">
+                                <g:Button ui:field="setupButton" addStyleNames="{style.settingIcon}"></g:Button>
+                            </p>
+                        </td>
+                        <td>
+                            <p class="{style.pFormbuttons}">
+                                <g:SubmitButton ui:field="submitButton"
+                                    addStyleNames="{style.submitButton}">Login</g:SubmitButton>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </g:HTMLPanel>
+        </g:FlowPanel>
+        <g:FlowPanel styleName="{style.boxBottom}">
+            <g:FlowPanel addStyleNames="{style.message}">
+                <g:HTMLPanel ui:field="message"
+                    addStyleNames="{style.notice} {style.spinner} {style.message} ">
+                </g:HTMLPanel>
+            </g:FlowPanel>
+        </g:FlowPanel>
+        <g:FlowPanel addStyleNames="{style.bottomLine}">
+            <g:HTML>
+                You're using
+                <b>Hupa</b>
+                WebMail which is part of the
+                <a target='_blank' href='http://james.apache.org'>Apache-James</a>
+                project.
+            </g:HTML>
+        </g:FlowPanel>
+        <g:PopupPanel ui:field="settingsPopup" styleName="{style.imapSetting}"
+                      modal="true" autoHideEnabled="true" glassEnabled="true" >
+          <g:HTMLPanel>
+            <table>
+              <tr>
+                <td>IMAP Server:</td>
+                <td><g:TextBox ui:field="imapServer" visibleLength='15'/></td>
+                <td>Port:</td>
+                <td><g:TextBox ui:field="imapPort" maxLength='5' visibleLength='4'/></td>
+                <td><g:CheckBox ui:field="imapSecure"/> Secure</td>
+              </tr>
+              <tr>
+                <td>SMTP Server:</td>
+                <td><g:TextBox ui:field="smtpServer" visibleLength='15'/></td>
+                <td>Port:</td>
+                <td><g:TextBox ui:field="smtpPort" maxLength='5' visibleLength='4'/></td>
+                <td><g:CheckBox ui:field="smtpSecure"/> Secure</td>
+              </tr>
+            </table>
+          </g:HTMLPanel>
+        </g:PopupPanel>
+    </g:FlowPanel>
 </ui:UiBinder>

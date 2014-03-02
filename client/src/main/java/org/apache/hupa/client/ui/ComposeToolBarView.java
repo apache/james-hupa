@@ -20,36 +20,59 @@
 package org.apache.hupa.client.ui;
 
 import org.apache.hupa.client.activity.ComposeToolBarActivity;
+import org.apache.hupa.shared.events.SendClickEvent;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
-public class ComposeToolBarView extends Composite implements
-		ComposeToolBarActivity.Displayable {
+public class ComposeToolBarView extends Composite implements ComposeToolBarActivity.Displayable {
 
-	@UiField Anchor attach;
+	@Inject protected EventBus eventBus;
+	
+	@UiField public Anchor send;
+	@UiField public Anchor cancel;
 
-	@UiHandler("attach")
-	void handleClick(ClickEvent e) {
-		Window.alert("//TODO this should be a model window for attachments.");
+	@UiHandler("cancel")
+	public void handleClickCancel(ClickEvent e) {
+		History.back();
 	}
-
-	public ComposeToolBarView() {
-		initWidget(binder.createAndBindUi(this));
+	
+    @UiHandler("send")
+    public void handleClickSend(ClickEvent e) {
+       eventBus.fireEvent(new SendClickEvent());
+    }
+	
+	@Override
+	public HasClickHandlers getSendClick() {
+		return send;
 	}
+	
+    interface ComposeToolBarUiBinder extends UiBinder<HorizontalPanel, ComposeToolBarView> {
+    }
 
-	interface ComposeToolBarUiBinder extends
-			UiBinder<FlowPanel, ComposeToolBarView> {
-	}
-
-	private static ComposeToolBarUiBinder binder = GWT
-			.create(ComposeToolBarUiBinder.class);
+    @SuppressWarnings("rawtypes")
+    private static UiBinder binder;
+    
+    @SuppressWarnings("rawtypes")
+    protected UiBinder initBinder() {
+      return  GWT.create(ComposeToolBarUiBinder.class);
+    }
+    
+	@SuppressWarnings("unchecked")
+    public ComposeToolBarView() {
+	    binder = initBinder();
+		initWidget((Widget)binder.createAndBindUi(this));
+    }
 
 }

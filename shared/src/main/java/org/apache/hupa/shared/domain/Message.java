@@ -29,42 +29,26 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(Message.class)
 public interface Message extends ValueProxy {
-
 	List<IMAPFlag> getFlags();
-
 	Date getReceivedDate();
-
 	boolean hasAttachment();
-
 	String getFrom();
-
-	void setFrom(String cellValue);
-
-	void setReceivedDate(Date cellValue);
-
 	String getSubject();
-
-	void setSubject(String cellValue);
-
 	List<String> getCc();
-
 	List<String> getTo();
+	long getUid();
+	String getReplyto();
+    List<String> getExtra();
 
 	void setTo(List<String> to);
-
 	void setCc(List<String> cc);
-
 	void setReplyto(String string);
-
 	void setUid(long uid);
-
 	void setFlags(List<IMAPFlag> iFlags);
-
 	void setTags(List<Tag> tags);
-
 	void setHasAttachments(boolean hasAttachment);
-
-	long getUid();
-
-	String getReplyto();
+	void setSubject(String cellValue);
+	void setFrom(String cellValue);
+	void setReceivedDate(Date cellValue);
+    void setExtra(List<String> extra);
 }

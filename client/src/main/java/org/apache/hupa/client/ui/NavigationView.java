@@ -19,6 +19,7 @@
 
 package org.apache.hupa.client.ui;
 
+import org.apache.hupa.client.HupaController;
 import org.apache.hupa.client.activity.NavigationActivity;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.place.SettingPlace;
@@ -30,25 +31,21 @@ import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.inject.Inject;
 
-public class NavigationView extends Composite implements NavigationActivity.Displayable{
-	
-	@Inject PlaceController placeController; 
+public class NavigationView extends Composite implements NavigationActivity.Displayable {
+
+	@Inject PlaceController placeController;
 	@UiField Anchor mail;
 	@UiField Anchor setting;
-	@UiField Anchor contact;
-	@UiField SimplePanel contactOuter;
 	@UiField SimplePanel mailOuter;
 	@UiField SimplePanel settingOuter;
-	
+
 	@UiField Style style;
-	
 
 	interface Style extends CssResource {
 		String selected();
@@ -60,58 +57,40 @@ public class NavigationView extends Composite implements NavigationActivity.Disp
 	public NavigationView() {
 		initWidget(binder.createAndBindUi(this));
 	}
-	
+
 	@UiHandler("mail")
-	public void onMailClick(ClickEvent e){
-		mailOuter.addStyleName(style.selected());
-		mail.addStyleName(style.mailInnerSelected());
-		
-		settingOuter.removeStyleName(style.selected());
-		setting.removeStyleName(style.settingsInnerSelected());
-		
-		contactOuter.removeStyleName(style.selected());
-		contact.removeStyleName(style.contactInnerSelected());
-		//FIXME need the configure one
-		if(GWT.isProdMode()){
-			placeController.goTo(new FolderPlace("INBOX"));
-		}else{
-			placeController.goTo(new FolderPlace("Mock-Inbox"));
-		}
+	public void onMailClick(ClickEvent e) {
+		select(1);
+        placeController.goTo(new FolderPlace(HupaController.user.getSettings().getInboxFolderName()));
 	}
-	
-	
-	
+
 	@UiHandler("setting")
-	public void onSettingClick(ClickEvent e){
-		mailOuter.removeStyleName(style.selected());
-		mail.removeStyleName(style.mailInnerSelected());
-		contactOuter.removeStyleName(style.selected());
-		contact.removeStyleName(style.contactInnerSelected());
-		
-		settingOuter.addStyleName(style.selected());
-		setting.addStyleName(style.settingsInnerSelected());
+	public void onSettingClick(ClickEvent e) {
+		select(2);
 		placeController.goTo(new SettingPlace("labels"));
 	}
-	
-
-	@UiHandler("contact")
-	public void onContactClick(ClickEvent e){
-		Window.alert("//TODO");
-//		mailOuter.removeStyleName(style.selected());
-//		mail.removeStyleName(style.mailInnerSelected());
-//		contactOuter.addStyleName(style.selected());
-//		contact.addStyleName(style.contactInnerSelected());
-//		
-//		settingOuter.removeStyleName(style.selected());
-//		setting.removeStyleName(style.settingsInnerSelected());
-//		placeController.goTo(new ContactPlace("contacts"));
-	}
-	
-	
 
 	interface NavigationUiBinder extends UiBinder<DockLayoutPanel, NavigationView> {
 	}
 
 	private static NavigationUiBinder binder = GWT.create(NavigationUiBinder.class);
+
+	@Override
+	public void select(int idx) {
+		switch (idx) {
+		case 2:
+			mailOuter.removeStyleName(style.selected());
+			mail.removeStyleName(style.mailInnerSelected());
+			settingOuter.addStyleName(style.selected());
+			setting.addStyleName(style.settingsInnerSelected());
+			break;
+		default:
+			mailOuter.addStyleName(style.selected());
+			mail.addStyleName(style.mailInnerSelected());
+			settingOuter.removeStyleName(style.selected());
+			setting.removeStyleName(style.settingsInnerSelected());
+			break;
+		}
+	}
 
 }

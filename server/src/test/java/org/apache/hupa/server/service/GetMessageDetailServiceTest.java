@@ -132,7 +132,7 @@ public class GetMessageDetailServiceTest extends HupaGuiceTestCase {
     }
     
     private MessageDetails loadMessageDetails(String msgFile) throws Exception {
-        return getMessageDetailsService.mimeToDetails(TestUtils.loadMessageFromFile(session,msgFile), "theFolder", 9999l);
+        return getMessageDetailsService.mimeToDetails(TestUtils.loadMessageFromFile(session,msgFile), "theFolder", 9999l, testUser);
     }
     
     @Test public void testMessageDetails_textPlain() throws Exception {
@@ -211,6 +211,11 @@ public class GetMessageDetailServiceTest extends HupaGuiceTestCase {
         assertFalse(html.contains("<style>"));
         assertTrue(html.contains("<a onClick=\"openLink('http://code.google.com/intl/es/webtoolkit/');return false;\" href=\"http://code.google.com/intl/es/webtoolkit/\""));
         assertTrue(html.contains("<a onClick=\"mailTo('donald@example.com');return false;\" href=\"mailto:donald@example.com\""));
+    }
+    
+    @Test public void testMessageDetails_ecs_crypt() throws Exception {
+        MessageDetails details = loadMessageDetails("12.msg");
+        assertEquals("Secure Hello world<br>", details.getText());
     }
 
 }

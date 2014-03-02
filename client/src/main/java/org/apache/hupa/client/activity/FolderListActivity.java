@@ -19,10 +19,11 @@
 
 package org.apache.hupa.client.activity;
 
-import org.apache.hupa.shared.events.RefreshUnreadEvent;
-import org.apache.hupa.shared.events.RefreshUnreadEventHandler;
+import org.apache.hupa.shared.events.RefreshFoldersEvent;
+import org.apache.hupa.shared.events.RefreshFoldersEventHandler;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
@@ -36,15 +37,27 @@ public class FolderListActivity extends AppBaseActivity {
 		container.setWidget(display.asWidget());
 		bindTo(eventBus);
 	}
+	
+	private Timer refreshFoldersTimer = new Timer() {
+        public void run() {
+           eventBus.fireEvent(new RefreshFoldersEvent());
+        }
+    };
 
 	private void bindTo(EventBus eventBus) {
-
-		eventBus.addHandler(RefreshUnreadEvent.TYPE, new RefreshUnreadEventHandler() {
+		eventBus.addHandler(RefreshFoldersEvent.TYPE, new RefreshFoldersEventHandler() {
 			@Override
-			public void onRefreshEvent(RefreshUnreadEvent event) {
+			public void onRefreshEvent(RefreshFoldersEvent event) {
 				display.refresh();
 			}
 		});
+        refreshFoldersTimer.scheduleRepeating(3*60*1000);
+	}
+	
+	@Override
+	public void onStop() {
+	    super.onStop();
+	    refreshFoldersTimer.cancel();
 	}
 
 	public interface Displayable extends IsWidget {

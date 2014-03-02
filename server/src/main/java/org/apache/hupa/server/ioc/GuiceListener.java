@@ -42,8 +42,8 @@ public class GuiceListener extends GuiceServletContextListener {
 
 	private String servletContextRealPath = "";
 
-	private Properties demoProperties = null;
-	private String demoHostName = null;
+	protected Properties demoProperties = null;
+	protected String demoHostName = null;
 
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
@@ -85,12 +85,12 @@ public class GuiceListener extends GuiceServletContextListener {
 	/**
 	 * Loads the first available configuration file.
 	 * 
-	 * The preference order for the file is: 1.- file specified in a system
-	 * property (-Dhupa.config.file=full_path_to_file) 2.- file in the user's
-	 * home: $HOME/.hupa/config.properties 3.- global configuration in the os:
-	 * /etc/default/hupa 4.- file provided in the .war distribution:
-	 * "WEB-INF/conf/config.properties 5.- mock properties file which makes the
-	 * Hupa work in demo mode.
+	 * The preference order for the file is: 
+	 * 1.- file specified in a system property (-Dhupa.config.file=full_path_to_file).
+	 * 2.- file in the user's home: $HOME/.hupa/config.properties.
+	 * 3.- global configuration in the os: /etc/default/hupa.
+	 * 4.- file provided in the .war distribution: "WEB-INF/conf/config.properties.
+	 * 5.- mock properties file which makes the Hupa work in demo mode.
 	 * 
 	 * If the system property "mock-host" has been defined, and Hupa has been
 	 * packaged with the mock stuff, we always return the demo-mode
@@ -107,12 +107,14 @@ public class GuiceListener extends GuiceServletContextListener {
 			configurationList.add(servletContextRealPath + "/" + CONFIG_DIR_IN_WAR + CONFIG_FILE_NAME);
 
 			for (String name : configurationList) {
+			    System.out.println(name);
 				properties = ConfigurationProperties.loadProperties(name);
 				if (properties != null) {
 					break;
 				}
 			}
 		}
+
 		return properties == null ? demoProperties : properties;
 	}
 }

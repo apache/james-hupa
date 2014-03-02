@@ -53,7 +53,5 @@ public interface HupaRequestFactory extends RequestFactory {
 
 	SendReplyMessageRequest sendReplyMessageRequest();
 
-	IdleRequest idleRequest();
-
 	SetFlagRequest setFlagRequest();
 }

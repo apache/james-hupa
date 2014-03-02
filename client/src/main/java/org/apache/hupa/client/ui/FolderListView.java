@@ -27,12 +27,14 @@ import org.apache.hupa.client.activity.FolderListActivity;
 import org.apache.hupa.client.activity.MessageListActivity;
 import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.place.FolderPlace;
-import org.apache.hupa.client.rf.HupaRequestFactory;
+import org.apache.hupa.client.storage.HupaStorage;
 import org.apache.hupa.shared.domain.ImapFolder;
 
 import com.google.gwt.cell.client.AbstractCell;
+import com.google.gwt.core.client.Duration;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.PlaceController;
+import com.google.gwt.query.client.Function;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -47,8 +49,6 @@ import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
-import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class FolderListView extends Composite implements FolderListActivity.Displayable {
 	@UiField SimplePanel thisView;
@@ -56,6 +56,8 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 	@Inject private ToolBarActivity.Displayable toolBar;
 	@Inject private MessageListActivity.Displayable msgListDisplay;
 	@Inject private PlaceController placeController;
+	@Inject private HupaStorage hupaStorage;
+	
 	private CellList<LabelNode> cellList;
 	private ShowMorePagerPanel pagerPanel;
 
@@ -73,12 +75,19 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 	        return item == null ? null : item.getPath();
 	      }
 	    };
+	    
+    protected void onAttach() {
+        super.onAttach();
+        // Delay getting data until the widget has been attached, to use injected objects.
+        if (data.getDataDisplays().size() == 0) {
+            data.addDataDisplay(cellList);
+        }
+    };
 
-	@Inject
-	public FolderListView(final HupaRequestFactory rf) {
+	public FolderListView() {
 		initWidget(binder.createAndBindUi(this));
 
-		data = new ImapLabelListDataProvider(rf);
+		data = new ImapLabelListDataProvider();
 		pagerPanel = new ShowMorePagerPanel();
 		cellList = new CellList<LabelNode>(new FolderCell(), Resources.INSTANCE, KEY_PROVIDER);
 	    cellList.setKeyboardPagingPolicy(KeyboardPagingPolicy.INCREASE_RANGE);
@@ -93,7 +102,6 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 				msgListDisplay.refresh();
 			}
 		});
-		data.addDataDisplay(cellList);
 		pagerPanel.setDisplay(cellList);
 		thisView.setWidget(pagerPanel);
 	}
@@ -119,14 +127,14 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 		@Override
 		public void render(Context context, LabelNode value, SafeHtmlBuilder sb) {
 			if (value != null) {
-				if (value.getFolder().getUnseenMessageCount() > 0) {
-					sb.appendHtmlConstant("<span style='right:6px;top:3px;font-weight:bold;'>");
+//				if (value.getFolder().getUnseenMessageCount() > 0) {
+//					sb.appendHtmlConstant("<span style='right:6px;top:3px;font-weight:bold;'>");
+//					sb.appendHtmlConstant(value.getNameForDisplay());
+//					sb.appendHtmlConstant(" (" + value.getFolder().getUnseenMessageCount());
+//					sb.appendHtmlConstant(")</span>");
+//				} else {
 					sb.appendHtmlConstant(value.getNameForDisplay());
-					sb.appendHtmlConstant(" (" + value.getFolder().getUnseenMessageCount());
-					sb.appendHtmlConstant(")</span>");
-				} else {
-					sb.appendHtmlConstant(value.getNameForDisplay());
-				}
+//				}
 			}
 		}
 	}
@@ -135,7 +143,6 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 
 	public class ImapLabelListDataProvider extends AsyncDataProvider<LabelNode> implements HasRefresh {
 
-		private HupaRequestFactory rf;
 		private List<LabelNode> folderNodes = new ArrayList<LabelNode>();
 		HasData<LabelNode> display;
 
@@ -143,69 +150,59 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 			return folderNodes;
 		}
 
-		public ImapLabelListDataProvider(HupaRequestFactory rf) {
-			this.rf = rf;
-		}
-
 		@Override
 		public void addDataDisplay(HasData<LabelNode> display) {
 			super.addDataDisplay(display);
 			this.display = display;
 		}
+		
+	    protected void onRangeChanged(HasData<LabelNode> display) {
+	        onRangeChanged(display, false);
+	    }
 
-		@Override
-		protected void onRangeChanged(HasData<LabelNode> display) {
-
-			final int start = display.getVisibleRange().getStart();
-
-			rf.fetchFoldersRequest().fetch(null, Boolean.TRUE).fire(new Receiver<List<ImapFolder>>() {
-
-				private String INTENTS = "&nbsp;&nbsp;&nbsp;&nbsp;";
-
-				@Override
-				public void onSuccess(List<ImapFolder> response) {
-					folderNodes.clear();
-					if (response == null || response.size() == 0) {
-						updateRowCount(-1, true);
-					} else {
-						for (ImapFolder folder : response) {
-							fillCellList(folderNodes, folder, LabelNode.ROOT, "");
-						}
-						updateRowData(start, folderNodes);
-					}
-				}
-
-				private void fillCellList(List<LabelNode> folderNodes, ImapFolder curFolder, LabelNode parent,
-						String intents) {
-					LabelNode labelNode = new LabelNode();
-					labelNode.setFolder(curFolder);
-					labelNode.setName(curFolder.getName());
-					labelNode.setNameForDisplay(intents + curFolder.getName());
-					labelNode.setParent(parent);
-					labelNode.setPath(curFolder.getFullName());
-					folderNodes.add(labelNode);
-					if (curFolder.getHasChildren()) {
-						for (ImapFolder subFolder : curFolder.getChildren()) {
-							fillCellList(folderNodes, subFolder, labelNode, intents + INTENTS);
-						}
-					}
-				}
-
-				@Override
-				public void onFailure(ServerFailure error) {
-					if (error.isFatal()) {
-						throw new RuntimeException(error.getMessage());
-					}
-				}
-
-			});
+		protected void onRangeChanged(HasData<LabelNode> display, boolean skipCache) {
+			hupaStorage
+			    .gettingFolders(skipCache)
+    			.done(new Function(){public void f() {
+    			    List<ImapFolder> response = arguments(0);
+                    folderNodes.clear();
+                    for (ImapFolder folder : response) {
+                        fillCellList(folderNodes, folder, LabelNode.ROOT, "");
+                    }
+                    // For some reason removing a row does not update the display correctly
+                    updateRowCount(folderNodes.size(), true);
+                    updateRowData(0, folderNodes);
+    			 }});
 		}
-
-		@Override
-		public void refresh() {
-			this.onRangeChanged(display);
-		}
+		
+	    private void fillCellList(List<LabelNode> folderNodes, ImapFolder curFolder, LabelNode parent, String intents) {
+	        LabelNode labelNode = new LabelNode();
+	        labelNode.setFolder(curFolder);
+	        labelNode.setName(curFolder.getName());
+	        labelNode.setNameForDisplay(intents + curFolder.getName());
+	        labelNode.setParent(parent);
+	        labelNode.setPath(curFolder.getFullName());
+	        folderNodes.add(labelNode);
+	        if (curFolder.getHasChildren()) {
+	            for (ImapFolder subFolder : curFolder.getChildren()) {
+	                // FIXME: don't use intents, it will be much better user experience to use cellTree
+	                fillCellList(folderNodes, subFolder, labelNode, intents + "&nbsp;&nbsp;&nbsp;&nbsp;");
+	            }
+	        }
+	    }
+	    
+	    Double last = 0d;
+	    @Override
+	    public void refresh(){
+	        Double now = Duration.currentTimeMillis();
+	        if (now - last > 1 * 60  * 1000) {
+	            this.onRangeChanged(display, true);
+	            last = now;
+	        }
+	    }
 	}
+	
+
 
 	interface FolderListUiBinder extends UiBinder<SimplePanel, FolderListView> {
 	}

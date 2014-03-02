@@ -35,7 +35,7 @@ public class ActivityManagerInitializer {
 	@Inject
 	public ActivityManagerInitializer(LoginLayoutable loginLayout, HupaLayoutable hupaLayout,
 
-	@Named("ContactsListRegion") ActivityManager contactsListActivityManager,
+			@Named("ContactsListRegion") ActivityManager contactsListActivityManager,
 			@Named("ContactPropertiesRegion") ActivityManager contactPropertiesActivityManager,
 			@Named("LabelListRegion") ActivityManager labelListActivityManager,
 			@Named("SettingNavRegion") ActivityManager settingNavActivityManager,
@@ -47,6 +47,7 @@ public class ActivityManagerInitializer {
 			@Named("NavigationRegion") ActivityManager navigationActivityManager,
 			@Named("ToolBarRegion") ActivityManager toolBarActivityManager,
 			@Named("FolderListRegion") ActivityManager folderListActivityManager,
+			@Named("AddressListRegion") ActivityManager addressListActivityManager,
 			@Named("MessageListRegion") ActivityManager messageListActivityManager,
 			@Named("MessageListFooterRegion") ActivityManager messageListFooterActivityManager,
 			@Named("MessageContentRegion") ActivityManager messageContentActivityManager,
@@ -56,8 +57,6 @@ public class ActivityManagerInitializer {
 			@Named("ComposeRegion") ActivityManager composeActivityManager) {
 		contactsListActivityManager.setDisplay(hupaLayout.getContactsListView());
 		contactPropertiesActivityManager.setDisplay(hupaLayout.getContactPropertiesView());
-		labelPropertiesActivityManager.setDisplay(hupaLayout.getLabelPropertiesView());
-		labelListActivityManager.setDisplay(hupaLayout.getLabelListView());
 		settingNavActivityManager.setDisplay(hupaLayout.getSettingNavView());
 		loginActivityManager.setDisplay(loginLayout.getLoginView());
 		topBarActivityManager.setDisplay(hupaLayout.getTopBarView());
@@ -66,6 +65,7 @@ public class ActivityManagerInitializer {
 		navigationActivityManager.setDisplay(hupaLayout.getNavigationView());
 		toolBarActivityManager.setDisplay(hupaLayout.getToolBarView());
 		folderListActivityManager.setDisplay(hupaLayout.getFolderListView());
+		addressListActivityManager.setDisplay(hupaLayout.getAddressListView());
 		messageListActivityManager.setDisplay(hupaLayout.getMessageListView());
 		messageListFooterActivityManager.setDisplay(hupaLayout.getMessageListFooterView());
 		messageContentActivityManager.setDisplay(hupaLayout.getMessageContentView());
@@ -73,6 +73,9 @@ public class ActivityManagerInitializer {
 		composeToolBarActivityManager.setDisplay(hupaLayout.getComposeToolBarView());
 		searchBoxActivityManager.setDisplay(hupaLayout.getSearchBoxView());
 		composeActivityManager.setDisplay(hupaLayout.getComposeView());
+		
+        labelPropertiesActivityManager.setDisplay(hupaLayout.getLabelPropertiesView());
+        labelListActivityManager.setDisplay(hupaLayout.getLabelListView());
 	}
 
 }

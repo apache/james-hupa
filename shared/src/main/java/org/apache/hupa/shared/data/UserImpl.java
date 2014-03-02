@@ -19,6 +19,7 @@
 
 package org.apache.hupa.shared.data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.hupa.shared.domain.Settings;
@@ -29,13 +30,26 @@ import org.apache.hupa.shared.domain.User;
  * 
  * 
  */
-public class UserImpl implements User {
-	private String name;
+public class UserImpl implements User, Serializable {
+    
+    private static final long serialVersionUID = 7172612434659286225L;
+    
+    private String id;
+    
+
+    private String name;
 	private String password;
 	private Date loginDate;
 	private boolean auth;
 	private Settings settings;
+	
+    public String getId() {
+        return id != null ? id : name;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 	/**
 	 * The name of the User
 	 * 
@@ -69,8 +83,8 @@ public class UserImpl implements User {
 	 * @return password
 	 */
 	public String getPassword() {
-		return password;
-	}
+        return password;
+    }
 
 	/*
 	 * (non-Javadoc)
@@ -135,5 +149,4 @@ public class UserImpl implements User {
 	public Settings getSettings() {
 		return settings;
 	}
-
 }

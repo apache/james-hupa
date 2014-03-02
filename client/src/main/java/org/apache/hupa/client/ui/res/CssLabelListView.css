@@ -16,6 +16,7 @@
 .cellListWidget {
 	
 	cursor:default;
+	white-space: nowrap;
 	
 }
 

@@ -19,6 +19,8 @@
 
 package org.apache.hupa.client.ui;
 
+import org.apache.hupa.client.place.SettingPlace;
+
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public interface HupaLayoutable extends Layoutable {
@@ -47,7 +49,7 @@ public interface HupaLayoutable extends Layoutable {
 	AcceptsOneWidget getNotificationView();
 
 	AcceptsOneWidget getLabelListView();
-	AcceptsOneWidget getContactListView();
+	AcceptsOneWidget getAddressListView();
 
 	AcceptsOneWidget getLabelPropertiesView();
 
@@ -60,4 +62,6 @@ public interface HupaLayoutable extends Layoutable {
 	AcceptsOneWidget getSearchBoxView();
 
 	AcceptsOneWidget getSettingNavView();
+
+	void arrangeSettingLayout(SettingPlace sp);
 }

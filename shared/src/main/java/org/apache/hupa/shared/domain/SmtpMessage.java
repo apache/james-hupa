@@ -39,8 +39,10 @@ public interface SmtpMessage extends ValueProxy {
 
 	String getText();
 
+	List<MailHeader> getMailHeaders();
+	
 	List<MessageAttachment> getMessageAttachments();
-
+	
 	void setFrom(String name);
 
 	void setTo(List<String> arrayList);
@@ -53,5 +55,7 @@ public interface SmtpMessage extends ValueProxy {
 
 	void setText(String string);
 
+    void setMailHeaders(List<MailHeader> mailHeader);
+    
 	void setMessageAttachments(List<MessageAttachment> attachments);
 }

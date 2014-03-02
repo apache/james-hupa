@@ -33,7 +33,7 @@ public interface MessageDetails extends ValueProxy {
 
 	void setMessageAttachments(List<MessageAttachment> attachmentList);
 
-	void setMailHeader(MailHeader mailHeader);
+	void setMailHeaders(List<MailHeader> mailHeader);
 
 	List<MessageAttachment> getMessageAttachments();
 
@@ -43,4 +43,7 @@ public interface MessageDetails extends ValueProxy {
 
 	String getMessageId();
 
-	String getReferences();}
+	String getReferences();
+	
+	List<MailHeader> getMailHeaders();
+}

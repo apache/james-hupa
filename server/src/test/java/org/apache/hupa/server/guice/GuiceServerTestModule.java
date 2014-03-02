@@ -21,14 +21,12 @@ package org.apache.hupa.server.guice;
 
 import java.util.Properties;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.InMemoryIMAPStoreCache;
 import org.apache.hupa.server.guice.providers.DefaultUserSettingsProvider;
-import org.apache.hupa.server.guice.providers.JavaMailSessionProvider;
 import org.apache.hupa.server.ioc.demo.DemoGuiceServerModule.DemoIMAPStoreCache;
 import org.apache.hupa.server.mock.MockConstants;
 import org.apache.hupa.server.mock.MockHttpSessionProvider;
@@ -41,11 +39,11 @@ import org.apache.hupa.server.service.CreateFolderServiceImpl;
 import org.apache.hupa.server.service.DeleteFolderServiceImpl;
 import org.apache.hupa.server.service.DeleteMessageAllServiceImpl;
 import org.apache.hupa.server.service.DeleteMessageByUidServiceImpl;
+import org.apache.hupa.server.service.FetchFoldersService;
 import org.apache.hupa.server.service.FetchFoldersServiceImpl;
 import org.apache.hupa.server.service.FetchMessagesServiceImpl;
 import org.apache.hupa.server.service.GetMessageDetailsServiceImpl;
 import org.apache.hupa.server.service.GetMessageRawServiceImpl;
-import org.apache.hupa.server.service.IdleServiceImpl;
 import org.apache.hupa.server.service.ImapFolderServiceImpl;
 import org.apache.hupa.server.service.LoginUserServiceImpl;
 import org.apache.hupa.server.service.LogoutUserServiceImpl;
@@ -70,8 +68,6 @@ import org.apache.hupa.shared.data.GetMessageDetailsActionImpl;
 import org.apache.hupa.shared.data.GetMessageDetailsResultImpl;
 import org.apache.hupa.shared.data.GetMessageRawActionImpl;
 import org.apache.hupa.shared.data.GetMessageRawResultImpl;
-import org.apache.hupa.shared.data.IdleActionImpl;
-import org.apache.hupa.shared.data.IdleResultImpl;
 import org.apache.hupa.shared.data.ImapFolderImpl;
 import org.apache.hupa.shared.data.LogoutUserActionImpl;
 import org.apache.hupa.shared.data.MailHeaderImpl;
@@ -92,6 +88,7 @@ import org.apache.hupa.shared.domain.Settings;
 import org.apache.hupa.shared.domain.User;
 
 import com.google.inject.Provider;
+import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 import com.sun.mail.imap.IMAPStore;
@@ -107,17 +104,15 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
         ConfigurationProperties.validateProperties(properties);
         Names.bindProperties(binder(), properties);
 
-        bind(Session.class).toProvider(JavaMailSessionProvider.class);
         bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
-        bind(Settings.class).toProvider(DefaultUserSettingsProvider.class).in(
-                Singleton.class);
+        bind(Settings.class).toProvider(DefaultUserSettingsProvider.class);
         bind(Log.class).toProvider(logProviderClass).in(Singleton.class);
 
-        bind(IMAPStore.class).to(MockIMAPStore.class);
         
         if (properties == MockConstants.mockProperties) {
             bind(IMAPStoreCache.class).to(DemoIMAPStoreCache.class).in(
                     Singleton.class);
+            bind(IMAPStore.class).to(MockIMAPStore.class);
         } else {
             bind(IMAPStoreCache.class).to(InMemoryIMAPStoreCache.class).in(
                     Singleton.class);
@@ -149,8 +144,6 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
 		bind(SendReplyMessageActionImpl.class);
 		bind(GetMessageRawActionImpl.class);
 		bind(GetMessageRawResultImpl.class);
-		bind(IdleActionImpl.class);
-		bind(IdleResultImpl.class);
 		bind(LogoutUserActionImpl.class);
 		bind(MoveMessageActionImpl.class);
 		bind(SetFlagActionImpl.class);
@@ -172,10 +165,12 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
 		bind(SendForwardMessageServiceImpl.class);
 		bind(SendReplyMessageServiceImpl.class);
 		bind(GetMessageRawServiceImpl.class);
-		bind(IdleServiceImpl.class);
 		bind(LogoutUserServiceImpl.class);
 		bind(MoveMessageServiceImpl.class);
 		bind(SetFlagServiceImpl.class);
+		
+        bind(FetchFoldersService.class).to(FetchFoldersServiceImpl.class);
+
 
         bind(DownloadAttachmentServlet.class).in(Singleton.class);
         bind(UploadAttachmentServlet.class).in(Singleton.class);
@@ -183,8 +178,13 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
         
         bind(UserPreferencesStorage.class).to(userPreferencesStorageClass);
         bind(User.class).to(TestUser.class).in(Singleton.class);
-        bind(Properties.class).toInstance(properties);
 		
 	}
+	
+   @Provides
+    protected Properties getProperties() {
+        System.out.println("getProperties");
+        return (Properties)properties.clone();
+    }
 
 }

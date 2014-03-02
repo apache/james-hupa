@@ -36,7 +36,7 @@ public class LoginUserServiceTest extends HupaGuiceTestCase {
     @Test public void invalidLogin() throws MessagingException {
         httpSession.setAttribute("Attribute", "Value");
         try {
-            loginUserService.login("invalid","invalid");
+            loginUserService.login("invalid", "invalid", null);
             fail("Should throw an exception");
         } catch (Throwable t) {
         }
@@ -46,7 +46,8 @@ public class LoginUserServiceTest extends HupaGuiceTestCase {
     
     @Test public void validLogin() throws MessagingException {
         try {
-            User u = loginUserService.login(testUser.getName(), testUser.getPassword());
+            System.out.println(testUser.getName() + " " + testUser.getPassword());
+            User u = loginUserService.login(testUser.getName(), testUser.getPassword(), null);
             assertEquals("Authenticated", true, u.getAuthenticated());
             assertEquals("Authenticated", testUser.getName(), u.getName());
             assertEquals("Authenticated", testUser.getPassword(), u.getPassword());
