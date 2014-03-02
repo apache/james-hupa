@@ -29,7 +29,7 @@
   <set-configuration-property name="locale.useragent" value="Y"/>
 
   <!-- Compile for all browsers -->
-  <set-property name="user.agent" value="gecko1_8,safari,opera,ie6,ie8,ie9"/>
+  <set-property name="user.agent" value="gecko1_8,safari,ie9"/>
 
   <set-configuration-property name="CssResource.style" value="obf"/>
   
