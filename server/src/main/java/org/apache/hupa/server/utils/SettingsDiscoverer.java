@@ -32,7 +32,13 @@ public class SettingsDiscoverer {
     @Inject private Provider<Settings> settingsProvider;
 
     public Settings discoverSettings(String email) {
+        
+        if (!email.matches("^(.*<)?[A-Za-z0-9._%'*/=+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(>)?\\s*$")) {
+            return new SettingsImpl();
+        }
+        
         String domain = email.replaceFirst("^.*@", "");
+        
         Settings s = validConfigs.get(domain);
         if (s != null) {
             return s;
