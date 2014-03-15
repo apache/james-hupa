@@ -32,8 +32,6 @@ import java.util.List;
  */
 public abstract class UserPreferencesStorage {
     
-    protected static final String CONTACTS_ATTR = "contacts";
-    
     protected static final String REGEX_OMITTED_EMAILS = "^.*(reply)[A-z0-9._%\\+\\-]*@.*$";
         
     /**
@@ -59,12 +57,26 @@ public abstract class UserPreferencesStorage {
     final public void addContact(List<String> mails) {
         if (mails != null) {
             for (String mail: mails) {
-            	if (mail != null && !mail.matches(REGEX_OMITTED_EMAILS)) {
+                if (mail != null && !mail.matches(REGEX_OMITTED_EMAILS)) {
                     Contact contact = new Contact(mail);
-                    addContact(contact);
-            	}
+                    if (!exists(contact)) {
+                        addContact(contact);
+                    }
+                }
             }
         }
+    }
+    
+    boolean exists (Contact mail) {
+        for (Contact c : getContacts()) {
+            if (c.mail.equals(mail.mail)) {
+                if (c.realname == null || c.realname.isEmpty() || c.realname.equals(c.mail)) {
+                    c.realname = mail.realname;
+                }
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
