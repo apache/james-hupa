@@ -80,12 +80,6 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
-        <!-- needed for ECS -->
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.6</version>
-        </dependency>
         <dependency>
             <groupId>com.google.code.guice</groupId>
             <artifactId>guice</artifactId>
@@ -115,16 +109,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-        </dependency>
-        <!-- ECS specific stuff
-            ECS encryption needs oracle crypto extension to work
-                http://www.oracle.com/technetwork/es/java/javase/downloads/jce-6-download-429243.html
-                http://www.oracle.com/technetwork/es/java/javase/downloads/jce-7-download-432124.html
-         -->
-        <dependency>
-             <groupId>org.bouncycastle</groupId>
-             <artifactId>bcprov-ext-jdk14</artifactId>
-             <version>1.49</version>
         </dependency>
         <dependency>
              <groupId>commons-lang</groupId>

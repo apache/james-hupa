@@ -66,7 +66,6 @@ public class MockIMAPStore extends IMAPStore{
         super(session, url);
         if (url != null && MOCK_HOST.equals(url.getHost())) {
             validLogins.put(MOCK_LOGIN, MOCK_LOGIN);
-            validLogins.put("hupa4ecs@gmail.com", "HupaForEcs");
             try {
                 new MockIMAPFolder(MOCK_INBOX_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
                 new MockIMAPFolder(MOCK_SENT_FOLDER, this).create(Folder.HOLDS_FOLDERS | Folder.HOLDS_MESSAGES);
