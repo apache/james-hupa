@@ -35,10 +35,10 @@ import com.sun.mail.imap.IMAPStore;
 
 public class DeleteMessageByUidServiceImpl extends DeleteMessageBaseServiceImpl implements DeleteMessageByUidService{
 
-	@Override
+    @Override
     protected Message[] getMessagesToDelete(DeleteMessageAction actionBase) throws HupaException {
-		DeleteMessageByUidAction action = (DeleteMessageByUidAction)actionBase;
-    	ImapFolder folder = action.getFolder();
+        DeleteMessageByUidAction action = (DeleteMessageByUidAction)actionBase;
+        ImapFolder folder = action.getFolder();
         List<Long> uids = action.getMessageUids();
         User user = getUser();
 

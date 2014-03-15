@@ -24,6 +24,6 @@ import org.apache.hupa.shared.domain.SetFlagAction;
 
 public interface SetFlagService {
 
-	GenericResult set(SetFlagAction action) throws Exception;
+    GenericResult set(SetFlagAction action) throws Exception;
 
 }

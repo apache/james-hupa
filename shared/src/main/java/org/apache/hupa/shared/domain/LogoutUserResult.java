@@ -24,5 +24,5 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(LogoutUserResult.class)
 public interface LogoutUserResult extends ValueProxy{
-	User getUser();
+    User getUser();
 }

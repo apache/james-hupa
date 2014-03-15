@@ -33,8 +33,8 @@ import org.apache.hupa.shared.exception.HupaException;
 import com.sun.mail.imap.IMAPStore;
 
 public abstract class DeleteMessageBaseServiceImpl extends AbstractService{
-	public DeleteMessageResult delete(DeleteMessageAction action) throws HupaException {
-    	ImapFolder folder = action.getFolder();
+    public DeleteMessageResult delete(DeleteMessageAction action) throws HupaException {
+        ImapFolder folder = action.getFolder();
         User user = getUser();
         try {
             IMAPStore store = cache.get(user);

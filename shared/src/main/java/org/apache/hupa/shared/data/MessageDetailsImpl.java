@@ -29,7 +29,7 @@ import org.apache.hupa.shared.domain.MessageDetails;
 
 public class MessageDetailsImpl implements MessageDetails{
 
-	private String text;
+    private String text;
     private List<MessageAttachment> messageAttachments;
     private long uid;
     private String raw;
@@ -37,16 +37,16 @@ public class MessageDetailsImpl implements MessageDetails{
 
     
     public List<MailHeader> getMailHeaders() {
-    	return mailHeaders;
+        return mailHeaders;
     }
 
 
-	public void setMailHeaders(List<MailHeader> mailHeaders) {
-    	this.mailHeaders = mailHeaders;
+    public void setMailHeaders(List<MailHeader> mailHeaders) {
+        this.mailHeaders = mailHeaders;
     }
 
 
-	public String toString() {
+    public String toString() {
         return "uid=" + String.valueOf(getUid()) +
         " text.length=" + (text != null ? text.length() : 0) + 
         " raw.length=" + (raw != null ? raw.length() : 0) + 

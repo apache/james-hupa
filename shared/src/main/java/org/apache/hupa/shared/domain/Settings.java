@@ -25,17 +25,17 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(Settings.class)
 public interface Settings extends ValueProxy {
     
-	void setInboxFolderName(String inboxFolder);
-	void setSentFolderName(String sentFolder);
-	void setTrashFolderName(String trashFolder);
-	void setDraftsFolderName(String draftFolder);
-	void setPostFetchMessageCount(int postCount);
-	String getTrashFolderName();
-	String getInboxFolderName();
-	String getSentFolderName();
-	String getDraftsFolderName();
+    void setInboxFolderName(String inboxFolder);
+    void setSentFolderName(String sentFolder);
+    void setTrashFolderName(String trashFolder);
+    void setDraftsFolderName(String draftFolder);
+    void setPostFetchMessageCount(int postCount);
+    String getTrashFolderName();
+    String getInboxFolderName();
+    String getSentFolderName();
+    String getDraftsFolderName();
 
-	String getImapServer();
+    String getImapServer();
     void setImapServer(String imapServer);
     int getImapPort();
     void setImapPort(int imapPort);

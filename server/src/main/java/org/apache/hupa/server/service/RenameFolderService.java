@@ -23,5 +23,5 @@ import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.RenameFolderAction;
 
 public interface RenameFolderService {
-	GenericResult rename(RenameFolderAction action) throws Exception;
+    GenericResult rename(RenameFolderAction action) throws Exception;
 }

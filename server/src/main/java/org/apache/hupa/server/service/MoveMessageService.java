@@ -23,5 +23,5 @@ import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.domain.MoveMessageAction;
 
 public interface MoveMessageService {
-	GenericResult move(MoveMessageAction action)throws Exception;
+    GenericResult move(MoveMessageAction action)throws Exception;
 }

@@ -23,5 +23,5 @@ import org.apache.hupa.shared.domain.LogoutUserResult;
 import org.apache.hupa.shared.exception.HupaException;
 
 public interface LogoutUserService {
-	LogoutUserResult logout() throws HupaException;
+    LogoutUserResult logout() throws HupaException;
 }

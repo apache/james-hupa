@@ -24,5 +24,5 @@ import org.apache.hupa.shared.domain.DeleteMessageResult;
 import org.apache.hupa.shared.exception.HupaException;
 
 public interface DeleteMessageByUidService {
-	public DeleteMessageResult delete(DeleteMessageAction action) throws HupaException;
+    public DeleteMessageResult delete(DeleteMessageAction action) throws HupaException;
 }

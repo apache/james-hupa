@@ -26,6 +26,6 @@ import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.exception.HupaException;
 
 public interface LoginUserService {
-	User login(String username, String password, Settings settings) throws HupaException, MessagingException;
-	Settings getSettings(String email);
+    User login(String username, String password, Settings settings) throws HupaException, MessagingException;
+    Settings getSettings(String email);
 }

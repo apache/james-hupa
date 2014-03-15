@@ -25,12 +25,12 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(GetMessageDetailsAction.class)
 public interface GetMessageDetailsAction extends ValueProxy{
 
-	ImapFolder getFolder();
+    ImapFolder getFolder();
 
-	void setFolder(ImapFolder folder);
+    void setFolder(ImapFolder folder);
 
-	long getUid();
+    long getUid();
 
-	void setUid(long uid);
+    void setUid(long uid);
 
 }

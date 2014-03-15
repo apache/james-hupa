@@ -25,10 +25,10 @@ public class MailToEvent extends GwtEvent<MailToEventHandler>{
     public final static Type<MailToEventHandler> TYPE = new Type<MailToEventHandler>();
     private String mailto;
     public MailToEvent(String mailto){
-    	this.mailto = mailto;
+        this.mailto = mailto;
     }
     public String getMailto(){
-    	return mailto;
+        return mailto;
     }
     @Override
     protected void dispatch(MailToEventHandler handler) {

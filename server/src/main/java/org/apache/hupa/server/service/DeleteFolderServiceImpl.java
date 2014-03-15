@@ -33,26 +33,26 @@ import com.sun.mail.imap.IMAPStore;
 
 public class DeleteFolderServiceImpl extends AbstractService implements DeleteFolderService {
 
-	@Override
-	public GenericResult delete(DeleteFolderAction action) throws HupaException, MessagingException {
-		User user = getUser();
-		ImapFolder folder = action.getFolder();
-		IMAPStore store = cache.get(user);
+    @Override
+    public GenericResult delete(DeleteFolderAction action) throws HupaException, MessagingException {
+        User user = getUser();
+        ImapFolder folder = action.getFolder();
+        IMAPStore store = cache.get(user);
 
-		Folder f = store.getFolder(folder.getFullName());
+        Folder f = store.getFolder(folder.getFullName());
 
-		// close the folder if its open
-		if (f.isOpen()) {
-			f.close(false);
-		}
+        // close the folder if its open
+        if (f.isOpen()) {
+            f.close(false);
+        }
 
-		// recursive delete the folder
-		if (f.delete(true)) {
-			logger.info("Successfully delete folder " + folder + " for user " + user);
-			return new GenericResultImpl();
-		} else {
-			throw new HupaException("Unable to delete folder " + folder + " for user " + user);
-		}
-	}
+        // recursive delete the folder
+        if (f.delete(true)) {
+            logger.info("Successfully delete folder " + folder + " for user " + user);
+            return new GenericResultImpl();
+        } else {
+            throw new HupaException("Unable to delete folder " + folder + " for user " + user);
+        }
+    }
 
 }

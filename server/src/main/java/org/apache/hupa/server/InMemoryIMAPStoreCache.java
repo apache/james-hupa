@@ -86,13 +86,13 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
      */
     public IMAPStore get(User user) throws MessagingException {
         // FIXME, there will be a NullPointerException thrown here when user session expired
-    	
+        
         String id = user.getId();
-    	String username = user.getName();
-    	String password = user.getPassword();
-    	Settings settings = user.getSettings();
+        String username = user.getName();
+        String password = user.getPassword();
+        Settings settings = user.getSettings();
 
-    	CachedIMAPStore cstore = pool.get(username);
+        CachedIMAPStore cstore = pool.get(username);
         if (cstore == null) {
             logger.debug("No cached store found for user " +username);
         } else {
@@ -122,12 +122,12 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
         pool.put(username, cstore);
         IMAPStore ret = cstore.getStore();
 
-    	// TODO: this is a hack for gmail
-    	if (settings.getImapServer().contains("gmail.com")) {
-    	    internationalizeGmailFolders(user, ret); 
-    	}
-    	
-    	return ret;
+        // TODO: this is a hack for gmail
+        if (settings.getImapServer().contains("gmail.com")) {
+            internationalizeGmailFolders(user, ret); 
+        }
+        
+        return ret;
     }
     
     public void internationalizeGmailFolders(User user, IMAPStore store) {

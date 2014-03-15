@@ -43,18 +43,18 @@ public class SendMessageActionImpl implements SendMessageAction{
     }
     
     public String getInReplyTo() {
-		return null;
-	}
+        return null;
+    }
 
     public String getReferences() {
-		return null;
-	}
+        return null;
+    }
 
-	@Override
+    @Override
     public void setInReplyTo(String inReplyTo) {
     }
 
-	@Override
+    @Override
     public void setReferences(String references) {
     }
 

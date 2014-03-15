@@ -28,32 +28,32 @@ import java.io.Serializable;
  */
 @SuppressWarnings("serial")
 public class HupaException extends Exception implements Serializable {
-	
-	private String causeClassname;
+    
+    private String causeClassname;
 
-	protected HupaException() {
-	}
+    protected HupaException() {
+    }
 
-	public HupaException(String message) {
-		super(message);
-	}
+    public HupaException(String message) {
+        super(message);
+    }
 
-	public HupaException(Throwable cause) {
-		super(cause.getMessage());
-		this.causeClassname = cause.getClass().getName();
-	}
+    public HupaException(Throwable cause) {
+        super(cause.getMessage());
+        this.causeClassname = cause.getClass().getName();
+    }
 
-	public HupaException(String message, Throwable cause) {
-		super(message + " (" + cause.getMessage() + ")");
-		this.causeClassname = cause.getClass().getName();
-	}
+    public HupaException(String message, Throwable cause) {
+        super(message + " (" + cause.getMessage() + ")");
+        this.causeClassname = cause.getClass().getName();
+    }
 
-	public String getCauseClassname() {
-		return causeClassname;
-	}
+    public String getCauseClassname() {
+        return causeClassname;
+    }
 
-	@Override public String toString() {
-		return super.toString() + (causeClassname != null ? " [cause: " + causeClassname + "]" : "");
-	}
+    @Override public String toString() {
+        return super.toString() + (causeClassname != null ? " [cause: " + causeClassname + "]" : "");
+    }
 
 }

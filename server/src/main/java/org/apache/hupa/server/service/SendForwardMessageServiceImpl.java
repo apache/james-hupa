@@ -40,15 +40,15 @@ import com.sun.mail.imap.IMAPStore;
 
 public class SendForwardMessageServiceImpl extends SendMessageBaseServiceImpl implements SendForwardMessageService {
 
-	@Inject
-	public SendForwardMessageServiceImpl(UserPreferencesStorage preferences, IMAPStoreCache cache) {
-	    super(preferences, cache);
+    @Inject
+    public SendForwardMessageServiceImpl(UserPreferencesStorage preferences, IMAPStoreCache cache) {
+        super(preferences, cache);
     }
 
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
     protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
-    	SendForwardMessageAction forwardAction = (SendForwardMessageAction)action;
+        SendForwardMessageAction forwardAction = (SendForwardMessageAction)action;
         List<?> items = new ArrayList();
         IMAPStore store = cache.get(getUser());
 

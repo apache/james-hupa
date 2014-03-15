@@ -67,14 +67,14 @@ import com.sun.mail.imap.IMAPStore;
 
 public class SendMessageBaseServiceImpl extends AbstractService implements SendMessageService {
 
-	UserPreferencesStorage userPreferences;
+    UserPreferencesStorage userPreferences;
 
-	@Inject
-	public SendMessageBaseServiceImpl(UserPreferencesStorage preferences, IMAPStoreCache cache) {
-		this.cache = cache;
-		this.userPreferences = preferences;
-	}
-	
+    @Inject
+    public SendMessageBaseServiceImpl(UserPreferencesStorage preferences, IMAPStoreCache cache) {
+        this.cache = cache;
+        this.userPreferences = preferences;
+    }
+    
     public GenericResult send(SendMessageAction action)
             throws Exception {
         GenericResult result = new GenericResultImpl();
@@ -177,7 +177,7 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         }
     }
 
-	/**
+    /**
      * Fill the body of the given message with data which the given action contain
      * 
      * @param message the message
@@ -185,7 +185,7 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
      * @return filledMessage
      * @throws MessagingException
      * @throws IOException 
-	 * @throws HupaException 
+     * @throws HupaException 
      */
     public Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException, HupaException {
 

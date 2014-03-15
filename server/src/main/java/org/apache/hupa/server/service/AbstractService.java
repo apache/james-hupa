@@ -32,12 +32,12 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public abstract class AbstractService {
-	
+    
     @Inject protected IMAPStoreCache cache;
     @Inject protected Provider<HttpSession> httpSessionProvider;
     @Inject protected Log logger;
 
-	protected User getUser() throws HupaException{
+    protected User getUser() throws HupaException{
         User user = (User) httpSessionProvider.get().getAttribute(SConsts.USER_SESS_ATTR);
         if (user == null) {
             throw new InvalidSessionException(getClass().getSimpleName()
@@ -46,5 +46,5 @@ public abstract class AbstractService {
         } else {
             return user;
         }
-	}
+    }
 }

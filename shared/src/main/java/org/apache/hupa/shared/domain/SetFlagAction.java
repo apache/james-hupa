@@ -28,16 +28,16 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(SetFlagAction.class)
 public interface SetFlagAction extends ValueProxy {
-	boolean getValue();
-	IMAPFlag getFlag();
-	List<Long> getUids();
-	ImapFolder getFolder();
+    boolean getValue();
+    IMAPFlag getFlag();
+    List<Long> getUids();
+    ImapFolder getFolder();
 
-	void setFlag(IMAPFlag flag);
+    void setFlag(IMAPFlag flag);
 
-	void setUids(List<Long> uids);
+    void setUids(List<Long> uids);
 
-	void setFolder(ImapFolder folder);
+    void setFolder(ImapFolder folder);
 
-	void setValue(boolean value);
+    void setValue(boolean value);
 }

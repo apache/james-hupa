@@ -27,7 +27,7 @@ import org.apache.hupa.shared.domain.MessageAttachment;
  *
  */
 public class MessageAttachmentImpl implements MessageAttachment {
-	
+    
     private String contentType;
     private int size;
     private String name;
@@ -75,7 +75,7 @@ public class MessageAttachmentImpl implements MessageAttachment {
      * @return cType
      */
     public boolean isImage() {
-    	  return contentType != null && contentType.toLowerCase().startsWith("image/");
+          return contentType != null && contentType.toLowerCase().startsWith("image/");
     }
 
     /**
@@ -96,9 +96,9 @@ public class MessageAttachmentImpl implements MessageAttachment {
         return size;
     }
 
-	@Override
+    @Override
     public void setImage(boolean image) {
-	    //FIXME just for MessageSendActivity's NullPointerException, with adding the RequestContext's create List<MeeageAttachment>
+        //FIXME just for MessageSendActivity's NullPointerException, with adding the RequestContext's create List<MeeageAttachment>
     }
     
     

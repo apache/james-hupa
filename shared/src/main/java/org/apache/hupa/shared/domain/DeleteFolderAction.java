@@ -24,6 +24,6 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(DeleteFolderAction.class)
 public interface DeleteFolderAction extends ValueProxy{
-	ImapFolder getFolder();
-	void setFolder(ImapFolder folder);
+    ImapFolder getFolder();
+    void setFolder(ImapFolder folder);
 }

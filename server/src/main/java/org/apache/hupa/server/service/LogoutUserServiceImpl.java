@@ -26,19 +26,19 @@ import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.exception.HupaException;
 
 public class LogoutUserServiceImpl extends AbstractService implements LogoutUserService {
-	@Override
-	public LogoutUserResult logout() throws HupaException {
+    @Override
+    public LogoutUserResult logout() throws HupaException {
 
-		User user = getUser();
-		user.setAuthenticated(false);
+        User user = getUser();
+        user.setAuthenticated(false);
 
-		// delete cached store
-		cache.delete(user);
+        // delete cached store
+        cache.delete(user);
 
-		// remove user attributes from session
-		SessionUtils.cleanSessionAttributes(httpSessionProvider.get());
+        // remove user attributes from session
+        SessionUtils.cleanSessionAttributes(httpSessionProvider.get());
 
-		return new LogoutUserResultImpl(user);
+        return new LogoutUserResultImpl(user);
 
-	}
+    }
 }

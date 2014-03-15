@@ -23,26 +23,26 @@ import org.apache.hupa.shared.domain.MailHeader;
 
 public class MailHeaderImpl implements MailHeader {
 
-	private String name;
-	private String value;
+    private String name;
+    private String value;
 
-	public MailHeaderImpl(String name, String value) {
-		this.name = name;
-		this.value = value;
-	}
+    public MailHeaderImpl(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
 
-	public MailHeaderImpl() {
-	}
+    public MailHeaderImpl() {
+    }
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public String getValue() {
-		return value;
-	}
+    @Override
+    public String getValue() {
+        return value;
+    }
 
     @Override
     public void setName(String s) {

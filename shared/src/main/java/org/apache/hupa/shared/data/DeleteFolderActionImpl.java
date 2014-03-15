@@ -25,17 +25,17 @@ import org.apache.hupa.shared.domain.ImapFolder;
 public class DeleteFolderActionImpl implements DeleteFolderAction{
 
     private ImapFolder folder;
-	public DeleteFolderActionImpl() {
+    public DeleteFolderActionImpl() {
     }
-	public DeleteFolderActionImpl(ImapFolder folder) {
-	    this.folder = folder;
+    public DeleteFolderActionImpl(ImapFolder folder) {
+        this.folder = folder;
     }
-	@Override
+    @Override
     public ImapFolder getFolder() {
-	    return folder;
+        return folder;
     }
-	@Override
-	public void setFolder(ImapFolder folder) {
-    	this.folder = folder;
+    @Override
+    public void setFolder(ImapFolder folder) {
+        this.folder = folder;
     }
 }

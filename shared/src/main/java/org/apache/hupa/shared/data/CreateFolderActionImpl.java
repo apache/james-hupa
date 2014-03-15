@@ -25,17 +25,17 @@ import org.apache.hupa.shared.domain.ImapFolder;
 public class CreateFolderActionImpl implements CreateFolderAction{
 
     private ImapFolder folder;
-	public CreateFolderActionImpl() {
+    public CreateFolderActionImpl() {
     }
-	public CreateFolderActionImpl(ImapFolder folder) {
-	    this.folder = folder;
+    public CreateFolderActionImpl(ImapFolder folder) {
+        this.folder = folder;
     }
-	@Override
+    @Override
     public ImapFolder getFolder() {
-	    return folder;
+        return folder;
     }
-	@Override
-	public void setFolder(ImapFolder folder) {
-    	this.folder = folder;
+    @Override
+    public void setFolder(ImapFolder folder) {
+        this.folder = folder;
     }
 }

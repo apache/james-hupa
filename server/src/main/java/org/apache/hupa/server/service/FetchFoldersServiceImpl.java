@@ -34,138 +34,138 @@ import com.sun.mail.imap.IMAPStore;
 
 public class FetchFoldersServiceImpl extends AbstractService implements FetchFoldersService {
 
-	@Override
-	public List<ImapFolder> fetch(ImapFolder imapFolder, Boolean recursive) throws MessagingException, HupaException {
-		if(recursive){
-			return this.pullAll();
-		}
-		try {
-			Folder folder = null;
-			IMAPStore store = cache.get(getUser());
-			if (imapFolder == null) {
-				folder = store.getDefaultFolder();
-			} else {
-				folder = store.getFolder(imapFolder.getFullName());
-			}
-			List<ImapFolder> imapFolders = new ArrayList<ImapFolder>();
-			for (Folder f : folder.list()) {
-				ImapFolder i = createImapFolder(f);
-				imapFolders.add(i);
-			}
-			return imapFolders;
-		} catch (MessagingException e) {
-			e.printStackTrace();
-			throw new MessagingException();
-		}
-	}
-	
-	public List<ImapFolder> pullAll() throws MessagingException, HupaException {
-		User user = getUser();
-		try {
+    @Override
+    public List<ImapFolder> fetch(ImapFolder imapFolder, Boolean recursive) throws MessagingException, HupaException {
+        if(recursive){
+            return this.pullAll();
+        }
+        try {
+            Folder folder = null;
+            IMAPStore store = cache.get(getUser());
+            if (imapFolder == null) {
+                folder = store.getDefaultFolder();
+            } else {
+                folder = store.getFolder(imapFolder.getFullName());
+            }
+            List<ImapFolder> imapFolders = new ArrayList<ImapFolder>();
+            for (Folder f : folder.list()) {
+                ImapFolder i = createImapFolder(f);
+                imapFolders.add(i);
+            }
+            return imapFolders;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            throw new MessagingException();
+        }
+    }
+    
+    public List<ImapFolder> pullAll() throws MessagingException, HupaException {
+        User user = getUser();
+        try {
 
-			// get the store for the user
-			IMAPStore store = cache.get(user);
-			com.sun.mail.imap.IMAPFolder folder = (com.sun.mail.imap.IMAPFolder) store.getDefaultFolder();
+            // get the store for the user
+            IMAPStore store = cache.get(user);
+            com.sun.mail.imap.IMAPFolder folder = (com.sun.mail.imap.IMAPFolder) store.getDefaultFolder();
 
-			// List of mail 'root' imap folders
-			List<ImapFolder> imapFolders = new ArrayList<ImapFolder>();
+            // List of mail 'root' imap folders
+            List<ImapFolder> imapFolders = new ArrayList<ImapFolder>();
 
-			// Create IMAPFolder tree list
-			for (Folder f : folder.list()) {
-				ImapFolder imapFolder = createIMAPFolder(f);
-				imapFolders.add(imapFolder);
-				walkFolders(f, imapFolder);
-			}
+            // Create IMAPFolder tree list
+            for (Folder f : folder.list()) {
+                ImapFolder imapFolder = createIMAPFolder(f);
+                imapFolders.add(imapFolder);
+                walkFolders(f, imapFolder);
+            }
 
-			return imapFolders;
-		} catch (MessagingException e) {
-			e.printStackTrace();
-			logger.error("Unable to get folders for User " + user, e);
-			e.printStackTrace();
-			throw new MessagingException();
-		}
-	}
+            return imapFolders;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            logger.error("Unable to get folders for User " + user, e);
+            e.printStackTrace();
+            throw new MessagingException();
+        }
+    }
 
-	/**
-	 * Walk through the folder's sub-folders and add sub-folders to current
-	 * imapFolder
-	 * 
-	 * @param folder
-	 *            Folder to walk
-	 * @param imapFolder
-	 *            Current IMAPFolder
-	 * @throws ActionException
-	 *             If an error occurs
-	 * @throws MessagingException
-	 *             If an error occurs
-	 * @throws HupaException
-	 */
-	private void walkFolders(Folder folder, ImapFolder imapFolder) throws MessagingException, HupaException {
-		for (Folder f : folder.list()) {
-			ImapFolder iFolder = createIMAPFolder(f);
-			imapFolder.getChildren().add(iFolder);
-			walkFolders(f, iFolder);
-		}
-	}
+    /**
+     * Walk through the folder's sub-folders and add sub-folders to current
+     * imapFolder
+     * 
+     * @param folder
+     *            Folder to walk
+     * @param imapFolder
+     *            Current IMAPFolder
+     * @throws ActionException
+     *             If an error occurs
+     * @throws MessagingException
+     *             If an error occurs
+     * @throws HupaException
+     */
+    private void walkFolders(Folder folder, ImapFolder imapFolder) throws MessagingException, HupaException {
+        for (Folder f : folder.list()) {
+            ImapFolder iFolder = createIMAPFolder(f);
+            imapFolder.getChildren().add(iFolder);
+            walkFolders(f, iFolder);
+        }
+    }
 
-	private ImapFolder createIMAPFolder(Folder folder) throws MessagingException, HupaException {
+    private ImapFolder createIMAPFolder(Folder folder) throws MessagingException, HupaException {
 
-		String fullName = folder.getFullName();
-		String delimiter;
-		ImapFolder iFolder = null;
+        String fullName = folder.getFullName();
+        String delimiter;
+        ImapFolder iFolder = null;
 
-		try {
-			logger.debug("Creating folder: " + fullName + " for user: " + getUser());
-			delimiter = String.valueOf(folder.getSeparator());
-			iFolder = new ImapFolderImpl(fullName);
-			iFolder.setHasChildren(true);
-			iFolder.setDelimiter(delimiter);
-			if ("[Gmail]".equals(folder.getFullName()))
-				return iFolder;
-			iFolder.setMessageCount(folder.getMessageCount());
-			iFolder.setSubscribed(folder.isSubscribed());
-			iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());
-		} catch (MessagingException e) {
-			logger.error("Unable to construct folder " + folder.getFullName(), e);
-		}
+        try {
+            logger.debug("Creating folder: " + fullName + " for user: " + getUser());
+            delimiter = String.valueOf(folder.getSeparator());
+            iFolder = new ImapFolderImpl(fullName);
+            iFolder.setHasChildren(true);
+            iFolder.setDelimiter(delimiter);
+            if ("[Gmail]".equals(folder.getFullName()))
+                return iFolder;
+            iFolder.setMessageCount(folder.getMessageCount());
+            iFolder.setSubscribed(folder.isSubscribed());
+            iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());
+        } catch (MessagingException e) {
+            logger.error("Unable to construct folder " + folder.getFullName(), e);
+        }
 
-		return iFolder;
-	}
+        return iFolder;
+    }
 
-	/**
-	 * Create a new IMAPFolder from the given Folder
-	 * 
-	 * @param folder
-	 *            Current folder
-	 * @return imapFolder Created IMAPFolder
-	 * @throws HupaException
-	 * @throws Exception
-	 *             If an error occurs
-	 * @throws MessagingException
-	 *             If an error occurs
-	 */
-	private ImapFolder createImapFolder(Folder folder) throws HupaException {
-		String fullName = folder.getFullName();
-		String delimiter;
-		ImapFolder iFolder = null;
-		try {
-		    new RuntimeException().printStackTrace();
-			System.out.println("Creating folder2: " + fullName + " for user: " + this.getUser());
-			delimiter = String.valueOf(folder.getSeparator());
-			iFolder = new ImapFolderImpl(fullName);
-			iFolder.setDelimiter(delimiter);
-			if ("[Gmail]".equals(folder.getFullName()))
-				return iFolder;
-			iFolder.setMessageCount(folder.getMessageCount());
-			iFolder.setSubscribed(folder.isSubscribed());
-			iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());
-			if (folder.list().length != 0) {
-				iFolder.setHasChildren(true);
-			}
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-		return iFolder;
-	}
+    /**
+     * Create a new IMAPFolder from the given Folder
+     * 
+     * @param folder
+     *            Current folder
+     * @return imapFolder Created IMAPFolder
+     * @throws HupaException
+     * @throws Exception
+     *             If an error occurs
+     * @throws MessagingException
+     *             If an error occurs
+     */
+    private ImapFolder createImapFolder(Folder folder) throws HupaException {
+        String fullName = folder.getFullName();
+        String delimiter;
+        ImapFolder iFolder = null;
+        try {
+            new RuntimeException().printStackTrace();
+            System.out.println("Creating folder2: " + fullName + " for user: " + this.getUser());
+            delimiter = String.valueOf(folder.getSeparator());
+            iFolder = new ImapFolderImpl(fullName);
+            iFolder.setDelimiter(delimiter);
+            if ("[Gmail]".equals(folder.getFullName()))
+                return iFolder;
+            iFolder.setMessageCount(folder.getMessageCount());
+            iFolder.setSubscribed(folder.isSubscribed());
+            iFolder.setUnseenMessageCount(folder.getUnreadMessageCount());
+            if (folder.list().length != 0) {
+                iFolder.setHasChildren(true);
+            }
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return iFolder;
+    }
 
 }

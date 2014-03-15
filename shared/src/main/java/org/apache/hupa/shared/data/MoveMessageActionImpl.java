@@ -50,14 +50,14 @@ public class MoveMessageActionImpl implements MoveMessageAction {
     }
     
     public void setMessageUid(long messageUid){
-    	this.messageUid = messageUid;
+        this.messageUid = messageUid;
     }
 
-	public void setOldFolder(ImapFolder oldFolder) {
-    	this.oldFolder = oldFolder;
+    public void setOldFolder(ImapFolder oldFolder) {
+        this.oldFolder = oldFolder;
     }
 
-	public void setNewFolder(ImapFolder newFolder) {
-    	this.newFolder = newFolder;
+    public void setNewFolder(ImapFolder newFolder) {
+        this.newFolder = newFolder;
     }
 }

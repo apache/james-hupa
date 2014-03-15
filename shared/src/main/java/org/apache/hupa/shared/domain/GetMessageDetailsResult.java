@@ -26,8 +26,8 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(GetMessageDetailsResult.class)
 public interface GetMessageDetailsResult extends ValueProxy{
 
-	MessageDetails getMessageDetails();
+    MessageDetails getMessageDetails();
 
-	void setMessageDetails(MessageDetails messageDetails);
+    void setMessageDetails(MessageDetails messageDetails);
 
 }

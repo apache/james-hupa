@@ -39,13 +39,13 @@ public class ImapFolderImpl implements ImapFolder {
     }
     
     public ImapFolderImpl(ImapFolder folder){
-    	this.delimiter = folder.getDelimiter();
-    	this.children = folder.getChildren();
-    	this.fullName = folder.getFullName();
-    	this.messageCount = folder.getMessageCount();
-    	this.name = folder.getName();
-    	this.subscribed = folder.getSubscribed();
-    	this.unseenMessageCount = folder.getUnseenMessageCount();
+        this.delimiter = folder.getDelimiter();
+        this.children = folder.getChildren();
+        this.fullName = folder.getFullName();
+        this.messageCount = folder.getMessageCount();
+        this.name = folder.getName();
+        this.subscribed = folder.getSubscribed();
+        this.unseenMessageCount = folder.getUnseenMessageCount();
     }
 
     public ImapFolderImpl(String fullName) {
@@ -187,30 +187,30 @@ public class ImapFolderImpl implements ImapFolder {
     }
 
     // FIXME Could not locate setter for property name in type ImapFolderImpl
-	@Override
+    @Override
     public void setName(String name) {
-	    this.name = name;
+        this.name = name;
     }
 
-	
-	@Override
+    
+    @Override
     public void setFolderTo(ImapFolder folder) {
-		folder.setChildren(this.children);
-		folder.setDelimiter(this.delimiter);
-		folder.setFullName(this.fullName);
-		folder.setMessageCount(this.messageCount);
-		folder.setName(this.name);
-		folder.setSubscribed(this.subscribed);
-		folder.setUnseenMessageCount(this.unseenMessageCount);
+        folder.setChildren(this.children);
+        folder.setDelimiter(this.delimiter);
+        folder.setFullName(this.fullName);
+        folder.setMessageCount(this.messageCount);
+        folder.setName(this.name);
+        folder.setSubscribed(this.subscribed);
+        folder.setUnseenMessageCount(this.unseenMessageCount);
     }
 
-	@Override
+    @Override
     public boolean getHasChildren() {
-	    return hasChildren;
+        return hasChildren;
     }
-	
-	@Override
-	public void setHasChildren(boolean hasChildren){
-		this.hasChildren = hasChildren;
-	}
+    
+    @Override
+    public void setHasChildren(boolean hasChildren){
+        this.hasChildren = hasChildren;
+    }
 }

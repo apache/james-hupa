@@ -45,9 +45,9 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
         this.folder = folder;
         this.user = user;
         this.messageDetails = messageDetails;
-	}
+    }
 
-	public Message getMessage() {
+    public Message getMessage() {
         return message;
     }
     
@@ -60,7 +60,7 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
     }
     
     public MessageDetails getMessageDetails(){
-    	return messageDetails;
+        return messageDetails;
     }
     
     

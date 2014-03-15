@@ -24,7 +24,7 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(DeleteMessageResult.class)
 public interface DeleteMessageResult extends ValueProxy {
-	int getCount();
-	User getUser();
-	ImapFolder getFolder();
+    int getCount();
+    User getUser();
+    ImapFolder getFolder();
 }

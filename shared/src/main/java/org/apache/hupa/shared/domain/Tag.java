@@ -24,6 +24,6 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(Tag.class)
 public interface Tag extends ValueProxy{
-	String getName();
-	String getPrefix();
+    String getName();
+    String getPrefix();
 }

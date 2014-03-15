@@ -31,20 +31,20 @@ import com.sun.mail.imap.IMAPStore;
 
 public class CreateFolderServiceImpl extends AbstractService implements CreateFolderService {
 
-	@Override
-	public GenericResult create(CreateFolderAction action) throws Exception {
-		User user = getUser();
-		ImapFolder folder = action.getFolder();
-		IMAPStore store = cache.get(user);
-		Folder f = store.getFolder(folder.getFullName());
-		if (f.create(Folder.HOLDS_MESSAGES)) {
-			logger.info("Successfully create folder " + folder + " for user " + user);
-			return new GenericResultImpl();
-		} else {
-			logger.info("Unable to create folder " + folder + " for user " + user);
-			throw new Exception("Unable to create folder " + folder + " for user " + user);
+    @Override
+    public GenericResult create(CreateFolderAction action) throws Exception {
+        User user = getUser();
+        ImapFolder folder = action.getFolder();
+        IMAPStore store = cache.get(user);
+        Folder f = store.getFolder(folder.getFullName());
+        if (f.create(Folder.HOLDS_MESSAGES)) {
+            logger.info("Successfully create folder " + folder + " for user " + user);
+            return new GenericResultImpl();
+        } else {
+            logger.info("Unable to create folder " + folder + " for user " + user);
+            throw new Exception("Unable to create folder " + folder + " for user " + user);
 
-		}
-	}
+        }
+    }
 
 }

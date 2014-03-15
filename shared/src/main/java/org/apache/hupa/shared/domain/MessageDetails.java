@@ -27,23 +27,23 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(MessageDetails.class)
 public interface MessageDetails extends ValueProxy {
 
-	void setUid(long uid);
+    void setUid(long uid);
 
-	void setText(String filterHtmlDocument);
+    void setText(String filterHtmlDocument);
 
-	void setMessageAttachments(List<MessageAttachment> attachmentList);
+    void setMessageAttachments(List<MessageAttachment> attachmentList);
 
-	void setMailHeaders(List<MailHeader> mailHeader);
+    void setMailHeaders(List<MailHeader> mailHeader);
 
-	List<MessageAttachment> getMessageAttachments();
+    List<MessageAttachment> getMessageAttachments();
 
-	String getText();
+    String getText();
 
-	long getUid();
+    long getUid();
 
-	String getMessageId();
+    String getMessageId();
 
-	String getReferences();
-	
-	List<MailHeader> getMailHeaders();
+    String getReferences();
+    
+    List<MailHeader> getMailHeaders();
 }

@@ -27,5 +27,5 @@ import org.apache.hupa.shared.domain.ImapFolder;
 import org.apache.hupa.shared.exception.HupaException;
 
 public interface FetchFoldersService {
-	List<ImapFolder> fetch(ImapFolder folder, Boolean recursive) throws MessagingException, HupaException;
+    List<ImapFolder> fetch(ImapFolder folder, Boolean recursive) throws MessagingException, HupaException;
 }

@@ -24,5 +24,5 @@ import java.util.List;
 import org.apache.hupa.shared.domain.ImapFolder;
 
 public interface ImapFolderService {
-	List<ImapFolder> requestFolders() throws Exception;
+    List<ImapFolder> requestFolders() throws Exception;
 }

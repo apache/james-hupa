@@ -25,18 +25,18 @@ public class AddressClickEvent extends GwtEvent<AddressClickEventHandler>{
     public final static Type<AddressClickEventHandler> TYPE = new Type<AddressClickEventHandler>();
     private String email;
     public AddressClickEvent(String email){
-    	this.email = email;
+        this.email = email;
     }
     
     public String getEmail() {
-		return email;
-	}
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	@Override
+    @Override
     protected void dispatch(AddressClickEventHandler handler) {
         handler.onClick(this);
     }

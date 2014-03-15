@@ -26,20 +26,20 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(MessageAttachment.class)
 public interface MessageAttachment extends ValueProxy {
 
-	String getName();
+    String getName();
 
-	void setName(String decodeText);
+    void setName(String decodeText);
 
-	void setContentType(String contentType);
+    void setContentType(String contentType);
 
-	void setSize(int size);
+    void setSize(int size);
 
-	int getSize();
+    int getSize();
 
-	boolean isImage();
-	
-	void setImage(boolean image);
-	
-	String getContentType();
-	
+    boolean isImage();
+    
+    void setImage(boolean image);
+    
+    String getContentType();
+    
 }

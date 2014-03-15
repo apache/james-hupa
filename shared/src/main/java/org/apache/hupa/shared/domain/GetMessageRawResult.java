@@ -24,5 +24,5 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(GetMessageRawResult.class)
 public interface GetMessageRawResult extends ValueProxy{
-	String getRawMessage();
+    String getRawMessage();
 }

@@ -24,6 +24,6 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(GetMessageRawAction.class)
 public interface GetMessageRawAction extends ValueProxy{
-	ImapFolder getFolder();
-	long getUid();
+    ImapFolder getFolder();
+    long getUid();
 }

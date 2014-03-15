@@ -26,5 +26,5 @@ import org.apache.hupa.shared.domain.GenericResult;
 import org.apache.hupa.shared.exception.HupaException;
 
 public interface DeleteFolderService {
-	GenericResult delete(DeleteFolderAction action) throws HupaException, MessagingException;
+    GenericResult delete(DeleteFolderAction action) throws HupaException, MessagingException;
 }

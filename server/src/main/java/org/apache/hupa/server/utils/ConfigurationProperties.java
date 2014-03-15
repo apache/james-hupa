@@ -115,8 +115,8 @@ public enum ConfigurationProperties {
      * missing, and avoid unknown properties.
      */
     public static void validateProperties(Properties properties) {
-    	
-    	List<String> errors = new ArrayList<String>();
+        
+        List<String> errors = new ArrayList<String>();
 
         // Test for mandatory and complete properties with default values when
         // missing

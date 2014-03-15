@@ -25,31 +25,31 @@ import org.apache.hupa.shared.domain.User;
 
 public class DeleteMessageResultImpl implements DeleteMessageResult {
 
-	private User user;
-	private ImapFolder folder;
-	private int deleteCount;
+    private User user;
+    private ImapFolder folder;
+    private int deleteCount;
 
-	public DeleteMessageResultImpl() {
-	}
+    public DeleteMessageResultImpl() {
+    }
 
-	public DeleteMessageResultImpl(User user, ImapFolder folder, int deleteCount) {
-		this.user = user;
-		this.folder = folder;
-		this.deleteCount = deleteCount;
-	}
-	@Override
-	public int getCount() {
-		return deleteCount;
-	}
+    public DeleteMessageResultImpl(User user, ImapFolder folder, int deleteCount) {
+        this.user = user;
+        this.folder = folder;
+        this.deleteCount = deleteCount;
+    }
+    @Override
+    public int getCount() {
+        return deleteCount;
+    }
 
-	@Override
-	public User getUser() {
-		return user;
-	}
+    @Override
+    public User getUser() {
+        return user;
+    }
 
-	@Override
-	public ImapFolder getFolder() {
-		return folder;
-	}
+    @Override
+    public ImapFolder getFolder() {
+        return folder;
+    }
 
 }

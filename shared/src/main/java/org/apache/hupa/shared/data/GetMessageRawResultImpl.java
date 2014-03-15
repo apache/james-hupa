@@ -23,17 +23,17 @@ import org.apache.hupa.shared.domain.GetMessageRawResult;
 
 public class GetMessageRawResultImpl implements GetMessageRawResult {
 
-	private String rawMessage;
+    private String rawMessage;
 
-	protected GetMessageRawResultImpl() {
+    protected GetMessageRawResultImpl() {
 
-	}
+    }
 
-	public GetMessageRawResultImpl(String rawMessage) {
-		this.rawMessage = rawMessage;
-	}
+    public GetMessageRawResultImpl(String rawMessage) {
+        this.rawMessage = rawMessage;
+    }
 
-	public String getRawMessage() {
-		return rawMessage;
-	}
+    public String getRawMessage() {
+        return rawMessage;
+    }
 }

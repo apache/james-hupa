@@ -27,9 +27,9 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(FetchMessagesResult.class)
 public interface FetchMessagesResult extends ValueProxy{
-	int getOffset();
-	int getStart();
-	List<Message> getMessages();
-	int getRealCount();
-	int getRealUnreadCount();
+    int getOffset();
+    int getStart();
+    List<Message> getMessages();
+    int getRealCount();
+    int getRealUnreadCount();
 }

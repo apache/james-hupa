@@ -22,27 +22,27 @@ package org.apache.hupa.shared.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class RefreshMessagesEvent extends GwtEvent<RefreshMessagesEventHandler> {
-	public final static Type<RefreshMessagesEventHandler> TYPE = new Type<RefreshMessagesEventHandler>();
+    public final static Type<RefreshMessagesEventHandler> TYPE = new Type<RefreshMessagesEventHandler>();
 
-	private String searchValue;
+    private String searchValue;
 
-	public String getSearchValue() {
-		return searchValue;
-	}
+    public String getSearchValue() {
+        return searchValue;
+    }
 
-	public RefreshMessagesEvent() {
-	}
-	public RefreshMessagesEvent(String searchValue) {
-		this.searchValue = searchValue;
-	}
-	@Override
-	protected void dispatch(RefreshMessagesEventHandler handler) {
-		handler.onRefresh(this);
-	}
+    public RefreshMessagesEvent() {
+    }
+    public RefreshMessagesEvent(String searchValue) {
+        this.searchValue = searchValue;
+    }
+    @Override
+    protected void dispatch(RefreshMessagesEventHandler handler) {
+        handler.onRefresh(this);
+    }
 
-	@Override
-	public com.google.gwt.event.shared.GwtEvent.Type<RefreshMessagesEventHandler> getAssociatedType() {
-		return TYPE;
-	}
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<RefreshMessagesEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
 }

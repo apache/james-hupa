@@ -24,8 +24,8 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(RenameFolderAction.class)
 public interface RenameFolderAction extends ValueProxy{
-	ImapFolder getFolder();
-	String getNewName();
-	void setFolder(ImapFolder folder);
-	void setNewName(String newName);
+    ImapFolder getFolder();
+    String getNewName();
+    void setFolder(ImapFolder folder);
+    void setNewName(String newName);
 }

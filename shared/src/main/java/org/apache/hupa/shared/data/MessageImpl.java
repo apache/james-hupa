@@ -31,7 +31,7 @@ import org.apache.hupa.shared.domain.Tag;
  */
 public class MessageImpl extends AbstractMessageImpl implements Message{
 
-	private List<String> extra;
+    private List<String> extra;
     private long uid;
     private List<IMAPFlag> flags;
     private List<Tag> tags;
@@ -92,14 +92,14 @@ public class MessageImpl extends AbstractMessageImpl implements Message{
         return Long.valueOf(getUid()).hashCode();
     }
 
-	@Override
-	public void setExtra(List<String> extra) {
-		this.extra = extra;
-		
-	}
+    @Override
+    public void setExtra(List<String> extra) {
+        this.extra = extra;
+        
+    }
 
-	@Override
-	public List<String> getExtra() {
-		return extra;
-	}
+    @Override
+    public List<String> getExtra() {
+        return extra;
+    }
 }

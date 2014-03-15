@@ -25,14 +25,14 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(SendMessageAction.class)
 public interface SendMessageAction extends ValueProxy {
 
-	SmtpMessage getMessage();
-	void setMessage(SmtpMessage message);
+    SmtpMessage getMessage();
+    void setMessage(SmtpMessage message);
 
-	String getReferences();
+    String getReferences();
 
-	String getInReplyTo();
+    String getInReplyTo();
 
-	void setInReplyTo(String inReplyTo);
-	void setReferences(String references);
+    void setInReplyTo(String inReplyTo);
+    void setReferences(String references);
 
 }

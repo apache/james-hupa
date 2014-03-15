@@ -27,35 +27,35 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(SmtpMessage.class)
 public interface SmtpMessage extends ValueProxy {
 
-	String getFrom();
+    String getFrom();
 
-	List<String> getTo();
+    List<String> getTo();
 
-	List<String> getCc();
+    List<String> getCc();
 
-	List<String> getBcc();
+    List<String> getBcc();
 
-	String getSubject();
+    String getSubject();
 
-	String getText();
+    String getText();
 
-	List<MailHeader> getMailHeaders();
-	
-	List<MessageAttachment> getMessageAttachments();
-	
-	void setFrom(String name);
+    List<MailHeader> getMailHeaders();
+    
+    List<MessageAttachment> getMessageAttachments();
+    
+    void setFrom(String name);
 
-	void setTo(List<String> arrayList);
+    void setTo(List<String> arrayList);
 
-	void setCc(List<String> arrayList);
+    void setCc(List<String> arrayList);
 
-	void setBcc(List<String> arrayList);
+    void setBcc(List<String> arrayList);
 
-	void setSubject(String string);
+    void setSubject(String string);
 
-	void setText(String string);
+    void setText(String string);
 
     void setMailHeaders(List<MailHeader> mailHeader);
     
-	void setMessageAttachments(List<MessageAttachment> attachments);
+    void setMessageAttachments(List<MessageAttachment> attachments);
 }

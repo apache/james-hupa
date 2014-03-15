@@ -25,6 +25,6 @@ import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
 @ProxyFor(DeleteMessageByUidAction.class)
 public interface DeleteMessageByUidAction extends DeleteMessageAction {
-	List<Long> getMessageUids();
-	void setMessageUids(List<Long> messageUids);
+    List<Long> getMessageUids();
+    void setMessageUids(List<Long> messageUids);
 }

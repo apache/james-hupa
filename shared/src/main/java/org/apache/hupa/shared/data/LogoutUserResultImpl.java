@@ -24,16 +24,16 @@ import org.apache.hupa.shared.domain.User;
 
 public class LogoutUserResultImpl implements LogoutUserResult{
 
-	private User user;
+    private User user;
 
-	public LogoutUserResultImpl(User user) {
-		this.user = user;
-	}
+    public LogoutUserResultImpl(User user) {
+        this.user = user;
+    }
 
-	public LogoutUserResultImpl() {
-	}
+    public LogoutUserResultImpl() {
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 }

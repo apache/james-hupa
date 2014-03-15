@@ -24,6 +24,6 @@ import org.apache.hupa.shared.domain.GetMessageRawResult;
 
 public interface GetMessageRawService {
 
-	GetMessageRawResult get(GetMessageRawAction action) throws Exception;
+    GetMessageRawResult get(GetMessageRawAction action) throws Exception;
 
 }

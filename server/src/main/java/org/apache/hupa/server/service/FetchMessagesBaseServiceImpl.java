@@ -149,7 +149,7 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
                 for (Address addr : ccArray) {
                     String mailCc = MessageUtils.decodeText(addr.toString());
                     cc.add(mailCc);
-                }            	
+                }                
             }
             msg.setCc(cc);
 

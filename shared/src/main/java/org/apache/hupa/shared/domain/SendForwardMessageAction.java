@@ -24,12 +24,12 @@ import com.google.web.bindery.requestfactory.shared.ProxyFor;
 @ProxyFor(SendForwardMessageAction.class)
 public interface SendForwardMessageAction extends SendMessageAction {
 
-	ImapFolder getFolder();
+    ImapFolder getFolder();
 
-	long getUid();
+    long getUid();
 
-	void setFolder(ImapFolder folder);
+    void setFolder(ImapFolder folder);
 
-	void setUid(long uid);
+    void setUid(long uid);
 
 }

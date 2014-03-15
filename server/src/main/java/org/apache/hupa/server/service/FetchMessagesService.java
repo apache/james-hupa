@@ -29,6 +29,6 @@ import org.apache.hupa.shared.domain.FetchMessagesResult;
 import org.apache.hupa.shared.exception.HupaException;
 
 public interface FetchMessagesService {
-	FetchMessagesResult fetch(FetchMessagesAction action) throws HupaException;
-	List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException;
+    FetchMessagesResult fetch(FetchMessagesAction action) throws HupaException;
+    List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException;
 }

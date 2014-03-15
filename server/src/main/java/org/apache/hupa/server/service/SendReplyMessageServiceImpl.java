@@ -40,15 +40,15 @@ import com.sun.mail.imap.IMAPStore;
 
 public class SendReplyMessageServiceImpl extends SendMessageBaseServiceImpl implements SendReplyMessageService{
 
-	@Inject
-	public SendReplyMessageServiceImpl(UserPreferencesStorage preferences, IMAPStoreCache cache) {
-	    super(preferences, cache);
+    @Inject
+    public SendReplyMessageServiceImpl(UserPreferencesStorage preferences, IMAPStoreCache cache) {
+        super(preferences, cache);
     }
 
     @Override
     @SuppressWarnings({ "rawtypes", "unchecked" })
     protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
-    	SendReplyMessageAction replyAction = (SendReplyMessageAction)action;
+        SendReplyMessageAction replyAction = (SendReplyMessageAction)action;
         List<?> items = new ArrayList();
         IMAPStore store = cache.get(getUser());
 

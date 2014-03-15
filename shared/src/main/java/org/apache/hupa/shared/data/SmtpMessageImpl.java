@@ -27,67 +27,67 @@ import org.apache.hupa.shared.domain.MessageAttachment;
 import org.apache.hupa.shared.domain.SmtpMessage;
 
 public class SmtpMessageImpl extends AbstractMessageImpl implements SmtpMessage {
-	private List<String> bcc;
-	private String text;
-	private List<MessageAttachment> messageAttachments;
-	private List<MailHeader> mailHeaders = new ArrayList<MailHeader>();
+    private List<String> bcc;
+    private String text;
+    private List<MessageAttachment> messageAttachments;
+    private List<MailHeader> mailHeaders = new ArrayList<MailHeader>();
 
-	public String toString() {
-		StringBuffer bccList = new StringBuffer("");
-		if (bcc != null)
-			for (String s : bcc)
-				bccList.append(s).append(" ");
+    public String toString() {
+        StringBuffer bccList = new StringBuffer("");
+        if (bcc != null)
+            for (String s : bcc)
+                bccList.append(s).append(" ");
 
-		StringBuffer attachNames = new StringBuffer("");
-		for (MessageAttachment m : messageAttachments)
-			attachNames.append(m.getName()).append(" ");
+        StringBuffer attachNames = new StringBuffer("");
+        for (MessageAttachment m : messageAttachments)
+            attachNames.append(m.getName()).append(" ");
 
-		return super.toString() + " Bcc='" + bccList.toString() + "'\nAttachments=" + attachNames.toString()
-		        + "'\nMessage:\n" + text;
-	}
+        return super.toString() + " Bcc='" + bccList.toString() + "'\nAttachments=" + attachNames.toString()
+                + "'\nMessage:\n" + text;
+    }
 
-	public List<String> getBcc() {
-		return bcc;
-	}
-	public void setBcc(List<String> bcc) {
-		this.bcc = bcc;
-	}
+    public List<String> getBcc() {
+        return bcc;
+    }
+    public void setBcc(List<String> bcc) {
+        this.bcc = bcc;
+    }
 
-	/**
-	 * Set the body text of the content
-	 * 
-	 * @param text
-	 */
-	public void setText(String text) {
-		this.text = text;
-	}
+    /**
+     * Set the body text of the content
+     * 
+     * @param text
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	/**
-	 * Return the body text of the content
-	 * 
-	 * @return The text
-	 */
-	public String getText() {
-		return text;
-	}
+    /**
+     * Return the body text of the content
+     * 
+     * @return The text
+     */
+    public String getText() {
+        return text;
+    }
 
-	/**
-	 * Set the attachments
-	 * 
-	 * @param aList
-	 */
-	public void setMessageAttachments(List<MessageAttachment> aList) {
-		this.messageAttachments = aList;
-	}
+    /**
+     * Set the attachments
+     * 
+     * @param aList
+     */
+    public void setMessageAttachments(List<MessageAttachment> aList) {
+        this.messageAttachments = aList;
+    }
 
-	/**
-	 * Return the attachments
-	 * 
-	 * @return aList
-	 */
-	public List<MessageAttachment> getMessageAttachments() {
-		return messageAttachments;
-	}
+    /**
+     * Return the attachments
+     * 
+     * @return aList
+     */
+    public List<MessageAttachment> getMessageAttachments() {
+        return messageAttachments;
+    }
 
     @Override
     public List<MailHeader> getMailHeaders() {

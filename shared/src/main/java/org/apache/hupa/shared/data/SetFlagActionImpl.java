@@ -57,19 +57,19 @@ public class SetFlagActionImpl implements SetFlagAction {
         return uids;
     }
 
-	public void setFlag(IMAPFlag flag) {
-    	this.flag = flag;
+    public void setFlag(IMAPFlag flag) {
+        this.flag = flag;
     }
 
-	public void setUids(List<Long> uids) {
-    	this.uids = uids;
+    public void setUids(List<Long> uids) {
+        this.uids = uids;
     }
 
-	public void setFolder(ImapFolder folder) {
-    	this.folder = folder;
+    public void setFolder(ImapFolder folder) {
+        this.folder = folder;
     }
 
-	public void setValue(boolean value) {
-    	this.value = value;
+    public void setValue(boolean value) {
+        this.value = value;
     }
 }
