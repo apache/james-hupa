@@ -24,6 +24,7 @@ import com.google.inject.Provider;
 
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 
 import java.util.HashMap;
@@ -46,10 +47,10 @@ public class InSessionUserPreferencesStorage extends UserPreferencesStorage {
         HttpSession session = sessionProvider.get();
 
         @SuppressWarnings("unchecked")
-        HashMap<String, Contact> sessionContacts = (HashMap<String, Contact>)session.getAttribute(CONTACTS_ATTR);
+        HashMap<String, Contact> sessionContacts = (HashMap<String, Contact>)session.getAttribute(SConsts.CONTACTS_SESS_ATTR);
         if (sessionContacts==null) {
             sessionContacts=new HashMap<String, Contact>();
-            session.setAttribute(CONTACTS_ATTR, sessionContacts);
+            session.setAttribute(SConsts.CONTACTS_SESS_ATTR, sessionContacts);
         }
         
         for(Contact contact: contacts) {
@@ -63,7 +64,7 @@ public class InSessionUserPreferencesStorage extends UserPreferencesStorage {
         HttpSession session = sessionProvider.get();
         
         @SuppressWarnings("unchecked")
-        HashMap<String, Contact> sessionContacts = (HashMap<String, Contact>)session.getAttribute(CONTACTS_ATTR);
+        HashMap<String, Contact> sessionContacts = (HashMap<String, Contact>)session.getAttribute(SConsts.CONTACTS_SESS_ATTR);
 
         return sessionContacts == null ? new Contact[]{} : sessionContacts.values().toArray(new Contact[sessionContacts.size()]);
     }

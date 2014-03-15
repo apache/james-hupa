@@ -20,13 +20,14 @@
 package org.apache.hupa.server.utils;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.hupa.server.FileItemRegistry;
-
 import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.logging.Log;
+import org.apache.hupa.server.FileItemRegistry;
+import org.apache.hupa.shared.SConsts;
 
 /**
  * Utility methods for manage user's session objects
@@ -34,27 +35,32 @@ import javax.servlet.http.HttpSession;
 public class SessionUtils {
 
     public static FileItemRegistry getSessionRegistry(Log logger, HttpSession session) {
-        FileItemRegistry registry = (FileItemRegistry)session.getAttribute("registry");
+        FileItemRegistry registry = (FileItemRegistry)session.getAttribute(SConsts.REG_SESS_ATTR);
         if (registry == null) {
             registry = new FileItemRegistry(logger);
-            session.setAttribute("registry", registry);
+            session.setAttribute(SConsts.REG_SESS_ATTR, registry);
         }
         return registry;
     }
-
+    
     /**
      * Remove session attributes, it has to be done in the login and logout actions
      * @param session
      */
     public static void cleanSessionAttributes(HttpSession session) {
-        @SuppressWarnings("rawtypes")
-        Enumeration en = session.getAttributeNames();
-        ArrayList<String> toRemove = new ArrayList<String>();
-        while (en.hasMoreElements()) {
-            toRemove.add(en.nextElement().toString());
-        }
-        for (String attr: toRemove) {
-            session.removeAttribute(attr);
+        if (session != null) {
+            @SuppressWarnings("rawtypes")
+            Enumeration en = session.getAttributeNames();
+            ArrayList<String> toRemove = new ArrayList<String>();
+            while (en.hasMoreElements()) {
+                String s = en.nextElement().toString();
+                if (s.startsWith("hupa")) {
+                    toRemove.add(s);
+                }
+            }
+            for (String attr: toRemove) {
+                session.removeAttribute(attr);
+            }
         }
     }
     

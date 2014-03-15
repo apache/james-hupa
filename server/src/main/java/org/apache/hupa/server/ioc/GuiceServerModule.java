@@ -127,87 +127,86 @@ import com.google.web.bindery.requestfactory.server.ServiceLayerDecorator;
  */
 public class GuiceServerModule extends AbstractModule {
 
-	Properties properties;
+    Properties properties;
 
-	public GuiceServerModule(Properties properties) {
-		this.properties = properties;
-	}
+    public GuiceServerModule(Properties properties) {
+        this.properties = properties;
+    }
 
-	@Override
-	protected void configure() {
-	    System.err.println("GuiceServerModule configuring beans.");
-	    
-		try {
-			// Bind addresses and ports for imap and smtp
-			Names.bindProperties(binder(), properties);
-		} catch (Exception e) {
-			throw new RuntimeException("Unable to to configure hupa server,"
-			        + "\nmake sure that you have a valid /etc/default/hupa file"
-			        + "\nor the web container has been started with the appropriate parameter:"
-			        + " -Dhupa.config.file=your_hupa_properties_file", e);
-		}
-		bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
-		bind(ServiceLayerDecorator.class).to(IocRfServiceDecorator.class);
-		bind(IocRfServiceLocator.class);
-		
-		bind(MailHeader.class).to(MailHeaderImpl.class);
-		
-		bind(User.class).to(UserImpl.class);
-		bind(Settings.class).toProvider(DefaultUserSettingsProvider.class);
-		bind(ImapFolder.class).to(ImapFolderImpl.class);
-		bind(Tag.class).to(TagImpl.class);
-		bind(MessageDetails.class).to(MessageDetailsImpl.class);
-		bind(MessageAttachment.class).to(MessageAttachmentImpl.class);
-		bind(SmtpMessage.class).to(SmtpMessageImpl.class);
-		
-		bind(GenericResult.class).to(GenericResultImpl.class);
-		bind(FetchMessagesAction.class).to(FetchMessagesActionImpl.class);
-		bind(FetchMessagesResult.class).to(FetchMessagesResultImpl.class);
-		bind(CreateFolderAction.class).to(CreateFolderActionImpl.class);
-		bind(DeleteFolderAction.class).to(DeleteFolderActionImpl.class);
-		bind(RenameFolderAction.class).to(RenameFolderActionImpl.class);
-		bind(DeleteMessageAllAction.class).to(DeleteMessageAllActionImpl.class);
-		bind(DeleteMessageByUidAction.class).to(DeleteMessageByUidActionImpl.class);
-		bind(GetMessageDetailsAction.class).to(GetMessageDetailsActionImpl.class);
-		bind(GetMessageDetailsResult.class).to(GetMessageDetailsResultImpl.class);
-		bind(SendMessageAction.class).to(SendMessageActionImpl.class);
-		bind(SendForwardMessageAction.class).to(SendForwardMessageActionImpl.class);
-		bind(SendReplyMessageAction.class).to(SendReplyMessageActionImpl.class);
-		bind(GetMessageRawAction.class).to(GetMessageRawActionImpl.class);
-		bind(GetMessageRawResult.class).to(GetMessageRawResultImpl.class);
-		bind(LogoutUserAction.class).to(LogoutUserActionImpl.class);
-		bind(MoveMessageAction.class).to(MoveMessageActionImpl.class);
-		bind(SetFlagAction.class).to(SetFlagActionImpl.class);
-		
+    @Override
+    protected void configure() {
+        
+        try {
+            // Bind addresses and ports for imap and smtp
+            Names.bindProperties(binder(), properties);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to to configure hupa server,"
+                    + "\nmake sure that you have a valid /etc/default/hupa file"
+                    + "\nor the web container has been started with the appropriate parameter:"
+                    + " -Dhupa.config.file=your_hupa_properties_file", e);
+        }
+        bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
+        bind(ServiceLayerDecorator.class).to(IocRfServiceDecorator.class);
+        bind(IocRfServiceLocator.class);
+        
+        bind(MailHeader.class).to(MailHeaderImpl.class);
+        
+        bind(User.class).to(UserImpl.class);
+        bind(Settings.class).toProvider(DefaultUserSettingsProvider.class);
+        bind(ImapFolder.class).to(ImapFolderImpl.class);
+        bind(Tag.class).to(TagImpl.class);
+        bind(MessageDetails.class).to(MessageDetailsImpl.class);
+        bind(MessageAttachment.class).to(MessageAttachmentImpl.class);
+        bind(SmtpMessage.class).to(SmtpMessageImpl.class);
+        
+        bind(GenericResult.class).to(GenericResultImpl.class);
+        bind(FetchMessagesAction.class).to(FetchMessagesActionImpl.class);
+        bind(FetchMessagesResult.class).to(FetchMessagesResultImpl.class);
+        bind(CreateFolderAction.class).to(CreateFolderActionImpl.class);
+        bind(DeleteFolderAction.class).to(DeleteFolderActionImpl.class);
+        bind(RenameFolderAction.class).to(RenameFolderActionImpl.class);
+        bind(DeleteMessageAllAction.class).to(DeleteMessageAllActionImpl.class);
+        bind(DeleteMessageByUidAction.class).to(DeleteMessageByUidActionImpl.class);
+        bind(GetMessageDetailsAction.class).to(GetMessageDetailsActionImpl.class);
+        bind(GetMessageDetailsResult.class).to(GetMessageDetailsResultImpl.class);
+        bind(SendMessageAction.class).to(SendMessageActionImpl.class);
+        bind(SendForwardMessageAction.class).to(SendForwardMessageActionImpl.class);
+        bind(SendReplyMessageAction.class).to(SendReplyMessageActionImpl.class);
+        bind(GetMessageRawAction.class).to(GetMessageRawActionImpl.class);
+        bind(GetMessageRawResult.class).to(GetMessageRawResultImpl.class);
+        bind(LogoutUserAction.class).to(LogoutUserActionImpl.class);
+        bind(MoveMessageAction.class).to(MoveMessageActionImpl.class);
+        bind(SetFlagAction.class).to(SetFlagActionImpl.class);
+        
         bind(FetchMessagesService.class).to(FetchMessagesServiceImpl.class);
-		bind(SendMessageService.class).to(SendMessageBaseServiceImpl.class);
-		bind(SendForwardMessageService.class).to(SendForwardMessageServiceImpl.class);
-		bind(SendReplyMessageService.class).to(SendReplyMessageServiceImpl.class);
+        bind(SendMessageService.class).to(SendMessageBaseServiceImpl.class);
+        bind(SendForwardMessageService.class).to(SendForwardMessageServiceImpl.class);
+        bind(SendReplyMessageService.class).to(SendReplyMessageServiceImpl.class);
         bind(GetMessageDetailsService.class).to(GetMessageDetailsServiceImpl.class);
 
-		
-		bind(CheckSessionService.class).to(CheckSessionServiceImpl.class);
-		bind(LoginUserService.class).to(LoginUserServiceImpl.class);
-		bind(ImapFolderService.class).to(ImapFolderServiceImpl.class);
-		bind(FetchFoldersService.class).to(FetchFoldersServiceImpl.class);
-		bind(CreateFolderService.class).to(CreateFolderServiceImpl.class);
-		bind(DeleteFolderService.class).to(DeleteFolderServiceImpl.class);
-		bind(RenameFolderService.class).to(RenameFolderServiceImpl.class);
-		bind(DeleteMessageAllService.class).to(DeleteMessageAllServiceImpl.class);
-		bind(DeleteMessageByUidService.class).to(DeleteMessageByUidServiceImpl.class);
-		bind(GetMessageRawService.class).to(GetMessageRawServiceImpl.class);
-		bind(LogoutUserService.class).to(LogoutUserServiceImpl.class);
-		bind(MoveMessageService.class).to(MoveMessageServiceImpl.class);
-		bind(SetFlagService.class).to(SetFlagServiceImpl.class);
-		
-		bind(IMAPStoreCache.class).to(getIMAPStoreCacheClass()).in(Singleton.class);
+        
+        bind(CheckSessionService.class).to(CheckSessionServiceImpl.class);
+        bind(LoginUserService.class).to(LoginUserServiceImpl.class);
+        bind(ImapFolderService.class).to(ImapFolderServiceImpl.class);
+        bind(FetchFoldersService.class).to(FetchFoldersServiceImpl.class);
+        bind(CreateFolderService.class).to(CreateFolderServiceImpl.class);
+        bind(DeleteFolderService.class).to(DeleteFolderServiceImpl.class);
+        bind(RenameFolderService.class).to(RenameFolderServiceImpl.class);
+        bind(DeleteMessageAllService.class).to(DeleteMessageAllServiceImpl.class);
+        bind(DeleteMessageByUidService.class).to(DeleteMessageByUidServiceImpl.class);
+        bind(GetMessageRawService.class).to(GetMessageRawServiceImpl.class);
+        bind(LogoutUserService.class).to(LogoutUserServiceImpl.class);
+        bind(MoveMessageService.class).to(MoveMessageServiceImpl.class);
+        bind(SetFlagService.class).to(SetFlagServiceImpl.class);
+        
+        bind(IMAPStoreCache.class).to(getIMAPStoreCacheClass()).in(Singleton.class);
 
-		bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);
+        bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);
         bind(UserPreferencesStorage.class).to(InSessionUserPreferencesStorage.class);
-		bind(Properties.class).toInstance(properties);
-	}
+        bind(Properties.class).toInstance(properties);
+    }
 
-	protected Class<? extends IMAPStoreCache> getIMAPStoreCacheClass() {
-		return InMemoryIMAPStoreCache.class;
-	}
+    protected Class<? extends IMAPStoreCache> getIMAPStoreCacheClass() {
+        return InMemoryIMAPStoreCache.class;
+    }
 }

@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
-import org.apache.hupa.server.FileItemRegistry;
+import org.apache.hupa.server.utils.SessionUtils;
 
 import com.google.inject.Inject;
 
@@ -51,22 +51,13 @@ public class UploadAttachmentServlet extends UploadAction{
         this.logger = logger;
     }
     
-    private FileItemRegistry getSessionRegistry(HttpServletRequest request) {
-        FileItemRegistry registry = (FileItemRegistry)request.getSession().getAttribute("registry");
-        if (registry == null) {
-            registry = new FileItemRegistry(logger);
-            request.getSession().setAttribute("registry", registry);
-        }
-        return registry;
-    }
-    
     @Override
     public String executeAction(HttpServletRequest request, List<FileItem> sessionFiles) throws UploadActionException {
 
-        logger.info("Executing Action, files in session: " + sessionFiles.size() + " previous files in registry: " + getSessionRegistry(request).size());
+        logger.info("Executing Action, files in session: " + sessionFiles.size() + " previous files in registry: " + SessionUtils.getSessionRegistry(logger, request.getSession()).size());
         // save file items in the user session's registry
         for(FileItem item: sessionFiles) 
-            getSessionRegistry(request).add(item);
+            SessionUtils.getSessionRegistry(logger, request.getSession()).add(item);
 
         
         // remove items from session but not remove the data from disk or memory
@@ -76,6 +67,6 @@ public class UploadAttachmentServlet extends UploadAction{
     
     @Override
     public void removeItem(HttpServletRequest request, FileItem item)  throws UploadActionException {
-       getSessionRegistry(request).remove(item);
+        SessionUtils.getSessionRegistry(logger, request.getSession()).remove(item);
     }
 }

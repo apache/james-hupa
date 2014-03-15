@@ -252,12 +252,13 @@ public class MessageUtils {
                     if (contentId != null) {
                         for (String id: contentId) {
                             id = id.replaceAll("^.*<(.+)>.*$", "$1");
+                            System.out.println(attachmentName + " " + id);
                             if (attachmentName.equals(id))
                                 return bodyPart;
                         }
                     }
-                    if (fileName != null){
-                        if (attachmentName.equalsIgnoreCase(MimeUtility.decodeText(fileName)))
+                    if (fileName != null) {
+                        if (cleanName(attachmentName).equalsIgnoreCase(cleanName(MimeUtility.decodeText(fileName))))
                             return bodyPart;
                     }
                 }
@@ -266,6 +267,10 @@ public class MessageUtils {
             logger.error("Unknown content: " + content.getClass().getName());
         }
         return null;
+    }
+    
+    private static String cleanName(String s) {
+        return s.replaceAll("[^\\w .+-]", "");
     }
 
     /**

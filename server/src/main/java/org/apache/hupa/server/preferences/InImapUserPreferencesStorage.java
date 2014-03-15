@@ -48,6 +48,7 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.logging.Log;
 import org.apache.hupa.server.IMAPStoreCache;
 import org.apache.hupa.server.utils.MessageUtils;
+import org.apache.hupa.shared.SConsts;
 import org.apache.hupa.shared.domain.User;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 
@@ -62,7 +63,7 @@ import com.sun.mail.imap.IMAPStore;
  * @author manolo
  */
 public class InImapUserPreferencesStorage extends UserPreferencesStorage {
-	
+    
 
     // User preferences are saved in IMAP but there is a delay between a new
     // contact is added an the save action. It saves number of operations in
@@ -74,8 +75,6 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
     
     private static final String HUPA_DATA_MIME_TYPE = "application/hupa-data";
 
-    // TODO: centralize this constant
-    protected static final String USER_ATTR = "user";
     
     private static Hashtable<User, Thread> threads = new Hashtable<User, Thread>();
     
@@ -207,7 +206,7 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
         for (Contact contact : contacts) {
             if (!contactsHash.containsKey(contact.toKey())) {
                 contactsHash.put(contact.toKey(), contact);
-                saveContactsAsync((User) sessionProvider.get().getAttribute(USER_ATTR));
+                saveContactsAsync((User) sessionProvider.get().getAttribute(SConsts.USER_SESS_ATTR));
             }
         }
     }
@@ -228,14 +227,14 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
     @SuppressWarnings("unchecked")
     private HashMap<String, Contact> getContactsHash() {
         HttpSession session = sessionProvider.get();
-        HashMap<String, Contact> contactHash = (HashMap<String, Contact>) session.getAttribute(CONTACTS_ATTR);
+        HashMap<String, Contact> contactHash = (HashMap<String, Contact>) session.getAttribute(SConsts.CONTACTS_SESS_ATTR);
         if (contactHash == null) {
             try {
-                User user = (User) sessionProvider.get().getAttribute("user");
+                User user = (User) sessionProvider.get().getAttribute(SConsts.USER_SESS_ATTR);
                 IMAPStore iStore = cache.get(user);
                 Object o = readUserPreferencesFromIMAP(logger, user, iStore, user.getSettings().getDraftsFolderName(), MAGIC_SUBJECT_CONTACTS);
                 contactHash = o != null ? (HashMap<String, Contact>) o : new HashMap<String, Contact>();
-                session.setAttribute(CONTACTS_ATTR, contactHash);
+                session.setAttribute(SConsts.CONTACTS_SESS_ATTR, contactHash);
             } catch (Exception e) {
                 e.printStackTrace();
             }

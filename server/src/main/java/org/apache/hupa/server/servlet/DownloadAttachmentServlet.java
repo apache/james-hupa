@@ -72,7 +72,7 @@ public class DownloadAttachmentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
 
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute(SConsts.USER_SESS_ATTR);
         if (user == null)
             throw new ServletException("Invalid session");
 
@@ -82,8 +82,8 @@ public class DownloadAttachmentServlet extends HttpServlet {
         String mode = request.getParameter(SConsts.PARAM_MODE);
         boolean inline = "inline".equals(mode);
         if (!inline) {
-	    response.setHeader("Content-disposition", "attachment; filename="
-	        + attachmentName + "");
+        response.setHeader("Content-disposition", "attachment; filename="
+            + attachmentName + "");
         }
         InputStream in = null;
         OutputStream out = response.getOutputStream();

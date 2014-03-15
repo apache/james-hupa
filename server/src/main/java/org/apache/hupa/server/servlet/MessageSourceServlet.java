@@ -60,7 +60,7 @@ public class MessageSourceServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute(SConsts.USER_SESS_ATTR);
 
         String message_uuid = request.getParameter(SConsts.PARAM_UID);
         String folderName = request.getParameter(SConsts.PARAM_FOLDER);
