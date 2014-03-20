@@ -30,5 +30,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = FetchMessagesService.class, locator = IocRfServiceLocator.class)
 public interface FetchMessagesRequest extends RequestContext {
-	Request<FetchMessagesResult> fetch(FetchMessagesAction action);
+    Request<FetchMessagesResult> fetch(FetchMessagesAction action);
 }

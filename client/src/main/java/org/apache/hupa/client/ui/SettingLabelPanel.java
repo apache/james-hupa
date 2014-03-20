@@ -31,33 +31,33 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class SettingLabelPanel extends Composite {
 
-	@UiField SimpleLayoutPanel labelListContainer;
-	@UiField SimpleLayoutPanel labelPropertiesContainer;
-	
-	public SettingLabelPanel() {
-		initWidget(binder.createAndBindUi(this));
-	}
+    @UiField SimpleLayoutPanel labelListContainer;
+    @UiField SimpleLayoutPanel labelPropertiesContainer;
 
-	public AcceptsOneWidget getLabelListView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				labelListContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public SettingLabelPanel() {
+        initWidget(binder.createAndBindUi(this));
+    }
 
-	public AcceptsOneWidget getLabelPropertiesView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				labelPropertiesContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getLabelListView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                labelListContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	interface Binder extends UiBinder<SplitLayoutPanel, SettingLabelPanel> {
-	}
+    public AcceptsOneWidget getLabelPropertiesView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                labelPropertiesContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	private static Binder binder = GWT.create(Binder.class);
+    interface Binder extends UiBinder<SplitLayoutPanel, SettingLabelPanel> {
+    }
+
+    private static Binder binder = GWT.create(Binder.class);
 }

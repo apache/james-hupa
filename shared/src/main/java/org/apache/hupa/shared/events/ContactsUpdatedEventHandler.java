@@ -24,5 +24,5 @@ import com.google.gwt.event.shared.EventHandler;
 public interface ContactsUpdatedEventHandler extends EventHandler{
 
     public void onContactsUpdated(ContactsUpdatedEvent event);
-    
+
 }

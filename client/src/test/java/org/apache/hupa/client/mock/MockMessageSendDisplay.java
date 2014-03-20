@@ -130,160 +130,160 @@ public class MockMessageSendDisplay implements Displayable {
         return true;
     }
 
-	@Override
-	public void showCc() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void showCc() {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void hideCc() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void showBcc() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void hideCc() {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void hideBcc() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void showReply() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void showBcc() {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void hideReply() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void showFollowup() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void hideBcc() {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void hideFollowup() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public HasText getTo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void showReply() {
+        // TODO Auto-generated method stub
 
-	@Override
-	public HasText getCc() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	@Override
-	public HasText getBcc() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void hideReply() {
+        // TODO Auto-generated method stub
 
-	@Override
-	public HasText getSubject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	@Override
-	public HasClickHandlers getCancelClick() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void showFollowup() {
+        // TODO Auto-generated method stub
 
-	@Override
-	public HasClickHandlers getCcClick() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	@Override
-	public HasClickHandlers get_CcClick() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void hideFollowup() {
+        // TODO Auto-generated method stub
 
-	@Override
-	public HasClickHandlers getBccClick() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	@Override
-	public HasClickHandlers get_BccClick() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public HasText getTo() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public HasClickHandlers getReplyClick() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public HasText getCc() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public HasClickHandlers get_ReplyClick() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public HasText getBcc() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public HasClickHandlers getFollowupClick() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public HasText getSubject() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public HasClickHandlers get_FollowupClick() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public HasClickHandlers getCancelClick() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public HasText getMessage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public HasClickHandlers getCcClick() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public ListBox getFromList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public HasClickHandlers get_CcClick() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void fillContactList(String[] contacts) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public HasClickHandlers getBccClick() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public String getFromText() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public HasClickHandlers get_BccClick() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public HasFocusHandlers getAttachButton() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public HasClickHandlers getReplyClick() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public HasClickHandlers get_ReplyClick() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public HasClickHandlers getFollowupClick() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public HasClickHandlers get_FollowupClick() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public HasText getMessage() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public ListBox getFromList() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void fillContactList(String[] contacts) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public String getFromText() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public HasFocusHandlers getAttachButton() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

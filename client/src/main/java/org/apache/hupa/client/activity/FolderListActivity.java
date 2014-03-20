@@ -30,37 +30,37 @@ import com.google.inject.Inject;
 
 public class FolderListActivity extends AppBaseActivity {
 
-	@Inject private Displayable display;
+    @Inject private Displayable display;
 
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		container.setWidget(display.asWidget());
-		bindTo(eventBus);
-	}
-	
-	private Timer refreshFoldersTimer = new Timer() {
+    @Override
+    public void start(AcceptsOneWidget container, EventBus eventBus) {
+        container.setWidget(display.asWidget());
+        bindTo(eventBus);
+    }
+
+    private Timer refreshFoldersTimer = new Timer() {
         public void run() {
            eventBus.fireEvent(new RefreshFoldersEvent());
         }
     };
 
-	private void bindTo(EventBus eventBus) {
-		eventBus.addHandler(RefreshFoldersEvent.TYPE, new RefreshFoldersEventHandler() {
-			@Override
-			public void onRefreshEvent(RefreshFoldersEvent event) {
-				display.refresh();
-			}
-		});
+    private void bindTo(EventBus eventBus) {
+        eventBus.addHandler(RefreshFoldersEvent.TYPE, new RefreshFoldersEventHandler() {
+            @Override
+            public void onRefreshEvent(RefreshFoldersEvent event) {
+                display.refresh();
+            }
+        });
         refreshFoldersTimer.scheduleRepeating(3*60*1000);
-	}
-	
-	@Override
-	public void onStop() {
-	    super.onStop();
-	    refreshFoldersTimer.cancel();
-	}
+    }
 
-	public interface Displayable extends IsWidget {
-		void refresh();
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+        refreshFoldersTimer.cancel();
+    }
+
+    public interface Displayable extends IsWidget {
+        void refresh();
+    }
 }

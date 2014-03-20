@@ -28,12 +28,12 @@ import org.apache.hupa.widgets.ui.impl.RndPanelGenerator;
 
 /**
  * Widget which renders a rounded panel.
- * 
- * This is here because IE doesn't support rounded borders in css, 
+ *
+ * This is here because IE doesn't support rounded borders in css,
  * so it is needed to wrap the container with additional html elements.
- * 
+ *
  * For other browsers this class just produces a class-named FlowPanel.
- * 
+ *
  */
 public class RndPanel extends Composite {
 

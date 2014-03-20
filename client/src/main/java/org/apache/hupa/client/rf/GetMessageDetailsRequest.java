@@ -30,5 +30,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = GetMessageDetailsService.class, locator = IocRfServiceLocator.class)
 public interface GetMessageDetailsRequest extends RequestContext {
-	Request<GetMessageDetailsResult> get(GetMessageDetailsAction action);
+    Request<GetMessageDetailsResult> get(GetMessageDetailsAction action);
 }

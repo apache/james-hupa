@@ -26,12 +26,12 @@ public interface HupaImageBundle extends ClientBundle{
 
     @Source("attach.png")
     ImageResource attachmentIcon();
-    
+
     @Source("email_link.png")
     ImageResource readyToMoveMailIcon();
-    
+
     @Source("email.png")
     ImageResource moveMailIcon();
-    
-    
+
+
 }

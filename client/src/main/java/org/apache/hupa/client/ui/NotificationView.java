@@ -31,37 +31,37 @@ import com.google.gwt.user.client.ui.HTML;
 
 public class NotificationView extends Composite implements NotificationActivity.Displayable {
 
-	@UiField FlowPanel notificationContainer;
-	@UiField HTML notification;
-	
-	@UiField Style style;
-	
+    @UiField FlowPanel notificationContainer;
+    @UiField HTML notification;
 
-	interface Style extends CssResource {
-		String hideNotification();
-	}
-	
-	
-	@Override
-	public void notice(String html){
-		this.notificationContainer.removeStyleName(style.hideNotification());
-		this.notification.setHTML(html);
-	}
-	
-	@Override
-	public void hideNotification(){
-		this.notification.setHTML("");
-		this.notificationContainer.addStyleName(style.hideNotification());
-	}
-	
-	
-	public NotificationView() {
-		initWidget(binder.createAndBindUi(this));
-	}
+    @UiField Style style;
 
-	interface NotificationUiBinder extends UiBinder<FlowPanel, NotificationView> {
-	}
 
-	private static NotificationUiBinder binder = GWT.create(NotificationUiBinder.class);
+    interface Style extends CssResource {
+        String hideNotification();
+    }
+
+
+    @Override
+    public void notice(String html){
+        this.notificationContainer.removeStyleName(style.hideNotification());
+        this.notification.setHTML(html);
+    }
+
+    @Override
+    public void hideNotification(){
+        this.notification.setHTML("");
+        this.notificationContainer.addStyleName(style.hideNotification());
+    }
+
+
+    public NotificationView() {
+        initWidget(binder.createAndBindUi(this));
+    }
+
+    interface NotificationUiBinder extends UiBinder<FlowPanel, NotificationView> {
+    }
+
+    private static NotificationUiBinder binder = GWT.create(NotificationUiBinder.class);
 
 }

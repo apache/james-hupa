@@ -30,5 +30,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = DeleteFolderService.class, locator = IocRfServiceLocator.class)
 public interface DeleteFolderRequest extends RequestContext {
-	Request<GenericResult> delete(DeleteFolderAction action);
+    Request<GenericResult> delete(DeleteFolderAction action);
 }

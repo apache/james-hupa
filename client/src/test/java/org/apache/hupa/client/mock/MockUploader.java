@@ -59,12 +59,12 @@ public class MockUploader implements IUploader {
 
     public void avoidRepeatFiles(boolean avoidRepeatFiles) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void cancel() {
         // TODO Auto-generated method stub
-        
+
     }
 
     public String fileUrl() {
@@ -99,7 +99,7 @@ public class MockUploader implements IUploader {
 
     public void reset() {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void setFileInputPrefix(String prefix) {

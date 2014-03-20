@@ -36,13 +36,13 @@ import org.apache.hupa.widgets.WidgetsCSS;
 
 /**
  * Hyperlink which can get enabled/disabled.
- * 
+ *
  * CSS rules:
  * <pre>
     .hupa-hyperlink .gwt-Hyperlink {
         color: #0d0eb0;
         text-decoration: underline;
-        cursor: default; 
+        cursor: default;
     }
     .hupa-hyperlink .gwt-Hyperlink-disabled {
         color: #8d8d8d;
@@ -50,34 +50,34 @@ import org.apache.hupa.widgets.WidgetsCSS;
  * </pre>
  */
 public class EnableHyperlink extends Composite implements HasClickHandlers,HasHTML,HasText, HasEnable{
-    
+
     private SimplePanel panel = new SimplePanel();
     private Widget link;
     private HTML html;
-    
+
     public EnableHyperlink(String text) {
         this(text, false, null);
     }
-    
+
     public EnableHyperlink(String text, String historyToken) {
         this(text, false, historyToken);
     }
-    
+
     public EnableHyperlink(String text, boolean asHTML, String historyToken) {
-        
+
         link = historyToken != null ? new Hyperlink(text, asHTML, historyToken) : new Anchor(text);
         html = new HTML();
-        
+
         panel.setStyleName(WidgetsCSS.C_hyperlink);
         html.setStyleName(link.getStyleName());
         html.addStyleDependentName("disabled");
-        
+
         if (asHTML) {
             html.setHTML(text);
         } else {
             html.setText(text);
         }
-        
+
         panel.setWidget(link);
         initWidget(panel);
     }
@@ -88,7 +88,7 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
     public HandlerRegistration addClickHandler(ClickHandler handler) {
         return ((HasClickHandlers)link).addClickHandler(handler);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see com.google.gwt.user.client.ui.HasText#getText()
@@ -96,7 +96,7 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
     public String getText() {
         return ((HasHTML)link).getText();
     }
-    
+
     /*
      * (non-Javadoc)
      * @see com.google.gwt.user.client.ui.HasText#setText(java.lang.String)
@@ -105,7 +105,7 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
         ((HasHTML)link).setText(text);
         html.setText(text);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see com.google.gwt.user.client.ui.HasHTML#getHTML()
@@ -113,7 +113,7 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
     public String getHTML() {
         return ((HasHTML)link).getHTML();
     }
-    
+
     /*
      * (non-Javadoc)
      * @see com.google.gwt.user.client.ui.HasHTML#setHTML(java.lang.String)
@@ -121,7 +121,7 @@ public class EnableHyperlink extends Composite implements HasClickHandlers,HasHT
     public void setHTML(String html) {
         this.html.setHTML(html);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.apache.hupa.client.widgets.HasEnable#setEnabled(boolean)

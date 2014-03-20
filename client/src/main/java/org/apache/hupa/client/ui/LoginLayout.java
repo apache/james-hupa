@@ -30,33 +30,33 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class LoginLayout implements LoginLayoutable {
 
-	@UiField SimplePanel loginContainer;
+    @UiField SimplePanel loginContainer;
 
-	private LayoutPanel loginMainPanel;
+    private LayoutPanel loginMainPanel;
 
-	public LoginLayout() {
-		this.loginMainPanel = binder.createAndBindUi(this);
-	}
+    public LoginLayout() {
+        this.loginMainPanel = binder.createAndBindUi(this);
+    }
 
-	@Override
-	public AcceptsOneWidget getLoginView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				loginContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    @Override
+    public AcceptsOneWidget getLoginView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                loginContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	@Override
-	public LayoutPanel get() {
-		return loginMainPanel;
-	}
+    @Override
+    public LayoutPanel get() {
+        return loginMainPanel;
+    }
 
-	interface LoginLayoutUiBinder extends UiBinder<LayoutPanel, LoginLayout> {
-	}
+    interface LoginLayoutUiBinder extends UiBinder<LayoutPanel, LoginLayout> {
+    }
 
-	private static LoginLayoutUiBinder binder = GWT
-			.create(LoginLayoutUiBinder.class);
+    private static LoginLayoutUiBinder binder = GWT
+            .create(LoginLayoutUiBinder.class);
 
 }

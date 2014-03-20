@@ -31,24 +31,24 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class __OutlinePanel extends Composite {
 
-	@UiField ScrollPanel folderListContainer;
+    @UiField ScrollPanel folderListContainer;
 
-	public __OutlinePanel() {
-		initWidget(binder.createAndBindUi(this));
-	}
+    public __OutlinePanel() {
+        initWidget(binder.createAndBindUi(this));
+    }
 
-	public AcceptsOneWidget getFolderListView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				folderListContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getFolderListView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                folderListContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	interface Binder extends UiBinder<DockLayoutPanel, __OutlinePanel> {
-	}
+    interface Binder extends UiBinder<DockLayoutPanel, __OutlinePanel> {
+    }
 
-	private static Binder binder = GWT.create(Binder.class);
+    private static Binder binder = GWT.create(Binder.class);
 
 }

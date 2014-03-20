@@ -30,5 +30,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = LogoutUserService.class, locator = IocRfServiceLocator.class)
 public interface LogoutUserRequest extends RequestContext{
-	Request<LogoutUserResult> logout();
+    Request<LogoutUserResult> logout();
 }

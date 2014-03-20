@@ -23,13 +23,13 @@ import com.google.gwt.place.shared.Place;
 
 public class AbstractPlace extends Place {
 
-	public static final String SPLITTER = ":";
+    public static final String SPLITTER = ":";
 
-	@Override
-	public String toString() {
-		return getClass().getName().substring(
-				getClass().getName().lastIndexOf("."));
-	}
+    @Override
+    public String toString() {
+        return getClass().getName().substring(
+                getClass().getName().lastIndexOf("."));
+    }
 
 
 }

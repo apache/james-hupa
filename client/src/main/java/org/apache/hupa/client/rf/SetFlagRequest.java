@@ -30,5 +30,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = SetFlagService.class, locator = IocRfServiceLocator.class)
 public interface SetFlagRequest extends RequestContext {
-	Request<GenericResult> set(SetFlagAction action);
+    Request<GenericResult> set(SetFlagAction action);
 }

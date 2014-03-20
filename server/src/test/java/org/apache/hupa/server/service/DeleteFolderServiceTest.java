@@ -52,16 +52,16 @@ public class DeleteFolderServiceTest extends HupaGuiceTestCase {
             fail();
         }
     }
-    
+
     @Test public void deleteNonExistFolder() throws MessagingException {
-    	ImapFolder folder = createFolder();
+        ImapFolder folder = createFolder();
         try {
             deleteFolderService.delete(new DeleteFolderActionImpl(folder));
             fail("Folder should not exist");
         } catch (HupaException e) {
-        }    
+        }
     }
-    
+
     @Test public void invalidSessionId() throws MessagingException {
         httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
         ImapFolder folder = createFolder();
@@ -74,9 +74,9 @@ public class DeleteFolderServiceTest extends HupaGuiceTestCase {
             fail();
         }
     }
-    
+
     private ImapFolder createFolder() {
-    	ImapFolder folder = new ImapFolderImpl();
+        ImapFolder folder = new ImapFolderImpl();
         folder.setFullName("NewFolder");
         folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPARATOR));
         return folder;

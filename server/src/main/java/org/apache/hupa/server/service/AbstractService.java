@@ -32,7 +32,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public abstract class AbstractService {
-    
+
     @Inject protected IMAPStoreCache cache;
     @Inject protected Provider<HttpSession> httpSessionProvider;
     @Inject protected Log logger;

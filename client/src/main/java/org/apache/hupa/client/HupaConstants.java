@@ -62,7 +62,7 @@ public interface HupaConstants extends Constants, UploaderConstants, PagingOptio
     public String mailTableFrom();
     public String mailTableSubject();
     public String mailTableDate();
-    
+
     public String loginInvalid();
 
     public String searchButton();
@@ -76,7 +76,7 @@ public interface HupaConstants extends Constants, UploaderConstants, PagingOptio
     public String sendButton();
 
     public String forwardMailButton();
-    
+
     public String loading();
 
     public String okButton();
@@ -93,18 +93,18 @@ public interface HupaConstants extends Constants, UploaderConstants, PagingOptio
     public String renameFolder();
     public String deleteFolder();
 
-  
+
     public String loginAs();
 
     public String backButton();
 
     public String rawButton();
-    
+
     public String sessionTimedOut();
     public String rawTitle();
-    
+
     public String deleteAll();
-    
+
     public String markSeen();
     public String markUnseen();
 
@@ -113,9 +113,9 @@ public interface HupaConstants extends Constants, UploaderConstants, PagingOptio
     public String contactsTab();
 
     public String mailTab();
-    
+
     public String welcome();
-    
+
     public String footer();
-    
+
 }

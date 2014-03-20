@@ -27,20 +27,20 @@ import com.google.inject.Provider;
 import com.google.inject.name.Named;
 
 public class DefaultUserSettingsProvider implements Provider<Settings> {
-    
-    @Inject @Named("DefaultInboxFolder") private String inboxFolder; 
-    @Inject @Named("DefaultSentFolder") private String sentFolder; 
-    @Inject @Named("DefaultTrashFolder") private String trashFolder; 
-    @Inject @Named("DefaultDraftsFolder") private String draftFolder; 
-    @Inject @Named("PostFetchMessageCount") private int postCount; 
+
+    @Inject @Named("DefaultInboxFolder") private String inboxFolder;
+    @Inject @Named("DefaultSentFolder") private String sentFolder;
+    @Inject @Named("DefaultTrashFolder") private String trashFolder;
+    @Inject @Named("DefaultDraftsFolder") private String draftFolder;
+    @Inject @Named("PostFetchMessageCount") private int postCount;
     @Inject @Named("IMAPServerAddress") private String imapAddress;
-    @Inject @Named("IMAPServerPort") private int imapPort; 
+    @Inject @Named("IMAPServerPort") private int imapPort;
     @Inject @Named("IMAPS") private boolean imapSSL;
     @Inject @Named("SMTPServerAddress") private String smtpAddress;
     @Inject @Named("SMTPServerPort") private int smtpPort;
-    @Inject @Named("SMTPS") private boolean smtpSSL;            
+    @Inject @Named("SMTPS") private boolean smtpSSL;
     @Inject @Named("SMTPAuth") private boolean smtpAuth;
-    
+
     /*
      * (non-Javadoc)
      * @see com.google.inject.Provider#get()

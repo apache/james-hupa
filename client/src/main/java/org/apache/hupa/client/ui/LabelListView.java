@@ -49,28 +49,28 @@ import com.google.inject.Inject;
 
 public class LabelListView extends Composite implements LabelListActivity.Displayable {
 
-	@Inject LabelPropertiesActivity.Displayable labelProperties;
+    @Inject LabelPropertiesActivity.Displayable labelProperties;
     @Inject private HupaStorage hupaStorage;
-	@UiField ScrollPanel thisView;
+    @UiField ScrollPanel thisView;
 
-	@UiField Button add;
-	@UiField Button delete;
+    @UiField Button add;
+    @UiField Button delete;
     private CellList<LabelNode> cellList;
 
-	public interface Resources extends CellList.Resources {
+    public interface Resources extends CellList.Resources {
 
-		Resources INSTANCE = GWT.create(Resources.class);
+        Resources INSTANCE = GWT.create(Resources.class);
 
-		@Source("res/CssLabelListView.css")
-		public CellList.Style cellListStyle();
-	}
-	@UiHandler("add")
-	public void handleAdd(ClickEvent e) {
-		labelProperties.cascade(selectionModel.getSelectedObject(), data.getDataList(), CASCADE_TYPE_ADD);
-	}
+        @Source("res/CssLabelListView.css")
+        public CellList.Style cellListStyle();
+    }
+    @UiHandler("add")
+    public void handleAdd(ClickEvent e) {
+        labelProperties.cascade(selectionModel.getSelectedObject(), data.getDataList(), CASCADE_TYPE_ADD);
+    }
 
-	private final ImapLabelListDataProvider data;
-	
+    private final ImapLabelListDataProvider data;
+
     protected void onAttach() {
         super.onAttach();
         // Delay getting data until the widget has been attached, to use injected objects.
@@ -79,36 +79,36 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
         }
     };
 
-	@Inject
-	public LabelListView(final HupaRequestFactory rf) {
-		initWidget(binder.createAndBindUi(this));
-		data = new ImapLabelListDataProvider();
-		cellList = new CellList<LabelNode>(new LabelCell(), Resources.INSTANCE);
-		cellList.setPageSize(100);// assume one's labels are under one hundred, otherwise we need a pager
-		cellList.setSelectionModel(selectionModel);
-		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-			public void onSelectionChange(SelectionChangeEvent event) {
-				labelProperties.cascade(selectionModel.getSelectedObject(), data.getDataList(), CASCADE_TYPE_RENAME);
-			}
-		});
-		thisView.setWidget(cellList);
-	}
+    @Inject
+    public LabelListView(final HupaRequestFactory rf) {
+        initWidget(binder.createAndBindUi(this));
+        data = new ImapLabelListDataProvider();
+        cellList = new CellList<LabelNode>(new LabelCell(), Resources.INSTANCE);
+        cellList.setPageSize(100);// assume one's labels are under one hundred, otherwise we need a pager
+        cellList.setSelectionModel(selectionModel);
+        selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+            public void onSelectionChange(SelectionChangeEvent event) {
+                labelProperties.cascade(selectionModel.getSelectedObject(), data.getDataList(), CASCADE_TYPE_RENAME);
+            }
+        });
+        thisView.setWidget(cellList);
+    }
 
-	@Override
-	public SingleSelectionModel<LabelNode> getSelectionModel() {
-		return this.selectionModel;
-	}
+    @Override
+    public SingleSelectionModel<LabelNode> getSelectionModel() {
+        return this.selectionModel;
+    }
 
-	public final SingleSelectionModel<LabelNode> selectionModel = new SingleSelectionModel<LabelNode>(
-			new ProvidesKey<LabelNode>() {
-				@Override
-				public Object getKey(LabelNode item) {
-					return item == null ? null : item.getPath();
-				}
-			});
+    public final SingleSelectionModel<LabelNode> selectionModel = new SingleSelectionModel<LabelNode>(
+            new ProvidesKey<LabelNode>() {
+                @Override
+                public Object getKey(LabelNode item) {
+                    return item == null ? null : item.getPath();
+                }
+            });
 
-	// FIXME: almost the code in this class is identical to FolderListView, duplicated code in GWT is bad
-	// because explodes js size !!!
+    // FIXME: almost the code in this class is identical to FolderListView, duplicated code in GWT is bad
+    // because explodes js size !!!
     public class ImapLabelListDataProvider extends AsyncDataProvider<LabelNode> implements HasRefresh {
 
         private List<LabelNode> folderNodes = new ArrayList<LabelNode>();
@@ -139,7 +139,7 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
                     updateRowData(0, folderNodes);
                  }});
         }
-        
+
         private void fillCellList(List<LabelNode> folderNodes, ImapFolder curFolder, LabelNode parent, String intents) {
             LabelNode labelNode = new LabelNode();
             labelNode.setFolder(curFolder);
@@ -162,26 +162,26 @@ public class LabelListView extends Composite implements LabelListActivity.Displa
         }
     }
 
-	interface LabelListUiBinder extends UiBinder<DockLayoutPanel, LabelListView> {
-	}
+    interface LabelListUiBinder extends UiBinder<DockLayoutPanel, LabelListView> {
+    }
 
-	private static LabelListUiBinder binder = GWT.create(LabelListUiBinder.class);
+    private static LabelListUiBinder binder = GWT.create(LabelListUiBinder.class);
 
-	@Override
-	public HasClickHandlers getAdd() {
-		return add;
-	}
+    @Override
+    public HasClickHandlers getAdd() {
+        return add;
+    }
 
-	@Override
-	public HasClickHandlers getDelete() {
-		return delete;
-	}
+    @Override
+    public HasClickHandlers getDelete() {
+        return delete;
+    }
 
-	@Override
-	public void refresh() {
-	    System.out.println("REFRESH");
-	    hupaStorage.expireFolders();
-		data.refresh();
-	}
+    @Override
+    public void refresh() {
+        System.out.println("REFRESH");
+        hupaStorage.expireFolders();
+        data.refresh();
+    }
 
 }

@@ -29,21 +29,21 @@ public class MessagesReceivedEvent extends GwtEvent<MessagesReceivedEventHandler
     public final static Type<MessagesReceivedEventHandler> TYPE = new Type<MessagesReceivedEventHandler>();
     private List<Message> messages;
     private ImapFolder folder;
-    
+
     public MessagesReceivedEvent(ImapFolder folder, List<Message> messages) {
         this.messages = messages;
         this.folder = folder;
     }
-    
+
     public List<Message> getMessages() {
         return messages;
     }
-    
+
     public ImapFolder getFolder() {
         return folder;
     }
-    
-    
+
+
     @Override
     protected void dispatch(MessagesReceivedEventHandler handler) {
         handler.onMessagesReceived(this);

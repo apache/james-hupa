@@ -30,11 +30,11 @@ public class LoadMessagesEvent extends GwtEvent<LoadMessagesEventHandler>{
     private User user;
     private ImapFolder folder;
     private String searchValue;
-    
+
     public LoadMessagesEvent(User user, ImapFolder folder) {
         this(user,folder,null);
     }
-    
+
     public LoadMessagesEvent(User user, ImapFolder folder, String searchValue) {
         this.user = user;
         this.folder = folder;
@@ -46,11 +46,11 @@ public class LoadMessagesEvent extends GwtEvent<LoadMessagesEventHandler>{
     public ImapFolder getFolder() {
         return folder;
     }
-    
+
     public String getSearchValue() {
         return searchValue;
     }
-    
+
     @Override
     protected void dispatch(LoadMessagesEventHandler handler) {
         handler.onLoadMessagesEvent(this);

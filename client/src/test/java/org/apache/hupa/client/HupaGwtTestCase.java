@@ -22,7 +22,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 
 /**
  * Base class for testing hupa in client side.
- * 
+ *
  * @author manolo
  *
  */
@@ -31,10 +31,10 @@ public abstract class HupaGwtTestCase extends GWTTestCase {
     /**
      * Although tests extending this class should work in either the jvm or the browser,
      * it is better to run them in the jvm because of performance reasons.
-     * 
+     *
      * Change the return value if you what to run them in browser, but
      * be sure to commit this class returning null
-     * 
+     *
      *   TODO: put some code to return the adequate value based on an external
      *   property. System.getProperty doesn't work because the test
      *   is compiled to javascript when not returning null

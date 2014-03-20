@@ -31,17 +31,17 @@ import com.google.inject.Inject;
 public class ComposeToolBarActivity extends AppBaseActivity {
 
     public Activity with(ComposePlace place) {
-		return this;
-	}
-	
-    @Inject private Displayable display;
-    
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		container.setWidget(display.asWidget());
-	}
+        return this;
+    }
 
-	public interface Displayable extends IsWidget {
-		HasClickHandlers getSendClick();
-	}
+    @Inject private Displayable display;
+
+    @Override
+    public void start(AcceptsOneWidget container, EventBus eventBus) {
+        container.setWidget(display.asWidget());
+    }
+
+    public interface Displayable extends IsWidget {
+        HasClickHandlers getSendClick();
+    }
 }

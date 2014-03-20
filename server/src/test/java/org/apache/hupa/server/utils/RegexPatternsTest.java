@@ -22,7 +22,7 @@ package org.apache.hupa.server.utils;
 import junit.framework.TestCase;
 
 public class RegexPatternsTest extends TestCase {
-    
+
     public void testRegexHtml() {
         String txt, res;
         txt = "<!'https://www.aaa.1:#@%/;$()~_?+-=\\.&<br/>";
@@ -61,12 +61,12 @@ public class RegexPatternsTest extends TestCase {
         txt = ".. <img\nsrc='cid:abcd'\nwhatever=/>click</a\n> ..";
         res = RegexPatterns.replaceAll(txt, RegexPatterns.regex_inlineImg, RegexPatterns.repl_inlineImg);
         assertNotSame(txt, res);
-        
+
         res = RegexPatterns.replaceAll(txt, RegexPatterns.regex_revertInlineImg, RegexPatterns.repl_revertInlineImg);
         assertEquals(txt, res);
     }
 
-    
+
     public void testRegexBadTags() {
         String txt, res;
         txt = "<html><head>h<tag></head><body>.<style>..</style>.<script type=>//</script></body>.</html>";
@@ -86,7 +86,7 @@ public class RegexPatternsTest extends TestCase {
         res = RegexPatterns.replaceAllRecursive(txt, RegexPatterns.regex_badAttrs, RegexPatterns.repl_badAttrs);
         assertEquals("... <div attr=a attr=b attr=c /> ...", res);
     }
-    
+
     public void testRegexHtmlLinks() {
         String txt, res;
         txt = ".. <a href=\"http://whatever\">..</a> ..";
@@ -96,30 +96,30 @@ public class RegexPatternsTest extends TestCase {
         txt = "-- <div> .. <img src=\"http://whatever\"/> .. </div>";
         res = RegexPatterns.replaceAll(txt, RegexPatterns.regex_orphandHttpLinks, RegexPatterns.repl_orphandHttpLinks);
         assertEquals(txt, res);
-        
+
         txt = "-- <div> .. \"http://whatever\" .. </div>";
         res = RegexPatterns.replaceAll(txt, RegexPatterns.regex_orphandHttpLinks, RegexPatterns.repl_orphandHttpLinks);
         assertEquals("-- <div> .. \"<a href=\"http://whatever\">http://whatever</a>\" .. </div>", res);
 
         res = RegexPatterns.replaceAll(res, RegexPatterns.regex_existingHttpLinks, RegexPatterns.repl_existingHttpLinks);
         assertEquals("-- <div> .. \"<a onClick=\"openLink('http://whatever');return false;\" href=\"http://whatever\">http://whatever</a>\" .. </div>", res);
-        
+
     }
 
     public void testRegexEmailLinks() {
         String txt, res;
-        
+
         txt = ".. <a href=\"mailTo:someone@somedomain.com\">..</a> ..";
         res = RegexPatterns.replaceAll(txt, RegexPatterns.regex_existingEmailLinks, RegexPatterns.repl_existngEmailLinks);
         assertEquals(".. <a onClick=\"mailTo('someone@somedomain.com');return false;\" href=\"mailto:someone@somedomain.com\">..</a> ..", res);
-        
+
         txt = "-- <div> .. someone@somedomain.com .. </div>";
         res = RegexPatterns.replaceAll(txt, RegexPatterns.regex_orphandEmailLinks, RegexPatterns.repl_orphandEmailLinks);
         assertEquals("-- <div> .. <a href=\"mailto:someone@somedomain.com\">someone@somedomain.com</a> .. </div>", res);
 
         res = RegexPatterns.replaceAll(res, RegexPatterns.regex_existingEmailLinks, RegexPatterns.repl_existngEmailLinks);
         assertEquals("-- <div> .. <a onClick=\"mailTo('someone@somedomain.com');return false;\" href=\"mailto:someone@somedomain.com\">someone@somedomain.com</a> .. </div>", res);
-        
+
     }
 
 }

@@ -31,26 +31,26 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class ContactPropertiesActivityMapper implements ActivityMapper {
-	private final Provider<ContactPropertiesActivity> contactPropertiesActivityProvider;
+    private final Provider<ContactPropertiesActivity> contactPropertiesActivityProvider;
 
-	@Inject
-	public ContactPropertiesActivityMapper(Provider<ContactPropertiesActivity> contactPropertiesActivityProvider) {
-		this.contactPropertiesActivityProvider = contactPropertiesActivityProvider;
-	}
+    @Inject
+    public ContactPropertiesActivityMapper(Provider<ContactPropertiesActivity> contactPropertiesActivityProvider) {
+        this.contactPropertiesActivityProvider = contactPropertiesActivityProvider;
+    }
 
-	public Activity getActivity(Place place) {
-		if (!(place instanceof ContactPlace))
-			return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    public Activity getActivity(Place place) {
+        if (!(place instanceof ContactPlace))
+            return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return contactPropertiesActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return contactPropertiesActivityProvider.get();
+            }
+        };
+    }
 }

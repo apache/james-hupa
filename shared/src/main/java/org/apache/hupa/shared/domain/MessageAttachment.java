@@ -37,9 +37,9 @@ public interface MessageAttachment extends ValueProxy {
     int getSize();
 
     boolean isImage();
-    
+
     void setImage(boolean image);
-    
+
     String getContentType();
-    
+
 }

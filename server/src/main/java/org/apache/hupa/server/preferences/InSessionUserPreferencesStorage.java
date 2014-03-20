@@ -37,7 +37,7 @@ import javax.servlet.http.HttpSession;
 public class InSessionUserPreferencesStorage extends UserPreferencesStorage {
 
     private final Provider<HttpSession> sessionProvider;
-    
+
     @Inject
     public InSessionUserPreferencesStorage(IMAPStoreCache cache, Log logger, Provider<HttpSession> sessionProvider) {
         this.sessionProvider = sessionProvider;
@@ -52,7 +52,7 @@ public class InSessionUserPreferencesStorage extends UserPreferencesStorage {
             sessionContacts=new HashMap<String, Contact>();
             session.setAttribute(SConsts.CONTACTS_SESS_ATTR, sessionContacts);
         }
-        
+
         for(Contact contact: contacts) {
             if (!sessionContacts.containsKey(contact.toKey())) {
                 sessionContacts.put(contact.toKey(), contact);
@@ -62,7 +62,7 @@ public class InSessionUserPreferencesStorage extends UserPreferencesStorage {
 
     public Contact[] getContacts() {
         HttpSession session = sessionProvider.get();
-        
+
         @SuppressWarnings("unchecked")
         HashMap<String, Contact> sessionContacts = (HashMap<String, Contact>)session.getAttribute(SConsts.CONTACTS_SESS_ATTR);
 

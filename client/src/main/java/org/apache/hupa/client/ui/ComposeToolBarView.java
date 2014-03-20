@@ -38,41 +38,41 @@ import com.google.inject.Inject;
 
 public class ComposeToolBarView extends Composite implements ComposeToolBarActivity.Displayable {
 
-	@Inject protected EventBus eventBus;
-	
-	@UiField public Anchor send;
-	@UiField public Anchor cancel;
+    @Inject protected EventBus eventBus;
 
-	@UiHandler("cancel")
-	public void handleClickCancel(ClickEvent e) {
-		History.back();
-	}
-	
+    @UiField public Anchor send;
+    @UiField public Anchor cancel;
+
+    @UiHandler("cancel")
+    public void handleClickCancel(ClickEvent e) {
+        History.back();
+    }
+
     @UiHandler("send")
     public void handleClickSend(ClickEvent e) {
        eventBus.fireEvent(new SendClickEvent());
     }
-	
-	@Override
-	public HasClickHandlers getSendClick() {
-		return send;
-	}
-	
+
+    @Override
+    public HasClickHandlers getSendClick() {
+        return send;
+    }
+
     interface ComposeToolBarUiBinder extends UiBinder<HorizontalPanel, ComposeToolBarView> {
     }
 
     @SuppressWarnings("rawtypes")
     private static UiBinder binder;
-    
+
     @SuppressWarnings("rawtypes")
     protected UiBinder initBinder() {
       return  GWT.create(ComposeToolBarUiBinder.class);
     }
-    
-	@SuppressWarnings("unchecked")
+
+    @SuppressWarnings("unchecked")
     public ComposeToolBarView() {
-	    binder = initBinder();
-		initWidget((Widget)binder.createAndBindUi(this));
+        binder = initBinder();
+        initWidget((Widget)binder.createAndBindUi(this));
     }
 
 }

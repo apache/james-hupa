@@ -24,7 +24,7 @@ import com.google.gwt.event.shared.GwtEvent;
 public class NewMessageEvent extends GwtEvent<NewMessageEventHandler>{
 
     public final static Type<NewMessageEventHandler> TYPE = new Type<NewMessageEventHandler>();
-    
+
     @Override
     protected void dispatch(NewMessageEventHandler handler) {
         handler.onNewMessageEvent(this);

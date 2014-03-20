@@ -55,7 +55,7 @@ public class SmtpMessageImpl extends AbstractMessageImpl implements SmtpMessage 
 
     /**
      * Set the body text of the content
-     * 
+     *
      * @param text
      */
     public void setText(String text) {
@@ -64,7 +64,7 @@ public class SmtpMessageImpl extends AbstractMessageImpl implements SmtpMessage 
 
     /**
      * Return the body text of the content
-     * 
+     *
      * @return The text
      */
     public String getText() {
@@ -73,7 +73,7 @@ public class SmtpMessageImpl extends AbstractMessageImpl implements SmtpMessage 
 
     /**
      * Set the attachments
-     * 
+     *
      * @param aList
      */
     public void setMessageAttachments(List<MessageAttachment> aList) {
@@ -82,7 +82,7 @@ public class SmtpMessageImpl extends AbstractMessageImpl implements SmtpMessage 
 
     /**
      * Return the attachments
-     * 
+     *
      * @return aList
      */
     public List<MessageAttachment> getMessageAttachments() {

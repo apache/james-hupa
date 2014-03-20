@@ -26,12 +26,12 @@ import com.google.gwt.event.shared.GwtEvent;
 public class MessageViewEvent extends GwtEvent<MessageViewEventHandler>{
 
     public final static Type<MessageViewEventHandler> TYPE = new Type<MessageViewEventHandler>();
-    
+
     public MessageDetails messageDetails;
     public MessageViewEvent(MessageDetails details) {
         messageDetails = details;
     }
-    
+
     @Override
     protected void dispatch(MessageViewEventHandler handler) {
         handler.onMessageViewEvent(this);

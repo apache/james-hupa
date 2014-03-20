@@ -31,7 +31,7 @@ public class FetchMessagesActionImpl implements FetchMessagesAction {
 
     public FetchMessagesActionImpl() {
     }
-    
+
     @Override
     public String toString() {
         return "[" + folder.getFullName() + "," + start + "," + offset + "," + searchString + "]";

@@ -58,7 +58,7 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
             throw new MessagingException();
         }
     }
-    
+
     public List<ImapFolder> pullAll() throws MessagingException, HupaException {
         User user = getUser();
         try {
@@ -89,7 +89,7 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
     /**
      * Walk through the folder's sub-folders and add sub-folders to current
      * imapFolder
-     * 
+     *
      * @param folder
      *            Folder to walk
      * @param imapFolder
@@ -134,7 +134,7 @@ public class FetchFoldersServiceImpl extends AbstractService implements FetchFol
 
     /**
      * Create a new IMAPFolder from the given Folder
-     * 
+     *
      * @param folder
      *            Current folder
      * @return imapFolder Created IMAPFolder

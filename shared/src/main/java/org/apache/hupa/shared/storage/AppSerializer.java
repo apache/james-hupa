@@ -18,7 +18,7 @@ public class AppSerializer {
 
   private final RegExp proxyIdRegexp = RegExp.compile("^.*?\"([^\"]+@\\d+@[^\"]+)\":\\{\"[POSTY]\":(.+)$");
   private final RegExp proxyMultIdRegexp = RegExp.compile("^.*?([^#]+@\\d+@[^#]+)#~#(.+)$");
-  
+
   private boolean containsMultipleProxies(String data) {
     MatchResult r = proxyIdRegexp.exec(data);
     return r != null && proxyIdRegexp.exec(r.getGroup(2)) != null;
@@ -29,7 +29,7 @@ public class AppSerializer {
     DefaultProxyStore store = new DefaultProxyStore(keyData[1]);
     return requestFactory.getSerializer(store).deserialize(clz, keyData[0]);
   }
-  
+
   private String[] splitKeyData(String payload) {
     MatchResult r;
     r = proxyMultIdRegexp.exec(payload);
@@ -50,18 +50,18 @@ public class AppSerializer {
     }
     return data;
   }
-  
+
   public <T> T deserializeBean(Class<T> clz, String payload) {
     AutoBean<T> a = AutoBeanCodex.decode(beanFactory, clz, payload);
     assert a != null : "There is no info about AutoBean: " + clz + ", maybe you forgot to include it in the App AutoBeanFactory";
     return a.as();
   }
-  
+
   public <T> String serializeBean(T proxy) {
     AutoBean<T> bean = AutoBeanUtils.getAutoBean(proxy);
     String json = AutoBeanCodex.encode(bean).getPayload();
     return json;
   }
-  
+
 
 }

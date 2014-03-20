@@ -24,7 +24,7 @@ import org.cobogw.gwt.user.client.ui.Button;
 
 /**
  * Button which supports enabling / disabling
- * 
+ *
  *
  */
 public class EnableButton extends Button implements HasEnable{

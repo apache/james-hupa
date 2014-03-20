@@ -55,19 +55,19 @@ import com.sun.mail.imap.IMAPStore;
 public class HupaGuiceTestCase {
 
     protected Injector injector = Guice.createInjector(getModules());
-    
-	protected CreateFolderService createFolderService;
-	protected FetchFoldersService fetchFoldersService;
-	protected FetchMessagesService fetchMessagesService;
-	protected DeleteFolderService deleteFolderService;
-	protected DeleteMessageByUidService deleteMessageByUidService;
-	protected GetMessageDetailsServiceImpl  getMessageDetailsService;
-	protected LoginUserService loginUserService;
-	protected LogoutUserService logoutUserService;
-	protected SendReplyMessageServiceImpl sendReplyMessageService;
-	protected SendMessageBaseServiceImpl sendMessageService;
-	
-	protected Log logger;
+
+    protected CreateFolderService createFolderService;
+    protected FetchFoldersService fetchFoldersService;
+    protected FetchMessagesService fetchMessagesService;
+    protected DeleteFolderService deleteFolderService;
+    protected DeleteMessageByUidService deleteMessageByUidService;
+    protected GetMessageDetailsServiceImpl  getMessageDetailsService;
+    protected LoginUserService loginUserService;
+    protected LogoutUserService logoutUserService;
+    protected SendReplyMessageServiceImpl sendReplyMessageService;
+    protected SendMessageBaseServiceImpl sendMessageService;
+
+    protected Log logger;
     protected IMAPStoreCache storeCache;
     protected User testUser;
     protected UserPreferencesStorage userPreferences;
@@ -77,26 +77,26 @@ public class HupaGuiceTestCase {
     protected Module[] getModules() {
         return new Module[]{new GuiceServerTestModule()};
     }
-    
+
     protected FileItemRegistry registry;
-    
+
 
     @Before
     public void setUp(){
 
         try {
-        	createFolderService = injector.getInstance(CreateFolderServiceImpl.class);
-        	fetchFoldersService = injector.getInstance(FetchFoldersServiceImpl.class);
-        	fetchMessagesService = injector.getInstance(FetchMessagesServiceImpl.class);
-        	deleteFolderService = injector.getInstance(DeleteFolderServiceImpl.class);
-        	deleteMessageByUidService = injector.getInstance(DeleteMessageByUidServiceImpl.class);
-        	getMessageDetailsService = injector.getInstance(GetMessageDetailsServiceImpl.class);
-        	loginUserService = injector.getInstance(LoginUserServiceImpl.class);
-        	logoutUserService = injector.getInstance(LogoutUserServiceImpl.class);
-        	sendReplyMessageService = injector.getInstance(SendReplyMessageServiceImpl.class);
-        	sendMessageService = injector.getInstance(SendMessageBaseServiceImpl.class);
-        	
-        	logger = injector.getInstance(Log.class);
+            createFolderService = injector.getInstance(CreateFolderServiceImpl.class);
+            fetchFoldersService = injector.getInstance(FetchFoldersServiceImpl.class);
+            fetchMessagesService = injector.getInstance(FetchMessagesServiceImpl.class);
+            deleteFolderService = injector.getInstance(DeleteFolderServiceImpl.class);
+            deleteMessageByUidService = injector.getInstance(DeleteMessageByUidServiceImpl.class);
+            getMessageDetailsService = injector.getInstance(GetMessageDetailsServiceImpl.class);
+            loginUserService = injector.getInstance(LoginUserServiceImpl.class);
+            logoutUserService = injector.getInstance(LogoutUserServiceImpl.class);
+            sendReplyMessageService = injector.getInstance(SendReplyMessageServiceImpl.class);
+            sendMessageService = injector.getInstance(SendMessageBaseServiceImpl.class);
+
+            logger = injector.getInstance(Log.class);
             storeCache = injector.getInstance(IMAPStoreCache.class);
             userPreferences = injector.getInstance(UserPreferencesStorage.class);
 
@@ -109,7 +109,7 @@ public class HupaGuiceTestCase {
 
             registry = SessionUtils.getSessionRegistry(logger, httpSession);
         } catch (Exception e) {
-        	e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }

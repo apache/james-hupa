@@ -29,12 +29,12 @@ import eu.maydu.gwt.validation.client.i18n.ValidationMessages;
 /**
  * Validator which handles the validation of Email Lists. Email addresses
  * needs to be comma separated
- * 
+ *
  *
  */
 public class EmailListValidator extends Validator<EmailListValidator>{
     private static final String emailRegex = "^(.*<)?[A-Za-z0-9._%'*/=+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(>)?\\s*$";
-    
+
     private HasText text;
     public EmailListValidator(HasText text) {
         this.text = text;
@@ -56,7 +56,7 @@ public class EmailListValidator extends Validator<EmailListValidator>{
 
     /**
      * Return if the give text is a valid Emailaddress list
-     * 
+     *
      * @param text
      * @return isValid
      */
@@ -73,7 +73,7 @@ public class EmailListValidator extends Validator<EmailListValidator>{
 
     /**
      * Checks if the given value is a valid emailaddress
-     * 
+     *
      * @param email
      * @return isValid
      */

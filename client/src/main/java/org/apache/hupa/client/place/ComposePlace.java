@@ -27,55 +27,55 @@ import com.google.gwt.place.shared.Prefix;
 
 public class ComposePlace extends AbstractPlace {
 
-	private String token;
-	private Parameters parameters;
-	private String subject;
-	private String body;
+    private String token;
+    private Parameters parameters;
+    private String subject;
+    private String body;
 
-	public ComposePlace(String token) {
-		this.token = token;
-	}
+    public ComposePlace(String token) {
+        this.token = token;
+    }
 
-	public String getToken() {
-		return token;
-	}
+    public String getToken() {
+        return token;
+    }
 
-	@Prefix("compose")
-	public static class Tokenizer implements PlaceTokenizer<ComposePlace> {
+    @Prefix("compose")
+    public static class Tokenizer implements PlaceTokenizer<ComposePlace> {
 
-		@Override
-		public ComposePlace getPlace(String token) {
-			return new ComposePlace(token);
-		}
+        @Override
+        public ComposePlace getPlace(String token) {
+            return new ComposePlace(token);
+        }
 
-		@Override
-		public String getToken(ComposePlace place) {
-			return place.getToken();
-		}
-	}
+        @Override
+        public String getToken(ComposePlace place) {
+            return place.getToken();
+        }
+    }
 
-	public Place with(Parameters parameters) {
-		this.parameters = parameters;
-		return this;
-	}
+    public Place with(Parameters parameters) {
+        this.parameters = parameters;
+        return this;
+    }
 
-	public Parameters getParameters() {
-		return parameters;
-	}
+    public Parameters getParameters() {
+        return parameters;
+    }
 
-	public ComposePlace with(String subject, String body) {
-		this.parameters = new Parameters(null, null, null, null);
-		this.subject = subject;
-		this.body = body;
-		return this;
-	}
-	
-	public String getSubject(){
-		return subject;
-	}
-	
-	public String getBody(){
-		return body;
-	}
+    public ComposePlace with(String subject, String body) {
+        this.parameters = new Parameters(null, null, null, null);
+        this.subject = subject;
+        this.body = body;
+        return this;
+    }
+
+    public String getSubject(){
+        return subject;
+    }
+
+    public String getBody(){
+        return body;
+    }
 
 }

@@ -49,20 +49,20 @@ import com.sun.mail.imap.protocol.ListInfo;
 public class InMemoryIMAPStoreCache implements IMAPStoreCache {
 
     private final Map<String, CachedIMAPStore> pool = new HashMap<String, CachedIMAPStore>();
-    
+
     private Log logger;
     private int connectionPoolSize;
     private int timeout;
     private boolean debug;
     private boolean trustSSL;
-    
+
     @Inject
     public InMemoryIMAPStoreCache(
-            Log logger, 
-            @Named("IMAPConnectionPoolSize") int connectionPoolSize, 
-            @Named("IMAPConnectionPoolTimeout") int timeout, 
-            @Named("SessionDebug") boolean debug, 
-            @Named("TrustStore") String truststore, 
+            Log logger,
+            @Named("IMAPConnectionPoolSize") int connectionPoolSize,
+            @Named("IMAPConnectionPoolTimeout") int timeout,
+            @Named("SessionDebug") boolean debug,
+            @Named("TrustStore") String truststore,
             @Named("TrustStorePassword") String truststorePassword,
             @Named("TrustSSL") boolean trustSSL)
     {
@@ -79,14 +79,14 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
         }
         System.setProperty("mail.mime.decodetext.strict", "false");
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.apache.hupa.server.IMAPStoreCache#get(org.apache.hupa.shared.data.User)
      */
     public IMAPStore get(User user) throws MessagingException {
         // FIXME, there will be a NullPointerException thrown here when user session expired
-        
+
         String id = user.getId();
         String username = user.getName();
         String password = user.getPassword();
@@ -110,11 +110,11 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
                 }
             }
         }
-        
+
         if (cstore == null) {
             cstore = createCachedIMAPStore(user);
         }
-        
+
         if (cstore.getStore().isConnected() == false) {
             cstore.getStore().connect(settings.getImapServer(), settings.getImapPort(), id, password);
         }
@@ -124,12 +124,12 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
 
         // TODO: this is a hack for gmail
         if (settings.getImapServer().contains("gmail.com")) {
-            internationalizeGmailFolders(user, ret); 
+            internationalizeGmailFolders(user, ret);
         }
-        
+
         return ret;
     }
-    
+
     public void internationalizeGmailFolders(User user, IMAPStore store) {
         // TODO: this is a hack, we should have a default domain suffix in configuration files
         if (!user.getName().contains("@")) {
@@ -145,7 +145,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
                                     return p.lsub("", arg);
                                 }
                             });
-            
+
             for (ListInfo l : li) {
                 if (l.attrs != null && l.attrs.length > 1) {
                     // * LIST (\HasNoChildren \Drafts) "/" "[Gmail]/Borradores"
@@ -163,7 +163,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
         } catch (Exception e) {
         }
     }
-    
+
     public CachedIMAPStore createCachedIMAPStore(User user) throws NoSuchProviderException {
         Session ses = createSession(user);
         IMAPStore store = (IMAPStore)ses.getStore(user.getSettings().getImapSecure() ? "imaps" : "imap");
@@ -171,7 +171,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
         ret.setSession(ses);
         return ret;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.apache.hupa.server.IMAPStoreCache#delete(org.apache.hupa.shared.data.User)
@@ -179,7 +179,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
     public synchronized void delete(User user) {
         delete(user.getName());
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.apache.hupa.server.IMAPStoreCache#delete(java.lang.String)
@@ -204,7 +204,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
         CachedIMAPStore cstore = pool.get(user.getName());
         return cstore.getSession();
     }
-    
+
     private Session createSession(final User user) {
         Properties props = new Properties();
         Settings settings = user.getSettings();
@@ -221,7 +221,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
             props.setProperty("mail.imap.connectionpoolsize", connectionPoolSize + "");
             props.setProperty("mail.imap.connectionpooltimeout", timeout + "");
         }
-        
+
         if (settings.getSmtpSecure()) {
             if (settings.getSmtpPort() == 587) {
                 props.setProperty("mail.smtp.starttls.enable", "true");
@@ -266,7 +266,7 @@ public class InMemoryIMAPStoreCache implements IMAPStoreCache {
                 }
             };
         }
-        
+
         Session ses = Session.getInstance(props, auth);
         ses.setDebug(debug && logger.isDebugEnabled());
         logger.debug("Created session " + user.getName() + "\n" + settings + "\n"+ props.toString().replaceAll(",", ",\n "));

@@ -37,7 +37,7 @@ public class ImapFolderImpl implements ImapFolder {
 
     public ImapFolderImpl() {
     }
-    
+
     public ImapFolderImpl(ImapFolder folder){
         this.delimiter = folder.getDelimiter();
         this.children = folder.getChildren();
@@ -55,14 +55,14 @@ public class ImapFolderImpl implements ImapFolder {
     public void setSubscribed(boolean subscribed) {
         this.subscribed = subscribed;
     }
-    
+
     public boolean getSubscribed() {
         return subscribed;
     }
-    
+
     /**
      * Get the name of the folder
-     * 
+     *
      * @return name
      */
     public String getName() {
@@ -78,8 +78,8 @@ public class ImapFolderImpl implements ImapFolder {
     }
 
     /**
-     * Set the child folders 
-     * 
+     * Set the child folders
+     *
      * @param children
      */
     public void setChildren(List<ImapFolder> children) {
@@ -88,7 +88,7 @@ public class ImapFolderImpl implements ImapFolder {
 
     /**
      * Return the childs of this folder
-     * 
+     *
      * @return childs
      */
     public List<ImapFolder> getChildren() {
@@ -105,7 +105,7 @@ public class ImapFolderImpl implements ImapFolder {
 
     /**
      * Set the full name of the folder
-     * 
+     *
      * @param fullName
      */
     public void setFullName(String fullName) {
@@ -114,7 +114,7 @@ public class ImapFolderImpl implements ImapFolder {
 
     /**
      * Set the delimiter which is used to seperate folders
-     * 
+     *
      * @param delimiter
      */
     public void setDelimiter(String delimiter) {
@@ -123,7 +123,7 @@ public class ImapFolderImpl implements ImapFolder {
 
     /**
      * Return the delimiter
-     * 
+     *
      * @return delimiter
      */
     public String getDelimiter() {
@@ -132,7 +132,7 @@ public class ImapFolderImpl implements ImapFolder {
 
     /**
      * Return the total message count of the messages that exists within this folder
-     * 
+     *
      * @return msgCount
      */
     public int getMessageCount() {
@@ -141,7 +141,7 @@ public class ImapFolderImpl implements ImapFolder {
 
     /**
      * Set total message count
-     * 
+     *
      * @param msgCount
      */
     public void setMessageCount(int msgCount) {
@@ -150,7 +150,7 @@ public class ImapFolderImpl implements ImapFolder {
 
     /**
      * Set the count of all unseen messages within this folder
-     * 
+     *
      * @param unseenMsgCount
      */
     public void setUnseenMessageCount(int unseenMsgCount) {
@@ -159,7 +159,7 @@ public class ImapFolderImpl implements ImapFolder {
 
     /**
      * Return the unseen message count
-     * 
+     *
      * @return unseenMsgCount
      */
     public int getUnseenMessageCount() {
@@ -170,7 +170,7 @@ public class ImapFolderImpl implements ImapFolder {
     public String toString() {
         return getFullName();
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (o instanceof ImapFolder) {
@@ -192,7 +192,7 @@ public class ImapFolderImpl implements ImapFolder {
         this.name = name;
     }
 
-    
+
     @Override
     public void setFolderTo(ImapFolder folder) {
         folder.setChildren(this.children);
@@ -208,7 +208,7 @@ public class ImapFolderImpl implements ImapFolder {
     public boolean getHasChildren() {
         return hasChildren;
     }
-    
+
     @Override
     public void setHasChildren(boolean hasChildren){
         this.hasChildren = hasChildren;

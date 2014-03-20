@@ -42,7 +42,7 @@ public class SessionUtils {
         }
         return registry;
     }
-    
+
     /**
      * Remove session attributes, it has to be done in the login and logout actions
      * @param session
@@ -63,5 +63,5 @@ public class SessionUtils {
             }
         }
     }
-    
+
 }

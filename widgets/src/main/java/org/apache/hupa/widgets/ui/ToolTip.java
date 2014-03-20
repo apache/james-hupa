@@ -38,7 +38,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * A ToolTip which is shown a configured time before get destroyed
- *  
+ *
  *
  */
 public class ToolTip extends Label {
@@ -52,7 +52,7 @@ public class ToolTip extends Label {
             popup.setPopupPosition(y,x);
             popup.show();
         }
-        
+
     };
 
     public <T extends Widget & HasMouseOverHandlers & HasMouseOutHandlers & HasMouseMoveHandlers> ToolTip(final T w) {
@@ -61,7 +61,7 @@ public class ToolTip extends Label {
             public void onMouseOver(MouseOverEvent event) {
                 showTimer.schedule(1000);
             }
-            
+
         });
 
         w.addMouseOutHandler(new MouseOutHandler() {
@@ -70,7 +70,7 @@ public class ToolTip extends Label {
                 showTimer.cancel();
                 popup.hide();
             }
-            
+
         });
 
         w.addMouseMoveHandler(new MouseMoveHandler() {
@@ -79,25 +79,25 @@ public class ToolTip extends Label {
                 y = event.getScreenY();
                 x = w.getAbsoluteTop() + w.getOffsetHeight();
             }
-            
+
         });
         popup.addCloseHandler(new CloseHandler<PopupPanel>() {
 
             public void onClose(CloseEvent<PopupPanel> event) {
                 showTimer.cancel();
             }
-            
+
         });
         addStyleName("hupa-ToolTip");
         popup.addStyleName("hupa-ToolTip");
         popup.setAnimationEnabled(true);
         popup.setAutoHideEnabled(true);
     }
-    
+
     public void setText(String text) {
         super.setText(text);
         popup.setWidget(this);
     }
-    
-    
+
+
 }

@@ -31,28 +31,28 @@ public class SetFlagActionImpl implements SetFlagAction {
     private List<Long> uids;
     private ImapFolder folder;
     private boolean value;
-    
+
     public SetFlagActionImpl(ImapFolder folder, IMAPFlag flag, boolean value, List<Long> uids) {
         this.flag = flag;
         this.value = value;
         this.uids = uids;
         this.folder = folder;
     }
-    
+
     protected SetFlagActionImpl() {
     }
-    
+
     public ImapFolder getFolder() {
         return folder;
     }
-    
+
     public boolean getValue() {
         return value;
     }
     public IMAPFlag getFlag() {
         return flag;
     }
-    
+
     public List<Long> getUids() {
         return uids;
     }

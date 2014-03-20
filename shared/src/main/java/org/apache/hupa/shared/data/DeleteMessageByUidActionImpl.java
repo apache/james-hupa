@@ -25,7 +25,7 @@ import org.apache.hupa.shared.domain.DeleteMessageByUidAction;
 import org.apache.hupa.shared.domain.ImapFolder;
 
 public class DeleteMessageByUidActionImpl extends DeleteMessageActionImpl implements DeleteMessageByUidAction {
-    
+
     public DeleteMessageByUidActionImpl(){}
     public DeleteMessageByUidActionImpl(ImapFolder folder, List<Long> messageUids){
         super(folder);

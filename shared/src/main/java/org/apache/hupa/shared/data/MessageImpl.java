@@ -26,7 +26,7 @@ import org.apache.hupa.shared.domain.Message;
 import org.apache.hupa.shared.domain.Tag;
 
 /**
- * 
+ *
  *
  */
 public class MessageImpl extends AbstractMessageImpl implements Message{
@@ -36,7 +36,7 @@ public class MessageImpl extends AbstractMessageImpl implements Message{
     private List<IMAPFlag> flags;
     private List<Tag> tags;
     private Date rDate;
-    
+
     public enum IMAPFlag {
         SEEN, DELETED, RECENT, ANSWERED, JUNK, DRAFT, FLAGGED, USER
     }
@@ -48,15 +48,15 @@ public class MessageImpl extends AbstractMessageImpl implements Message{
     public List<IMAPFlag> getFlags() {
         return flags;
     }
-    
+
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
-    
+
     public List<Tag> getTags() {
         return tags;
     }
-    
+
     public long getUid() {
         return uid;
     }
@@ -64,8 +64,8 @@ public class MessageImpl extends AbstractMessageImpl implements Message{
     public void setUid(long uid) {
         this.uid = uid;
     }
-    
-    
+
+
     public void setReceivedDate(Date rDate) {
         this.rDate = rDate;
     }
@@ -73,12 +73,12 @@ public class MessageImpl extends AbstractMessageImpl implements Message{
     public Date getReceivedDate() {
         return rDate == null ? new Date(): rDate;
     }
-    
+
 
     public String toString() {
         return String.valueOf(getUid());
     }
-    
+
     public boolean equals(Object obj) {
         if (obj instanceof MessageImpl) {
             if (((MessageImpl)obj).getUid() == getUid()) {
@@ -87,7 +87,7 @@ public class MessageImpl extends AbstractMessageImpl implements Message{
         }
         return false;
     }
-    
+
     public int hashCode() {
         return Long.valueOf(getUid()).hashCode();
     }
@@ -95,7 +95,7 @@ public class MessageImpl extends AbstractMessageImpl implements Message{
     @Override
     public void setExtra(List<String> extra) {
         this.extra = extra;
-        
+
     }
 
     @Override

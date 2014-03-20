@@ -35,7 +35,7 @@ public class MessageDetailsImpl implements MessageDetails{
     private String raw;
     private List<MailHeader> mailHeaders = new ArrayList<MailHeader>();
 
-    
+
     public List<MailHeader> getMailHeaders() {
         return mailHeaders;
     }
@@ -48,13 +48,13 @@ public class MessageDetailsImpl implements MessageDetails{
 
     public String toString() {
         return "uid=" + String.valueOf(getUid()) +
-        " text.length=" + (text != null ? text.length() : 0) + 
-        " raw.length=" + (raw != null ? raw.length() : 0) + 
-        " attachments=" + (messageAttachments != null ? messageAttachments.size() : 0) + 
-        " headers=" + mailHeaders.size();  
+        " text.length=" + (text != null ? text.length() : 0) +
+        " raw.length=" + (raw != null ? raw.length() : 0) +
+        " attachments=" + (messageAttachments != null ? messageAttachments.size() : 0) +
+        " headers=" + mailHeaders.size();
     }
-    
-    
+
+
     public long getUid() {
         return uid;
     }
@@ -62,10 +62,10 @@ public class MessageDetailsImpl implements MessageDetails{
     public void setUid(long uid) {
         this.uid = uid;
     }
-    
+
     /**
      * Set a raw String representation of the header
-     * 
+     *
      * @param raw
      */
     public void setRawHeader(String raw) {
@@ -74,17 +74,17 @@ public class MessageDetailsImpl implements MessageDetails{
 
     /**
      * Return a raw String representation of the header
-     * 
+     *
      * @return raw
      */
     public String getRawHeader() {
         return raw;
     }
-    
-    
+
+
     /**
      * Set the body text of the content
-     * 
+     *
      * @param text
      */
     public void setText(String text) {
@@ -100,8 +100,8 @@ public class MessageDetailsImpl implements MessageDetails{
     }
 
     /**
-     * Set the attachments 
-     * 
+     * Set the attachments
+     *
      * @param messageAttachments
      */
     public void setMessageAttachments(List<MessageAttachment> messageAttachments) {
@@ -109,7 +109,7 @@ public class MessageDetailsImpl implements MessageDetails{
     }
 
     /**
-     * 
+     *
      * @return the In-Reply-To header field.
      */
     public String getInReplyTo() {
@@ -126,7 +126,7 @@ public class MessageDetailsImpl implements MessageDetails{
     }
 
     /**
-     * 
+     *
      * @return the References header field.
      */
     public String getReferences() {
@@ -135,11 +135,11 @@ public class MessageDetailsImpl implements MessageDetails{
 
     public String getMessageId() {
         return getHeaderValue(SConsts.HEADER_MESSAGE_ID);
-    }    
-    
+    }
+
     /**
-     * Return the attachments 
-     * 
+     * Return the attachments
+     *
      * @return aList
      */
     public List<MessageAttachment> getMessageAttachments() {
@@ -155,7 +155,7 @@ public class MessageDetailsImpl implements MessageDetails{
         }
         return false;
     }
-    
+
     public int hashCode() {
         Long l = Long.valueOf(getUid());
         return l.intValue() * 16;

@@ -27,7 +27,7 @@ public class LoginEvent extends GwtEvent<LoginEventHandler>{
 
     public final static Type<LoginEventHandler> TYPE = new Type<LoginEventHandler>();
     private User user;
-    
+
     public LoginEvent(User user) {
         this.user = user;
     }
@@ -35,7 +35,7 @@ public class LoginEvent extends GwtEvent<LoginEventHandler>{
     public User getUser() {
         return user;
     }
-    
+
     @Override
     public Type<LoginEventHandler> getAssociatedType() {
         return TYPE;

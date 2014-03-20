@@ -49,7 +49,7 @@ public class SendReplyMessageServiceTest extends HupaGuiceTestCase {
         IMAPStore store = storeCache.get(testUser);
 
         FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSession);
-        
+
         MockIMAPFolder sentbox = (MockIMAPFolder) store.getFolder(MockIMAPStore.MOCK_SENT_FOLDER);
         assertTrue(sentbox.getMessages().length == 0);
 
@@ -59,12 +59,12 @@ public class SendReplyMessageServiceTest extends HupaGuiceTestCase {
         // Create a mime message with 2 attachments and 1 inline image, and put it in the inbox
         Message message = TestUtils.createMockMimeMessage(session, 2);
         TestUtils.addMockAttachment(message, "inlineImage.jpg", true);
-        
+
         inbox.appendMessages(new Message[]{message});
         long msgUid = inbox.getUID(message);
         message = inbox.getMessageByUID(msgUid);
         assertNotNull(message);
-        
+
         String expected = "multipart/mixed\n"
                         + " multipart/alternative\n"
                         + "  text/plain\n"
@@ -73,14 +73,14 @@ public class SendReplyMessageServiceTest extends HupaGuiceTestCase {
                         + " mock/attachment => file_2.bin\n"
                         + " image/mock => inlineImage.jpg\n";
         assertEquals(expected, TestUtils.summaryzeContent(message).toString());
-        
+
         // Create a reply user action with an uploaded message
         SmtpMessage smtpmsg = TestUtils.createMockSMTPMessage(registry, 1);
         SendReplyMessageAction action = new SendReplyMessageActionImpl(smtpmsg, new ImapFolderImpl(inbox.getFullName()), msgUid);
-        
+
         message = sendReplyMessageService.createMessage(session, action);
         message = sendReplyMessageService.fillBody(message, action);
-        
+
         // The final message has to include the file uploaded by the user and the inline image
         expected = "multipart/mixed\n"
                  + " multipart/alternative\n"
@@ -88,7 +88,7 @@ public class SendReplyMessageServiceTest extends HupaGuiceTestCase {
                  + "  text/html\n"
                  + " image/mock => inlineImage.jpg\n"
                  + " mock/attachment => uploadedFile_1.bin\n";
-        
+
         assertEquals(expected, TestUtils.summaryzeContent(message).toString());
     }
 }

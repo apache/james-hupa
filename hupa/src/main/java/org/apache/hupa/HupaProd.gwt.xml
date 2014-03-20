@@ -15,7 +15,7 @@
     License.
 -->
 <module rename-to='hupa'>
-  <inherits name='org.apache.hupa.Hupa'/> 
+  <inherits name='org.apache.hupa.Hupa'/>
 
   <!-- Provide gzipped version of generated js, so as it will sent compressed by jetty -->
   <inherits name="com.google.gwt.precompress.Precompress"/>
@@ -32,6 +32,6 @@
   <set-property name="user.agent" value="gecko1_8,safari,ie9"/>
 
   <set-configuration-property name="CssResource.style" value="obf"/>
-  
-  <entry-point class='org.apache.hupa.client.Hupa'/>  
+
+  <entry-point class='org.apache.hupa.client.Hupa'/>
 </module>

@@ -42,7 +42,7 @@ import org.apache.hupa.shared.exception.HupaException;
 import org.junit.Test;
 
 public class DeleteMessageByUidServiceTest extends HupaGuiceTestCase {
-    
+
     @Test public void deleteFolderNotExists() throws MessagingException {
         ImapFolder folder = new ImapFolderImpl();
         folder.setFullName("NOT_EXISTS");
@@ -53,9 +53,9 @@ public class DeleteMessageByUidServiceTest extends HupaGuiceTestCase {
         } catch (HupaException e) {
         }
     }
-    
+
     @Test public void deleteFolderExistsAndNotTrash() throws MessagingException {
-    	ImapFolder folder = new ImapFolderImpl();
+        ImapFolder folder = new ImapFolderImpl();
         folder.setFullName("EXISTS");
         MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
         store.clear();
@@ -73,7 +73,7 @@ public class DeleteMessageByUidServiceTest extends HupaGuiceTestCase {
         try {
             deleteMessageByUidService.delete(action);
             assertEquals("Only 1 message left", 1, f.getMessageCount());
-            
+
             MockIMAPFolder f2 = (MockIMAPFolder) store.getFolder(testUser.getSettings().getTrashFolderName());
             assertTrue("Trash folder created",f2.exists());
             assertEquals("2 messages moved", 2, f2.getMessageCount());
@@ -82,12 +82,12 @@ public class DeleteMessageByUidServiceTest extends HupaGuiceTestCase {
             fail();
         }
     }
-    
+
     @Test public void deleteFolderExistsAndIsTrash() throws MessagingException {
         ImapFolder folder = new ImapFolderImpl();
         folder.setFullName(testUser.getSettings().getTrashFolderName());
         MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
-        
+
         MockIMAPFolder f = (MockIMAPFolder)store.getFolder(folder.getFullName());
         f.addMessages(new Message[] { new MimeMessage(session), new MimeMessage(session), new MimeMessage(session)});
         ArrayList<Long> uids = new ArrayList<Long>();

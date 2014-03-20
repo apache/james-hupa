@@ -31,12 +31,12 @@ import com.google.inject.name.Named;
 /**
  * Abstract Guice module.
  * Extend this class with your own, and set bindings to your need. E.g.
- * 
+ *
  * <pre>
  *   @Override
  *   protected void configureHandlers() {
  *       Names.bindProperties(binder(), properties);
- *       
+ *
  *       bind(Session.class).toProvider(sessionClass);
  *       bind(HttpSession.class).toProvider(MockHttpSessionProvider.class);
  *       bind(Settings.class).toProvider(settingsProviderClass).in(Singleton.class);
@@ -48,7 +48,7 @@ import com.google.inject.name.Named;
  *       bind(LoginUserHandler.class);
  *       bind(LogoutUserHandler.class);
  *       bind(IdleHandler.class);
- *       
+ *
  *       bind(FetchFoldersHandler.class);
  *       bind(CreateFolderHandler.class);
  *       bind(DeleteFolderHandler.class);
@@ -59,26 +59,26 @@ import com.google.inject.name.Named;
  *       bind(SendMessageHandler.class);
  *       bind(ReplyMessageHandler.class);
  *       bind(ForwardMessageHandler.class);
- *       
+ *
  *       bindHandler(Contacts.class, ContactsHandler.class);
  *       bindHandler(SendMessage.class, SendMessageHandler.class);
- *       
+ *
  *       bind(UserPreferencesStorage.class).to(userPreferencesClass);
- *       
+ *
  *       bind(User.class).to(TestUser.class).in(Singleton.class);
- *       
+ *
  *   }
  * </pre>
- * 
+ *
  * @author manolo
  *
  */
 public abstract class AbstractGuiceTestModule extends AbstractModule{
 
     protected static class TestUser extends UserImpl {
-    	
+
         @Inject
-        public TestUser(@Named("Username") String username, 
+        public TestUser(@Named("Username") String username,
                         @Named("Password") String password,
                         Settings settings) {
             setName(username);
@@ -86,8 +86,8 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
             setSettings(settings);
         }
     }
-    
-    
+
+
     /**
      * Configuration of a Apache-James server.
      * Customize it for your integration tests.
@@ -95,30 +95,30 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
     public static final Properties jamesProperties = new Properties() {
         private static final long serialVersionUID = 1L;
         {
-            // SET THIS 
+            // SET THIS
             put("Username","manolo");
             put("Password","***");
             ///
-            
+
             put("IMAPServerAddress", "localhost");
             put("IMAPServerPort", "143");
             put("IMAPS", "false");
-            
+
             put("DefaultInboxFolder", "INBOX");
             put("DefaultTrashFolder", "Trash");
             put("DefaultSentFolder", "Sent");
             put("DefaultDraftsFolder", "Drafts");
-            
+
             put("SMTPServerAddress", "localhost");
             put("SMTPServerPort", "25");
             put("SMTPS", "false");
             put("SMTPAuth", "true");
-            
+
             put("SessionDebug", "true");
             put("TrustSSL", "false");
         }
     };
-    
+
     /**
      * Configuration of an IMAP server.
      * Customize it for your integration tests.
@@ -126,58 +126,58 @@ public abstract class AbstractGuiceTestModule extends AbstractModule{
     public static final Properties courierProperties = new Properties() {
         private static final long serialVersionUID = 1L;
         {
-            // SET THIS 
+            // SET THIS
             put("Username","user");
             put("Password","password");
             ///
-            
+
             put("IMAPServerAddress", "localhost");
             put("IMAPServerPort", "143");
             put("IMAPS", "false");
-            
+
             put("DefaultInboxFolder", "INBOX");
             put("DefaultTrashFolder", "INBOX.Trash");
             put("DefaultSentFolder", "INBOX.Sent");
             put("DefaultDraftsFolder", "INBOX.Drafts");
-            
+
             put("SMTPServerAddress", "mail.hotelsearch.com");
             put("SMTPServerPort", "25");
             put("SMTPS", "false");
             put("SMTPAuth", "true");
-            
+
             put("SessionDebug", "true");
             put("TrustSSL", "false");
         }
     };
-    
+
     /**
      * Configuration of GMail IMAP server.
      */
     public static final Properties gmailProperties = new Properties() {
         private static final long serialVersionUID = 1L;
         {
-            // Use a valid gmail account 
+            // Use a valid gmail account
             put("Username","doodootis@gmail.com");
             put("Password","******");
             /////
-            
+
             put("IMAPServerAddress", "imap.gmail.com");
             put("IMAPServerPort", "993");
             put("IMAPS", "true");
-            
+
             put("IMAPConnectionPoolSize", "4");
             put("IMAPConnectionPoolTimeout", "300000");
-            
+
             put("DefaultInboxFolder", "INBOX");
             put("DefaultTrashFolder", "[Gmail]/Trash");
             put("DefaultSentFolder", "[Gmail]/Sent Mail");
             put("DefaultDraftsFolder", "[Gmail]/Drafts");
-            
+
             put("SMTPServerAddress", "smtp.gmail.com");
             put("SMTPServerPort", "465");
             put("SMTPS", "true");
             put("SMTPAuth", "true");
-            
+
             put("SessionDebug", "true");
             put("TrustSSL", "false");
         }

@@ -29,7 +29,7 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(value = ImapFolder.class)
 public interface ImapFolder extends ValueProxy, HasName, HasFullName {
-    
+
     int getUnseenMessageCount();
     List<ImapFolder> getChildren();
     void setChildren(List<ImapFolder> children);
@@ -40,7 +40,7 @@ public interface ImapFolder extends ValueProxy, HasName, HasFullName {
     void setDelimiter(String delimiter);
     void setSubscribed(boolean subscribed);
     boolean getSubscribed();
-    
+
     boolean getHasChildren();
     void setHasChildren(boolean hasChildren);
 

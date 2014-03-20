@@ -30,34 +30,34 @@ import com.google.gwt.user.client.DOM;
 
 public class Hupa implements EntryPoint {
 
-	@Override
-	public void onModuleLoad() {
-		handleExceptionsAsync();
-		initApp();
-	}
-	
-	protected void initApp() {
+    @Override
+    public void onModuleLoad() {
+        handleExceptionsAsync();
+        initApp();
+    }
+
+    protected void initApp() {
         DOM.getElementById("loading").removeFromParent();
         createInjector().getHupaController();
         bindEvents();
-	}
-	
-	protected void bindEvents() {
-	}
+    }
 
-	protected AppInjector createInjector() {
+    protected void bindEvents() {
+    }
+
+    protected AppInjector createInjector() {
         return GWT.create(AppGinjector.class);
     }
 
-	protected void handleExceptionsAsync() {
-		GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-			public void onUncaughtException(Throwable e) {
-				e.printStackTrace();
-				GQuery.console.log(stackTraceToString(e));
-			}
-		});
-	}
-	
+    protected void handleExceptionsAsync() {
+        GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+            public void onUncaughtException(Throwable e) {
+                e.printStackTrace();
+                GQuery.console.log(stackTraceToString(e));
+            }
+        });
+    }
+
     private String stackTraceToString(Throwable throwable) {
         String ret = "";
         while (throwable != null) {

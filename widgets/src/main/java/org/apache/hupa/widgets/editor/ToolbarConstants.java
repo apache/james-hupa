@@ -27,7 +27,7 @@ import com.google.gwt.i18n.client.Constants;
  * internationalizable.
  */
 public interface ToolbarConstants extends Constants {
-    
+
     @DefaultStringValue("Toggle Bold")
     public String editor_bold();
 
@@ -84,15 +84,15 @@ public interface ToolbarConstants extends Constants {
 
     @DefaultStringValue("Background color")
     public String editor_background();
-    
+
     @DefaultStringValue("Foreground color")
     public String editor_foreground();
-    
+
     @DefaultStringValue("Font name")
     public String editor_font();
-    
+
     @DefaultStringValue("Font size")
     public String editor_size();
-    
+
 
 }

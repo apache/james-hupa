@@ -34,30 +34,30 @@ import com.google.inject.Inject;
 
 public class MessageListFooterActivity extends AppBaseActivity {
 
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		container.setWidget(display.asWidget());
-		bindTo(eventBus);
-	}
+    @Override
+    public void start(AcceptsOneWidget container, EventBus eventBus) {
+        container.setWidget(display.asWidget());
+        bindTo(eventBus);
+    }
 
-	private void bindTo(final EventBus eventBus) {
-		final ListBox labels = display.getLabels();
-		labels.addChangeHandler(new ChangeHandler() {
-			public void onChange(ChangeEvent event) {
-				int selectedIndex = labels.getSelectedIndex();
-				if (selectedIndex > 0){
-					String newFolderName = labels.getItemText(labels.getSelectedIndex()).replace(".", "").trim();
-					eventBus.fireEvent(new MoveMessageEvent(new ImapFolderImpl(newFolderName)));
-				}
-			}
-		});
-	}
+    private void bindTo(final EventBus eventBus) {
+        final ListBox labels = display.getLabels();
+        labels.addChangeHandler(new ChangeHandler() {
+            public void onChange(ChangeEvent event) {
+                int selectedIndex = labels.getSelectedIndex();
+                if (selectedIndex > 0){
+                    String newFolderName = labels.getItemText(labels.getSelectedIndex()).replace(".", "").trim();
+                    eventBus.fireEvent(new MoveMessageEvent(new ImapFolderImpl(newFolderName)));
+                }
+            }
+        });
+    }
 
-	@Inject private Displayable display;
-	
-	public interface Displayable extends IsWidget {
-		SimplePager getPager();
-		HasVisibility getLabelsPanel();
-		ListBox getLabels();
-	}
+    @Inject private Displayable display;
+
+    public interface Displayable extends IsWidget {
+        SimplePager getPager();
+        HasVisibility getLabelsPanel();
+        ListBox getLabels();
+    }
 }

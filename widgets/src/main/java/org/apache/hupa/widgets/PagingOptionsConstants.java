@@ -30,5 +30,5 @@ public interface PagingOptionsConstants extends Constants{
     public String pagePrev();
 
     public String pageFirst();
-    
+
 }

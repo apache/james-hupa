@@ -33,22 +33,22 @@ public class MoveMessageActionImpl implements MoveMessageAction {
         this.newFolder = newFolder;
         this.messageUid = messageUid;
     }
-    
+
     protected MoveMessageActionImpl() {
     }
-    
+
     public long getMessageUid() {
         return messageUid;
     }
-    
+
     public ImapFolder getOldFolder() {
         return oldFolder;
     }
-    
+
     public ImapFolder getNewFolder() {
         return newFolder;
     }
-    
+
     public void setMessageUid(long messageUid){
         this.messageUid = messageUid;
     }

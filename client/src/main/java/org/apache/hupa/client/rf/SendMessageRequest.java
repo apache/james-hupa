@@ -30,5 +30,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = SendMessageService.class, locator = IocRfServiceLocator.class)
 public interface SendMessageRequest extends RequestContext {
-	Request<GenericResult> send(SendMessageAction action);
+    Request<GenericResult> send(SendMessageAction action);
 }

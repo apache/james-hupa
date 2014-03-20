@@ -49,7 +49,7 @@ import com.sun.mail.imap.IMAPFolder;
 public class DownloadAttachmentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1245563204035792963L;
-    
+
     private IMAPStoreCache cache;
     private Log logger;
 
@@ -104,7 +104,7 @@ public class DownloadAttachmentServlet extends HttpServlet {
             } else {
                 response.setContentType("application/download");
             }
-            
+
             handleAttachmentData(request, m, attachmentName, part.getInputStream(), out);
             return;
         } catch (Exception e) {

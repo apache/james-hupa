@@ -30,7 +30,7 @@ import org.apache.hupa.shared.exception.HupaException;
 import org.junit.Test;
 
 public class LogoutUserServiceTest extends HupaGuiceTestCase {
-    
+
     @Test public void logout() {
         try {
             httpSession.setAttribute("Attribute", "Value");
@@ -42,6 +42,6 @@ public class LogoutUserServiceTest extends HupaGuiceTestCase {
             e.printStackTrace();
             fail();
         }
-        
+
     }
 }

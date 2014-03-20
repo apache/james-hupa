@@ -39,7 +39,7 @@ public class LogoutEvent extends GwtEvent<LogoutEventHandler>{
     public com.google.gwt.event.shared.GwtEvent.Type<LogoutEventHandler> getAssociatedType() {
         return TYPE;
     }
-    
+
     public User getUser() {
         return user;
     }

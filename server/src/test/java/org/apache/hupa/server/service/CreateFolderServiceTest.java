@@ -38,23 +38,23 @@ import org.junit.Test;
 
 public class CreateFolderServiceTest extends HupaGuiceTestCase {
 
-	@Test public void create() throws MessagingException {
-		ImapFolder folder = createFolder();
-		MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
-		Folder f1 = store.getFolder(folder.getFullName());
-		assertFalse("not exists", f1.exists());
-		try {
-			createFolderService.create(new CreateFolderActionImpl(folder));
-			Folder f = store.getFolder(folder.getFullName());
-			assertTrue("exists", f.exists());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+    @Test public void create() throws MessagingException {
+        ImapFolder folder = createFolder();
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
+        Folder f1 = store.getFolder(folder.getFullName());
+        assertFalse("not exists", f1.exists());
+        try {
+            createFolderService.create(new CreateFolderActionImpl(folder));
+            Folder f = store.getFolder(folder.getFullName());
+            assertTrue("exists", f.exists());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 
-	@Test public void duplicateFolder() throws MessagingException {
-		ImapFolder folder = createFolder();
+    @Test public void duplicateFolder() throws MessagingException {
+        ImapFolder folder = createFolder();
         MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
         Folder f1 = store.getFolder(folder.getFullName());
         f1.create(Folder.HOLDS_FOLDERS);
@@ -63,26 +63,26 @@ public class CreateFolderServiceTest extends HupaGuiceTestCase {
             fail("Folder already exists");
         } catch (Exception e) {
         }
-	}
-	@Test public void invalidSessionId(){
+    }
+    @Test public void invalidSessionId(){
         httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
         ImapFolder folder = createFolder();
         try {
-        	createFolderService.create(new CreateFolderActionImpl(folder));
+            createFolderService.create(new CreateFolderActionImpl(folder));
             fail("Invalid session");
         } catch (InvalidSessionException e) {
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
-    
-	}
 
-	private ImapFolder createFolder() {
-		ImapFolder folder = new ImapFolderImpl();
-		folder.setFullName("NewFolder");
-		folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPARATOR));
-		return folder;
-	}
+    }
+
+    private ImapFolder createFolder() {
+        ImapFolder folder = new ImapFolderImpl();
+        folder.setFullName("NewFolder");
+        folder.setDelimiter(String.valueOf(MockIMAPFolder.SEPARATOR));
+        return folder;
+    }
 
 }

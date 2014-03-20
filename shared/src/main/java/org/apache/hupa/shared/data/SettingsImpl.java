@@ -27,12 +27,12 @@ import org.apache.hupa.shared.domain.Settings;
 public class SettingsImpl implements Settings, Serializable {
 
     private static final long serialVersionUID = -2239213237429390655L;
-    
-    public static final String DEFAULT_INBOX = "INBOX"; 
-    public static final String DEFAULT_TRASH = "Trash"; 
-    public static final String DEFAULT_SENT = "Sent"; 
-    public static final String DEFAULT_DRAFT = "Draft"; 
-    
+
+    public static final String DEFAULT_INBOX = "INBOX";
+    public static final String DEFAULT_TRASH = "Trash";
+    public static final String DEFAULT_SENT = "Sent";
+    public static final String DEFAULT_DRAFT = "Draft";
+
     private String trashFolderName = DEFAULT_TRASH;
     private String sentFolderName = DEFAULT_SENT;
     private String inboxFolderName = DEFAULT_INBOX;
@@ -44,9 +44,9 @@ public class SettingsImpl implements Settings, Serializable {
     private int smtpPort;
     private boolean smtpSecure;
     private boolean smtpAuth = true;
-    
+
     private int prefetchCount = 20;
-    
+
     public String toString() {
         String ret = "";
         ret += " smtp" +  (smtpSecure ? "s" : "") + "=" + smptServer + ":" + smtpPort + "(" + smtpAuth + ")";
@@ -54,39 +54,39 @@ public class SettingsImpl implements Settings, Serializable {
         ret += "\n folders=" +  inboxFolderName + " " + sentFolderName + " " + trashFolderName + " " + draftsFolderName;
         return ret;
     }
-    
+
     public String getInboxFolderName() {
         return inboxFolderName;
     }
-    
+
     public void setInboxFolderName(String inboxFolderName) {
         this.inboxFolderName = inboxFolderName;
     }
-    
+
     public String getTrashFolderName() {
         return trashFolderName;
     }
-    
+
     public void setTrashFolderName(String trashFolderName) {
         this.trashFolderName = trashFolderName;
     }
-    
+
     public String getSentFolderName() {
         return sentFolderName;
     }
-    
+
     public void setSentFolderName(String sentFolderName) {
         this.sentFolderName = sentFolderName;
     }
-    
+
     public int getPostFetchMessageCount() {
         return prefetchCount;
     }
-    
+
     public void setPostFetchMessageCount(int prefetchCount) {
         this.prefetchCount  = prefetchCount;
     }
-    
+
     public String getDraftsFolderName() {
         return draftsFolderName;
     }
@@ -149,5 +149,5 @@ public class SettingsImpl implements Settings, Serializable {
     public void setSmtpAuth(boolean smtpAuth) {
         this.smtpAuth = smtpAuth;
     }
-    
+
 }

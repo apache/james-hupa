@@ -29,7 +29,7 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(User.class)
 public interface User extends ValueProxy {
     public static final String NOT_FOUND = " <<<< User not found in session >>>> ID: ";
-    
+
     String getId();
     boolean getAuthenticated();
     String getName();

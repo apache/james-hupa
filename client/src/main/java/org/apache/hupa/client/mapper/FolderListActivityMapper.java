@@ -30,28 +30,28 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class FolderListActivityMapper extends _HupaActivityMapper {
-	private final Provider<FolderListActivity> folderListActivityProvider;
+    private final Provider<FolderListActivity> folderListActivityProvider;
 
-	@Inject
-	public FolderListActivityMapper(Provider<FolderListActivity> folderListActivityProvider) {
-		this.folderListActivityProvider = folderListActivityProvider;
-	}
+    @Inject
+    public FolderListActivityMapper(Provider<FolderListActivity> folderListActivityProvider) {
+        this.folderListActivityProvider = folderListActivityProvider;
+    }
 
-	@Override
-	protected Activity asyncLoadActivity(final Place place) {
-		if (place instanceof SettingPlace)
-			return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    @Override
+    protected Activity asyncLoadActivity(final Place place) {
+        if (place instanceof SettingPlace)
+            return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return folderListActivityProvider.get();
-			}
-		};
+            @Override
+            protected Activity createInstance() {
+                return folderListActivityProvider.get();
+            }
+        };
 
-	}
+    }
 }

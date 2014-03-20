@@ -1,69 +1,69 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
-	<ui:image field="buttons" src="res/buttons.png" />
-	<ui:image field="originLogo" src="res/hupa-logo-original-transparent.png" />
-	<ui:style>
-		.minWidth {
-			min-width: 700px;
-		}
-		
-		.feature {
-			height: 46px;
-			margin-bottom: 10px;
-			padding: 0 0 0 10px;
-			background: -moz-linear-gradient(top, #404040 0%, #060606 100%);
-			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #404040),
-				color-stop(100%, #060606) );
-			background: -o-linear-gradient(top, #404040 0%, #060606 100%);
-			background: -ms-linear-gradient(top, #404040 0%, #060606 100%);
-			background: linear-gradient(top, #404040 0%, #060606 100%);
-		}
-	</ui:style>
-	<g:LayoutPanel addStyleNames="{style.minWidth}">
-		<g:layer left='0' right='0' top='0' height='92px'>
-			<g:DockLayoutPanel unit="PX" ui:field="Header">
-				<g:north size="23">
-					<g:SimplePanel ui:field="topBarContainer" />
-				</g:north>
-				<g:center>
-					<g:LayoutPanel addStyleNames="{style.feature}"
-						ui:field="HupaFeature">
+    xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:hupa='urn:import:org.apache.hupa.client.ui'>
+    <ui:image field="buttons" src="res/buttons.png" />
+    <ui:image field="originLogo" src="res/hupa-logo-original-transparent.png" />
+    <ui:style>
+        .minWidth {
+            min-width: 700px;
+        }
 
-						<g:layer width="177px" left="10px">
-							<g:SimplePanel ui:field="logoContainer" />
-						</g:layer>
-						<g:layer>
-							<g:SimplePanel ui:field="notificationContainer" />
-						</g:layer>
-						<g:layer width="171px" right="0">
-							<g:SimpleLayoutPanel ui:field="navigationContainer" />
-						</g:layer>
-					</g:LayoutPanel>
-				</g:center>
-			</g:DockLayoutPanel>
-		</g:layer>
-		<g:layer left='10px' right='10px' top='84px' bottom="20px">
-			<g:DockLayoutPanel>
-				<g:north size="44">
-					<hupa:_ToolPanel ui:field="toolPanel" />
-				</g:north>
-				<g:center>
-					<g:LayoutPanel ui:field="mainBox">
-						<g:layer left="0%" width="100%" top="0%" height="100%">
-							<hupa:_CenterPanel ui:field="centerPanel" />
-						</g:layer>
-						<g:layer left="0%" width="100%" top="0%" height="100%">
-							<hupa:_CenterSettingPanel ui:field="settingPanel" />
-						</g:layer>
+        .feature {
+            height: 46px;
+            margin-bottom: 10px;
+            padding: 0 0 0 10px;
+            background: -moz-linear-gradient(top, #404040 0%, #060606 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #404040),
+                color-stop(100%, #060606) );
+            background: -o-linear-gradient(top, #404040 0%, #060606 100%);
+            background: -ms-linear-gradient(top, #404040 0%, #060606 100%);
+            background: linear-gradient(top, #404040 0%, #060606 100%);
+        }
+    </ui:style>
+    <g:LayoutPanel addStyleNames="{style.minWidth}">
+        <g:layer left='0' right='0' top='0' height='92px'>
+            <g:DockLayoutPanel unit="PX" ui:field="Header">
+                <g:north size="23">
+                    <g:SimplePanel ui:field="topBarContainer" />
+                </g:north>
+                <g:center>
+                    <g:LayoutPanel addStyleNames="{style.feature}"
+                        ui:field="HupaFeature">
+
+                        <g:layer width="177px" left="10px">
+                            <g:SimplePanel ui:field="logoContainer" />
+                        </g:layer>
+                        <g:layer>
+                            <g:SimplePanel ui:field="notificationContainer" />
+                        </g:layer>
+                        <g:layer width="171px" right="0">
+                            <g:SimpleLayoutPanel ui:field="navigationContainer" />
+                        </g:layer>
+                    </g:LayoutPanel>
+                </g:center>
+            </g:DockLayoutPanel>
+        </g:layer>
+        <g:layer left='10px' right='10px' top='84px' bottom="20px">
+            <g:DockLayoutPanel>
+                <g:north size="44">
+                    <hupa:_ToolPanel ui:field="toolPanel" />
+                </g:north>
+                <g:center>
+                    <g:LayoutPanel ui:field="mainBox">
+                        <g:layer left="0%" width="100%" top="0%" height="100%">
+                            <hupa:_CenterPanel ui:field="centerPanel" />
+                        </g:layer>
+                        <g:layer left="0%" width="100%" top="0%" height="100%">
+                            <hupa:_CenterSettingPanel ui:field="settingPanel" />
+                        </g:layer>
                         <g:layer left="0%" width="100%" top="0%" height="100%">
                             <hupa:_CenterContactPanel ui:field="contactPanel" />
                         </g:layer>
                         <g:layer left="0%" width="100%" top="0%" height="100%">
                             <hupa:_CenterComposePanel ui:field="composePanel" />
                         </g:layer>
-					</g:LayoutPanel>
-				</g:center>
-			</g:DockLayoutPanel>
-		</g:layer>
-	</g:LayoutPanel>
+                    </g:LayoutPanel>
+                </g:center>
+            </g:DockLayoutPanel>
+        </g:layer>
+    </g:LayoutPanel>
 </ui:UiBinder>

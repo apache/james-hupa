@@ -31,26 +31,26 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class NavigationActivityMapper implements ActivityMapper {
-	private final Provider<NavigationActivity> navigationActivityProvider;
+    private final Provider<NavigationActivity> navigationActivityProvider;
 
-	@Inject
-	public NavigationActivityMapper(
-			Provider<NavigationActivity> navigationActivityProvider) {
-		this.navigationActivityProvider = navigationActivityProvider;
-	}
+    @Inject
+    public NavigationActivityMapper(
+            Provider<NavigationActivity> navigationActivityProvider) {
+        this.navigationActivityProvider = navigationActivityProvider;
+    }
 
-	public Activity getActivity(Place place) {
-		if(place instanceof DefaultPlace) return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    public Activity getActivity(Place place) {
+        if(place instanceof DefaultPlace) return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return navigationActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return navigationActivityProvider.get();
+            }
+        };
+    }
 }

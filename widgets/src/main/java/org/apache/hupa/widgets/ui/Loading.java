@@ -29,23 +29,23 @@ import com.google.gwt.user.client.ui.HTML;
  *
  */
 public class Loading extends Composite {
-    
+
     public Loading(String loadingMsg) {
         initWidget(new HTML(loadingMsg));
         addStyleName(WidgetsCSS.C_loading);
     }
-    
+
     public Loading() {
         this("");
     }
-    
+
     /**
      * Show the Loading image
      */
     public void show() {
         setVisible(true);
     }
-    
+
     /**
      * Hide the Loading image
      */

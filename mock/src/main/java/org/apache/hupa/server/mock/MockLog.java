@@ -25,42 +25,42 @@ public class MockLog implements Log{
 
     public void debug(Object arg0) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void debug(Object arg0, Throwable arg1) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void error(Object arg0) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void error(Object arg0, Throwable arg1) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void fatal(Object arg0) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void fatal(Object arg0, Throwable arg1) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void info(Object arg0) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void info(Object arg0, Throwable arg1) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public boolean isDebugEnabled() {
@@ -111,7 +111,7 @@ public class MockLog implements Log{
     public void warn(Object arg0, Throwable arg1) {
         log(arg0);
     }
-    
+
     private void log(Object msg) {
         if (msg != null) {
             System.out.println(msg);

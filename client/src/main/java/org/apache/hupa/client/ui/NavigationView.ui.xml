@@ -1,98 +1,98 @@
-<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
-	license agreements. See the NOTICE file distributed with this work for additional 
-	information regarding copyright ownership. The ASF licenses this file to 
-	you under the Apache License, Version 2.0 (the "License"); you may not use 
-	this file except in compliance with the License. You may obtain a copy of 
-	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
-	by applicable law or agreed to in writing, software distributed under the 
-	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
-	OF ANY KIND, either express or implied. See the License for the specific 
-	language governing permissions and limitations under the License. -->
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor
+    license agreements. See the NOTICE file distributed with this work for additional
+    information regarding copyright ownership. The ASF licenses this file to
+    you under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of
+    the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
+    by applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+    OF ANY KIND, either express or implied. See the License for the specific
+    language governing permissions and limitations under the License. -->
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-	<ui:image field="buttons" src="res/buttons.png"/>
-	<ui:style type="org.apache.hupa.client.ui.NavigationView.Style">
-		@sprite .navigation .inner {
-			gwt-image: 'buttons';
-			display: inline-block;
-			font-size: 110%;
-			font-weight: normal;
-			text-shadow: 0px 1px 1px black;
-			padding: 5px 0 0 34px;
-			height: 19px;
-			cursor: pointer;
-			color: #eee;
-		}
-		
-		.navigation {
-			display: inline-block;
-			height: 34px;
-			padding: 12px 10px 0 6px;
-		}
-		
-		.selected {
-			background-color: #2c2c2c;
-		}
-		
-		.navigation .mailInner {
-			background-position: 0 2px;
-		}
+    xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:image field="buttons" src="res/buttons.png"/>
+    <ui:style type="org.apache.hupa.client.ui.NavigationView.Style">
+        @sprite .navigation .inner {
+            gwt-image: 'buttons';
+            display: inline-block;
+            font-size: 110%;
+            font-weight: normal;
+            text-shadow: 0px 1px 1px black;
+            padding: 5px 0 0 34px;
+            height: 19px;
+            cursor: pointer;
+            color: #eee;
+        }
+
+        .navigation {
+            display: inline-block;
+            height: 34px;
+            padding: 12px 10px 0 6px;
+        }
+
+        .selected {
+            background-color: #2c2c2c;
+        }
+
+        .navigation .mailInner {
+            background-position: 0 2px;
+        }
 
         .navigation .mailInnerSelected {
             background-position: 0 -22px;
             color: #3cf;
         }
 
-		
-		.navigation mailInner:hover,.navigation .mailInner.selected {
-			background-position: 0 -22px;
-		}
-		
-		.navigation .contactInner {
-			background-position: 0 -48px;
-		}
+
+        .navigation mailInner:hover,.navigation .mailInner.selected {
+            background-position: 0 -22px;
+        }
+
+        .navigation .contactInner {
+            background-position: 0 -48px;
+        }
         .navigation .contactInnerSelected {
             background-position: 0 -72px;
         }
-		
-		.navigation a.contact:hover span.inner,.navigation a.contact.selected span.inner
-			{
-			background-position: 0 -72px;
-		}
-		
-		.navigation .settingsInner {
-			background-position: 0 -96px;
-		}
-		
+
+        .navigation a.contact:hover span.inner,.navigation a.contact.selected span.inner
+            {
+            background-position: 0 -72px;
+        }
+
+        .navigation .settingsInner {
+            background-position: 0 -96px;
+        }
+
         .navigation .settingsInnerSelected {
             background-position: 0 -120px;
         }
-		.navigation a.settings:hover span.inner,.navigation a.settings.selected span.inner
-			{
-			background-position: 0 -120px;
-		}
-		
-		.navigation a.calendar span.inner {
-			background-position: 0 -144px;
-		}
-		
-		.navigation a.calendar:hover span.inner,.navigation a.calendar.selected span.inner
-			{
-			background-position: 0 -168px;
-		}
-	</ui:style>
-	<g:DockLayoutPanel unit="PX" ui:field="Navigation">
-		<g:west size="74">
-			<g:SimplePanel ui:field="mailOuter" addStyleNames="{style.navigation} {style.selected}">
-				<g:Anchor  ui:field="mail"
-					addStyleNames=" 
+        .navigation a.settings:hover span.inner,.navigation a.settings.selected span.inner
+            {
+            background-position: 0 -120px;
+        }
+
+        .navigation a.calendar span.inner {
+            background-position: 0 -144px;
+        }
+
+        .navigation a.calendar:hover span.inner,.navigation a.calendar.selected span.inner
+            {
+            background-position: 0 -168px;
+        }
+    </ui:style>
+    <g:DockLayoutPanel unit="PX" ui:field="Navigation">
+        <g:west size="74">
+            <g:SimplePanel ui:field="mailOuter" addStyleNames="{style.navigation} {style.selected}">
+                <g:Anchor  ui:field="mail"
+                    addStyleNames="
                                 {style.mailInnerSelected} {style.inner}">
-					Mail
-				</g:Anchor>
-			</g:SimplePanel>
-		</g:west>
-		<g:center>
+                    Mail
+                </g:Anchor>
+            </g:SimplePanel>
+        </g:west>
+        <g:center>
             <g:SimplePanel ui:field="settingOuter" addStyleNames="{style.navigation}">
                 <g:Anchor ui:field="setting"
                     addStyleNames="
@@ -100,6 +100,6 @@
                     Settings
                 </g:Anchor>
             </g:SimplePanel>
-		</g:center>
-	</g:DockLayoutPanel>
+        </g:center>
+    </g:DockLayoutPanel>
 </ui:UiBinder>

@@ -1,12 +1,12 @@
-<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
-    license agreements. See the NOTICE file distributed with this work for additional 
-    information regarding copyright ownership. The ASF licenses this file to 
-    you under the Apache License, Version 2.0 (the "License"); you may not use 
-    this file except in compliance with the License. You may obtain a copy of 
-    the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
-    by applicable law or agreed to in writing, software distributed under the 
-    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
-    OF ANY KIND, either express or implied. See the License for the specific 
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor
+    license agreements. See the NOTICE file distributed with this work for additional
+    information regarding copyright ownership. The ASF licenses this file to
+    you under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of
+    the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
+    by applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+    OF ANY KIND, either express or implied. See the License for the specific
     language governing permissions and limitations under the License. -->
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
@@ -31,20 +31,20 @@
             -webkit-box-shadow: 0 2px 6px 0 #333;
             -o-box-shadow: 0 2px 6px 0 #333;
         }
-        
+
         .imapSetting table td{
             border-spacing: 0;
             border-collapse: collapse;
             padding: 3px;
         }
-        
+
         /*** Login form ***/
         .loginForm {
             position: relative;
             width: 580px;
             margin: 20ex auto 2ex auto;
         }
-        
+
         .loginForm .boxInner {
             background: url(images/linen_login.jpg) top left no-repeat #5c5c5c;
             width: 430px;
@@ -57,18 +57,18 @@
             -webkit-box-shadow: inset 0 0 1px #ccc;
             -moz-box-shadow: inset 0 0 1px #ccc;
         }
-        
+
         .loginForm .tdInput {
             width: 80%;
             padding: 8px;
         }
-        
+
         .loginForm input[type="text"],.loginForm input[type="password"] {
             background-color: white;
             width: 100%;
             border-color: #666;
         }
-        
+
         .loginForm input.button {
             color: #444;
             text-shadow: 0px 1px 1px #fff;
@@ -85,7 +85,7 @@
             -webkit-box-shadow: inset 0 1px 0 0 #fff;
             -o-box-shadow: inset 0 1px 0 0 #fff;
         }
-        
+
         .loginForm input.button:hover,.loginForm input.button:focus {
             box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0 #fff;
             -moz-box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0
@@ -94,7 +94,7 @@
                 #fff;
             -o-box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0 #fff;
         }
-        
+
         .loginForm input.button:active {
             color: #333;
             background: -moz-linear-gradient(top, #dcdcdc 0%, #f9f9f9 100%);
@@ -104,11 +104,11 @@
             background: -ms-linear-gradient(top, #dcdcdc 0%, #f9f9f9 100%);
             background: linear-gradient(top, #dcdcdc 0%, #f9f9f9 100%);
         }
-        
+
         .loginForm form table {
             width: 98%;
         }
-        
+
         .loginForm .tdTitle {
             white-space: nowrap;
             color: #cecece;
@@ -116,13 +116,13 @@
             text-align: right;
             padding-right: 1em;
         }
-        
+
         .loginForm .pFormbuttons {
             margin-top: 2em;
             text-align: center;
             border-radius: 5px;
         }
-        
+
         .loginForm .submitButton {
             background-color: white;
             font-size: 110%;
@@ -137,7 +137,7 @@
             -o-border-radius: 5px;
             border-radius: 5px;
         }
-        
+
         .loginForm .submitButton:hover {
             box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0 #fff;
             -moz-box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0
@@ -146,22 +146,22 @@
                 #fff;
             -o-box-shadow: 0 0 5px 2px rgba(71, 135, 177, 0.9), inset 0 1px 0 0 #fff;
         }
-        
+
         .loginForm #logo {
             margin-bottom: 20px;
         }
-        
+
         .loginForm .messagebox {
             min-height: 40px;
             padding: 5px 25px;
             text-align: center;
         }
-        
+
         .loginForm .messageBox div {
             display: inline-block;
             padding-right: 0;
         }
-        
+
         .bottomLine {
             font-size: 90%;
             text-align: center;
@@ -176,13 +176,13 @@
             margin-top: -3px;
             padding-top: 10px;
         }
-        
+
         .message {
             min-height: 40px;
             padding: 5px 25px;
             text-align: center;
         }
-        
+
         @sprite .notice {
             gwt-image: 'messages';
             background-position: 0 5px;
@@ -196,16 +196,16 @@
             text-align: center;
             cursor: default;
         }
-        
+
         @sprite .spinner {
             gwt-image: 'spinner';
         }
-        
+
         @external .loading;
         .loading {
             display: none;
         }
-        
+
         @sprite .settingIcon {
             gwt-image: 'buttons';
             background-position: 0 -96px;

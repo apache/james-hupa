@@ -27,22 +27,22 @@ import org.apache.hupa.shared.domain.User;
 
 /**
  * User which will get used for login to the IMAP and SMTP account
- * 
- * 
+ *
+ *
  */
 public class UserImpl implements User, Serializable {
-    
+
     private static final long serialVersionUID = 7172612434659286225L;
-    
+
     private String id;
-    
+
 
     private String name;
     private String password;
     private Date loginDate;
     private boolean auth;
     private Settings settings;
-    
+
     public String getId() {
         return id != null ? id : name;
     }
@@ -52,7 +52,7 @@ public class UserImpl implements User, Serializable {
     }
     /**
      * The name of the User
-     * 
+     *
      * @param name
      */
     public void setName(String name) {
@@ -61,7 +61,7 @@ public class UserImpl implements User, Serializable {
 
     /**
      * Get name of the User
-     * 
+     *
      * @return name
      */
     public String getName() {
@@ -70,7 +70,7 @@ public class UserImpl implements User, Serializable {
 
     /**
      * Set the Password of the User
-     * 
+     *
      * @param password
      */
     public void setPassword(String password) {
@@ -79,7 +79,7 @@ public class UserImpl implements User, Serializable {
 
     /**
      * Get the Password of the User
-     * 
+     *
      * @return password
      */
     public String getPassword() {
@@ -88,7 +88,7 @@ public class UserImpl implements User, Serializable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     public String toString() {
@@ -97,7 +97,7 @@ public class UserImpl implements User, Serializable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public boolean equals(Object object) {
@@ -114,7 +114,7 @@ public class UserImpl implements User, Serializable {
     }
     /**
      * Get the Date on which the User was logged in the last time
-     * 
+     *
      * @return loginDate
      */
     public Date getLoginDate() {
@@ -123,7 +123,7 @@ public class UserImpl implements User, Serializable {
 
     /**
      * Set if the User was successful authenticated
-     * 
+     *
      * @param auth
      */
     public void setAuthenticated(boolean auth) {
@@ -135,7 +135,7 @@ public class UserImpl implements User, Serializable {
 
     /**
      * Get if the User was successful authenticated
-     * 
+     *
      * @return auth
      */
     public boolean getAuthenticated() {

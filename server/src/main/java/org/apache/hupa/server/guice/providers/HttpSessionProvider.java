@@ -27,9 +27,9 @@ import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
 
 public class HttpSessionProvider implements Provider<HttpSession>{
 
-	@Override
+    @Override
     public HttpSession get() {
-		return RequestFactoryServlet.getThreadLocalRequest().getSession();
+        return RequestFactoryServlet.getThreadLocalRequest().getSession();
     }
 
 }

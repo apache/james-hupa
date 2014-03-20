@@ -38,23 +38,23 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class _CenterSettingPanel extends Composite {
 
-	@UiField public SplitLayoutPanel thisPanel;
+    @UiField public SplitLayoutPanel thisPanel;
 
-	@UiField public SimpleLayoutPanel settingNavContainer;
+    @UiField public SimpleLayoutPanel settingNavContainer;
 
-	@UiField public SettingLabelPanel settingLabelPanel;
+    @UiField public SettingLabelPanel settingLabelPanel;
 
-	@UiField public LayoutPanel settingBox;
+    @UiField public LayoutPanel settingBox;
 
-	@UiField public Style style;
+    @UiField public Style style;
 
-	public interface Style extends CssResource {
-	}
+    public interface Style extends CssResource {
+    }
 
-	public void arrangeLayout(int lyt) {
+    public void arrangeLayout(int lyt) {
         settingBox.setWidgetLeftWidth(settingLabelPanel, 0, Unit.PCT, 100, Unit.PCT);
         settingBox.setWidgetTopHeight(settingLabelPanel, 0, Unit.PCT, 100, Unit.PCT);
-	}
+    }
 
     interface _CenterSettingPanelUiBinder extends UiBinder<SplitLayoutPanel, _CenterSettingPanel> {
     }
@@ -65,40 +65,40 @@ public class _CenterSettingPanel extends Composite {
     @SuppressWarnings("unchecked")
     public _CenterSettingPanel() {
         binder = createBinder();
-		initWidget((SplitLayoutPanel)binder.createAndBindUi(this));
-	}
-    
+        initWidget((SplitLayoutPanel)binder.createAndBindUi(this));
+    }
+
     @SuppressWarnings("rawtypes")
     protected UiBinder createBinder() {
         return GWT.create(_CenterSettingPanelUiBinder.class);
     }
 
-	public interface Resources extends CellList.Resources {
+    public interface Resources extends CellList.Resources {
 
-		Resources INSTANCE = GWT.create(Resources.class);
+        Resources INSTANCE = GWT.create(Resources.class);
 
-		@Source("res/CssLabelListView.css")
-		public CellList.Style cellListStyle();
-	}
+        @Source("res/CssLabelListView.css")
+        public CellList.Style cellListStyle();
+    }
 
-	public AcceptsOneWidget getLabelListView() {
-		return settingLabelPanel.getLabelListView();
-	}
+    public AcceptsOneWidget getLabelListView() {
+        return settingLabelPanel.getLabelListView();
+    }
 
-	public AcceptsOneWidget getLabelPropertiesView() {
-		return settingLabelPanel.getLabelPropertiesView();
-	}
-	
-	public AcceptsOneWidget getSettingNavView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				settingNavContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getLabelPropertiesView() {
+        return settingLabelPanel.getLabelPropertiesView();
+    }
 
-	public void swithTo(SettingPlace sp) {
+    public AcceptsOneWidget getSettingNavView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                settingNavContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
+
+    public void swithTo(SettingPlace sp) {
         GQuery.console.log("_CenterSetting... swithTo " + sp + " " + sp.getToken());
-	}
+    }
 }

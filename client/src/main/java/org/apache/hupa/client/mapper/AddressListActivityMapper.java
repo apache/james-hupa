@@ -30,28 +30,28 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class AddressListActivityMapper extends _HupaActivityMapper {
-	private final Provider<AddressListActivity> addressListActivityProvider;
+    private final Provider<AddressListActivity> addressListActivityProvider;
 
-	@Inject
-	public AddressListActivityMapper(Provider<AddressListActivity> addressListActivityProvider) {
-		this.addressListActivityProvider = addressListActivityProvider;
-	}
+    @Inject
+    public AddressListActivityMapper(Provider<AddressListActivity> addressListActivityProvider) {
+        this.addressListActivityProvider = addressListActivityProvider;
+    }
 
-	@Override
-	protected Activity asyncLoadActivity(final Place place) {
-		if (!(place instanceof ComposePlace))
-			return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    @Override
+    protected Activity asyncLoadActivity(final Place place) {
+        if (!(place instanceof ComposePlace))
+            return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return addressListActivityProvider.get();
-			}
-		};
+            @Override
+            protected Activity createInstance() {
+                return addressListActivityProvider.get();
+            }
+        };
 
-	}
+    }
 }

@@ -32,31 +32,31 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class ComposeActivityMapper implements ActivityMapper {
-	private final Provider<ComposeActivity> composeActivityProvider;
+    private final Provider<ComposeActivity> composeActivityProvider;
 
-	@Inject protected PlaceController placeController;
+    @Inject protected PlaceController placeController;
 
-	@Inject
-	public ComposeActivityMapper(Provider<ComposeActivity> composeActivityProvider) {
-		this.composeActivityProvider = composeActivityProvider;
-	}
+    @Inject
+    public ComposeActivityMapper(Provider<ComposeActivity> composeActivityProvider) {
+        this.composeActivityProvider = composeActivityProvider;
+    }
 
-	public Activity getActivity(final Place place) {
-		if (!(place instanceof ComposePlace))
-			return null;
-		final ComposePlace here = (ComposePlace) place;
-		if (!"new".equals(here.getToken()) && here.getParameters() == null)
-			return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    public Activity getActivity(final Place place) {
+        if (!(place instanceof ComposePlace))
+            return null;
+        final ComposePlace here = (ComposePlace) place;
+        if (!"new".equals(here.getToken()) && here.getParameters() == null)
+            return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return composeActivityProvider.get().with(here);
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return composeActivityProvider.get().with(here);
+            }
+        };
+    }
 }

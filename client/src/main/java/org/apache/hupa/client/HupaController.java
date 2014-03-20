@@ -55,24 +55,24 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class HupaController {
 
-	private final PlaceController placeController;
-	private final HupaLayoutable hupaLayout;
-	private final LoginLayoutable loginLayout;
-	
-	@Inject private NotificationActivity.Displayable noticeRegion;
-	@Inject private TopBarActivity.Displayable topBar;
-	
-	public static User user = null;
+    private final PlaceController placeController;
+    private final HupaLayoutable hupaLayout;
+    private final LoginLayoutable loginLayout;
 
-	@Inject
-	public HupaController(final PlaceController placeController, final PlaceHistoryHandler placeHistoryHandler,
-	        final EventBus eventBus, ActivityManagerInitializer initializeActivityManagerByGin, HupaRequestFactory requestFactory,
-	        HupaStorage storage, final HupaLayoutable hupaLayout, final LoginLayoutable loginLayout) {
-	    
-		this.placeController = placeController;
-		this.hupaLayout = hupaLayout;
-		this.loginLayout = loginLayout;
-		
+    @Inject private NotificationActivity.Displayable noticeRegion;
+    @Inject private TopBarActivity.Displayable topBar;
+
+    public static User user = null;
+
+    @Inject
+    public HupaController(final PlaceController placeController, final PlaceHistoryHandler placeHistoryHandler,
+            final EventBus eventBus, ActivityManagerInitializer initializeActivityManagerByGin, HupaRequestFactory requestFactory,
+            HupaStorage storage, final HupaLayoutable hupaLayout, final LoginLayoutable loginLayout) {
+
+        this.placeController = placeController;
+        this.hupaLayout = hupaLayout;
+        this.loginLayout = loginLayout;
+
         eventBus.addHandler(PlaceChangeEvent.TYPE, new PlaceChangeEvent.Handler() {
             @Override
             public void onPlaceChange(PlaceChangeEvent event) {
@@ -99,7 +99,7 @@ public class HupaController {
                 showScreen(true);
             }
         });
-        
+
         eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
             public void onLogout(LogoutEvent logoutEvent) {
                 RootLayoutPanel.get().clear();
@@ -108,62 +108,62 @@ public class HupaController {
               Window.Location.reload();
             }
         });
-	}
-	
+    }
+
     private void showScreen(boolean login) {
         RootLayoutPanel.get().clear();
         RootLayoutPanel.get().add(login ? loginLayout.get() : hupaLayout.get());
     }
 
-	private void adjustLayout(PlaceChangeEvent event) {
-		Place place = event.getNewPlace();
-		if (place instanceof ComposePlace) {
-			ComposePlace here = (ComposePlace) place;
-			if (here.getParameters() != null) {
-				hupaLayout.switchTo(HupaLayout.LAYOUT_COMPOSE);
-			} else {
-				//FIXME using configure one
-				if(GWT.isProdMode()){
-					placeController.goTo(new FolderPlace("INBOX"));
-				}else{
-					placeController.goTo(new FolderPlace("Mock-Inbox"));
-				}
-			}
-		} else if (place instanceof ContactPlace) {
-			hupaLayout.switchTo(HupaLayout.LAYOUT_CONTACT);
-		}  else if (place instanceof SettingPlace) {
-			hupaLayout.switchTo(HupaLayout.LAYOUT_SETTING);
-			SettingPlace sp = (SettingPlace)place;
-			hupaLayout.arrangeSettingLayout(sp);
-		} else if(place instanceof HupaPlace){
-			hupaLayout.switchTo(HupaLayout.LAYOUT_MESSAGE);
-		} else {
-		    return;
-		}
-	}
+    private void adjustLayout(PlaceChangeEvent event) {
+        Place place = event.getNewPlace();
+        if (place instanceof ComposePlace) {
+            ComposePlace here = (ComposePlace) place;
+            if (here.getParameters() != null) {
+                hupaLayout.switchTo(HupaLayout.LAYOUT_COMPOSE);
+            } else {
+                //FIXME using configure one
+                if(GWT.isProdMode()){
+                    placeController.goTo(new FolderPlace("INBOX"));
+                }else{
+                    placeController.goTo(new FolderPlace("Mock-Inbox"));
+                }
+            }
+        } else if (place instanceof ContactPlace) {
+            hupaLayout.switchTo(HupaLayout.LAYOUT_CONTACT);
+        }  else if (place instanceof SettingPlace) {
+            hupaLayout.switchTo(HupaLayout.LAYOUT_SETTING);
+            SettingPlace sp = (SettingPlace)place;
+            hupaLayout.arrangeSettingLayout(sp);
+        } else if(place instanceof HupaPlace){
+            hupaLayout.switchTo(HupaLayout.LAYOUT_MESSAGE);
+        } else {
+            return;
+        }
+    }
 
-	public void showNotice(String html, int millis) {
-		noticeRegion.notice(html);
-		if (millis > 0)
-			hideNotice.schedule(millis);
-	}
+    public void showNotice(String html, int millis) {
+        noticeRegion.notice(html);
+        if (millis > 0)
+            hideNotice.schedule(millis);
+    }
 
-	public void showTopLoading(String message) {
-		topBar.showLoading(message);
-	}
+    public void showTopLoading(String message) {
+        topBar.showLoading(message);
+    }
 
-	public void hideTopLoading() {
-		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-			@Override
-			public void execute() {
-				topBar.hideLoading();
-			}
-		});
-	}
+    public void hideTopLoading() {
+        Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+            @Override
+            public void execute() {
+                topBar.hideLoading();
+            }
+        });
+    }
 
-	private final Timer hideNotice = new Timer() {
-		public void run() {
-			noticeRegion.hideNotification();
-		}
-	};
+    private final Timer hideNotice = new Timer() {
+        public void run() {
+            noticeRegion.hideNotification();
+        }
+    };
 }

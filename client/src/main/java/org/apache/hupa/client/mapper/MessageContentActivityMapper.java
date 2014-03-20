@@ -30,28 +30,28 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class MessageContentActivityMapper extends _MessageActivityMapper {
-	private final Provider<MessageContentActivity> messageContentActivityProvider;
+    private final Provider<MessageContentActivity> messageContentActivityProvider;
 
-	@Inject
-	public MessageContentActivityMapper(Provider<MessageContentActivity> messageContentActivityProvider) {
-		this.messageContentActivityProvider = messageContentActivityProvider;
-	}
+    @Inject
+    public MessageContentActivityMapper(Provider<MessageContentActivity> messageContentActivityProvider) {
+        this.messageContentActivityProvider = messageContentActivityProvider;
+    }
 
-	@Override
-	protected Activity lazyLoadActivity(final Place place) {
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    @Override
+    protected Activity lazyLoadActivity(final Place place) {
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				if (place instanceof MessagePlace) {
-					return messageContentActivityProvider.get().with(((MessagePlace) place).getTokenWrapper());
-				}
-				return messageContentActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                if (place instanceof MessagePlace) {
+                    return messageContentActivityProvider.get().with(((MessagePlace) place).getTokenWrapper());
+                }
+                return messageContentActivityProvider.get();
+            }
+        };
+    }
 }

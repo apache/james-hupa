@@ -29,5 +29,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = GetMessageRawService.class, locator = IocRfServiceLocator.class)
 public interface GetMessageRawRequest {
-	Request<GetMessageRawResult> get(GetMessageRawAction action);
+    Request<GetMessageRawResult> get(GetMessageRawAction action);
 }

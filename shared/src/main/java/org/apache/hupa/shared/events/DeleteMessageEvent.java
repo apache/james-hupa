@@ -42,7 +42,7 @@ public class DeleteMessageEvent extends GwtEvent<DeleteMessageEventHandler>{
     public com.google.gwt.event.shared.GwtEvent.Type<DeleteMessageEventHandler> getAssociatedType() {
         return TYPE;
     }
-    
+
     public DeleteMessageEvent(User user, ImapFolderImpl folder, ArrayList<Message> messageList) {
         this.user = user;
         this.folder = folder;
@@ -51,7 +51,7 @@ public class DeleteMessageEvent extends GwtEvent<DeleteMessageEventHandler>{
     public DeleteMessageEvent(User user, ImapFolderImpl folder, Message message) {
         ArrayList<Message> mList = new ArrayList<Message>();
         mList.add(message);
-        
+
         this.user = user;
         this.folder = folder;
         this.messageList = mList;
@@ -59,11 +59,11 @@ public class DeleteMessageEvent extends GwtEvent<DeleteMessageEventHandler>{
     public User getUser() {
         return user;
     }
-    
+
     public ImapFolderImpl getFolder() {
         return folder;
     }
-    
+
     public ArrayList<Message> getMessages() {
         return messageList;
     }

@@ -30,28 +30,28 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class LabelListActivityMapper extends _HupaActivityMapper {
-	private final Provider<LabelListActivity> labelListActivityProvider;
+    private final Provider<LabelListActivity> labelListActivityProvider;
 
-	@Inject
-	public LabelListActivityMapper(Provider<LabelListActivity> labelListActivityProvider) {
-		this.labelListActivityProvider = labelListActivityProvider;
-	}
+    @Inject
+    public LabelListActivityMapper(Provider<LabelListActivity> labelListActivityProvider) {
+        this.labelListActivityProvider = labelListActivityProvider;
+    }
 
-	@Override
-	protected Activity asyncLoadActivity(final Place place) {
-		if (!(place instanceof SettingPlace))
-			return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    @Override
+    protected Activity asyncLoadActivity(final Place place) {
+        if (!(place instanceof SettingPlace))
+            return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return labelListActivityProvider.get();
-			}
-		};
+            @Override
+            protected Activity createInstance() {
+                return labelListActivityProvider.get();
+            }
+        };
 
-	}
+    }
 }

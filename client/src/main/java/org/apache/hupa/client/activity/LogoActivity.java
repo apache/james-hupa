@@ -26,12 +26,12 @@ import com.google.inject.Inject;
 
 public class LogoActivity extends AppBaseActivity {
 
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		container.setWidget(display.asWidget());
-	}
+    @Override
+    public void start(AcceptsOneWidget container, EventBus eventBus) {
+        container.setWidget(display.asWidget());
+    }
 
-	@Inject private Displayable display;
-	
-	public interface Displayable extends IsWidget {}
+    @Inject private Displayable display;
+
+    public interface Displayable extends IsWidget {}
 }

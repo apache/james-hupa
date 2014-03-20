@@ -35,36 +35,36 @@ import com.google.inject.Inject;
 /**
  * Servlet which handle uploads. The uploaded files will get added to a temporary registry to get looked-up
  * later.
- * 
+ *
  *
  */
 public class UploadAttachmentServlet extends UploadAction{
 
     private static final long serialVersionUID = 4936687307133529124L;
-    
-    
+
+
 
     private Log logger;
-    
+
     @Inject
     public UploadAttachmentServlet(Log logger) {
         this.logger = logger;
     }
-    
+
     @Override
     public String executeAction(HttpServletRequest request, List<FileItem> sessionFiles) throws UploadActionException {
 
         logger.info("Executing Action, files in session: " + sessionFiles.size() + " previous files in registry: " + SessionUtils.getSessionRegistry(logger, request.getSession()).size());
         // save file items in the user session's registry
-        for(FileItem item: sessionFiles) 
+        for(FileItem item: sessionFiles)
             SessionUtils.getSessionRegistry(logger, request.getSession()).add(item);
 
-        
+
         // remove items from session but not remove the data from disk or memory
         removeSessionFileItems(request, false);
         return null;
     }
-    
+
     @Override
     public void removeItem(HttpServletRequest request, FileItem item)  throws UploadActionException {
         SessionUtils.getSessionRegistry(logger, request.getSession()).remove(item);

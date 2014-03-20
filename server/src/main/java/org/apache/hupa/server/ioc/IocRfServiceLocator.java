@@ -32,7 +32,7 @@ public class IocRfServiceLocator implements ServiceLocator {
 
   @Inject
   private Injector injector;
-  
+
   @Override
   public Object getInstance(Class<?> clazz) {
     return injector.getInstance(clazz);

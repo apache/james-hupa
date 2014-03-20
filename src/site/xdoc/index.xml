@@ -19,16 +19,16 @@
         <author email="server-dev@james.apache.org">James Hupa Project Team</author>
     </properties>
     <body>
-		<section name="What is Hupa?">
-			<p> Hupa is an Rich IMAP-based Webmail application written in GWT
-				(Google Web Toolkit).          </p>
-			<p> Hupa has been entirely written in java to be coherent with the
-				language used in the James project. And It has been a reference of a
-				devloping using GWT good practices (MVP pattern and Unit testing) </p>
-			<p> Hupa is a functional and well designed email client, ready for
-				reading, sending and managing messages, but it still lacks of many features
-				email clients nowadays have.</p>
-		</section>
+        <section name="What is Hupa?">
+            <p> Hupa is an Rich IMAP-based Webmail application written in GWT
+                (Google Web Toolkit).          </p>
+            <p> Hupa has been entirely written in java to be coherent with the
+                language used in the James project. And It has been a reference of a
+                devloping using GWT good practices (MVP pattern and Unit testing) </p>
+            <p> Hupa is a functional and well designed email client, ready for
+                reading, sending and managing messages, but it still lacks of many features
+                email clients nowadays have.</p>
+        </section>
 
         <section name="Releases">
             <p>

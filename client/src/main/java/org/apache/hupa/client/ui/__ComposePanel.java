@@ -32,46 +32,46 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class __ComposePanel extends Composite {
 
-	@UiField protected SimplePanel composeHeaderContainer;
-	@UiField protected SimpleLayoutPanel composeContentContainer;
-	@UiField protected SimplePanel composeStatusContainer;
+    @UiField protected SimplePanel composeHeaderContainer;
+    @UiField protected SimpleLayoutPanel composeContentContainer;
+    @UiField protected SimplePanel composeStatusContainer;
 
-	public __ComposePanel() {
-		initWidget(binder.createAndBindUi(this));
-	}
+    public __ComposePanel() {
+        initWidget(binder.createAndBindUi(this));
+    }
 
-	interface __ComposePanelUiBinder extends
-			UiBinder<DockLayoutPanel, __ComposePanel> {
-	}
+    interface __ComposePanelUiBinder extends
+            UiBinder<DockLayoutPanel, __ComposePanel> {
+    }
 
-	private static __ComposePanelUiBinder binder = GWT
-			.create(__ComposePanelUiBinder.class);
+    private static __ComposePanelUiBinder binder = GWT
+            .create(__ComposePanelUiBinder.class);
 
-	public AcceptsOneWidget getComposeHeaderContainer() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				composeHeaderContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getComposeHeaderContainer() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                composeHeaderContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	public AcceptsOneWidget getComposeContentContainer() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				composeContentContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getComposeContentContainer() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                composeContentContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	public AcceptsOneWidget getComposeStatusContainer() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				composeStatusContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getComposeStatusContainer() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                composeStatusContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
 }

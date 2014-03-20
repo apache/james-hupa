@@ -62,7 +62,7 @@ public class MockWidget implements HasClickHandlers, HasText, HasHTML, Focusable
     }
 
     public void setHTML(String html) {
-        this.html = html;   
+        this.html = html;
     }
 
     public int getTabIndex() {

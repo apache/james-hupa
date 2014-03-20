@@ -27,11 +27,11 @@ import com.google.gwt.user.client.ui.Panel;
 /**
  * Simple generator of rounded panels using css.
  * It works in FF, safari, chrome and opera.
- * 
+ *
  * It is needed to define this in your css.
  * <pre>
  *  div.hupa-rounded {
- *       border: 1px solid #7FAAFF; 
+ *       border: 1px solid #7FAAFF;
  *       border-radius: 8px;
  *     }
  * </pre>

@@ -36,9 +36,9 @@ import org.junit.Test;
 public class ServerModulTest {
     private String tmpDir = System.getProperty("java.io.tmpdir");
 //    private GuiceServerModule module = new GuiceServerModule(tmpDir);
-    
+
     private String configDir = GuiceListener.CONFIG_DIR_IN_WAR;
-    
+
 
     @Before
     public void setUp() {
@@ -48,7 +48,7 @@ public class ServerModulTest {
         f.deleteOnExit();
         f.mkdirs();
     }
-    
+
     @Test
     public void testLoadProperties() throws Exception {
         String fileName = tmpDir + File.separator +"foo.properties";
@@ -63,7 +63,7 @@ public class ServerModulTest {
     @Test
     public void testLoadPropertiesWithEmptyFile() throws Exception {
         GuiceListener sconfig = new GuiceListener();
-        
+
         File tmp = File.createTempFile("foo", ".properties");
         tmp.deleteOnExit();
 
@@ -96,7 +96,7 @@ public class ServerModulTest {
             lines.add(e.getKey() + " = " + e.getValue());
         }
         FileUtils.writeLines(tmp, lines);
-        
+
         System.setProperty(GuiceListener.SYS_PROP_CONFIG_FILE, tmp.getAbsolutePath());
         p = new GuiceListener().loadProperties();
         Assert.assertNotNull(p);

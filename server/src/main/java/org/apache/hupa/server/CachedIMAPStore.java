@@ -32,7 +32,7 @@ public class CachedIMAPStore {
 
     private CachedIMAPStore() {
     }
-    
+
     public static CachedIMAPStore getInstance() {
         return new CachedIMAPStore();
     }
@@ -57,12 +57,12 @@ public class CachedIMAPStore {
     public IMAPStore getStore() {
         return store;
     }
-    
+
     public Session getSession() {
         return session;
     }
 
     public void setSession(Session session) {
         this.session = session;
-    }    
+    }
 }

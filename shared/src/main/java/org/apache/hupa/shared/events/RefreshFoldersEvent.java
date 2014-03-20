@@ -25,9 +25,9 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class RefreshFoldersEvent extends GwtEvent<RefreshFoldersEventHandler>{
     public final static Type<RefreshFoldersEventHandler> TYPE = new Type<RefreshFoldersEventHandler>();
-    
+
     public Message message;
-    
+
     public RefreshFoldersEvent() {
         this(null);
     }

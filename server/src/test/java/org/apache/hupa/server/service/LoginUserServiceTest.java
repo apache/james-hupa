@@ -32,7 +32,7 @@ import org.apache.hupa.shared.exception.HupaException;
 import org.junit.Test;
 
 public class LoginUserServiceTest extends HupaGuiceTestCase {
-    
+
     @Test public void invalidLogin() throws MessagingException {
         httpSession.setAttribute("Attribute", "Value");
         try {
@@ -43,7 +43,7 @@ public class LoginUserServiceTest extends HupaGuiceTestCase {
         assertNull("No user should be stored in session", httpSession.getAttribute(SConsts.USER_SESS_ATTR));
         assertNull("Attributes should be removed", httpSession.getAttribute("Attribute"));
     }
-    
+
     @Test public void validLogin() throws MessagingException {
         try {
             System.out.println(testUser.getName() + " " + testUser.getPassword());

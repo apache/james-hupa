@@ -36,41 +36,41 @@ import com.google.inject.Inject;
 
 public class MessageListFooterView extends Composite implements MessageListFooterActivity.Displayable {
 
-	@UiField(provided = true) SimplePager simplePager;
+    @UiField(provided = true) SimplePager simplePager;
 
-	@UiField ListBox labels;
-	@UiField SimplePanel labelsPanel;
+    @UiField ListBox labels;
+    @UiField SimplePanel labelsPanel;
 
-	@Inject
-	public MessageListFooterView(final MessagesCellTable table, final HupaRequestFactory rf) {
-		SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
-		simplePager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
-		simplePager.setDisplay(table);
-		// simplePager.setRangeLimited(false);
-		initWidget(binder.createAndBindUi(this));
-		
-		// FIXME: make it work
-		labels.setVisible(false);
-	}
+    @Inject
+    public MessageListFooterView(final MessagesCellTable table, final HupaRequestFactory rf) {
+        SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
+        simplePager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
+        simplePager.setDisplay(table);
+        // simplePager.setRangeLimited(false);
+        initWidget(binder.createAndBindUi(this));
 
-	interface MessageListFooterUiBinder extends UiBinder<HorizontalPanel, MessageListFooterView> {
-	}
+        // FIXME: make it work
+        labels.setVisible(false);
+    }
 
-	private static MessageListFooterUiBinder binder = GWT.create(MessageListFooterUiBinder.class);
+    interface MessageListFooterUiBinder extends UiBinder<HorizontalPanel, MessageListFooterView> {
+    }
 
-	@Override
-	public SimplePager getPager() {
-		return simplePager;
-	}
+    private static MessageListFooterUiBinder binder = GWT.create(MessageListFooterUiBinder.class);
 
-	@Override
-	public HasVisibility getLabelsPanel() {
-		return labelsPanel;
-	}
+    @Override
+    public SimplePager getPager() {
+        return simplePager;
+    }
 
-	@Override
-	public ListBox getLabels() {
-		return labels;
-	}
+    @Override
+    public HasVisibility getLabelsPanel() {
+        return labelsPanel;
+    }
+
+    @Override
+    public ListBox getLabels() {
+        return labels;
+    }
 
 }

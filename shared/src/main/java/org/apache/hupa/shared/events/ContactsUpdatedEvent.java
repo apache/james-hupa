@@ -24,11 +24,11 @@ import com.google.gwt.event.shared.GwtEvent;
 import org.apache.hupa.shared.rpc.ContactsResult.Contact;
 
 public class ContactsUpdatedEvent extends GwtEvent<ContactsUpdatedEventHandler> {
-    
+
     public final static Type<ContactsUpdatedEventHandler> TYPE = new Type<ContactsUpdatedEventHandler>();
-    
+
     Contact[] contacts;
-    
+
     public Contact[] getContacts() {
         return contacts;
     }
@@ -36,7 +36,7 @@ public class ContactsUpdatedEvent extends GwtEvent<ContactsUpdatedEventHandler> 
     public ContactsUpdatedEvent(Contact[] contacts) {
         this.contacts = contacts;
     }
-    
+
     @Override
     protected void dispatch(ContactsUpdatedEventHandler handler) {
         handler.onContactsUpdated(this);
@@ -46,5 +46,5 @@ public class ContactsUpdatedEvent extends GwtEvent<ContactsUpdatedEventHandler> 
     public com.google.gwt.event.shared.GwtEvent.Type<ContactsUpdatedEventHandler> getAssociatedType() {
         return TYPE;
     }
-    
+
 }

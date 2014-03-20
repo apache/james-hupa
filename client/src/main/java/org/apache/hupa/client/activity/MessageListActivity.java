@@ -73,56 +73,56 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class MessageListActivity extends AppBaseActivity {
 
-	@Inject protected Displayable display;
-	@Inject protected ToolBarActivity.Displayable toolBar;
+    @Inject protected Displayable display;
+    @Inject protected ToolBarActivity.Displayable toolBar;
     @Inject protected HupaStorage hupaStorage;
 
     protected String folderName;
-	protected User user;
-	FetchMessagesResult currentFechResult;
-	Promise gettingMessages;
+    protected User user;
+    FetchMessagesResult currentFechResult;
+    Promise gettingMessages;
 
-	boolean first = true;
-	
-	@Inject
-	public MessageListActivity(EventBus eventBus) {
-	    bindTo(eventBus);
+    boolean first = true;
+
+    @Inject
+    public MessageListActivity(EventBus eventBus) {
+        bindTo(eventBus);
     }
-	
+
     private Timer refreshMessagesTimer = new Timer() {
         public void run() {
             display.refresh();
         }
     };
-    
+
     @Override
     public void onStop() {
         super.onStop();
         refreshMessagesTimer.cancel();
-    }    
-	
-	@Override
-	public void start(AcceptsOneWidget container, final EventBus eventBus) {
-	    refreshMessagesTimer.scheduleRepeating(5*60*1000);
-	    
-		container.setWidget(display.asWidget());
-		if (!first) {
-			display.refresh();
-			first = false;
-		}
-		rf.sessionRequest().getUser().fire(new Receiver<User>() {
-			@Override
-			public void onSuccess(User u) {
-				if (u == null) {
-					onFailure(null);
-				} else {
-					user = u;
-				}
-			}
-			@Override
-			public void onFailure(ServerFailure error) {
-			}
-		});
+    }
+
+    @Override
+    public void start(AcceptsOneWidget container, final EventBus eventBus) {
+        refreshMessagesTimer.scheduleRepeating(5*60*1000);
+
+        container.setWidget(display.asWidget());
+        if (!first) {
+            display.refresh();
+            first = false;
+        }
+        rf.sessionRequest().getUser().fire(new Receiver<User>() {
+            @Override
+            public void onSuccess(User u) {
+                if (u == null) {
+                    onFailure(null);
+                } else {
+                    user = u;
+                }
+            }
+            @Override
+            public void onFailure(ServerFailure error) {
+            }
+        });
         this.registerHandler(display.getGrid().addCellPreviewHandler(new Handler<Message>() {
             @Override
             public void onCellPreview(final CellPreviewEvent<Message> event) {
@@ -130,10 +130,10 @@ public class MessageListActivity extends AppBaseActivity {
                     onMessageSelected(event.getValue());
                 }
             }
-        }));  		
-	}
-	
-	protected void onMessageSelected(Message message) {
+        }));
+    }
+
+    protected void onMessageSelected(Message message) {
         antiSelectMessages(display.getGrid().getVisibleItems());
         GetMessageDetailsRequest req = rf.messageDetailsRequest();
         GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
@@ -149,91 +149,91 @@ public class MessageListActivity extends AppBaseActivity {
         toolBar.enableDealingTools(true);
         ToolBarView.Parameters p = new ToolBarView.Parameters(user, folderName, message, null);
         toolBar.setParameters(p);
-        
+
         // display.refresh();
 //        eventBus.fireEvent(new RefreshFoldersEvent(event.getValue()));
-	    
-	}
-	
+
+    }
+
     private String getToken(Message message) {
         String token = folderName + AbstractPlace.SPLITTER + message.getUid();
         return token;
     }
-    
-	private boolean hasClickedButFirstCol(CellPreviewEvent<Message> event) {
-		return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
-	}
 
-	private void bindTo(final EventBus eventBus) {
-    
-		eventBus.addHandler(DeleteClickEvent.TYPE, new DeleteClickEventHandler() {
-			@Override
-			public void onDeleteClickEvent(DeleteClickEvent event) {
-				deleteSelectedMessages();
-			}
-		});
+    private boolean hasClickedButFirstCol(CellPreviewEvent<Message> event) {
+        return "click".equals(event.getNativeEvent().getType()) && 0 != event.getColumn();
+    }
 
-		eventBus.addHandler(RefreshMessagesEvent.TYPE, new RefreshMessagesEventHandler() {
-			@Override
-			public void onRefresh(RefreshMessagesEvent event) {
-				display.setSearchValue(event.getSearchValue());
-				display.refresh();
-				System.out.println("REFRESH DISPLAY");
-			}
-		});
+    private void bindTo(final EventBus eventBus) {
 
-		eventBus.addHandler(MoveMessageEvent.TYPE, new MoveMessageEventHandler() {
+        eventBus.addHandler(DeleteClickEvent.TYPE, new DeleteClickEventHandler() {
+            @Override
+            public void onDeleteClickEvent(DeleteClickEvent event) {
+                deleteSelectedMessages();
+            }
+        });
 
-			@Override
-			public void onMoveMessageHandler(final MoveMessageEvent event) {
-				hc.showTopLoading("Moving...");
-				MoveMessageRequest req = rf.moveMessageRequest();
-				ImapFolder f = req.create(ImapFolder.class);
-				ImapFolder newF = req.create(ImapFolder.class);
+        eventBus.addHandler(RefreshMessagesEvent.TYPE, new RefreshMessagesEventHandler() {
+            @Override
+            public void onRefresh(RefreshMessagesEvent event) {
+                display.setSearchValue(event.getSearchValue());
+                display.refresh();
+                System.out.println("REFRESH DISPLAY");
+            }
+        });
 
-				String fullName = null;
-				if (pc.getWhere() instanceof FolderPlace) {
-					fullName = ((FolderPlace) pc.getWhere()).getToken();
-				} else {
-					fullName = ((MessagePlace) pc.getWhere()).getTokenWrapper().getFolder();
-				}
-				f.setFullName(fullName);
-				newF.setFullName(event.getNewFolder().getFullName());
-				MoveMessageAction action = req.create(MoveMessageAction.class);
+        eventBus.addHandler(MoveMessageEvent.TYPE, new MoveMessageEventHandler() {
 
-				final List<Long> uids = display.getSelectedMessagesIds();
-				// TODO can move more than one message once.
-				if (uids.isEmpty() || uids.size() > 1) {
-					hc.hideTopLoading();
-					hc.showNotice("Please select one and only one message", 10000);
-					return;
-				}
-				action.setMessageUid(uids.get(0));
-				action.setNewFolder(newF);
-				action.setOldFolder(f);
-				req.move(action).fire(new Receiver<GenericResult>() {
+            @Override
+            public void onMoveMessageHandler(final MoveMessageEvent event) {
+                hc.showTopLoading("Moving...");
+                MoveMessageRequest req = rf.moveMessageRequest();
+                ImapFolder f = req.create(ImapFolder.class);
+                ImapFolder newF = req.create(ImapFolder.class);
 
-					@Override
-					public void onSuccess(GenericResult response) {
-						display.refresh();
-						eventBus.fireEvent(new RefreshFoldersEvent());
-						hc.hideTopLoading();
-						hc.showNotice("The conversation has been moved to \"" + event.getNewFolder() + "\"", 10000);
-					}
+                String fullName = null;
+                if (pc.getWhere() instanceof FolderPlace) {
+                    fullName = ((FolderPlace) pc.getWhere()).getToken();
+                } else {
+                    fullName = ((MessagePlace) pc.getWhere()).getTokenWrapper().getFolder();
+                }
+                f.setFullName(fullName);
+                newF.setFullName(event.getNewFolder().getFullName());
+                MoveMessageAction action = req.create(MoveMessageAction.class);
 
-					@Override
-					public void onFailure(ServerFailure error) {
-						super.onFailure(error);
-						hc.hideTopLoading();
-						hc.showNotice(error.getMessage(), 10000);
-					}
+                final List<Long> uids = display.getSelectedMessagesIds();
+                // TODO can move more than one message once.
+                if (uids.isEmpty() || uids.size() > 1) {
+                    hc.hideTopLoading();
+                    hc.showNotice("Please select one and only one message", 10000);
+                    return;
+                }
+                action.setMessageUid(uids.get(0));
+                action.setNewFolder(newF);
+                action.setOldFolder(f);
+                req.move(action).fire(new Receiver<GenericResult>() {
 
-				});
-			}
+                    @Override
+                    public void onSuccess(GenericResult response) {
+                        display.refresh();
+                        eventBus.fireEvent(new RefreshFoldersEvent());
+                        hc.hideTopLoading();
+                        hc.showNotice("The conversation has been moved to \"" + event.getNewFolder() + "\"", 10000);
+                    }
 
-		});
-		
-		eventBus.addHandler(MessageViewEvent.TYPE, new MessageViewEventHandler() {
+                    @Override
+                    public void onFailure(ServerFailure error) {
+                        super.onFailure(error);
+                        hc.hideTopLoading();
+                        hc.showNotice(error.getMessage(), 10000);
+                    }
+
+                });
+            }
+
+        });
+
+        eventBus.addHandler(MessageViewEvent.TYPE, new MessageViewEventHandler() {
             public void onMessageViewEvent(final MessageViewEvent event) {
                 if (event.messageDetails != null && gettingMessages != null) {
                     gettingMessages.done(new Function() {
@@ -257,14 +257,14 @@ public class MessageListActivity extends AppBaseActivity {
                                     toolBar.setParameters(p);
                                     break;
                                 }
-                            }                            
+                            }
                         }
                     });
                 }
             }
         });
-		
-		eventBus.addHandler(MessageListRangeChangedEvent.TYPE, new MessageListRangeChangedEventHandler() {
+
+        eventBus.addHandler(MessageListRangeChangedEvent.TYPE, new MessageListRangeChangedEventHandler() {
             public void onRangeChangedEvent(MessageListRangeChangedEvent event) {
                 gettingMessages = hupaStorage
                 .gettingMessages(true, folderName, event.start, event.size, event.search)
@@ -285,52 +285,52 @@ public class MessageListActivity extends AppBaseActivity {
                     public void f() {
                         hc.hideTopLoading();
                     }
-                });                
-                
+                });
+
             }
         });
 
-	}
+    }
 
-	public MessageListActivity with(String folderName) {
-		this.folderName = folderName;
-		return this;
-	}
+    public MessageListActivity with(String folderName) {
+        this.folderName = folderName;
+        return this;
+    }
 
-	public interface Displayable extends IsWidget {
-		MessagesCellTable getGrid();
+    public interface Displayable extends IsWidget {
+        MessagesCellTable getGrid();
 
-		void refresh();
+        void refresh();
 
-		List<Long> getSelectedMessagesIds();
+        List<Long> getSelectedMessagesIds();
 
-		Set<Message> getSelectedMessages();
+        Set<Message> getSelectedMessages();
 
-		void setSearchValue(String searchValue);
+        void setSearchValue(String searchValue);
 
         MessageListDataProvider getDataProvider();
-	}
+    }
 
-	private void antiSelectMessages(Collection<Message> c) {
-		toolBar.enableAllTools(false);
-		for (Message msg : c) {
-			if (!display.getGrid().getSelectionModel().isSelected(msg))
-				continue;
-			display.getGrid().getSelectionModel().setSelected(msg, false);
-		}
-	}
-	private void deleteSelectedMessages() {
-		final List<Long> uids = display.getSelectedMessagesIds();
-		
-		if (uids.size() > 1) {
+    private void antiSelectMessages(Collection<Message> c) {
+        toolBar.enableAllTools(false);
+        for (Message msg : c) {
+            if (!display.getGrid().getSelectionModel().isSelected(msg))
+                continue;
+            display.getGrid().getSelectionModel().setSelected(msg, false);
+        }
+    }
+    private void deleteSelectedMessages() {
+        final List<Long> uids = display.getSelectedMessagesIds();
+
+        if (uids.size() > 1) {
             Dialog.confirm("Do you want to delete selected messages?", new Command() {
                 public void execute() {
                     doDelete(uids);
                 }
             });
-		}
-		
-	}
+        }
+
+    }
 
     protected void doDelete(final List<Long> uids) {
         hc.showTopLoading("Deleting...");
@@ -341,36 +341,36 @@ public class MessageListActivity extends AppBaseActivity {
         } else {
             fullName = ((MessagePlace) pc.getWhere()).getTokenWrapper().getFolder();
         }
-        
+
         DeleteMessageByUidRequest req = rf.deleteMessageByUidRequest();
-		DeleteMessageByUidAction action = req.create(DeleteMessageByUidAction.class);
-		ImapFolder f = req.create(ImapFolder.class);
-		f.setFullName(fullName);
-		action.setMessageUids(uids);
-		action.setFolder(f);
-		req.delete(action).fire(new Receiver<DeleteMessageResult>() {
-			@Override
-			public void onSuccess(DeleteMessageResult response) {
-				antiSelectMessages(display.getSelectedMessages());
-				display.refresh();
-				hc.hideTopLoading();
+        DeleteMessageByUidAction action = req.create(DeleteMessageByUidAction.class);
+        ImapFolder f = req.create(ImapFolder.class);
+        f.setFullName(fullName);
+        action.setMessageUids(uids);
+        action.setFolder(f);
+        req.delete(action).fire(new Receiver<DeleteMessageResult>() {
+            @Override
+            public void onSuccess(DeleteMessageResult response) {
+                antiSelectMessages(display.getSelectedMessages());
+                display.refresh();
+                hc.hideTopLoading();
                 pc.goTo(new FolderPlace(folderName));
-				eventBus.fireEvent(new RefreshFoldersEvent());
+                eventBus.fireEvent(new RefreshFoldersEvent());
                 for (Long uid : uids) {
                     removeMessage(uid);
                 }
                 display.getDataProvider().setFechMessagesResult(currentFechResult);
 //                display.getGrid().getRowElement(0).scrollIntoView();
-			}
-			
-			@Override
-			public void onFailure(ServerFailure error) {
-			    hc.hideTopLoading();
-			    hc.showNotice("Error removing messages", 5000);
-			    super.onFailure(error);
-			}
-			
-			private void removeMessage(Long uid) {
+            }
+
+            @Override
+            public void onFailure(ServerFailure error) {
+                hc.hideTopLoading();
+                hc.showNotice("Error removing messages", 5000);
+                super.onFailure(error);
+            }
+
+            private void removeMessage(Long uid) {
                 List<Message> messages = currentFechResult.getMessages();
                 int l = messages.size();
                 for (int i = 0; i < l; i++){
@@ -380,11 +380,11 @@ public class MessageListActivity extends AppBaseActivity {
                         return;
                     }
                 }
-			}
-		});
+            }
+        });
     }
-	
-	
+
+
     // TODO move this stuff to hupaStorage
     private void cacheContacts() {
         for (Message message : currentFechResult.getMessages()) {
@@ -405,7 +405,7 @@ public class MessageListActivity extends AppBaseActivity {
         }
         saveToLocalStorage(contacts);
     }
-    
+
     private void saveToLocalStorage(Set<String> contacts) {
         contactsStore = Storage.getLocalStorageIfSupported();
         if (contactsStore != null) {
@@ -418,7 +418,7 @@ public class MessageListActivity extends AppBaseActivity {
             contactsStore.setItem(CONTACTS_STORE, contacts.toString());
         }
     }
-    
+
     public static final String CONTACTS_STORE = "hupa-contacts";
     Set<String> contacts = new LinkedHashSet<String>();
     private Storage contactsStore = null;

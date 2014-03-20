@@ -46,7 +46,7 @@ public abstract class DeleteMessageBaseServiceImpl extends AbstractService{
             }
 
             Message[] mArray = getMessagesToDelete(action);
-            
+
             // check if the delete was triggered not in the trash folder
             if (folder.getFullName().equalsIgnoreCase(
                     user.getSettings().getTrashFolderName()) == false) {
@@ -69,10 +69,10 @@ public abstract class DeleteMessageBaseServiceImpl extends AbstractService{
                 }
             }
 
-            
+
             // delete the messages from the folder
             f.setFlags(mArray, new Flags(Flags.Flag.DELETED), true);
-            
+
             try {
                 f.expunge(mArray);
                 f.close(false);
@@ -92,7 +92,7 @@ public abstract class DeleteMessageBaseServiceImpl extends AbstractService{
 
     /**
      * Return an array holding all messages which should get deleted by the given action
-     * 
+     *
      * @param action
      * @return messages
      */

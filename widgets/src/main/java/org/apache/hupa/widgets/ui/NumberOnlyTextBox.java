@@ -24,12 +24,12 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.TextBox;
 
 /**
- * TextBox which only allows numbers to get entered 
- * 
+ * TextBox which only allows numbers to get entered
+ *
  *
  */
 public class NumberOnlyTextBox extends TextBox implements KeyPressHandler{
-    
+
     public NumberOnlyTextBox() {
         addKeyPressHandler(this);
     }
@@ -42,7 +42,7 @@ public class NumberOnlyTextBox extends TextBox implements KeyPressHandler{
         char keyCode = event.getCharCode();
         if (!Character.isDigit(keyCode)) {
             cancelKey();
-        } 
+        }
     }
-    
+
 }

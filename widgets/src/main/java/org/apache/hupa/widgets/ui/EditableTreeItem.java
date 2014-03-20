@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * TreeItem which supports editing
- * 
+ *
  *
  */
 public class EditableTreeItem extends TreeItem implements HasEditable,HasEditHandlers{
@@ -67,18 +67,18 @@ public class EditableTreeItem extends TreeItem implements HasEditable,HasEditHan
             }
 
         });
-        
+
         // Just cancel the editing if the user click outside the TextBox
         editBox.addBlurHandler(new BlurHandler() {
 
             public void onBlur(BlurEvent event) {
                 cancelEdit();
             }
-            
+
         });
         super.setWidget(normalItem);
     }
-    
+
 
     @Override
     public void setText(String text) {
@@ -122,10 +122,10 @@ public class EditableTreeItem extends TreeItem implements HasEditable,HasEditHan
         showEditBox(oldValue);
         manager.fireEvent(new EditEvent(EditEvent.EventType.Start,oldValue,null));
     }
-    
+
     /**
-     * Show the editbox filled with the given value 
-     * 
+     * Show the editbox filled with the given value
+     *
      * @param value
      */
     protected void showEditBox(String value) {
@@ -134,7 +134,7 @@ public class EditableTreeItem extends TreeItem implements HasEditable,HasEditHan
         editBox.setCursorPos(value.length());
         editBox.setFocus(true);
     }
-    
+
 
     /*
      * (non-Javadoc)
@@ -147,19 +147,19 @@ public class EditableTreeItem extends TreeItem implements HasEditable,HasEditHan
 
     /**
      * Show the "normal" item with the given text
-     * 
+     *
      * @param text
      */
     protected void showItem(String text) {
         ((HasText)normalItem).setText(text);
         setWidget(normalItem);
     }
-    
+
     @Override
     public String getText() {
         return ((HasText)normalItem).getText();
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.apache.hupa.client.widgets.HasEditHandlers#addEditHandler(org.apache.hupa.client.widgets.EditHandler)
@@ -167,7 +167,7 @@ public class EditableTreeItem extends TreeItem implements HasEditable,HasEditHan
     public HandlerRegistration addEditHandler(EditHandler handler) {
         return manager.addHandler(EditEvent.TYPE, handler);
     }
-    
-     
+
+
 
 }

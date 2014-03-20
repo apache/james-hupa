@@ -59,30 +59,30 @@ import com.sun.mail.imap.IMAPStore;
 
 /**
  * A user preferences storage which uses IMAP as repository data
- * 
+ *
  * @author manolo
  */
 public class InImapUserPreferencesStorage extends UserPreferencesStorage {
-    
+
 
     // User preferences are saved in IMAP but there is a delay between a new
     // contact is added an the save action. It saves number of operations in
     // the IMAP server.
     // It's not final in order to override in tests to make them run faster
     protected static int IMAP_SAVE_DELAY = 10000;
-    
+
     protected static final String MAGIC_SUBJECT_CONTACTS = "Hupa-Contacts";
-    
+
     private static final String HUPA_DATA_MIME_TYPE = "application/hupa-data";
 
-    
+
     private static Hashtable<User, Thread> threads = new Hashtable<User, Thread>();
-    
+
     /**
      * Opens the IMAP folder and read messages until it founds the magic subject,
-     * then gets the attachment which contains the data and return the serialized object stored. 
+     * then gets the attachment which contains the data and return the serialized object stored.
      */
-    protected static Object readUserPreferencesFromIMAP(Log logger, User user, IMAPStore iStore, String folderName, String magicType) 
+    protected static Object readUserPreferencesFromIMAP(Log logger, User user, IMAPStore iStore, String folderName, String magicType)
               throws MessagingException, IOException, ClassNotFoundException {
         Folder folder = iStore.getFolder(folderName);
         if (folder.exists()) {
@@ -116,12 +116,12 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
         }
         return null;
     }
-    
+
     /**
      * Opens the IMAP folder, deletes all messages which match the magic subject and
      * creates a new message with an attachment which contains the object serialized
      */
-    protected static void saveUserPreferencesInIMAP(Log logger, User user, Session session, IMAPStore iStore, String folderName, String subject, Object object) 
+    protected static void saveUserPreferencesInIMAP(Log logger, User user, Session session, IMAPStore iStore, String folderName, String subject, Object object)
               throws MessagingException, IOException, InterruptedException {
         IMAPFolder folder = (IMAPFolder) iStore.getFolder(folderName);
 
@@ -140,7 +140,7 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
             // Create a new message with an attachment which has the serialized object
             MimeMessage message = new MimeMessage(session);
             message.setSubject(subject);
-            
+
             Multipart multipart = new MimeMultipart();
             MimeBodyPart txtPart = new MimeBodyPart();
             txtPart.setContent("This message contains configuration used by Hupa, do not delete it", "text/plain");
@@ -158,7 +158,7 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
                     msg.setFlag(Flag.DELETED, true);
                 }
             }
-            
+
             // It is necessary to copy the message before saving it (the same problem in AbstractSendMessageHandler)
             message = new MimeMessage((MimeMessage)message);
             message.setFlag(Flag.SEEN, true);
@@ -169,7 +169,7 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
             logger.error("Unable to save preferences " + subject + " in imap folder " + folderName + " for user " + user);
         }
     }
-    
+
     /**
      * Right now, using the same approach present in upload attachments to create the attachment
      */
@@ -179,13 +179,13 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
         UploadServlet.copyFromInputStreamToOutputStream(is, item.getOutputStream());
         return item;
     }
-    
+
     private Log logger;
-    
+
     private final IMAPStoreCache cache;
 
     private final Provider<HttpSession> sessionProvider;
- 
+
     /**
      * Constructor
      */
@@ -210,7 +210,7 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
             }
         }
     }
-    
+
     /* (non-Javadoc)
      * @see org.apache.hupa.server.preferences.UserPreferencesStorage#getContacts()
      */
@@ -248,7 +248,7 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
      * 2.- It saves number of save operations, because the method addContact
      *  is called frequently when fetching a folder, so add these contacts are
      *  added to the session list, and a thread is delayed to store
-     *  all the block. 
+     *  all the block.
      */
     private void saveContactsAsync(User user) {
         Thread thread = threads.get(user);
@@ -260,21 +260,21 @@ public class InImapUserPreferencesStorage extends UserPreferencesStorage {
     }
 
     /**
-     * The thread class which saves asynchronously the user preferences 
+     * The thread class which saves asynchronously the user preferences
      */
     private class SavePreferencesThread extends Thread {
         private String folderName = null;
         private Object object = null;
         private String subject = null;
         private User user = null;
-        
+
         public SavePreferencesThread(User user, String subject, Object object) {
             this.user = user;
             this.folderName = user.getSettings().getDraftsFolderName();
             this.subject = subject;
             this.object = object;
         }
-        
+
         public void run(){
             try {
                 sleep(IMAP_SAVE_DELAY);

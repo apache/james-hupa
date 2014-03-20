@@ -28,20 +28,20 @@ import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
 
 public class GuiceWebModule extends ServletModule {
-  
+
   @Override
   protected void configureServlets() {
     System.err.println("GuiceWebModule configuring servlets.");
 
     bind(IocRfServlet.class).in(Singleton.class);
     serveRegex(".*/gwtRequest").with(IocRfServlet.class);
-    
+
     bind(DownloadAttachmentServlet.class).in(Singleton.class);
     serveRegex(".*/" + SConsts.HUPA + SConsts.SERVLET_DOWNLOAD).with(DownloadAttachmentServlet.class);
-    
+
     bind(UploadAttachmentServlet.class).in(Singleton.class);
     serveRegex(".*/" + SConsts.HUPA + SConsts.SERVLET_UPLOAD).with(UploadAttachmentServlet.class);
-    
+
     bind(MessageSourceServlet.class).in(Singleton.class);
     serveRegex(".*/" + SConsts.HUPA + SConsts.SERVLET_SOURCE).with(MessageSourceServlet.class);
   }

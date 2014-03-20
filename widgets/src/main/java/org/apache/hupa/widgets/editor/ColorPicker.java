@@ -19,8 +19,8 @@
 /**
  * Much of this code has been taken from the GWT Showcase example
  * which is licensed under Apache License v2.0
- * 
- * This class is necessary while GWT library doesn't provide any 
+ *
+ * This class is necessary while GWT library doesn't provide any
  * toolbar to be used with its RichTextArea widget.
  */
 package org.apache.hupa.widgets.editor;
@@ -44,13 +44,13 @@ import com.google.gwt.user.client.ui.PopupPanel;
  * Color picker for rich editor
  */
 public class ColorPicker extends PopupPanel implements ClickHandler, HasValueChangeHandlers<ColorPicker>  {
-    
+
     private class ColorCell extends Label {
-        String rgbColor; 
+        String rgbColor;
         public ColorCell(long color) {
             this(Long.toHexString(color));
         }
-        
+
         public ColorCell(String color) {
             super();
             setColor(color);
@@ -69,7 +69,7 @@ public class ColorPicker extends PopupPanel implements ClickHandler, HasValueCha
                 }
             });
         }
-        
+
         public String getColor() {
             return rgbColor;
         }
@@ -77,17 +77,17 @@ public class ColorPicker extends PopupPanel implements ClickHandler, HasValueCha
         public void setBorderColor(String color) {
             DOM.setStyleAttribute(getElement(), "border", "1px solid " + color);
         }
-        
+
         void setColor(String s){
             while(s.length()<6) s= "0" + s;
             rgbColor="#" + s;
         }
     }
-    
+
     ValueChangeHandler<ColorPicker> changeHandler = null;
 
     private String color = "";
-    
+
     long[] colors = new long[] {
         0xffffff, 0xcccccc, 0xc0c0c0, 0x999999, 0x666666, 0x333333, 0x000000,
         0xffcccc, 0xff6666, 0xff0000, 0xcc0000, 0x990000, 0x660000, 0x330000,
@@ -100,7 +100,7 @@ public class ColorPicker extends PopupPanel implements ClickHandler, HasValueCha
         0xccccff, 0x9999ff, 0x6666cc, 0x6532fd, 0x6500cb, 0x323298, 0x320098,
         0xffccff, 0xff99ff, 0xcc66cc, 0xcb32cb, 0x983298, 0x653265, 0x320032,
     };
-    
+
     public ColorPicker() {
         super(true);
         FlexTable t = new FlexTable();
@@ -116,7 +116,7 @@ public class ColorPicker extends PopupPanel implements ClickHandler, HasValueCha
                 t.setWidget(r, c, cell);
             }
         }
-        
+
         add(t);
         setAnimationEnabled(true);
         setStyleName("hupa-color-picker");
@@ -135,9 +135,9 @@ public class ColorPicker extends PopupPanel implements ClickHandler, HasValueCha
     public String getColor() {
         return color;
     }
-    
+
     public void onClick(ClickEvent event) {
-        ColorCell cell = (ColorCell)event.getSource(); 
+        ColorCell cell = (ColorCell)event.getSource();
         this.color = cell.getColor();
         if (changeHandler != null)
             changeHandler.onValueChange(new ValueChangeEvent<ColorPicker>(this){});

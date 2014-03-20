@@ -15,7 +15,7 @@
     License.
 -->
 <module rename-to='hupa'>
-  <inherits name='org.apache.hupa.Hupa'/> 
+  <inherits name='org.apache.hupa.Hupa'/>
 
   <!-- This reduces a lot the size of compiled javascript-->
   <set-property name="compiler.stackMode" value="emulated" />
@@ -25,6 +25,6 @@
   <set-property name="user.agent" value="gecko1_8,safari"/>
 
   <set-configuration-property name="CssResource.style" value="pretty"/>
-  
-  <entry-point class='org.apache.hupa.client.Hupa'/>  
+
+  <entry-point class='org.apache.hupa.client.Hupa'/>
 </module>

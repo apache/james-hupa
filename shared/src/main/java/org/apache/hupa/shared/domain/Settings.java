@@ -24,7 +24,7 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 @ProxyFor(Settings.class)
 public interface Settings extends ValueProxy {
-    
+
     void setInboxFolderName(String inboxFolder);
     void setSentFolderName(String sentFolder);
     void setTrashFolderName(String trashFolder);

@@ -21,21 +21,21 @@ package org.apache.hupa.client.widgets;
 
 /**
  * Interface which Dialog implementations should implement
- * 
+ *
  *
  */
 public interface HasDialog {
-    
+
     /**
      * Show Dialog
      */
     public void show();
-    
+
     /**
      * Hide Dialog
      */
     public void hide();
-    
+
     /**
      * Center Dialog and show it
      */

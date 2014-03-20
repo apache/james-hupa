@@ -15,11 +15,11 @@ import com.google.gwt.query.client.Function;
 import com.google.inject.Inject;
 
 public class HupaStorageTest extends HupaClientTestBase {
-    
+
     @Inject HupaStorage storage;
     @Inject AppCache cache;
     @Inject EventBus eventBus;
-    
+
     @Test
     public void testUserPrefix() {
         String uk1 = cache.enCrypt("manuel.carrasco.m@gmail.com");
@@ -28,7 +28,7 @@ public class HupaStorageTest extends HupaClientTestBase {
         System.out.println(uk2);
 //        cache.setPrefix(uk.substring(0, 6) + "_");
     }
-    
+
     @Test
     public void testFolderList() {
         storage.gettingFolders().done(new Function() {
@@ -55,9 +55,9 @@ public class HupaStorageTest extends HupaClientTestBase {
                 Assert.assertEquals(4, folderNodes.size());
             }
         });
-        
+
         Assert.assertEquals(5,cache.getLength());
-        
+
         eventBus.fireEvent(new LoginEvent(testUser));
         storage.gettingFolders().done(new Function() {
             public void f() {

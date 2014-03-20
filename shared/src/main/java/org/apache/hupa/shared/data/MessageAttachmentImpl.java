@@ -23,28 +23,28 @@ import org.apache.hupa.shared.domain.MessageAttachment;
 
 /**
  * Attachment of a message
- * 
+ *
  *
  */
 public class MessageAttachmentImpl implements MessageAttachment {
-    
+
     private String contentType;
     private int size;
     private String name;
 
     /**
      * Set the name of the attachment
-     * 
+     *
      * @param name
      */
     public void setName(String name) {
         this.name = name;
-        
+
     }
 
     /**
      * Return the name of the attachment
-     * 
+     *
      * @return name
      */
     public String getName() {
@@ -53,16 +53,16 @@ public class MessageAttachmentImpl implements MessageAttachment {
 
     /**
      * Set the content-type of the attachment
-     * 
+     *
      * @param contentType
      */
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
-    
+
     /**
      * Return the content-type of the attachment
-     * 
+     *
      * @return cType
      */
     public String getContentType() {
@@ -71,7 +71,7 @@ public class MessageAttachmentImpl implements MessageAttachment {
 
     /**
      * Return whether the attachment is an image
-     * 
+     *
      * @return cType
      */
     public boolean isImage() {
@@ -80,7 +80,7 @@ public class MessageAttachmentImpl implements MessageAttachment {
 
     /**
      * Set the content size in bytes
-     * 
+     *
      * @param size
      */
     public void setSize(int size) {
@@ -89,7 +89,7 @@ public class MessageAttachmentImpl implements MessageAttachment {
 
     /**
      * Return the content size in bytes
-     * 
+     *
      * @return size
      */
     public int getSize() {
@@ -100,6 +100,6 @@ public class MessageAttachmentImpl implements MessageAttachment {
     public void setImage(boolean image) {
         //FIXME just for MessageSendActivity's NullPointerException, with adding the RequestContext's create List<MeeageAttachment>
     }
-    
-    
+
+
 }

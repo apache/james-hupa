@@ -40,64 +40,64 @@ import com.google.gwt.user.client.ui.TextBox;
 
 public class SearchBoxView extends Composite implements SearchBoxActivity.Displayable {
 
-	private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
-	private TextBox searchBox = new TextBox();
-	private Button searchButton = new Button("Search");
-	@UiField protected HorizontalPanel thisPanel;
+    private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle(" ,@");
+    private TextBox searchBox = new TextBox();
+    private Button searchButton = new Button("Search");
+    @UiField protected HorizontalPanel thisPanel;
 
-	// @SuppressWarnings("deprecation")
-	public SearchBoxView() {
-		initWidget(binder.createAndBindUi(this));
+    // @SuppressWarnings("deprecation")
+    public SearchBoxView() {
+        initWidget(binder.createAndBindUi(this));
 
-		// searchBox.addStyleName(HupaCSS.C_msg_search);
+        // searchBox.addStyleName(HupaCSS.C_msg_search);
 
-		// searchBox.setAnimationEnabled(true);
-		// searchBox.setAutoSelectEnabled(false);
-		// searchBox.setLimit(20);
-		searchBox.getElement().setAttribute("type", "search");
-		searchBox.getElement().setAttribute("placeholder", "Search...");
-		searchBox.getElement().setAttribute("results", "10");
-		searchBox.getElement().setAttribute("incremental", "incremental");
-		searchBox.getElement().setAttribute("name", "s");
-		searchBox.addKeyUpHandler(new KeyUpHandler() {
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER || (event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE && searchBox.getText().trim().equals(""))) {
-					searchButton.click();
-				}
-			}
-		});
-		thisPanel.add(searchBox);
-		thisPanel.add(searchButton);
-	}
+        // searchBox.setAnimationEnabled(true);
+        // searchBox.setAutoSelectEnabled(false);
+        // searchBox.setLimit(20);
+        searchBox.getElement().setAttribute("type", "search");
+        searchBox.getElement().setAttribute("placeholder", "Search...");
+        searchBox.getElement().setAttribute("results", "10");
+        searchBox.getElement().setAttribute("incremental", "incremental");
+        searchBox.getElement().setAttribute("name", "s");
+        searchBox.addKeyUpHandler(new KeyUpHandler() {
+            public void onKeyUp(KeyUpEvent event) {
+                if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER || (event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE && searchBox.getText().trim().equals(""))) {
+                    searchButton.click();
+                }
+            }
+        });
+        thisPanel.add(searchBox);
+        thisPanel.add(searchButton);
+    }
 
-	@Override
-	public HasClickHandlers getSearchClick() {
-		return searchButton;
-	}
+    @Override
+    public HasClickHandlers getSearchClick() {
+        return searchButton;
+    }
 
-	@Override
-	public HasValue<String> getSearchValue() {
-		return searchBox;
-	}
+    @Override
+    public HasValue<String> getSearchValue() {
+        return searchBox;
+    }
 
-	@Override
-	public void fillSearchOracle(List<Message> messages) {
-		for (Message m : messages) {
-			String subject = m.getSubject();
-			String from = m.getFrom();
-			if (subject != null && subject.trim().length() > 0) {
-				oracle.add(subject.trim());
-			}
-			if (from != null && from.trim().length() > 0) {
-				oracle.add(from.trim());
-			}
-		}
-		// searchBox.setText("");
-	}
+    @Override
+    public void fillSearchOracle(List<Message> messages) {
+        for (Message m : messages) {
+            String subject = m.getSubject();
+            String from = m.getFrom();
+            if (subject != null && subject.trim().length() > 0) {
+                oracle.add(subject.trim());
+            }
+            if (from != null && from.trim().length() > 0) {
+                oracle.add(from.trim());
+            }
+        }
+        // searchBox.setText("");
+    }
 
-	interface SearchBoxUiBinder extends UiBinder<HorizontalPanel, SearchBoxView> {
-	}
+    interface SearchBoxUiBinder extends UiBinder<HorizontalPanel, SearchBoxView> {
+    }
 
-	private static SearchBoxUiBinder binder = GWT.create(SearchBoxUiBinder.class);
+    private static SearchBoxUiBinder binder = GWT.create(SearchBoxUiBinder.class);
 
 }

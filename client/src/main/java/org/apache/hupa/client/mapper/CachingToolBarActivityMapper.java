@@ -30,25 +30,25 @@ import com.google.inject.Inject;
 
 public class CachingToolBarActivityMapper implements ActivityMapper {
 
-	private ActivityMapper filteredActivityMapper;
+    private ActivityMapper filteredActivityMapper;
 
-	@Inject
-	public CachingToolBarActivityMapper(ToolBarActivityMapper toolBarActivityMapper) {
+    @Inject
+    public CachingToolBarActivityMapper(ToolBarActivityMapper toolBarActivityMapper) {
 
-		FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
-			@Override
-			public Place filter(Place place) {
-				return place instanceof MessagePlace ? Place.NOWHERE : place;
-			}
-		};
+        FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
+            @Override
+            public Place filter(Place place) {
+                return place instanceof MessagePlace ? Place.NOWHERE : place;
+            }
+        };
 
-		CachingActivityMapper cachingActivityMapper = new CachingActivityMapper(toolBarActivityMapper);
-		filteredActivityMapper = new FilteredActivityMapper(filter, cachingActivityMapper);
-	}
+        CachingActivityMapper cachingActivityMapper = new CachingActivityMapper(toolBarActivityMapper);
+        filteredActivityMapper = new FilteredActivityMapper(filter, cachingActivityMapper);
+    }
 
-	@Override
-	public Activity getActivity(Place place) {
-		return filteredActivityMapper.getActivity(place);
-	}
+    @Override
+    public Activity getActivity(Place place) {
+        return filteredActivityMapper.getActivity(place);
+    }
 
 }

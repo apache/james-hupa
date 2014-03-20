@@ -28,13 +28,13 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 
 public class StatusView extends Composite implements StatusActivity.Displayable {
 
-	public StatusView() {
-		initWidget(binder.createAndBindUi(this));
-	}
+    public StatusView() {
+        initWidget(binder.createAndBindUi(this));
+    }
 
-	interface StatusUiBinder extends UiBinder<HTMLPanel, StatusView> {
-	}
+    interface StatusUiBinder extends UiBinder<HTMLPanel, StatusView> {
+    }
 
-	private static StatusUiBinder binder = GWT.create(StatusUiBinder.class);
+    private static StatusUiBinder binder = GWT.create(StatusUiBinder.class);
 
 }

@@ -159,16 +159,16 @@ public class FetchMessagesServiceImpl extends AbstractService implements FetchMe
 
         return new MessageConvertArray(exists, messages);
     }
-    
+
 
     public List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder,
             Message[] messages) throws MessagingException {
         List<org.apache.hupa.shared.domain.Message> mList = new ArrayList<org.apache.hupa.shared.domain.Message>();
-        
+
         // Setup fetchprofile to limit the stuff which is fetched
         FetchProfile fp = getFetchProfile();
         folder.fetch(messages, fp);
-        
+
         // loop over the fetched messages
         for (int i = 0; i < messages.length && i < offset; i++) {
             org.apache.hupa.shared.domain.Message msg = new org.apache.hupa.shared.data.MessageImpl();

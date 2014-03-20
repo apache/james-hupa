@@ -30,5 +30,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = SendForwardMessageService.class, locator = IocRfServiceLocator.class)
 public interface SendForwardMessageRequest extends RequestContext {
-	Request<GenericResult> send(SendForwardMessageAction action);
+    Request<GenericResult> send(SendForwardMessageAction action);
 }

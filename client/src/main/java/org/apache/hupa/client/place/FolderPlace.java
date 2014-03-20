@@ -24,47 +24,47 @@ import com.google.gwt.place.shared.Prefix;
 
 public class FolderPlace extends HupaPlace {
 
-	private String token;
+    private String token;
 
-	public FolderPlace(String token) {
-		this.token = token;
-	}
+    public FolderPlace(String token) {
+        this.token = token;
+    }
 
-	public String getToken() {
-		return token;
-	}
+    public String getToken() {
+        return token;
+    }
 
-	@Prefix("folder")
-	public static class Tokenizer implements PlaceTokenizer<FolderPlace> {
+    @Prefix("folder")
+    public static class Tokenizer implements PlaceTokenizer<FolderPlace> {
 
-		@Override
-		public FolderPlace getPlace(String token) {
-			return new FolderPlace(token);
-		}
+        @Override
+        public FolderPlace getPlace(String token) {
+            return new FolderPlace(token);
+        }
 
-		@Override
-		public String getToken(FolderPlace place) {
-			return place.getToken();
-		}
-	}
+        @Override
+        public String getToken(FolderPlace place) {
+            return place.getToken();
+        }
+    }
 //
-//	@Override
-//	public boolean equals(Object o) {
-//		if (o == null)
-//			return false;
-//		if (o == this)
-//			return true;
-//		if (o.getClass() != getClass())
-//			return false;
-//		FolderPlace place = (FolderPlace) o;
-//		return (token == place.token || (token != null && token.equals(place.token)));
-//	}
+//    @Override
+//    public boolean equals(Object o) {
+//        if (o == null)
+//            return false;
+//        if (o == this)
+//            return true;
+//        if (o.getClass() != getClass())
+//            return false;
+//        FolderPlace place = (FolderPlace) o;
+//        return (token == place.token || (token != null && token.equals(place.token)));
+//    }
 //
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((token == null) ? 0 : token.hashCode());
-//		return result;
-//	}
+//    @Override
+//    public int hashCode() {
+//        final int prime = 31;
+//        int result = 1;
+//        result = prime * result + ((token == null) ? 0 : token.hashCode());
+//        return result;
+//    }
 }

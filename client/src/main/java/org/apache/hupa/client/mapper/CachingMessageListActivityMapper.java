@@ -31,26 +31,26 @@ import com.google.inject.Inject;
 
 public class CachingMessageListActivityMapper implements ActivityMapper {
 
-	private ActivityMapper filteredActivityMapper;
+    private ActivityMapper filteredActivityMapper;
 
-	@Inject
-	public CachingMessageListActivityMapper(MessageListActivityMapper messageListActivityMapper) {
+    @Inject
+    public CachingMessageListActivityMapper(MessageListActivityMapper messageListActivityMapper) {
 
-		FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
-			@Override
-			public Place filter(Place place) {
-				return place instanceof MessagePlace ? new FolderPlace(((MessagePlace) place).getTokenWrapper()
-						.getFolder()) : place;
-			}
-		};
+        FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
+            @Override
+            public Place filter(Place place) {
+                return place instanceof MessagePlace ? new FolderPlace(((MessagePlace) place).getTokenWrapper()
+                        .getFolder()) : place;
+            }
+        };
 
-		filteredActivityMapper = new FilteredActivityMapper(filter,
-				new CachingActivityMapper(messageListActivityMapper));
-	}
+        filteredActivityMapper = new FilteredActivityMapper(filter,
+                new CachingActivityMapper(messageListActivityMapper));
+    }
 
-	@Override
-	public Activity getActivity(Place place) {
-		return filteredActivityMapper.getActivity(place);
-	}
+    @Override
+    public Activity getActivity(Place place) {
+        return filteredActivityMapper.getActivity(place);
+    }
 
 }

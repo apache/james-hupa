@@ -29,25 +29,25 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class LogoActivityMapper extends _HupaActivityMapper {
-	private final Provider<LogoActivity> logoActivityProvider;
+    private final Provider<LogoActivity> logoActivityProvider;
 
-	@Inject
-	public LogoActivityMapper(Provider<LogoActivity> topActivityProvider) {
-		this.logoActivityProvider = topActivityProvider;
-	}
+    @Inject
+    public LogoActivityMapper(Provider<LogoActivity> topActivityProvider) {
+        this.logoActivityProvider = topActivityProvider;
+    }
 
-	@Override
-	public Activity asyncLoadActivity(Place place) {
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    @Override
+    public Activity asyncLoadActivity(Place place) {
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return logoActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return logoActivityProvider.get();
+            }
+        };
+    }
 }

@@ -44,6 +44,6 @@ public interface MessageDetails extends ValueProxy {
     String getMessageId();
 
     String getReferences();
-    
+
     List<MailHeader> getMailHeaders();
 }

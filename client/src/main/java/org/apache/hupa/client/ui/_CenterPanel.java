@@ -28,40 +28,40 @@ import com.google.gwt.user.client.ui.SplitLayoutPanel;
 
 public class _CenterPanel extends Composite {
 
-	@UiField protected SplitLayoutPanel thisPanel;
-	@UiField protected __OutlinePanel outlinePanel;
-	@UiField protected __ContentPanel contentPanel;
+    @UiField protected SplitLayoutPanel thisPanel;
+    @UiField protected __OutlinePanel outlinePanel;
+    @UiField protected __ContentPanel contentPanel;
 
-	public _CenterPanel() {
-		initWidget(binder.createAndBindUi(this));
-		thisPanel.setWidgetMinSize(outlinePanel, 144);
-	}
+    public _CenterPanel() {
+        initWidget(binder.createAndBindUi(this));
+        thisPanel.setWidgetMinSize(outlinePanel, 144);
+    }
 
-	public AcceptsOneWidget getFolderListView() {
-		return outlinePanel.getFolderListView();
-	}
+    public AcceptsOneWidget getFolderListView() {
+        return outlinePanel.getFolderListView();
+    }
 
-	public AcceptsOneWidget getMessageListView() {
-		return contentPanel.getMessageListView();
-	}
+    public AcceptsOneWidget getMessageListView() {
+        return contentPanel.getMessageListView();
+    }
 
-	public AcceptsOneWidget getMessageListFooterView() {
-		return contentPanel.getMessageListFooterView();
-	}
+    public AcceptsOneWidget getMessageListFooterView() {
+        return contentPanel.getMessageListFooterView();
+    }
 
-	public AcceptsOneWidget getMessageContentView() {
-		return contentPanel.getMessageContentView();
-	}
+    public AcceptsOneWidget getMessageContentView() {
+        return contentPanel.getMessageContentView();
+    }
 
-	public AcceptsOneWidget getStatusView() {
-		return contentPanel.getStatusView();
-	}
+    public AcceptsOneWidget getStatusView() {
+        return contentPanel.getStatusView();
+    }
 
-	interface _CenterPanelUiBinder extends
-			UiBinder<SplitLayoutPanel, _CenterPanel> {
-	}
+    interface _CenterPanelUiBinder extends
+            UiBinder<SplitLayoutPanel, _CenterPanel> {
+    }
 
-	private static _CenterPanelUiBinder binder = GWT
-			.create(_CenterPanelUiBinder.class);
+    private static _CenterPanelUiBinder binder = GWT
+            .create(_CenterPanelUiBinder.class);
 
 }

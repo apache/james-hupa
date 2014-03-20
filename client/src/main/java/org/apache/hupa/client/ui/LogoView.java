@@ -28,13 +28,13 @@ import com.google.gwt.user.client.ui.SimplePanel;
 
 public class LogoView extends Composite implements LogoActivity.Displayable {
 
-	public LogoView() {
-		initWidget(binder.createAndBindUi(this));
-	}
+    public LogoView() {
+        initWidget(binder.createAndBindUi(this));
+    }
 
-	interface LogoUiBinder extends UiBinder<SimplePanel, LogoView> {
-	}
+    interface LogoUiBinder extends UiBinder<SimplePanel, LogoView> {
+    }
 
-	private static LogoUiBinder binder = GWT.create(LogoUiBinder.class);
+    private static LogoUiBinder binder = GWT.create(LogoUiBinder.class);
 
 }

@@ -28,5 +28,5 @@ public class MyDialogBox extends DialogBox implements HasDialog{
         super();
         super.addStyleName(HupaCSS.C_dialog);
     }
-    
+
 }

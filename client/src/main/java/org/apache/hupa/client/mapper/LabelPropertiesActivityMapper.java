@@ -31,26 +31,26 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class LabelPropertiesActivityMapper implements ActivityMapper {
-	private final Provider<LabelPropertiesActivity> labelPropertiesActivityProvider;
+    private final Provider<LabelPropertiesActivity> labelPropertiesActivityProvider;
 
-	@Inject
-	public LabelPropertiesActivityMapper(Provider<LabelPropertiesActivity> labelPropertiesActivityProvider) {
-		this.labelPropertiesActivityProvider = labelPropertiesActivityProvider;
-	}
+    @Inject
+    public LabelPropertiesActivityMapper(Provider<LabelPropertiesActivity> labelPropertiesActivityProvider) {
+        this.labelPropertiesActivityProvider = labelPropertiesActivityProvider;
+    }
 
-	public Activity getActivity(Place place) {
-		if (!(place instanceof SettingPlace))
-			return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    public Activity getActivity(Place place) {
+        if (!(place instanceof SettingPlace))
+            return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return labelPropertiesActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return labelPropertiesActivityProvider.get();
+            }
+        };
+    }
 }

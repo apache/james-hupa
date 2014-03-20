@@ -24,44 +24,44 @@ import org.apache.hupa.client.place.SettingPlace;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 public interface HupaLayoutable extends Layoutable {
-	AcceptsOneWidget getTopBarView();
+    AcceptsOneWidget getTopBarView();
 
-	AcceptsOneWidget getLogoView();
+    AcceptsOneWidget getLogoView();
 
-	AcceptsOneWidget getNavigationView();
+    AcceptsOneWidget getNavigationView();
 
-	AcceptsOneWidget getToolBarView();
+    AcceptsOneWidget getToolBarView();
 
-	AcceptsOneWidget getFolderListView();
+    AcceptsOneWidget getFolderListView();
 
-	AcceptsOneWidget getMessageListView();
+    AcceptsOneWidget getMessageListView();
 
-	AcceptsOneWidget getMessageListFooterView();
+    AcceptsOneWidget getMessageListFooterView();
 
-	AcceptsOneWidget getMessageContentView();
+    AcceptsOneWidget getMessageContentView();
 
-	AcceptsOneWidget getStatusView();
+    AcceptsOneWidget getStatusView();
 
-	AcceptsOneWidget getComposeToolBarView();
+    AcceptsOneWidget getComposeToolBarView();
 
-	AcceptsOneWidget getComposeView();
+    AcceptsOneWidget getComposeView();
 
-	AcceptsOneWidget getNotificationView();
+    AcceptsOneWidget getNotificationView();
 
-	AcceptsOneWidget getLabelListView();
-	AcceptsOneWidget getAddressListView();
+    AcceptsOneWidget getLabelListView();
+    AcceptsOneWidget getAddressListView();
 
-	AcceptsOneWidget getLabelPropertiesView();
+    AcceptsOneWidget getLabelPropertiesView();
 
-	void switchTo(int layout);
+    void switchTo(int layout);
 
-	AcceptsOneWidget getContactPropertiesView();
+    AcceptsOneWidget getContactPropertiesView();
 
-	AcceptsOneWidget getContactsListView();
+    AcceptsOneWidget getContactsListView();
 
-	AcceptsOneWidget getSearchBoxView();
+    AcceptsOneWidget getSearchBoxView();
 
-	AcceptsOneWidget getSettingNavView();
+    AcceptsOneWidget getSettingNavView();
 
-	void arrangeSettingLayout(SettingPlace sp);
+    void arrangeSettingLayout(SettingPlace sp);
 }

@@ -22,5 +22,5 @@ package org.apache.hupa.client.ui;
 import com.google.gwt.user.client.ui.LayoutPanel;
 
 public interface Layoutable {
-	LayoutPanel get();
+    LayoutPanel get();
 }

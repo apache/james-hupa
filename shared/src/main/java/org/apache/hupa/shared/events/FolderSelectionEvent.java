@@ -25,7 +25,7 @@ import org.apache.hupa.shared.domain.User;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class FolderSelectionEvent extends GwtEvent<FolderSelectionEventHandler>{
-    
+
     private User user;
     private ImapFolder folder;
     public final static Type<FolderSelectionEventHandler> TYPE = new Type<FolderSelectionEventHandler>();
@@ -33,11 +33,11 @@ public class FolderSelectionEvent extends GwtEvent<FolderSelectionEventHandler>{
         this.user =user;
         this.folder = folder;
     }
-    
+
     public ImapFolder getFolder() {
         return folder;
     }
-    
+
     public User getUser() {
         return user;
     }

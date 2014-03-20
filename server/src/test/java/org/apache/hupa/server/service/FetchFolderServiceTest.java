@@ -37,32 +37,32 @@ import org.junit.Test;
 
 public class FetchFolderServiceTest extends HupaGuiceTestCase {
 
-	@Test public void invalidSessionId() {
-		httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
-		try {
-			fetchFoldersService.fetch(new ImapFolderImpl(), false);
-			fail("Invalid session");
-		} catch (InvalidSessionException e) {
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+    @Test public void invalidSessionId() {
+        httpSession.removeAttribute(SConsts.USER_SESS_ATTR);
+        try {
+            fetchFoldersService.fetch(new ImapFolderImpl(), false);
+            fail("Invalid session");
+        } catch (InvalidSessionException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 
-	@Test public void noFolders() {
-		httpSession.setAttribute(SConsts.USER_SESS_ATTR, testUser);
-		try {
-			List<ImapFolder> folders = fetchFoldersService.fetch(null, false);
-			assertTrue(folders.isEmpty());
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+    @Test public void noFolders() {
+        httpSession.setAttribute(SConsts.USER_SESS_ATTR, testUser);
+        try {
+            List<ImapFolder> folders = fetchFoldersService.fetch(null, false);
+            assertTrue(folders.isEmpty());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 
-	@Before public void setup() throws MessagingException {
-		MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
-		store.clear();
-	}
+    @Before public void setup() throws MessagingException {
+        MockIMAPStore store = (MockIMAPStore) storeCache.get(testUser);
+        store.clear();
+    }
 
 }

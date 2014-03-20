@@ -30,11 +30,11 @@
   <set-property name="gwt.logging.popupHandler" value="DISABLED"/>
   <set-property name="gwt.logging.systemHandler" value="ENABLED"/>
   <set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED"/>
-  <!-- Hupa modules -->  
-  <inherits name='org.apache.hupa.Shared'/> 
-  <inherits name='org.apache.hupa.Widgets'/> 
+  <!-- Hupa modules -->
+  <inherits name='org.apache.hupa.Shared'/>
+  <inherits name='org.apache.hupa.Widgets'/>
   <!-- Other stuff -->
-  <inherits name='org.cobogw.gwt.user.User' />   
+  <inherits name='org.cobogw.gwt.user.User' />
   <inherits name='com.google.gwt.widgetideas.WidgetIdeas'/>
   <inherits name='com.google.gwt.gen2.commonwidget.CommonWidget' />
   <inherits name='com.google.gwt.gen2.table.override.Override'/>
@@ -42,31 +42,31 @@
   <inherits name="com.google.gwt.activity.Activity"/>
   <inherits name="com.google.gwt.place.Place"/>
   <inherits name="com.google.gwt.inject.Inject"/>
-  
+
   <inherits name="com.google.gwt.cell.Cell"/>
   <inherits name="com.google.gwt.editor.Editor"/>
   <inherits name="com.google.gwt.resources.Resources" />
-  
+
   <inherits name="gwtupload.GWTUpload"/>
   <inherits name="eu.maydu.gwt.validation.ValidationLibrary"/>
   <inherits name='com.allen_sauer.gwt.dnd.gwt-dnd'/>
   <inherits name='com.google.web.bindery.requestfactory.RequestFactory'/>
   <!-- <inherits name="com.google.gwt.junit.JUnit"/> -->
-  
+
   <!-- Inherit the default GWT style sheet.                       -->
 <!--   <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
 <!--   <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
 <!--   <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
- <!--  <inherits name='com.google.gwt.user.theme.clean.Clean'/>    --> 
- 
+ <!--  <inherits name='com.google.gwt.user.theme.clean.Clean'/>    -->
+
  <set-configuration-property name="CssResource.style" value="pretty"/>
-  
+
   <!--  xsiframe would be the default in gwt soon -->
   <add-linker name="xsiframe"/>
-  
+
   <set-property name="locale" value="en" />
   <set-property-fallback name="locale" value="en"/>
-  
+
   <source path="client"/>
 
   <!-- In dev mode compile just for FF and webkit                 -->

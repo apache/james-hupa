@@ -41,185 +41,185 @@ import com.google.gwt.user.client.ui.RichTextArea;
  */
 public class Editor extends FlowPanel implements HasHTML, Focusable {
 
-	RichTextArea area = new RichTextArea();
-	boolean isNewMessage = true;
+    RichTextArea area = new RichTextArea();
+    boolean isNewMessage = true;
 
-	public Editor() {
-		this((ToolbarConstants) GWT.create(ToolbarConstants.class));
-	}
+    public Editor() {
+        this((ToolbarConstants) GWT.create(ToolbarConstants.class));
+    }
 
-	public Editor(ToolbarConstants constants) {
-		area.ensureDebugId("hupa-editor-area");
-		area.setHeight("100%");
+    public Editor(ToolbarConstants constants) {
+        area.ensureDebugId("hupa-editor-area");
+        area.setHeight("100%");
 
-//		Toolbar toolbar = new Toolbar(area, constants);
-//		toolbar.ensureDebugId("hupa-editor-toolbar");
+//        Toolbar toolbar = new Toolbar(area, constants);
+//        toolbar.ensureDebugId("hupa-editor-toolbar");
 
-//		super.add(toolbar);
-		super.add(area);
-		setWidth("100%");
-		setHeight("100%");
+//        super.add(toolbar);
+        super.add(area);
+        setWidth("100%");
+        setHeight("100%");
 
-		/*
-		 * Note: rich-area is created in an iframe, so Hupa's style sheets are
-		 * not available, unless we inject them to the generated iframe
-		 * 
-		 * When body is available, we put the default style for messages:
-		 */
-		area.addInitializeHandler(new InitializeHandler() {
-			public void onInitialize(InitializeEvent event) {
-				setBodyStyleAttribute("fontFamily", "arial");
-				setBodyStyleAttribute("fontSize", "12px");
-			}
-		});
+        /*
+         * Note: rich-area is created in an iframe, so Hupa's style sheets are
+         * not available, unless we inject them to the generated iframe
+         *
+         * When body is available, we put the default style for messages:
+         */
+        area.addInitializeHandler(new InitializeHandler() {
+            public void onInitialize(InitializeEvent event) {
+                setBodyStyleAttribute("fontFamily", "arial");
+                setBodyStyleAttribute("fontSize", "12px");
+            }
+        });
 
-		/*
-		 * When the users writes in-line comments in replies, the text has to be
-		 * leftIdented. Right now, I've implemented this feature only in gecko
-		 * browsers, for other browsers the user has to push the leftIdent
-		 * button.
-		 */
-		if (getUA().equals("ff"))
-			addNewlineHandlersForFireFox();
+        /*
+         * When the users writes in-line comments in replies, the text has to be
+         * leftIdented. Right now, I've implemented this feature only in gecko
+         * browsers, for other browsers the user has to push the leftIdent
+         * button.
+         */
+        if (getUA().equals("ff"))
+            addNewlineHandlersForFireFox();
 
-	}
-	
-	public RichTextArea getArea(){
-		return area;
-	}
+    }
 
-	@Override
-	public void setSize(String width, String height) {
-		area.setSize(width, height);
-	}
+    public RichTextArea getArea(){
+        return area;
+    }
 
-	@Override
-	public void setWidth(String width) {
-		super.setWidth(width);
-		area.setWidth(width);
-	}
+    @Override
+    public void setSize(String width, String height) {
+        area.setSize(width, height);
+    }
 
-	@Override
-	public void setHeight(String height) {
-		super.setHeight(height);
-		area.setHeight(height);
-	}
+    @Override
+    public void setWidth(String width) {
+        super.setWidth(width);
+        area.setWidth(width);
+    }
 
-	public String getHTML() {
-		return area.getHTML();
-	}
+    @Override
+    public void setHeight(String height) {
+        super.setHeight(height);
+        area.setHeight(height);
+    }
 
-	public void setHTML(String html) {
-		isNewMessage = html.trim().length() > 0;
-		area.setHTML(html);
-	}
+    public String getHTML() {
+        return area.getHTML();
+    }
 
-	public String getText() {
-		return area.getText();
-	}
+    public void setHTML(String html) {
+        isNewMessage = html.trim().length() > 0;
+        area.setHTML(html);
+    }
 
-	public void setText(String text) {
-		area.setText(text);
-	}
+    public String getText() {
+        return area.getText();
+    }
 
-	public void setBodyStyleAttribute(final String key, final String value) {
-		DOM.setStyleAttribute(getBody(area.getElement()), key, value);
-	}
+    public void setText(String text) {
+        area.setText(text);
+    }
 
-	public int getTabIndex() {
-		return area.getTabIndex();
-	}
+    public void setBodyStyleAttribute(final String key, final String value) {
+        DOM.setStyleAttribute(getBody(area.getElement()), key, value);
+    }
 
-	public void setAccessKey(char key) {
-		area.setAccessKey(key);
-	}
+    public int getTabIndex() {
+        return area.getTabIndex();
+    }
 
-	public void setFocus(boolean focused) {
-		area.setFocus(focused);
-	}
+    public void setAccessKey(char key) {
+        area.setAccessKey(key);
+    }
 
-	public void setTabIndex(int index) {
-		area.setTabIndex(index);
-	}
+    public void setFocus(boolean focused) {
+        area.setFocus(focused);
+    }
 
-	// isEnabled and setEnabled dont work in richtextarea due to a bug,
-	// I've sent a patch to gwt, when it is accepted this native methods can be
-	// removed
-	public void setEnabled(boolean b) {
-		setEnabled(area.getElement(), b);
-	}
+    public void setTabIndex(int index) {
+        area.setTabIndex(index);
+    }
 
-	public boolean isEnabled() {
-		return isEnabled(area.getElement());
-	}
+    // isEnabled and setEnabled dont work in richtextarea due to a bug,
+    // I've sent a patch to gwt, when it is accepted this native methods can be
+    // removed
+    public void setEnabled(boolean b) {
+        setEnabled(area.getElement(), b);
+    }
 
-	private native void setEnabled(Element iframe, boolean b) /*-{
-																var doc = iframe.contentWindow.document;
-																if (doc.body.contentEditable) 
-																doc.body.contentEditable = b;
-																else 
-																doc.designMode = b ? 'On' : 'Off';
-																}-*/;
+    public boolean isEnabled() {
+        return isEnabled(area.getElement());
+    }
 
-	private native boolean isEnabled(Element iframe) /*-{
-														var doc = iframe.contentWindow.document;
-														alert((doc.designMode.toUpperCase()) == 'ON');
-														if (doc.body.contentEditable) {
-														alert("editable ???");
-														return doc.body.contentEditable;
-														} else {
-														var ret = (((doc.designMode).toUpperCase()) == 'ON') ? true : false;
-														alert(ret);
-														return ret;
-														}
-														}-*/;
+    private native void setEnabled(Element iframe, boolean b) /*-{
+                                                                var doc = iframe.contentWindow.document;
+                                                                if (doc.body.contentEditable)
+                                                                doc.body.contentEditable = b;
+                                                                else
+                                                                doc.designMode = b ? 'On' : 'Off';
+                                                                }-*/;
 
-	private native Element getBody(Element frame) /*-{
-													return frame.contentWindow.document.body;
-													}-*/;
+    private native boolean isEnabled(Element iframe) /*-{
+                                                        var doc = iframe.contentWindow.document;
+                                                        alert((doc.designMode.toUpperCase()) == 'ON');
+                                                        if (doc.body.contentEditable) {
+                                                        alert("editable ???");
+                                                        return doc.body.contentEditable;
+                                                        } else {
+                                                        var ret = (((doc.designMode).toUpperCase()) == 'ON') ? true : false;
+                                                        alert(ret);
+                                                        return ret;
+                                                        }
+                                                        }-*/;
 
-	private void addNewlineHandlersForFireFox() {
-		area.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				doNline = true;
-			}
-		});
-		area.addFocusHandler(new FocusHandler() {
-			public void onFocus(FocusEvent event) {
-				doNline = true;
-			}
-		});
-		area.addKeyPressHandler(new KeyPressHandler() {
-			public void onKeyPress(KeyPressEvent event) {
-				if (!isNewMessage) {
-					if (doNline && event.getCharCode() == KeyCodes.KEY_ENTER) {
-						doNline = false;
-						leftIdentTimer.schedule(10);
-						event.preventDefault();
-					}
-					if (!doNline
-							&& (event.getCharCode() == KeyCodes.KEY_DOWN || event.getCharCode() == KeyCodes.KEY_UP)) {
-						doNline = true;
-					}
-				}
-			}
-		});
+    private native Element getBody(Element frame) /*-{
+                                                    return frame.contentWindow.document.body;
+                                                    }-*/;
 
-	}
+    private void addNewlineHandlersForFireFox() {
+        area.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                doNline = true;
+            }
+        });
+        area.addFocusHandler(new FocusHandler() {
+            public void onFocus(FocusEvent event) {
+                doNline = true;
+            }
+        });
+        area.addKeyPressHandler(new KeyPressHandler() {
+            public void onKeyPress(KeyPressEvent event) {
+                if (!isNewMessage) {
+                    if (doNline && event.getCharCode() == KeyCodes.KEY_ENTER) {
+                        doNline = false;
+                        leftIdentTimer.schedule(10);
+                        event.preventDefault();
+                    }
+                    if (!doNline
+                            && (event.getCharCode() == KeyCodes.KEY_DOWN || event.getCharCode() == KeyCodes.KEY_UP)) {
+                        doNline = true;
+                    }
+                }
+            }
+        });
 
-	boolean doNline = true;
-	private Timer leftIdentTimer = new Timer() {
-		public void run() {
-			area.getFormatter().insertHTML("<br/>\n");
-			area.getFormatter().leftIndent();
-		}
-	};
+    }
 
-	private native String getUA() /*-{
-									var ua = navigator.userAgent.toLowerCase();
-									if (ua.indexOf("gecko") != -1) 
-									return "ff";
-									return "other";
-									}-*/;
+    boolean doNline = true;
+    private Timer leftIdentTimer = new Timer() {
+        public void run() {
+            area.getFormatter().insertHTML("<br/>\n");
+            area.getFormatter().leftIndent();
+        }
+    };
+
+    private native String getUA() /*-{
+                                    var ua = navigator.userAgent.toLowerCase();
+                                    if (ua.indexOf("gecko") != -1)
+                                    return "ff";
+                                    return "other";
+                                    }-*/;
 
 }

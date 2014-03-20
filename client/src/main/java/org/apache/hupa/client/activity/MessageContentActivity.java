@@ -54,134 +54,134 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class MessageContentActivity extends AppBaseActivity {
 
-	private static final Logger log = Logger.getLogger(MessageContentActivity.class.getName());
+    private static final Logger log = Logger.getLogger(MessageContentActivity.class.getName());
 
-	@Inject private Displayable display;
+    @Inject private Displayable display;
     @Inject private ToolBarActivity.Displayable toolBar;
-	
-	private String folder;
-	private String uid;
-	private MessageDetails details;
-	
-	public MessageContentActivity() {
+
+    private String folder;
+    private String uid;
+    private MessageDetails details;
+
+    public MessageContentActivity() {
        exportJSMethods(this);
     }
-	
-	@Override
-	public void start(AcceptsOneWidget container, final EventBus eventBus) {
-		bindTo(eventBus);
-		if (isUidSet()) {
+
+    @Override
+    public void start(AcceptsOneWidget container, final EventBus eventBus) {
+        bindTo(eventBus);
+        if (isUidSet()) {
             hc.showTopLoading("Loading... ");
             display.clearContent();
-			GetMessageDetailsRequest req = rf.messageDetailsRequest();
-			GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
-			final ImapFolder f = req.create(ImapFolder.class);
-			f.setFullName(folder);
-			action.setFolder(f);
-			action.setUid(Long.parseLong(uid));
+            GetMessageDetailsRequest req = rf.messageDetailsRequest();
+            GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
+            final ImapFolder f = req.create(ImapFolder.class);
+            f.setFullName(folder);
+            action.setFolder(f);
+            action.setUid(Long.parseLong(uid));
 
-			final String id = uid; 
-			req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
-				@Override
-				public void onSuccess(GetMessageDetailsResult response) {
-				    if (!id.equals(uid)) {
-				        return;
-				    }
+            final String id = uid;
+            req.get(action).fire(new Receiver<GetMessageDetailsResult>() {
+                @Override
+                public void onSuccess(GetMessageDetailsResult response) {
+                    if (!id.equals(uid)) {
+                        return;
+                    }
                     hc.hideTopLoading();
-		            eventBus.fireEvent(new MessageViewEvent(response.getMessageDetails()));
+                    eventBus.fireEvent(new MessageViewEvent(response.getMessageDetails()));
 
-		            details = response.getMessageDetails();
-					display.fillMessageContent(details.getText(), false);
-					
-					List<MessageAttachment> attaches = details.getMessageAttachments();
-					if (attaches != null && !attaches.isEmpty()) {
-						display.setAttachments(attaches, folder, Long.parseLong(uid));
-					}
-				}
+                    details = response.getMessageDetails();
+                    display.fillMessageContent(details.getText(), false);
 
-				@Override
-				public void onFailure(ServerFailure error) {
+                    List<MessageAttachment> attaches = details.getMessageAttachments();
+                    if (attaches != null && !attaches.isEmpty()) {
+                        display.setAttachments(attaches, folder, Long.parseLong(uid));
+                    }
+                }
+
+                @Override
+                public void onFailure(ServerFailure error) {
                     hc.hideTopLoading();
                     toolBar.enableAllTools(false);
-					if (error.isFatal()) {
-						hc.showNotice(error.getMessage(), 10000);
-					}
-				}
-			});
-		}
-		container.setWidget(display.asWidget());
-	}
+                    if (error.isFatal()) {
+                        hc.showNotice(error.getMessage(), 10000);
+                    }
+                }
+            });
+        }
+        container.setWidget(display.asWidget());
+    }
 
-	private void bindTo(EventBus eventBus) {
-		eventBus.addHandler(ShowRawEvent.TYPE, new ShowRawEventHandler() {
-			@Override
-			public void onShowRaw(ShowRawEvent event) {
-				String message_url = GWT.getModuleBaseURL() + SConsts.SERVLET_SOURCE + "?" + SConsts.PARAM_UID + "="
-						+ uid + "&" + SConsts.PARAM_FOLDER + "=" + folder;
-				Window.open(message_url, "_blank", "");
-			}
-		});
-		eventBus.addHandler(RefreshFoldersEvent.TYPE, new RefreshFoldersEventHandler() {
+    private void bindTo(EventBus eventBus) {
+        eventBus.addHandler(ShowRawEvent.TYPE, new ShowRawEventHandler() {
+            @Override
+            public void onShowRaw(ShowRawEvent event) {
+                String message_url = GWT.getModuleBaseURL() + SConsts.SERVLET_SOURCE + "?" + SConsts.PARAM_UID + "="
+                        + uid + "&" + SConsts.PARAM_FOLDER + "=" + folder;
+                Window.open(message_url, "_blank", "");
+            }
+        });
+        eventBus.addHandler(RefreshFoldersEvent.TYPE, new RefreshFoldersEventHandler() {
             public void onRefreshEvent(RefreshFoldersEvent event) {
                 display.clearContent();
             }
         });
-	}
-	
-	private boolean isUidSet() {
-		return uid != null && uid.matches("\\d+");
-	}
+    }
 
-	public interface Displayable extends IsWidget {
-		void clearContent();
+    private boolean isUidSet() {
+        return uid != null && uid.matches("\\d+");
+    }
+
+    public interface Displayable extends IsWidget {
+        void clearContent();
         void setAttachments(List<MessageAttachment> attachements, String folder, long uid);
-		HasHTML getMessageHTML();
+        HasHTML getMessageHTML();
         void fillMessageContent(String messageDetail, boolean isEditable);
-	}
+    }
 
-	public Activity with(TokenWrapper tokenWrapper) {
-		folder = tokenWrapper.getFolder();
-		uid = tokenWrapper.getUid();
-		return this;
-	}
+    public Activity with(TokenWrapper tokenWrapper) {
+        folder = tokenWrapper.getFolder();
+        uid = tokenWrapper.getUid();
+        return this;
+    }
 
-	public void openLink(String url) {
-		Window.open(url, "_blank", "");
-	}
+    public void openLink(String url) {
+        Window.open(url, "_blank", "");
+    }
 
-	public void mailTo(String mailto) {
-		pc.goTo(new ComposePlace("new").with(new Parameters(null, null, null, null)));
-		eventBus.fireEvent(new MailToEvent(mailto));
-	}
-	
-	private String getHeader(String key) {
+    public void mailTo(String mailto) {
+        pc.goTo(new ComposePlace("new").with(new Parameters(null, null, null, null)));
+        eventBus.fireEvent(new MailToEvent(mailto));
+    }
+
+    private String getHeader(String key) {
         for (MailHeader h : details.getMailHeaders()) {
             if (h.getName().equals(key)) {
                 return h.getValue();
             }
         }
         return null;
-	}
-    
+    }
+
     private boolean isSenderMessage() {
         String from = getHeader("From");
         return from != null && from.contains(HupaController.user.getName())
               || folder.equals(HupaController.user.getSettings().getSentFolderName());
     }
 
-	protected native void exportJSMethods(MessageContentActivity activity)
-	/*-{
-	   $wnd.openLink = function(url) {
-    	   try {
-    	       activity.@org.apache.hupa.client.activity.MessageContentActivity::openLink(Ljava/lang/String;) (url);
-    	   } catch(e) {}
-	       return false;
-	   };
-	   $wnd.mailTo = function(mail) {
-    	   try {
-    	       activity.@org.apache.hupa.client.activity.MessageContentActivity::mailTo(Ljava/lang/String;) (mail);
-    	   } catch(e) {}
-	       return false;
-	   };
+    protected native void exportJSMethods(MessageContentActivity activity)
+    /*-{
+       $wnd.openLink = function(url) {
+           try {
+               activity.@org.apache.hupa.client.activity.MessageContentActivity::openLink(Ljava/lang/String;) (url);
+           } catch(e) {}
+           return false;
+       };
+       $wnd.mailTo = function(mail) {
+           try {
+               activity.@org.apache.hupa.client.activity.MessageContentActivity::mailTo(Ljava/lang/String;) (mail);
+           } catch(e) {}
+           return false;
+       };
    }-*/;
 }

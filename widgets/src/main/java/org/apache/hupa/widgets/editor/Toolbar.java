@@ -19,8 +19,8 @@
 /**
  * Much of this code has been taken from the GWT Showcase example
  * which is licensed under Apache License v2.0
- * 
- * This class is necessary while GWT library doesn't provide any 
+ *
+ * This class is necessary while GWT library doesn't provide any
  * toolbar to be used with its RichTextArea widget.
 
  */
@@ -131,7 +131,7 @@ public class Toolbar extends Composite {
         }
 
     }
-    
+
     private ValueChangeHandler<ColorPicker> colorHandler = new ValueChangeHandler<ColorPicker>() {
         public void onValueChange(ValueChangeEvent<ColorPicker> event) {
             ColorPicker sender = event.getValue();
@@ -154,10 +154,10 @@ public class Toolbar extends Composite {
             sender.hide();
         }
     };
-    
+
     private static final ToolbarImages images = (ToolbarImages) GWT.create(ToolbarImages.class);
     private EventHandler handler = new EventHandler();
-    
+
 
     private RichTextArea richText;
     private RichTextArea.Formatter formatter;
@@ -186,7 +186,7 @@ public class Toolbar extends Composite {
     private FontPicker fontFamilyPicker = new FontPicker(FontPickerType.FONT_FAMILY);
     private PushButton fontSize;
     private FontPicker fontSizePicker = new FontPicker(FontPickerType.FONT_SIZE);
-    
+
     private PushButton backColors;
     private PushButton foreColors;
     private ColorPicker backColorsPicker = new ColorPicker();
@@ -194,7 +194,7 @@ public class Toolbar extends Composite {
 
     /**
      * Creates a new toolbar that drives the given rich text area.
-     * 
+     *
      * @param richText
      *            the rich text area to be controlled
      */
@@ -237,7 +237,7 @@ public class Toolbar extends Composite {
             topPanel.add(removeFormat = createPushButton(images.removeFormat(), strings.editor_removeFormat()));
         }
 
-        
+
         HTML topEmtyCell = new HTML("");
         topPanel.add(topEmtyCell);
         topPanel.setCellWidth(topEmtyCell, "100%");

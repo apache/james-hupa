@@ -32,19 +32,19 @@ import com.google.web.bindery.requestfactory.shared.gquery.PromiseRF;
  */
 @Singleton
 public class HupaStorage {
-    
+
     @Inject protected AppCache cache;
     @Inject protected HupaRequestFactory rf;
-    
+
     protected static String KEY_CACHE_FOLDERS = "fld";
     protected static String KEY_CACHE_SERVER = "srv";
     protected static String KEY_CACHE_MSGS = "msg";
 
     protected User user;
-    
+
     private Promise loginPromise;
     private HandlerRegistration onLogin;
-    
+
     public static class FunctionPromise extends Function{
         private Promise p;
         public FunctionPromise(Promise promise) {
@@ -54,7 +54,7 @@ public class HupaStorage {
             return p;
         }
     }
-    
+
     @Inject
     public HupaStorage(EventBus eventBus) {
         onLogin = eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
@@ -62,9 +62,9 @@ public class HupaStorage {
                 user = event.getUser();
                 onLogin.removeHandler();
             }
-        });        
+        });
     }
-    
+
     public Function waitingForLogin() {
         return new Function() {
             public Object f(Object... data) {
@@ -93,7 +93,7 @@ public class HupaStorage {
     public Promise gettingFolders() {
         return gettingFolders(false);
     }
-    
+
     public Promise gettingFolders(final boolean skipCache) {
         return GQuery
         .when(waitingForLogin())
@@ -112,7 +112,7 @@ public class HupaStorage {
             }
         });
     }
-    
+
     public Promise gettingMessages(final boolean skipCache, final String folderFullName, final int start, final int offset, final String search) {
         return GQuery
         .when(waitingForLogin())
@@ -139,7 +139,7 @@ public class HupaStorage {
             }
         });
     }
-    
+
     public Promise gettingSettings(final boolean skipCache) {
         return GQuery
         .when(waitingForLogin())
@@ -157,12 +157,12 @@ public class HupaStorage {
                 }
             }
         });
-    }    
-    
+    }
+
     public void expireFolders() {
         cache.setExpires(KEY_CACHE_FOLDERS, 0);
     }
-    
+
     public Settings getSettingsByEmail(String email) {
         cache.setPrefix(Md5.md5Hex(email).substring(0, 8) + "_");
         return cache.restoreProxy(Settings.class, KEY_CACHE_SERVER, false);

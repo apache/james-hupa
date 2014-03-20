@@ -52,7 +52,7 @@ public class LoginView extends Composite implements LoginActivity.Displayable {
     @UiField HTMLPanel message;
     @UiField SubmitButton submitButton;
     @UiField Button setupButton;
-    
+
     @UiField PopupPanel settingsPopup;
     @UiField TextBox imapServer;
     @UiField TextBox imapPort;
@@ -85,7 +85,7 @@ public class LoginView extends Composite implements LoginActivity.Displayable {
 
         settingsPopup.setVisible(false);
     }
-    
+
     @UiHandler("usernameTextBox")
     protected void onUser(KeyPressEvent e) {
         if (e.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
@@ -96,7 +96,7 @@ public class LoginView extends Composite implements LoginActivity.Displayable {
             }.schedule(100);
         }
     }
-    
+
     @UiHandler("usernameTextBox")
     protected void onUser(ChangeEvent e) {
         activity.loadSettings();
@@ -108,13 +108,13 @@ public class LoginView extends Composite implements LoginActivity.Displayable {
             submitButton.click();
         }
     }
-    
+
     @UiHandler("submitButton")
     protected void onSubmit(ClickEvent e) {
         System.out.println("ON sub");
-        if (!usernameTextBox.getValue().isEmpty() && 
+        if (!usernameTextBox.getValue().isEmpty() &&
             !passwordTextBox.getValue().isEmpty()) {
-            if (!settingsPopup.isShowing() && 
+            if (!settingsPopup.isShowing() &&
                     (imapServer.getValue().isEmpty()
                     || smtpServer.getValue().isEmpty()
                     || imapPort.getValue().isEmpty()
@@ -124,10 +124,10 @@ public class LoginView extends Composite implements LoginActivity.Displayable {
             } else {
                 setLoading(true);
                 activity.doLogin();
-            }            
+            }
         }
     }
-    
+
     @UiHandler("setupButton")
     protected void onSetup(ClickEvent e) {
         if (settingsPopup.isShowing()) {
@@ -136,7 +136,7 @@ public class LoginView extends Composite implements LoginActivity.Displayable {
             settingsPopup.showRelativeTo(setupButton);
         }
     }
-    
+
     @Override
     public HasValue<String> getUserNameValue() {
         return usernameTextBox;
@@ -167,7 +167,7 @@ public class LoginView extends Composite implements LoginActivity.Displayable {
     }
 
     private static LoginViewUiBinder binder = GWT.create(LoginViewUiBinder.class);
-    
+
     interface Style extends CssResource {
         String imapSetting();
     }
@@ -182,18 +182,18 @@ public class LoginView extends Composite implements LoginActivity.Displayable {
         smtpPort.setValue("" + (s.getSmtpPort() > 0 ? s.getSmtpPort() : ""));
         smtpSecure.setValue(s.getSmtpSecure());
     }
-    
+
     @Override
     public Settings getSettings(Settings s) {
         s.setImapServer(imapServer.getValue());
         imapPort.setValue(imapPort.getValue().replaceAll("[^\\d]+", ""));
         if(imapPort.getValue().matches("\\d+"))
-        	s.setImapPort(Integer.valueOf(imapPort.getValue()));
-        s.setImapSecure(imapSecure.getValue());        
+            s.setImapPort(Integer.valueOf(imapPort.getValue()));
+        s.setImapSecure(imapSecure.getValue());
         s.setSmtpServer(smtpServer.getValue());
         smtpPort.setValue(smtpPort.getValue().replaceAll("[^\\d]+", ""));
         if(smtpPort.getValue().matches("\\d+"))
-        	s.setSmtpPort(Integer.valueOf(smtpPort.getValue()));
+            s.setSmtpPort(Integer.valueOf(smtpPort.getValue()));
         s.setSmtpSecure(smtpSecure.getValue());
         return s;
     }
@@ -202,7 +202,7 @@ public class LoginView extends Composite implements LoginActivity.Displayable {
     public void setActivity(LoginActivity loginActivity) {
         activity = loginActivity;
     }
-    
+
     @Override
     protected void onAttach() {
         super.onAttach();

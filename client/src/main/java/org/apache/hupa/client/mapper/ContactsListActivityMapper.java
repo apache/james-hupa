@@ -30,28 +30,28 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class ContactsListActivityMapper extends _HupaActivityMapper {
-	private final Provider<ContactsListActivity> contactsListActivityProvider;
+    private final Provider<ContactsListActivity> contactsListActivityProvider;
 
-	@Inject
-	public ContactsListActivityMapper(Provider<ContactsListActivity> contactsListActivityProvider) {
-		this.contactsListActivityProvider = contactsListActivityProvider;
-	}
+    @Inject
+    public ContactsListActivityMapper(Provider<ContactsListActivity> contactsListActivityProvider) {
+        this.contactsListActivityProvider = contactsListActivityProvider;
+    }
 
-	@Override
-	protected Activity asyncLoadActivity(final Place place) {
-		if (!(place instanceof ContactPlace))
-			return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    @Override
+    protected Activity asyncLoadActivity(final Place place) {
+        if (!(place instanceof ContactPlace))
+            return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return contactsListActivityProvider.get();
-			}
-		};
+            @Override
+            protected Activity createInstance() {
+                return contactsListActivityProvider.get();
+            }
+        };
 
-	}
+    }
 }

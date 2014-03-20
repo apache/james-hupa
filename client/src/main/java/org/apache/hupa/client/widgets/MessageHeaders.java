@@ -40,11 +40,11 @@ import org.apache.hupa.widgets.ui.MultiValueSuggestArea;
  * A panel which displays the headers of a message.
  */
 public class MessageHeaders extends Composite {
-    
+
     private FlexTable detailGrid = new FlexTable();
     private String headerNames[];
     private int rowCounter = 0;
-    
+
     public MessageHeaders (HupaConstants constants) {
        headerNames = new String[] {
                 constants.headerFrom(),
@@ -59,18 +59,18 @@ public class MessageHeaders extends Composite {
         detailGrid.addStyleName(HupaCSS.C_msg_headers);
         initWidget(detailGrid);
     }
-    
+
     public void setValues(Widget from, Widget to, Widget cc, Widget bcc, Widget subject, Widget attachments) {
-       addValues(from, to, cc, bcc, subject, attachments);    
+       addValues(from, to, cc, bcc, subject, attachments);
     }
-    
+
     private void addValues(Widget...widgets) {
         detailGrid.clearAll();
         rowCounter = 0;
         for (int i=0; i<widgets.length; i++)
             addRow(headerNames[i], widgets[i]);
     }
-    
+
     private Widget createLinkToShow(String name, final Widget widget) {
         final EnableHyperlink link = new EnableHyperlink(name + ":");
         link.addClickHandler(new ClickHandler() {
@@ -82,7 +82,7 @@ public class MessageHeaders extends Composite {
         widget.setVisible(false);
         return link;
     }
-    
+
     private void addRow(String name, final Widget widget) {
         if (widget == null)
             return;
@@ -104,12 +104,12 @@ public class MessageHeaders extends Composite {
             if (((Panel)widget).iterator().hasNext() == false)
                 return;
         }
-        
+
         detailGrid.setWidget(rowCounter, 0, label);
         detailGrid.setWidget(rowCounter, 1, widget);
         detailGrid.getCellFormatter().setStyleName(rowCounter, 0, "label");
         detailGrid.getCellFormatter().setStyleName(rowCounter, 1, "value");
         rowCounter ++;
     }
-    
+
 }

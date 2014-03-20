@@ -41,7 +41,7 @@ import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 
 public class StoreBugTest {
-    
+
     static final String imapServer = "imap.gmail.com";
     static final int imapPort = 993;
     static final String imapUser = "nobody@gmail.com";
@@ -49,17 +49,17 @@ public class StoreBugTest {
     static final boolean isSSl = true;
     static final String truststore = "";
     static final String truststorePassword = "";
-    
+
     static int nthreads = 5;
     static int threadTimeout = 15000;
-    
+
     Session session = Session.getDefaultInstance(new Properties(), null);
     static InMemoryIMAPStoreCache cache = new InMemoryIMAPStoreCache(new MockLog(), 2, 60000, false, truststore, truststorePassword, false);
     static User user = new UserImpl() {
        {setName(imapUser); setPassword(imapPass);}
     };
-    
-    @Test 
+
+    @Test
     public void testMockIMAPStore() throws Exception {
         TestThread[] threads = testIMAPStoreIdle(getStore(true), "Mock-Inbox", 100);
         Assert.assertNotNull(threads);
@@ -115,7 +115,7 @@ public class StoreBugTest {
             System.out.println("Skipping integration test: " + msg);
             return;
         }
-        
+
         // Start the threads
         TestThread[] threads = new TestThread[10];
         for (int i = 0; i<threads.length; i++) {
@@ -132,7 +132,7 @@ public class StoreBugTest {
 
         // wait until all threads have finished
         waitForThreads(threads, 30000);
-        
+
         Assert.assertFalse(getThreadsSpentTime(threads).contains("-1"));
     }
 
@@ -168,7 +168,7 @@ public class StoreBugTest {
         // write it to a null stream
         message.writeTo(devNull);
     }
-    
+
     // Create a new imap store connection (mock or real)
     private IMAPStore getStore(boolean mock) throws Exception {
         IMAPStore store = null;
@@ -183,14 +183,14 @@ public class StoreBugTest {
             props.setProperty("mail.imap.connectionpooltimeout", 30000 + "");
             props.setProperty("mail.imaps.connectionpoolsize", 2 + "");
             props.setProperty("mail.imaps.connectionpooltimeout", 30000 + "");
-            System.setProperty("mail.mime.decodetext.strict", "false");        
+            System.setProperty("mail.mime.decodetext.strict", "false");
             // Create the imap connection
             store = (IMAPStore)session.getStore(isSSl ? "imaps" : "imap");
             store.connect(imapServer, imapPort, imapUser, imapPass);
         }
         return store;
     }
-    
+
     @SuppressWarnings("deprecation")
     void waitForThreads(TestThread[] threads, int timeout) throws Exception {
         long start = System.currentTimeMillis();
@@ -216,7 +216,7 @@ public class StoreBugTest {
             Thread.sleep(100);
         }
     }
-    
+
     String getThreadsStatus(TestThread[] threads){
         String ret = "";
         for (TestThread t : threads) {
@@ -234,18 +234,18 @@ public class StoreBugTest {
 
     String getThreadsSpentTime(TestThread[] threads){
         String ret = "";
-        for (TestThread t : threads) 
+        for (TestThread t : threads)
             ret += " " + t.spent_millisecs;
         return ret;
     }
-   
+
     int getRandom(int floor, int ceil) {
         return floor + (int)(Math.random() * Math.abs(ceil -floor));
     }
-    
+
     OutputStream devNull = new OutputStream() {
         public void write(int b) throws IOException {
         }
     };
-    
+
 }

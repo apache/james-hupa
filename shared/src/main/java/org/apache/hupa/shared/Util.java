@@ -23,14 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
-    
+
     public final static String HTML_LT = "&lt;";
     public final static String STRING_LT = "<";
     public final static String HTML_GT = "&gt;";
     public final static String STRING_GT = ">";
     public final static String HTML_CR = "<br>";
     public final static String STRING_CR = "\n";
-    
+
     public static String unEscapeHtmlTags(String string) {
         if (string != null) {
             string = string.replaceAll(HTML_LT, STRING_LT);
@@ -47,7 +47,7 @@ public class Util {
         }
         return string;
     }
-    
+
     public static <T> String listToString(List<T> list) {
         return list == null ? "" : new ArrayList<T>(list).toString().replaceFirst("^\\[(.*)\\]$", "$1");
     }

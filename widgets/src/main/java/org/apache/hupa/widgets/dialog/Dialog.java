@@ -13,16 +13,16 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 public class Dialog {
-    
+
     private static PopupPanel alert;
     private static HTML msgContent;
     private static Button okButton;
     private static Button cancelButton;
-    
+
     private static Command okCommand;
     private static Command cancelCommand;
     private static boolean confirm = false;
-    
+
     public static void alert(Object msg) {
         alert(msg, null);
     }
@@ -31,7 +31,7 @@ public class Dialog {
         dialog(msg, false,  null, null);
         okButton.setFocus(true);
     }
-    
+
     public static void confirm(Object msg) {
         confirm(msg, null, null);
     }
@@ -44,7 +44,7 @@ public class Dialog {
         dialog(msg, true,  ok, cancel);
         cancelButton.setFocus(true);
     }
-    
+
     public static void dialog(Object msg, final boolean isConfirm, Command ok, Command cancel) {
         if (alert == null) {
             VerticalPanel alertGrid = new VerticalPanel();

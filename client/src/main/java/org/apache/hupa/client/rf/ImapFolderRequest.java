@@ -31,5 +31,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = ImapFolderService.class, locator = IocRfServiceLocator.class)
 public interface ImapFolderRequest extends RequestContext {
-	Request<List<ImapFolder>> requestFolders();
+    Request<List<ImapFolder>> requestFolders();
 }

@@ -21,7 +21,7 @@ package org.apache.hupa.widgets.ui;
 
 /**
  * Classes which implements this interface support editing
- * 
+ *
  *
  */
 public interface HasEditable {
@@ -30,7 +30,7 @@ public interface HasEditable {
      * Start editing
      */
     public void startEdit();
-    
+
     /**
      * Cancel editing
      */
@@ -40,10 +40,10 @@ public interface HasEditable {
      * Stop editing
      */
     public void stopEdit();
-    
+
     /**
      * Return if editing is currently active
-     * 
+     *
      * @return editing
      */
     public boolean isEdit();

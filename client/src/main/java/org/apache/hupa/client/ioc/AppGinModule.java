@@ -118,245 +118,245 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
 @SuppressWarnings("deprecation")
 public class AppGinModule extends AbstractGinModule {
-    
+
     /**
      * Gin implementation of our AppInjector
      */
     @GinModules(AppGinModule.class)
     public static interface AppGinjector extends AppInjector {}
-    
-	public static Logger logger = Logger.getLogger(AppGinModule.class.getName());
 
-	@Override
-	protected void configure() {
-		// Views
-		bind(HupaLayoutable.class).to(HupaLayout.class).in(Singleton.class);
-		bind(LoginLayoutable.class).to(LoginLayout.class).in(Singleton.class);
+    public static Logger logger = Logger.getLogger(AppGinModule.class.getName());
 
-		// Activities
-		bind(LoginActivity.Displayable.class).to(LoginView.class).in(Singleton.class);
-		bind(TopBarActivity.Displayable.class).to(TopBarView.class).in(Singleton.class);
-		bind(LogoActivity.Displayable.class).to(LogoView.class).in(Singleton.class);
-		bind(NotificationActivity.Displayable.class).to(NotificationView.class).in(Singleton.class);
-		bind(NavigationActivity.Displayable.class).to(NavigationView.class).in(Singleton.class);
-		bind(ToolBarActivity.Displayable.class).to(ToolBarView.class).in(Singleton.class);
-		// bind(FolderListActivity.Displayable.class).to(FolderListView.class);
-		bind(MessageListActivity.Displayable.class).to(MessageListView.class).in(Singleton.class);
-		bind(MessageListFooterActivity.Displayable.class).to(MessageListFooterView.class).in(Singleton.class);
-		bind(MessageContentActivity.Displayable.class).to(MessageContentView.class).in(Singleton.class);
-		bind(StatusActivity.Displayable.class).to(StatusView.class).in(Singleton.class);
-		bind(ComposeToolBarActivity.Displayable.class).to(ComposeToolBarView.class).in(Singleton.class);
-		bind(ComposeActivity.Displayable.class).to(ComposeView.class).in(Singleton.class);
-		bind(SearchBoxActivity.Displayable.class).to(SearchBoxView.class).in(Singleton.class);
+    @Override
+    protected void configure() {
+        // Views
+        bind(HupaLayoutable.class).to(HupaLayout.class).in(Singleton.class);
+        bind(LoginLayoutable.class).to(LoginLayout.class).in(Singleton.class);
 
-		bind(LabelListActivity.Displayable.class).to(LabelListView.class).in(Singleton.class);
-		bind(SettingNavActivity.Displayable.class).to(SettingNavView.class).in(Singleton.class);
-		bind(LabelPropertiesActivity.Displayable.class).to(LabelPropertiesView.class).in(Singleton.class);
-		bind(ContactsListActivity.Displayable.class).to(ContactsListView.class).in(Singleton.class);
-		bind(ContactPropertiesActivity.Displayable.class).to(ContactPropertiesView.class).in(Singleton.class);
-		bind(AddressListActivity.Displayable.class).to(AddressListView.class).in(Singleton.class);
+        // Activities
+        bind(LoginActivity.Displayable.class).to(LoginView.class).in(Singleton.class);
+        bind(TopBarActivity.Displayable.class).to(TopBarView.class).in(Singleton.class);
+        bind(LogoActivity.Displayable.class).to(LogoView.class).in(Singleton.class);
+        bind(NotificationActivity.Displayable.class).to(NotificationView.class).in(Singleton.class);
+        bind(NavigationActivity.Displayable.class).to(NavigationView.class).in(Singleton.class);
+        bind(ToolBarActivity.Displayable.class).to(ToolBarView.class).in(Singleton.class);
+        // bind(FolderListActivity.Displayable.class).to(FolderListView.class);
+        bind(MessageListActivity.Displayable.class).to(MessageListView.class).in(Singleton.class);
+        bind(MessageListFooterActivity.Displayable.class).to(MessageListFooterView.class).in(Singleton.class);
+        bind(MessageContentActivity.Displayable.class).to(MessageContentView.class).in(Singleton.class);
+        bind(StatusActivity.Displayable.class).to(StatusView.class).in(Singleton.class);
+        bind(ComposeToolBarActivity.Displayable.class).to(ComposeToolBarView.class).in(Singleton.class);
+        bind(ComposeActivity.Displayable.class).to(ComposeView.class).in(Singleton.class);
+        bind(SearchBoxActivity.Displayable.class).to(SearchBoxView.class).in(Singleton.class);
 
-		bind(LoginActivity.class).in(Singleton.class);
-		bind(TopBarActivity.class).in(Singleton.class);
-		bind(LogoActivity.class).in(Singleton.class);
-		bind(NotificationActivity.class).in(Singleton.class);
-		bind(NavigationActivity.class).in(Singleton.class);
-		bind(ToolBarActivity.class).in(Singleton.class);
-		bind(FolderListActivity.class).in(Singleton.class);
-		bind(MessageListActivity.class).in(Singleton.class);
-		bind(ComposeToolBarActivity.class).in(Singleton.class);
-		bind(ComposeActivity.class).in(Singleton.class);
-		bind(SearchBoxActivity.class).in(Singleton.class);
-		
-		bind(LabelListActivity.class).in(Singleton.class);
-		bind(SettingNavActivity.class).in(Singleton.class);
-		bind(LabelPropertiesActivity.class).in(Singleton.class);
-		bind(ContactsListActivity.class).in(Singleton.class);
-		bind(ContactPropertiesActivity.class).in(Singleton.class);
-		bind(AddressListActivity.class).in(Singleton.class);
-		
+        bind(LabelListActivity.Displayable.class).to(LabelListView.class).in(Singleton.class);
+        bind(SettingNavActivity.Displayable.class).to(SettingNavView.class).in(Singleton.class);
+        bind(LabelPropertiesActivity.Displayable.class).to(LabelPropertiesView.class).in(Singleton.class);
+        bind(ContactsListActivity.Displayable.class).to(ContactsListView.class).in(Singleton.class);
+        bind(ContactPropertiesActivity.Displayable.class).to(ContactPropertiesView.class).in(Singleton.class);
+        bind(AddressListActivity.Displayable.class).to(AddressListView.class).in(Singleton.class);
 
-		bind(FolderListActivity.Displayable.class).to(FolderListView.class).in(Singleton.class);
+        bind(LoginActivity.class).in(Singleton.class);
+        bind(TopBarActivity.class).in(Singleton.class);
+        bind(LogoActivity.class).in(Singleton.class);
+        bind(NotificationActivity.class).in(Singleton.class);
+        bind(NavigationActivity.class).in(Singleton.class);
+        bind(ToolBarActivity.class).in(Singleton.class);
+        bind(FolderListActivity.class).in(Singleton.class);
+        bind(MessageListActivity.class).in(Singleton.class);
+        bind(ComposeToolBarActivity.class).in(Singleton.class);
+        bind(ComposeActivity.class).in(Singleton.class);
+        bind(SearchBoxActivity.class).in(Singleton.class);
 
-		bind(MessagesCellTable.class).in(Singleton.class);
-		bind(CellTree.Resources.class).to(CellTree.BasicResources.class).in(Singleton.class);
-		// Places
-		bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
-
-		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
-
-		bind(HupaController.class).in(Singleton.class);
-		
-		bind(AppCache.class).to(AppCacheHTML5.class).in(Singleton.class);
-		
-		bind(RequestFactory.class).to(HupaRequestFactory.class).in(Singleton.class);
-		
-		bind(HupaPlugins.class).to(HupaDefaultPlugins.class).in(Singleton.class);
-	}
+        bind(LabelListActivity.class).in(Singleton.class);
+        bind(SettingNavActivity.class).in(Singleton.class);
+        bind(LabelPropertiesActivity.class).in(Singleton.class);
+        bind(ContactsListActivity.class).in(Singleton.class);
+        bind(ContactPropertiesActivity.class).in(Singleton.class);
+        bind(AddressListActivity.class).in(Singleton.class);
 
 
-	
-	@Provides
-	@Singleton
-	@Named("AddressListRegion")
-	public ActivityManager getAddressListActivityMapper(AddressListActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
-	
-	@Provides
-	@Singleton
-	@Named("ContactsListRegion")
-	public ActivityManager getContactsListActivityMapper(ContactsListActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
-	
-	@Provides
-	@Singleton
-	@Named("ContactPropertiesRegion")
-	public ActivityManager getContactPropertiesActivityMapper(ContactPropertiesActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
-	
-	@Provides
-	@Singleton
-	@Named("LabelListRegion")
-	public ActivityManager getLabelListActivityMapper(LabelListActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
-	
-	@Provides
-	@Singleton
-	@Named("LabelPropertiesRegion")
-	public ActivityManager getLabelPropertiesActivityMapper(LabelPropertiesActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+        bind(FolderListActivity.Displayable.class).to(FolderListView.class).in(Singleton.class);
 
-	
-	@Provides
-	@Singleton
-	@Named("SettingNavRegion")
-	public ActivityManager getSettingNavActivityMapper(SettingNavActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
-	
-	@Provides
-	@Singleton
-	@Named("LoginPage")
-	public ActivityManager getLoginActivityMapper(LoginActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+        bind(MessagesCellTable.class).in(Singleton.class);
+        bind(CellTree.Resources.class).to(CellTree.BasicResources.class).in(Singleton.class);
+        // Places
+        bind(PlaceHistoryMapper.class).to(AppPlaceHistoryMapper.class).in(Singleton.class);
 
-	@Provides
-	@Singleton
-	@Named("TopBarRegion")
-	public ActivityManager getTopBarActivityMapper(CachingTopBarActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+        bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
 
-	@Provides
-	@Singleton
-	@Named("LogoRegion")
-	public ActivityManager getLogoActivityMapper(LogoActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+        bind(HupaController.class).in(Singleton.class);
 
-	@Provides
-	@Singleton
-	@Named("NotificationRegion")
-	public ActivityManager getNotificationActivityMapper(NotificationActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
-	@Provides
-	@Singleton
-	@Named("NavigationRegion")
-	public ActivityManager getNavigationActivityMapper(NavigationActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+        bind(AppCache.class).to(AppCacheHTML5.class).in(Singleton.class);
 
-	@Provides
-	@Singleton
-	@Named("ToolBarRegion")
-	public ActivityManager getToolBarActivityMapper(ToolBarActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+        bind(RequestFactory.class).to(HupaRequestFactory.class).in(Singleton.class);
 
-	@Provides
-	@Singleton
-	@Named("FolderListRegion")
-	public ActivityManager getFolderListActivityMapper(FolderListActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+        bind(HupaPlugins.class).to(HupaDefaultPlugins.class).in(Singleton.class);
+    }
 
-	@Provides
-	@Singleton
-	@Named("MessageListRegion")
-	public ActivityManager getMessageListActivityMapper(MessageListActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
 
-	@Provides
-	@Singleton
-	@Named("MessageListFooterRegion")
-	public ActivityManager getMessageListFooterActivityMapper(MessageListFooterActivityMapper activityMapper,
-			EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
 
-	@Provides
-	@Singleton
-	@Named("MessageContentRegion")
-	public ActivityManager getMessageContentActivityMapper(MessageContentActivityMapper activityMapper,
-			EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+    @Provides
+    @Singleton
+    @Named("AddressListRegion")
+    public ActivityManager getAddressListActivityMapper(AddressListActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
 
-	@Provides
-	@Singleton
-	@Named("StatusRegion")
-	public ActivityManager getStatusActivityMapper(StatusActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+    @Provides
+    @Singleton
+    @Named("ContactsListRegion")
+    public ActivityManager getContactsListActivityMapper(ContactsListActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
 
-	@Provides
-	@Singleton
-	@Named("ComposeRegion")
-	public ActivityManager getComposeActivityMapper(ComposeActivityMapper activityMapper, EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+    @Provides
+    @Singleton
+    @Named("ContactPropertiesRegion")
+    public ActivityManager getContactPropertiesActivityMapper(ContactPropertiesActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
 
-	@Provides
-	@Singleton
-	@Named("ComposeToolBarRegion")
-	public ActivityManager getComposeToolBarActivityMapper(ComposeToolBarActivityMapper activityMapper,
-			EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+    @Provides
+    @Singleton
+    @Named("LabelListRegion")
+    public ActivityManager getLabelListActivityMapper(LabelListActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
 
-	@Provides
-	@Singleton
-	@Named("SearchBoxRegion")
-	public ActivityManager getSearchBoxActivityMapper(SearchBoxActivityMapper activityMapper,
-			EventBus eventBus) {
-		return new ActivityManager(activityMapper, eventBus);
-	}
+    @Provides
+    @Singleton
+    @Named("LabelPropertiesRegion")
+    public ActivityManager getLabelPropertiesActivityMapper(LabelPropertiesActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
 
-	@Provides
-	@Singleton
-	public PlaceController getPlaceController(EventBus eventBus) {
-		return new PlaceController(eventBus);
-	}
 
-	@Provides
-	@Singleton
-	public PlaceHistoryHandler getHistoryHandler(PlaceController placeController, PlaceHistoryMapper historyMapper,
-			EventBus eventBus) {
-		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
-		historyHandler.register(placeController, eventBus, new DefaultPlace("@"));
-		return historyHandler;
-	}
+    @Provides
+    @Singleton
+    @Named("SettingNavRegion")
+    public ActivityManager getSettingNavActivityMapper(SettingNavActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
 
-	@Provides
-	@Singleton
+    @Provides
+    @Singleton
+    @Named("LoginPage")
+    public ActivityManager getLoginActivityMapper(LoginActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("TopBarRegion")
+    public ActivityManager getTopBarActivityMapper(CachingTopBarActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("LogoRegion")
+    public ActivityManager getLogoActivityMapper(LogoActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("NotificationRegion")
+    public ActivityManager getNotificationActivityMapper(NotificationActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+    @Provides
+    @Singleton
+    @Named("NavigationRegion")
+    public ActivityManager getNavigationActivityMapper(NavigationActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("ToolBarRegion")
+    public ActivityManager getToolBarActivityMapper(ToolBarActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("FolderListRegion")
+    public ActivityManager getFolderListActivityMapper(FolderListActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("MessageListRegion")
+    public ActivityManager getMessageListActivityMapper(MessageListActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("MessageListFooterRegion")
+    public ActivityManager getMessageListFooterActivityMapper(MessageListFooterActivityMapper activityMapper,
+            EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("MessageContentRegion")
+    public ActivityManager getMessageContentActivityMapper(MessageContentActivityMapper activityMapper,
+            EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("StatusRegion")
+    public ActivityManager getStatusActivityMapper(StatusActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("ComposeRegion")
+    public ActivityManager getComposeActivityMapper(ComposeActivityMapper activityMapper, EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("ComposeToolBarRegion")
+    public ActivityManager getComposeToolBarActivityMapper(ComposeToolBarActivityMapper activityMapper,
+            EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    @Named("SearchBoxRegion")
+    public ActivityManager getSearchBoxActivityMapper(SearchBoxActivityMapper activityMapper,
+            EventBus eventBus) {
+        return new ActivityManager(activityMapper, eventBus);
+    }
+
+    @Provides
+    @Singleton
+    public PlaceController getPlaceController(EventBus eventBus) {
+        return new PlaceController(eventBus);
+    }
+
+    @Provides
+    @Singleton
+    public PlaceHistoryHandler getHistoryHandler(PlaceController placeController, PlaceHistoryMapper historyMapper,
+            EventBus eventBus) {
+        PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
+        historyHandler.register(placeController, eventBus, new DefaultPlace("@"));
+        return historyHandler;
+    }
+
+    @Provides
+    @Singleton
     HupaRequestFactory getRequestFactory(final EventBus eventBus) {
         HupaRequestFactory rf = GWT.create(HupaRequestFactory.class);
         rf.initialize(eventBus, new DefaultRequestTransport() {

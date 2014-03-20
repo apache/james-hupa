@@ -31,25 +31,25 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class SearchBoxActivityMapper implements ActivityMapper {
-	private final Provider<SearchBoxActivity> searchBoxActivityProvider;
+    private final Provider<SearchBoxActivity> searchBoxActivityProvider;
 
-	@Inject
-	public SearchBoxActivityMapper(Provider<SearchBoxActivity> searchBoxActivityProvider) {
-		this.searchBoxActivityProvider = searchBoxActivityProvider;
-	}
+    @Inject
+    public SearchBoxActivityMapper(Provider<SearchBoxActivity> searchBoxActivityProvider) {
+        this.searchBoxActivityProvider = searchBoxActivityProvider;
+    }
 
-	public Activity getActivity(Place place) {
-		if(place instanceof DefaultPlace) return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    public Activity getActivity(Place place) {
+        if(place instanceof DefaultPlace) return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return searchBoxActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return searchBoxActivityProvider.get();
+            }
+        };
+    }
 }

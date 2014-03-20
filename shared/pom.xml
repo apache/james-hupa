@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.google.code.guice</groupId>
             <artifactId>guice</artifactId>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

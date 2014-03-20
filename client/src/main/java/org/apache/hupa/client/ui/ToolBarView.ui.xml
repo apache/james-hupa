@@ -1,135 +1,135 @@
-<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
-	license agreements. See the NOTICE file distributed with this work for additional 
-	information regarding copyright ownership. The ASF licenses this file to 
-	you under the Apache License, Version 2.0 (the "License"); you may not use 
-	this file except in compliance with the License. You may obtain a copy of 
-	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
-	by applicable law or agreed to in writing, software distributed under the 
-	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
-	OF ANY KIND, either express or implied. See the License for the specific 
-	language governing permissions and limitations under the License. -->
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor
+    license agreements. See the NOTICE file distributed with this work for additional
+    information regarding copyright ownership. The ASF licenses this file to
+    you under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of
+    the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
+    by applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+    OF ANY KIND, either express or implied. See the License for the specific
+    language governing permissions and limitations under the License. -->
 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-	<ui:image field="buttons" src="res/buttons.png" />
-	<ui:image field="listicons" src="res/listicons.png" />
-	<ui:style type="org.apache.hupa.client.ui.ToolBarView.Style">
-		.bar {
-			position: absolute;
-			display: block;
-			top: -2px;
-			right: 390px;
-			left: 0;
-			height: 40px;
-			white-space: nowrap;
-			z-index: 10;
-		}
-		
-		@sprite .listicon {
-			gwt-image: 'listicons';
-			display: block;
-			min-height: 14px;
-			padding: 4px 4px 1px 24px;
-			height: 17px;
-			background-position: -100px 0;
-			opacity: 0.99;
-		}
-		
-		@sprite .button {
-			gwt-image: 'buttons';
-			text-align: center;
-			font-size: 10px;
-			color: #555;
-			min-width: 50px;
-			max-width: 175px;
-			height: 13px;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			padding: 28px 2px 0 2px;
-			text-shadow: 0px 1px 1px #EEE;
-			box-shadow: none;
-			-webkit-box-shadow: none;
-			background-position: -100px 0;
-			border: 0;
-			display: inline-block;
-			margin: 0 2px;
-			border-radius: 4px;
-			text-decoration: none;
-		}
-		
-		.checkMail {
-			background-position: center -1176px;
-		}
-		
-		.compose {
-			background-position: center -530px;
-		}
-		
-		.spacer {
-			display: inline-block;
-			width: 24px;
-			height: 36px;
-			padding: 0;
-		}
-		
-		.reply {
-			background-position: center -570px;
-		}
-		
-		.dropButton {
-			display: inline-block;
-			position: relative;
-		}
-		
-		.dropButton .button {
-			margin-left: 0;
-			padding-left: 0;
-			margin-right: 0;
-			padding-right: 0;
-		}
-		
-		.replyAll {
-			min-width: 64px;
-			background-position: left -610px;
-		}
-		
-		@sprite .dropButton .dropButtonTip {
-			gwt-image: 'buttons';
-			display: block;
-			position: absolute;
-			right: 0;
-			top: 0;
-			height: 42px;
-			width: 18px;
-			background-position: 0 -1255px;
-		}
-		
+    xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:image field="buttons" src="res/buttons.png" />
+    <ui:image field="listicons" src="res/listicons.png" />
+    <ui:style type="org.apache.hupa.client.ui.ToolBarView.Style">
+        .bar {
+            position: absolute;
+            display: block;
+            top: -2px;
+            right: 390px;
+            left: 0;
+            height: 40px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        @sprite .listicon {
+            gwt-image: 'listicons';
+            display: block;
+            min-height: 14px;
+            padding: 4px 4px 1px 24px;
+            height: 17px;
+            background-position: -100px 0;
+            opacity: 0.99;
+        }
+
+        @sprite .button {
+            gwt-image: 'buttons';
+            text-align: center;
+            font-size: 10px;
+            color: #555;
+            min-width: 50px;
+            max-width: 175px;
+            height: 13px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 28px 2px 0 2px;
+            text-shadow: 0px 1px 1px #EEE;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+            background-position: -100px 0;
+            border: 0;
+            display: inline-block;
+            margin: 0 2px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .checkMail {
+            background-position: center -1176px;
+        }
+
+        .compose {
+            background-position: center -530px;
+        }
+
+        .spacer {
+            display: inline-block;
+            width: 24px;
+            height: 36px;
+            padding: 0;
+        }
+
+        .reply {
+            background-position: center -570px;
+        }
+
+        .dropButton {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropButton .button {
+            margin-left: 0;
+            padding-left: 0;
+            margin-right: 0;
+            padding-right: 0;
+        }
+
+        .replyAll {
+            min-width: 64px;
+            background-position: left -610px;
+        }
+
+        @sprite .dropButton .dropButtonTip {
+            gwt-image: 'buttons';
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 42px;
+            width: 18px;
+            background-position: 0 -1255px;
+        }
+
         .handCursor{
             cursor: pointer;
         }
-		.forward {
-			min-width: 64px;
-			background-position: left -650px;
-		}
-		
-		.delete {
-			background-position: center -690px;
-		}
-        
+        .forward {
+            min-width: 64px;
+            background-position: left -650px;
+        }
+
+        .delete {
+            background-position: center -690px;
+        }
+
         .deleteContent {
             background-position: center -770px;
             width: 80px;
         }
-		
-		.mark {
-			background-position: center -1094px;
-		}
-		
-		.more {
-			background-position: center -850px;
-			display:none;
-		}
+
+        .mark {
+            background-position: center -1094px;
+        }
+
+        .more {
+            background-position: center -850px;
+            display:none;
+        }
         .update {
             background-position: center -1135px;
             width: 80px;
@@ -137,88 +137,88 @@
         .raw {
             background-position: center -810px;
         }
-		
-		.disabledButton {
-			opacity: 0.4;
-			cursor: default;
-		}
-		
-		.popupMenu {
-			width: auto;
-			background: #444;
-			border: 1px solid #999;
-			z-index: 240;
-			border-radius: 4px;
-			box-shadow: 0 2px 6px 0 #333;
-			-moz-box-shadow: 0 2px 6px 0 #333;
-			-webkit-box-shadow: 0 2px 6px 0 #333;
-			-o-box-shadow: 0 2px 6px 0 #333;
-		}
-		
-		.toolBarMenu {
-			margin: 0;
-			padding: 0;
-		}
-		
-		.toolBarMenu td {
+
+        .disabledButton {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        .popupMenu {
+            width: auto;
+            background: #444;
+            border: 1px solid #999;
+            z-index: 240;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px 0 #333;
+            -moz-box-shadow: 0 2px 6px 0 #333;
+            -webkit-box-shadow: 0 2px 6px 0 #333;
+            -o-box-shadow: 0 2px 6px 0 #333;
+        }
+
+        .toolBarMenu {
+            margin: 0;
+            padding: 0;
+        }
+
+        .toolBarMenu td {
             border-top: 1px solid #5a5a5a;
             border-bottom: 1px solid #333;
             padding: 3px 8px;
         }
-        
+
         .toolBarMenu td:hover {
-	       background-color: #0186ba;
+           background-color: #0186ba;
 
         }
-		
-		.activeIcon {
-			display: block;
-			white-space: nowrap;
-			color: #666;
-			text-shadow: 0px 1px 1px #333;
-			text-decoration: none;
-			min-height: 14px;
-			color: #eee;
-			padding: 2px 25px;
-			cursor: default;
-		}
-		
-		.read {
-			background-position: 0 -1222px;
-		}
-		
-		.unread {
-			background-position: 0 -1198px;
-		}
 
-        
-	</ui:style>
+        .activeIcon {
+            display: block;
+            white-space: nowrap;
+            color: #666;
+            text-shadow: 0px 1px 1px #333;
+            text-decoration: none;
+            min-height: 14px;
+            color: #eee;
+            padding: 2px 25px;
+            cursor: default;
+        }
 
-	<g:FlowPanel addStyleNames="{style.bar}" ui:field="ToolBar">
-		<g:Anchor ui:field="refresh" addStyleNames="{style.button} {style.checkMail} {style.handCursor}" title="Refresh">Refresh</g:Anchor>
-		<g:Anchor ui:field="compose" addStyleNames="{style.button} {style.compose} {style.handCursor}" title="Compose">Compose</g:Anchor>
-		<g:HTMLPanel tag="span" addStyleNames="{style.spacer}"></g:HTMLPanel>
-		<g:Anchor ui:field="reply"
-			addStyleNames="{style.button} {style.reply} {style.handCursor}" title="Reply">Reply</g:Anchor>
-		<g:HTMLPanel ui:field="replyAllGroup" tag="span"
-			addStyleNames="{style.dropButton} {style.handCursor}" title="Reply all">
-			<g:Anchor ui:field="replyAll" addStyleNames="{style.button} {style.replyAll}">Reply all
-			</g:Anchor>
-			<g:HTMLPanel ui:field="replyAllTip" tag="span" addStyleNames="{style.dropButtonTip}" />
-		</g:HTMLPanel>
-		<g:HTMLPanel ui:field="forwardGroup" tag="span"
-			addStyleNames="{style.dropButton} {style.handCursor}" title="Forward">
-			<g:Anchor ui:field="forward" addStyleNames="{style.button} {style.forward}">Forward
-			</g:Anchor>
-			<g:HTMLPanel ui:field="forwardTip" tag="span" addStyleNames="{style.dropButtonTip}" />
-		</g:HTMLPanel>
+        .read {
+            background-position: 0 -1222px;
+        }
+
+        .unread {
+            background-position: 0 -1198px;
+        }
+
+
+    </ui:style>
+
+    <g:FlowPanel addStyleNames="{style.bar}" ui:field="ToolBar">
+        <g:Anchor ui:field="refresh" addStyleNames="{style.button} {style.checkMail} {style.handCursor}" title="Refresh">Refresh</g:Anchor>
+        <g:Anchor ui:field="compose" addStyleNames="{style.button} {style.compose} {style.handCursor}" title="Compose">Compose</g:Anchor>
+        <g:HTMLPanel tag="span" addStyleNames="{style.spacer}"></g:HTMLPanel>
+        <g:Anchor ui:field="reply"
+            addStyleNames="{style.button} {style.reply} {style.handCursor}" title="Reply">Reply</g:Anchor>
+        <g:HTMLPanel ui:field="replyAllGroup" tag="span"
+            addStyleNames="{style.dropButton} {style.handCursor}" title="Reply all">
+            <g:Anchor ui:field="replyAll" addStyleNames="{style.button} {style.replyAll}">Reply all
+            </g:Anchor>
+            <g:HTMLPanel ui:field="replyAllTip" tag="span" addStyleNames="{style.dropButtonTip}" />
+        </g:HTMLPanel>
+        <g:HTMLPanel ui:field="forwardGroup" tag="span"
+            addStyleNames="{style.dropButton} {style.handCursor}" title="Forward">
+            <g:Anchor ui:field="forward" addStyleNames="{style.button} {style.forward}">Forward
+            </g:Anchor>
+            <g:HTMLPanel ui:field="forwardTip" tag="span" addStyleNames="{style.dropButtonTip}" />
+        </g:HTMLPanel>
         <g:Anchor ui:field="raw"
             addStyleNames="{style.button} {style.raw} {style.handCursor}" title="Show original">Show Raw</g:Anchor>
-		<g:Anchor ui:field="delete"
-			addStyleNames="{style.button} {style.delete} {style.handCursor}" title="Delete">Delete</g:Anchor>
-		<g:Anchor ui:field="mark"
-			addStyleNames="{style.button} {style.mark} {style.handCursor}" title="Mark as">Mark</g:Anchor>
-		<g:Anchor ui:field="more"
-			addStyleNames="{style.button} {style.more} {style.handCursor}" title="More...">More</g:Anchor>
-	</g:FlowPanel>
+        <g:Anchor ui:field="delete"
+            addStyleNames="{style.button} {style.delete} {style.handCursor}" title="Delete">Delete</g:Anchor>
+        <g:Anchor ui:field="mark"
+            addStyleNames="{style.button} {style.mark} {style.handCursor}" title="Mark as">Mark</g:Anchor>
+        <g:Anchor ui:field="more"
+            addStyleNames="{style.button} {style.more} {style.handCursor}" title="More...">More</g:Anchor>
+    </g:FlowPanel>
 </ui:UiBinder>

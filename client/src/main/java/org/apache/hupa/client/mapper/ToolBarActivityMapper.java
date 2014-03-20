@@ -33,41 +33,41 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class ToolBarActivityMapper extends _HupaActivityMapper {
-	private final Provider<ToolBarActivity> toolBarActivityProvider;
+    private final Provider<ToolBarActivity> toolBarActivityProvider;
 
-	@Inject
-	public ToolBarActivityMapper(Provider<ToolBarActivity> toolActivityProvider) {
-		this.toolBarActivityProvider = toolActivityProvider;
-	}
+    @Inject
+    public ToolBarActivityMapper(Provider<ToolBarActivity> toolActivityProvider) {
+        this.toolBarActivityProvider = toolActivityProvider;
+    }
 
-	@Override
-	protected Activity asyncLoadActivity(final Place place) {
-		if(place instanceof SettingPlace) return null;
-		final ToolBarActivity tba = toolBarActivityProvider.get();
-		if (place instanceof FolderPlace) { // might be from login page
-			FolderPlace here = (FolderPlace) place;
-			tba.getDisplay().setParameters(new Parameters(null, here.getToken(), null, null));
-		}
-		if(place instanceof MessagePlace){
-			return tba.with(((MessagePlace)place).getTokenWrapper().getFolder());
-		}
+    @Override
+    protected Activity asyncLoadActivity(final Place place) {
+        if(place instanceof SettingPlace) return null;
+        final ToolBarActivity tba = toolBarActivityProvider.get();
+        if (place instanceof FolderPlace) { // might be from login page
+            FolderPlace here = (FolderPlace) place;
+            tba.getDisplay().setParameters(new Parameters(null, here.getToken(), null, null));
+        }
+        if(place instanceof MessagePlace){
+            return tba.with(((MessagePlace)place).getTokenWrapper().getFolder());
+        }
 
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				String token = null;
-				if (place instanceof FolderPlace) {
-					token = ((FolderPlace) place).getToken();
-				}else if(place instanceof MessagePlace){
-					token = ((MessagePlace)place).getTokenWrapper().getFolder();
-				}
-				return tba.with(token);
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                String token = null;
+                if (place instanceof FolderPlace) {
+                    token = ((FolderPlace) place).getToken();
+                }else if(place instanceof MessagePlace){
+                    token = ((MessagePlace)place).getTokenWrapper().getFolder();
+                }
+                return tba.with(token);
+            }
+        };
+    }
 }

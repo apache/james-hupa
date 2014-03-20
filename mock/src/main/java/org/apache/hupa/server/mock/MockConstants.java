@@ -30,9 +30,9 @@ import org.apache.hupa.shared.domain.User;
  * Constants and properties used for mock mode
  */
 public class MockConstants {
-    
+
     public static String SESSION_ID = "MockID";
-     
+
     public final static Settings mockSettings = new SettingsImpl() {
         {
             setInboxFolderName(MockIMAPStore.MOCK_INBOX_FOLDER);
@@ -48,7 +48,7 @@ public class MockConstants {
             setSmtpAuth(false);
         }
     };
-    
+
     public final static Properties mockProperties = new Properties() {
         private static final long serialVersionUID = 1L;
         {
@@ -57,14 +57,14 @@ public class MockConstants {
 
             put("IMAPServerAddress", MockIMAPStore.MOCK_HOST);
             put("SMTPServerAddress", MockIMAPStore.MOCK_HOST);
-            
+
             put("SessionDebug", "false");
-            
+
             put("DefaultInboxFolder", MockIMAPStore.MOCK_INBOX_FOLDER);
             put("DefaultTrashFolder", MockIMAPStore.MOCK_TRASH_FOLDER);
             put("DefaultSentFolder", MockIMAPStore.MOCK_SENT_FOLDER);
             put("DefaultDraftsFolder", MockIMAPStore.MOCK_DRAFTS_FOLDER);
-            
+
             put("PostFetchMessageCount", "0");
         }
     };

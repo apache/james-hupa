@@ -84,18 +84,18 @@ public class GuiceListener extends GuiceServletContextListener {
 
     /**
      * Loads the first available configuration file.
-     * 
-     * The preference order for the file is: 
+     *
+     * The preference order for the file is:
      * 1.- file specified in a system property (-Dhupa.config.file=full_path_to_file).
      * 2.- file in the user's home: $HOME/.hupa/config.properties.
      * 3.- global configuration in the os: /etc/default/hupa.
      * 4.- file provided in the .war distribution: "WEB-INF/conf/config.properties.
      * 5.- mock properties file which makes the Hupa work in demo mode.
-     * 
+     *
      * If the system property "mock-host" has been defined, and Hupa has been
      * packaged with the mock stuff, we always return the demo-mode
      * configuration.
-     * 
+     *
      */
     public Properties loadProperties() {
         Properties properties = null;

@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.TextArea;
 /**
  * A text-area which shows a pop-up with suggestions.
  * Different values in the text area are separated by comma.
- * 
+ *
  * @author manolo
  */
 public class MultiValueSuggestArea extends Composite implements HasText, Focusable {
@@ -42,7 +42,7 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
     /**
      * It is necessary to modify the behavior of the default SuggestBox, because
      * it look for items which match the entire text in the box.
-     * 
+     *
      * @author manolo
      */
     private class CustomSuggestBox extends SuggestBox {
@@ -52,7 +52,7 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
             // instead of overriding getText and setText from SuggestBox because a bug in the implementation
             // I've sent a patch to gwt.
             super(oracle, new TextArea() {
-                
+
                 {
                     // Avoid entering a new-line when selecting a suggestion element
                     // TODO: I think this is a bug in GWT SuggestBox which should be reported.
@@ -66,12 +66,12 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
                 }
 
                 String search = null;
-                
+
                 @Override
                 public String getText() {
                     return search = super.getText().replaceFirst("\\s+$", "").replaceFirst("^\\s+","").replaceAll("[\\s;]", ",").replaceFirst("^.+,", "");
                 }
-                
+
                 @Override
                 public void setText(String text) {
                     if (text.trim().length() > 0) {
@@ -79,12 +79,12 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
                         super.setText(actual + text + ", ");
                     }
                 }
-                
+
             });
         }
 
         // We have to use getValue and setValue to get/set the entire text of the textarea
-        // because setText and getText have different behavior since we have modified 
+        // because setText and getText have different behavior since we have modified
         // this methods in the the box implementation
         @Override
         public String getValue() {

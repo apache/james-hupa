@@ -29,25 +29,25 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class NotificationActivityMapper extends _HupaActivityMapper {
-	private final Provider<NotificationActivity> notificationActivityProvider;
+    private final Provider<NotificationActivity> notificationActivityProvider;
 
-	@Inject
-	public NotificationActivityMapper(Provider<NotificationActivity> notificationActivityProvider) {
-		this.notificationActivityProvider = notificationActivityProvider;
-	}
+    @Inject
+    public NotificationActivityMapper(Provider<NotificationActivity> notificationActivityProvider) {
+        this.notificationActivityProvider = notificationActivityProvider;
+    }
 
-	@Override
-	public Activity asyncLoadActivity(Place place) {
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    @Override
+    public Activity asyncLoadActivity(Place place) {
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return notificationActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return notificationActivityProvider.get();
+            }
+        };
+    }
 }

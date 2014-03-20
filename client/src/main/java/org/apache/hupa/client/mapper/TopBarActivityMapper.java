@@ -29,25 +29,25 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class TopBarActivityMapper extends _HupaActivityMapper {
-	private final Provider<TopBarActivity> topBarActivityProvider;
+    private final Provider<TopBarActivity> topBarActivityProvider;
 
-	@Inject
-	public TopBarActivityMapper(Provider<TopBarActivity> topActivityProvider) {
-		this.topBarActivityProvider = topActivityProvider;
-	}
+    @Inject
+    public TopBarActivityMapper(Provider<TopBarActivity> topActivityProvider) {
+        this.topBarActivityProvider = topActivityProvider;
+    }
 
-	@Override
-	protected Activity asyncLoadActivity(final Place place) {
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    @Override
+    protected Activity asyncLoadActivity(final Place place) {
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return topBarActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return topBarActivityProvider.get();
+            }
+        };
+    }
 }

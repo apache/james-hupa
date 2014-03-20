@@ -52,7 +52,7 @@ import com.sun.mail.imap.IMAPStore;
 public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
 
     @Inject protected UserPreferencesStorage userPreferences;
-    
+
     public FetchMessagesResult fetch(FetchMessagesAction action) throws HupaException{
         User user = getUser();
         ImapFolder folder = action.getFolder();
@@ -64,7 +64,7 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
         int offset = action.getOffset();
         try {
             IMAPStore store = cache.get(user);
-            
+
             f =  (com.sun.mail.imap.IMAPFolder)store.getFolder(folder.getFullName());
 
              // check if the folder is open, if not open it read only
@@ -72,12 +72,12 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
                 f.open(com.sun.mail.imap.IMAPFolder.READ_ONLY);
             }
 
-            // if the folder is empty we have no need to process 
+            // if the folder is empty we have no need to process
             int exists = f.getMessageCount();
             if (exists == 0) {
                  return new FetchMessagesResultImpl(new ArrayList<org.apache.hupa.shared.domain.Message>(), start, offset, 0, 0);
-            }        
-            
+            }
+
             MessageConvertArray convArray = getMessagesToConvert(f,action);
             return new FetchMessagesResultImpl(convert(offset, f, convArray.getMesssages()),start, offset,convArray.getRealCount(),f.getUnreadMessageCount());
         } catch (MessagingException e) {
@@ -97,21 +97,21 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
 
 
     protected abstract MessageConvertArray getMessagesToConvert(com.sun.mail.imap.IMAPFolder f, FetchMessagesAction action) throws MessagingException;
-    
+
     protected List<org.apache.hupa.shared.domain.Message> convert(int offset, com.sun.mail.imap.IMAPFolder folder, Message[] messages) throws MessagingException {
         List<org.apache.hupa.shared.domain.Message> mList = new ArrayList<org.apache.hupa.shared.domain.Message>();
-        // Setup fetchprofile to limit the stuff which is fetched 
+        // Setup fetchprofile to limit the stuff which is fetched
         FetchProfile fp = new FetchProfile();
         fp.add(FetchProfile.Item.ENVELOPE);
         fp.add(FetchProfile.Item.FLAGS);
         fp.add(FetchProfile.Item.CONTENT_INFO);
         fp.add(UIDFolder.FetchProfileItem.UID);
         folder.fetch(messages, fp);
-        
+
         // loop over the fetched messages
         for (int i = 0; i < messages.length && i < offset; i++) {
             org.apache.hupa.shared.domain.Message msg = new org.apache.hupa.shared.data.MessageImpl();
-            Message m = messages[i];                
+            Message m = messages[i];
             String from = null;
             if (m.getFrom() != null && m.getFrom().length >0 ) {
                 from = MessageUtils.decodeText(m.getFrom()[0].toString());
@@ -123,7 +123,7 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
                 replyto = MessageUtils.decodeText(m.getReplyTo()[0].toString());
             }
             msg.setReplyto(replyto);
-            
+
             ArrayList<String> to = new ArrayList<String>();
             // Add to addresses
             Address[] toArray = m.getRecipients(RecipientType.TO);
@@ -134,14 +134,14 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
                 }
             }
             msg.setTo(to);
-            
+
             // Check if a subject exist and if so decode it
             String subject = m.getSubject();
             if (subject != null) {
                 subject = MessageUtils.decodeText(subject);
             }
             msg.setSubject(subject);
-            
+
             // Add cc addresses
             Address[] ccArray = m.getRecipients(RecipientType.CC);
             ArrayList<String> cc = new ArrayList<String>();
@@ -149,7 +149,7 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
                 for (Address addr : ccArray) {
                     String mailCc = MessageUtils.decodeText(addr.toString());
                     cc.add(mailCc);
-                }                
+                }
             }
             msg.setCc(cc);
 
@@ -163,14 +163,14 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
 
             // Add flags
             ArrayList<IMAPFlag> iFlags = JavamailUtil.convert(m.getFlags());
-          
+
             ArrayList<Tag> tags = new ArrayList<Tag>();
             for (String flag : m.getFlags().getUserFlags()) {
                 if (flag.startsWith(TagImpl.PREFIX)) {
                     tags.add(new TagImpl(flag.substring(TagImpl.PREFIX.length())));
                 }
             }
-            
+
             msg.setUid(folder.getUID(m));
             msg.setFlags(iFlags);
             msg.setTags(tags);
@@ -181,7 +181,7 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
                 logger.info("");
             }
             mList.add(0, msg);
-            
+
         }
         return mList;
     }
@@ -209,10 +209,10 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
             } catch (IOException e) {
                 logger.error("Error while get content of message " + message.getMessageNumber());
             }
-            
+
         }
         return false;
-    }   
+    }
     protected final class MessageConvertArray {
         private Message[] messages;
         private int realCount;
@@ -221,11 +221,11 @@ public abstract class FetchMessagesBaseServiceImpl extends AbstractService{
             this.messages = messages;
             this.realCount = realCount;
         }
-        
+
         public int getRealCount() {
             return realCount;
         }
-        
+
         public Message[] getMesssages() {
             return messages;
         }

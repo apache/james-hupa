@@ -23,7 +23,7 @@ import com.google.gwt.event.shared.GwtEvent;
 
 /**
  * Event which get fired on any edit operation
- * 
+ *
  *
  */
 public class EditEvent extends GwtEvent<EditHandler>{
@@ -41,40 +41,40 @@ public class EditEvent extends GwtEvent<EditHandler>{
         Stop,
         Cancel
     }
-     
+
      public EditEvent(EventType eType,Object oldValue,Object newValue) {
          this.eType = eType;
          this.oldValue = oldValue;
          this.newValue = newValue;
      }
-     
+
      /**
       * Return the edit type
-      * 
+      *
       * @return eType
       */
      public EventType getEventType() {
          return eType;
      }
-     
+
      /**
       * Return the oldvalue of the editing component
-      * 
+      *
       * @return oldValue
       */
      public Object getOldValue() {
          return oldValue;
      }
-     
+
      /**
       * Return the newvalue of the editing component
-      * 
+      *
       * @return newValue
       */
      public Object getNewValue() {
          return newValue;
      }
-     
+
     @Override
     protected void dispatch(EditHandler handler) {
         handler.onEditEvent(this);
@@ -85,5 +85,5 @@ public class EditEvent extends GwtEvent<EditHandler>{
         return TYPE;
     }
 
-    
+
 }

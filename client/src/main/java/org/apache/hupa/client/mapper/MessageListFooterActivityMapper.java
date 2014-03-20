@@ -29,24 +29,24 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class MessageListFooterActivityMapper extends _MessageActivityMapper {
-	private final Provider<MessageListFooterActivity> messageListFooterActivityProvider;
+    private final Provider<MessageListFooterActivity> messageListFooterActivityProvider;
 
-	@Inject
-	public MessageListFooterActivityMapper(
-			Provider<MessageListFooterActivity> messageListFooterActivityProvider) {
-		this.messageListFooterActivityProvider = messageListFooterActivityProvider;
-	}
+    @Inject
+    public MessageListFooterActivityMapper(
+            Provider<MessageListFooterActivity> messageListFooterActivityProvider) {
+        this.messageListFooterActivityProvider = messageListFooterActivityProvider;
+    }
 
-	@Override
-	protected Activity lazyLoadActivity(Place place) {return new ActivityAsyncProxy() {
-		@Override
-		protected void doAsync(RunAsyncCallback callback) {
-			GWT.runAsync(callback);
-		}
+    @Override
+    protected Activity lazyLoadActivity(Place place) {return new ActivityAsyncProxy() {
+        @Override
+        protected void doAsync(RunAsyncCallback callback) {
+            GWT.runAsync(callback);
+        }
 
-		@Override
-		protected Activity createInstance() {
-			return messageListFooterActivityProvider.get();
-		}
-	};}
+        @Override
+        protected Activity createInstance() {
+            return messageListFooterActivityProvider.get();
+        }
+    };}
 }

@@ -21,37 +21,37 @@ package org.apache.hupa.client.rf;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
 public interface HupaRequestFactory extends RequestFactory {
-	ImapFolderRequest folderRequest();
+    ImapFolderRequest folderRequest();
 
-	CheckSessionRequest sessionRequest();
+    CheckSessionRequest sessionRequest();
 
-	LoginUserRequest loginRequest();
+    LoginUserRequest loginRequest();
 
-	LogoutUserRequest logoutRequest();
+    LogoutUserRequest logoutRequest();
 
-	FetchFoldersRequest fetchFoldersRequest();
+    FetchFoldersRequest fetchFoldersRequest();
 
-	FetchMessagesRequest messagesRequest();
+    FetchMessagesRequest messagesRequest();
 
-	MoveMessageRequest moveMessageRequest();
+    MoveMessageRequest moveMessageRequest();
 
-	CreateFolderRequest createFolderRequest();
+    CreateFolderRequest createFolderRequest();
 
-	DeleteFolderRequest deleteFolderRequest();
+    DeleteFolderRequest deleteFolderRequest();
 
-	RenameFolderRequest renameFolderRequest();
+    RenameFolderRequest renameFolderRequest();
 
-	DeleteMessageByUidRequest deleteMessageByUidRequest();
+    DeleteMessageByUidRequest deleteMessageByUidRequest();
 
-	DeleteMessageAllRequest deleteMessageAllRequest();
+    DeleteMessageAllRequest deleteMessageAllRequest();
 
-	GetMessageDetailsRequest messageDetailsRequest();
+    GetMessageDetailsRequest messageDetailsRequest();
 
-	SendMessageRequest sendMessageRequest();
+    SendMessageRequest sendMessageRequest();
 
-	SendForwardMessageRequest sendForwardMessageRequest();
+    SendForwardMessageRequest sendForwardMessageRequest();
 
-	SendReplyMessageRequest sendReplyMessageRequest();
+    SendReplyMessageRequest sendReplyMessageRequest();
 
-	SetFlagRequest setFlagRequest();
+    SetFlagRequest setFlagRequest();
 }

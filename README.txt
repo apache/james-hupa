@@ -33,15 +33,15 @@ If you prefer to use any other servlet container you can deploy the provided .wa
 
 ###### Hupa and IMAP/SMTP servers  #################
 Hupa is able to discover most of the imap/smtp configuration based on the email domain part.
-When you are prompted to login, type your email address and wait few seconds, if you click on the 
+When you are prompted to login, type your email address and wait few seconds, if you click on the
 gear button you can see the configuration discovered by Hupa, you can modify it if it does not match
-your email provider configuration. Then type your inbox password and you will be logged into your 
+your email provider configuration. Then type your inbox password and you will be logged into your
 email provider servers.
 
 Hupa is compatible with most email providers, gmail, yahoo, hotmail, outlook, exchange, james, etc.
 
 ###### Eclipse GWT Plugin notes ################
-- Hupa uses maven to be built, before inporting the project, you shoul install m2eclipse 
+- Hupa uses maven to be built, before inporting the project, you shoul install m2eclipse
 and google plugins, then go to Import -> New maven project and select the modules:
 shared, mock, server, widgets, client and hupa.
 

@@ -28,25 +28,25 @@ import com.google.inject.Inject;
 
 public class CachingTopBarActivityMapper implements ActivityMapper {
 
-	private ActivityMapper filteredActivityMapper;
+    private ActivityMapper filteredActivityMapper;
 
-	@Inject
-	public CachingTopBarActivityMapper(TopBarActivityMapper topBarActivityMapper) {
+    @Inject
+    public CachingTopBarActivityMapper(TopBarActivityMapper topBarActivityMapper) {
 
-		FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
-			@Override
-			public Place filter(Place place) {
-				return place;
-			}
-		};
+        FilteredActivityMapper.Filter filter = new FilteredActivityMapper.Filter() {
+            @Override
+            public Place filter(Place place) {
+                return place;
+            }
+        };
 
-		CachingActivityMapper cachingActivityMapper = new CachingActivityMapper(topBarActivityMapper);
-		filteredActivityMapper = new FilteredActivityMapper(filter, cachingActivityMapper);
-	}
+        CachingActivityMapper cachingActivityMapper = new CachingActivityMapper(topBarActivityMapper);
+        filteredActivityMapper = new FilteredActivityMapper(filter, cachingActivityMapper);
+    }
 
-	@Override
-	public Activity getActivity(Place place) {
-		return filteredActivityMapper.getActivity(place);
-	}
+    @Override
+    public Activity getActivity(Place place) {
+        return filteredActivityMapper.getActivity(place);
+    }
 
 }

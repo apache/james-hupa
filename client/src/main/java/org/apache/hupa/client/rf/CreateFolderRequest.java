@@ -30,5 +30,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = CreateFolderService.class, locator = IocRfServiceLocator.class)
 public interface CreateFolderRequest extends RequestContext {
-	Request<GenericResult> create(CreateFolderAction action);
+    Request<GenericResult> create(CreateFolderAction action);
 }

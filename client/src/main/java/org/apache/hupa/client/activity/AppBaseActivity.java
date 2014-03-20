@@ -33,31 +33,31 @@ import com.google.inject.Inject;
 
 public abstract class AppBaseActivity extends AbstractActivity {
 
-	@Inject protected EventBus eventBus;
-	@Inject protected HupaController hc;
-	@Inject protected PlaceController pc;
-	@Inject protected HupaRequestFactory rf;
+    @Inject protected EventBus eventBus;
+    @Inject protected HupaController hc;
+    @Inject protected PlaceController pc;
+    @Inject protected HupaRequestFactory rf;
 
-	protected List<HandlerRegistration> registrations = new ArrayList<HandlerRegistration>();
+    protected List<HandlerRegistration> registrations = new ArrayList<HandlerRegistration>();
 
-	@Override
-	public void onStop() {
-		for (HandlerRegistration registration : registrations) {
-			if(registration != null){
-				registration.removeHandler();	
-			}
-		}
-		registrations.clear();
-	}
+    @Override
+    public void onStop() {
+        for (HandlerRegistration registration : registrations) {
+            if(registration != null){
+                registration.removeHandler();
+            }
+        }
+        registrations.clear();
+    }
 
-	protected void registerHandler(HandlerRegistration handlerRegistration) {
-		registrations.add(handlerRegistration);
-	}
+    protected void registerHandler(HandlerRegistration handlerRegistration) {
+        registrations.add(handlerRegistration);
+    }
 
-	public String mayStop() {
-		return null;
-	}
+    public String mayStop() {
+        return null;
+    }
 
-	public void onCancel() {
-	}
+    public void onCancel() {
+    }
 }

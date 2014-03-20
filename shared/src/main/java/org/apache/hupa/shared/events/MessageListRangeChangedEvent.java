@@ -25,10 +25,10 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class MessageListRangeChangedEvent extends GwtEvent<MessageListRangeChangedEventHandler>{
     public final static Type<MessageListRangeChangedEventHandler> TYPE = new Type<MessageListRangeChangedEventHandler>();
-    
+
     public Message message;
-    
-    
+
+
     public int start = 0, size = 0;
     public String search;
 

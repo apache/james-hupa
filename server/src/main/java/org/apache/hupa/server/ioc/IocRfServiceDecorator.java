@@ -57,7 +57,7 @@ public final class IocRfServiceDecorator extends ServiceLayerDecorator {
     public <T> T createDomainObject(Class<T> clazz) {
         return injector.getInstance(clazz);
     }
-    
+
     static int count = 0;
     @Override
     public Object invoke(Method domainMethod, Object... args) {

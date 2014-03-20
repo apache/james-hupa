@@ -98,8 +98,8 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
     protected Class<? extends UserPreferencesStorage> userPreferencesStorageClass = InSessionUserPreferencesStorage.class;
     protected Class<? extends Provider<Log>> logProviderClass = MockLogProvider.class;
     protected Properties properties = MockConstants.mockProperties;
-	@Override
-	protected void configure() {
+    @Override
+    protected void configure() {
 
         ConfigurationProperties.validateProperties(properties);
         Names.bindProperties(binder(), properties);
@@ -108,7 +108,7 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
         bind(Settings.class).toProvider(DefaultUserSettingsProvider.class);
         bind(Log.class).toProvider(logProviderClass).in(Singleton.class);
 
-        
+
         if (properties == MockConstants.mockProperties) {
             bind(IMAPStoreCache.class).to(DemoIMAPStoreCache.class).in(
                     Singleton.class);
@@ -120,67 +120,67 @@ public class GuiceServerTestModule extends AbstractGuiceTestModule {
 
 
         bind(MailHeaderImpl.class);
-		
-		bind(UserImpl.class);
-		bind(ImapFolder.class).to(ImapFolderImpl.class);
-		bind(TagImpl.class);
-		bind(MessageDetailsImpl.class);
-		bind(MessageAttachmentImpl.class);
-		bind(SmtpMessageImpl.class);
 
-		bind(CreateFolderAction.class).to(CreateFolderActionImpl.class);
-		bind(GenericResultImpl.class);
-		bind(FetchMessagesActionImpl.class);
-		bind(FetchMessagesResultImpl.class);
-//		bind(CreateFolderActionImpl.class);
-		bind(DeleteFolderActionImpl.class);
-		bind(RenameFolderActionImpl.class);
-		bind(DeleteMessageAllActionImpl.class);
-		bind(DeleteMessageByUidActionImpl.class);
-		bind(GetMessageDetailsActionImpl.class);
-		bind(GetMessageDetailsResultImpl.class);
-		bind(SendMessageActionImpl.class);
-		bind(SendForwardMessageActionImpl.class);
-		bind(SendReplyMessageActionImpl.class);
-		bind(GetMessageRawActionImpl.class);
-		bind(GetMessageRawResultImpl.class);
-		bind(LogoutUserActionImpl.class);
-		bind(MoveMessageActionImpl.class);
-		bind(SetFlagActionImpl.class);
-		
-		
-		
-		bind(CheckSessionServiceImpl.class);
-		bind(LoginUserServiceImpl.class);
-		bind(ImapFolderServiceImpl.class);
-		bind(FetchFoldersServiceImpl.class);
-		bind(FetchMessagesServiceImpl.class);
-		bind(CreateFolderServiceImpl.class);
-		bind(DeleteFolderServiceImpl.class);
-		bind(RenameFolderServiceImpl.class);
-		bind(DeleteMessageAllServiceImpl.class);
-		bind(DeleteMessageByUidServiceImpl.class);
-		bind(GetMessageDetailsServiceImpl.class);
-		bind(SendMessageBaseServiceImpl.class);
-		bind(SendForwardMessageServiceImpl.class);
-		bind(SendReplyMessageServiceImpl.class);
-		bind(GetMessageRawServiceImpl.class);
-		bind(LogoutUserServiceImpl.class);
-		bind(MoveMessageServiceImpl.class);
-		bind(SetFlagServiceImpl.class);
-		
+        bind(UserImpl.class);
+        bind(ImapFolder.class).to(ImapFolderImpl.class);
+        bind(TagImpl.class);
+        bind(MessageDetailsImpl.class);
+        bind(MessageAttachmentImpl.class);
+        bind(SmtpMessageImpl.class);
+
+        bind(CreateFolderAction.class).to(CreateFolderActionImpl.class);
+        bind(GenericResultImpl.class);
+        bind(FetchMessagesActionImpl.class);
+        bind(FetchMessagesResultImpl.class);
+//        bind(CreateFolderActionImpl.class);
+        bind(DeleteFolderActionImpl.class);
+        bind(RenameFolderActionImpl.class);
+        bind(DeleteMessageAllActionImpl.class);
+        bind(DeleteMessageByUidActionImpl.class);
+        bind(GetMessageDetailsActionImpl.class);
+        bind(GetMessageDetailsResultImpl.class);
+        bind(SendMessageActionImpl.class);
+        bind(SendForwardMessageActionImpl.class);
+        bind(SendReplyMessageActionImpl.class);
+        bind(GetMessageRawActionImpl.class);
+        bind(GetMessageRawResultImpl.class);
+        bind(LogoutUserActionImpl.class);
+        bind(MoveMessageActionImpl.class);
+        bind(SetFlagActionImpl.class);
+
+
+
+        bind(CheckSessionServiceImpl.class);
+        bind(LoginUserServiceImpl.class);
+        bind(ImapFolderServiceImpl.class);
+        bind(FetchFoldersServiceImpl.class);
+        bind(FetchMessagesServiceImpl.class);
+        bind(CreateFolderServiceImpl.class);
+        bind(DeleteFolderServiceImpl.class);
+        bind(RenameFolderServiceImpl.class);
+        bind(DeleteMessageAllServiceImpl.class);
+        bind(DeleteMessageByUidServiceImpl.class);
+        bind(GetMessageDetailsServiceImpl.class);
+        bind(SendMessageBaseServiceImpl.class);
+        bind(SendForwardMessageServiceImpl.class);
+        bind(SendReplyMessageServiceImpl.class);
+        bind(GetMessageRawServiceImpl.class);
+        bind(LogoutUserServiceImpl.class);
+        bind(MoveMessageServiceImpl.class);
+        bind(SetFlagServiceImpl.class);
+
         bind(FetchFoldersService.class).to(FetchFoldersServiceImpl.class);
 
 
         bind(DownloadAttachmentServlet.class).in(Singleton.class);
         bind(UploadAttachmentServlet.class).in(Singleton.class);
         bind(MessageSourceServlet.class).in(Singleton.class);
-        
+
         bind(UserPreferencesStorage.class).to(userPreferencesStorageClass);
         bind(User.class).to(TestUser.class).in(Singleton.class);
-		
-	}
-	
+
+    }
+
    @Provides
     protected Properties getProperties() {
         System.out.println("getProperties");

@@ -26,33 +26,33 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class SettingsDiscoverer {
-    
+
     private static HashMap<String, Settings> validConfigs = new HashMap<String, Settings>();
-    
+
     @Inject private Provider<Settings> settingsProvider;
 
     public Settings discoverSettings(String email) {
-        
+
         if (!email.matches("^(.*<)?[A-Za-z0-9._%'*/=+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}(>)?\\s*$")) {
             return new SettingsImpl();
         }
-        
+
         String domain = email.replaceFirst("^.*@", "");
-        
+
         Settings s = validConfigs.get(domain);
         if (s != null) {
             return s;
         }
-        
+
         String [] mxHosts = null;
         try {
             mxHosts = lookupMailHosts(domain);
         } catch (Exception e) {
             mxHosts = new String[0];
         }
-        
+
         s = settingsProvider != null ? settingsProvider.get() : new SettingsImpl();
-        
+
         if (email.matches(".*@gmail.com") || isValidMx(".*google.*.com", mxHosts)) {
             s.setImapServer("imap.gmail.com");
             s.setImapPort(993);
@@ -92,11 +92,11 @@ public class SettingsDiscoverer {
         } else {
             String[] hostNames = new String[]{"imap." + domain, "smtp." + domain, "www." + domain, "mail." + domain, domain};
             String[] hosts = (String[])ArrayUtils.addAll(hostNames, mxHosts);
-            
+
             Integer[] imapPorts = new Integer[]{993, 585, 143};
             Integer[] smtpPorts = new Integer[]{465, 587, 25};
             Integer[] ports = (Integer[])ArrayUtils.addAll(imapPorts, smtpPorts);
-            
+
             final List<String> validPorts = new ArrayList<String>();
             ExecutorService es = Executors.newCachedThreadPool();
             for (final String h : hosts) {
@@ -107,19 +107,19 @@ public class SettingsDiscoverer {
                                 if (isValidPort(h, p)) {
                                     validPorts.add(h + ":" + p);
                                 }
-                            } 
+                            }
                         });
                     }
                 }
             }
-            
+
             try {
                 es.awaitTermination(1500, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             System.out.println("ValidPorts: " + domain + " -> "+ validPorts);
-            
+
             boolean imapdone = false;
             loop: for (final String h : hosts) {
                 for (final Integer p : imapPorts) {
@@ -155,17 +155,17 @@ public class SettingsDiscoverer {
                 s.setSmtpPort(0);
                 s.setSmtpSecure(false);
             }
-            
+
             s.setSmtpAuth(true);
             s.setInboxFolderName("INBOX");
             s.setSentFolderName("Sent");
             s.setTrashFolderName("Trash");
-            s.setDraftsFolderName("Drafts");  
+            s.setDraftsFolderName("Drafts");
             System.out.println("Returning config: \n" + s);
         }
         return s;
     }
-    
+
     static boolean isValidMx(String regexp, String[] mailhosts) {
         if (mailhosts != null) for (String h : mailhosts) {
             if (h.toLowerCase().matches(regexp)) {
@@ -174,7 +174,7 @@ public class SettingsDiscoverer {
         }
         return false;
     }
-    
+
     static boolean isValidHostName(String name) {
         try {
             InetAddress.getByName(name);
@@ -183,7 +183,7 @@ public class SettingsDiscoverer {
             return false;
         }
     }
-    
+
     static boolean isValidPort(String hostname, int port) {
         try {
             Socket socket = new Socket();
@@ -195,7 +195,7 @@ public class SettingsDiscoverer {
             return false;
           }
     }
-    
+
     static String[] lookupMailHosts(String domainName) throws NamingException {
         InitialDirContext iDirC = new InitialDirContext();
         Attributes attributes = iDirC.getAttributes("dns:/" + domainName,
@@ -231,5 +231,5 @@ public class SettingsDiscoverer {
         String domain = user.getName().replaceFirst("^.*@", "");
         validConfigs.put(domain, user.getSettings());
     }
-    
+
 }

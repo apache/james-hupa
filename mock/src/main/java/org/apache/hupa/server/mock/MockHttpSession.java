@@ -38,20 +38,20 @@ public class MockHttpSession implements HttpSession{
     private long cTime;
     private String id;
     private static int seq = 0;
-    
+
     @Inject
     public MockHttpSession() {
         cTime = System.currentTimeMillis();
         this.id = MockConstants.SESSION_ID + "-" + seq++;
     }
-    
+
     public Object getAttribute(String name) {
         return attributeMap.get(name);
     }
 
-    
+
     @SuppressWarnings("rawtypes")
-	public Enumeration getAttributeNames() {
+    public Enumeration getAttributeNames() {
         return new Enumeration() {
             Iterator it = attributeMap.keySet().iterator();
             public boolean hasMoreElements() {
@@ -61,7 +61,7 @@ public class MockHttpSession implements HttpSession{
             public Object nextElement() {
                 return it.next();
             }
-            
+
         };
     }
 
@@ -119,7 +119,7 @@ public class MockHttpSession implements HttpSession{
 
     public void removeValue(String name) {
         valueMap.remove(name);
-    
+
     }
 
     public void setAttribute(String name, Object value) {
@@ -128,7 +128,7 @@ public class MockHttpSession implements HttpSession{
 
     public void setMaxInactiveInterval(int interval) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

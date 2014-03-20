@@ -30,5 +30,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = MoveMessageService.class, locator = IocRfServiceLocator.class)
 public interface MoveMessageRequest extends RequestContext {
-	Request<GenericResult> move(MoveMessageAction action);
+    Request<GenericResult> move(MoveMessageAction action);
 }

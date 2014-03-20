@@ -31,69 +31,69 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class _ToolPanel extends Composite {
 
-	@UiField protected DockLayoutPanel thisPanel;
-	@UiField protected SimplePanel toolBarContainer;
-	@UiField protected SimplePanel composeToolBarContainer;
-	@UiField protected SimplePanel searchBoxContainer;
+    @UiField protected DockLayoutPanel thisPanel;
+    @UiField protected SimplePanel toolBarContainer;
+    @UiField protected SimplePanel composeToolBarContainer;
+    @UiField protected SimplePanel searchBoxContainer;
 
-	public _ToolPanel() {
-		initWidget(binder.createAndBindUi(this));
-	}
+    public _ToolPanel() {
+        initWidget(binder.createAndBindUi(this));
+    }
 
-	public void toggleTo(int layout) {
-		switch (layout) {
-		case HupaLayout.LAYOUT_MESSAGE:
-			this.toggleToCompose(false);break;
-		case HupaLayout.LAYOUT_COMPOSE:
-			this.toggleToCompose(true);break;
-			//TODO compose button should be shown when setting
-		default:
-			hideAll();
-		}
-	}
+    public void toggleTo(int layout) {
+        switch (layout) {
+        case HupaLayout.LAYOUT_MESSAGE:
+            this.toggleToCompose(false);break;
+        case HupaLayout.LAYOUT_COMPOSE:
+            this.toggleToCompose(true);break;
+            //TODO compose button should be shown when setting
+        default:
+            hideAll();
+        }
+    }
 
-	private void hideAll() {
-		thisPanel.setWidgetHidden(toolBarContainer, true);
-		thisPanel.setWidgetHidden(searchBoxContainer, true);
-		thisPanel.setWidgetHidden(composeToolBarContainer, true);
-	}
+    private void hideAll() {
+        thisPanel.setWidgetHidden(toolBarContainer, true);
+        thisPanel.setWidgetHidden(searchBoxContainer, true);
+        thisPanel.setWidgetHidden(composeToolBarContainer, true);
+    }
 
-	protected void toggleToCompose(boolean visible) {
-		thisPanel.setWidgetHidden(toolBarContainer, visible);
-		thisPanel.setWidgetHidden(searchBoxContainer, visible);
-		thisPanel.setWidgetHidden(composeToolBarContainer, !visible);
-	}
+    protected void toggleToCompose(boolean visible) {
+        thisPanel.setWidgetHidden(toolBarContainer, visible);
+        thisPanel.setWidgetHidden(searchBoxContainer, visible);
+        thisPanel.setWidgetHidden(composeToolBarContainer, !visible);
+    }
 
-	public AcceptsOneWidget getToolBarView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				toolBarContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getToolBarView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                toolBarContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	public AcceptsOneWidget getComposeToolBarView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				composeToolBarContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getComposeToolBarView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                composeToolBarContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	public AcceptsOneWidget getSearchBoxView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				searchBoxContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getSearchBoxView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                searchBoxContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	interface _ToolPanelUiBinder extends UiBinder<DockLayoutPanel, _ToolPanel> {
-	}
+    interface _ToolPanelUiBinder extends UiBinder<DockLayoutPanel, _ToolPanel> {
+    }
 
-	private static _ToolPanelUiBinder binder = GWT.create(_ToolPanelUiBinder.class);
+    private static _ToolPanelUiBinder binder = GWT.create(_ToolPanelUiBinder.class);
 
 }

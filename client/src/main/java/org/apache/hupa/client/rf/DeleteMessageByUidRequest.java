@@ -30,5 +30,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = DeleteMessageByUidService.class, locator = IocRfServiceLocator.class)
 public interface DeleteMessageByUidRequest extends RequestContext {
-	Request<DeleteMessageResult> delete(DeleteMessageByUidAction action);
+    Request<DeleteMessageResult> delete(DeleteMessageByUidAction action);
 }

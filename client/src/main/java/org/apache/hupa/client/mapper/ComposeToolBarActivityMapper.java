@@ -31,30 +31,30 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class ComposeToolBarActivityMapper implements ActivityMapper {
-	private final Provider<ComposeToolBarActivity> composeToolBarActivityProvider;
+    private final Provider<ComposeToolBarActivity> composeToolBarActivityProvider;
 
-	@Inject
-	public ComposeToolBarActivityMapper(
-			Provider<ComposeToolBarActivity> composeToolBarActivityProvider) {
-		this.composeToolBarActivityProvider = composeToolBarActivityProvider;
-	}
+    @Inject
+    public ComposeToolBarActivityMapper(
+            Provider<ComposeToolBarActivity> composeToolBarActivityProvider) {
+        this.composeToolBarActivityProvider = composeToolBarActivityProvider;
+    }
 
-	public Activity getActivity(Place place) {
-		if (!(place instanceof ComposePlace))
-			return null;
-		final ComposePlace here = (ComposePlace) place;
-		if (!"new".equals(here.getToken()) && here.getParameters() == null)
-			return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    public Activity getActivity(Place place) {
+        if (!(place instanceof ComposePlace))
+            return null;
+        final ComposePlace here = (ComposePlace) place;
+        if (!"new".equals(here.getToken()) && here.getParameters() == null)
+            return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return composeToolBarActivityProvider.get().with(here);
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return composeToolBarActivityProvider.get().with(here);
+            }
+        };
+    }
 }

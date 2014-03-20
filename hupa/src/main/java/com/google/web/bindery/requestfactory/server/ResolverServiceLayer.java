@@ -1,12 +1,12 @@
 /*
  * Copyright 2010 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -76,7 +76,7 @@ final class ResolverServiceLayer extends ServiceLayerDecorator {
     if (TypeUtils.isValueType(domainClass)) {
       return domainClass.asSubclass(clientClass);
     }
-    
+
     List<Class<?>> classes = new ArrayList<Class<?>>();
     Class<?> clazz = domainClass;
     while (clazz != null) {
@@ -84,7 +84,7 @@ final class ResolverServiceLayer extends ServiceLayerDecorator {
       clazz = clazz.getSuperclass();
     }
     classes.addAll(Arrays.asList(domainClass.getInterfaces()));
-    
+
     for (Class<?> toSearch : classes) {
       List<String> clientTypes = deobfuscator.getClientProxies(toSearch.getName());
       if (clientTypes != null) {
@@ -96,7 +96,7 @@ final class ResolverServiceLayer extends ServiceLayerDecorator {
         }
       }
     }
-    
+
     if (required) {
       die(null, "The domain type %s cannot be sent to the client", domainClass.getCanonicalName());
     }

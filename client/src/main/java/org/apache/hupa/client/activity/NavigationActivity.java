@@ -29,24 +29,24 @@ import com.google.inject.Inject;
 
 public class NavigationActivity extends AppBaseActivity {
 
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		container.setWidget(display.asWidget());
-		itemChangeByPlace();
-	}
+    @Override
+    public void start(AcceptsOneWidget container, EventBus eventBus) {
+        container.setWidget(display.asWidget());
+        itemChangeByPlace();
+    }
 
-	private void itemChangeByPlace() {
-		Place place = pc.getWhere();
-		if (place instanceof SettingPlace) {
-			display.select(2);
-		} else {
-			display.select(1);
-		}
-	}
+    private void itemChangeByPlace() {
+        Place place = pc.getWhere();
+        if (place instanceof SettingPlace) {
+            display.select(2);
+        } else {
+            display.select(1);
+        }
+    }
 
-	@Inject private Displayable display;
+    @Inject private Displayable display;
 
-	public interface Displayable extends IsWidget {
-		void select(int i);
-	}
+    public interface Displayable extends IsWidget {
+        void select(int i);
+    }
 }

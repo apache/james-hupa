@@ -31,35 +31,35 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class _CenterComposePanel extends Composite {
 
-	@UiField protected SplitLayoutPanel thisPanel;
-	@UiField protected __OutlineComposePanel outlinePanel;
-	@UiField protected SimpleLayoutPanel composeContainer;
+    @UiField protected SplitLayoutPanel thisPanel;
+    @UiField protected __OutlineComposePanel outlinePanel;
+    @UiField protected SimpleLayoutPanel composeContainer;
 
-	public _CenterComposePanel() {
-		initWidget(binder.createAndBindUi(this));
-//		thisPanel.setWidgetHidden(outlinePanel, true);
-	}
+    public _CenterComposePanel() {
+        initWidget(binder.createAndBindUi(this));
+//        thisPanel.setWidgetHidden(outlinePanel, true);
+    }
 
-	public AcceptsOneWidget getAddressListView() {
-		return outlinePanel.getAddressListView();
-	}
-
-
-	interface _CenterPanelUiBinder extends
-			UiBinder<SplitLayoutPanel, _CenterComposePanel> {
-	}
-
-	private static _CenterPanelUiBinder binder = GWT
-			.create(_CenterPanelUiBinder.class);
+    public AcceptsOneWidget getAddressListView() {
+        return outlinePanel.getAddressListView();
+    }
 
 
-	public AcceptsOneWidget getComposeView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				composeContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    interface _CenterPanelUiBinder extends
+            UiBinder<SplitLayoutPanel, _CenterComposePanel> {
+    }
+
+    private static _CenterPanelUiBinder binder = GWT
+            .create(_CenterPanelUiBinder.class);
+
+
+    public AcceptsOneWidget getComposeView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                composeContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
 }

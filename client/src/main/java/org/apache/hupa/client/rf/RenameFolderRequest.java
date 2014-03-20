@@ -30,5 +30,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = RenameFolderService.class, locator = IocRfServiceLocator.class)
 public interface RenameFolderRequest extends RequestContext {
-	Request<GenericResult> rename(RenameFolderAction action);
+    Request<GenericResult> rename(RenameFolderAction action);
 }

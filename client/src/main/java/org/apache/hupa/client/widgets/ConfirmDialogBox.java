@@ -38,11 +38,11 @@ public class ConfirmDialogBox extends MyDialogBox implements HasClickHandlers {
     private VerticalPanel panel = new VerticalPanel();
     private Button okButton = new Button(constants.okButton());
     private Button cancelButton = new Button(constants.cancelButton());
-    
-    public ConfirmDialogBox() {    
+
+    public ConfirmDialogBox() {
         super();
         setModal(true);
-        setAnimationEnabled(true);  
+        setAnimationEnabled(true);
         setAutoHideEnabled(false);
         super.setText(constants.productName());
         panel.setSpacing(10);
@@ -51,24 +51,24 @@ public class ConfirmDialogBox extends MyDialogBox implements HasClickHandlers {
         bar.add(cancelButton);
         panel.add(bar);
         panel.setCellHorizontalAlignment(bar, VerticalPanel.ALIGN_RIGHT);
-        
+
         cancelButton.addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
                 hide();
             }
-            
+
         });
         okButton.addClickHandler(new ClickHandler() {
 
             public void onClick(ClickEvent event) {
                 hide();
             }
-            
+
         });
         add(panel);
     }
-    
+
     public void setText(String value) {
         text.setText(value);
     }
@@ -76,7 +76,7 @@ public class ConfirmDialogBox extends MyDialogBox implements HasClickHandlers {
     public HandlerRegistration addClickHandler(ClickHandler handler) {
         return okButton.addClickHandler(handler);
     }
-    
+
     public void show() {
         super.show();
         center();

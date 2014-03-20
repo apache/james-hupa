@@ -50,7 +50,7 @@ public class PagingScrollTableRowDragController extends PickupDragController {
 
     public PagingScrollTableRowDragController() {
         this(RootPanel.get());
-        
+
     }
     public PagingScrollTableRowDragController(AbsolutePanel boundaryPanel) {
         super(boundaryPanel, false);
@@ -88,15 +88,15 @@ public class PagingScrollTableRowDragController extends PickupDragController {
                 allowDroppingOnBoundaryPanel);
     }
 
-    
+
     @SuppressWarnings("rawtypes")
     protected Widget newDragProxy(DragContext context) {
-        
+
         draggableTable = (FixedWidthGrid) context.draggable.getParent();
         parentTable = (PagingScrollTable)draggableTable.getParent();
-        
+
         dragRow = getWidgetRow(context.draggable);
-        
+
         proxyWidget = new RowDragProxy();
         return proxyWidget;
     }
@@ -113,13 +113,13 @@ public class PagingScrollTableRowDragController extends PickupDragController {
         }
         throw new RuntimeException("Unable to determine widget row");
     }
-    
 
-    
+
+
     public RowDragProxy getCurrentProxy() {
         return proxyWidget;
     }
-    
+
     public Object getDragValue() {
         return parentTable.getRowValue(dragRow);
     }
@@ -133,11 +133,11 @@ public class PagingScrollTableRowDragController extends PickupDragController {
             proxy.add(new Image(bundle.moveMailIcon()));
             proxy.add(new Label(" " + messages.moveMessage()));
             proxyPanel.add(proxy);
-            proxyPanel.setWidth("150px");        
+            proxyPanel.setWidth("150px");
             initWidget(proxyPanel);
         }
-        
-        
+
+
         public void setIsValid(boolean valid) {
             if (valid) {
                 proxy.removeStyleName(styleName);

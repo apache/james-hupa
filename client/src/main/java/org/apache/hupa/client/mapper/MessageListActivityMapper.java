@@ -31,35 +31,35 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class MessageListActivityMapper extends _MessageActivityMapper {
-	private final Provider<MessageListActivity> messageListActivityProvider;
+    private final Provider<MessageListActivity> messageListActivityProvider;
 
-	@Inject
-	public MessageListActivityMapper(Provider<MessageListActivity> messageListActivityProvider) {
-		this.messageListActivityProvider = messageListActivityProvider;
-	}
+    @Inject
+    public MessageListActivityMapper(Provider<MessageListActivity> messageListActivityProvider) {
+        this.messageListActivityProvider = messageListActivityProvider;
+    }
 
-	@Override
-	protected Activity lazyLoadActivity(final Place place) {
-		if (place instanceof FolderPlace) {
-			return messageListActivityProvider.get().with(((FolderPlace) place).getToken());
-		} else if(place instanceof MessagePlace){
-			return messageListActivityProvider.get().with(((MessagePlace) place).getTokenWrapper().getFolder());
-		}
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    @Override
+    protected Activity lazyLoadActivity(final Place place) {
+        if (place instanceof FolderPlace) {
+            return messageListActivityProvider.get().with(((FolderPlace) place).getToken());
+        } else if(place instanceof MessagePlace){
+            return messageListActivityProvider.get().with(((MessagePlace) place).getTokenWrapper().getFolder());
+        }
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				if (place instanceof FolderPlace) {
-					return messageListActivityProvider.get().with(((FolderPlace) place).getToken());
-				} else if(place instanceof MessagePlace){
-					return messageListActivityProvider.get().with(((MessagePlace) place).getTokenWrapper().getFolder());
-				}
-				return messageListActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                if (place instanceof FolderPlace) {
+                    return messageListActivityProvider.get().with(((FolderPlace) place).getToken());
+                } else if(place instanceof MessagePlace){
+                    return messageListActivityProvider.get().with(((MessagePlace) place).getTokenWrapper().getFolder());
+                }
+                return messageListActivityProvider.get();
+            }
+        };
+    }
 }

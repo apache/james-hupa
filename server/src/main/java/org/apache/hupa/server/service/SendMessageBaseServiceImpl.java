@@ -74,7 +74,7 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         this.cache = cache;
         this.userPreferences = preferences;
     }
-    
+
     public GenericResult send(SendMessageAction action)
             throws Exception {
         GenericResult result = new GenericResultImpl();
@@ -87,7 +87,7 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
                 saveSentMessage(getUser(), message);
             }
             resetAttachments(action);
-        
+
             // TODO: notify the user more accurately where the error is
             // if the message was sent and the storage in the sent folder failed, etc.
         } catch (AddressException e) {
@@ -105,10 +105,10 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         }
         return result;
     }
-    
+
     /**
      * Create basic Message which contains all headers. No body is filled
-     * 
+     *
      * @param session the Session
      * @param action the action
      * @return message
@@ -135,31 +135,31 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         message.saveChanges();
         return message;
     }
-    
+
     public static String getClientIpAddr() {
         HttpServletRequest request = RequestFactoryServlet.getThreadLocalRequest();
         String ip = "unknown";
         if (request != null) {
-            ip = request.getHeader("X-Forwarded-For");  
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
-                ip = request.getHeader("Proxy-Client-IP");  
-            }  
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
-                ip = request.getHeader("WL-Proxy-Client-IP");  
-            }  
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
-                ip = request.getHeader("HTTP_CLIENT_IP");  
-            }  
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
-                ip = request.getHeader("HTTP_X_FORWARDED_FOR");  
-            }  
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
-                ip = request.getRemoteAddr();  
-            }  
+            ip = request.getHeader("X-Forwarded-For");
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                ip = request.getHeader("Proxy-Client-IP");
+            }
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                ip = request.getHeader("WL-Proxy-Client-IP");
+            }
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                ip = request.getHeader("HTTP_CLIENT_IP");
+            }
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+            }
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                ip = request.getRemoteAddr();
+            }
         }
         return ip;
-    }  
-    
+    }
+
     protected void updateHeaders(MimeMessage message, SendMessageAction action) {
         if (action.getInReplyTo() != null) {
             try {
@@ -179,33 +179,33 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
 
     /**
      * Fill the body of the given message with data which the given action contain
-     * 
+     *
      * @param message the message
      * @param action the action
      * @return filledMessage
      * @throws MessagingException
-     * @throws IOException 
-     * @throws HupaException 
+     * @throws IOException
+     * @throws HupaException
      */
     public Message fillBody(Message message, SendMessageAction action) throws MessagingException, IOException, HupaException {
 
         String html = restoreInlineLinks(action.getMessage().getText());
-        
-        // TODO: client sends the message as a html document right now, 
+
+        // TODO: client sends the message as a html document right now,
         // the idea is that it should be sent in both formats because
-        // it is easier to handle html in the browser. 
+        // it is easier to handle html in the browser.
         String text = htmlToText(html);
-        
+
         @SuppressWarnings("rawtypes")
         List items = getAttachments(action);
-        
+
         return composeMessage(message, text, html, items);
     }
 
     protected String restoreInlineLinks(String s) {
         return RegexPatterns.replaceAll(s, RegexPatterns.regex_revertInlineImg, RegexPatterns.repl_revertInlineImg);
     }
-    
+
     // TODO: just temporary stuff because it has to be done in the client side
     protected String htmlToText(String s){
         s=s.replaceAll("\n", " ");
@@ -216,19 +216,19 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         s=s.replaceAll("[ \t]+", " ");
         return s;
     }
-    
+
     /**
      * Get the attachments stored in the registry.
-     * 
+     *
      * @param action
      * @return A list of stored attachments
-     * @throws HupaException 
+     * @throws HupaException
      */
     @SuppressWarnings("rawtypes")
     protected List getAttachments(SendMessageAction action) throws MessagingException, HupaException {
         FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSessionProvider.get());
         List<MessageAttachment> attachments = action.getMessage().getMessageAttachments();
-        
+
         ArrayList<FileItem> items = new ArrayList<FileItem>();
         if (attachments != null && attachments.size() > 0) {
             for (MessageAttachment attachment: attachments) {
@@ -240,10 +240,10 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         }
         return items;
     }
-    
+
     /**
      * Remove attachments from the registry
-     *  
+     *
      * @param action
      * @throws MessagingException
      * @throws ActionException
@@ -252,15 +252,15 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         SmtpMessage msg = action.getMessage();
         List<MessageAttachment> attachments = msg.getMessageAttachments();
         if (attachments != null && ! attachments.isEmpty()) {
-            for(MessageAttachment attach : attachments) 
+            for(MessageAttachment attach : attachments)
                 SessionUtils.getSessionRegistry(logger, httpSessionProvider.get()).remove(attach.getName());
         }
     }
-    
+
     /**
      * Send the message using SMTP, if the configuration uses authenticated SMTP, it uses
      * the user stored in session to get the given login and password.
-     * 
+     *
      * @param user
      * @param session
      * @param message
@@ -273,23 +273,23 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
 
     /**
      * Save the message in the sent folder
-     * 
+     *
      * @param user
      * @param message
      * @throws MessagingException
-     * @throws IOException 
+     * @throws IOException
      */
     protected void saveSentMessage(User user, Message message) throws MessagingException, IOException {
         IMAPStore iStore = cache.get(user);
         IMAPFolder folder = (IMAPFolder) iStore.getFolder(user.getSettings().getSentFolderName());
-        
+
         if (folder.exists() || folder.create(IMAPFolder.READ_WRITE)) {
             if (folder.isOpen() == false) {
                 folder.open(Folder.READ_WRITE);
             }
 
             // It is necessary to copy the message, before putting it
-            // in the sent folder. If not, it is not guaranteed that it is 
+            // in the sent folder. If not, it is not guaranteed that it is
             // stored in ascii and is not possible to get the attachments
             // size. message.saveChanges() doesn't fix the problem.
             // There are tests which demonstrate this.
@@ -297,7 +297,7 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
 
             message.setFlag(Flag.SEEN, true);
             folder.appendMessages(new Message[] {message});
-            
+
             try {
                 folder.close(false);
             } catch (MessagingException e) {
@@ -308,8 +308,8 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
 
     /**
      * Fill the body of a message already created.
-     * The result message depends on the information given. 
-     * 
+     * The result message depends on the information given.
+     *
      * @param message
      * @param text
      * @param html
@@ -326,7 +326,7 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         MimeMultipart mimeMultipart = null;
 
         if (text == null && html == null) {
-           text = ""; 
+           text = "";
         }
         if (text != null) {
             txtPart = new MimeBodyPart();
@@ -378,10 +378,10 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
         return message;
 
     }
-    
+
     /**
      * DataStore which wrap a FileItem
-     * 
+     *
      */
     public static class FileItemDataStore implements DataSource {
 
@@ -413,7 +413,7 @@ public class SendMessageBaseServiceImpl extends AbstractService implements SendM
          */
         public String getName() {
             String fullName = item.getName();
-            
+
             // Strip path from file
             int index = fullName.lastIndexOf(File.separator);
             if (index == -1) {

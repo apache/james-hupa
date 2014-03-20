@@ -55,20 +55,20 @@ public enum ConfigurationProperties {
     // Used only in demo mode
     USERNAME("Username", false, null),
     PASSWORD("Password", false, null);
-    
+
     private String property;
     private boolean mandatory;
     private String propValue;
-    
+
     private ConfigurationProperties (String property, boolean mandatory, String propValue) {
         this.property = property;
         this.mandatory = mandatory;
         this.propValue = propValue;
     }
-    
+
     /**
      * Return a ConfigurationProperties enumeration that matches the passed command.
-     * 
+     *
      * @param property
      *            The property to use for lookup.
      * @return the ConfigurationProperties enumeration that matches the passed property, or null
@@ -82,10 +82,10 @@ public enum ConfigurationProperties {
         }
         return null;
     }
-    
+
     /**
      * Return the name of property.
-     * 
+     *
      * @return the name of property.
      */
     public String getProperty() {
@@ -94,7 +94,7 @@ public enum ConfigurationProperties {
 
     /**
      * Return if property is mandatory
-     * 
+     *
      * @return true if mandatory else false.
      */
     public boolean isMandatory() {
@@ -103,7 +103,7 @@ public enum ConfigurationProperties {
 
     /**
      * Return the value of the property.
-     * 
+     *
      * @return the value of the property.
      */
     public String getPropValue() {
@@ -115,7 +115,7 @@ public enum ConfigurationProperties {
      * missing, and avoid unknown properties.
      */
     public static void validateProperties(Properties properties) {
-        
+
         List<String> errors = new ArrayList<String>();
 
         // Test for mandatory and complete properties with default values when
@@ -145,10 +145,10 @@ public enum ConfigurationProperties {
             throw new IllegalArgumentException("Error validating configuration : \n" + properties + "\n" +  errors.toString());
         }
     }
-    
+
     /**
      * Loads and validate a properties file.
-     * 
+     *
      * @param configDir
      * @param name
      * @return
@@ -159,7 +159,7 @@ public enum ConfigurationProperties {
 
         Properties properties = null;
         File file = new File(name);
-        
+
         if (file.exists()) {
             FileInputStream fis = null;
             try {
@@ -167,7 +167,7 @@ public enum ConfigurationProperties {
                 fis = new FileInputStream(file);
                 properties.load(fis);
             } catch (Exception e) {
-                properties = null;    
+                properties = null;
                 e.printStackTrace();
             } finally {
                 if (fis != null) {
@@ -179,7 +179,7 @@ public enum ConfigurationProperties {
                 }
             }
         }
-        
+
         return properties;
     }
 }

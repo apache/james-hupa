@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.TreeItem;
 
 /**
  * Tree which can holds EditableTreeItem instances
- * 
+ *
  *
  */
 public class EditableTree extends Tree {
@@ -37,17 +37,17 @@ public class EditableTree extends Tree {
     public EditableTree() {
         super();
     }
-    
+
     public EditableTree(Tree.Resources images) {
         super(images);
     }
-    
+
     /**
      * Prevent  Event.ONCLICK, Event.ONMOUSEDOWN, Event.ONKEYDOWN from bubble down if the item is in editing mode
      */
     public void onBrowserEvent(Event event) {
         TreeItem item = getSelectedItem();
-        
+
         // Check if the selectedItem is Editable and if so make sure the events are not fired
         if (item instanceof HasEditable) {
             if (item != null && ((HasEditable) item).isEdit()) {

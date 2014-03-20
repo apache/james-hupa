@@ -31,10 +31,10 @@ import org.apache.hupa.shared.data.MessageImpl.IMAPFlag;
  *
  */
 public class JavamailUtil {
-    
+
     /**
      * Convert the given Flags to a ArrayList of IMAPFlags
-     * 
+     *
      * @param flags
      * @return imapFlags
      */
@@ -44,15 +44,15 @@ public class JavamailUtil {
             fList.add(convert(flag));
         }
         return fList;
-        
+
     }
-    
+
     public static IMAPFlag convert(Flag flag) {
         if (flag.equals(Flag.SEEN)) {
             return IMAPFlag.SEEN;
         } else if (flag.equals(Flag.RECENT)) {
             return IMAPFlag.RECENT;
-        } else if (flag.equals(Flag.ANSWERED)) { 
+        } else if (flag.equals(Flag.ANSWERED)) {
             return IMAPFlag.ANSWERED;
         } else if (flag.equals(Flag.DELETED)) {
             return IMAPFlag.DELETED;
@@ -63,12 +63,12 @@ public class JavamailUtil {
         } else if (flag.equals(Flag.USER)) {
             return IMAPFlag.USER;
         }
-        
+
         throw new IllegalArgumentException("Flag not supported " + flag);
     }
     /**
      * Convert the given ArrayList of IMAPFlags to a Flags object
-     * 
+     *
      * @param imapFlags
      * @return flags
      */

@@ -58,7 +58,7 @@ public class LoginUserServiceImpl extends AbstractService implements LoginUserSe
             throw new RuntimeException(e);
         }
     }
-    
+
     private Settings fix(Settings a) {
         if (settingsProvider != null) {
             Settings b = settingsProvider.get();
@@ -69,7 +69,7 @@ public class LoginUserServiceImpl extends AbstractService implements LoginUserSe
             a.setImapPort(or(a.getImapPort(), b.getImapPort()));
             a.setSmtpServer((or(a.getSmtpServer(), b.getSmtpServer())));
             a.setSmtpPort(or(a.getSmtpPort(), b.getSmtpPort()));
-            
+
             a.setInboxFolderName(or(a.getInboxFolderName(), b.getInboxFolderName()));
             a.setSentFolderName(or(a.getSentFolderName(), b.getSentFolderName()));
             a.setTrashFolderName(or(a.getTrashFolderName(), b.getTrashFolderName()));
@@ -77,7 +77,7 @@ public class LoginUserServiceImpl extends AbstractService implements LoginUserSe
         }
         return a;
     }
-    
+
     private <T> T or (T a, T b) {
         return a == null ? b : a;
     }

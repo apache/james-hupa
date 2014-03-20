@@ -27,7 +27,7 @@ import eu.maydu.gwt.validation.client.ValidationResult;
 /**
  * FocusAction uses FocusWidget instead of focusable, so it doesn't work
  * with customized widgets extending composite.
- * 
+ *
  */
 public class SetFocusAction extends ValidationAction<Focusable> {
     @Override

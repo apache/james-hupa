@@ -46,27 +46,27 @@ public class DemoGuiceServerModule extends org.apache.hupa.server.ioc.GuiceServe
         super(properties);
         new RuntimeException().printStackTrace();
     }
-    
+
     protected Class<? extends IMAPStoreCache> getIMAPStoreCacheClass() {
         return DemoIMAPStoreCache.class;
     }
-    
+
     /**
      * IMAPStoreCache implementation for Demo mode.
-     * 
+     *
      * It uses mock module which emulates fake imap and smtp servers based on
      * a set of example messages in filesystem and used for unit tests.
-     * 
-     * We use here reflection so as we can deliver Hupa without mock stuff.  
+     *
+     * We use here reflection so as we can deliver Hupa without mock stuff.
      *
      */
     public static class DemoIMAPStoreCache extends InMemoryIMAPStoreCache {
         @Inject
-        public DemoIMAPStoreCache(Log logger, 
-                @Named("IMAPConnectionPoolSize") int connectionPoolSize, 
-                @Named("IMAPConnectionPoolTimeout") int timeout, 
-                @Named("SessionDebug") boolean debug, 
-                @Named("TrustStore") String truststore, 
+        public DemoIMAPStoreCache(Log logger,
+                @Named("IMAPConnectionPoolSize") int connectionPoolSize,
+                @Named("IMAPConnectionPoolTimeout") int timeout,
+                @Named("SessionDebug") boolean debug,
+                @Named("TrustStore") String truststore,
                 @Named("TrustStorePassword") String truststorePassword,
                 @Named("TrustSSL") boolean trustSSL) {
             super(logger, connectionPoolSize, timeout, debug, truststore, truststorePassword, trustSSL);
@@ -86,7 +86,7 @@ public class DemoGuiceServerModule extends org.apache.hupa.server.ioc.GuiceServe
             }
             return super.createCachedIMAPStore(user);
         }
-        
+
         @Override
         public void sendMessage(Message msg) throws MessagingException {
             try {

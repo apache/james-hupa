@@ -23,12 +23,12 @@ import java.io.Serializable;
 
 /**
  * An abstract superclass for exceptions that can be thrown by the Hupa system.
- * 
+ *
  * @author echo
  */
 @SuppressWarnings("serial")
 public class HupaException extends Exception implements Serializable {
-    
+
     private String causeClassname;
 
     protected HupaException() {

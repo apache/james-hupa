@@ -44,13 +44,13 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public class LoginActivity extends AppBaseActivity {
-    
+
 
     @Inject private HupaLayoutable hupaLayout;
     @Inject private Displayable display;
     @Inject private HupaConstants constants;
     @Inject private HupaStorage storage;
-    
+
     private Settings settings;
 
     @Override
@@ -72,24 +72,24 @@ public class LoginActivity extends AppBaseActivity {
         if (user.isEmpty() || pass.isEmpty())
             return;
         display.setLoading(true);
-        
+
         LoginUserRequest loginRequest = rf.loginRequest();
         if (settings != null) {
              settings = display.getSettings(loginRequest.edit(settings));
         }
-        
+
         loginRequest.login(user, pass, settings).fire(new Receiver<User>() {
             @Override
             public void onSuccess(User response) {
                 HupaController.user = response;
-                
+
                 RootLayoutPanel.get().clear();
                 RootLayoutPanel.get().add(hupaLayout.get());
                 pc.goTo(new FolderPlace(response.getSettings().getInboxFolderName()));
-                
+
                 eventBus.fireEvent(new LoginEvent(response));
                 display.setLoading(false);
-                
+
                 storage.saveSettings(user, settings);
             }
             @Override
@@ -109,7 +109,7 @@ public class LoginActivity extends AppBaseActivity {
         public Widget asWidget();
         void setSettings(Settings s);
     }
-    
+
     public void loadSettings() {
       System.out.println("Load settings");
       String email = display.getUserNameValue().getValue();

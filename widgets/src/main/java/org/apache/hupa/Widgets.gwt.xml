@@ -18,14 +18,14 @@
 <module>
   <inherits name='com.google.gwt.user.User'/>
   <inherits name='com.google.gwt.widgetideas.WidgetIdeas'/>
-  <inherits name='org.cobogw.gwt.user.User' />   
-  
+  <inherits name='org.cobogw.gwt.user.User' />
+
   <source path="widgets"/>
-  
+
   <replace-with class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorCss3">
     <when-type-is class="org.apache.hupa.widgets.ui.impl.RndPanelGenerator"/>
   </replace-with>
-    
+
   <replace-with class="org.apache.hupa.widgets.ui.impl.RndPanelGeneratorDecorator">
     <when-type-is class="org.apache.hupa.widgets.ui.impl.RndPanelGenerator"/>
     <any>
@@ -33,5 +33,5 @@
       <when-property-is name="user.agent" value="ie8"/>
     </any>
   </replace-with>
-  
+
 </module>

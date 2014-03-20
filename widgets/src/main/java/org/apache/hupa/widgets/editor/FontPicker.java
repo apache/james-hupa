@@ -19,8 +19,8 @@
 /**
  * Much of this code has been taken from the GWT Showcase example
  * which is licensed under Apache License v2.0
- * 
- * This class is necessary while GWT library doesn't provide any 
+ *
+ * This class is necessary while GWT library doesn't provide any
  * toolbar to be used with its RichTextArea widget.
  */
 package org.apache.hupa.widgets.editor;

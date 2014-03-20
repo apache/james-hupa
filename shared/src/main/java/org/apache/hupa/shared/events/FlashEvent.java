@@ -22,9 +22,9 @@ package org.apache.hupa.shared.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class FlashEvent extends GwtEvent<FlashEventHandler> {
-    
+
     public final static Type<FlashEventHandler> TYPE = new Type<FlashEventHandler>();
-    
+
     public String getMessage() {
         return message;
     }
@@ -35,11 +35,11 @@ public class FlashEvent extends GwtEvent<FlashEventHandler> {
 
     String message;
     int millisec;
-    
+
     public FlashEvent(String message) {
         this(message, 0);
     }
-    
+
     public FlashEvent(String message, int millisec) {
         this.message = message;
         this.millisec = millisec;
@@ -54,5 +54,5 @@ public class FlashEvent extends GwtEvent<FlashEventHandler> {
     protected void dispatch(FlashEventHandler handler) {
         handler.onFlash(this);
     }
-    
+
 }

@@ -38,58 +38,58 @@ import com.google.gwt.user.client.ui.SimplePanel;
 
 public class TopBarView extends Composite implements TopBarActivity.Displayable {
 
-	@UiField Anchor about;
-	@UiField Anchor logout;
-	@UiField HTMLPanel userLabel;
-	@UiField SimplePanel loading;
-	@UiField HTML loadingRegion;
-	
-	@UiField Style style;
+    @UiField Anchor about;
+    @UiField Anchor logout;
+    @UiField HTMLPanel userLabel;
+    @UiField SimplePanel loading;
+    @UiField HTML loadingRegion;
 
-	interface Style extends CssResource {
-		String hideLoading();
-	}
+    @UiField Style style;
 
-	public TopBarView() {
-		initWidget(binder.createAndBindUi(this));
-	}
-	
-	@UiHandler("about")
-	void handleAboutClick(ClickEvent e){
-		Window.alert("// TODO show about model view");
-	}
+    interface Style extends CssResource {
+        String hideLoading();
+    }
 
-	@Override
-	public void showLoading(String message){
-		loadingRegion.setHTML(message);
-		loading.removeStyleName(style.hideLoading());
-	}
-	
-	@Override
-	public void hideLoading(){
-		loadingRegion.setHTML("");
-		loading.addStyleName(style.hideLoading());
-	}
-	
-	@Override
-	public HasClickHandlers getLogoutClick() {
-		return logout;
-	}
+    public TopBarView() {
+        initWidget(binder.createAndBindUi(this));
+    }
 
-	@Override
-	public HTMLPanel getUserLabel() {
-		return userLabel;
-	}
-	
-	@Override
-	public void showUserName(String userName){
-		userLabel.clear();
-		userLabel.add(new HTML(userName));
-	}
+    @UiHandler("about")
+    void handleAboutClick(ClickEvent e){
+        Window.alert("// TODO show about model view");
+    }
 
-	interface TopBarUiBinder extends UiBinder<DockLayoutPanel, TopBarView> {
-	}
+    @Override
+    public void showLoading(String message){
+        loadingRegion.setHTML(message);
+        loading.removeStyleName(style.hideLoading());
+    }
 
-	private static TopBarUiBinder binder = GWT.create(TopBarUiBinder.class);
+    @Override
+    public void hideLoading(){
+        loadingRegion.setHTML("");
+        loading.addStyleName(style.hideLoading());
+    }
+
+    @Override
+    public HasClickHandlers getLogoutClick() {
+        return logout;
+    }
+
+    @Override
+    public HTMLPanel getUserLabel() {
+        return userLabel;
+    }
+
+    @Override
+    public void showUserName(String userName){
+        userLabel.clear();
+        userLabel.add(new HTML(userName));
+    }
+
+    interface TopBarUiBinder extends UiBinder<DockLayoutPanel, TopBarView> {
+    }
+
+    private static TopBarUiBinder binder = GWT.create(TopBarUiBinder.class);
 
 }

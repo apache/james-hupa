@@ -31,25 +31,25 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class StatusActivityMapper implements ActivityMapper {
-	private final Provider<StatusActivity> statusActivityProvider;
+    private final Provider<StatusActivity> statusActivityProvider;
 
-	@Inject
-	public StatusActivityMapper(Provider<StatusActivity> statusActivityProvider) {
-		this.statusActivityProvider = statusActivityProvider;
-	}
+    @Inject
+    public StatusActivityMapper(Provider<StatusActivity> statusActivityProvider) {
+        this.statusActivityProvider = statusActivityProvider;
+    }
 
-	public Activity getActivity(Place place) {
-		if(place instanceof DefaultPlace) return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    public Activity getActivity(Place place) {
+        if(place instanceof DefaultPlace) return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return statusActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return statusActivityProvider.get();
+            }
+        };
+    }
 }

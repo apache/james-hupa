@@ -31,5 +31,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = FetchFoldersService.class, locator = IocRfServiceLocator.class)
 public interface FetchFoldersRequest extends RequestContext {
-	Request<List<ImapFolder>> fetch(ImapFolder imapFolder, Boolean recursive);
+    Request<List<ImapFolder>> fetch(ImapFolder imapFolder, Boolean recursive);
 }

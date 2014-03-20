@@ -33,62 +33,62 @@ import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class __ContentPanel extends Composite{
-	@UiField SplitLayoutPanel thisPanel;
-	@UiField DockLayoutPanel messageListBox;
-	@UiField SimpleLayoutPanel messageListContainer;
-	@UiField SimplePanel messageListFooterContainer;
-	@UiField SimpleLayoutPanel messageContentContainer;
-	@UiField SimplePanel statusContainer;
+    @UiField SplitLayoutPanel thisPanel;
+    @UiField DockLayoutPanel messageListBox;
+    @UiField SimpleLayoutPanel messageListContainer;
+    @UiField SimplePanel messageListFooterContainer;
+    @UiField SimpleLayoutPanel messageContentContainer;
+    @UiField SimplePanel statusContainer;
 
-	@UiField HTMLPanel contactBox;
+    @UiField HTMLPanel contactBox;
 
-	public __ContentPanel() {
-		initWidget(binder.createAndBindUi(this));
-		thisPanel.setWidgetHidden(contactBox, true);
-		thisPanel.setWidgetMinSize(messageListBox, 130);
-	}
+    public __ContentPanel() {
+        initWidget(binder.createAndBindUi(this));
+        thisPanel.setWidgetHidden(contactBox, true);
+        thisPanel.setWidgetMinSize(messageListBox, 130);
+    }
 
-	public AcceptsOneWidget getMessageListView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				messageListContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getMessageListView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                messageListContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	public AcceptsOneWidget getMessageListFooterView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				messageListFooterContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getMessageListFooterView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                messageListFooterContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	public AcceptsOneWidget getMessageContentView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				messageContentContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getMessageContentView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                messageContentContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	public AcceptsOneWidget getStatusView() {
-		return new AcceptsOneWidget() {
-			@Override
-			public void setWidget(IsWidget w) {
-				statusContainer.setWidget(Widget.asWidgetOrNull(w));
-			}
-		};
-	}
+    public AcceptsOneWidget getStatusView() {
+        return new AcceptsOneWidget() {
+            @Override
+            public void setWidget(IsWidget w) {
+                statusContainer.setWidget(Widget.asWidgetOrNull(w));
+            }
+        };
+    }
 
-	interface __ContentPanelUiBinder extends
-			UiBinder<SplitLayoutPanel, __ContentPanel> {
-	}
+    interface __ContentPanelUiBinder extends
+            UiBinder<SplitLayoutPanel, __ContentPanel> {
+    }
 
-	private static __ContentPanelUiBinder binder = GWT
-			.create(__ContentPanelUiBinder.class);
+    private static __ContentPanelUiBinder binder = GWT
+            .create(__ContentPanelUiBinder.class);
 
 }

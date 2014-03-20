@@ -50,132 +50,132 @@ import com.google.inject.Inject;
 
 public class AddressListView extends Composite implements AddressListActivity.Displayable {
 
-	@Inject EventBus eventBus;
-	
-	@UiField SimplePanel thisView;
+    @Inject EventBus eventBus;
 
-	private static final String EMAIL_PATTERN = "\\<(.+?)\\>";
+    @UiField SimplePanel thisView;
 
-	private CellList<AddressNode> addrList;
-	private ListDataProvider<AddressNode> dataProvider = new ListDataProvider<AddressNode>();
+    private static final String EMAIL_PATTERN = "\\<(.+?)\\>";
 
-	public interface Resources extends CellList.Resources {
+    private CellList<AddressNode> addrList;
+    private ListDataProvider<AddressNode> dataProvider = new ListDataProvider<AddressNode>();
 
-		Resources INSTANCE = GWT.create(Resources.class);
+    public interface Resources extends CellList.Resources {
 
-		@Source("res/CssLabelListView.css")
-		public CellList.Style cellListStyle();
-	}
+        Resources INSTANCE = GWT.create(Resources.class);
 
-	public final SingleSelectionModel<AddressNode> selectionModel = new SingleSelectionModel<AddressNode>(
-			new ProvidesKey<AddressNode>() {
-				@Override
-				public Object getKey(AddressNode item) {
-					return item == null ? null : item.getEmail();
-				}
-			});
+        @Source("res/CssLabelListView.css")
+        public CellList.Style cellListStyle();
+    }
 
-	class AddressCell extends AbstractCell<AddressNode> {
-		public AddressCell(String... consumedEvents) {
-			super(consumedEvents);
-		}
-		@Override
-		public void render(Context context, AddressNode value, SafeHtmlBuilder sb) {
-			if (value != null) {
-				sb.appendEscaped(value.getEmail());
-			}
-		}
-	}
+    public final SingleSelectionModel<AddressNode> selectionModel = new SingleSelectionModel<AddressNode>(
+            new ProvidesKey<AddressNode>() {
+                @Override
+                public Object getKey(AddressNode item) {
+                    return item == null ? null : item.getEmail();
+                }
+            });
 
-	public static final ProvidesKey<AddressNode> KEY_PROVIDER = new ProvidesKey<AddressNode>() {
-		@Override
-		public Object getKey(AddressNode item) {
-			return item == null ? null : item.getEmail();
-		}
-	};
+    class AddressCell extends AbstractCell<AddressNode> {
+        public AddressCell(String... consumedEvents) {
+            super(consumedEvents);
+        }
+        @Override
+        public void render(Context context, AddressNode value, SafeHtmlBuilder sb) {
+            if (value != null) {
+                sb.appendEscaped(value.getEmail());
+            }
+        }
+    }
 
-	public static class AddressNode {
-		private String name;
-		private String email;
+    public static final ProvidesKey<AddressNode> KEY_PROVIDER = new ProvidesKey<AddressNode>() {
+        @Override
+        public Object getKey(AddressNode item) {
+            return item == null ? null : item.getEmail();
+        }
+    };
 
-		public AddressNode(String name, String email) {
-			super();
-			this.name = name;
-			this.email = email;
-		}
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
-		}
-		public String getEmail() {
-			return email;
-		}
-		public void setEmail(String email) {
-			this.email = email;
-		}
+    public static class AddressNode {
+        private String name;
+        private String email;
 
-	}
+        public AddressNode(String name, String email) {
+            super();
+            this.name = name;
+            this.email = email;
+        }
+        public String getName() {
+            return name;
+        }
+        public void setName(String name) {
+            this.name = name;
+        }
+        public String getEmail() {
+            return email;
+        }
+        public void setEmail(String email) {
+            this.email = email;
+        }
 
-	public AddressListView() {
-		initWidget(binder.createAndBindUi(this));
-		dataProvider.setList(getContactsFromCache());
+    }
 
-		addrList = new CellList<AddressNode>(new AddressCell(), Resources.INSTANCE, KEY_PROVIDER);
-		addrList.setKeyboardPagingPolicy(KeyboardPagingPolicy.INCREASE_RANGE);
-		addrList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.BOUND_TO_SELECTION);
-		// default page size -> max int value
-		addrList.setPageSize(Integer.MAX_VALUE);
-		addrList.setSelectionModel(selectionModel);
+    public AddressListView() {
+        initWidget(binder.createAndBindUi(this));
+        dataProvider.setList(getContactsFromCache());
 
-		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-			public void onSelectionChange(SelectionChangeEvent event) {
-				eventBus.fireEvent(new AddressClickEvent(selectionModel.getSelectedObject().getEmail()));
-			}
-		});
-		dataProvider.addDataDisplay(addrList);
-		thisView.setWidget(addrList);
-	}
+        addrList = new CellList<AddressNode>(new AddressCell(), Resources.INSTANCE, KEY_PROVIDER);
+        addrList.setKeyboardPagingPolicy(KeyboardPagingPolicy.INCREASE_RANGE);
+        addrList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.BOUND_TO_SELECTION);
+        // default page size -> max int value
+        addrList.setPageSize(Integer.MAX_VALUE);
+        addrList.setSelectionModel(selectionModel);
 
-	
-	List<AddressNode> getContactsFromCache() {
-		String[] contacts = null;
-		Storage contactStore = Storage.getLocalStorageIfSupported();
-		if (contactStore != null) {
-			String contactsString = contactStore.getItem(MessageListActivity.CONTACTS_STORE);
-			System.out.println(contactsString);
-			if (contactsString != null)
-				contacts = contactsString.replace("[", "").replace("]", "").trim().split(",");
-		}
-		List<AddressNode> addrs = new ArrayList<AddressNode>();
-		if (contacts == null || contacts.length == 0) {
-			return null;
-		}
-		
+        selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+            public void onSelectionChange(SelectionChangeEvent event) {
+                eventBus.fireEvent(new AddressClickEvent(selectionModel.getSelectedObject().getEmail()));
+            }
+        });
+        dataProvider.addDataDisplay(addrList);
+        thisView.setWidget(addrList);
+    }
 
-		// Compile and use regular expression
-//		RegExp regExp = RegExp.compile(EMAIL_PATTERN);
-		for (String contact : contacts) {
-			addrs.add(new AddressNode(contact, contact));
-//			MatchResult matcher = regExp.exec(contact);
-//			boolean matchFound = (matcher != null); // equivalent to regExp.test(inputStr); 
-//			if (matchFound) {
-//			    // Get all groups for this match
-//			    for (int i=0; i<=matcher.getGroupCount(); i++) {
-//			        String groupStr = matcher.getGroup(i);
-//					addrs.add(new AddressNode(contact, groupStr == null?contact:groupStr.substring(1, groupStr.length()-1)));
-//			    }
-//			}
-		}
 
-		return addrs;
+    List<AddressNode> getContactsFromCache() {
+        String[] contacts = null;
+        Storage contactStore = Storage.getLocalStorageIfSupported();
+        if (contactStore != null) {
+            String contactsString = contactStore.getItem(MessageListActivity.CONTACTS_STORE);
+            System.out.println(contactsString);
+            if (contactsString != null)
+                contacts = contactsString.replace("[", "").replace("]", "").trim().split(",");
+        }
+        List<AddressNode> addrs = new ArrayList<AddressNode>();
+        if (contacts == null || contacts.length == 0) {
+            return null;
+        }
 
-	}
 
-	interface Binder extends UiBinder<SimplePanel, AddressListView> {
-	}
+        // Compile and use regular expression
+//        RegExp regExp = RegExp.compile(EMAIL_PATTERN);
+        for (String contact : contacts) {
+            addrs.add(new AddressNode(contact, contact));
+//            MatchResult matcher = regExp.exec(contact);
+//            boolean matchFound = (matcher != null); // equivalent to regExp.test(inputStr);
+//            if (matchFound) {
+//                // Get all groups for this match
+//                for (int i=0; i<=matcher.getGroupCount(); i++) {
+//                    String groupStr = matcher.getGroup(i);
+//                    addrs.add(new AddressNode(contact, groupStr == null?contact:groupStr.substring(1, groupStr.length()-1)));
+//                }
+//            }
+        }
 
-	private static Binder binder = GWT.create(Binder.class);
+        return addrs;
+
+    }
+
+    interface Binder extends UiBinder<SimplePanel, AddressListView> {
+    }
+
+    private static Binder binder = GWT.create(Binder.class);
 
 }

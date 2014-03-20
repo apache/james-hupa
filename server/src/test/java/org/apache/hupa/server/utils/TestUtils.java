@@ -83,10 +83,10 @@ public class TestUtils extends TestCase {
             Arrays.fill(padding, ' ');
             return new String(padding) + text;
         }
-        
+
         public String toString() {
             StringBuilder ret = new StringBuilder();
-            for (String s : this) 
+            for (String s : this)
                 ret.append(s).append("\n");
             return ret.toString();
         }
@@ -95,7 +95,7 @@ public class TestUtils extends TestCase {
 
     /**
      * Creates a FileItem which stores data in memory
-     * 
+     *
      * @param filename
      * @return a new item
      * @throws IOException
@@ -112,16 +112,16 @@ public class TestUtils extends TestCase {
     public static FileItem createMockFileItem(String filename) throws IOException {
         return createMockFileItem(filename, "mock/attachment");
     }
-    
+
     public void testCreateMockFileItem() throws Exception {
         FileItem item = createMockFileItem("filename.jpg");
         assertEquals("ABCDEFGHIJK\n", item.getString());
     }
 
-    
+
     /**
      * Create a new mime-message from a file stored in the fixtures folder
-     * 
+     *
      * @param session
      * @param msgFile
      * @return
@@ -137,8 +137,8 @@ public class TestUtils extends TestCase {
     /**
      * Creates a new mime message.
      * It is possible to specify which parts to create (text, html or both) and
-     * the number of attachments 
-     *  
+     * the number of attachments
+     *
      * @param session
      * @param text
      * @param html
@@ -162,7 +162,7 @@ public class TestUtils extends TestCase {
         message.setSubject("Subject");
         return SendMessageBaseServiceImpl.composeMessage(message, text, html, items);
     }
-    
+
     public static Message createMockMimeMessage(Session session, int nfiles) throws MessagingException, IOException {
         return createMockMimeMessage(session, "Body", "<div>Body</div>", nfiles);
     }
@@ -170,7 +170,7 @@ public class TestUtils extends TestCase {
     /**
      * Creates a client side mock smtp message.
      * It is possible to say the number of attachments we want.
-     *  
+     *
      * @param registry
      * @param nfiles
      * @return
@@ -209,11 +209,11 @@ public class TestUtils extends TestCase {
 
     /**
      * Parses a mime message and returns an array of content-types.
-     * Each line in the array represents a mime part and is indented 
+     * Each line in the array represents a mime part and is indented
      * with spaces.
-     *  
+     *
      * It's used in testing or debugging.
-     * 
+     *
      * @param msg
      * @return
      * @throws IOException
@@ -254,7 +254,7 @@ public class TestUtils extends TestCase {
     /**
      * Add a mock attachment to a mime message, you can specify whether the attachment
      * is an in-line image, and the file name
-     * 
+     *
      * @param message
      * @param fileName
      * @param isInline
@@ -263,17 +263,17 @@ public class TestUtils extends TestCase {
      */
     public static void addMockAttachment(Message message, String fileName, boolean isInline) throws IOException, MessagingException {
         FileItem item = createMockFileItem(fileName, isInline ? "image/mock" : "mock/attachment");
-            
+
         BodyPart part = MessageUtils.fileitemToBodypart(item);
         if (isInline)
             part.addHeader("Content-ID", "any-id");
-        
+
         Multipart mpart = (Multipart) message.getContent();
         mpart.addBodyPart(part);
         message.saveChanges();
     }
-    
-    
+
+
     public static String dumpStore(IMAPStore store) throws MessagingException {
         String ret = "";
         for (Folder f : store.getDefaultFolder().list()) {
@@ -281,5 +281,5 @@ public class TestUtils extends TestCase {
         }
         return ret;
     }
- 
+
 }

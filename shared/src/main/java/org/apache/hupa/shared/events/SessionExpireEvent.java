@@ -36,11 +36,11 @@ public class SessionExpireEvent extends GwtEvent<SessionExpireEventHandler>{
     public com.google.gwt.event.shared.GwtEvent.Type<SessionExpireEventHandler> getAssociatedType() {
         return TYPE;
     }
-    
+
     public SessionExpireEvent(User user) {
         this.user = user;
     }
-    
+
     public User getUser() {
         return user;
     }

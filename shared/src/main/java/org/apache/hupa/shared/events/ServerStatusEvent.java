@@ -27,12 +27,12 @@ public class ServerStatusEvent extends GwtEvent<ServerStatusEventHandler> {
     public enum ServerStatus {
         Unknown, Available, Unavailable, Error
     }
-    
+
     private ServerStatus status = ServerStatus.Unknown;
     public ServerStatusEvent(ServerStatus status) {
         this.status = status;
     }
-    
+
     public ServerStatus getStatus() {
         return status;
     }
@@ -46,5 +46,5 @@ public class ServerStatusEvent extends GwtEvent<ServerStatusEventHandler> {
     public com.google.gwt.event.shared.GwtEvent.Type<ServerStatusEventHandler> getAssociatedType() {
         return TYPE;
     }
-    
+
 }

@@ -23,11 +23,11 @@ public abstract class AppCache {
     private static final String TIMESTAMP = "_TS_";
 
     public static String RC4_SESS_KEY = "rOQcK1D7M1leWtu2ywzU8YAVg/KKOXAoN";
-    
+
     private String pfx = "";
 
     AppSerializer serializer;
-    
+
     @Inject
     AutoBeanFactory beanFactory;
 
@@ -62,15 +62,15 @@ public abstract class AppCache {
             val = c;
         }
     }
-    
+
     public void setPrefix(String prefix) {
         pfx = prefix;
     }
 
     public abstract void createStorageImplementationSync();
-    
+
     protected SyncStorage syncStorage;
-    
+
     public AppCache() {
         createStorageImplementationSync();
     }
@@ -78,7 +78,7 @@ public abstract class AppCache {
     public void clear() {
         syncStorage.clear();
     }
-    
+
     boolean containsKey(String id) {
         return syncStorage.containsKey(pfx + id);
     }
@@ -87,7 +87,7 @@ public abstract class AppCache {
         setItem(id, value);
         setExpires(id, expires);
     }
-   
+
     public void setItem(String id, Object value) {
         syncStorage.setItem(pfx + id, value);
     }
@@ -104,15 +104,15 @@ public abstract class AppCache {
     public int getLength() {
         return syncStorage.getLength();
     }
-    
+
     public String getItem(String id) {
         return (String) syncStorage.getItem(pfx + id);
     }
-    
+
     public void log(Object o) {
         syncStorage.log(o);
     }
-    
+
     public void dump() {
         String t = "Dump --- \n";
         for (int i = 0, l = getLength(); i < l; i++) {
@@ -122,18 +122,18 @@ public abstract class AppCache {
         }
         System.out.println(t);
     }
-    
+
     private String getKey(BaseProxy p) {
         return (p instanceof HasId ? ((HasId)p).getId() :
                 p instanceof HasFullName ? ((HasFullName)p).getFullName() :
                 p instanceof HasName ? ((HasName)p).getName() :
                 String.valueOf(p)).replaceAll("[\\,\\s]+", "");
     }
-    
+
     public <T extends BaseProxy> void storeProxies(String key, List<T> proxies) {
         storeProxies(key, proxies, true, false);
     }
-    
+
     public <T extends BaseProxy> void storeProxiesCrypt(String key, List<T> proxies) {
         storeProxies(key, proxies, true, true);
     }
@@ -165,7 +165,7 @@ public abstract class AppCache {
             }
         }
     }
-    
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public void removeProxies(String key) {
         storeProxies(key, new ArrayList(), true, false);
@@ -204,7 +204,7 @@ public abstract class AppCache {
     public <T extends BaseProxy> List<T> restoreProxies(Class<T> clz, String key) {
         return restoreProxies(clz, key, false);
     }
-    
+
     public <T extends BaseProxy> List<T> restoreProxiesCrypt(Class<T> clz, String key) {
         return restoreProxies(clz, key, true);
     }

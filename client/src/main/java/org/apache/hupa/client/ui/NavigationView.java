@@ -39,58 +39,58 @@ import com.google.inject.Inject;
 
 public class NavigationView extends Composite implements NavigationActivity.Displayable {
 
-	@Inject PlaceController placeController;
-	@UiField Anchor mail;
-	@UiField Anchor setting;
-	@UiField SimplePanel mailOuter;
-	@UiField SimplePanel settingOuter;
+    @Inject PlaceController placeController;
+    @UiField Anchor mail;
+    @UiField Anchor setting;
+    @UiField SimplePanel mailOuter;
+    @UiField SimplePanel settingOuter;
 
-	@UiField Style style;
+    @UiField Style style;
 
-	interface Style extends CssResource {
-		String selected();
-		String settingsInnerSelected();
-		String mailInnerSelected();
-		String contactInnerSelected();
-	}
+    interface Style extends CssResource {
+        String selected();
+        String settingsInnerSelected();
+        String mailInnerSelected();
+        String contactInnerSelected();
+    }
 
-	public NavigationView() {
-		initWidget(binder.createAndBindUi(this));
-	}
+    public NavigationView() {
+        initWidget(binder.createAndBindUi(this));
+    }
 
-	@UiHandler("mail")
-	public void onMailClick(ClickEvent e) {
-		select(1);
+    @UiHandler("mail")
+    public void onMailClick(ClickEvent e) {
+        select(1);
         placeController.goTo(new FolderPlace(HupaController.user.getSettings().getInboxFolderName()));
-	}
+    }
 
-	@UiHandler("setting")
-	public void onSettingClick(ClickEvent e) {
-		select(2);
-		placeController.goTo(new SettingPlace("labels"));
-	}
+    @UiHandler("setting")
+    public void onSettingClick(ClickEvent e) {
+        select(2);
+        placeController.goTo(new SettingPlace("labels"));
+    }
 
-	interface NavigationUiBinder extends UiBinder<DockLayoutPanel, NavigationView> {
-	}
+    interface NavigationUiBinder extends UiBinder<DockLayoutPanel, NavigationView> {
+    }
 
-	private static NavigationUiBinder binder = GWT.create(NavigationUiBinder.class);
+    private static NavigationUiBinder binder = GWT.create(NavigationUiBinder.class);
 
-	@Override
-	public void select(int idx) {
-		switch (idx) {
-		case 2:
-			mailOuter.removeStyleName(style.selected());
-			mail.removeStyleName(style.mailInnerSelected());
-			settingOuter.addStyleName(style.selected());
-			setting.addStyleName(style.settingsInnerSelected());
-			break;
-		default:
-			mailOuter.addStyleName(style.selected());
-			mail.addStyleName(style.mailInnerSelected());
-			settingOuter.removeStyleName(style.selected());
-			setting.removeStyleName(style.settingsInnerSelected());
-			break;
-		}
-	}
+    @Override
+    public void select(int idx) {
+        switch (idx) {
+        case 2:
+            mailOuter.removeStyleName(style.selected());
+            mail.removeStyleName(style.mailInnerSelected());
+            settingOuter.addStyleName(style.selected());
+            setting.addStyleName(style.settingsInnerSelected());
+            break;
+        default:
+            mailOuter.addStyleName(style.selected());
+            mail.addStyleName(style.mailInnerSelected());
+            settingOuter.removeStyleName(style.selected());
+            setting.removeStyleName(style.settingsInnerSelected());
+            break;
+        }
+    }
 
 }

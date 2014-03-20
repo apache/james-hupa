@@ -67,13 +67,13 @@ import com.google.gwt.resources.client.ImageResource;
         ImageResource ul();
 
         ImageResource underline();
-        
+
         ImageResource backColors();
-        
+
         ImageResource foreColors();
-        
+
         ImageResource fonts();
-        
+
         ImageResource fontSizes();
     }
 

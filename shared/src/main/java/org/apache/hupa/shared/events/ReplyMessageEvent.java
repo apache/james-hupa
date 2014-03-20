@@ -44,7 +44,7 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
     public com.google.gwt.event.shared.GwtEvent.Type<ReplyMessageEventHandler> getAssociatedType() {
         return TYPE;
     }
-    
+
     public ReplyMessageEvent(User user, ImapFolder folder, Message message, MessageDetails details, boolean replyAll) {
         this.user = user;
         this.folder = folder;
@@ -52,19 +52,19 @@ public class ReplyMessageEvent extends GwtEvent<ReplyMessageEventHandler>{
         this.replyAll = replyAll;
         this.details = details;
     }
-    
+
     public User getUser() {
         return user;
     }
-    
+
     public ImapFolder getFolder() {
         return folder;
     }
-    
+
     public Message getMessage() {
         return message;
     }
-    
+
 
     public MessageDetails getMessageDetails() {
         return details;

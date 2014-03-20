@@ -30,15 +30,15 @@ import com.google.gwt.place.shared.Place;
  */
 public abstract class _HupaActivityMapper implements ActivityMapper{
 
-	@Override
-	public Activity getActivity(Place place) {
-		if(place instanceof DefaultPlace)return null;
-		return asyncLoadActivity(place);
-	}
-	
-	/**
-	 * code splitting
-	 */
-	protected abstract Activity asyncLoadActivity(final Place place);
+    @Override
+    public Activity getActivity(Place place) {
+        if(place instanceof DefaultPlace)return null;
+        return asyncLoadActivity(place);
+    }
+
+    /**
+     * code splitting
+     */
+    protected abstract Activity asyncLoadActivity(final Place place);
 
 }

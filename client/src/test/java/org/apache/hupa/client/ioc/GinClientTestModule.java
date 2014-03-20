@@ -43,36 +43,36 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 import com.google.web.bindery.requestfactory.vm.RequestFactorySource;
 
 public class GinClientTestModule extends AbstractModule {
-    
-	public static Logger logger = Logger.getLogger(GinClientTestModule.class.getName());
 
-	@Override
-	protected void configure() {
-		bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
-		bind(RequestFactory.class).to(HupaRequestFactory.class).in(Singleton.class);
-	}
+    public static Logger logger = Logger.getLogger(GinClientTestModule.class.getName());
 
-	@Provides
-	@Singleton
-	HupaRequestFactory getRequestFactory(EventBus eventBus, IocRfServiceDecorator decorator) {
-		HupaRequestFactory requestFactory = RequestFactorySource.create(HupaRequestFactory.class);
-	    SimpleRequestProcessor processor = new SimpleRequestProcessor(ServiceLayer.create(decorator));
-	    processor.setExceptionHandler(new ExceptionHandler() {
-	        public ServerFailure createServerFailure(Throwable throwable) {
-	          throwable.printStackTrace();
-	          return null;
-	        }
-	      });
-		requestFactory.initialize(eventBus, new InProcessRequestTransport(processor));
-		return requestFactory;
-	}
-	
+    @Override
+    protected void configure() {
+        bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
+        bind(RequestFactory.class).to(HupaRequestFactory.class).in(Singleton.class);
+    }
+
     @Provides
     @Singleton
-	AutoBeanFactory getAutoBeanFactory() {
+    HupaRequestFactory getRequestFactory(EventBus eventBus, IocRfServiceDecorator decorator) {
+        HupaRequestFactory requestFactory = RequestFactorySource.create(HupaRequestFactory.class);
+        SimpleRequestProcessor processor = new SimpleRequestProcessor(ServiceLayer.create(decorator));
+        processor.setExceptionHandler(new ExceptionHandler() {
+            public ServerFailure createServerFailure(Throwable throwable) {
+              throwable.printStackTrace();
+              return null;
+            }
+          });
+        requestFactory.initialize(eventBus, new InProcessRequestTransport(processor));
+        return requestFactory;
+    }
+
+    @Provides
+    @Singleton
+    AutoBeanFactory getAutoBeanFactory() {
         return AutoBeanFactorySource.create(AutoBeanFactory.class);
-	}
-    
+    }
+
     @Provides
     @Singleton
     AppCache getAppCache(AppSerializer serializer) {

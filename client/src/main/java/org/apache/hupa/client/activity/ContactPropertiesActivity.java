@@ -31,15 +31,15 @@ import com.google.inject.Inject;
 
 public class ContactPropertiesActivity extends AppBaseActivity {
 
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		container.setWidget(display.asWidget());
-	}
+    @Override
+    public void start(AcceptsOneWidget container, EventBus eventBus) {
+        container.setWidget(display.asWidget());
+    }
 
-	@Inject private Displayable display;
+    @Inject private Displayable display;
 
-	public interface Displayable extends IsWidget {
-		void cascade(LabelNode labelNode, List<LabelNode> list, int cascadeTypeAdd);
-		HasClickHandlers getSave();
-	}
+    public interface Displayable extends IsWidget {
+        void cascade(LabelNode labelNode, List<LabelNode> list, int cascadeTypeAdd);
+        HasClickHandlers getSave();
+    }
 }

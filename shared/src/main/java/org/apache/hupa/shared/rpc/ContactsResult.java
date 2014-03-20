@@ -63,11 +63,11 @@ public class ContactsResult{
         public String toKey() {
             return toString().replaceAll("[^\\w\\d<@>]+", "").toLowerCase();
         }
-        
+
         public String getName() {
             return realname;
         }
-        
+
         public String toIsoAddress() {
             if (!mail.equals(realname))
                 return realname + " <" + mail + ">";

@@ -30,33 +30,33 @@ public class IncreaseUnseenEvent extends GwtEvent<IncreaseUnseenEventHandler>{
     private User user;
     private ImapFolder folder;
     private int amount;
-    
+
     public IncreaseUnseenEvent(User user, ImapFolder folder) {
         this(user, folder, 1);
     }
-    
+
     public IncreaseUnseenEvent(User user, ImapFolder folder, int amount) {
         this.user =user;
         this.folder = folder;
         this.amount = amount;
     }
-    
+
     public ImapFolder getFolder() {
         return folder;
     }
-    
+
     public User getUser() {
         return user;
     }
-    
+
     public int getAmount() {
         return amount;
     }
-    
+
     @Override
     protected void dispatch(IncreaseUnseenEventHandler handler) {
         handler.onIncreaseUnseenEvent(this);
-        
+
     }
 
     @Override

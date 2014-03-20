@@ -40,11 +40,11 @@ import com.google.inject.Module;
 import com.sun.mail.imap.IMAPFolder;
 
 public class SendMessageServiceTest extends HupaGuiceTestCase {
-    
+
     static final String imapUser = "mcdodot@gmail.com";
     static final String imapPass = "5234manolito";
     final private boolean useMock = true;
-    
+
     @Override
     protected Module[] getModules() {
         if (useMock ) {
@@ -57,15 +57,15 @@ public class SendMessageServiceTest extends HupaGuiceTestCase {
             }}};
         }
     }
-    
+
     @Test
     public void testSendMessage() throws Exception {
         IMAPFolder folder = (IMAPFolder) store.getFolder(testUser.getSettings().getSentFolderName());
         folder.open(Folder.READ_ONLY);
         long count = folder.getMessageCount();
-        
+
         FileItemRegistry registry = SessionUtils.getSessionRegistry(logger, httpSession);
-        
+
         // Create a reply user action with an uploaded message
         SmtpMessage smtpmsg = TestUtils.createMockSMTPMessage(registry, 1);
         SendMessageActionImpl action = new SendMessageActionImpl(smtpmsg);
@@ -75,14 +75,14 @@ public class SendMessageServiceTest extends HupaGuiceTestCase {
         smtpmsg.setBcc(Arrays.<String>asList());
         smtpmsg.setFrom(imapUser);
         smtpmsg.setSubject(subject);
-        
+
         Message message = sendMessageService.createMessage(session, action);
         message = sendMessageService.fillBody(message, action);
-        
+
         sendMessageService.send(action);
-        
+
         Assert.assertTrue(count < folder.getMessageCount());
     }
-    
-    
+
+
 }

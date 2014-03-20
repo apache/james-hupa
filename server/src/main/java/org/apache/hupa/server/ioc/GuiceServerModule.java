@@ -135,7 +135,7 @@ public class GuiceServerModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        
+
         try {
             // Bind addresses and ports for imap and smtp
             Names.bindProperties(binder(), properties);
@@ -148,9 +148,9 @@ public class GuiceServerModule extends AbstractModule {
         bind(ExceptionHandler.class).to(DefaultExceptionHandler.class);
         bind(ServiceLayerDecorator.class).to(IocRfServiceDecorator.class);
         bind(IocRfServiceLocator.class);
-        
+
         bind(MailHeader.class).to(MailHeaderImpl.class);
-        
+
         bind(User.class).to(UserImpl.class);
         bind(Settings.class).toProvider(DefaultUserSettingsProvider.class);
         bind(ImapFolder.class).to(ImapFolderImpl.class);
@@ -158,7 +158,7 @@ public class GuiceServerModule extends AbstractModule {
         bind(MessageDetails.class).to(MessageDetailsImpl.class);
         bind(MessageAttachment.class).to(MessageAttachmentImpl.class);
         bind(SmtpMessage.class).to(SmtpMessageImpl.class);
-        
+
         bind(GenericResult.class).to(GenericResultImpl.class);
         bind(FetchMessagesAction.class).to(FetchMessagesActionImpl.class);
         bind(FetchMessagesResult.class).to(FetchMessagesResultImpl.class);
@@ -177,14 +177,14 @@ public class GuiceServerModule extends AbstractModule {
         bind(LogoutUserAction.class).to(LogoutUserActionImpl.class);
         bind(MoveMessageAction.class).to(MoveMessageActionImpl.class);
         bind(SetFlagAction.class).to(SetFlagActionImpl.class);
-        
+
         bind(FetchMessagesService.class).to(FetchMessagesServiceImpl.class);
         bind(SendMessageService.class).to(SendMessageBaseServiceImpl.class);
         bind(SendForwardMessageService.class).to(SendForwardMessageServiceImpl.class);
         bind(SendReplyMessageService.class).to(SendReplyMessageServiceImpl.class);
         bind(GetMessageDetailsService.class).to(GetMessageDetailsServiceImpl.class);
 
-        
+
         bind(CheckSessionService.class).to(CheckSessionServiceImpl.class);
         bind(LoginUserService.class).to(LoginUserServiceImpl.class);
         bind(ImapFolderService.class).to(ImapFolderServiceImpl.class);
@@ -198,7 +198,7 @@ public class GuiceServerModule extends AbstractModule {
         bind(LogoutUserService.class).to(LogoutUserServiceImpl.class);
         bind(MoveMessageService.class).to(MoveMessageServiceImpl.class);
         bind(SetFlagService.class).to(SetFlagServiceImpl.class);
-        
+
         bind(IMAPStoreCache.class).to(getIMAPStoreCacheClass()).in(Singleton.class);
 
         bind(Log.class).toProvider(LogProvider.class).in(Singleton.class);

@@ -33,13 +33,13 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
     private User user;
     private ImapFolder folder;
     private MessageDetails messageDetails;
-    
+
     public ExpandMessageEvent(User user, ImapFolder folder, Message message) {
         this.message = message;
         this.folder = folder;
         this.user = user;
     }
-    
+
     public ExpandMessageEvent(User user, ImapFolder folder, Message message, MessageDetails messageDetails) {
         this.message = message;
         this.folder = folder;
@@ -50,20 +50,20 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
     public Message getMessage() {
         return message;
     }
-    
+
     public User getUser () {
         return user;
     }
-    
+
     public ImapFolder getFolder () {
         return folder;
     }
-    
+
     public MessageDetails getMessageDetails(){
         return messageDetails;
     }
-    
-    
+
+
     @Override
     protected void dispatch(ExpandMessageEventHandler handler) {
         handler.onExpandMessage(this);
@@ -74,6 +74,6 @@ public class ExpandMessageEvent extends GwtEvent<ExpandMessageEventHandler>{
         return TYPE;
     }
 
-    
+
 
 }

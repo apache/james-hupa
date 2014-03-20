@@ -29,13 +29,13 @@ import com.google.gwt.place.shared.Place;
  * mappers in the messages panel could facility
  */
 abstract class _MessageActivityMapper extends _HupaActivityMapper {
-	@Override
-	protected Activity asyncLoadActivity(Place place) {
-		if (place instanceof SettingPlace)
-			return null;
-		if (place instanceof ComposePlace)
-			return null;
-		return lazyLoadActivity(place);
-	}
-	abstract protected Activity lazyLoadActivity(Place place);
+    @Override
+    protected Activity asyncLoadActivity(Place place) {
+        if (place instanceof SettingPlace)
+            return null;
+        if (place instanceof ComposePlace)
+            return null;
+        return lazyLoadActivity(place);
+    }
+    abstract protected Activity lazyLoadActivity(Place place);
 }

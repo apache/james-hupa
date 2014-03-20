@@ -57,8 +57,8 @@ import org.apache.hupa.shared.domain.MessageAttachment;
 public class MessageUtils {
 
     /**
-     * Get a Address array for a set of address passed as arguments 
-     * 
+     * Get a Address array for a set of address passed as arguments
+     *
      * @param addresses
      * @return Address array
      * @throws AddressException
@@ -68,8 +68,8 @@ public class MessageUtils {
     }
 
     /**
-     * Get a Address array for the given ArrayList 
-     * 
+     * Get a Address array for the given ArrayList
+     *
      * @param recipients
      * @return addressArray
      * @throws AddressException
@@ -87,7 +87,7 @@ public class MessageUtils {
 
     /**
      * Extract the attachments present in a mime message
-     * 
+     *
      * @param logger
      * @param content
      * @return A list of body parts of the attachments
@@ -124,11 +124,11 @@ public class MessageUtils {
         }
         return ret;
     }
-    
+
     /**
      * Handle the parts of the given message. The method will call itself
      * recursively to handle all nested parts
-     * 
+     *
      * @param message the MimeMessage
      * @param content the current processing Content
      * @param sbPlain the StringBuffer to fill with text
@@ -201,7 +201,7 @@ public class MessageUtils {
         }
         return isHTML;
     }
-    
+
     private static boolean handleMultiPartAlternative(Multipart mp, StringBuffer sbPlain) throws MessagingException, IOException {
         String text = null;
         boolean isHTML = false;
@@ -268,14 +268,14 @@ public class MessageUtils {
         }
         return null;
     }
-    
+
     private static String cleanName(String s) {
         return s.replaceAll("[^\\w .+-]", "");
     }
 
     /**
      * Convert a FileItem to a BodyPart
-     * 
+     *
      * @param item
      * @return message body part
      * @throws MessagingException
@@ -290,7 +290,7 @@ public class MessageUtils {
 
     /**
      * DataStore which wrap a FileItem
-     * 
+     *
      */
     public static class FileItemDataStore implements DataSource {
 
@@ -322,7 +322,7 @@ public class MessageUtils {
          */
         public String getName() {
             String fullName = item.getName();
-            
+
             // Strip path from file
             int index = fullName.lastIndexOf(File.separator);
             if (index == -1) {
@@ -340,11 +340,11 @@ public class MessageUtils {
             return null;
         }
 
-    }  
+    }
     /**
      * Decode iso-xxxx strings present in subjects and emails like:
-     * 
-     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
+     *
+     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org>
      */
     public static String decodeText(String s) {
         String ret = s;
@@ -358,11 +358,11 @@ public class MessageUtils {
           .replaceFirst("^[<\"' ]+([^\"<>]*)[>\"' ]+<", "$1 <");
         return ret;
     }
-    
+
     /**
      * Encode non ascii characters present in emails like:
-     * 
-     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org> 
+     *
+     * =?ISO-8859-1?Q?No=20hay=20ma=F1ana?= <hello@hupa.org>
      */
     public static String encodeEmail(String s) {
         if (s == null) {
@@ -372,7 +372,7 @@ public class MessageUtils {
         Matcher m = p.matcher(s);
         return m.matches() ? encodeTexts(m.group(1)) + " " + m.group(2) : s;
     }
-    
+
     /**
      * Encode non ascii characters present in email headers
      */

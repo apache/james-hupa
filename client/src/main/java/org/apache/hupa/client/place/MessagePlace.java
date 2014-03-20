@@ -24,52 +24,52 @@ import com.google.gwt.place.shared.Prefix;
 
 public class MessagePlace extends HupaPlace {
 
-	public static class TokenWrapper {
-		String folder;
-		String uid;
+    public static class TokenWrapper {
+        String folder;
+        String uid;
 
-		public TokenWrapper(String folder, String uid) {
-			this.folder = folder;
-			this.uid = uid;
-		}
-		public String getUid() {
-			return uid;
-		}
-		public String getFolder() {
-			return folder;
-		}
+        public TokenWrapper(String folder, String uid) {
+            this.folder = folder;
+            this.uid = uid;
+        }
+        public String getUid() {
+            return uid;
+        }
+        public String getFolder() {
+            return folder;
+        }
 
-		@Override
-		public String toString() {
-			return folder + SPLITTER + uid;
-		}
-	}
+        @Override
+        public String toString() {
+            return folder + SPLITTER + uid;
+        }
+    }
 
-	TokenWrapper tokenWrapper;
+    TokenWrapper tokenWrapper;
 
-	public TokenWrapper getTokenWrapper() {
-		return tokenWrapper;
-	}
+    public TokenWrapper getTokenWrapper() {
+        return tokenWrapper;
+    }
 
-	public MessagePlace(String token) {
-		String[] params = token.split(SPLITTER);
-		if (params.length == 2) {
-			this.tokenWrapper = new TokenWrapper(params[0], params[1]);
-		}
-	}
+    public MessagePlace(String token) {
+        String[] params = token.split(SPLITTER);
+        if (params.length == 2) {
+            this.tokenWrapper = new TokenWrapper(params[0], params[1]);
+        }
+    }
 
-	@Prefix("message")
-	public static class Tokenizer implements PlaceTokenizer<MessagePlace> {
+    @Prefix("message")
+    public static class Tokenizer implements PlaceTokenizer<MessagePlace> {
 
-		@Override
-		public MessagePlace getPlace(String token) {
-			return new MessagePlace(token);
-		}
+        @Override
+        public MessagePlace getPlace(String token) {
+            return new MessagePlace(token);
+        }
 
-		@Override
-		public String getToken(MessagePlace place) {
-			return place.getTokenWrapper().getFolder() + SPLITTER + place.getTokenWrapper().getUid();
-		}
-	}
+        @Override
+        public String getToken(MessagePlace place) {
+            return place.getTokenWrapper().getFolder() + SPLITTER + place.getTokenWrapper().getUid();
+        }
+    }
 
 }

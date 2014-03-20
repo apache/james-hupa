@@ -43,11 +43,11 @@ public class MockIMAPFolder extends IMAPFolder {
     public static final char SEPARATOR = '.';
     public static final String MOCK_DEFAULT_FOLDER = "";
     public static final String MOCK_MESSAGES_LOCATION = "mime/";
-    
+
     public List<Message> messages = new ArrayList<Message>();
     private boolean closed = true;
     private boolean exists;
-    
+
     public MockIMAPFolder(String fullName, IMAPStore store) {
         super(fullName, (MOCK_DEFAULT_FOLDER.equals(fullName) ? '\0' : SEPARATOR), store, false);
     }
@@ -59,7 +59,7 @@ public class MockIMAPFolder extends IMAPFolder {
         messages.addAll(Arrays.asList(mArray));
         return mArray;
     }
-    
+
     @Override
     public void appendMessages(Message[] msgs) throws MessagingException {
         addMessages(msgs);
@@ -87,7 +87,7 @@ public class MockIMAPFolder extends IMAPFolder {
         ((MockIMAPFolder) folder).addMessages(messages);
 
     }
-    
+
     public synchronized void loadDemoMessages(Session session) throws MessagingException {
         if (!exists()) {
             create(IMAPFolder.HOLDS_MESSAGES);
@@ -261,9 +261,9 @@ public class MockIMAPFolder extends IMAPFolder {
         checkExists();
         ArrayList<Message> ret = new ArrayList<Message>();
         for (Message m : messages) {
-        	if (search.match(m)) {
-        		ret.add(m);
-        	}
+            if (search.match(m)) {
+                ret.add(m);
+            }
         }
         return ret.toArray(new Message[0]);
     }
@@ -294,7 +294,7 @@ public class MockIMAPFolder extends IMAPFolder {
             throws MessagingException {
         checkExists();
         Message[] array = new Message[end- --start];
-        for (int i=0; start<end; i++,start++) 
+        for (int i=0; start<end; i++,start++)
             array[i] = messages.get(start);
         return array;
     }

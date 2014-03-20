@@ -24,28 +24,28 @@ import com.google.gwt.place.shared.Prefix;
 
 public class ContactPlace extends AbstractPlace {
 
-	String token;
+    String token;
 
-	public ContactPlace(String token) {
-		this.token = token;
-	}
+    public ContactPlace(String token) {
+        this.token = token;
+    }
 
-	public String getToken() {
-		return token;
-	}
+    public String getToken() {
+        return token;
+    }
 
-	@Prefix("contacts")
-	public static class Tokenizer implements PlaceTokenizer<ContactPlace> {
+    @Prefix("contacts")
+    public static class Tokenizer implements PlaceTokenizer<ContactPlace> {
 
-		@Override
-		public ContactPlace getPlace(String token) {
-			return new ContactPlace(token);
-		}
+        @Override
+        public ContactPlace getPlace(String token) {
+            return new ContactPlace(token);
+        }
 
-		@Override
-		public String getToken(ContactPlace place) {
-			return place.getToken();
-		}
-	}
+        @Override
+        public String getToken(ContactPlace place) {
+            return place.getToken();
+        }
+    }
 
 }

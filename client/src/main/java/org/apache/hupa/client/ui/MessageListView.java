@@ -40,66 +40,66 @@ import com.google.inject.Inject;
 
 public class MessageListView extends Composite implements MessageListActivity.Displayable, RequiresResize {
 
-	@UiField SimpleLayoutPanel thisView;
-	private MessagesCellTable grid;
+    @UiField SimpleLayoutPanel thisView;
+    private MessagesCellTable grid;
 
-	@Inject
-	public MessageListView(final EventBus eventBus, final MessagesCellTable table) {
-		initWidget(binder.createAndBindUi(this));
-		grid = table;
-		thisView.add(grid);
-	}
+    @Inject
+    public MessageListView(final EventBus eventBus, final MessagesCellTable table) {
+        initWidget(binder.createAndBindUi(this));
+        grid = table;
+        thisView.add(grid);
+    }
 
-	interface MessageListUiBinder extends UiBinder<SimpleLayoutPanel, MessageListView> {
-	}
+    interface MessageListUiBinder extends UiBinder<SimpleLayoutPanel, MessageListView> {
+    }
 
-	private static MessageListUiBinder binder = GWT.create(MessageListUiBinder.class);
+    private static MessageListUiBinder binder = GWT.create(MessageListUiBinder.class);
 
-	@Override
-	public MessagesCellTable getGrid() {
-		return grid;
-	}
-	
-	@Override
-	public MessageListDataProvider getDataProvider() {
-	    return grid.dataProvider;
-	}
-	
-	
-	@Override
-	public void refresh(){
+    @Override
+    public MessagesCellTable getGrid() {
+        return grid;
+    }
+
+    @Override
+    public MessageListDataProvider getDataProvider() {
+        return grid.dataProvider;
+    }
+
+
+    @Override
+    public void refresh(){
         grid.refresh();
-	}
+    }
 
-	@Override
-	public List<Long> getSelectedMessagesIds() {
-		List<Long> selecteds = new ArrayList<Long>();
-		MultiSelectionModel<? super Message> selectionModel = (MultiSelectionModel<? super Message>) grid
-				.getSelectionModel();
-		selectionModel.getSelectedSet();
-		for (Message msg : getSelectedMessages()) {
-			selecteds.add(msg.getUid());
-		}
-		return selecteds;
-	}
+    @Override
+    public List<Long> getSelectedMessagesIds() {
+        List<Long> selecteds = new ArrayList<Long>();
+        MultiSelectionModel<? super Message> selectionModel = (MultiSelectionModel<? super Message>) grid
+                .getSelectionModel();
+        selectionModel.getSelectedSet();
+        for (Message msg : getSelectedMessages()) {
+            selecteds.add(msg.getUid());
+        }
+        return selecteds;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Set<Message> getSelectedMessages() {
-		MultiSelectionModel<? super Message> selectionModel = (MultiSelectionModel<? super Message>) grid
-				.getSelectionModel();
-		return (Set<Message>) selectionModel.getSelectedSet();
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public Set<Message> getSelectedMessages() {
+        MultiSelectionModel<? super Message> selectionModel = (MultiSelectionModel<? super Message>) grid
+                .getSelectionModel();
+        return (Set<Message>) selectionModel.getSelectedSet();
+    }
 
     @Override
     public void onResize() {
         grid.onResize();
     }
-    
+
     @Override
     public void setSearchValue(String searchValue){
-    	grid.setSearchValue(searchValue);
-    	
+        grid.setSearchValue(searchValue);
+
     }
 
 }

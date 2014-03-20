@@ -39,8 +39,8 @@ public class ImapFolderServiceImpl extends AbstractService implements ImapFolder
         try {
             IMAPStore store = cache.get(user);
             com.sun.mail.imap.IMAPFolder folder = (com.sun.mail.imap.IMAPFolder) store.getDefaultFolder();
-            
-            // List of mail 'root' imap folders 
+
+            // List of mail 'root' imap folders
             List<ImapFolder> imapFolders = new ArrayList<ImapFolder>();
             // Create IMAPFolder tree list
             for (Folder f : folder.list()) {
@@ -58,7 +58,7 @@ public class ImapFolderServiceImpl extends AbstractService implements ImapFolder
     /**
      * Walk through the folder's sub-folders and add sub-folders to current
      * imapFolder
-     * 
+     *
      * @param folder Folder to walk
      * @param imapFolder Current IMAPFolder
      * @throws MessagingException If an error occurs
@@ -73,7 +73,7 @@ public class ImapFolderServiceImpl extends AbstractService implements ImapFolder
 
     /**
      * Create a new IMAPFolder from the given Folder
-     * 
+     *
      * @param folder Current folder
      * @return imapFolder Created IMAPFolder
      * @throws Exception If an error occurs

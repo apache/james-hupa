@@ -28,7 +28,7 @@ import com.sun.mail.imap.IMAPStore;
 @RunWith(GuiceJunitRunner.class)
 @GuiceModules({GuiceServerTestModule.class, GinClientTestModule.class})
 public abstract class HupaClientTestBase  {
-  
+
   static {
     LogManager.getRootLogger().setLevel(Level.INFO);
   }
@@ -48,5 +48,5 @@ public abstract class HupaClientTestBase  {
       httpSession.setAttribute(SConsts.USER_SESS_ATTR, testUser);
       registry = SessionUtils.getSessionRegistry(logger, httpSession);
   }
-  
+
 }

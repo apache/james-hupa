@@ -30,6 +30,6 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = LoginUserService.class, locator = IocRfServiceLocator.class)
 public interface LoginUserRequest extends RequestContext {
-	Request<User> login(String username, String password, Settings settings);
-	Request<Settings> getSettings(String email);
+    Request<User> login(String username, String password, Settings settings);
+    Request<Settings> getSettings(String email);
 }

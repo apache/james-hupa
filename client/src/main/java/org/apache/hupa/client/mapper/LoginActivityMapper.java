@@ -30,25 +30,25 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class LoginActivityMapper implements ActivityMapper {
-	private final Provider<LoginActivity> loginActivityProvider;
+    private final Provider<LoginActivity> loginActivityProvider;
 
-	@Inject
-	public LoginActivityMapper(Provider<LoginActivity> loginActivityProvider) {
-		this.loginActivityProvider = loginActivityProvider;
-	}
+    @Inject
+    public LoginActivityMapper(Provider<LoginActivity> loginActivityProvider) {
+        this.loginActivityProvider = loginActivityProvider;
+    }
 
-	@Override
-	public Activity getActivity(Place place) {
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    @Override
+    public Activity getActivity(Place place) {
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return loginActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return loginActivityProvider.get();
+            }
+        };
+    }
 }

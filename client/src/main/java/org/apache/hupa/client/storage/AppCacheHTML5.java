@@ -9,7 +9,7 @@ import com.google.inject.Inject;
 
 /**
  * AppCache implementation in Browser localStorage.
- * 
+ *
  * @author manolo
  */
 

@@ -35,14 +35,14 @@ import com.google.inject.Inject;
 
 public class SearchBoxActivity extends AppBaseActivity {
 
-	@Override
-	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		bindTo(eventBus);
-		container.setWidget(display.asWidget());
-		
-	}
+    @Override
+    public void start(AcceptsOneWidget container, EventBus eventBus) {
+        bindTo(eventBus);
+        container.setWidget(display.asWidget());
 
-	private void bindTo(final EventBus eventBus) {
+    }
+
+    private void bindTo(final EventBus eventBus) {
 
         registerHandler(display.getSearchClick().addClickHandler(new ClickHandler() {
 
@@ -66,15 +66,15 @@ public class SearchBoxActivity extends AppBaseActivity {
 //            }
 //
 //        }));
-	}
+    }
 
-	@Inject private Displayable display;
+    @Inject private Displayable display;
 
-	public interface Displayable extends IsWidget {
-		HasClickHandlers getSearchClick();
+    public interface Displayable extends IsWidget {
+        HasClickHandlers getSearchClick();
 
-		HasValue<String> getSearchValue();
+        HasValue<String> getSearchValue();
 
-		void fillSearchOracle(List<Message> messages);
-	}
+        void fillSearchOracle(List<Message> messages);
+    }
 }

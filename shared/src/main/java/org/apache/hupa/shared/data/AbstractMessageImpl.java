@@ -28,7 +28,7 @@ public class AbstractMessageImpl{
     private List<String> to;
     private List<String> cc;
     private boolean hasAttachment;
-    
+
     public String toString() {
         StringBuffer toList = new StringBuffer("");
         if (to != null)
@@ -40,7 +40,7 @@ public class AbstractMessageImpl{
             for (String s: cc)
                 ccList.append(s).append(" ");
 
-        return "From='" + from 
+        return "From='" + from
              + "' To='" + toList.toString()
              + "' CC='" + ccList.toString()
              + "' ReplyTo='" + (replyto == null ? "": replyto)
@@ -48,18 +48,18 @@ public class AbstractMessageImpl{
              + "' Attachments=" + hasAttachment;
     }
 
-    
+
     public boolean hasAttachment() {
         return hasAttachment;
     }
-    
+
     public void setHasAttachments(boolean hasAttachments) {
         this.hasAttachment = hasAttachments;
     }
-    
+
     /**
      * Set the From: header field
-     * 
+     *
      * @param from
      */
     public void setFrom(String from) {
@@ -68,7 +68,7 @@ public class AbstractMessageImpl{
 
     /**
      * Return the From: header field
-     * 
+     *
      * @return from
      */
     public String getFrom() {
@@ -86,7 +86,7 @@ public class AbstractMessageImpl{
 
     /**
      * Set the Subject: header field
-     * 
+     *
      * @param subject
      */
     public void setSubject(String subject) {
@@ -95,7 +95,7 @@ public class AbstractMessageImpl{
 
     /**
      * Return the Subject: header field
-     * 
+     *
      * @return subject
      */
     public String getSubject() {
@@ -109,7 +109,7 @@ public class AbstractMessageImpl{
     public void setTo(List<String> to) {
         this.to = to;
     }
-    
+
     public String getReplyto() {
         return replyto;
     }

@@ -29,6 +29,6 @@ import com.google.web.bindery.requestfactory.shared.Service;
 
 @Service(value = CheckSessionService.class, locator = IocRfServiceLocator.class)
 public interface CheckSessionRequest extends RequestContext {
-	Request<User> getUser();
-	Request<Boolean> isValid();
+    Request<User> getUser();
+    Request<Boolean> isValid();
 }

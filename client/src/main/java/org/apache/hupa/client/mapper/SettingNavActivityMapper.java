@@ -30,25 +30,25 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class SettingNavActivityMapper extends _HupaActivityMapper {
-	private final Provider<SettingNavActivity> settingNavActivityProvider;
+    private final Provider<SettingNavActivity> settingNavActivityProvider;
 
-	@Inject
-	public SettingNavActivityMapper(Provider<SettingNavActivity> settingNavActivityProvider) {
-		this.settingNavActivityProvider = settingNavActivityProvider;
-	}
-	@Override
-	protected Activity asyncLoadActivity(Place place) {
-		if(place instanceof DefaultPlace) return null;
-		return new ActivityAsyncProxy() {
-			@Override
-			protected void doAsync(RunAsyncCallback callback) {
-				GWT.runAsync(callback);
-			}
+    @Inject
+    public SettingNavActivityMapper(Provider<SettingNavActivity> settingNavActivityProvider) {
+        this.settingNavActivityProvider = settingNavActivityProvider;
+    }
+    @Override
+    protected Activity asyncLoadActivity(Place place) {
+        if(place instanceof DefaultPlace) return null;
+        return new ActivityAsyncProxy() {
+            @Override
+            protected void doAsync(RunAsyncCallback callback) {
+                GWT.runAsync(callback);
+            }
 
-			@Override
-			protected Activity createInstance() {
-				return settingNavActivityProvider.get();
-			}
-		};
-	}
+            @Override
+            protected Activity createInstance() {
+                return settingNavActivityProvider.get();
+            }
+        };
+    }
 }

@@ -26,19 +26,19 @@ import org.apache.hupa.widgets.WidgetsCSS;
  * CSS class names used in Hupa
  */
 public class HupaCSS extends WidgetsCSS {
-	
-	public static final String C_app_body="body";
-    
+
+    public static final String C_app_body="body";
+
     public static final String C_app_container ="Hupa";
 
     public static final String C_logo_container ="hupa-logo";
-    
+
     public static final String C_button_container ="hupa-button-bar";
     public static final String C_login_info_container = "hupa-loginfo";
     public static final String C_login_info_label = "hupa-loginfo-label";
     public static final String C_login_info_user = "hupa-loginfo-user";
     public static final String C_menu_button = "hupa-menu-button";
-    
+
     public static final String C_info_container ="hupa-info-bar";
     public static final String C_header ="hupa-header";
     public static final String C_flash ="hupa-flash";
@@ -47,12 +47,12 @@ public class HupaCSS extends WidgetsCSS {
     public static final String C_central_container ="hupa-central";
     public static final String C_main_container ="hupa-main";
     public static final String C_bottom_container ="hupa-bottom";
-    
+
     public static final String C_login_container = "hupa-login";
     public static final String C_login_box = "hupa-login-box";
     public static final String C_login_form = "hupa-login-form";
     public static final String C_login_textbox = "hupa-login-textbox";
-    
+
     public static final String C_contacts_container = "hupa-contacts";
 
     public static final String C_tree_container = "hupa-tree";
@@ -66,21 +66,21 @@ public class HupaCSS extends WidgetsCSS {
     public static final String C_msg_search = "hupa-search-box";
 
     public static final String C_msg_top_bar = "hupa-msg-top-bar";
-    
+
     public static final String C_commands_bar = "hupa-commands-bar";
-    
+
     public static final String C_msgview_container = "hupa-msgview";
     public static final String C_msgview_content = "hupa-msgview-content";
 
     public static final String C_msgsend_container = "hupa-msgsend";
-    
+
     public static final String C_buttons = "hupa-buttons";
 
     public static final String C_msg_headers = "hupa-msg-headers";
 
     public static final String C_dialog = "hupa-dialog-box";
-    
+
     public static final String C_validate = "hupa-validate-error";
-    
+
     public static final String C_button = "hupa-button";
 }

@@ -44,38 +44,38 @@ import com.google.inject.Inject;
 
 public class ContactPropertiesView extends Composite implements ContactPropertiesActivity.Displayable {
 
-	@Inject HupaRequestFactory rf;
-	@Inject HupaController hc;
-	@Inject EventBus eventBus;
+    @Inject HupaRequestFactory rf;
+    @Inject HupaController hc;
+    @Inject EventBus eventBus;
 
-	@UiField TextBox name;
+    @UiField TextBox name;
 
-	@UiField ListBox parent;
-	@UiField Button save;
+    @UiField ListBox parent;
+    @UiField Button save;
 
-	@UiField VerticalPanel propContainer;
-	@UiField CaptionPanel information;
+    @UiField VerticalPanel propContainer;
+    @UiField CaptionPanel information;
 
 
-	ImapFolder folder;
+    ImapFolder folder;
 
-	@UiHandler("save")
-	void handleSave(ClickEvent e) {}
-	public ContactPropertiesView() {
-		initWidget(binder.createAndBindUi(this));
-	}
+    @UiHandler("save")
+    void handleSave(ClickEvent e) {}
+    public ContactPropertiesView() {
+        initWidget(binder.createAndBindUi(this));
+    }
 
-	interface Binder extends UiBinder<DecoratorPanel, ContactPropertiesView> {
-	}
+    interface Binder extends UiBinder<DecoratorPanel, ContactPropertiesView> {
+    }
 
-	private static Binder binder = GWT.create(Binder.class);
+    private static Binder binder = GWT.create(Binder.class);
 
-	@Override
-	public void cascade(LabelNode labelNode, List<LabelNode> wholeList, int type) {}
+    @Override
+    public void cascade(LabelNode labelNode, List<LabelNode> wholeList, int type) {}
 
-	@Override
-	public HasClickHandlers getSave() {
-		return save;
-	}
+    @Override
+    public HasClickHandlers getSave() {
+        return save;
+    }
 
 }

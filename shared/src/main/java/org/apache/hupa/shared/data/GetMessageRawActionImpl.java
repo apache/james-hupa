@@ -34,15 +34,15 @@ public class GetMessageRawActionImpl implements GetMessageRawAction {
 
     public GetMessageRawActionImpl() {
     }
-    
+
     public ImapFolder getFolder() {
         return folder;
     }
-    
+
     public long getUid() {
         return uid;
     }
-    
+
     public boolean equals(Object obj) {
         if (obj instanceof GetMessageRawAction) {
             GetMessageRawAction action = (GetMessageRawAction) obj;
@@ -52,9 +52,9 @@ public class GetMessageRawActionImpl implements GetMessageRawAction {
         }
         return false;
     }
-    
+
     public int hashCode() {
         return (int) (getFolder().hashCode() * getUid());
     }
-    
+
 }
