@@ -272,7 +272,7 @@
             </g:HTML>
         </g:FlowPanel>
         <g:PopupPanel ui:field="settingsPopup" styleName="{style.imapSetting}"
-                      modal="true" autoHideEnabled="true" glassEnabled="true" >
+                      modal="true" autoHideEnabled="true" glassEnabled="false" >
           <g:HTMLPanel>
             <table>
               <tr>
