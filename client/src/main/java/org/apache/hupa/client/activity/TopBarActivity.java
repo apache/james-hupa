@@ -20,9 +20,7 @@
 package org.apache.hupa.client.activity;
 
 import org.apache.hupa.client.HupaController;
-import org.apache.hupa.client.place.DefaultPlace;
 import org.apache.hupa.client.rf.LogoutUserRequest;
-import org.apache.hupa.client.ui.LoginLayoutable;
 import org.apache.hupa.shared.domain.LogoutUserResult;
 import org.apache.hupa.shared.events.LogoutEvent;
 
@@ -31,12 +29,10 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -44,7 +40,6 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 public class TopBarActivity extends AppBaseActivity {
 
     @Inject private Displayable display;
-    @Inject private LoginLayoutable loginLayout;
 
     @UiField protected HTMLPanel userLabel;
 

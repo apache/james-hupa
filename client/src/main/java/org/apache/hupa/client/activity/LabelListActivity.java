@@ -46,8 +46,6 @@ public class LabelListActivity extends AppBaseActivity {
 
     @Inject private HupaController hupaController;
     @Inject private Displayable display;
-    @Inject private LabelPropertiesActivity.Displayable labelProperties;
-
 
     @Override
     public void start(AcceptsOneWidget container, EventBus eventBus) {

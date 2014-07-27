@@ -43,7 +43,6 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHTML;
-import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -111,7 +110,8 @@ public class MessageContentView extends Composite implements MessageContentActiv
                 link.setTitle(name);
                 link.setStyleName(HupaCSS.C_hyperlink);
                 link.addClickHandler(new ClickHandler() {
-                    public void onClick(ClickEvent event) {
+                    @SuppressWarnings("deprecation")
+					public void onClick(ClickEvent event) {
                         String url = getUrl(messageAttachment, folder, uid, false);
                         if (downloadIframe == null)
                             Window.open(url, "_blank", "");
