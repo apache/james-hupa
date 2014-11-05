@@ -1,6 +1,6 @@
 
 ###### Introduction ######
-Hupa is an Rich IMAP-based Webmail application written in GWT.
+Hupa is a Rich IMAP-based Webmail application written in GWT.
 
 Hupa has been entirely written in java to be coherent with the language used in the James project.
 It has been a development reference using GWT good practices (MVP pattern and Unit testing)
