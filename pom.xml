@@ -57,11 +57,11 @@
         </site>
     </distributionManagement>
     <properties>
-        <gwtVersion>2.6.1</gwtVersion>
-        <gwtMavenVersion>2.6.1</gwtMavenVersion>
+        <gwtVersion>2.7.0</gwtVersion>
+        <gwtMavenVersion>2.7.0</gwtMavenVersion>
         <gwt.moduleSuffix />
         <gwt.logLevel>INFO</gwt.logLevel>
-        <jettyVersion>8.1.8.v20121106</jettyVersion>
+        <jettyVersion>8.1.15.v20140411</jettyVersion>
         <mock.scope>test</mock.scope>
         <skipTests>true</skipTests>
         <gwt.disableRunAsync>true</gwt.disableRunAsync>
@@ -326,7 +326,7 @@
             <dependency>
                 <groupId>com.googlecode.gwtquery</groupId>
                 <artifactId>gwtquery</artifactId>
-                <version>1.4.1</version>
+                <version>1.4.3</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>
