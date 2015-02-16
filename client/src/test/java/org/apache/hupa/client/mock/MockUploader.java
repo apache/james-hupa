@@ -208,4 +208,34 @@ public class MockUploader implements IUploader {
     public void setEnabled(boolean b) {
         // TODO Auto-generated method stub
     }
+
+    @Override
+    public Widget asWidget() {
+      // TODO Auto-generated method stub
+      return null;
+    }
+
+    @Override
+    public String getServerRawResponse() {
+      // TODO Auto-generated method stub
+      return null;
+    }
+
+    @Override
+    public void setServerMessage(ServerMessage msg) {
+      // TODO Auto-generated method stub
+      
+    }
+
+    @Override
+    public void setMultipleSelection(boolean b) {
+      // TODO Auto-generated method stub
+      
+    }
+
+    @Override
+    public ServerMessage getServerMessage() {
+      // TODO Auto-generated method stub
+      return null;
+    }
 }
