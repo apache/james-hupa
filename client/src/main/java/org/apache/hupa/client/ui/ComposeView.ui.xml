@@ -216,7 +216,7 @@
         }
 
         .attachImage,.attachText {
-            height: 27px;
+            height: 16px;
             cursor: pointer;
             color: blue;
             float: left;
