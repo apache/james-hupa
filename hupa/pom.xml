@@ -194,6 +194,14 @@
                         </manifest>
                     </archive>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -281,6 +289,7 @@
                         <configuration>
                             <includeGroupIds>org.eclipse.jetty,javax.servlet</includeGroupIds>
                             <excludeArtifactIds>jsp-api,jstl</excludeArtifactIds>
+                            <excludes>META-INF/**</excludes>
                             <outputDirectory>
                                 ${project.build.directory}/${project.artifactId}-${project.version}
                             </outputDirectory>
