@@ -24,6 +24,7 @@ import gwtupload.client.IUploader;
 import gwtupload.client.IUploader.OnCancelUploaderHandler;
 import gwtupload.client.IUploader.OnFinishUploaderHandler;
 import gwtupload.client.IUploader.OnStatusChangedHandler;
+import gwtupload.client.IUploader.UploadedInfo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -329,14 +330,16 @@ public class ComposeActivity extends AppBaseActivity {
     private OnFinishUploaderHandler onFinishUploadHandler = new OnFinishUploaderHandler() {
         public void onFinish(IUploader uploader) {
             if (uploader.getStatus() == Status.SUCCESS) {
-                MessageAttachment attachment = new MessageAttachmentImpl();
                 // We use the fileInputName (unique) instead of the fileName so
                 // as we
                 // can find the item in the registry.
-                attachment.setName(uploader.getInputName());
-                attachment.setContentType(uploader.getServerInfo().ctype);
-                attachment.setSize(uploader.getServerInfo().size);
-                attachments.add(attachment);
+                for (UploadedInfo info : uploader.getServerMessage().getUploadedInfos()) {
+                  MessageAttachment attachment = new MessageAttachmentImpl();
+                  attachment.setName(info.getField());
+                  attachment.setContentType(info.getCtype());
+                  attachment.setSize(info.getSize());
+                  attachments.add(attachment);
+                }
             }
         }
     };
