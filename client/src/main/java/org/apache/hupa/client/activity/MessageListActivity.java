@@ -19,6 +19,8 @@
 
 package org.apache.hupa.client.activity;
 
+import static com.google.gwt.query.client.GQuery.console;
+
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -166,23 +168,23 @@ public class MessageListActivity extends AppBaseActivity {
 
     private void bindTo(final EventBus eventBus) {
 
-        eventBus.addHandler(DeleteClickEvent.TYPE, new DeleteClickEventHandler() {
+        registerHandler(eventBus.addHandler(DeleteClickEvent.TYPE, new DeleteClickEventHandler() {
             @Override
             public void onDeleteClickEvent(DeleteClickEvent event) {
                 deleteSelectedMessages();
             }
-        });
+        }));
 
-        eventBus.addHandler(RefreshMessagesEvent.TYPE, new RefreshMessagesEventHandler() {
+        registerHandler(eventBus.addHandler(RefreshMessagesEvent.TYPE, new RefreshMessagesEventHandler() {
             @Override
             public void onRefresh(RefreshMessagesEvent event) {
                 display.setSearchValue(event.getSearchValue());
                 display.refresh();
                 System.out.println("REFRESH DISPLAY");
             }
-        });
+        }));
 
-        eventBus.addHandler(MoveMessageEvent.TYPE, new MoveMessageEventHandler() {
+        registerHandler(eventBus.addHandler(MoveMessageEvent.TYPE, new MoveMessageEventHandler() {
 
             @Override
             public void onMoveMessageHandler(final MoveMessageEvent event) {
@@ -231,9 +233,9 @@ public class MessageListActivity extends AppBaseActivity {
                 });
             }
 
-        });
+        }));
 
-        eventBus.addHandler(MessageViewEvent.TYPE, new MessageViewEventHandler() {
+        registerHandler(eventBus.addHandler(MessageViewEvent.TYPE, new MessageViewEventHandler() {
             public void onMessageViewEvent(final MessageViewEvent event) {
                 if (event.messageDetails != null && gettingMessages != null) {
                     gettingMessages.done(new Function() {
@@ -262,9 +264,9 @@ public class MessageListActivity extends AppBaseActivity {
                     });
                 }
             }
-        });
+        }));
 
-        eventBus.addHandler(MessageListRangeChangedEvent.TYPE, new MessageListRangeChangedEventHandler() {
+        registerHandler(eventBus.addHandler(MessageListRangeChangedEvent.TYPE, new MessageListRangeChangedEventHandler() {
             public void onRangeChangedEvent(MessageListRangeChangedEvent event) {
                 gettingMessages = hupaStorage
                 .gettingMessages(true, folderName, event.start, event.size, event.search)
@@ -288,7 +290,7 @@ public class MessageListActivity extends AppBaseActivity {
                 });
 
             }
-        });
+        }));
 
     }
 
@@ -320,9 +322,10 @@ public class MessageListActivity extends AppBaseActivity {
         }
     }
     private void deleteSelectedMessages() {
+      
         final List<Long> uids = display.getSelectedMessagesIds();
 
-        if (uids.size() > 1) {
+        if (uids.size() > 0) {
             Dialog.confirm("Do you want to delete selected messages?", new Command() {
                 public void execute() {
                     doDelete(uids);
