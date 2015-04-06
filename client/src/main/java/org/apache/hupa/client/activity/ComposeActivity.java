@@ -83,6 +83,7 @@ public class ComposeActivity extends AppBaseActivity {
     private List<MessageAttachment> attachments = new ArrayList<MessageAttachment>();
     protected ComposePlace place;
     private User user;
+    private boolean sending;
 
     public Activity with(ComposePlace place) {
         this.place = place;
@@ -223,7 +224,7 @@ public class ComposeActivity extends AppBaseActivity {
         return ret;
     }
     protected void bindTo(EventBus eventBus) {
-        eventBus.addHandler(AddressClickEvent.TYPE, new AddressClickEventHandler() {
+        registerHandler(eventBus.addHandler(AddressClickEvent.TYPE, new AddressClickEventHandler() {
             @Override
             public void onClick(AddressClickEvent event) {
                 String to = display.getTo().getText();
@@ -233,23 +234,23 @@ public class ComposeActivity extends AppBaseActivity {
                     display.getTo().setText(event.getEmail());
                 }
             }
-        });
-        eventBus.addHandler(SendClickEvent.TYPE, new SendClickEventHandler() {
+        }));
+        registerHandler(eventBus.addHandler(SendClickEvent.TYPE, new SendClickEventHandler() {
             public void onSendClick(SendClickEvent event) {
                 send();
             }
-        });
-        eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
+        }));
+        registerHandler(eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
             public void onLogin(LoginEvent event) {
                 user = event.getUser();
             }
-        });
-        eventBus.addHandler(AttachClickEvent.TYPE, new AttachClickEventHandler() {
+        }));
+        registerHandler(eventBus.addHandler(AttachClickEvent.TYPE, new AttachClickEventHandler() {
             public void onAttachClick(AttachClickEvent event) {
                 display.getAttachButton().fireEvent(new ClickEvent() {
                 });
             }
-        });
+        }));
         registerHandler(display.getSendClick().addClickHandler(sendClickHandler));
         registerHandler(display.getCancelClick().addClickHandler(cancelClickHandler));
 
@@ -305,12 +306,12 @@ public class ComposeActivity extends AppBaseActivity {
         registerHandler(display.getUploader().addOnFinishUploadHandler(onFinishUploadHandler));
         registerHandler(display.getUploader().addOnCancelUploadHandler(onCancelUploadHandler));
 
-        eventBus.addHandler(MailToEvent.TYPE, new MailToEventHandler() {
+        registerHandler(eventBus.addHandler(MailToEvent.TYPE, new MailToEventHandler() {
             @Override
             public void onMailTo(MailToEvent event) {
                 display.getTo().setText(event.getMailto());
             }
-        });
+        }));
 
         fillSuggestList();
 
@@ -378,6 +379,7 @@ public class ComposeActivity extends AppBaseActivity {
     protected void send() {
         if (!validate())
             return;
+        sending = true;
         hupaController.showTopLoading("Sending...");
 
         MessageDetails oldDetails = place.getParameters().getOldDetails();
@@ -429,7 +431,8 @@ public class ComposeActivity extends AppBaseActivity {
     }
     private boolean validate() {
         // Don't trust only in view validation
-        return display.validate() && display.getTo().getText().trim().length() > 0
+        return !sending
+                && display.validate() && display.getTo().getText().trim().length() > 0
                 && EmailListValidator.isValidAddressList(display.getTo().getText())
                 && EmailListValidator.isValidAddressList(display.getCc().getText())
                 && EmailListValidator.isValidAddressList(display.getBcc().getText());
@@ -467,6 +470,7 @@ public class ComposeActivity extends AppBaseActivity {
     }
 
     private void afterSend(GenericResult response) {
+        sending = false;
         hupaController.hideTopLoading();
         hupaController.showNotice("Your mail has been sent.", 10000);
         History.back();
