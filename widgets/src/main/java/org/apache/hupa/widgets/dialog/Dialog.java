@@ -28,7 +28,7 @@ public class Dialog {
     }
 
     public static void alert(Object msg, Command callback) {
-        dialog(msg, false,  null, null);
+        dialog(msg, false,  callback, null);
         okButton.setFocus(true);
     }
 
