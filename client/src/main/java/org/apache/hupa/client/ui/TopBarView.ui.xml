@@ -36,7 +36,8 @@
         }
 
         .about {
-            display: inline-block;
+            /* Disabled until fixed: display: inline-block; */
+            display: none;
             padding: 4px 0.8em 0 10px;
             color: #AAA;
             text-decoration: none;

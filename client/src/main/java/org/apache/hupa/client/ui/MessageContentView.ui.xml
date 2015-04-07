@@ -41,6 +41,7 @@
         @sprite .emptyMsg {
             gwt-image: 'originLogo';
             background-position: center center;
+            background-size: 20%;
             width: auto;
         }
 
