@@ -27,7 +27,6 @@ import org.apache.hupa.widgets.ui.HasEnable;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasFocusHandlers;
-import com.google.gwt.user.client.TakesValue;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;

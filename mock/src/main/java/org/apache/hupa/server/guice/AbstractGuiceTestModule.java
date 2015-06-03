@@ -75,7 +75,8 @@ import com.google.inject.name.Named;
  */
 public abstract class AbstractGuiceTestModule extends AbstractModule{
 
-    protected static class TestUser extends UserImpl {
+    @SuppressWarnings("serial")
+	protected static class TestUser extends UserImpl {
 
         @Inject
         public TestUser(@Named("Username") String username,

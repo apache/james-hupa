@@ -55,7 +55,8 @@ public class StoreBugTest {
 
     Session session = Session.getDefaultInstance(new Properties(), null);
     static InMemoryIMAPStoreCache cache = new InMemoryIMAPStoreCache(new MockLog(), 2, 60000, false, truststore, truststorePassword, false);
-    static User user = new UserImpl() {
+    @SuppressWarnings("serial")
+	static User user = new UserImpl() {
        {setName(imapUser); setPassword(imapPass);}
     };
 

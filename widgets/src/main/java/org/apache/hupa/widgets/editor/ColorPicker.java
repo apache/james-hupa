@@ -51,7 +51,8 @@ public class ColorPicker extends PopupPanel implements ClickHandler, HasValueCha
             this(Long.toHexString(color));
         }
 
-        public ColorCell(String color) {
+        @SuppressWarnings("deprecation")
+		public ColorCell(String color) {
             super();
             setColor(color);
             setTitle(rgbColor);
@@ -74,7 +75,8 @@ public class ColorPicker extends PopupPanel implements ClickHandler, HasValueCha
             return rgbColor;
         }
 
-        public void setBorderColor(String color) {
+        @SuppressWarnings("deprecation")
+		public void setBorderColor(String color) {
             DOM.setStyleAttribute(getElement(), "border", "1px solid " + color);
         }
 
@@ -101,7 +103,8 @@ public class ColorPicker extends PopupPanel implements ClickHandler, HasValueCha
         0xffccff, 0xff99ff, 0xcc66cc, 0xcb32cb, 0x983298, 0x653265, 0x320032,
     };
 
-    public ColorPicker() {
+    @SuppressWarnings("deprecation")
+	public ColorPicker() {
         super(true);
         FlexTable t = new FlexTable();
         t.setCellPadding(0);

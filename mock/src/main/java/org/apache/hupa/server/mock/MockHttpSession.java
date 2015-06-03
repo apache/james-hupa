@@ -50,7 +50,7 @@ public class MockHttpSession implements HttpSession{
     }
 
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public Enumeration getAttributeNames() {
         return new Enumeration() {
             Iterator it = attributeMap.keySet().iterator();

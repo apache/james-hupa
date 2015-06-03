@@ -59,13 +59,6 @@ import javax.mail.internet.MimeMessage;
 import org.apache.hupa.server.utils.MessageUtils;
 import org.apache.hupa.shared.data.GetMessageDetailsResultImpl;
 import org.apache.hupa.shared.data.MailHeaderImpl;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.internet.MimeMessage;
-
-import org.apache.hupa.server.utils.MessageUtils;
-import org.apache.hupa.shared.data.GetMessageDetailsResultImpl;
-import org.apache.hupa.shared.data.MailHeaderImpl;
 import org.apache.hupa.shared.data.MessageDetailsImpl;
 import org.apache.hupa.shared.domain.GetMessageDetailsAction;
 import org.apache.hupa.shared.domain.GetMessageDetailsResult;

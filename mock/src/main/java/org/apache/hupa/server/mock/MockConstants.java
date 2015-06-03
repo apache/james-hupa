@@ -33,7 +33,8 @@ public class MockConstants {
 
     public static String SESSION_ID = "MockID";
 
-    public final static Settings mockSettings = new SettingsImpl() {
+    @SuppressWarnings("serial")
+	public final static Settings mockSettings = new SettingsImpl() {
         {
             setInboxFolderName(MockIMAPStore.MOCK_INBOX_FOLDER);
             setSentFolderName(MockIMAPStore.MOCK_SENT_FOLDER);
@@ -69,7 +70,8 @@ public class MockConstants {
         }
     };
 
-    public final static User mockUser = new UserImpl() {
+    @SuppressWarnings("serial")
+	public final static User mockUser = new UserImpl() {
         {
             setName(MockIMAPStore.MOCK_LOGIN);
             setPassword(MockIMAPStore.MOCK_LOGIN);

@@ -44,12 +44,13 @@ import com.google.gwt.user.client.ui.RichTextArea.FontSize;
 /**
  * Font picker for rich editor
  */
+@SuppressWarnings("deprecation")
 public class FontPicker extends PopupPanel implements ClickHandler, HasValueChangeHandlers<FontPicker> {
 
     private class FontCell extends HTML {
         String cellFont;
 
-        public FontCell(String font) {
+		public FontCell(String font) {
             super(font);
             this.cellFont = font;
             DOM.setStyleAttribute(getElement(), "backgroundColor", "#D8ECFD");

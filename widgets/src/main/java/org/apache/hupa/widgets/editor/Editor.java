@@ -39,6 +39,7 @@ import com.google.gwt.user.client.ui.RichTextArea;
 /**
  * Wysiwyg editor for composing and editing emails in Hupa
  */
+@SuppressWarnings("deprecation")
 public class Editor extends FlowPanel implements HasHTML, Focusable {
 
     RichTextArea area = new RichTextArea();

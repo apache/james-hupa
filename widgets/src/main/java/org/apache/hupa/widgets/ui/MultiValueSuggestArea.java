@@ -45,6 +45,7 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
      *
      * @author manolo
      */
+    @SuppressWarnings("deprecation")
     private class CustomSuggestBox extends SuggestBox {
 
         public CustomSuggestBox(SuggestOracle oracle) {
@@ -86,7 +87,7 @@ public class MultiValueSuggestArea extends Composite implements HasText, Focusab
         // We have to use getValue and setValue to get/set the entire text of the textarea
         // because setText and getText have different behavior since we have modified
         // this methods in the the box implementation
-        @Override
+		@Override
         public String getValue() {
             return DOM.getElementProperty(getValueBox().getElement(), "value");
         }
