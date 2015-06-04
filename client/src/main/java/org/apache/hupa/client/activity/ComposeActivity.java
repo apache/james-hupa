@@ -395,8 +395,6 @@ public class ComposeActivity extends AppBaseActivity {
                 }
             });
         } else if ("forward".equals(place.getToken())) {
-            // FIXME will get a NullPointerException given accessing
-            // directly from some URL like #/compose:forward
             SendForwardMessageRequest req = rf.sendForwardMessageRequest();
             SendForwardMessageAction action = req.create(SendForwardMessageAction.class);
             action.setReferences(oldDetails.getReferences());
