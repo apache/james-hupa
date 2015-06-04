@@ -40,7 +40,8 @@ public class EmailListValidator extends Validator<EmailListValidator>{
         this.text = text;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void invokeActions(ValidationResult result) {
         for (ValidationAction<HasText> action : getFailureActions())
             action.invoke(result, text);

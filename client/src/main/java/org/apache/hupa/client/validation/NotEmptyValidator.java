@@ -38,7 +38,8 @@ public class NotEmptyValidator extends Validator<NotEmptyValidator> {
     public NotEmptyValidator(HasText text) {
         this.text = text;
     }
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void invokeActions(ValidationResult result) {
         for (ValidationAction<HasText> action : getFailureActions())
             action.invoke(result, text);
