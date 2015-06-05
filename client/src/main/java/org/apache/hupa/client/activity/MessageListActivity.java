@@ -19,8 +19,6 @@
 
 package org.apache.hupa.client.activity;
 
-import static com.google.gwt.query.client.GQuery.console;
-
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
