@@ -200,13 +200,13 @@
         <g:HTMLPanel tag="span" addStyleNames="{style.spacer}"></g:HTMLPanel>
         <g:Anchor ui:field="reply"
             addStyleNames="{style.button} {style.reply} {style.handCursor}" title="Reply">Reply</g:Anchor>
-        <g:HTMLPanel ui:field="replyAllGroup" tag="span"
+        <g:HTMLPanel ui:field="replyAllGroup"
             addStyleNames="{style.dropButton} {style.handCursor}" title="Reply all">
             <g:Anchor ui:field="replyAll" addStyleNames="{style.button} {style.replyAll}">Reply all
             </g:Anchor>
             <g:HTMLPanel ui:field="replyAllTip" tag="span" addStyleNames="{style.dropButtonTip}" />
         </g:HTMLPanel>
-        <g:HTMLPanel ui:field="forwardGroup" tag="span"
+        <g:HTMLPanel ui:field="forwardGroup"
             addStyleNames="{style.dropButton} {style.handCursor}" title="Forward">
             <g:Anchor ui:field="forward" addStyleNames="{style.button} {style.forward}">Forward
             </g:Anchor>

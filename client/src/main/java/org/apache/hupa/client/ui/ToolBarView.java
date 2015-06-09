@@ -29,10 +29,8 @@ import org.apache.hupa.shared.events.ShowRawEvent;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -44,12 +42,13 @@ import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class ToolBarView extends Composite implements ToolBarActivity.Displayable {
-
+	
     @Inject private PlaceController placeController;
     @Inject private EventBus eventBus;
 
@@ -67,18 +66,6 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
 
     @UiField public HTMLPanel replyAllTip;
     @UiField public HTMLPanel forwardTip;
-
-
-    // FIXME: !!!! The handlers management in this view is awful.
-    // It should use @UiHandlers with a enable/disble property.
-
-    // Absolutely!!!
-
-    HandlerRegistration deleteReg;
-    HandlerRegistration markReg;
-    HandlerRegistration replyReg;
-    HandlerRegistration replyAllReg;
-    HandlerRegistration forwardReg;
 
     @UiField public Style style;
 
@@ -182,61 +169,59 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
     }
 
     @UiHandler("compose")
-    public void handleClick(ClickEvent e) {
+    public void handleCompose(ClickEvent e) {
         placeController.goTo(new ComposePlace("new").with(parameters));
     }
-
-    private ClickHandler forwardHandler = new ClickHandler() {
-
-        @Override
-        public void onClick(ClickEvent event) {
+    
+    @UiHandler("forward")
+    public void handleForward(ClickEvent e) {
+    	if(isEnabled(forward)){
             placeController.goTo(new ComposePlace("forward").with(parameters));
-        }
-
-    };
-    private ClickHandler replyAllHandler = new ClickHandler() {
-
-        @Override
-        public void onClick(ClickEvent event) {
-            placeController.goTo(new ComposePlace("replyAll").with(parameters));
-        }
-
-    };
-    private ClickHandler replyHandler = new ClickHandler() {
-
-        @Override
-        public void onClick(ClickEvent event) {
-            placeController.goTo(new ComposePlace("reply").with(parameters));
-        }
-
-    };
-    private ClickHandler deleteHandler = new ClickHandler() {
-
-        @Override
-        public void onClick(ClickEvent event) {
-            eventBus.fireEvent(new DeleteClickEvent());
-        }
-    };
-
-    private ClickHandler markHandler = new ClickHandler() {
-        public void onClick(ClickEvent event) {
-            // Reposition the popup relative to the button
-            Widget source = (Widget) event.getSource();
-            int left = source.getAbsoluteLeft();
-            int top = source.getAbsoluteTop() + source.getOffsetHeight();
-            simplePopup.setPopupPosition(left, top);
-            simplePopup.show();
-        }
-    };
-
-    private ClickHandler rawHandler = new ClickHandler() {
-        @Override
-        public void onClick(ClickEvent event) {
-            eventBus.fireEvent(new ShowRawEvent());
-        }
-    };
-
-    private HandlerRegistration rawReg;
+    	}
+    }
+    
+    @UiHandler("replyAll")
+    public void handleReplyAll(ClickEvent e) {
+    	if(isEnabled(replyAll)){
+    		placeController.goTo(new ComposePlace("replyAll").with(parameters));
+    	}
+    }
+    
+    @UiHandler("reply")
+    public void handleReply(ClickEvent e) {
+    	if(isEnabled(reply)){
+    		placeController.goTo(new ComposePlace("reply").with(parameters));
+    	}
+    }
+    
+    @UiHandler("delete")
+    public void handleDelete(ClickEvent e) {
+    	if(isEnabled(delete)){
+    		eventBus.fireEvent(new DeleteClickEvent());
+    	}
+    }
+    
+    @UiHandler("mark")
+    public void handleMark(ClickEvent e) {
+    	if(isEnabled(mark)){
+	        Widget source = (Widget) e.getSource();
+	        int left = source.getAbsoluteLeft();
+	        int top = source.getAbsoluteTop() + source.getOffsetHeight();
+	        simplePopup.setPopupPosition(left, top);
+	        simplePopup.show();
+    	}
+    }
+    
+    @UiHandler("raw")
+    public void handleRaw(ClickEvent e) {
+    	if(isEnabled(raw)){
+    		eventBus.fireEvent(new ShowRawEvent());
+    	}
+    }
+    
+    private boolean isEnabled(UIObject whichButton){
+    	return !whichButton.getStyleName().contains(style.disabledButton());
+    }
 
     @Override
     public HasClickHandlers getMark() {
@@ -314,60 +299,34 @@ public class ToolBarView extends Composite implements ToolBarActivity.Displayabl
     private void addSendingDisableds() {
         reply.addStyleName(style.disabledButton());
         replyAllGroup.addStyleName(style.disabledButton());
+        replyAll.addStyleName(style.disabledButton());
         forwardGroup.addStyleName(style.disabledButton());
+        forward.addStyleName(style.disabledButton());
         replyAllTip.addStyleName(style.disabledButton());
         forwardTip.addStyleName(style.disabledButton());
         raw.addStyleName(style.disabledButton());
-
-        if (replyReg != null) {
-            replyReg = removeHandler(replyReg);
-            replyAllReg = removeHandler(replyAllReg);
-            forwardReg = removeHandler(forwardReg);
-            rawReg = removeHandler(rawReg);
-            replyReg = null;
-            replyAllReg = null;
-            forwardReg = null;
-            rawReg = null;
-        }
-
     }
 
     private void removeSendingDisableds() {
         reply.removeStyleName(style.disabledButton());
         replyAllGroup.removeStyleName(style.disabledButton());
+        replyAll.removeStyleName(style.disabledButton());
         forwardGroup.removeStyleName(style.disabledButton());
+        forward.removeStyleName(style.disabledButton());
         replyAllTip.removeStyleName(style.disabledButton());
         forwardTip.removeStyleName(style.disabledButton());
         raw.removeStyleName(style.disabledButton());
-
-        if (rawReg == null) rawReg = raw.addClickHandler(rawHandler);
-        if (replyReg == null) replyReg = reply.addClickHandler(replyHandler);
-        if (replyAllReg == null) replyAllReg = replyAll.addClickHandler(replyAllHandler);
-        if (forwardReg == null) forwardReg = forward.addClickHandler(forwardHandler);
     }
 
 
     private void addDealingDisableds() {
-        if (deleteReg != null) {
-            deleteReg = removeHandler(deleteReg);
-            markReg = removeHandler(markReg);
-            deleteReg = null;
-            markReg = null;
-        }
         delete.addStyleName(style.disabledButton());
         mark.addStyleName(style.disabledButton());
     }
 
     private void removeDealingDisableds() {
-        if (deleteReg == null) deleteReg = delete.addClickHandler(deleteHandler);
-        if (markReg == null) markReg = mark.addClickHandler(markHandler);
         delete.removeStyleName(style.disabledButton());
         mark.removeStyleName(style.disabledButton());
-    }
-
-    protected HandlerRegistration removeHandler(HandlerRegistration handler) {
-        if (handler != null) handler.removeHandler();
-        return null;
     }
 
 }
