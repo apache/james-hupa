@@ -133,7 +133,7 @@ public class MessageListActivity extends AppBaseActivity {
         }));
     }
 
-    protected void onMessageSelected(Message message) {
+    public void onMessageSelected(Message message) {
         antiSelectMessages(display.getGrid().getVisibleItems());
         GetMessageDetailsRequest req = rf.messageDetailsRequest();
         GetMessageDetailsAction action = req.create(GetMessageDetailsAction.class);
@@ -242,6 +242,7 @@ public class MessageListActivity extends AppBaseActivity {
                             int l = messages.size();
                             for (int i = 0; i < l; i++){
                                 Message m = messages.get(i);
+                                MessageListActivity.this.onMessageSelected(m);//FIXME for fixing https://issues.apache.org/jira/browse/HUPA-110
                                 if (m.getUid() == event.messageDetails.getUid()) {
                                     List<IMAPFlag> flags = m.getFlags();
                                     if (!flags.contains(IMAPFlag.SEEN)) {
