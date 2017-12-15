@@ -338,18 +338,8 @@
             <url>http://repo1.maven.org/maven2/</url>
         </repository>
         <repository>
-            <id>guice, gin, gwt-vl, gwt-incubator, gwt-dnd</id>
-            <url>http://gwtquery-plugins.googlecode.com/svn/mavenrepo</url>
-        </repository>
-        <repository>
-            <id>gwt-presenter</id>
-            <name>GWT Presenter repository at googlecode</name>
-            <url>http://gwt-presenter.googlecode.com/svn/maven2</url>
-        </repository>
-        <repository>
-            <id>cobogw</id>
-            <name>Cobogw repository at googlecode</name>
-            <url>http://cobogw.googlecode.com/svn/maven2</url>
+            <id>JBoss repository</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
            <id>sonatype</id>
