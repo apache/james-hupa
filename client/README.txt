@@ -1,2 +1,2 @@
 About the com.google.gwt.gen2.event.shared.HandlerManager:
-See http://code.google.com/p/google-web-toolkit-incubator/issues/detail?id=340
+See https://code.google.com/archive/p/google-web-toolkit-incubator/issues/340
