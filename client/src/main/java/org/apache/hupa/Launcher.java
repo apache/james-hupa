@@ -32,7 +32,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 public final class Launcher {
    public static void main(String[] args) throws Exception {
 
-       int port = Integer.parseInt(System.getProperty("port", "8282"));
+      int port = Integer.parseInt(System.getProperty("port", "8282"));
       String bindAddress = System.getProperty("host", "0.0.0.0");
 
       InetSocketAddress a = new InetSocketAddress(bindAddress, port);
