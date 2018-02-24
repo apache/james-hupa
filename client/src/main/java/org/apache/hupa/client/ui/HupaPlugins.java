@@ -6,7 +6,4 @@ public interface HupaPlugins {
 
     }
 
-
-
-
 }
