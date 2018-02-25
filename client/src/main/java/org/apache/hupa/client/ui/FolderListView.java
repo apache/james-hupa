@@ -70,11 +70,11 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
     }
 
     public static final ProvidesKey<LabelNode> KEY_PROVIDER = new ProvidesKey<LabelNode>() {
-          @Override
-          public Object getKey(LabelNode item) {
+        @Override
+        public Object getKey(LabelNode item) {
             return item == null ? null : item.getPath();
-          }
-        };
+        }
+    };
 
     protected void onAttach() {
         super.onAttach();
