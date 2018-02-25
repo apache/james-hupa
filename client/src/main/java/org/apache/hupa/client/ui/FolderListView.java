@@ -108,6 +108,7 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
 
     @Override
     public void refresh() {
+    	//TODO not only refresh data, but highlight the folder list item. <= https://issues.apache.org/jira/browse/HUPA-117
         data.refresh();
     }
 
