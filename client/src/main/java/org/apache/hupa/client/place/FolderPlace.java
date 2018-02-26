@@ -47,24 +47,4 @@ public class FolderPlace extends HupaPlace {
             return place.getToken();
         }
     }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (o == null)
-//            return false;
-//        if (o == this)
-//            return true;
-//        if (o.getClass() != getClass())
-//            return false;
-//        FolderPlace place = (FolderPlace) o;
-//        return (token == place.token || (token != null && token.equals(place.token)));
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        final int prime = 31;
-//        int result = 1;
-//        result = prime * result + ((token == null) ? 0 : token.hashCode());
-//        return result;
-//    }
 }
