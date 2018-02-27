@@ -8,7 +8,7 @@ It has been a development reference using GWT good practices (MVP pattern and Un
 It is ready for reading, sending,  and managing messages and folders, but it still lacks of many features email clients nowadays have.
 
 ###### Bulding ######
-Hupa use maven2 as building tool. To build hupa download maven2 (http://maven.apache.org), unpack maven2 and install it.
+Hupa use maven as building tool. To build hupa download maven (http://maven.apache.org), unpack maven and install it.
 After that change to hupa directory and execute the following cmd:
 $ mvn clean package
 
