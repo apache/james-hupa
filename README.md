@@ -40,7 +40,7 @@ email provider servers.
 Hupa is compatible with most email providers, gmail, yahoo, hotmail, outlook, exchange, james, etc.
 
 ##### Eclipse GWT Plugin notes #####
-- Hupa uses maven to be built, before inporting the project, you shoul install m2eclipse
+- Hupa uses maven to be built, before inporting the project, you should have installed m2eclipse
 and google plugins, then go to Import -> New maven project and select the modules:
 shared, mock, server, widgets, client and hupa.
 
