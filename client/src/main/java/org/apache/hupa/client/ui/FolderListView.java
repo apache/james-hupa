@@ -29,10 +29,11 @@ import org.apache.hupa.client.activity.ToolBarActivity;
 import org.apache.hupa.client.place.FolderPlace;
 import org.apache.hupa.client.storage.HupaStorage;
 import org.apache.hupa.shared.domain.ImapFolder;
-
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.Duration;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.query.client.Function;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -102,13 +103,18 @@ public class FolderListView extends Composite implements FolderListActivity.Disp
                 msgListDisplay.refresh();
             }
         });
+        //TODO not only refresh data, but highlight the folder list item. <= https://issues.apache.org/jira/browse/HUPA-117
+        Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+            public void execute() {
+                SelectionChangeEvent.fire(selectionModel);
+            }
+        });
         pagerPanel.setDisplay(cellList);
         thisView.setWidget(pagerPanel);
     }
 
     @Override
     public void refresh() {
-    	//TODO not only refresh data, but highlight the folder list item. <= https://issues.apache.org/jira/browse/HUPA-117
         data.refresh();
     }
 
