@@ -1,0 +1,4 @@
+= Apache James Hupa documentation
+
+
+TODO: This is a placeholder. Migrate older documentation.
