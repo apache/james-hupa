@@ -61,7 +61,7 @@
         <gwtMavenVersion>2.7.0</gwtMavenVersion>
         <gwt.moduleSuffix />
         <gwt.logLevel>INFO</gwt.logLevel>
-        <jettyVersion>8.1.15.v20140411</jettyVersion>
+        <jettyVersion>9.4.51.v20230217</jettyVersion>
         <mock.scope>test</mock.scope>
         <skipTests>true</skipTests>
         <gwt.disableRunAsync>true</gwt.disableRunAsync>
